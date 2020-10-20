@@ -50,7 +50,7 @@ const Login = ({ data }) => {
             })}
           />
           <span className={styles.forgot} onClick={forgotProcess}>
-            FORGOT PASSWORD?
+            FORGOT?
           </span>
         </div>
         {_.get('password.type', errors) === 'required' && <p>This field is required</p>}

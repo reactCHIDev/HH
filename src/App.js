@@ -1,6 +1,6 @@
 /* REACT */
 import React, { Suspense, lazy } from 'react'
-import { string, bool } from 'prop-types'
+import T from 'prop-types'
 
 /* MODULES */
 import { Switch, Redirect, Route } from 'react-router-dom'
@@ -16,14 +16,19 @@ import { history } from 'store'
 import { setBaseEndpoint } from 'utils/apiClient'
 import Card from 'components/Card'
 import Test from 'components/Tabs/Test'
-import Auth from 'containers/Auth'
-import Forgot from 'containers/Auth/components/Login/Forgot'
 import desktop from 'routing/PATHS'
 import styles from './app.module.scss'
+import 'styles/styles.scss'
 import './App.less'
 
 const PageNotFound = lazy(() => import('components/PageNotFound'))
-const LoginFlow = lazy(() => import('containers/Auth'))
+const Login = lazy(() => import('containers/Auth/components/Login'))
+const Signup = lazy(() => import('containers/Auth/components/Signup'))
+const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
+const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
+const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
+const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
+const CreateShopLanding = lazy(() => import('landings/CreateShop'))
 
 function WaitingComponent(Component) {
   return (props) => (
@@ -53,8 +58,29 @@ function App(props) {
         <ConnectionProvider>
           <Switch>
             <PublicRoute exact path={desktop.card} component={WaitingComponent(Card)} />
-            <PublicRoute exact path={desktop.login} component={WaitingComponent(LoginFlow)} />
+            <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
+            <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
             <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
+            <PublicRoute
+              exact
+              path="/landing/foodmakers"
+              component={WaitingComponent(FoodmakersLanding)}
+            />
+            <PublicRoute
+              exact
+              path="/landing/create_profile"
+              component={WaitingComponent(CreateProfileLanding)}
+            />
+            <PublicRoute
+              exact
+              path="/landing/create_experience"
+              component={WaitingComponent(CreateExperienceLanding)}
+            />
+            <PublicRoute
+              exact
+              path="/landing/create_shop"
+              component={WaitingComponent(CreateShopLanding)}
+            />
             <PublicRoute exact path="/tabs" component={() => <Test />} />
             <Route exact path={desktop.home} component={Card} />
             <Route path={desktop.test} component={() => <div>"/test" routing successful</div>} />
@@ -67,7 +93,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  data: string,
+  data: T.string,
 }
 
 export default connect(({ test: { data } }) => ({ data }), null)(App)

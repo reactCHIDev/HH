@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { Button } from 'antd'
 import styles from 'components/Card/card.module.scss'
 
@@ -7,16 +7,12 @@ const Card = () => {
   const history = useHistory()
   return (
     <div className={styles.bg}>
-      <Button
-        onClick={() => history.push('/login')}
-        style={{
-          color: 'black',
-          fontSize: '10px',
-          letterSpacing: 2,
-        }}
-      >
-        Login
-      </Button>
+      <Link to="/landing/foodmakers">Foodmakers</Link>
+      <Link to="/landing/create_profile">Create Profile</Link>
+      <Link to="/landing/create_experience">Create Experience</Link>
+      <Link to="/landing/create_shop">Create Shop</Link>
+      <Link to="/login">Login</Link>
+      <Link to="/signup">Sign up</Link>
     </div>
   )
 }

@@ -2,6 +2,7 @@ const desktop = {
   home: '/',
   card: '/card',
   login: '/login',
+  signup: '/signup',
   forgot: '/forgot',
   aboutUs: '/about_us',
   features: '/features',

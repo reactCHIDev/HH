@@ -1,27 +1,28 @@
 html {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
-*, *:before, *:after {
-	box-sizing: inherit;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 * {
   max-height: 1000000px;
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 }
 
 body {
-  color: $base-text-color;
+  color: $black;
   background: $base-background-color;
   font: #{$font-size-base}/#{$line-height-base} $base-font-family;
   min-width: $base-min-width;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 // adaptive images
 img {
@@ -30,8 +31,8 @@ img {
   vertical-align: top;
 }
 
-a{
-  &:hover{
+a {
+  &:hover {
     text-decoration: none;
   }
 }

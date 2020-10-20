@@ -5,17 +5,19 @@
     sans-serif;
 } */
 .container {
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  width: 396px;
+  justify-content: center;
+  align-items: center;
 
   form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    // font-family: 'DM Sans';
     background: #ffffff;
     border-radius: 16px;
     margin-bottom: 14px;

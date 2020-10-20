@@ -1,8 +1,12 @@
+@import 'styles/core/colors.scss';
+
 .bg {
-  width: 500px;
-  height: 300px;
-  background-color: rgb(181, 241, 206);
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 24px;
 }

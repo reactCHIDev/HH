@@ -1,3 +1,6 @@
-.container {
-  font-family: 'Helvetica Neue';
+@import 'styles/styles.scss';
+
+body {
+  font-family: $base-font-DM-Sans;
+  color: $black;
 }
