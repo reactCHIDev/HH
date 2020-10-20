@@ -1,5 +1,4 @@
 import React from 'react'
-import T from 'prop-types'
 import cls from 'classnames'
 import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
@@ -12,7 +11,7 @@ import sec23 from 'assets/images/landings/foodmakers/sec2-3.jpg'
 import sec31 from 'assets/images/landings/foodmakers/sec3-1.jpg'
 import sec32 from 'assets/images/landings/foodmakers/sec3-2.jpg'
 import sec33 from 'assets/images/landings/foodmakers/sec3-3.jpg'
-import bag from 'assets/images/landings/foodmakers/bag.png'
+import bag from 'assets/images/landings/foodmakers/bag.svg'
 import styles from './foodmakers.module.scss'
 import './foodmakers.less'
 
@@ -219,7 +218,5 @@ const Foodmakers = () => {
     </>
   )
 }
-
-Foodmakers.propTypes = {}
 
 export default Foodmakers

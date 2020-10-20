@@ -1,16 +1,15 @@
 import React from 'react'
-import T from 'prop-types'
 import cls from 'classnames'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
-import leading from 'assets/images/landings/create_shop/leading.png'
-import sec21 from 'assets/images/landings/create_shop/sec21.png'
-import sec22 from 'assets/images/landings/create_shop/sec22.png'
-import sec23 from 'assets/images/landings/create_shop/sec23.png'
-import sec24 from 'assets/images/landings/create_shop/sec24.png'
-import sec31 from 'assets/images/landings/create_shop/sec31.png'
-import sec32 from 'assets/images/landings/create_shop/sec32.png'
-import sec33 from 'assets/images/landings/create_shop/sec33.png'
+import leading from 'assets/images/landings/create_shop/leading.jpg'
+import sec21 from 'assets/images/landings/create_shop/sec21.jpg'
+import sec22 from 'assets/images/landings/create_shop/sec22.jpg'
+import sec23 from 'assets/images/landings/create_shop/sec23.jpg'
+import sec24 from 'assets/images/landings/create_shop/sec24.jpg'
+import sec31 from 'assets/images/landings/create_shop/sec31.jpg'
+import sec32 from 'assets/images/landings/create_shop/sec32.jpg'
+import sec33 from 'assets/images/landings/create_shop/sec33.jpg'
 import label from 'assets/images/landings/create_shop/label.svg'
 import parachute from 'assets/images/landings/create_shop/parachute.svg'
 import styles from './create_shop.module.scss'
@@ -134,7 +133,5 @@ const CreateExperience = () => {
     </>
   )
 }
-
-CreateExperience.propTypes = {}
 
 export default CreateExperience

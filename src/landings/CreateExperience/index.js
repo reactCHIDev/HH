@@ -1,5 +1,4 @@
 import React from 'react'
-import T from 'prop-types'
 import cls from 'classnames'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
@@ -138,7 +137,5 @@ const CreateExperience = () => {
     </>
   )
 }
-
-CreateExperience.propTypes = {}
 
 export default CreateExperience
