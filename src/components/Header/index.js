@@ -12,7 +12,6 @@ import './header.less'
 
 const Header = () => {
   const [menu, setMenu] = useState(false)
-  console.log('menu', menu)
 
   const toggleMenu = () => {
     setMenu(!menu)

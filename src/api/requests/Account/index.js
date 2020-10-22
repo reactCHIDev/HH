@@ -1,5 +1,44 @@
 import apiClient from 'utils/apiClient'
+import axios from 'axios'
+
 import PATHS from 'api/paths'
+
+const dircall = async () => {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
+  }
+
+  const request = await axios.get(
+    'https://hungryhugger.wildwebart.com/api/v1/user/profile_name/SuperAdmin',
+    { headers },
+  )
+
+  /* const request = await axios.request({
+    url: 'https://hungryhugger.wildwebart.com/api/v1/city/list',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*', 
+       'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b', 
+      method: 'GET',
+    },
+  }) */
+  console.log('inside dircall')
+  return request
+}
+
+export const getSuperAdmin = () => {
+  console.log('dircall')
+  dircall()
+}
+
+/* export const getSuperAdmin = () => {
+  console.log('get')
+  apiClient.get(PATHS.superadmin)
+} */
 
 export const getProfileImages = () => apiClient.get(PATHS.profileImages)
 export const uploadProfileImages = (data) => apiClient.post(PATHS.profileImages, { data })

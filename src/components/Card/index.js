@@ -13,6 +13,7 @@ const Card = () => {
       <Link to="/landing/create_shop">Create Shop</Link>
       <Link to="/login">Login</Link>
       <Link to="/signup">Sign up</Link>
+      <Link to="/signupflow">Sign up flow</Link>
     </div>
   )
 }

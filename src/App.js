@@ -21,9 +21,12 @@ import styles from './app.module.scss'
 import 'styles/styles.scss'
 import './App.less'
 
+import store from './store'
+
 const PageNotFound = lazy(() => import('components/PageNotFound'))
 const Login = lazy(() => import('containers/Auth/components/Login'))
 const Signup = lazy(() => import('containers/Auth/components/Signup'))
+const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
@@ -46,20 +49,22 @@ function WaitingComponent(Component) {
 
 function App(props) {
   const { data } = props
-  const url =
-    process.env.NODE_ENV !== 'development' && process.env.REACT_APP_STAGE !== 'development'
-      ? process.env.REACT_APP_URL_V3
-      : process.env.REACT_APP_BASE_URL_V3
-
+  const url = 'https://hungryhugger.wildwebart.com/api'
+  console.log('url', url)
   setBaseEndpoint(url)
+
   return (
-    <div className={styles.container}>
+    <div
+      // onClick={() => store.dispatch({ type: 'QTEST', payload: '' })}
+      className={styles.container}
+    >
       <ConnectedRouter history={history}>
         <ConnectionProvider>
           <Switch>
             <PublicRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
+            <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
             <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
             <PublicRoute
               exact

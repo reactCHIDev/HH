@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import _ from 'lodash/fp'
 import { Link } from 'react-router-dom'
 import { history } from 'store'
+import Modal from 'components/UniversalModal'
+import Forgot from 'containers/Auth/components/Forgot'
 
 import T from 'prop-types'
 import styles from './login.module.scss'
@@ -10,13 +12,22 @@ import styles from './login.module.scss'
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const Login = ({ data }) => {
+  const [forgot, showForgot] = useState(false)
   const { register, handleSubmit, errors, formState } = useForm()
   const onSubmit = async (data) => {
     await sleep(2000)
     console.log(data)
   }
 
-  const forgotProcess = () => history.push('/forgot')
+  const forgotProcess = () => {
+    //history.push('/forgot')
+    showForgot(true)
+  }
+
+  const forgotClose = () => {
+    //history.push('/forgot')
+    showForgot(false)
+  }
 
   return (
     <div className={styles.container}>
@@ -41,6 +52,7 @@ const Login = ({ data }) => {
           <input
             name="password"
             placeholder="Password"
+            type="text"
             ref={register({
               required: true,
               minLength: {
@@ -64,6 +76,11 @@ const Login = ({ data }) => {
           <span className={styles.suggest}>REGISTER NOW</span>
         </Link>
       </div>
+      {forgot && (
+        <Modal closeFunc={forgotClose} mode="dark">
+          <Forgot close={forgotClose} />
+        </Modal>
+      )}
     </div>
   )
 }

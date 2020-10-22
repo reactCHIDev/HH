@@ -1,4 +1,7 @@
 export default {
+  // Test
+  superadmin: '/v1/user/profile_name/SuperAdmin',
+
   // Auth
   registration: '/auth/registration',
   uploadUnregisterProfileImage: '/auth/registration/profile_image',
