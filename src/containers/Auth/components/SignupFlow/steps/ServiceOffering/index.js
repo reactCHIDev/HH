@@ -20,7 +20,7 @@ const BusinessSize = (props) => {
   }, [])
 
   const onClick = (e) => {
-    onSubmit({ serviceTagIds: options.sort() })
+    onSubmit({ businessServiceIds: options.sort() })
   }
 
   const onSelect = (e) => {

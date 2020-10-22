@@ -17,8 +17,7 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
       <div className={styles.content}>{children}</div>
       {footer && (
         <div className={styles.footer}>
-          <p>{step}</p>
-          {step > 0 && step !== 5 && (
+          {step > 0 && step !== 5 && step < 17 && (
             <button type="button" className={styles.btn} onClick={stepBack}>
               {'< Back'}
             </button>

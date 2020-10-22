@@ -69,12 +69,9 @@ const BusinessAdress = (props) => {
             </button>
           }
         </div>
-        <input
-          className={styles.submit}
-          disabled={!curInputValue.length}
-          type="submit"
-          value="Next  >"
-        />
+        <button className={styles.submit} disabled={!curInputValue.length} type="submit">
+          {'Next >'}
+        </button>
       </form>
     </>
   )

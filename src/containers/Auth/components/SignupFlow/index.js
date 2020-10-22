@@ -13,6 +13,13 @@ import PhoneStep from './steps/Phone'
 import SocialsStep from './steps/Socials'
 import BusinessAdress from './steps/BusinessAdress'
 import ServiceOffering from './steps/ServiceOffering'
+import ProfileName from './steps/ProfileName'
+import WebSiteName from './steps/WebSiteName'
+import AboutYourself from './steps/AboutYourself'
+import Tags from './steps/Tags'
+import Photo from './steps/Photo'
+import Congrats from './steps/Congrats'
+import Finish from './steps/Finish'
 
 const steps = [
   { screen: FirstNameStep, props: { name: 'firstName', value: '' } },
@@ -32,19 +39,18 @@ const steps = [
     screen: BusinessAdress,
     props: { name: 'businessAddressId', value: { adress: '', mapURL: '' } },
   },
-  { screen: ServiceOffering, props: { name: 'serviceTagIds', value: [] } },
-  { screen: FirstNameStep, props: { name: 'asdasd', value: '' } },
-  { screen: LastNameStep, props: { name: 'hjkhj', value: '' } },
-  { screen: FirstNameStep, props: { name: 'asdasd', value: '' } },
-  { screen: LastNameStep, props: { name: 'hjkhj', value: '' } },
-  { screen: FirstNameStep, props: { name: 'asdasd', value: '' } },
-  { screen: LastNameStep, props: { name: 'hjkhj', value: '' } },
-  { screen: FirstNameStep, props: { name: 'asdasd', value: '' } },
-  { screen: LastNameStep, props: { name: 'hjkhj', value: '' } },
+  { screen: ServiceOffering, props: { name: 'businessServiceIds', value: [] } },
+  { screen: ProfileName, props: { name: 'profileName', value: '' } },
+  { screen: WebSiteName, props: { name: 'hungryHuggerLink', value: 'www.hungryhugger.com/' } },
+  { screen: AboutYourself, props: { name: 'about', value: '' } },
+  { screen: Tags, props: { name: 'serviceTagIds', value: { mainTags: [], addTags: [] } } },
+  { screen: Photo, props: { name: 'otherPhotos', value: { coverPhoto: '', otherPhotos: [] } } },
+  { screen: Congrats, props: {} },
+  { screen: Finish, props: { name: 'finish', value: '' } },
 ]
 
 const Signup = () => {
-  const [step, setStep] = useState(11)
+  const [step, setStep] = useState(0)
   const [direction, setDirection] = useState('forward')
 
   if (step === 5 && !steps[step].showed) {
@@ -56,6 +62,11 @@ const Signup = () => {
   if (step === 5 && steps[step].showed && direction === 'forward') {
     setStep(6)
   }
+  if (step === 17) {
+    setTimeout(() => {
+      setStep(18)
+    }, 5000)
+  }
 
   const onSubmit = (submitData) => {
     steps[step].props.value = submitData[steps[step].props.name]
@@ -64,6 +75,7 @@ const Signup = () => {
     setStep((curstep) => curstep + 1)
     console.clear()
     console.log('steps', steps)
+    console.log('submitData', submitData)
   }
 
   const stepBack = () => {
