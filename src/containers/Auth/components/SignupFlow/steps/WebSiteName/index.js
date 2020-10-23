@@ -16,6 +16,7 @@ const WebSiteName = (props) => {
         name={name}
         placeholder="public name"
         value={value}
+        focus
         onSubmit={onSubmit}
         registerObj={{
           required: true,

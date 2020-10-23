@@ -15,10 +15,17 @@ const Finish = () => {
       </div>
       <div className={styles.qr_container}>
         <p className={styles.heading}>Your QR-code</p>
-        <div className={styles.qr} />
+        <div className={styles.qr}>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100" />
+        </div>
         <button type="button">
-          <img src={Download} alt="download" />
-          Download
+          <a
+            href="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100"
+            download="qr.png"
+          >
+            <img src={Download} alt="download" />
+            Download
+          </a>
         </button>
       </div>
       <div className={styles.btn_container}>

@@ -16,6 +16,7 @@ const FirstNameStep = (props) => {
         placeholder="First name"
         value={value}
         onSubmit={onSubmit}
+        focus
         registerObj={{
           required: true,
           pattern: {

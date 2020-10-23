@@ -15,6 +15,7 @@ const CreatePassword = (props) => {
         name={name}
         placeholder="password"
         value={value}
+        focus
         onSubmit={onSubmit}
         registerObj={{
           required: true,

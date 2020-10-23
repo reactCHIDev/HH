@@ -15,6 +15,7 @@ const Socials = (props) => {
         name={name}
         placeholder="URL"
         value={value[0]}
+        focus
         onSubmit={onSubmit}
         registerObj={{
           required: true,

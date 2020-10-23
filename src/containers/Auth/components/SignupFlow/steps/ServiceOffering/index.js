@@ -34,7 +34,7 @@ const BusinessSize = (props) => {
 
   return (
     <>
-      <Heading category="Profile category" name="What`s the size of your business?" />
+      <Heading category="Profile details" name="Service offering" />
       <div className={styles.cards_container}>
         <div
           className={cls(

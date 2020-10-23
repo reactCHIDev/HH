@@ -20,13 +20,13 @@ import Tags from './steps/Tags'
 import Photo from './steps/Photo'
 import Congrats from './steps/Congrats'
 import Finish from './steps/Finish'
+import TMP from './steps/1TMP'
 
 const steps = [
   { screen: FirstNameStep, props: { name: 'firstName', value: '' } },
   { screen: LastNameStep, props: { name: 'lastName', value: '' } },
   { screen: EmailStep, props: { name: 'email', value: '' } },
   { screen: CreatePassword, props: { name: 'password', value: '' } },
-  { screen: CityStep, props: { name: 'city', value: '' } },
   { screen: LetsCreate, props: {}, showed: false },
   { screen: BusinessSize, props: { name: 'businessSizeId', value: '' } },
   { screen: BusinessProfile, props: { name: 'businessProfileId', value: '' } },
@@ -53,18 +53,18 @@ const Signup = () => {
   const [step, setStep] = useState(0)
   const [direction, setDirection] = useState('forward')
 
-  if (step === 5 && !steps[step].showed) {
+  if (step === 4 && !steps[step].showed) {
     setTimeout(() => {
-      setStep(6)
+      setStep(5)
       steps[step].showed = true
     }, 5000)
   }
-  if (step === 5 && steps[step].showed && direction === 'forward') {
-    setStep(6)
+  if (step === 4 && steps[step].showed && direction === 'forward') {
+    setStep(5)
   }
-  if (step === 17) {
+  if (step === 16) {
     setTimeout(() => {
-      setStep(18)
+      setStep(17)
     }, 5000)
   }
 
@@ -81,7 +81,7 @@ const Signup = () => {
   const stepBack = () => {
     if (step === 0) return
     setDirection('back')
-    if (step === 6 && steps[step - 1].showed) {
+    if (step === 5 && steps[step - 1].showed) {
       setStep(4)
     } else {
       setStep((curstep) => curstep - 1)
@@ -93,6 +93,7 @@ const Signup = () => {
 
   return (
     <SignupContainer footer stepBack={stepBack} step={step}>
+      <TMP steps={steps} step={step} setStep={setStep} />
       <Screen onSubmit={onSubmit} properties={properties} />
     </SignupContainer>
   )

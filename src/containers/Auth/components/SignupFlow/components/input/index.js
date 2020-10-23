@@ -5,7 +5,7 @@ import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import styles from './input.module.scss'
 
-const Input = ({ name, value, placeholder, registerObj, onSubmit }) => {
+const Input = ({ name, value, placeholder, registerObj, focus, onSubmit }) => {
   const { register, handleSubmit, errors } = useForm()
   const [curValue, setValue] = useState(value)
   const [type, setType] = useState('text')
@@ -36,6 +36,7 @@ const Input = ({ name, value, placeholder, registerObj, onSubmit }) => {
           value={curValue}
           type={type}
           onChange={onChange}
+          autoFocus={focus}
           ref={register(registerObj)}
         />
         {errors?.[name]?.type === 'required' && <p>This field is required</p>}
@@ -56,6 +57,7 @@ Input.propTypes = {
   name: T.string,
   value: T.string,
   placeholder: T.string,
+  focus: T.bool,
   onSubmit: T.func,
   registerObj: T.shape(),
 }

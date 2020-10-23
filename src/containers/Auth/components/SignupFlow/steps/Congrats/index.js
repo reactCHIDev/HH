@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Chk1 from 'assets/images/signup-flow/svg/chk1.svg'
 import Chk2 from 'assets/images/signup-flow/svg/chk2.svg'
 import Knife from 'assets/images/signup-flow/svg/knife.svg'
+import Progress from '../../components/Progress'
+
 import styles from './congrats.module.scss'
 
 const Congrats = () => {
@@ -16,6 +18,7 @@ const Congrats = () => {
       </div>
       <p className={styles.heading}>Congratulation! You're all set!</p>
       <p className={styles.description}>Share your profile and create your first experience now!</p>
+      <Progress />
     </>
   )
 }

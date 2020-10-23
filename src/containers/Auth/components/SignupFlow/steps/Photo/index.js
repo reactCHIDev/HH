@@ -33,8 +33,6 @@ const Photo = (props) => {
     setOtherPhotos(value.otherPhotos)
   }, [])
 
-  console.log(fileList)
-
   const handleChangeCover = (path) => {
     setCoverPhoto(path)
   }
@@ -94,7 +92,7 @@ const Photo = (props) => {
       </p>
       <input
         className={styles.next}
-        disabled={otherPhotos.length < 3}
+        disabled={otherPhotos.length < 0}
         onClick={submit}
         type="button"
         value="Next  >"
@@ -106,7 +104,7 @@ const Photo = (props) => {
 Photo.propTypes = {
   properties: T.shape({
     name: T.string,
-    value: T.string,
+    value: T.shape(),
   }),
   onSubmit: T.func,
 }

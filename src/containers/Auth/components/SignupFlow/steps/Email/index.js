@@ -15,6 +15,7 @@ const EmailStep = (props) => {
         name={name}
         placeholder="email"
         value={value}
+        focus
         onSubmit={onSubmit}
         registerObj={{
           required: true,

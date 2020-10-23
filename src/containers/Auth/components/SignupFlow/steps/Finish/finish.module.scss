@@ -17,6 +17,7 @@
     text-align: center;
     letter-spacing: 0.5px;
     color: #1d53d9;
+    cursor: pointer;
   }
 }
 
@@ -41,6 +42,13 @@
     height: 120px;
     border: 2px solid #ffffff;
     border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      width: 120px;
+      height: 120px;
+    }
   }
 
   button {
@@ -59,6 +67,10 @@
     color: #31394d;
     margin: 3px;
     border: none;
+
+    &:hover {
+      border: 2px solid #31394d;
+    }
 
     img {
       padding: 0 5px 0 0;
