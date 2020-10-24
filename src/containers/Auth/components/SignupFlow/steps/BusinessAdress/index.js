@@ -38,7 +38,7 @@ const BusinessAdress = (props) => {
   const getMapPoint = () => {}
 
   return (
-    <>
+    <div className={styles.container}>
       <Heading category="Contact info (not-public)" name="Business address or Google map link" />
       <form className={styles.form} onSubmit={handleSubmit(() => onSubmit(submitData))}>
         <textarea
@@ -73,7 +73,7 @@ const BusinessAdress = (props) => {
           {'Next >'}
         </button>
       </form>
-    </>
+    </div>
   )
 }
 

@@ -5,7 +5,7 @@ import styles from './finish.module.scss'
 
 const Finish = () => {
   const onClick = () => {
-    history.push('/')
+    history.push('/card')
   }
   return (
     <>

@@ -1,8 +1,8 @@
 import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from './constants'
 
-export const loginRequest = (value, resolve, reject) => ({
+export const loginRequest = (creds, resolve, reject) => ({
   type: LOGIN_REQUESTING,
-  value,
+  creds,
   resolve,
   reject,
 })

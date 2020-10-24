@@ -1,12 +1,20 @@
 export default {
   // Test
   superadmin: '/v1/user/profile_name/SuperAdmin',
+  getCities: '/v1/city/list',
 
   // Auth
-  registration: '/auth/registration',
+  signUpUser: '/v1/user/register_foodlover',
+  loginUser: '/v1/user/login',
+  logout: '/v1/user/logout',
+  //
+  //
+  //
+  //
+  //
+  // ========================================================
+
   uploadUnregisterProfileImage: '/auth/registration/profile_image',
-  login: '/auth/login',
-  logout: '/auth/logout',
   getQuickBloxToken: '/auth/quickblox/token',
   loginByGoogle: '/auth/google',
   loginByApple: '/auth/apple',

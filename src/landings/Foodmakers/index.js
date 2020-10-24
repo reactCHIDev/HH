@@ -2,7 +2,6 @@ import React from 'react'
 import cls from 'classnames'
 import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import Header from 'components/Header'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import sec21 from 'assets/images/landings/foodmakers/sec2-1.jpg'
@@ -19,7 +18,6 @@ const Foodmakers = () => {
   const { Panel } = Collapse
   return (
     <>
-      <Header />
       <main>
         <section className={styles.standart_section}>
           <div className={styles.description}>

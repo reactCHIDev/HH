@@ -1,21 +1,20 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { connect } from 'react-redux'
 import _ from 'lodash/fp'
 import { Link } from 'react-router-dom'
 import { history } from 'store'
+import { signupRequest, signupFlagReset } from 'actions/signup'
 
 import T from 'prop-types'
 import styles from './signup.module.scss'
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const Signup = ({ signupRequest }) => {
+  const { register, handleSubmit, errors, watch } = useForm()
 
-const Signup = ({ data }) => {
-  const { register, handleSubmit, errors, watch, formState } = useForm()
+  const signedUp = () => history.push('/login')
 
-  const onSubmit = async (data) => {
-    // await sleep(2000)
-    console.log(data)
-  }
+  const onSubmit = (credentials) => signupRequest({ ...credentials, role: 'FOODLOVER' }, signedUp)
 
   const forgotProcess = () => history.push('/forgot')
 
@@ -24,7 +23,7 @@ const Signup = ({ data }) => {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign up</h1>
         <input
-          name="name"
+          name="profileName"
           placeholder="Name"
           type="text"
           ref={register({
@@ -35,8 +34,8 @@ const Signup = ({ data }) => {
             },
           })}
         />
-        {_.get('name.type', errors) === 'required' && <p>This field is required</p>}
-        {_.get('name.type', errors) === 'pattern' && <p>Invalid symbols</p>}
+        {_.get('profileName.type', errors) === 'required' && <p>This field is required</p>}
+        {_.get('profileName.type', errors) === 'pattern' && <p>Invalid symbols</p>}
 
         <input
           name="email"
@@ -89,7 +88,7 @@ const Signup = ({ data }) => {
 }
 
 Signup.propTypes = {
-  data: T.string,
+  signupRequest: T.func,
 }
 
-export default Signup
+export default connect(null, { signupRequest })(Signup)

@@ -1,6 +1,5 @@
 import React from 'react'
 import cls from 'classnames'
-import Header from 'components/Header'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/create_profile/leading.jpg'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
@@ -16,7 +15,6 @@ import styles from './create_profile.module.scss'
 const CreateProfile = () => {
   return (
     <>
-      <Header />
       <main>
         <section className={styles.standart_section}>
           <div className={styles.description}>

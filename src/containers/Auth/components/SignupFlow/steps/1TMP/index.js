@@ -7,6 +7,7 @@ const TMP = (props) => {
 
   return (
     <div className={styles.container}>
+      <h3>SELECT STEP</h3>
       <div>
         {steps.map((e, i) => (
           <p

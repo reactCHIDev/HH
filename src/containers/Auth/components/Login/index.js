@@ -2,21 +2,22 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import _ from 'lodash/fp'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { history } from 'store'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
+import { loginRequest } from 'actions/login'
 
 import T from 'prop-types'
 import styles from './login.module.scss'
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-const Login = ({ data }) => {
+const Login = (props) => {
+  const { loginRequest } = props
   const [forgot, showForgot] = useState(false)
   const { register, handleSubmit, errors, formState } = useForm()
-  const onSubmit = async (data) => {
-    await sleep(2000)
-    console.log(data)
+  const onSubmit = (credentials) => {
+    console.log('credentials', credentials)
+    loginRequest(credentials)
   }
 
   const forgotProcess = () => {
@@ -86,7 +87,7 @@ const Login = ({ data }) => {
 }
 
 Login.propTypes = {
-  data: T.string,
+  loginRequest: T.func,
 }
 
-export default Login
+export default connect(null, { loginRequest })(Login)

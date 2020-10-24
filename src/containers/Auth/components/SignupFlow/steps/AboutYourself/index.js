@@ -26,7 +26,7 @@ const AboutYourself = (props) => {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <Heading category="Your profile" name="A few words about yourself" />
       <form
         className={styles.form}
@@ -47,7 +47,7 @@ const AboutYourself = (props) => {
       <p className={styles.skip} onClick={skip}>
         SKIP
       </p>
-    </>
+    </div>
   )
 }
 

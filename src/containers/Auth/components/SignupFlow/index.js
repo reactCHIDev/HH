@@ -5,7 +5,6 @@ import FirstNameStep from './steps/FirstName'
 import LastNameStep from './steps/LastName'
 import EmailStep from './steps/Email'
 import CreatePassword from './steps/CreatePassword'
-import CityStep from './steps/City'
 import LetsCreate from './steps/LetsCreate'
 import BusinessSize from './steps/BusinessSize'
 import BusinessProfile from './steps/BusinessProfile'
@@ -53,7 +52,7 @@ const Signup = () => {
   const [step, setStep] = useState(0)
   const [direction, setDirection] = useState('forward')
 
-  if (step === 4 && !steps[step].showed) {
+  if (step === 4 && !steps[4].showed) {
     setTimeout(() => {
       setStep(5)
       steps[step].showed = true
@@ -68,6 +67,15 @@ const Signup = () => {
     }, 5000)
   }
 
+  const collectData = (steps) => {
+    console.log(
+      steps.reduce((acc, step, index) => {
+        acc[step.props.name] = step.props.value
+        return acc
+      }, {}),
+    )
+  }
+
   const onSubmit = (submitData) => {
     steps[step].props.value = submitData[steps[step].props.name]
     if (step + 1 === steps.length) return
@@ -76,13 +84,14 @@ const Signup = () => {
     console.clear()
     console.log('steps', steps)
     console.log('submitData', submitData)
+    if (step === 15) collectData(steps)
   }
 
   const stepBack = () => {
     if (step === 0) return
     setDirection('back')
     if (step === 5 && steps[step - 1].showed) {
-      setStep(4)
+      setStep(3)
     } else {
       setStep((curstep) => curstep - 1)
     }

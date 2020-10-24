@@ -12,14 +12,16 @@ import OfflinePage from './OfflinePage'
 
 function ConnectionProvider({ location, children, setConnectionState: setState, isConnected }) {
   const handleConnectionChange = () => {
-    setState(true)
+    setState(navigator.onLine)
   }
 
   useEffect(() => {
     window.addEventListener('online', handleConnectionChange)
+    // window.addEventListener('offline', handleConnectionChange)
 
     return () => {
       window.removeEventListener('online', handleConnectionChange)
+      // window.removeEventListener('offline', handleConnectionChange)
     }
   }, [])
 

@@ -1,6 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { ACTION_TEST, SET_TEST_DATA } from 'actions/constants'
-import { getSuperAdmin } from 'api/requests/Account/index'
+import { getSuperAdmin } from 'api/requests/Auth/index'
 
 /* function* setTestData() {
   try {
@@ -14,14 +14,15 @@ import { getSuperAdmin } from 'api/requests/Account/index'
 } */
 
 function* queryTestData() {
+  console.log('saga')
   try {
     const response = yield getSuperAdmin()
-    yield put({ type: 'DATA', payload: response.data })
+    console.log('res', response.data)
+    yield put({ type: 'SET_TEST_DATA', payload: response.data })
   } catch (error) {
     yield put({ type: 'ERROR' })
   }
 }
-
 
 export default function* profile() {
   // yield takeEvery(ACTION_TEST, setTestData)
