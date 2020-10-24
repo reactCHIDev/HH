@@ -8,7 +8,7 @@ import yt from 'assets/images/youtube.svg'
 import styles from './footer.module.scss'
 import './footer.less'
 
-const Footer = (props) => {
+const Footer = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logos}>
@@ -66,19 +66,6 @@ const Footer = (props) => {
       </div>
     </div>
   )
-}
-
-Footer.propTypes = {
-  a: T.number.isRequired,
-  b: T.string.isRequired,
-  c: T.bool.isRequired,
-  f: T.func.isRequired,
-  tabs: T.shape({
-    name: T.shape({
-      mark: T.bool,
-      content: T.node,
-    }).isRequired,
-  }).isRequired,
 }
 
 export default Footer

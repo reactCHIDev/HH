@@ -1,5 +1,5 @@
 const initialState = {
-  data: '',
+  data: 'test',
 }
 
 const reducer = (state = initialState, { payload, type }) => {

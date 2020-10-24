@@ -1,0 +1,134 @@
+.heading_container {
+  .heading {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 42px;
+    text-align: center;
+    letter-spacing: 0.3px;
+    color: #31394d;
+  }
+
+  .adress {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 160%;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #1d53d9;
+    cursor: pointer;
+  }
+}
+
+.qr_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 3;
+  .heading {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 42px;
+    text-align: center;
+    letter-spacing: 0.3px;
+    color: #31394d;
+  }
+
+  .qr {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+  button {
+    width: 120px;
+    height: 48px;
+    background: white;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 19px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #31394d;
+    margin: 3px;
+    border: none;
+
+    &:hover {
+      border: 2px solid #31394d;
+    }
+
+    img {
+      padding: 0 5px 0 0;
+    }
+  }
+}
+
+.btn_container {
+  .heading {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 42px;
+    text-align: center;
+    letter-spacing: 0.3px;
+    color: #31394d;
+  }
+
+  .btn1 {
+    width: 160px;
+    height: 56px;
+    background: #ffffff;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #31394d;
+    margin: 10px;
+    border: none;
+    transition: transform 0.1s;
+
+    &:hover {
+      transform: translate(0, -5px);
+    }
+  }
+
+  .btn2 {
+    width: 160px;
+    height: 56px;
+    background: #31394d;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    margin: 10px;
+    transition: transform 0.1s;
+
+    &:hover {
+      transform: translate(0, -5px);
+    }
+  }
+}

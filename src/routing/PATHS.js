@@ -3,6 +3,7 @@ const desktop = {
   card: '/card',
   login: '/login',
   signup: '/signup',
+  signupflow: '/signupflow',
   forgot: '/forgot',
   aboutUs: '/about_us',
   features: '/features',

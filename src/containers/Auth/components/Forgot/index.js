@@ -1,22 +1,21 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { history } from 'store'
 import _ from 'lodash/fp'
 import T from 'prop-types'
 import styles from './forgot.module.scss'
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const Forgot = ({ data }) => {
+const Forgot = ({ closeModal }) => {
   const [sent, setSent] = useState(false)
   const { register, handleSubmit, errors, formState } = useForm()
   const onSubmit = async (data) => {
-    await sleep(2000)
+    await sleep(1000)
     setSent(true)
   }
 
   const backToLogin = () => {
-    history.push('/login')
+    if (typeof closeModal === 'function') closeModal()
   }
 
   return (
@@ -53,7 +52,7 @@ const Forgot = ({ data }) => {
 }
 
 Forgot.propTypes = {
-  data: T.string,
+  closeModal: T.func,
 }
 
 export default Forgot

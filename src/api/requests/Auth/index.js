@@ -1,8 +1,15 @@
 import apiClient from 'utils/apiClient'
 import PATHS from 'api/paths'
 
-export const login = (data) => apiClient.post(PATHS.login, { data })
-export const logout = () => apiClient.delete(PATHS.logout)
+export const signUpUser = (data) => apiClient.post(PATHS.signUpUser, { data })
+export const login = (data) => apiClient.post(PATHS.loginUser, { data })
+export const logout = () => apiClient.patch(PATHS.logout)
+export const getSuperAdmin = () => apiClient.get(PATHS.superadmin)
+
+//
+//
+//
+// ====================================================================================================
 export const registration = (data) => apiClient.post(PATHS.registration, { data })
 
 export const signUp = (data) => apiClient.post(PATHS.signUp, { data })

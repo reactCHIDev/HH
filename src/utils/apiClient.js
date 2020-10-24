@@ -1,9 +1,5 @@
-/* MODULES */
 import axios from 'axios'
-/* CASTOME MODULES */
 import { getItem } from 'utils/localStorage'
-import store from 'store'
-import { NEW_LOGOUT, SET_CONNECTION_STATE } from 'actions/constants'
 
 let baseEndpoint = ''
 let temporaryEndpoint = ''
@@ -12,6 +8,7 @@ const getBaseHeaders = () => ({
   Accept: 'application/json',
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
+  'x-api-key': process.env.REACT_APP_X_API_KEY,
 })
 
 const getToken = () => {
@@ -38,7 +35,6 @@ const callApi = async (url, { headers = {}, params = {}, data, ...restOptions })
     headers: { ...getBaseHeaders(), ...headers, ...getToken() },
     params: { ...params },
     data,
-
     ...restOptions,
   }
 
@@ -48,19 +44,8 @@ const callApi = async (url, { headers = {}, params = {}, data, ...restOptions })
     config.data = {}
   }
 
-  axios.interceptors.response.use(undefined, (error) => {
-    if (error.response && error.response.status === 401) {
-      store.dispatch({ type: NEW_LOGOUT })
-    }
-  })
-
-  // if (!navigator.onLine) {
-  //   store.dispatch({ type: SET_CONNECTION_STATE, connectionState: false })
-  //   return null
-  // }
-
-  const request = await axios.request(config)
-  return request
+  const response = await axios.request(config)
+  return response
 }
 
 export default {
@@ -68,4 +53,5 @@ export default {
   post: (url, options) => callApi(url, { ...options, method: 'POST' }),
   put: (url, options) => callApi(url, { ...options, method: 'PUT' }),
   delete: (url, options) => callApi(url, { ...options, method: 'DELETE' }),
+  patch: (url, options) => callApi(url, { ...options, method: 'PATCH' }),
 }

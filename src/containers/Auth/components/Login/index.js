@@ -1,22 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import _ from 'lodash/fp'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { history } from 'store'
+import Modal from 'components/UniversalModal'
+import Forgot from 'containers/Auth/components/Forgot'
+import { loginRequest } from 'actions/login'
 
 import T from 'prop-types'
 import styles from './login.module.scss'
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-const Login = ({ data }) => {
+const Login = (props) => {
+  const { loginRequest } = props
+  const [forgot, showForgot] = useState(false)
   const { register, handleSubmit, errors, formState } = useForm()
-  const onSubmit = async (data) => {
-    await sleep(2000)
-    console.log(data)
+  const onSubmit = (credentials) => {
+    console.log('credentials', credentials)
+    loginRequest(credentials)
   }
 
-  const forgotProcess = () => history.push('/forgot')
+  const forgotProcess = () => {
+    //history.push('/forgot')
+    showForgot(true)
+  }
+
+  const forgotClose = () => {
+    //history.push('/forgot')
+    showForgot(false)
+  }
 
   return (
     <div className={styles.container}>
@@ -41,6 +53,7 @@ const Login = ({ data }) => {
           <input
             name="password"
             placeholder="Password"
+            type="text"
             ref={register({
               required: true,
               minLength: {
@@ -64,12 +77,17 @@ const Login = ({ data }) => {
           <span className={styles.suggest}>REGISTER NOW</span>
         </Link>
       </div>
+      {forgot && (
+        <Modal closeFunc={forgotClose} mode="dark">
+          <Forgot close={forgotClose} />
+        </Modal>
+      )}
     </div>
   )
 }
 
 Login.propTypes = {
-  data: T.string,
+  loginRequest: T.func,
 }
 
-export default Login
+export default connect(null, { loginRequest })(Login)

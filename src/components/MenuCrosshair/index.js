@@ -16,15 +16,14 @@ const MenuCrosshair = ({ data, func }) => {
 
   return (
     <div className={s.container}>
-      <a
-        href="javascript:void(0)"
+      <div
         className={`${isMenuVisible ? s.nav__opener_opened : s.nav__opener}`}
         onClick={switchNav}
       >
         <span className={s.upper} />
         <span className={s.middle} />
         <span className={s.lower} />
-      </a>
+      </div>
     </div>
   )
 }

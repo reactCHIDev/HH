@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { push } from 'connected-react-router'
+import { connect } from 'react-redux'
 import Menu from 'components/MenuCrosshair'
 import Logo from 'assets/images/logo_white.png'
 import Search from 'assets/images/search-white.svg'
@@ -9,22 +11,28 @@ import Cart from 'assets/images/cart-white.svg'
 
 import styles from './header.module.scss'
 import './header.less'
+import { logout } from 'actions/login'
 
-const Header = () => {
+const Header = ({ authorized, logout, push }) => {
   const [menu, setMenu] = useState(false)
-  console.log('menu', menu)
 
   const toggleMenu = () => {
     setMenu(!menu)
   }
 
+  const clickLogo = () => {
+    if (menu) setMenu(!menu)
+    if (authorized) push('/card')
+    if (!authorized) push('/')
+  }
   return (
     <div className={styles.wrapper}>
+      <div className={styles.placeholder} />
       <div className={styles.container}>
         <div className={styles.menu_btn} onClick={toggleMenu}>
           <Menu />
         </div>
-        <div className={styles.logo}>
+        <div className={styles.logo} onClick={clickLogo}>
           <img className={styles.logo_img} src={Logo} alt="logo" />
         </div>
         <ul className={styles.menu} style={{ left: menu ? 0 : -200 }}>
@@ -41,11 +49,12 @@ const Header = () => {
           </li>
         </ul>
         <div className={styles.signin}>
-          <Link to="/login">SIGN IN</Link>
+          {!authorized && <Link to="/login">SIGN IN</Link>}
+          {authorized && <p onClick={logout}>LOG OUT</p>}
         </div>
       </div>
     </div>
   )
 }
 
-export default Header
+export default connect(({ login: { authorized } }) => ({ authorized }), { logout, push })(Header)

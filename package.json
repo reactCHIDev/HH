@@ -9,6 +9,7 @@
     "antd": "^4.7.0",
     "axios": "^0.20.0",
     "classnames": "^2.2.6",
+    "cloc": "^2.7.0",
     "connected-react-router": "^6.5.2",
     "craco-less": "^1.17.0",
     "detect-browser": "^5.1.1",
