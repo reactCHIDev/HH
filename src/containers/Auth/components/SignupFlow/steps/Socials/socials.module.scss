@@ -1,5 +1,4 @@
 .container {
-  position: relative;
   form {
     display: flex;
     flex-direction: column;
@@ -9,52 +8,12 @@
     border-radius: 16px;
     margin-bottom: 14px;
 
-    .textarea {
-      display: block;
-      width: 343px;
-      // height: 56px;
-      padding: 10px 15px;
-      margin-bottom: 22px;
-      font-size: 14px;
-      border: 2px solid #31394d;
-      box-sizing: border-box;
-      backdrop-filter: blur(6px);
-      border-radius: 8px;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 22px;
-      line-height: 160%;
-      letter-spacing: 0.5px;
-      color: #3c3e43;
-      background: #fbe4e4;
-      @media (max-width: 1440px) {
-        width: 512px;
-        height: 105px;
-        margin-bottom: 24px;
-      }
-      @media (max-width: 600px) {
-        width: 396px;
-        height: 105px;
-        margin-bottom: 24px;
-      }
-      @media (max-width: 420px) {
-        width: 343px;
-        height: 105px;
-        margin-bottom: 24px;
-      }
-
-      &:focus {
-        background-color: white;
-        border: none;
-      }
-    }
-
     .input_wrapper {
       position: relative;
 
       input {
         display: block;
-        width: 512px;
+        width: 396px;
         height: 56px;
         padding: 10px 15px;
         margin-bottom: 22px;
@@ -63,16 +22,6 @@
         box-sizing: border-box;
         backdrop-filter: blur(6px);
         border-radius: 8px;
-        @media (max-width: 1440px) {
-          width: 512px;
-          height: 72px;
-          margin-bottom: 24px;
-        }
-        @media (max-width: 600px) {
-          width: 396px;
-          height: 72px;
-          margin-bottom: 24px;
-        }
         @media (max-width: 420px) {
           width: 343px;
           height: 72px;
@@ -80,13 +29,13 @@
         }
       }
 
-      .psw_eye {
+      .next {
         position: absolute;
-        right: 20px;
+        right: 13px;
         top: 13px;
         width: 20px;
         height: 20px;
-        background: white;
+        background: #31394d;
         border-radius: 6px;
         color: white;
         border: none;
@@ -97,12 +46,21 @@
         width: 30px;
         height: 30px;
         text-align: center;
-        padding: 0;
-
-        img {
-          width: 22px;
-          height: 22px;
+        padding: 0 10px;
+        @media (max-width: 420px) {
+          right: 21px;
+          top: 21px;
         }
+      }
+
+      p {
+        margin: -22px 15px 0;
+        color: #bf1650;
+      }
+
+      p::before {
+        display: inline;
+        content: '⚠ ';
       }
     }
 

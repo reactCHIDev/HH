@@ -1,5 +1,8 @@
 .selector_container {
   width: 532px;
+  @media (max-width: 600px) {
+    width: 343px;
+  }
 }
 
 .selector_container > .ant-select {
@@ -22,10 +25,13 @@
   height: 75px;
   background: #fbe4e4;
   padding: 0 24px;
+  @media (max-width: 600px) {
+    height: 90px;
+  }
 }
 
 .selector_container > .ant-select > .ant-select-selector > .ant-select-selection-item {
-  height: 32px;
+  height: 30px;
   background: white;
   font-style: normal;
   font-weight: 500;
@@ -35,4 +41,7 @@
   align-items: center;
   letter-spacing: 0.5px;
   color: #31394d;
+  @media (max-width: 600px) {
+    height: 22px;
+  }
 }

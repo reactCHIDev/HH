@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import T from 'prop-types'
+import { setItem, getItem, removeKey } from 'utils/localStorage'
 import SignupContainer from './components/container'
 import FirstNameStep from './steps/FirstName'
 import LastNameStep from './steps/LastName'
@@ -32,7 +33,7 @@ const steps = [
   { screen: PhoneStep, props: { name: 'phone', value: '' } },
   {
     screen: SocialsStep,
-    props: { name: 'social', value: ['www.', 'www.facebook.com/', 'www.instagram.com/'] },
+    props: { name: 'social', value: ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/'] },
   },
   {
     screen: BusinessAdress,
@@ -49,27 +50,64 @@ const steps = [
 ]
 
 const Signup = () => {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(getItem('step') ? getItem('step') : 0)
   const [direction, setDirection] = useState('forward')
 
-  if (step === 4 && !steps[4].showed) {
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'RESTORE':
+        const { payload } = action
+        return steps.map((e, i) => ({ screen: e.screen, ...payload[i] }))
+      case 'SHOWED':
+        return state.map((s, i) => (i === 4 ? { ...s, showed: true } : s))
+      case 'SUBMIT':
+        const { submitData, step } = action.data
+        return state.map((s, i) =>
+          i === step ? { ...s, props: { ...s.props, value: submitData[s.props.name] } } : s,
+        )
+      default:
+        throw new Error()
+    }
+  }
+
+  const [state, dispatch] = useReducer(
+    reducer,
+    getItem('signup_data')
+      ? steps.map((e, i) => ({ screen: e.screen, ...getItem('signup_data')[i] }))
+      : steps,
+  )
+
+  useEffect(() => setItem('signup_data', state), [state])
+
+  useEffect(() => {
+    if (getItem('step') < step) setItem('step', step)
+    if (step === 17) {
+      removeKey('signup_data')
+      removeKey('step')
+    }
+  }, [step])
+
+  if (step === 4 && !state[4].showed) {
     setTimeout(() => {
       setStep(5)
-      steps[step].showed = true
+      dispatch({ type: 'SHOWED' })
+      // steps[step].showed = true
     }, 5000)
   }
-  if (step === 4 && steps[step].showed && direction === 'forward') {
+
+  if (step === 4 && state[step].showed && direction === 'forward') {
     setStep(5)
   }
+
   if (step === 16) {
     setTimeout(() => {
       setStep(17)
     }, 5000)
   }
 
-  const collectData = (steps) => {
+  const collectData = (state) => {
     console.log(
-      steps.reduce((acc, step, index) => {
+      state.reduce((acc, step, index) => {
         acc[step.props.name] = step.props.value
         return acc
       }, {}),
@@ -77,32 +115,32 @@ const Signup = () => {
   }
 
   const onSubmit = (submitData) => {
-    steps[step].props.value = submitData[steps[step].props.name]
-    if (step + 1 === steps.length) return
+    dispatch({ type: 'SUBMIT', data: { submitData, step } })
+    // steps[step].props.value = submitData[steps[step].props.name]
+    if (step + 1 === state.length) return
     setDirection('forward')
     setStep((curstep) => curstep + 1)
-    console.clear()
-    console.log('steps', steps)
+    // console.clear()
     console.log('submitData', submitData)
-    if (step === 15) collectData(steps)
+    if (step === 15) collectData(state)
   }
 
   const stepBack = () => {
     if (step === 0) return
     setDirection('back')
-    if (step === 5 && steps[step - 1].showed) {
+    if (step === 5 && state[step - 1].showed) {
       setStep(3)
     } else {
       setStep((curstep) => curstep - 1)
     }
   }
 
-  const Screen = steps[step].screen
-  const properties = steps[step].props
+  const Screen = state[step].screen
+  const properties = state[step].props
 
   return (
     <SignupContainer footer stepBack={stepBack} step={step}>
-      <TMP steps={steps} step={step} setStep={setStep} />
+      {/* <TMP steps={state} step={step} setStep={setStep} /> */}
       <Screen onSubmit={onSubmit} properties={properties} />
     </SignupContainer>
   )
