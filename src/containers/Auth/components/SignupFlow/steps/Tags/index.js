@@ -57,7 +57,7 @@ const Tags = (props) => {
   const filteredAddOptions = OPTIONS_ADD.filter((o) => !addTags.includes(o))
 
   return (
-    <>
+    <div className={styles.container}>
       <Heading category="About" name="Customize your tags" />
       <div className="selector_container">
         <p className={styles.label}>Service tags</p>
@@ -93,7 +93,7 @@ const Tags = (props) => {
         </Select>
       </div>
       <input className={styles.next} onClick={submit} type="button" value="Next  >" />
-    </>
+    </div>
   )
 }
 

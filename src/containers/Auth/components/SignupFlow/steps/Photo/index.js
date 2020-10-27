@@ -71,7 +71,7 @@ const Photo = (props) => {
   )
 
   return (
-    <>
+    <div className={styles.container}>
       <Heading category="About" name="3 - 8 photos of your work" />
       <div className="photo_container">
         <Upload
@@ -97,7 +97,7 @@ const Photo = (props) => {
         type="button"
         value="Next  >"
       />
-    </>
+    </div>
   )
 }
 

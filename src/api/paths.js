@@ -7,6 +7,9 @@ export default {
   signUpUser: '/v1/user/register_foodlover',
   loginUser: '/v1/user/login',
   logout: '/v1/user/logout',
+  forgotStep1: '/v1/user/forgot_password/step_one',
+  forgotStep2: '/v1/user/forgot_password/step_two',
+
   //
   //
   //

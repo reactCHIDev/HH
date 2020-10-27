@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import { string, func, bool } from 'prop-types'
 import cls from 'classnames'
 import { createPortal } from 'react-dom'
-import Crosshair from '../CloseCrossHair'
 import styles from './modal.module.scss'
 
 const Modal = (props) => {
@@ -39,10 +38,9 @@ const Modal = (props) => {
           isDark ? styles.universal_modal__container_opacity : '',
         )}
       >
-        <div className={styles.close_button} onClick={closemodal}>
-          <Crosshair white={white} />
-        </div>
+        <div className={styles.swipe_anchor} />
         {React.cloneElement(children, { closemodal })}
+        <div className={styles.spacer} />
       </div>
     </div>
   )

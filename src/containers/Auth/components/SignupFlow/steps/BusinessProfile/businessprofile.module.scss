@@ -1,71 +1,70 @@
-.cards_container {
-  display: flex;
-
-  position: relative;
-
-  .img_container {
-    width: 240px;
-    height: 295px;
-    background: #ffffff;
-    border: 2px solid #31394d;
-    box-sizing: border-box;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 28px;
-    cursor: pointer;
-    transition: transform 0.3s;
-
-    &:hover {
-      border: 3px solid #eb5769;
+.slider_container {
+  width: 100%;
+  .card_container {
+    .img_container {
+      width: 240px;
+      height: 295px;
+      background: #ffffff;
+      border: 2px solid #31394d;
       box-sizing: border-box;
-      box-shadow: 0px 12px 32px rgba(49, 57, 77, 0.1);
       border-radius: 8px;
-      transform: translate(0, -8px);
-    }
-
-    .business_chef {
-      width: 98px;
-      margin-bottom: 24px;
-    }
-    .business_taste {
-      width: 77px;
-      margin-bottom: 24px;
-    }
-    .business_craft {
-      width: 86px;
-      margin-bottom: 24px;
-    }
-    .business_guide {
-      width: 80px;
-      margin-bottom: 24px;
-    }
-    .profile {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 160%;
       display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       align-items: center;
-      text-align: center;
-      letter-spacing: 0.5px;
-      color: #3c3e43;
-    }
-    .description {
-      width: 100%;
-      height: 30%;
-      text-align: center;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 160%;
-      text-align: center;
-      letter-spacing: 0.5px;
-      color: #3c3e43;
-      opacity: 0.8;
-      padding: 0 10px;
+      margin: 28px;
+      cursor: pointer;
+      transition: transform 0.3s;
+
+      &:hover {
+        border: 3px solid #eb5769;
+        box-sizing: border-box;
+        box-shadow: 0px 12px 32px rgba(49, 57, 77, 0.1);
+        border-radius: 8px;
+        transform: translate(0, -8px);
+      }
+
+      .business_chef {
+        width: 98px;
+        margin-bottom: 24px;
+      }
+      .business_taste {
+        width: 77px;
+        margin-bottom: 24px;
+      }
+      .business_craft {
+        width: 86px;
+        margin-bottom: 24px;
+      }
+      .business_guide {
+        width: 80px;
+        margin-bottom: 24px;
+      }
+      .profile {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 160%;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #3c3e43;
+      }
+      .description {
+        width: 100%;
+        height: 30%;
+        text-align: center;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 160%;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #3c3e43;
+        opacity: 0.8;
+        padding: 0 10px;
+      }
     }
   }
 }

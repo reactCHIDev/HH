@@ -5,12 +5,19 @@
   height: 100vh;
   top: 0;
   z-index: 200;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 480px) {
+    justify-content: flex-end;
+  }
 
   &__background {
     position: absolute;
     width: 100vw;
     height: 100vh;
-    z-index: 2;
+    z-index: -1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,31 +33,47 @@
 
   .universal_modal__container {
     opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    // box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
+    position: relative;
     background: transparent;
+    border-radius: 16px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     padding: 0 !important;
     transition: opacity 0.3s;
+    @media (max-width: 480px) {
+      width: 100%;
+      border-radius: 16px 16px 0 0;
+      padding-bottom: 50px;
+    }
 
     &_opacity {
       opacity: 1;
     }
 
-    .close_button {
-      display: block;
+    .swipe_anchor {
+      display: none;
       position: absolute;
-      right: 10px;
-      top: 10px;
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-      z-index: 101;
+      top: 12px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 108px;
+      height: 3px;
+      border-radius: 3.5px;
+      background-color: #e0e2e5;
+      z-index: 10;
+      @media (max-width: 480px) {
+        display: block;
+      }
+    }
+    .spacer {
+      width: 100%;
+      height: 100px;
+      background-color: white;
+      display: none;
+      @media (max-width: 480px) {
+        display: block;
+      }
     }
   }
 }
