@@ -5,7 +5,7 @@ import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import styles from './input.module.scss'
 
-const Input = ({ name, value, placeholder, registerObj, focus, onSubmit }) => {
+const Input = ({ name, value, placeholder, registerObj, focus, fixedText, onSubmit }) => {
   const { register, handleSubmit, errors } = useForm()
   const [curValue, setValue] = useState(value)
   const [type, setType] = useState('text')
@@ -20,6 +20,11 @@ const Input = ({ name, value, placeholder, registerObj, focus, onSubmit }) => {
   }
 
   const onChange = (e) => {
+    const value = e.target.value
+    if (fixedText) {
+      if (value.substring(0, fixedText.length) === fixedText) setValue(e.target.value)
+      return
+    }
     setValue(e.target.value)
   }
 
@@ -60,6 +65,7 @@ Input.propTypes = {
   value: T.string,
   placeholder: T.string,
   focus: T.bool,
+  fixedText: T.string,
   onSubmit: T.func,
   registerObj: T.shape(),
 }

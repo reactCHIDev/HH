@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   form {
     display: flex;
     flex-direction: column;
@@ -9,9 +10,8 @@
     margin-bottom: 14px;
 
     .textarea {
-      resize: none;
       display: block;
-      // width: 396px;
+      width: 343px;
       // height: 56px;
       padding: 10px 15px;
       margin-bottom: 22px;
@@ -27,6 +27,21 @@
       letter-spacing: 0.5px;
       color: #3c3e43;
       background: #fbe4e4;
+      @media (max-width: 1440px) {
+        width: 512px;
+        height: 105px;
+        margin-bottom: 24px;
+      }
+      @media (max-width: 600px) {
+        width: 396px;
+        height: 105px;
+        margin-bottom: 24px;
+      }
+      @media (max-width: 420px) {
+        width: 343px;
+        height: 105px;
+        margin-bottom: 24px;
+      }
 
       &:focus {
         background-color: white;
@@ -48,6 +63,21 @@
         box-sizing: border-box;
         backdrop-filter: blur(6px);
         border-radius: 8px;
+        @media (max-width: 1440px) {
+          width: 512px;
+          height: 72px;
+          margin-bottom: 24px;
+        }
+        @media (max-width: 600px) {
+          width: 396px;
+          height: 72px;
+          margin-bottom: 24px;
+        }
+        @media (max-width: 420px) {
+          width: 343px;
+          height: 72px;
+          margin-bottom: 24px;
+        }
       }
 
       .psw_eye {

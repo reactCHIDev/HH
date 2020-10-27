@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { string, func, bool } from 'prop-types'
 import cls from 'classnames'
 import { createPortal } from 'react-dom'
-import Crosshair from '../CloseCrossHair'
 import styles from './modal.module.scss'
 
 const Modal = (props) => {
-  const { children, mode, classname, white, closeFunc } = props
+  const { children, mode = 'dark', classname, white, closeFunc } = props
   const [containerElement] = useState(document.getElementById('modal'))
   const [isDark, setIsDark] = useState(false)
 
@@ -19,7 +18,7 @@ const Modal = (props) => {
     }
   }, [])
 
-  const closeModal = () => {
+  const closemodal = () => {
     setIsDark(false)
     if (typeof closeFunc === 'function') setTimeout(() => closeFunc(false), 300)
   }
@@ -31,7 +30,7 @@ const Modal = (props) => {
           styles.universal_modal__background,
           isDark ? styles.universal_modal__background_dark : '',
         )}
-        onClick={closeModal}
+        onClick={closemodal}
       />
       <div
         className={cls(
@@ -39,10 +38,9 @@ const Modal = (props) => {
           isDark ? styles.universal_modal__container_opacity : '',
         )}
       >
-        <div className={styles.close_button} onClick={closeModal}>
-          <Crosshair white={white} />
-        </div>
-        {React.cloneElement(children, { closeModal })}
+        <div className={styles.swipe_anchor} />
+        {React.cloneElement(children, { closemodal })}
+        <div className={styles.spacer} />
       </div>
     </div>
   )

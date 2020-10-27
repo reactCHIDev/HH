@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { Spin, Space } from 'antd'
 import { getSuperAdmin } from 'api/requests/Account/index'
+import * as jwt from 'jsonwebtoken'
 
 /* CUSTOM MODULES */
 import PublicRoute from 'components/Routing/PublicRoute'
@@ -15,6 +16,7 @@ import PrivateRoute from 'components/Routing/PrivateRoute'
 import ConnectionProvider from 'components/ConnectionProvider'
 import { history } from 'store'
 import { setBaseEndpoint } from 'utils/apiClient'
+import Create from 'containers/Auth/components/Forgot/components/Create'
 import Card from 'components/Card'
 import Test from 'components/Tabs/Test'
 import Home from 'pages/Home'
@@ -54,6 +56,14 @@ function App({ pathname }) {
   const url = process.env.REACT_APP_BASE_URL
   setBaseEndpoint(url)
 
+  const token = jwt.sign({ email: 'postbox32@gmail.com' }, 'secret', { expiresIn: '24h' })
+  console.log('token', token)
+  const decoded = jwt.decode(
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvc3Rib3gzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDM4Mjc3NjUsImV4cCI6MTYwMzkxNDE2NX0.RAHtvPlhELcu8q5E1XEuzEhiYGa8ZQGPfeMN9GruwZQ',
+    'secret',
+  )
+  console.log('decoded', new Date(decoded.exp * 1000))
+
   return (
     <div className={styles.container}>
       <ConnectedRouter history={history}>
@@ -86,6 +96,7 @@ function App({ pathname }) {
               component={WaitingComponent(CreateShopLanding)}
             />
             <PublicRoute exact path="/tabs" component={() => <Test />} />
+            <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <Route exact path={desktop.card} component={Card} />
             <Route path={desktop.test} component={() => <div>"/test" routing successful</div>} />

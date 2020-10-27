@@ -46,6 +46,9 @@
         box-sizing: border-box;
         backdrop-filter: blur(6px);
         border-radius: 8px;
+        @media (max-width: 420px) {
+          width: 343px;
+        }
       }
 
       ::-webkit-input-placeholder,

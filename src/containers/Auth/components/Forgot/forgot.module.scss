@@ -18,7 +18,28 @@
     padding: 48px;
     background: #ffffff;
     // box-shadow: 0px 4px 32px rgba(0, 0, 0, 0.15);
-    border-radius: 16px;
+
+    .header {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 28px;
+      line-height: 36px;
+      text-align: center;
+      letter-spacing: 0.3px;
+      color: #31394d;
+      max-width: 394px;
+    }
+    .text {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 160%;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #3c3e43;
+      opacity: 0.8;
+      max-width: 399px;
+    }
 
     form {
       display: flex;
@@ -44,6 +65,9 @@
         backdrop-filter: blur(6px);
         /* Note: backdrop-filter has minimal browser support */
         border-radius: 8px;
+        @media (max-width: 420px) {
+          width: 320px;
+        }
       }
 
       input[name='password']:focus {
@@ -184,6 +208,9 @@
         font-size: 14px;
         font-weight: bold;
         letter-spacing: 1px;
+        @media (max-width: 420px) {
+          width: 320px;
+        }
       }
 
       input[type='button']:hover {

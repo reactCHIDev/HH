@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
-
-import Heading from '../../components/heading'
+import Modal from 'components/UniversalModal'
+import Location from 'components/Location'
 import MapUrl from 'assets/images/signup-flow/svg/mapurl.svg'
-import Input from '../../components/input'
+import Heading from '../../components/heading'
 import styles from './adress.module.scss'
 
 const BusinessAdress = (props) => {
@@ -12,8 +12,9 @@ const BusinessAdress = (props) => {
     properties: { name, value },
     onSubmit,
   } = props
-  const [curTextValue, setTextValue] = useState(value)
-  const [curInputValue, setInputalue] = useState(value)
+  const [showMap, setMap] = useState(false)
+  const [curTextValue, setTextValue] = useState(value.adress)
+  const [curInputValue, setInputalue] = useState(value.mapURL)
   const { register, handleSubmit, errors } = useForm()
 
   useEffect(() => {
@@ -35,7 +36,9 @@ const BusinessAdress = (props) => {
     },
   }
 
-  const getMapPoint = () => {}
+  const getMapPoint = () => {
+    setMap(true)
+  }
 
   return (
     <div className={styles.container}>
@@ -43,7 +46,7 @@ const BusinessAdress = (props) => {
       <form className={styles.form} onSubmit={handleSubmit(() => onSubmit(submitData))}>
         <textarea
           className={styles.textarea}
-          name={name}
+          name="adress"
           placeholder="adress"
           rows="3"
           cols="42"
@@ -53,12 +56,14 @@ const BusinessAdress = (props) => {
         />
         <div className={styles.input_wrapper}>
           <input
-            name={name}
+            name="mapURL"
             placeholder="url"
             value={curInputValue}
             type="text"
             onChange={onChangeInput}
-            ref={register()}
+            ref={register({
+              required: false,
+            })}
           />
           {errors?.[name]?.type === 'required' && <p>This field is required</p>}
           {errors?.[name]?.type === 'pattern' && <p>Invalid symbols or format</p>}
@@ -69,10 +74,16 @@ const BusinessAdress = (props) => {
             </button>
           }
         </div>
-        <button className={styles.submit} disabled={!curInputValue.length} type="submit">
+        <button className={styles.submit} disabled={false} type="submit">
           {'Next >'}
         </button>
       </form>
+      {showMap && (
+        <Modal closeFunc={() => setMap(false)}>
+          {/* <Location /> */}
+          <div style={{ width: 500, height: 300, background: 'palegreen' }}>Google map</div>
+        </Modal>
+      )}
     </div>
   )
 }

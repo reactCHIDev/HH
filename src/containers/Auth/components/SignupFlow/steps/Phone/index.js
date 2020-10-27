@@ -22,10 +22,10 @@ const PhoneStep = (props) => {
   }
 
   return (
-    <>
+    <div>
       <Heading category="Contact info (not-public)" name="Phone" />
       <div className={cls(styles.container, 'select')}>
-        <Select defaultValue={nums[0]} style={{ width: 120 }} onChange={handleChange}>
+        <Select defaultValue={nums[0]} onChange={handleChange}>
           {nums.map((n, i) => (
             <Option key={i + n} value={n}>
               {n}
@@ -47,7 +47,7 @@ const PhoneStep = (props) => {
           }}
         />
       </div>
-    </>
+    </div>
   )
 }
 

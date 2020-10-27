@@ -7,6 +7,9 @@
     text-align: center;
     letter-spacing: 0.3px;
     color: #31394d;
+    @media (max-width: 768px) {
+      font-size: 24px;
+    }
   }
 
   .adress {
@@ -18,6 +21,9 @@
     letter-spacing: 0.5px;
     color: #1d53d9;
     cursor: pointer;
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
   }
 }
 
