@@ -49,7 +49,7 @@ const Header = ({ authorized, logout, push }) => {
           </li>
         </ul>
         <div className={styles.signin}>
-          {!authorized && <Link to="/login">SIGN IN</Link>}
+          {!authorized && <Link to="/login/regular">SIGN IN</Link>}
           {authorized && <p onClick={logout}>LOG OUT</p>}
         </div>
       </div>

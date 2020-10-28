@@ -3,25 +3,25 @@ import { useForm } from 'react-hook-form'
 import Checkmail from 'assets/images/checkmail.svg'
 import _ from 'lodash/fp'
 import T from 'prop-types'
+import Chk1 from 'assets/images/signup-flow/svg/chk1.svg'
+import Chk2 from 'assets/images/signup-flow/svg/chk2.svg'
 import styles from './checkmail.module.scss'
 
 const EnterMail = ({ close }) => {
-  const { register, handleSubmit, errors } = useForm()
-
-  const backToLogin = () => {
-    if (typeof close === 'function') close()
-  }
-
-  const onSubmit = (data) => {
-    console.log('email', data)
-  }
+  const [delay, setDelay] = useState(false)
+  setTimeout(() => setDelay(true), 300)
 
   return (
     <div className={styles.content}>
-      <img src={Checkmail} alt="chk" className={styles.img} />
-      <p className={styles.header}>Check mail</p>
+      <div className={styles.chk_container}>
+        <img className={styles.chk1} src={Chk1} alt="chk" />
+        {delay && <img className={styles.chk2} src={Chk2} alt="chk" />}
+      </div>
+      <p className={styles.header}>Successful</p>
       <p className={styles.text}>Enter the new password in the sign-in window</p>
-      <button type="button">go to sign-in</button>
+      <button type="button" onClick={close}>
+        go to sign-in
+      </button>
     </div>
   )
 }

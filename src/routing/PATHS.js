@@ -1,7 +1,7 @@
 const desktop = {
   home: '/',
   card: '/card',
-  login: '/login',
+  login: '/login/:step',
   signup: '/signup',
   signupflow: '/signupflow',
   forgot: '/forgot',

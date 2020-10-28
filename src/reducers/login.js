@@ -4,6 +4,9 @@ import {
   LOGIN_ERROR,
   LOGOUT,
   REFRESH_TOKEN_SUCCESS,
+  PASSWORD_REQUESTING_SUCCESS,
+  PASSWORD_REQUESTING_ERROR,
+  PASSWORD_CREATING_SUCCESS,
 } from '../actions/constants'
 
 const isLogin = !!JSON.parse(localStorage.getItem('authorization-token'))
@@ -14,6 +17,12 @@ const initialState = {
   messages: [],
   errors: [],
   isTokenValid: false,
+  forgotProcess: {
+    step1: '',
+    step2: '',
+    step3: '',
+    step4: '',
+  },
 }
 
 const reducer = function loginReducer(state = initialState, action) {
@@ -48,6 +57,38 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         ...state,
         authorized: false,
+      }
+
+    case PASSWORD_REQUESTING_SUCCESS:
+      return {
+        ...state,
+        forgotProcess: {
+          step1: 'success',
+          step2: '',
+          step3: '',
+          step4: '',
+        },
+      }
+    case PASSWORD_REQUESTING_ERROR:
+      return {
+        ...state,
+        forgotProcess: {
+          step1: 'error',
+          step2: '',
+          step3: '',
+          step4: '',
+        },
+      }
+
+    case PASSWORD_CREATING_SUCCESS:
+      return {
+        ...state,
+        forgotProcess: {
+          step1: 'success',
+          step2: '',
+          step3: 'success',
+          step4: '',
+        },
       }
 
     case REFRESH_TOKEN_SUCCESS:
