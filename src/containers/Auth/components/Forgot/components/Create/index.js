@@ -7,7 +7,7 @@ import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import styles from './create.module.scss'
 
-const Create = ({ close }) => {
+const Create = ({ close, onSubmit }) => {
   let { user } = useParams()
   console.log('user', user)
   const { register, handleSubmit, errors, watch } = useForm({
@@ -16,10 +16,6 @@ const Create = ({ close }) => {
 
   const backToLogin = () => {
     if (typeof close === 'function') close()
-  }
-
-  const onSubmit = (data) => {
-    console.log('password', data)
   }
 
   const [type, setType] = useState('password')
@@ -77,6 +73,7 @@ const Create = ({ close }) => {
 
 Create.propTypes = {
   close: T.func,
+  onSubmit: T.func,
 }
 
 export default Create

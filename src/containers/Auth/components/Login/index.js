@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import _ from 'lodash/fp'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
-import { history } from 'store'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
 import { loginRequest } from 'actions/login'
@@ -12,22 +12,34 @@ import T from 'prop-types'
 import styles from './login.module.scss'
 
 const Login = (props) => {
-  const { loginRequest } = props
-  const [forgot, showForgot] = useState(false)
-  const { register, handleSubmit, errors, formState } = useForm()
+  const { loginRequest, push } = props
+  const { step } = useParams()
+
+  const steps = new Set(['forgotstep1', 'forgotstep2', 'forgotstep3', 'forgotstep4'])
+  const isForgotRoute = steps.has(step.substring(0, 11))
+  let forgotStep = ''
+  let token = ''
+  if (isForgotRoute) {
+    forgotStep = Number(step.substring(10, 11))
+    if (forgotStep === 3) {
+      token = step.substring(11)
+    }
+  }
+  console.log('%c   isForgotRoute   ', 'color: white; background: salmon;', isForgotRoute)
+  console.log('%c   forgotStep   ', 'color: white; background: salmon;', forgotStep)
+
+  const { register, handleSubmit, errors } = useForm()
+
   const onSubmit = (credentials) => {
-    console.log('credentials', credentials)
     loginRequest(credentials)
   }
 
   const forgotProcess = () => {
-    //history.push('/forgot')
-    showForgot(true)
+    push('/login/forgotstep1')
   }
 
   const forgotClose = () => {
-    //history.push('/forgot')
-    showForgot(false)
+    push('/login/regular')
   }
 
   return (
@@ -77,9 +89,9 @@ const Login = (props) => {
           <span className={styles.suggest}>REGISTER NOW</span>
         </Link>
       </div>
-      {forgot && (
+      {isForgotRoute && (
         <Modal closeFunc={forgotClose} mode="dark">
-          <Forgot close={forgotClose} />
+          <Forgot step={forgotStep} close={forgotClose} token={token} />
         </Modal>
       )}
     </div>
@@ -88,6 +100,7 @@ const Login = (props) => {
 
 Login.propTypes = {
   loginRequest: T.func,
+  push: T.func,
 }
 
-export default connect(null, { loginRequest })(Login)
+export default connect(null, { loginRequest, push })(Login)
