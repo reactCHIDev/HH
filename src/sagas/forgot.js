@@ -1,5 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
+import { message } from 'antd'
 import * as jwt from 'jsonwebtoken'
 import { forgotStep1, forgotStep3 } from 'api/requests/Auth'
 import { removeItems } from '../utils/localStorage'
@@ -16,8 +17,10 @@ function* forgotStepOne({ email }) {
   const token = jwt.sign({ email: 'postbox32@gmail.com' }, 'secret', { expiresIn: 60 })
   const url = true ? 'https://hungryhugger.wildwebart.com' : 'localhost:3000'
   const data = { email, secretLink: `${url}/login/forgotstep3${token}` }
+  const hide = message.loading('Wait please..', 2)
   try {
     const response = yield forgotStep1(data)
+    hide()
     yield put({ type: PASSWORD_REQUESTING_SUCCESS, data: response.data })
     yield put(push('/login/forgotstep2'))
   } catch (error) {

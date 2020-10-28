@@ -71,6 +71,11 @@ function App({ pathname }) {
           {pathname !== '/signupflow' && <Header />}
           <Switch>
             <PublicRoute exact path={desktop.home} component={WaitingComponent(Home)} />
+            <PublicRoute
+              exact
+              path="/login"
+              component={() => <Redirect exact to="/login/regular" />}
+            />
             <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
             <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
