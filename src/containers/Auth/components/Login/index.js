@@ -7,7 +7,8 @@ import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
 import { loginRequest } from 'actions/login'
-
+import EyeOpen from 'assets/icons/svg/eye-open.svg'
+import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import T from 'prop-types'
 import styles from './login.module.scss'
 
@@ -42,6 +43,12 @@ const Login = (props) => {
     push('/login/regular')
   }
 
+  const [type, setType] = useState('password')
+
+  const togglePassword = () => {
+    setType(type === 'password' ? 'text' : 'password')
+  }
+
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -65,7 +72,7 @@ const Login = (props) => {
           <input
             name="password"
             placeholder="Password"
-            type="text"
+            type={type}
             ref={register({
               required: true,
               minLength: {
@@ -74,6 +81,9 @@ const Login = (props) => {
               },
             })}
           />
+          <button type="button" className={styles.psw_eye} onClick={togglePassword}>
+            <img src={type === 'password' ? EyeOpen : EyeClosed} alt="eye" />
+          </button>
           <span className={styles.forgot} onClick={forgotProcess}>
             FORGOT?
           </span>
