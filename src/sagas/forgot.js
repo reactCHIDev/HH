@@ -14,10 +14,7 @@ import {
 
 function* forgotStepOne({ email }) {
   const token = jwt.sign({ email: 'postbox32@gmail.com' }, 'secret', { expiresIn: 60 })
-  const url =
-    process.env.NODE_ENV !== 'development' && process.env.REACT_APP_STAGE !== 'development'
-      ? 'https://hungryhugger.wildwebart.com'
-      : 'localhost:3000'
+  const url = true ? 'https://hungryhugger.wildwebart.com' : 'localhost:3000'
   const data = { email, secretLink: `${url}/login/forgotstep3${token}` }
   try {
     const response = yield forgotStep1(data)
