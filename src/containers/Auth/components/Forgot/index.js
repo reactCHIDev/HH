@@ -4,6 +4,8 @@ import * as jwt from 'jsonwebtoken'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { passwordRequest, passwordCreate } from 'actions/forgot'
+import Tint from 'components/Tint'
+import Error from './components/Error'
 import EnterMail from './components/EnterMail'
 import CheckMail from './components/CheckMail'
 import Create from './components/Create'
@@ -11,7 +13,7 @@ import ToSignin from './components/ToSignin'
 import styles from './forgot.module.scss'
 
 const Forgot = (props) => {
-  const { passwordRequest, passwordCreate, step, token, url, close, push } = props
+  const { passwordRequest, passwordCreate, step, token, url, req, err, close, push } = props
   console.log('%c   props   ', 'color: darkgreen; background: palegreen;', props.params)
 
   console.log('%c   token   ', 'color: white; background: blue;', token)
@@ -41,10 +43,17 @@ const Forgot = (props) => {
 
   return (
     <div className={styles.container}>
-      {step == 1 && <EnterMail onSubmit={onEmail} />}
-      {step == 2 && <CheckMail close={close} />}
-      {step == 3 && valid && <Create onSubmit={onPasswordCreate} />}
-      {step == 4 && <ToSignin close={close} />}
+      {err ? (
+        <Error close={close} />
+      ) : (
+        <>
+          {req && <Tint />}
+          {step == 1 && <EnterMail onSubmit={onEmail} />}
+          {step == 2 && <CheckMail close={close} />}
+          {step == 3 && valid && <Create onSubmit={onPasswordCreate} />}
+          {step == 4 && <ToSignin close={close} />}
+        </>
+      )}
     </div>
   )
 }
@@ -57,10 +66,19 @@ Forgot.propTypes = {
   step: T.number,
   token: T.string,
   url: T.string,
+  req: T.bool,
+  err: T.bool,
 }
 
-export default connect(({ router }) => ({ url: router.location.pathname }), {
-  passwordRequest,
-  passwordCreate,
-  push,
-})(Forgot)
+export default connect(
+  ({ router, login }) => ({
+    url: router.location.pathname,
+    req: login.requesting,
+    err: login.forgotProcess.error,
+  }),
+  {
+    passwordRequest,
+    passwordCreate,
+    push,
+  },
+)(Forgot)

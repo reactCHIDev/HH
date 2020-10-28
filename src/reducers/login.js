@@ -4,9 +4,12 @@ import {
   LOGIN_ERROR,
   LOGOUT,
   REFRESH_TOKEN_SUCCESS,
+  PASSWORD_CREATING,
+  PASSWORD_REQUESTING,
   PASSWORD_REQUESTING_SUCCESS,
   PASSWORD_REQUESTING_ERROR,
   PASSWORD_CREATING_SUCCESS,
+  PASSWORD_CREATING_ERROR,
 } from '../actions/constants'
 
 const isLogin = !!JSON.parse(localStorage.getItem('authorization-token'))
@@ -32,6 +35,16 @@ const reducer = function loginReducer(state = initialState, action) {
         ...state,
         requesting: true,
       }
+    case PASSWORD_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+      }
+    case PASSWORD_CREATING:
+      return {
+        ...state,
+        requesting: true,
+      }
 
     case LOGIN_SUCCESS:
       return {
@@ -44,13 +57,13 @@ const reducer = function loginReducer(state = initialState, action) {
     case LOGIN_ERROR:
       return {
         ...state,
+        requesting: false,
         errors: state.errors.concat([
           {
             body: action.error.toString(),
             time: new Date(),
           },
         ]),
-        requesting: false,
       }
 
     case LOGOUT:
@@ -62,7 +75,9 @@ const reducer = function loginReducer(state = initialState, action) {
     case PASSWORD_REQUESTING_SUCCESS:
       return {
         ...state,
+        requesting: false,
         forgotProcess: {
+          error: false,
           step1: 'success',
           step2: '',
           step3: '',
@@ -72,7 +87,9 @@ const reducer = function loginReducer(state = initialState, action) {
     case PASSWORD_REQUESTING_ERROR:
       return {
         ...state,
+        requesting: false,
         forgotProcess: {
+          error: true,
           step1: 'error',
           step2: '',
           step3: '',
@@ -83,10 +100,24 @@ const reducer = function loginReducer(state = initialState, action) {
     case PASSWORD_CREATING_SUCCESS:
       return {
         ...state,
+        requesting: false,
         forgotProcess: {
+          error: false,
           step1: 'success',
           step2: '',
           step3: 'success',
+          step4: '',
+        },
+      }
+    case PASSWORD_CREATING_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        forgotProcess: {
+          error: true,
+          step1: 'success',
+          step2: '',
+          step3: 'error',
           step4: '',
         },
       }
