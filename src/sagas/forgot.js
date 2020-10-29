@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { push } from 'connected-react-router'
+import { replace } from 'connected-react-router'
 import { message } from 'antd'
 import * as jwt from 'jsonwebtoken'
 import { forgotStep1, forgotStep3 } from 'api/requests/Auth'
@@ -14,7 +14,7 @@ import {
 } from '../actions/constants'
 
 function* forgotStepOne({ email }) {
-  const token = jwt.sign({ email: 'postbox32@gmail.com' }, 'secret', { expiresIn: 60 })
+  const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
   const url = true ? 'https://hungryhugger.wildwebart.com' : 'localhost:3000'
   const data = { email, secretLink: `${url}/login/forgotstep3${token}` }
   const hide = message.loading('Wait please..', 2)
@@ -22,7 +22,7 @@ function* forgotStepOne({ email }) {
     const response = yield forgotStep1(data)
     hide()
     yield put({ type: PASSWORD_REQUESTING_SUCCESS, data: response.data })
-    yield put(push('/login/forgotstep2'))
+    yield put(replace('/login/forgotstep2'))
   } catch (error) {
     yield put({ type: PASSWORD_REQUESTING_ERROR, error })
   }
@@ -33,7 +33,7 @@ function* forgotStepThree({ payload }) {
     const response = yield forgotStep3({ ...payload })
     yield put({ type: PASSWORD_CREATING_SUCCESS, data: response.data })
     removeItems(['authorization-token', 'user-id'])
-    yield put(push('/login/forgotstep4'))
+    yield put(replace('/login/forgotstep4'))
   } catch (error) {
     yield put({ type: PASSWORD_CREATING_ERROR, error })
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
+import * as jwt from 'jsonwebtoken'
 import _ from 'lodash/fp'
 import { Link } from 'react-router-dom'
 import { history } from 'store'
@@ -14,9 +15,18 @@ const Signup = ({ signupRequest }) => {
 
   const signedUp = () => history.push('/login')
 
-  const onSubmit = (credentials) => signupRequest({ ...credentials, role: 'FOODLOVER' }, signedUp)
+  const generateLink = (credentials) => {
+    const { email } = credentials
+    const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
+    const url = 'https://hungryhugger.wildwebart.com'
+    return url + '/confirmemail' + token
+  }
 
-  const forgotProcess = () => history.push('/forgot')
+  const onSubmit = (credentials) =>
+    signupRequest(
+      { ...credentials, role: 'FOODLOVER', registrationLink: generateLink(credentials) },
+      signedUp,
+    )
 
   return (
     <div className={styles.container}>
