@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import _ from 'lodash/fp'
 import { Link, useParams } from 'react-router-dom'
-import { push } from 'connected-react-router'
+import { push, replace } from 'connected-react-router'
 import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
@@ -15,6 +15,8 @@ import styles from './login.module.scss'
 const Login = (props) => {
   const { loginRequest, push } = props
   const { step } = useParams()
+
+  if (step.substring(0, 12) === 'confirmemail') replace('/login/regular')
 
   const steps = new Set(['forgotstep1', 'forgotstep2', 'forgotstep3', 'forgotstep4'])
   const isForgotRoute = steps.has(step.substring(0, 11))
@@ -111,6 +113,7 @@ const Login = (props) => {
 Login.propTypes = {
   loginRequest: T.func,
   push: T.func,
+  replace: T.func,
 }
 
-export default connect(null, { loginRequest, push })(Login)
+export default connect(null, { loginRequest, push, replace })(Login)
