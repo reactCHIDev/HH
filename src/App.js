@@ -53,6 +53,7 @@ function WaitingComponent(Component) {
 }
 
 function App({ pathname }) {
+  console.log('%c   ENV   ', 'color: white; background: salmon;', process.env.NODE_ENV)
   const url = process.env.REACT_APP_BASE_URL
   setBaseEndpoint(url)
 
