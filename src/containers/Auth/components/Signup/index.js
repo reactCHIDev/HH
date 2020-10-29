@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import * as jwt from 'jsonwebtoken'
 import _ from 'lodash/fp'
 import { Link } from 'react-router-dom'
-import { history } from 'store'
 import { signupRequest, signupFlagReset } from 'actions/signup'
 
 import T from 'prop-types'
@@ -12,8 +11,6 @@ import styles from './signup.module.scss'
 
 const Signup = ({ signupRequest }) => {
   const { register, handleSubmit, errors, watch } = useForm()
-
-  const signedUp = () => history.push('/login')
 
   const generateLink = (credentials) => {
     const { email } = credentials
@@ -23,10 +20,11 @@ const Signup = ({ signupRequest }) => {
   }
 
   const onSubmit = (credentials) =>
-    signupRequest(
-      { ...credentials, role: 'FOODLOVER', registrationLink: generateLink(credentials) },
-      signedUp,
-    )
+    signupRequest({
+      ...credentials,
+      role: 'FOODLOVER',
+      registrationLink: generateLink(credentials),
+    })
 
   return (
     <div className={styles.container}>
