@@ -19,7 +19,7 @@ const Signup = ({ signupRequest }) => {
     const { email } = credentials
     const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
     const url = 'https://hungryhugger.wildwebart.com'
-    return url + '/confirmemail' + token
+    return url + '/login/confirmemail' + token
   }
 
   const onSubmit = (credentials) =>
