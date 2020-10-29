@@ -7,7 +7,7 @@ import styles from './socials.module.scss'
 
 const Socials = (props) => {
   const {
-    properties: { name, value },
+    properties: { value },
     onSubmit,
   } = props
 
@@ -26,7 +26,7 @@ const Socials = (props) => {
     setHHValue(value[0])
     setFBValue(value[1])
     setInstaValue(value[2])
-  }, [])
+  }, [value])
 
   const fixedText = ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/']
   const setters = [setHHValue, setFBValue, setInstaValue]
