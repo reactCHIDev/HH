@@ -6,7 +6,7 @@ import { push, replace } from 'connected-react-router'
 import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
-import { loginRequest, loginErrorReset } from 'actions/login'
+import { loginRequest, loginErrorReset, invalidLink } from 'actions/login'
 import Error from 'containers/Auth/components/Forgot/components/Error'
 import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
@@ -14,7 +14,7 @@ import T from 'prop-types'
 import styles from './login.module.scss'
 
 const Login = (props) => {
-  const { loginRequest, pushRoute, replaceRoute, error, loginErrorReset } = props
+  const { loginRequest, pushRoute, replaceRoute, error, loginErrorReset, invalidLink } = props
   const { step } = useParams()
 
   if (step.substring(0, 12) === 'confirmemail') replaceRoute('/login/regular')
@@ -40,11 +40,13 @@ const Login = (props) => {
   }
 
   const forgotClose = () => {
+    loginErrorReset()
     pushRoute('/login/regular')
   }
 
   const errorReset = () => {
     loginErrorReset()
+    if (error === 'Your link is expired !!!') pushRoute('/login/regular')
   }
 
   const [type, setType] = useState('password')
@@ -105,7 +107,7 @@ const Login = (props) => {
       </div>
       {isForgotRoute && (
         <Modal closeFunc={forgotClose} mode="dark">
-          <Forgot step={forgotStep} close={forgotClose} token={token} />
+          <Forgot step={forgotStep} close={forgotClose} invalidLink={invalidLink} token={token} />
         </Modal>
       )}
       {error && (
@@ -122,6 +124,7 @@ Login.propTypes = {
   pushRoute: T.func.isRequired,
   replaceRoute: T.func.isRequired,
   loginErrorReset: T.func.isRequired,
+  invalidLink: T.func.isRequired,
   error: T.string.isRequired,
 }
 
@@ -130,4 +133,5 @@ export default connect(({ login: { error } }) => ({ error }), {
   pushRoute: push,
   replaceRoute: replace,
   loginErrorReset,
+  invalidLink,
 })(Login)
