@@ -7,8 +7,6 @@ import { Switch, Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { Spin, Space } from 'antd'
-import { getSuperAdmin } from 'api/requests/Account/index'
-import * as jwt from 'jsonwebtoken'
 
 /* CUSTOM MODULES */
 import PublicRoute from 'components/Routing/PublicRoute'
@@ -53,23 +51,14 @@ function WaitingComponent(Component) {
 }
 
 function App({ pathname }) {
-  console.log('%c   ENV   ', 'color: white; background: salmon;', process.env.NODE_ENV)
   const url = process.env.REACT_APP_BASE_URL
   setBaseEndpoint(url)
-
-  const token = jwt.sign({ email: 'postbox32@gmail.com' }, 'secret', { expiresIn: '24h' })
-  console.log('token', token)
-  const decoded = jwt.decode(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBvc3Rib3gzMkBnbWFpbC5jb20iLCJpYXQiOjE2MDM4Mjc3NjUsImV4cCI6MTYwMzkxNDE2NX0.RAHtvPlhELcu8q5E1XEuzEhiYGa8ZQGPfeMN9GruwZQ',
-    'secret',
-  )
-  console.log('decoded', new Date(decoded.exp * 1000))
 
   return (
     <div className={styles.container}>
       <ConnectedRouter history={history}>
         <ConnectionProvider>
-          {pathname !== '/signupflow' && <Header />}
+          {pathname !== '/signupflow' && <Header dark logoText />}
           <Switch>
             <PublicRoute exact path={desktop.home} component={WaitingComponent(Home)} />
             <PublicRoute
@@ -115,7 +104,7 @@ function App({ pathname }) {
 }
 
 App.propTypes = {
-  pathname: T.string,
+  pathname: T.string.isRequired,
 }
 
 export default connect(

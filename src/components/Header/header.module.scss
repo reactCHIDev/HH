@@ -11,6 +11,14 @@
     height: 70px;
     background-color: transparent;
   }
+  .dark {
+    background: $black;
+    color: white;
+  }
+  .light {
+    background: white;
+    color: $black;
+  }
   .container {
     position: fixed;
     z-index: 9999;
@@ -21,10 +29,9 @@
     width: 100vw;
     height: 70px;
     padding: 30px;
-    background: $black;
-    color: white;
     margin: 0 auto;
     box-shadow: 0px 4px 15px rgba(34, 41, 58, 1);
+    border-bottom: 1px solid rgba(90, 96, 112, 0.4);
     @media (max-width: 768px) {
       justify-content: space-between;
     }
@@ -38,38 +45,66 @@
     }
 
     .logo {
-      width: 50px;
+      display: flex;
       flex-shrink: 0;
       cursor: pointer;
 
       .logo_img {
-        width: 36px;
+        width: 48px;
+        margin-right: 10px;
+      }
+      .logo_text {
+        font-family: GrandHotel;
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 2px;
+        @media (max-width: 1024px) {
+          display: none;
+        }
       }
     }
+
     .menu {
       padding: 10px;
       display: flex;
-      margin: 0;
+      margin: 0 0 0 56px;
       flex-grow: 3;
-      background: $black;
-      color: white;
-      transition: left 0.5s;
+      transition: opacity 0.3s;
+      @media (max-width: 1024px) {
+        margin: 0px;
+      }
 
       @media (max-width: 768px) {
         position: absolute;
+        top: 70px;
         left: 0;
-        top: 100%;
-        display: block;
-        flex-direction: column;
+        background-color: $black;
       }
 
       .menuitem {
         list-style: none;
         padding: 3px 10px;
+        cursor: pointer;
+        margin: 0 0 0 32px;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 19px;
+        text-align: right;
         letter-spacing: 1px;
         text-transform: uppercase;
-        cursor: pointer;
-        margin: 0;
+        @media (max-width: 1024px) {
+          margin: 20px 0 20px 16px;
+        }
+      }
+    }
+
+    .on {
+    }
+    .off {
+      display: flex;
+      @media (max-width: 768px) {
+        display: none;
       }
     }
 
@@ -83,10 +118,10 @@
 
       li {
         list-style: none;
-        line-height: 2;
         padding: 3px 18px;
         cursor: pointer;
         margin: 0;
+        line-height: 0;
 
         img {
           width: 19px;
@@ -97,6 +132,7 @@
 
     .signin {
       a {
+        color: inherit;
         font-style: normal;
         font-weight: bold;
         font-size: 12px;
@@ -104,7 +140,6 @@
         text-align: right;
         letter-spacing: 1px;
         text-transform: uppercase;
-        color: #ffffff;
         flex-shrink: 0;
       }
       p {
@@ -115,7 +150,6 @@
         text-align: right;
         letter-spacing: 1px;
         text-transform: uppercase;
-        color: #ffffff;
         flex-shrink: 0;
         margin: 0;
         cursor: pointer;

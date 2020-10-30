@@ -24,7 +24,9 @@ function* forgotStepOne({ email }) {
     yield put({ type: PASSWORD_REQUESTING_SUCCESS, data: response.data })
     yield put(replace('/login/forgotstep2'))
   } catch (error) {
-    yield put({ type: PASSWORD_REQUESTING_ERROR, error })
+    if (error.response) {
+      yield put({ type: PASSWORD_REQUESTING_ERROR, error: error.response.data.error })
+    }
   }
 }
 
@@ -35,7 +37,9 @@ function* forgotStepThree({ payload }) {
     removeItems(['authorization-token', 'user-id'])
     yield put(replace('/login/forgotstep4'))
   } catch (error) {
-    yield put({ type: PASSWORD_CREATING_ERROR, error })
+    if (error.response) {
+      yield put({ type: PASSWORD_CREATING_ERROR, error: error.response.data.error })
+    }
   }
 }
 

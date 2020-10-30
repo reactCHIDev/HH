@@ -1,25 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import T from 'prop-types'
 import s from './menucrosshair.module.scss'
 
-const MenuCrosshair = ({ data, func }) => {
-  const [isMenuVisible, setIsMenuVisible] = useState(false)
-
-  const switchNav = (e) => {
-    if (func) func(!isMenuVisible)
-    setIsMenuVisible((isMenuVisible) => {
-      // document.body.style.position = isMenuVisible ? 'static' : 'fixed'
-      // document.body.style.overflowY = isMenuVisible ? 'visible' : 'scroll'
-      return !isMenuVisible
-    })
-  }
-
+const MenuCrosshair = ({ visible }) => {
   return (
     <div className={s.container}>
-      <div
-        className={`${isMenuVisible ? s.nav__opener_opened : s.nav__opener}`}
-        onClick={switchNav}
-      >
+      <div className={`${visible ? s.nav__opener_opened : s.nav__opener}`}>
         <span className={s.upper} />
         <span className={s.middle} />
         <span className={s.lower} />
@@ -29,8 +15,7 @@ const MenuCrosshair = ({ data, func }) => {
 }
 
 MenuCrosshair.propTypes = {
-  data: T.string,
-  func: T.func,
+  visible: T.bool.isRequired,
 }
 
 export default MenuCrosshair
