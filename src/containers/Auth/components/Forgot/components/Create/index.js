@@ -1,24 +1,16 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
-import * as jwt from 'jsonwebtoken'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
 import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import styles from './create.module.scss'
 
-const Create = ({ close, onSubmit }) => {
-  let { user } = useParams()
-  console.log('user', user)
+const Create = ({ onSubmit }) => {
+  const [type, setType] = useState('password')
+
   const { register, handleSubmit, errors, watch } = useForm({
     mode: 'onBlur',
   })
-
-  const backToLogin = () => {
-    if (typeof close === 'function') close()
-  }
-
-  const [type, setType] = useState('password')
 
   const togglePassword = () => {
     setType(type === 'password' ? 'text' : 'password')
@@ -72,8 +64,7 @@ const Create = ({ close, onSubmit }) => {
 }
 
 Create.propTypes = {
-  close: T.func,
-  onSubmit: T.func,
+  onSubmit: T.func.isRequired,
 }
 
 export default Create

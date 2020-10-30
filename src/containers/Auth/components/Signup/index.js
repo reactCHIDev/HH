@@ -15,7 +15,8 @@ const Signup = ({ signupRequest }) => {
   const generateLink = (credentials) => {
     const { email } = credentials
     const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
-    const url = 'https://hungryhugger.wildwebart.com'
+    // const url = 'https://hungryhugger.wildwebart.com'
+    const url = 'localhost:3000'
     return url + '/login/confirmemail' + token
   }
 

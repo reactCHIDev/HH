@@ -5,7 +5,6 @@ import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { passwordRequest, passwordCreate } from 'actions/forgot'
 import Tint from 'components/Tint'
-import Error from './components/Error'
 import EnterMail from './components/EnterMail'
 import CheckMail from './components/CheckMail'
 import Create from './components/Create'
@@ -13,20 +12,21 @@ import ToSignin from './components/ToSignin'
 import styles from './forgot.module.scss'
 
 const Forgot = (props) => {
-  const { passwordRequest, passwordCreate, step, token, url, req, err, close, push } = props
-  console.log('%c   props   ', 'color: darkgreen; background: palegreen;', props.params)
-
-  console.log('%c   token   ', 'color: white; background: blue;', token)
-
+  const {
+    passwordRequest,
+    passwordCreate,
+    step,
+    token,
+    url,
+    req,
+    err,
+    close,
+    invalidLink,
+    push,
+  } = props
   const jwtData = token ? jwt.decode(token, 'secret') : null
   const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
-  if (!valid) {
-    close()
-    alert('Your link is expired. Try to restore password again.')
-  }
-
-  console.log('jwtData', jwtData)
-  console.log('valid', valid)
+  if (!valid) invalidLink()
 
   const onEmail = (data) => {
     passwordRequest(data.email)
@@ -34,26 +34,22 @@ const Forgot = (props) => {
 
   const onPasswordCreate = (submitData) => {
     const payload = {
-      secretLink: 'https://hungryhugger.wildwebart.com' + url,
+      // secretLink: 'https://hungryhugger.wildwebart.com' + url,
+      secretLink: 'localhost:3000' + url,
       email: jwtData.email,
       password: submitData.password,
     }
     passwordCreate(payload)
+    close()
   }
 
   return (
     <div className={styles.container}>
-      {err ? (
-        <Error close={close} />
-      ) : (
-        <>
-          {req && <Tint />}
-          {step == 1 && <EnterMail onSubmit={onEmail} />}
-          {step == 2 && <CheckMail close={close} />}
-          {step == 3 && valid && <Create onSubmit={onPasswordCreate} />}
-          {step == 4 && <ToSignin close={close} />}
-        </>
-      )}
+      {req && <Tint />}
+      {step == 1 && <EnterMail onSubmit={onEmail} />}
+      {step == 2 && <CheckMail close={close} />}
+      {step == 3 && valid && <Create onSubmit={onPasswordCreate} />}
+      {step == 4 && <ToSignin close={close} />}
     </div>
   )
 }
@@ -67,14 +63,14 @@ Forgot.propTypes = {
   token: T.string,
   url: T.string,
   req: T.bool,
-  err: T.bool,
+  err: T.string,
 }
 
 export default connect(
   ({ router, login }) => ({
     url: router.location.pathname,
     req: login.requesting,
-    err: login.forgotProcess.error,
+    err: login.error,
   }),
   {
     passwordRequest,

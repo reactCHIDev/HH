@@ -3,6 +3,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGIN_ERROR_RESET,
+  LINK_ERROR_SET,
   LOGOUT,
   REFRESH_TOKEN_SUCCESS,
   PASSWORD_CREATING,
@@ -60,6 +61,11 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         ...state,
         error: '',
+      }
+    case LINK_ERROR_SET:
+      return {
+        ...state,
+        error: 'Your link is expired !!!',
       }
 
     case LOGOUT:

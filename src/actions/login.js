@@ -3,6 +3,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGIN_ERROR_RESET,
+  LINK_ERROR_SET,
   LOGOUT,
 } from './constants'
 
@@ -24,6 +25,10 @@ export const loginFailed = (payload) => ({
 
 export const logout = () => ({
   type: LOGOUT,
+})
+
+export const invalidLink = () => ({
+  type: LINK_ERROR_SET,
 })
 
 export const loginErrorReset = () => ({
