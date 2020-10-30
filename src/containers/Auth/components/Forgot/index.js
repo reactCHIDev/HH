@@ -34,8 +34,8 @@ const Forgot = (props) => {
 
   const onPasswordCreate = (submitData) => {
     const payload = {
-      // secretLink: 'https://hungryhugger.wildwebart.com' + url,
-      secretLink: 'localhost:3000' + url,
+      secretLink: 'https://hungryhugger.wildwebart.com' + url,
+      // secretLink: 'localhost:3000' + url,
       email: jwtData.email,
       password: submitData.password,
     }

@@ -60,7 +60,11 @@ function App({ pathname }) {
         <ConnectionProvider>
           {pathname !== '/signupflow' && <Header dark logoText />}
           <Switch>
-            <PublicRoute exact path={desktop.home} component={WaitingComponent(Home)} />
+            <PublicRoute
+              exact
+              path={desktop.home}
+              component={WaitingComponent(FoodmakersLanding)}
+            />
             <PublicRoute
               exact
               path="/login"

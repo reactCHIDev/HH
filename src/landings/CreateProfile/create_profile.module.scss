@@ -116,9 +116,30 @@ main {
           width: 100%;
           margin-bottom: 20px;
         }
-        img {
-          width: 100%;
+        .img_wrapper {
+          width: 290px;
+          height: 221px;
+          border-radius: 16px;
+          background: white;
           margin-bottom: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .glue {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            .img1 {
+              position: absolute;
+              top: 70px;
+              left: 50px;
+            }
+            .img2 {
+              position: absolute;
+              top: 46px;
+              left: 134px;
+            }
+          }
         }
         h2 {
           font-style: normal;
@@ -156,29 +177,6 @@ main {
         }
       }
     }
-  }
-
-  .learn_more {
-    margin-bottom: 100px;
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 0 73px 80px;
-    position: relative;
-    @media (max-width: 768px) {
-      padding: 0 20px 50px;
-    }
-
-    .glass {
-      width: 128px;
-      position: absolute;
-      left: 73px;
-      top: -80px;
-      z-index: 3;
-      @media (max-width: 1024px) {
-        display: none;
-      }
-    }
-
     .btn {
       width: 240px;
       height: 56px;
@@ -195,6 +193,29 @@ main {
       margin: 0 auto 20px;
       display: block;
     }
+  }
+
+  .learn_more {
+    margin-bottom: 100px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 56px 73px 80px;
+    position: relative;
+    @media (max-width: 768px) {
+      padding: 0 20px 50px;
+    }
+
+    .glass {
+      width: 128px;
+      position: absolute;
+      left: 73px;
+      top: -80px;
+      z-index: 3;
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+
     h2 {
       font-style: normal;
       font-weight: bold;

@@ -65,7 +65,7 @@ const Header = ({ authorized, logOut, pushRoute, dark = false, logoText = false 
         <div className={styles.menu_btn} onClick={toggleMenu}>
           <MenuBtn visible={menu} />
         </div>
-        <div className={styles.logo} onClick={clickLogo}>
+        <div className={styles.logo}>
           <img className={styles.logo_img} src={Logo} alt="logo" />
           {logoText && <p className={styles.logo_text}>hungry hugger</p>}
         </div>
@@ -114,7 +114,7 @@ const Header = ({ authorized, logOut, pushRoute, dark = false, logoText = false 
               <path d="M18 18L22 22" stroke={dark ? 'white' : '#31394D'} strokeWidth="1.5" />
             </svg>
           </li>
-          <li>
+          <li className={styles.hide}>
             <svg
               width="19"
               height="19"
@@ -130,7 +130,7 @@ const Header = ({ authorized, logOut, pushRoute, dark = false, logoText = false 
               />
             </svg>
           </li>
-          <li>
+          <li className={styles.hide}>
             <svg
               width="19"
               height="19"

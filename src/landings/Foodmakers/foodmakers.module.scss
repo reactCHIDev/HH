@@ -93,6 +93,9 @@ main {
     display: flex;
     justify-content: space-between;
     margin-bottom: 100px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 56px 73px 80px;
     @media (max-width: 768px) {
       flex-direction: column;
       width: 100%;
