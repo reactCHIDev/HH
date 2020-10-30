@@ -41,12 +41,12 @@ const Login = (props) => {
 
   const forgotClose = () => {
     loginErrorReset()
-    pushRoute('/login/regular')
+    replaceRoute('/login/regular')
   }
 
   const errorReset = () => {
     loginErrorReset()
-    if (error === 'Your link is expired !!!') pushRoute('/login/regular')
+    if (error === 'Your link is expired !!!') replaceRoute('/login/regular')
   }
 
   const [type, setType] = useState('password')

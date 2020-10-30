@@ -14,7 +14,7 @@ import {
 } from '../actions/constants'
 
 function* forgotStepOne({ email }) {
-  const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
+  const token = jwt.sign({ email }, 'secret', { expiresIn: 3600 })
   const url = true ? 'https://hungryhugger.wildwebart.com' : 'localhost:3000'
   const data = { email, secretLink: `${url}/login/forgotstep3${token}` }
   const hide = message.loading('Wait please..', 2)
