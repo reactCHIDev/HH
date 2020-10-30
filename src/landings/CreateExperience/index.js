@@ -34,7 +34,7 @@ const CreateExperience = () => {
 
         <section className={cls(styles.standart_section, styles.reverse)}>
           <div className={styles.description}>
-            <img className={styles.calendar} src={calendar} alt="calendar" />
+            <img className={styles.calendar} src={mixer} alt="calendar" />
 
             <h2>The booking platform that empowers you</h2>
             <p>
@@ -102,7 +102,7 @@ const CreateExperience = () => {
         </button>
 
         <section className={styles.learn_more}>
-          <img className={styles.mixer} src={mixer} alt="mixer" />
+          <img className={styles.mixer} src={calendar} alt="mixer" />
 
           <h2>Learn more about other dedicated food makers</h2>
           <div className={styles.cards_wrapper}>

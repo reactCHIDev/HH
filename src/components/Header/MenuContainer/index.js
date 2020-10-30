@@ -20,11 +20,11 @@ const items = {
     { img: CreateShop, heading: 'Create Shop', route: '/landing/create_shop' },
   ],
   explore: [
-    { img: FoodExperience, heading: 'Food Experience', route: '/login' },
-    { img: FoodMakers, heading: 'Food Makers', route: '/signup' },
-    { img: Products, heading: 'Products', route: '/card' },
-    { img: Blog, heading: 'Blog', route: '/login' },
-    { img: FAQ, heading: 'FAQ', route: '/signup' },
+    { img: FoodExperience, heading: 'Food Experience', route: '/landing/create_experience' },
+    { img: FoodMakers, heading: 'Food Makers', route: '/landing/foodmakers' },
+    { img: Products, heading: 'Products', route: '/landing/foodmakers' },
+    { img: Blog, heading: 'Blog', route: '/landing/foodmakers' },
+    { img: FAQ, heading: 'FAQ', route: '/landing/foodmakers' },
   ],
 }
 

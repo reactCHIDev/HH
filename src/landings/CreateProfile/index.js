@@ -8,6 +8,10 @@ import sec23 from 'assets/images/landings/create_profile/sec23.jpg'
 import sec31 from 'assets/images/landings/create_profile/sec41.jpg'
 import sec32 from 'assets/images/landings/create_profile/sec42.jpg'
 import sec33 from 'assets/images/landings/create_profile/sec43.jpg'
+import how1 from 'assets/images/landings/create_profile/howitworks1.svg'
+import how2 from 'assets/images/landings/create_profile/howitworks2.svg'
+import how31 from 'assets/images/landings/create_profile/howitworks31.svg'
+import how32 from 'assets/images/landings/create_profile/howitworks32.svg'
 import cake from 'assets/images/landings/create_profile/cake.svg'
 import glass from 'assets/images/landings/create_profile/glass.svg'
 import styles from './create_profile.module.scss'
@@ -78,29 +82,37 @@ const CreateProfile = () => {
           <h2>How it works?</h2>
           <div className={styles.cards_wrapper}>
             <div className={styles.card}>
-              <img src={sec23} alt="" />
+              <div className={styles.img_wrapper}>
+                <img src={how1} alt="" />
+              </div>
               <p>1. Create a profile and list your specialty and services</p>
             </div>
             <div className={styles.card}>
-              <img src={sec23} alt="" />
+              <div className={styles.img_wrapper}>
+                <img src={how2} alt="" />
+              </div>
               <p>
                 2. Users can browse your profile and services and send you enquiries or booking
                 request.
               </p>
             </div>
             <div className={styles.card}>
-              <img src={sec23} alt="" />
+              <div className={styles.img_wrapper}>
+                <div className={styles.glue}>
+                  <img className={styles.img1} src={how31} alt="" />
+                  <img className={styles.img2} src={how32} alt="" />
+                </div>
+              </div>
               <p>3. Review requests, send quotes and get hired.</p>
             </div>
           </div>
+          <button type="button" className={styles.btn}>
+            Let's start!
+          </button>
         </section>
 
         <section className={styles.learn_more}>
           <img className={styles.glass} src={glass} alt="glass" />
-
-          <button type="button" className={styles.btn}>
-            Start today
-          </button>
           <h2>Learn more about other dedicated food makers</h2>
           <div className={styles.cards_wrapper}>
             <div className={styles.card}>

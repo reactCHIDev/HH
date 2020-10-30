@@ -19,7 +19,7 @@ function* loginFlow({ creds }) {
     ]
     yield setItems(localData)
     yield put({ type: LOGIN_SUCCESS })
-    yield put(push('/card'))
+    yield put(push('/'))
   } catch (error) {
     if (error.response) {
       yield put({ type: LOGIN_ERROR, error: error.response.data.error })
