@@ -2,6 +2,7 @@ import {
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGIN_ERROR_RESET,
   LOGOUT,
   REFRESH_TOKEN_SUCCESS,
   PASSWORD_CREATING,
@@ -18,14 +19,8 @@ const initialState = {
   requesting: false,
   authorized: isLogin,
   messages: [],
-  errors: [],
+  error: '',
   isTokenValid: false,
-  forgotProcess: {
-    step1: '',
-    step2: '',
-    step3: '',
-    step4: '',
-  },
 }
 
 const reducer = function loginReducer(state = initialState, action) {
@@ -34,6 +29,7 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         ...state,
         requesting: true,
+        error: '',
       }
     case PASSWORD_REQUESTING:
       return {
@@ -58,12 +54,12 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         ...state,
         requesting: false,
-        errors: state.errors.concat([
-          {
-            body: action.error.toString(),
-            time: new Date(),
-          },
-        ]),
+        error: action.error,
+      }
+    case LOGIN_ERROR_RESET:
+      return {
+        ...state,
+        error: '',
       }
 
     case LOGOUT:
@@ -76,50 +72,24 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         ...state,
         requesting: false,
-        forgotProcess: {
-          error: false,
-          step1: 'success',
-          step2: '',
-          step3: '',
-          step4: '',
-        },
       }
     case PASSWORD_REQUESTING_ERROR:
       return {
         ...state,
         requesting: false,
-        forgotProcess: {
-          error: true,
-          step1: 'error',
-          step2: '',
-          step3: '',
-          step4: '',
-        },
+        error: action.error,
       }
 
     case PASSWORD_CREATING_SUCCESS:
       return {
         ...state,
         requesting: false,
-        forgotProcess: {
-          error: false,
-          step1: 'success',
-          step2: '',
-          step3: 'success',
-          step4: '',
-        },
       }
     case PASSWORD_CREATING_ERROR:
       return {
         ...state,
         requesting: false,
-        forgotProcess: {
-          error: true,
-          step1: 'success',
-          step2: '',
-          step3: 'error',
-          step4: '',
-        },
+        error: action.error,
       }
 
     case REFRESH_TOKEN_SUCCESS:

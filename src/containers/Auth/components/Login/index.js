@@ -6,18 +6,18 @@ import { push, replace } from 'connected-react-router'
 import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
-import { loginRequest } from 'actions/login'
+import { loginRequest, loginErrorReset } from 'actions/login'
+import Error from 'containers/Auth/components/Forgot/components/Error'
 import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import T from 'prop-types'
 import styles from './login.module.scss'
 
 const Login = (props) => {
-  const { loginRequest, push } = props
+  const { loginRequest, pushRoute, replaceRoute, error, loginErrorReset } = props
   const { step } = useParams()
 
-  if (step.substring(0, 12) === 'confirmemail') replace('/login/regular')
-
+  if (step.substring(0, 12) === 'confirmemail') replaceRoute('/login/regular')
   const steps = new Set(['forgotstep1', 'forgotstep2', 'forgotstep3', 'forgotstep4'])
   const isForgotRoute = steps.has(step.substring(0, 11))
   let forgotStep = ''
@@ -28,8 +28,6 @@ const Login = (props) => {
       token = step.substring(11)
     }
   }
-  console.log('%c   isForgotRoute   ', 'color: white; background: salmon;', isForgotRoute)
-  console.log('%c   forgotStep   ', 'color: white; background: salmon;', forgotStep)
 
   const { register, handleSubmit, errors } = useForm()
 
@@ -38,11 +36,15 @@ const Login = (props) => {
   }
 
   const forgotProcess = () => {
-    push('/login/forgotstep1')
+    pushRoute('/login/forgotstep1')
   }
 
   const forgotClose = () => {
-    push('/login/regular')
+    pushRoute('/login/regular')
+  }
+
+  const errorReset = () => {
+    loginErrorReset()
   }
 
   const [type, setType] = useState('password')
@@ -106,14 +108,26 @@ const Login = (props) => {
           <Forgot step={forgotStep} close={forgotClose} token={token} />
         </Modal>
       )}
+      {error && (
+        <Modal closeFunc={errorReset} mode="dark">
+          <Error message={error} close={errorReset} />
+        </Modal>
+      )}
     </div>
   )
 }
 
 Login.propTypes = {
-  loginRequest: T.func,
-  push: T.func,
-  replace: T.func,
+  loginRequest: T.func.isRequired,
+  pushRoute: T.func.isRequired,
+  replaceRoute: T.func.isRequired,
+  loginErrorReset: T.func.isRequired,
+  error: T.string.isRequired,
 }
 
-export default connect(null, { loginRequest, push, replace })(Login)
+export default connect(({ login: { error } }) => ({ error }), {
+  loginRequest,
+  pushRoute: push,
+  replaceRoute: replace,
+  loginErrorReset,
+})(Login)

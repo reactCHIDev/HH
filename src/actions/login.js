@@ -1,4 +1,10 @@
-import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from './constants'
+import {
+  LOGIN_REQUESTING,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGIN_ERROR_RESET,
+  LOGOUT,
+} from './constants'
 
 export const loginRequest = (creds, resolve, reject) => ({
   type: LOGIN_REQUESTING,
@@ -18,4 +24,8 @@ export const loginFailed = (payload) => ({
 
 export const logout = () => ({
   type: LOGOUT,
+})
+
+export const loginErrorReset = () => ({
+  type: LOGIN_ERROR_RESET,
 })

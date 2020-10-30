@@ -41,18 +41,18 @@ const Footer = () => {
 
       <div className={cls(styles.section, styles.explore)}>
         <ul>
-          <li>Experiences</li>
-          <li>Hosts</li>
-          <li>Brands</li>
+          <li>Food Experiences</li>
+          <li>Food Makers</li>
+          <li>Shop</li>
         </ul>
         <h5>Explore</h5>
       </div>
 
       <div className={styles.section}>
         <ul>
-          <li>HH.Magazine</li>
+          <li>Blog</li>
           <li>FAQ</li>
-          <li>Become a Host</li>
+          <li>Get Hired</li>
         </ul>
         <h5>Community</h5>
       </div>
@@ -67,5 +67,7 @@ const Footer = () => {
     </div>
   )
 }
+
+Footer.propTypes = {}
 
 export default Footer

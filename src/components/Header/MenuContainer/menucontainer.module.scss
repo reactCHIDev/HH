@@ -1,0 +1,76 @@
+@import 'styles/core/colors.scss';
+
+.dark {
+  background: $black;
+  color: white;
+}
+.light {
+  background: white;
+  color: $black;
+}
+.onstart {
+  opacity: 0;
+}
+.mount {
+  opacity: 1;
+}
+.container {
+  position: absolute;
+  top: 70px;
+  left: 0px;
+  transition: opacity 0.4s ease-out;
+  width: 100%;
+  @media (max-width: 1024px) {
+    width: 320px;
+    height: 80vh;
+    overflow: auto;
+    padding: 20px;
+  }
+
+  .content {
+    .menu_container {
+      background: inherit;
+      color: inherit;
+      display: flex;
+      @media (max-width: 1024px) {
+        margin: 20px 0;
+        flex-direction: column;
+      }
+
+      .item {
+        list-style: none;
+        cursor: pointer;
+
+        &:hover > .img_container {
+          opacity: 1;
+        }
+        &:hover > .item_text {
+          opacity: 1;
+        }
+        .img_container {
+          width: 211px;
+          height: 120px;
+          border-radius: 16px;
+          opacity: 0.8;
+          margin: 16px 40px 16px 0;
+          overflow: hidden;
+
+          .item_img {
+            width: 100%;
+          }
+        }
+        .item_text {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 23px;
+          display: flex;
+          align-items: center;
+          letter-spacing: 0.5px;
+          color: #ffffff;
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
