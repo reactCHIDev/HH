@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as jwt from 'jsonwebtoken'
 import _ from 'lodash/fp'
 import PATHS from 'api/paths'
+import Tint from 'components/Tint'
 import { Link } from 'react-router-dom'
 import { signupRequest } from 'actions/signup'
 import { getUserByName, getUserByEmail } from 'api/requests/Auth'
@@ -11,7 +12,7 @@ import { getUserByName, getUserByEmail } from 'api/requests/Auth'
 import T from 'prop-types'
 import styles from './signup.module.scss'
 
-const Signup = ({ signupReq }) => {
+const Signup = ({ signupReq, req }) => {
   const { register, handleSubmit, errors, watch } = useForm()
 
   console.log(
@@ -35,6 +36,7 @@ const Signup = ({ signupReq }) => {
 
   return (
     <div className={styles.container}>
+      {req && <Tint />}
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign up</h1>
         <input
@@ -116,6 +118,9 @@ const Signup = ({ signupReq }) => {
 
 Signup.propTypes = {
   signupReq: T.func,
+  req: T.bool,
 }
 
-export default connect(null, { signupReq: signupRequest })(Signup)
+export default connect(({ signup: { requesting: req } }) => ({ req }), {
+  signupReq: signupRequest,
+})(Signup)
