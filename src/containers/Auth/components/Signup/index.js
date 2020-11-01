@@ -14,6 +14,11 @@ import styles from './signup.module.scss'
 const Signup = ({ signupReq }) => {
   const { register, handleSubmit, errors, watch } = useForm()
 
+  console.log(
+    '%c   url   ',
+    'color: darkgreen; background: palegreen;',
+    process.env.REACT_APP_BASE_URL,
+  )
   const generateLink = (credentials) => {
     const { email } = credentials
     const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
