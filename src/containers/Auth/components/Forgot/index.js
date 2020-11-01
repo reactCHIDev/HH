@@ -5,6 +5,7 @@ import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { passwordRequest, passwordCreate } from 'actions/forgot'
 import Tint from 'components/Tint'
+import PATHS from 'api/paths'
 import EnterMail from './components/EnterMail'
 import CheckMail from './components/CheckMail'
 import Create from './components/Create'
@@ -34,8 +35,7 @@ const Forgot = (props) => {
 
   const onPasswordCreate = (submitData) => {
     const payload = {
-      secretLink: 'https://hungryhugger.wildwebart.com' + url,
-      // secretLink: 'localhost:3000' + url,
+      secretLink: PATHS.url + url,
       email: jwtData.email,
       password: submitData.password,
     }

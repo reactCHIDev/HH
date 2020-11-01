@@ -1,12 +1,26 @@
-const initialState = false
+const initialState = {
+  error: false,
+}
 
 const reducer = (state = initialState, { payload, type }) => {
   switch (type) {
     case 'SIGNUP_REQUESTING':
-      return true
+      return {
+        ...state,
+        error: true,
+      }
 
     case 'SIGNUP_ERROR':
-      return false
+      return {
+        ...state,
+        error: false,
+      }
+
+    case 'USER':
+      return {
+        ...state,
+        error: false,
+      }
 
     default:
       return state

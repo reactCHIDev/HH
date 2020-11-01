@@ -1,4 +1,4 @@
-import { SIGNUP_REQUESTING, SIGNUP_FLAG_RESET } from './constants'
+import { SIGNUP_REQUESTING, SIGNUP_FLAG_RESET, GET_USER_BY_NAME } from './constants'
 
 export const signupRequest = (credentials, resolve, reject) => {
   return {
@@ -12,5 +12,12 @@ export const signupRequest = (credentials, resolve, reject) => {
 export const signupFlagReset = () => {
   return {
     type: SIGNUP_FLAG_RESET,
+  }
+}
+
+export const getUserByName = (name) => {
+  return {
+    type: GET_USER_BY_NAME,
+    name,
   }
 }

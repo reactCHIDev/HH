@@ -1,6 +1,9 @@
 export default {
+  url: true ? process.env.REACT_APP_BASE_URL : 'localhost:3000',
+
   // Test
-  superadmin: '/v1/user/profile_name/SuperAdmin',
+  userbyname: '/v1/user/profile_name/',
+  userbyemail: '/v1/user/email/',
   getCities: '/v1/city/list',
 
   // Auth
