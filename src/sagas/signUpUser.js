@@ -11,6 +11,7 @@ import { getUserByName, signUpUser } from 'api/requests/Auth/index'
 function* signUpProcess({ credentials }) {
   try {
     yield signUpUser(credentials)
+    yield put({ type: SIGNUP_SUCCESS })
     yield put(push('/login'))
   } catch (error) {
     yield put({ type: SIGNUP_ERROR })

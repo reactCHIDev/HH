@@ -1,4 +1,5 @@
 const initialState = {
+  requesting: false,
   error: false,
 }
 
@@ -7,19 +8,20 @@ const reducer = (state = initialState, { payload, type }) => {
     case 'SIGNUP_REQUESTING':
       return {
         ...state,
-        error: true,
+        requesting: true,
+        error: false,
+      }
+    case 'SIGNUP_SUCCESS':
+      return {
+        ...state,
+        requesting: false,
       }
 
     case 'SIGNUP_ERROR':
       return {
         ...state,
-        error: false,
-      }
-
-    case 'USER':
-      return {
-        ...state,
-        error: false,
+        requesting: false,
+        error: true,
       }
 
     default:
