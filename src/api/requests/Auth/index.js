@@ -4,7 +4,8 @@ import PATHS from 'api/paths'
 export const signUpUser = (data) => apiClient.post(PATHS.signUpUser, { data })
 export const login = (data) => apiClient.post(PATHS.loginUser, { data })
 export const logout = () => apiClient.patch(PATHS.logout)
-export const getSuperAdmin = () => apiClient.get(PATHS.superadmin)
+export const getUserByName = (name) => apiClient.get(PATHS.userbyname + name)
+export const getUserByEmail = (email) => apiClient.get(PATHS.userbyemail + email)
 export const forgotStep1 = (data) => apiClient.post(PATHS.forgotStep1, { data })
 export const forgotStep3 = (data) => apiClient.post(PATHS.forgotStep3, { data })
 
