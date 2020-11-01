@@ -51,7 +51,7 @@ function WaitingComponent(Component) {
 }
 
 function App({ pathname }) {
-  const url = process.env.REACT_APP_BASE_URL
+  const url = `${process.env.REACT_APP_BASE_URL}/api`
   setBaseEndpoint(url)
 
   return (
