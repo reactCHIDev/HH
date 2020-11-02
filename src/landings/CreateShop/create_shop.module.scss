@@ -367,6 +367,11 @@ main {
   flex-direction: row-reverse;
 }
 
+.body_section {
+  max-width: 1008px;
+  margin: auto;
+}
+
 .standart_section {
   display: flex;
   padding: 0;

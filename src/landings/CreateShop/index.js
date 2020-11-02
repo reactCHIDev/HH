@@ -34,7 +34,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <img className={styles.label} src={label} alt="label" />
 
@@ -51,7 +51,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={styles.standart_section}>
+        <section className={cls(styles.standart_section, styles.body_section)}>
           <div className={styles.description}>
             <h2>Time to prepare</h2>
             <p>
@@ -66,7 +66,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <h2>Connecting your customer both offline and online</h2>
             <p>
@@ -79,7 +79,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles)}>
+        <section className={cls(styles.standart_section, styles.body_section)}>
           <div className={styles.description}>
             <h2>Turn analytics into action</h2>
             <p>

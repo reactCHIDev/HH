@@ -32,7 +32,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <img className={styles.calendar} src={mixer} alt="calendar" />
 
@@ -49,7 +49,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={styles.standart_section}>
+        <section className={cls(styles.standart_section, styles.body_section)}>
           <div className={styles.description}>
             <h2>There is no template</h2>
             <p>
@@ -69,7 +69,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <h2>Not just another footnote</h2>
             <p>
@@ -83,7 +83,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles)}>
+        <section className={cls(styles.standart_section, styles.body_section)}>
           <div className={styles.description}>
             <h2>Turn analytics into action</h2>
             <p>
