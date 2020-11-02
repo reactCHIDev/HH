@@ -29,6 +29,7 @@ const Login = lazy(() => import('containers/Auth/components/Login'))
 const Signup = lazy(() => import('containers/Auth/components/Signup'))
 const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
+const Account = lazy(() => import('containers/Dashboard/components/Account'))
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
@@ -58,7 +59,11 @@ function App({ pathname }) {
     <div className={styles.container}>
       <ConnectedRouter history={history}>
         <ConnectionProvider>
-          {pathname !== '/signupflow' && <Header dark logoText />}
+          {pathname !== '/signupflow' && pathname !== '/dashboard/profile' ? (
+            <Header dark logoText />
+          ) : (
+            <Header logoText />
+          )}
           <Switch>
             <PublicRoute
               exact
@@ -97,6 +102,7 @@ function App({ pathname }) {
             <PublicRoute exact path="/tabs" component={() => <Test />} />
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
+            <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
             <Route exact path={desktop.card} component={Card} />
             <Route path={desktop.test} component={() => <div>"/test" routing successful</div>} />
             <Route path="/*" component={WaitingComponent(PageNotFound)} />
