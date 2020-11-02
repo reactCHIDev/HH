@@ -33,7 +33,7 @@ const CreateProfile = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <img className={styles.cake} src={cake} alt="cake" />
             <h2>Digital without the hassle</h2>
@@ -48,7 +48,7 @@ const CreateProfile = () => {
           </div>
         </section>
 
-        <section className={styles.standart_section}>
+        <section className={cls(styles.standart_section, styles.body_section)}>
           <div className={styles.description}>
             <h2>Not just another footnote</h2>
             <p>
@@ -65,7 +65,7 @@ const CreateProfile = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <h2>Get hired</h2>
             <p>

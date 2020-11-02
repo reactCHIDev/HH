@@ -56,7 +56,7 @@ const Foodmakers = () => {
           <h5 className={styles.sec2subhead}>Be seen consistently and reach new customers.</h5>
         </div>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <h2>Boost your online presence with your professional profile</h2>
             <p>
@@ -72,7 +72,7 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <section className={styles.standart_section}>
+        <section className={cls(styles.standart_section, styles.body_section)}>
           <div className={styles.description}>
             <h2>List your experience and events where curious food lovers are</h2>
             <p>Reach new audience with a diverse yet targeted food and drink makers community.</p>
@@ -85,7 +85,7 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.reverse)}>
+        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <h2>One place to manage all your products and experiences</h2>
             <p>
