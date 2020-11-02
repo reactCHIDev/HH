@@ -1,5 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
+import { connect } from 'react-redux'
 import { Upload } from 'antd'
 // import ImgCrop from 'antd-img-crop'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
@@ -10,11 +11,11 @@ import styles from './account.module.scss'
 import './account.less'
 
 const Account = (props) => {
-  const { x } = props
+  const { profileName } = props
 
   return (
     <div className={styles.container}>
-      <p className={styles.heading}>Alex's account info</p>
+      <p className={styles.heading}>{`${profileName}'s account info`}</p>
       <TabsUnderlined
         tabs={{
           bookmark: { mark: false, content: null },
@@ -24,7 +25,7 @@ const Account = (props) => {
           },
           review: { mark: true, content: null },
           'blog submission': { mark: false, content: <Comp /> },
-          profile: { mark: false, content: <Profile /> },
+          profile: { mark: false, content: <Profile profileName={profileName} /> },
         }}
       />
     </div>
@@ -32,16 +33,7 @@ const Account = (props) => {
 }
 
 Account.propTypes = {
-  a: T.number.isRequired,
-  b: T.string.isRequired,
-  c: T.bool.isRequired,
-  f: T.func.isRequired,
-  tabs: T.shape({
-    name: T.shape({
-      mark: T.bool,
-      content: T.node,
-    }).isRequired,
-  }).isRequired,
+  profileName: T.string.isRequired,
 }
 
-export default Account
+export default connect(({ login: { profileName } }) => ({ profileName }), null)(Account)
