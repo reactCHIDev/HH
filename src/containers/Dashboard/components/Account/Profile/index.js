@@ -6,9 +6,9 @@ import ImgCrop from 'antd-img-crop'
 import styles from './profile.module.scss'
 import './profile.less'
 
-const Profile = (props) => {
+const Profile = ({ profileName }) => {
   const [fileList, setFileList] = useState([])
-  const [name, setName] = useState('Alex Dakaskos')
+  const [name, setName] = useState(profileName)
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList)

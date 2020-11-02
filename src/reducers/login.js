@@ -17,6 +17,7 @@ import {
 const isLogin = !!JSON.parse(localStorage.getItem('authorization-token'))
 
 const initialState = {
+  profileName: '',
   requesting: false,
   authorized: isLogin,
   messages: [],
@@ -46,6 +47,7 @@ const reducer = function loginReducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        profileName: action.name,
         requesting: false,
         feed: action.response,
         authorized: true,
