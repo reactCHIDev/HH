@@ -17,7 +17,7 @@ const TabsUnderlined = ({ tabs }) => {
       <Tabs
         defaultActiveKey="1"
         tabPosition="top"
-        tabBarGutter={40}
+        tabBarGutter={20}
         onChange={callback}
         tabBarStyle={{
           background: '#F5F8FB',

@@ -21,11 +21,15 @@
   .ant-tabs-nav-list
   .ant-tabs-tab {
   font-size: 14px;
+  padding: 0 10px;
 }
 
 .tabs-underlined-container .ant-tabs-top > .ant-tabs-nav {
   margin: 0;
-  padding: 0 50px;
+  padding: 0 40px;
+  @media (max-width: 768px) {
+    padding: 0px;
+  }
 }
 
 .tabs-underlined-container .ant-tabs .ant-tabs-content-holder {
