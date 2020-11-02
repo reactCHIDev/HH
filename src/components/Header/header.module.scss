@@ -13,10 +13,10 @@
   }
   .dark {
     background: $black;
-    color: white;
+    color: #f5f8fb;
   }
   .light {
-    background: white;
+    background: #f5f8fb;
     color: $black;
   }
   .container {
@@ -30,7 +30,7 @@
     height: 70px;
     padding: 30px;
     margin: 0 auto;
-    box-shadow: 0px 4px 15px rgba(34, 41, 58, 1);
+    // box-shadow: 0px 4px 15px rgba(34, 41, 58, 1);
     border-bottom: 1px solid rgba(90, 96, 112, 0.4);
     @media (max-width: 768px) {
       justify-content: space-between;
@@ -81,6 +81,7 @@
         top: 70px;
         left: 0;
         background-color: $black;
+        // background-color: $white;
       }
 
       .menuitem {
