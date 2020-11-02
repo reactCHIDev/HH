@@ -108,7 +108,7 @@ const Foodmakers = () => {
               Whether you are looking to get hired or building your visibility within a speciality,
               our platform enables you to be discovered and found easily.{' '}
             </p>
-            <a href="">Learn more</a>
+            <a href="">Learn more ></a>
           </div>
           <div className={styles.card}>
             <img src={sec32} alt="" />
@@ -119,7 +119,7 @@ const Foodmakers = () => {
               brewery tours. Our platform helps you to streamline your operations, secure bookings
               and enable food lovers’ reviews for every experience to boost your sales.
             </p>
-            <a href="">Learn more</a>
+            <a href="">Learn more ></a>
           </div>
           <div className={styles.card}>
             <img src={sec33} alt="" />
@@ -129,10 +129,11 @@ const Foodmakers = () => {
               custom brew, handmade tableware or maker’s gift box that you want to share with your
               customers. You can set up your own shop and get it up and running quickly.
             </p>
-            <a href="">Learn more</a>
+            <a href="">Learn more ></a>
           </div>
         </section>
 
+        <p className={styles.faq_heading}>Frequently Asked Questions</p>
         <section className={cls(styles.section_faq, 'faq')}>
           <Collapse
             bordered={false}

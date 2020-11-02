@@ -105,17 +105,17 @@ const CreateExperience = () => {
             <div className={styles.card}>
               <img src={sec31} alt="" />
 
-              <a href="">Chef’s shop sample</a>
+              <a href="">Chef’s shop sample {'>'}</a>
             </div>
             <div className={styles.card}>
               <img src={sec32} alt="" />
 
-              <a href="">Taste Master shop sample</a>
+              <a href="">Taste Master shop sample {'>'}</a>
             </div>
             <div className={styles.card}>
               <img src={sec33} alt="" />
 
-              <a href="">Craft Maker shop sample</a>
+              <a href="">Craft Maker shop sample {'>'}</a>
             </div>
           </div>
         </section>

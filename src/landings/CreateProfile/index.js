@@ -118,17 +118,17 @@ const CreateProfile = () => {
             <div className={styles.card}>
               <img src={sec31} alt="" />
 
-              <a href="">Chef’s profile sample</a>
+              <a href="">Chef’s profile sample {'>'}</a>
             </div>
             <div className={styles.card}>
               <img src={sec32} alt="" />
 
-              <a href="">Taste Master profile sample</a>
+              <a href="">Taste Master profile sample {'>'}</a>
             </div>
             <div className={styles.card}>
               <img src={sec33} alt="" />
 
-              <a href="">Craft Maker profile sample</a>
+              <a href="">Craft Maker profile sample {'>'}</a>
             </div>
           </div>
         </section>
