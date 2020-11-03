@@ -22,37 +22,6 @@ p {
   }
   /* ================= */
 
-  .headings {
-    width: 100%;
-    max-width: 1008px;
-    text-align: center;
-    margin: 0 auto 100px;
-
-    .sec2head {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 48px;
-      line-height: 64px;
-      /* or 133% */
-
-      text-align: center;
-      letter-spacing: 0.5px;
-
-      color: #31394d;
-    }
-    .sec2subhead {
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 140%;
-      /* identical to box height, or 28px */
-
-      letter-spacing: 0.5px;
-
-      color: #6b6f7a;
-    }
-  }
-
   .card_section {
     width: 100%;
     max-width: 1008px;
@@ -163,6 +132,7 @@ p {
       color: #ffffff;
       margin: 0 auto 20px;
       display: block;
+      border: none;
     }
   }
 
@@ -207,6 +177,7 @@ p {
         line-height: 46px;
       }
     }
+
     .cards_wrapper {
       display: flex;
       justify-content: space-between;
@@ -264,14 +235,6 @@ p {
         }
       }
     }
-  }
-
-  .section_faq {
-    width: 100%;
-    max-width: 1008px;
-    background: #ffffff;
-    border-radius: 16px;
-    margin: 0 auto 150px;
   }
 
   .bottom_sec {
@@ -340,6 +303,7 @@ p {
         text-align: center;
         letter-spacing: 0.5px;
         color: #ffffff;
+        border: none;
       }
     }
   }
