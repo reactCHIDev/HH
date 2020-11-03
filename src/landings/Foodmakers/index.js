@@ -18,12 +18,10 @@ const Foodmakers = () => {
   const { Panel } = Collapse
   return (
     <>
-      <main>
+      <main className={styles.main}>
         <section className={styles.standart_section}>
           <div className={styles.description}>
-            <h2 style={{ fontSize: 56, lineHeight: '64px' }}>
-              Calling on all passionate food and drink makers!
-            </h2>
+            <p className={styles.hdr}>Calling on all passionate food and drink makers!</p>
             <p>
               Join the online marketplace connecting passionate food and drink hosts to a global
               community of food lovers.
@@ -56,9 +54,9 @@ const Foodmakers = () => {
           <h5 className={styles.sec2subhead}>Be seen consistently and reach new customers.</h5>
         </div>
 
-        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
+        <section className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
-            <h2>Boost your online presence with your professional profile</h2>
+            <p className={styles.hdr}>Boost your online presence with your professional profile</p>
             <p>
               Build a professional profile that highlights your speciality and services for event
               hire.
@@ -72,9 +70,11 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section)}>
+        <section className={cls(styles.body_section)}>
           <div className={styles.description}>
-            <h2>List your experience and events where curious food lovers are</h2>
+            <p className={styles.hdr}>
+              List your experience and events where curious food lovers are
+            </p>
             <p>Reach new audience with a diverse yet targeted food and drink makers community.</p>
             <button type="button" className={styles.btn}>
               Create experience
@@ -85,9 +85,9 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
+        <section className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
-            <h2>One place to manage all your products and experiences</h2>
+            <p className={styles.hdr}>One place to manage all your products and experiences</p>
             <p>
               Set up a shop to list your products, services and experiences – all in the one place.
             </p>
