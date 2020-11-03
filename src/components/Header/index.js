@@ -203,7 +203,7 @@ Header.propTypes = {
   authorized: T.bool.isRequired,
   logOut: T.func.isRequired,
   pushRoute: T.func.isRequired,
-  dark: T.bool.isRequired,
+  dark: T.bool,
   logoText: T.bool.isRequired,
 }
 

@@ -1,11 +1,10 @@
 import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import { Upload } from 'antd'
-// import ImgCrop from 'antd-img-crop'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Exp from 'components/Tabs/Test/Exp'
 import Comp from 'components/Tabs/Test/Comp'
+import Listings from 'containers/Dashboard/components/Account/Listings'
 import Profile from 'containers/Dashboard/components/Account/Profile'
 import styles from './account.module.scss'
 import './account.less'
@@ -19,6 +18,7 @@ const Account = (props) => {
       <TabsUnderlined
         tabs={{
           bookmark: { mark: false, content: null },
+          listings: { mark: false, content: <Listings /> },
           orders: {
             mark: false,
             content: <Exp />,

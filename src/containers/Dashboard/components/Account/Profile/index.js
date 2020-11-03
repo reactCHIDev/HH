@@ -76,16 +76,7 @@ const Profile = ({ profileName }) => {
 }
 
 Profile.propTypes = {
-  a: T.number.isRequired,
-  b: T.string.isRequired,
-  c: T.bool.isRequired,
-  f: T.func.isRequired,
-  tabs: T.shape({
-    name: T.shape({
-      mark: T.bool,
-      content: T.node,
-    }).isRequired,
-  }).isRequired,
+  profileName: T.string,
 }
 
 export default Profile

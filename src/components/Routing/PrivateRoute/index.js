@@ -19,7 +19,7 @@ function PrivateRoute(props) {
 }
 
 PrivateRoute.propTypes = {
-  component: T.node,
+  component: T.elementType,
   authorized: T.bool,
 }
 

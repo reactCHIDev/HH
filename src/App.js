@@ -61,9 +61,9 @@ function App({ pathname }) {
         <ConnectionProvider>
           {pathname !== '/signupflow' && pathname !== '/dashboard/profile' ? (
             <Header dark logoText />
-          ) : (
+          ) : pathname !== '/signupflow' ? (
             <Header logoText />
-          )}
+          ) : null}
           <Switch>
             <PublicRoute
               exact
