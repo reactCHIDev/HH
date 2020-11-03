@@ -1,5 +1,8 @@
 import React from 'react'
 import cls from 'classnames'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/create_experience/leading.jpg'
 import sec21 from 'assets/images/landings/create_experience/sec21.jpg'
@@ -11,9 +14,21 @@ import sec32 from 'assets/images/landings/create_experience/sec32.jpg'
 import sec33 from 'assets/images/landings/create_experience/sec33.jpg'
 import calendar from 'assets/images/landings/create_experience/calendar.svg'
 import mixer from 'assets/images/landings/create_experience/mixer.svg'
-import styles from './create_experience.module.scss'
+import styles from '../styles.module.scss'
 
 const CreateExperience = () => {
+  const settings = {
+    draggable: true,
+    touchThreshold: 30,
+    useCSS: true,
+    swipeToSlide: true,
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -25,8 +40,18 @@ const CreateExperience = () => {
               Let’s start!
             </button>
           </div>
-          <div className={styles.img_container}>
-            <img src={leading} alt="" className={styles.img} />
+          <div className={styles.slider_container}>
+            <Slider {...settings}>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+            </Slider>
           </div>
         </section>
 
@@ -55,10 +80,12 @@ const CreateExperience = () => {
               is no template for listing on Hungry Hugger. All it takes is a passion for food and
               drink. Some of our hosts are starting on their culinary journeys — start-ups with a
               fresh idea and an innovative approach. Others have been in the business for decades,
-              established venues with a heritage and a menu that goes back generations. We want to
-              give you the opportunity to share something unique about your craft, to give your
-              business a personal story and to connect with customers who are genuinely interested
-              in what you do.
+              established venues with a heritage and a menu that goes back generations.
+            </p>
+            <p>
+              We want to give you the opportunity to share something unique about your craft, to
+              give your business a personal story and to connect with customers who are genuinely
+              interested in what you do.
             </p>
           </div>
 
@@ -95,29 +122,41 @@ const CreateExperience = () => {
             <img src={sec24} alt="" className={styles.img} />
           </div>
         </section>
-        <button type="button" className={styles.btn}>
+        <button type="button" className={styles.btn_alone}>
           Let's start!
         </button>
 
         <section className={styles.learn_more}>
-          <img className={styles.mixer} src={calendar} alt="mixer" />
+          <img className={styles.abs} src={calendar} alt="mixer" />
 
           <h2>Learn more about other dedicated food makers</h2>
           <div className={styles.cards_wrapper}>
             <div className={styles.card}>
-              <img src={sec31} alt="" />
+              <a href="">
+                <img src={sec31} alt="" />
+              </a>
 
-              <a href="">Chef’s experience sample {'>'}</a>
+              <a className={styles.card_link} href="">
+                Chef’s experience sample {'>'}
+              </a>
             </div>
             <div className={styles.card}>
-              <img src={sec32} alt="" />
+              <a href="">
+                <img src={sec32} alt="" />
+              </a>
 
-              <a href="">Taste Master experience sample {'>'}</a>
+              <a className={styles.card_link} href="">
+                Taste Master experience sample {'>'}
+              </a>
             </div>
             <div className={styles.card}>
-              <img src={sec33} alt="" />
+              <a href="">
+                <img src={sec33} alt="" />
+              </a>
 
-              <a href="">Craft Maker experience sample {'>'}</a>
+              <a className={styles.card_link} href="">
+                Craft Maker experience sample {'>'}
+              </a>
             </div>
           </div>
         </section>

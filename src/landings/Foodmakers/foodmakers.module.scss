@@ -16,8 +16,11 @@ p {
   background: #f5f8fb;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1200px) {
+    padding: 0 30px 40px;
+  }
   @media (max-width: 768px) {
-    padding: 0 10px 170px;
+    padding: 0 10px 30px;
   }
   /* ================= */
   .patch {
@@ -279,15 +282,19 @@ p {
       letter-spacing: 0.5px;
       color: #31394d;
       margin-bottom: 24px;
+      @media (max-width: 1200px) {
+        font-size: 42px;
+        line-height: 42px;
+      }
 
       @media (max-width: 1024px) {
-        font-size: 24px;
-        line-height: 48px;
+        font-size: 32px;
+        line-height: 36px;
       }
 
       @media (max-width: 768px) {
         font-size: 24px;
-        line-height: 36px;
+        line-height: 24px;
       }
     }
     p {
@@ -320,12 +327,12 @@ p {
     margin-left: 24px;
     border-radius: 16px;
     overflow: hidden;
-
     @media (max-width: 768px) {
+      margin-bottom: 30px;
       width: 100%;
     }
     .img {
-      width: 100%;
+      // width: 100%;
     }
   }
 }

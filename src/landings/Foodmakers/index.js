@@ -2,6 +2,9 @@ import React from 'react'
 import cls from 'classnames'
 import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import sec21 from 'assets/images/landings/foodmakers/sec2-1.jpg'
@@ -11,11 +14,24 @@ import sec31 from 'assets/images/landings/foodmakers/sec3-1.jpg'
 import sec32 from 'assets/images/landings/foodmakers/sec3-2.jpg'
 import sec33 from 'assets/images/landings/foodmakers/sec3-3.jpg'
 import bag from 'assets/images/landings/foodmakers/bag.svg'
-import styles from './foodmakers.module.scss'
+import styles from '../styles.module.scss'
 import './foodmakers.less'
 
 const Foodmakers = () => {
   const { Panel } = Collapse
+
+  const settings = {
+    draggable: true,
+    touchThreshold: 30,
+    useCSS: true,
+    swipeToSlide: true,
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -26,12 +42,22 @@ const Foodmakers = () => {
               Join the online marketplace connecting passionate food and drink hosts to a global
               community of food lovers.
             </p>
-            <button type="button" className={styles.btn}>
+            <button type="button" className={styles.btn_leading}>
               Tell me more
             </button>
           </div>
-          <div className={styles.img_container}>
-            <img src={leading} alt="" className={styles.img} />
+          <div className={styles.slider_container}>
+            <Slider {...settings}>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+            </Slider>
           </div>
         </section>
 
@@ -100,36 +126,50 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <section className={styles.card_section}>
-          <div className={styles.card}>
-            <img src={sec31} alt="" />
-            <h2>Event hire</h2>
-            <p>
-              Whether you are looking to get hired or building your visibility within a speciality,
-              our platform enables you to be discovered and found easily.{' '}
-            </p>
-            <a href="">Learn more ></a>
-          </div>
-          <div className={styles.card}>
-            <img src={sec32} alt="" />
-            <h2>Classes, workshops, tours and festivals</h2>
-            <p>
-              Besides selling your goodies, many of our passionate food and drinks makers choose to
-              share their passion with cooking classes, tasting workshops, tableware workshops or
-              brewery tours. Our platform helps you to streamline your operations, secure bookings
-              and enable food lovers’ reviews for every experience to boost your sales.
-            </p>
-            <a href="">Learn more ></a>
-          </div>
-          <div className={styles.card}>
-            <img src={sec33} alt="" />
-            <h2>E-commerce and retail</h2>
-            <p>
-              We understand you are makers at heart. Whether you are making your signature sauce,
-              custom brew, handmade tableware or maker’s gift box that you want to share with your
-              customers. You can set up your own shop and get it up and running quickly.
-            </p>
-            <a href="">Learn more ></a>
+        <section className={styles.learn_more}>
+          <div className={styles.cards_wrapper}>
+            <div className={styles.card}>
+              <a href="">
+                <img src={sec31} alt="" />
+              </a>
+              <h2 className={styles.card_header}>Event hire</h2>
+              <p className={styles.learnmore_txt}>
+                Whether you are looking to get hired or building your visibility within a
+                speciality, our platform enables you to be discovered and found easily.{' '}
+              </p>
+              <a className={styles.card_link} href="">
+                Learn more >
+              </a>
+            </div>
+            <div className={styles.card}>
+              <a href="">
+                <img src={sec32} alt="" />
+              </a>
+              <h2 className={styles.card_header}>Classes, workshops, tours and festivals</h2>
+              <p className={styles.learnmore_txt}>
+                Besides selling your goodies, many of our passionate food and drinks makers choose
+                to share their passion with cooking classes, tasting workshops, tableware workshops
+                or brewery tours. Our platform helps you to streamline your operations, secure
+                bookings and enable food lovers’ reviews for every experience to boost your sales.
+              </p>
+              <a className={styles.card_link} href="">
+                Learn more >
+              </a>
+            </div>
+            <div className={styles.card}>
+              <a href="">
+                <img src={sec33} alt="" />
+              </a>
+              <h2 className={styles.card_header}>E-commerce and retail</h2>
+              <p className={styles.learnmore_txt}>
+                We understand you are makers at heart. Whether you are making your signature sauce,
+                custom brew, handmade tableware or maker’s gift box that you want to share with your
+                customers. You can set up your own shop and get it up and running quickly.
+              </p>
+              <a className={styles.card_link} href="">
+                Learn more >
+              </a>
+            </div>
           </div>
         </section>
 

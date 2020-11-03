@@ -1,5 +1,8 @@
 import React from 'react'
 import cls from 'classnames'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/create_shop/leading.jpg'
 import sec21 from 'assets/images/landings/create_shop/sec21.jpg'
@@ -11,9 +14,21 @@ import sec32 from 'assets/images/landings/create_shop/sec32.jpg'
 import sec33 from 'assets/images/landings/create_shop/sec33.jpg'
 import label from 'assets/images/landings/create_shop/label.svg'
 import parachute from 'assets/images/landings/create_shop/parachute.svg'
-import styles from './create_shop.module.scss'
+import styles from '../styles.module.scss'
 
 const CreateExperience = () => {
+  const settings = {
+    draggable: true,
+    touchThreshold: 30,
+    useCSS: true,
+    swipeToSlide: true,
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -29,8 +44,18 @@ const CreateExperience = () => {
               Let’s start!
             </button>
           </div>
-          <div className={styles.img_container}>
-            <img src={leading} alt="" className={styles.img} />
+          <div className={styles.slider_container}>
+            <Slider {...settings}>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+            </Slider>
           </div>
         </section>
 
@@ -93,29 +118,39 @@ const CreateExperience = () => {
             <img src={sec24} alt="" className={styles.img} />
           </div>
         </section>
-        <button type="button" className={styles.btn}>
+        <button type="button" className={styles.btn_alone}>
           Let's start!
         </button>
 
         <section className={styles.learn_more}>
-          <img className={styles.parachute} src={parachute} alt="parachute" />
+          <img className={styles.abs} src={parachute} alt="parachute" />
 
           <h2>Learn more about other dedicated food makers</h2>
           <div className={styles.cards_wrapper}>
             <div className={styles.card}>
-              <img src={sec31} alt="" />
-
-              <a href="">Chef’s shop sample {'>'}</a>
+              <a href="">
+                <img src={sec31} alt="" />
+              </a>
+              <a className={styles.card_link} href="">
+                Chef’s shop sample {'>'}
+              </a>
             </div>
             <div className={styles.card}>
-              <img src={sec32} alt="" />
-
-              <a href="">Taste Master shop sample {'>'}</a>
+              <a href="">
+                <img src={sec32} alt="" />
+              </a>
+              <a className={styles.card_link} href="">
+                Taste Master shop sample {'>'}
+              </a>
             </div>
             <div className={styles.card}>
-              <img src={sec33} alt="" />
+              <a href="">
+                <img src={sec33} alt="" />
+              </a>
 
-              <a href="">Craft Maker shop sample {'>'}</a>
+              <a className={styles.card_link} href="">
+                Craft Maker shop sample {'>'}
+              </a>
             </div>
           </div>
         </section>

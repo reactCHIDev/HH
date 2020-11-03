@@ -41,9 +41,9 @@ const Footer = () => {
 
       <div className={cls(styles.section, styles.explore)}>
         <ul>
-          <li>Food Experiences</li>
-          <li>Food Makers</li>
-          <li>Shop</li>
+          <li>Makers</li>
+          <li>Products</li>
+          <li>Experiences</li>
         </ul>
         <h5>Explore</h5>
       </div>

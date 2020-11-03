@@ -1,5 +1,8 @@
 import React from 'react'
 import cls from 'classnames'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/create_profile/leading.jpg'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
@@ -14,9 +17,21 @@ import how31 from 'assets/images/landings/create_profile/howitworks31.svg'
 import how32 from 'assets/images/landings/create_profile/howitworks32.svg'
 import cake from 'assets/images/landings/create_profile/cake.svg'
 import glass from 'assets/images/landings/create_profile/glass.svg'
-import styles from './create_profile.module.scss'
+import styles from '../styles.module.scss'
 
 const CreateProfile = () => {
+  const settings = {
+    draggable: true,
+    touchThreshold: 30,
+    useCSS: true,
+    swipeToSlide: true,
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
   return (
     <>
       <main className={styles.main}>
@@ -24,12 +39,22 @@ const CreateProfile = () => {
           <div className={styles.description}>
             <p className={styles.hdr}>Let your brand shine</p>
             <p>Build a professional profile that showcases your talents and specialties.</p>
-            <button type="button" className={styles.btn}>
+            <button type="button" className={styles.btn_leading}>
               Start today
             </button>
           </div>
-          <div className={styles.img_container}>
-            <img src={leading} alt="" className={styles.img} />
+          <div className={styles.slider_container}>
+            <Slider {...settings}>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+              <div className={styles.img_container}>
+                <img src={leading} alt="" className={styles.img} />
+              </div>
+            </Slider>
           </div>
         </section>
 
@@ -53,10 +78,12 @@ const CreateProfile = () => {
             <p className={styles.hdr}>Not just another footnote</p>
             <p>
               On Hungry Hugger, you’re not just the footnote on a product page. Your methods, your
-              passion and your story are what our customers are looking for. Your profile is an
-              opportunity to share something unique about your craft, to give your business a
-              personal story and to connect with customers who are genuinely interested in what you
-              do.
+              passion and your story are what our customers are looking for.
+            </p>
+            <p>
+              Your profile is an opportunity to share something unique about your craft, to give
+              your business a personal story and to connect with customers who are genuinely
+              interested in what you do.
             </p>
           </div>
 
@@ -78,7 +105,7 @@ const CreateProfile = () => {
           </div>
         </section>
 
-        <section className={styles.card_section}>
+        <section className={styles.card_section_svg}>
           <h2>How it works?</h2>
           <div className={styles.cards_wrapper}>
             <div className={styles.card}>
@@ -106,29 +133,41 @@ const CreateProfile = () => {
               <p>3. Review requests, send quotes and get hired.</p>
             </div>
           </div>
-          <button type="button" className={styles.btn}>
+          <button type="button" className={styles.btn_svg_card}>
             Let's start!
           </button>
         </section>
 
         <section className={styles.learn_more}>
-          <img className={styles.glass} src={glass} alt="glass" />
+          <img className={styles.abs} src={glass} alt="glass" />
           <h2>Learn more about other dedicated food makers</h2>
           <div className={styles.cards_wrapper}>
             <div className={styles.card}>
-              <img src={sec31} alt="" />
+              <a href="">
+                <img src={sec31} alt="" />
+              </a>
 
-              <a href="">Chef’s profile sample {'>'}</a>
+              <a className={styles.card_link} href="">
+                Chef’s profile sample {'>'}
+              </a>
             </div>
             <div className={styles.card}>
-              <img src={sec32} alt="" />
+              <a href="">
+                <img src={sec32} alt="" />
+              </a>
 
-              <a href="">Taste Master profile sample {'>'}</a>
+              <a className={styles.card_link} href="">
+                Taste Master profile sample {'>'}
+              </a>
             </div>
             <div className={styles.card}>
-              <img src={sec33} alt="" />
+              <a href="">
+                <img src={sec33} alt="" />
+              </a>
 
-              <a href="">Craft Maker profile sample {'>'}</a>
+              <a className={styles.card_link} href="">
+                Craft Maker profile sample {'>'}
+              </a>
             </div>
           </div>
         </section>
