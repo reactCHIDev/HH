@@ -16,10 +16,10 @@ import styles from './create_shop.module.scss'
 const CreateExperience = () => {
   return (
     <>
-      <main>
+      <main className={styles.main}>
         <section className={styles.standart_section}>
           <div className={styles.description}>
-            <h2 style={{ fontSize: 56, lineHeight: '64px' }}>One place to manage it all</h2>
+            <p className={styles.hdr}>One place to manage it all</p>
             <p>
               Set up a one-stop digital shop for your business, and manage all of your products,
               services and experiences in one place. Our platform provides a simple way to open your
@@ -34,11 +34,11 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
+        <section className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <img className={styles.label} src={label} alt="label" />
 
-            <h2>The booking platform that goes beyond and above</h2>
+            <p className={styles.hdr}>The booking platform that goes beyond and above</p>
             <p>
               We understand that many independent makers who offer experiences are makers at heart.
               Your secret recipe pastes, sauce and sweets. Your customers want to enjoy it at home
@@ -51,9 +51,9 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section)}>
+        <section className={cls(styles.body_section)}>
           <div className={styles.description}>
-            <h2>Time to prepare</h2>
+            <p className={styles.hdr}>Time to prepare</p>
             <p>
               Take the stress out of juggling production, service and management all at once. Our
               pre-order option means you can stay on top of your orders and prepare for upcoming
@@ -66,9 +66,9 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
+        <section className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
-            <h2>Connecting your customer both offline and online</h2>
+            <p className={styles.hdr}>Connecting your customer both offline and online</p>
             <p>
               Each shop receives a dedicated QR code, giving you a quick and versatile way to
               connect customers in-store to your Hungry Hugger shop online.
@@ -79,9 +79,9 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section)}>
+        <section className={cls(styles.body_section)}>
           <div className={styles.description}>
-            <h2>Turn analytics into action</h2>
+            <p className={styles.hdr}>Turn analytics into action</p>
             <p>
               Our bespoke analytics will help you find out what’s working and what isn’t. See how
               many people are viewing your listing and making an order. Along with our customer

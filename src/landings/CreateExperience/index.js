@@ -16,12 +16,10 @@ import styles from './create_experience.module.scss'
 const CreateExperience = () => {
   return (
     <>
-      <main>
+      <main className={styles.main}>
         <section className={styles.standart_section}>
           <div className={styles.description}>
-            <h2 style={{ fontSize: 56, lineHeight: '64px' }}>
-              Get discovered with the right community
-            </h2>
+            <p className={styles.hdr}>Get discovered with the right community</p>
             <p>Reach a diverse global community of food lovers by running bespoke experiences. </p>
             <button type="button" className={styles.btn_leading}>
               Let’s start!
@@ -32,11 +30,11 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
+        <section className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <img className={styles.calendar} src={mixer} alt="calendar" />
 
-            <h2>The booking platform that empowers you</h2>
+            <p className={styles.hdr}>The booking platform that empowers you</p>
             <p>
               Our platform provides a simple way to open your business to a community of curious
               food lovers who are hungry for genuine food and drink experiences. You can list,
@@ -49,9 +47,9 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section)}>
+        <section className={cls(styles.body_section)}>
           <div className={styles.description}>
-            <h2>There is no template</h2>
+            <p className={styles.hdr}>There is no template</p>
             <p>
               Your experience doesn’t need to be a class, a workshop or a tasting experience. There
               is no template for listing on Hungry Hugger. All it takes is a passion for food and
@@ -69,9 +67,9 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section, styles.reverse)}>
+        <section className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
-            <h2>Not just another footnote</h2>
+            <p className={styles.hdr}>Not just another footnote</p>
             <p>
               With a community as dedicated as ours, customer reviews for your experiences will
               carry more weight than social media. Their reviews will take you beyond simple star
@@ -83,9 +81,9 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.standart_section, styles.body_section)}>
+        <section className={cls(styles.body_section)}>
           <div className={styles.description}>
-            <h2>Turn analytics into action</h2>
+            <p className={styles.hdr}>Turn analytics into action</p>
             <p>
               Our bespoke analytics will help you find out what’s working and what isn’t. See how
               many people are viewing your listing and making an order. Along with our customer
