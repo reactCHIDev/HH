@@ -1,9 +1,21 @@
-main {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
+}
+.main {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 50px 50px;
+  padding: 50px 112px 50px;
   background: #f5f8fb;
+  display: flex;
+  flex-direction: column;
   @media (max-width: 768px) {
     padding: 0 10px 170px;
   }
@@ -16,7 +28,7 @@ main {
     max-width: 1008px;
     min-height: 206px;
     margin: 150px auto 100px;
-    padding: 54px;
+    padding: 54px 106px;
 
     @media (max-width: 1024px) {
       padding: 54px 20px;
@@ -41,19 +53,17 @@ main {
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;
-      /* identical to box height, or 26px */
-
       text-align: center;
       letter-spacing: 0.5px;
-
       color: #5a6070;
+      margin: 0;
     }
     .bag {
-      width: 100px;
+      width: 118px;
       position: absolute;
       left: 50%;
       transform: translate(-50%);
-      top: -90px;
+      top: -112px;
       z-index: 3;
     }
   }
@@ -62,15 +72,15 @@ main {
     width: 100%;
     max-width: 1008px;
     text-align: center;
-    margin: 0 auto 100px;
+    margin: 0 auto 104px;
 
     .sec2head {
+      font-family: DM Sans Bold;
       font-style: normal;
       font-weight: bold;
       font-size: 48px;
       line-height: 64px;
-      /* or 133% */
-
+      margin-bottom: 24px;
       text-align: center;
       letter-spacing: 0.5px;
 
@@ -92,17 +102,21 @@ main {
   .card_section {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 100px;
+
+    margin: 0 -57px 100px;
     background: #ffffff;
     border-radius: 16px;
-    padding: 56px 73px 80px;
+    padding: 96px 72px 88px;
+    width: 110%;
+    max-width: 1330px;
     @media (max-width: 768px) {
       flex-direction: column;
-      width: 100%;
     }
 
     .card {
       width: 30%;
+      margin-bottom: 112px;
+
       @media (max-width: 768px) {
         width: 100%;
         margin-bottom: 70px;
@@ -110,40 +124,35 @@ main {
       img {
         width: 100%;
         margin-bottom: 24px;
+        border-radius: 16px;
       }
       h2 {
+        font-family: DM Sans Bold;
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
         line-height: 140%;
-        /* identical to box height, or 28px */
-
         letter-spacing: 0.5px;
-
         color: #31394d;
+        margin-bottom: 14px;
       }
       p {
         font-style: normal;
         font-weight: normal;
         font-size: 14px;
         line-height: 160%;
-        /* or 22px */
-
         letter-spacing: 0.5px;
-
         color: #5a6070;
+        margin-bottom: 16px;
       }
       a {
         font-style: normal;
         font-weight: bold;
         font-size: 12px;
         line-height: 19px;
-        /* identical to box height, or 158% */
-
         text-align: center;
         letter-spacing: 1px;
         text-transform: uppercase;
-
         color: #4099ec;
       }
     }
@@ -156,6 +165,7 @@ main {
     text-align: center;
     letter-spacing: 0.5px;
     color: #31394d;
+    margin-bottom: 40px;
   }
   .section_faq {
     width: 100%;
@@ -163,6 +173,7 @@ main {
     background: #ffffff;
     border-radius: 16px;
     margin: 0 auto 150px;
+    padding: 10px 32px 32px;
   }
 
   .bottom_sec {
@@ -170,10 +181,10 @@ main {
     background: url('~assets/images/landings/foodmakers/footer.jpg');
     background-repeat: no-repeat;
     background-size: auto 100%;
-    width: calc(100% + 100px);
+    width: calc(100% + 224px);
     max-width: 1440px;
     height: 502px;
-    margin: 0 -50px 72px;
+    margin: 0 -112px 72px;
 
     @media (max-width: 768px) {
       background: url('~assets/images/landings/foodmakers/footer-img-mobile.jpg');
@@ -237,15 +248,6 @@ main {
 
 /* =================================== */
 
-@at-root .reverse {
-  flex-direction: row-reverse;
-}
-
-.body_section {
-  max-width: 1008px;
-  margin: auto;
-}
-
 .standart_section {
   display: flex;
   padding: 0;
@@ -257,7 +259,7 @@ main {
   }
   .description {
     width: 50%;
-    padding: 20px;
+    margin-right: 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -266,13 +268,15 @@ main {
       width: 100%;
     }
 
-    h2 {
+    .hdr {
+      font-family: 'DM Sans Bold';
       font-style: normal;
       font-weight: bold;
-      font-size: 32px;
-      line-height: 42px;
+      font-size: 56px;
+      line-height: 64px;
       letter-spacing: 0.5px;
       color: #31394d;
+      margin-bottom: 24px;
 
       @media (max-width: 1024px) {
         font-size: 24px;
@@ -291,6 +295,7 @@ main {
       line-height: 140%;
       letter-spacing: 0.5px;
       color: #5a6070;
+      margin-bottom: 40px;
     }
     .btn {
       width: 240px;
@@ -305,16 +310,114 @@ main {
       text-align: center;
       letter-spacing: 0.5px;
       color: #ffffff;
+      border: none;
     }
   }
   .img_container {
     width: 50%;
-    padding: 20px;
+    margin-left: 24px;
+    border-radius: 16px;
+    overflow: hidden;
+
     @media (max-width: 768px) {
       width: 100%;
     }
     .img {
       width: 100%;
     }
+  }
+}
+
+.body_section {
+  max-width: 1008px;
+  margin: auto;
+  display: flex;
+  padding: 0;
+  margin-bottom: 132px;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+  .description {
+    width: 50%;
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    .hdr {
+      font-family: 'DM Sans Bold';
+      font-style: normal;
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 42px;
+      letter-spacing: 0.3px;
+      color: #31394d;
+      margin-bottom: 24px;
+
+      @media (max-width: 1024px) {
+        font-size: 24px;
+        line-height: 48px;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 24px;
+        line-height: 36px;
+      }
+    }
+    p {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 160%;
+      letter-spacing: 0.5px;
+      color: #5a6070;
+      margin-bottom: 24px;
+    }
+    .btn {
+      width: 240px;
+      height: 56px;
+      background: #31394d;
+      border-radius: 8px;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 23px;
+      align-items: center;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      border: none;
+    }
+  }
+  .img_container {
+    width: 50%;
+    margin-left: 24px;
+    border-radius: 16px;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+    .img {
+      width: 100%;
+    }
+  }
+}
+
+.reverse {
+  flex-direction: row-reverse;
+  .description {
+    margin-right: 0;
+    margin-left: 24px;
+  }
+  .img_container {
+    margin-right: 24px;
+    margin-left: 0px;
   }
 }
