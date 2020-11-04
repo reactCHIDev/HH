@@ -8,6 +8,7 @@ import cls from 'classnames'
 import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
 import Logo from 'assets/images/logo_white.png'
+import textLogo from 'assets/images/header/textlogo.svg'
 import styles from './header.module.scss'
 import './header.less'
 
@@ -67,7 +68,7 @@ const Header = ({ authorized, logOut, pushRoute, dark = false, logoText = false 
         </div>
         <div className={styles.logo}>
           <img className={styles.logo_img} src={Logo} alt="logo" />
-          {logoText && <p className={styles.logo_text}>hungry hugger</p>}
+          {logoText && <img className={styles.logo_text} src={textLogo} alt="hh" />}
         </div>
         <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
           <li className={styles.menuitem} id="explore" onClick={menuItemClick}>

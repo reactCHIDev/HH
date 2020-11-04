@@ -7,6 +7,7 @@ const Card = () => {
   const history = useHistory()
   return (
     <div className={styles.bg}>
+      <p>qweqweqwe</p>
       <Link to="/dashboard/profile" style={{ color: 'red' }}>
         Dashboard/Profile
       </Link>

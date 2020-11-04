@@ -1,3 +1,6 @@
+@import 'styles/styles.scss';
+
+/* 
 h1,
 h2,
 h3,
@@ -7,7 +10,8 @@ h6,
 p {
   padding: 0;
   margin: 0;
-}
+} */
+
 .main {
   width: 100%;
   max-width: 1440px;
@@ -226,6 +230,7 @@ p {
       margin: 0 auto 20px;
       display: block;
       border: none;
+      cursor: pointer;
     }
   }
 
@@ -245,6 +250,7 @@ p {
     margin: 0 auto 120px;
     display: block;
     border: none;
+    cursor: pointer;
     @media (max-width: 768px) {
       margin: 0 auto 50px;
     }
@@ -444,6 +450,7 @@ p {
         letter-spacing: 0.5px;
         color: #ffffff;
         border: none;
+        cursor: pointer;
       }
     }
   }
@@ -465,6 +472,7 @@ p {
   margin: 80px auto 120px;
   display: block;
   border: none;
+  cursor: pointer;
 }
 
 /* =================================== */
@@ -544,6 +552,7 @@ p {
       letter-spacing: 0.5px;
       color: #ffffff;
       border: none;
+      cursor: pointer;
       @media (max-width: 768px) {
         width: 240px;
         margin: auto;
@@ -639,6 +648,9 @@ p {
       margin-bottom: 24px;
     }
     .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 240px;
       height: 56px;
       background: #31394d;
@@ -652,6 +664,7 @@ p {
       letter-spacing: 0.5px;
       color: #ffffff;
       border: none;
+      cursor: pointer;
       @media (max-width: 1024px) {
         width: 248px;
         margin: auto;
