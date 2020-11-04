@@ -68,7 +68,7 @@ const Header = ({ authorized, logOut, pushRoute, dark = false, logoText = false 
         </div>
         <div className={styles.logo}>
           <img className={styles.logo_img} src={Logo} alt="logo" />
-          {logoText && <img className={styles.logo_text} src={textLogo} alt="hh" />}
+          {logoText && dark && <img className={styles.logo_text} src={textLogo} alt="hh" />}
         </div>
         <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
           <li className={styles.menuitem} id="explore" onClick={menuItemClick}>
