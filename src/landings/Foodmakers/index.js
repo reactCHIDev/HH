@@ -87,9 +87,12 @@ const Foodmakers = () => {
               Build a professional profile that highlights your speciality and services for event
               hire.
             </p>
-            <button type="button" className={styles.btn}>
+            <a
+              href="https://hungryhugger.wildwebart.com/landing/create_profile"
+              className={styles.btn}
+            >
               Create profile
-            </button>
+            </a>
           </div>
           <div className={styles.img_container}>
             <img src={sec21} alt="" className={styles.img} />
@@ -102,9 +105,12 @@ const Foodmakers = () => {
               List your experience and events where curious food lovers are
             </p>
             <p>Reach new audience with a diverse yet targeted food and drink makers community.</p>
-            <button type="button" className={styles.btn}>
+            <a
+              href="https://hungryhugger.wildwebart.com/landing/create_experience"
+              className={styles.btn}
+            >
               Create experience
-            </button>
+            </a>
           </div>
           <div className={styles.img_container}>
             <img src={sec22} alt="" className={styles.img} />
@@ -117,9 +123,12 @@ const Foodmakers = () => {
             <p>
               Set up a shop to list your products, services and experiences – all in the one place.
             </p>
-            <button type="button" className={styles.btn}>
+            <a
+              href="https://hungryhugger.wildwebart.com/landing/create_shop"
+              className={styles.btn}
+            >
               Create shop
-            </button>
+            </a>
           </div>
           <div className={styles.img_container}>
             <img src={sec23} alt="" className={styles.img} />

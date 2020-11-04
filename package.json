@@ -34,6 +34,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.1",
     "redux-starter-kit": "^0.7.0",
+    "sass-loader": "^10.0.5",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {

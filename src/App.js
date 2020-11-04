@@ -21,7 +21,6 @@ import Home from 'pages/Home'
 import Header from 'components/Header'
 import desktop from 'routing/PATHS'
 import styles from './app.module.scss'
-import 'styles/styles.scss'
 import './App.less'
 
 const PageNotFound = lazy(() => import('components/PageNotFound'))
