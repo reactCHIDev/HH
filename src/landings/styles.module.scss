@@ -389,12 +389,19 @@ p {
     height: 502px;
     margin: 0 -112px 72px;
 
+    @media (max-width: 1024px) {
+      background: url('~assets/images/landings/foodmakers/footer-img-mobile.jpg');
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      width: calc(100% + 60px);
+      margin: 0 -30px 100px;
+    }
     @media (max-width: 768px) {
       background: url('~assets/images/landings/foodmakers/footer-img-mobile.jpg');
       background-repeat: no-repeat;
       background-size: 100% auto;
-      width: calc(100% + 20px);
-      margin: -10px 0 100px;
+      width: calc(100% + 32px);
+      margin: 0 -16px 100px;
     }
 
     .joincard {
@@ -559,22 +566,34 @@ p {
       }
     }
   }
-  .slider_container {
+  .overflow_container {
     width: 50%;
     margin-left: 24px;
+    padding-bottom: 30px;
+    overflow-x: hidden;
     @media (max-width: 768px) {
-      margin: 0 -40px 30px;
-      width: calc(100% + 80px);
+      width: calc(100% + 32px);
+      margin: 0 -16px;
+      overflow-x: hidden;
     }
-    .img_container {
-      padding: 0 10px;
+    .slider_container {
+      width: 100%;
+      // margin-left: 24px;
       @media (max-width: 768px) {
+        margin: 0 -40px 30px;
+        width: calc(100% + 80px);
       }
-
-      .img {
-        width: 100%;
+      .img_container {
+        padding: 0 10px;
         border-radius: 16px;
-        overflow: hidden;
+        @media (max-width: 768px) {
+        }
+
+        .img {
+          width: 100%;
+          border-radius: 16px;
+          overflow: hidden;
+        }
       }
     }
   }

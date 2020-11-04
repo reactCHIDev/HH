@@ -26,6 +26,7 @@ const Foodmakers = () => {
     useCSS: true,
     swipeToSlide: true,
     dots: true,
+    arrows: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -46,18 +47,20 @@ const Foodmakers = () => {
               Tell me more
             </button>
           </div>
-          <div className={styles.slider_container}>
-            <Slider {...settings}>
-              <div className={styles.img_container}>
-                <img src={leading} alt="" className={styles.img} />
-              </div>
-              <div className={styles.img_container}>
-                <img src={leading} alt="" className={styles.img} />
-              </div>
-              <div className={styles.img_container}>
-                <img src={leading} alt="" className={styles.img} />
-              </div>
-            </Slider>
+          <div className={styles.overflow_container}>
+            <div className={styles.slider_container}>
+              <Slider {...settings}>
+                <div className={styles.img_container}>
+                  <img src={leading} alt="" className={styles.img} />
+                </div>
+                <div className={styles.img_container}>
+                  <img src={leading} alt="" className={styles.img} />
+                </div>
+                <div className={styles.img_container}>
+                  <img src={leading} alt="" className={styles.img} />
+                </div>
+              </Slider>
+            </div>
           </div>
         </section>
 
