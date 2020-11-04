@@ -30,7 +30,7 @@ const CreateExperience = () => {
   }
 
   return (
-    <>
+    <div className={styles.body_container}>
       <main className={styles.main}>
         <section className={styles.standart_section}>
           <div className={styles.description}>
@@ -165,7 +165,7 @@ const CreateExperience = () => {
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

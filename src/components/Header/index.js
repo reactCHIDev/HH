@@ -7,7 +7,8 @@ import { logout } from 'actions/login'
 import cls from 'classnames'
 import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
-import Logo from 'assets/images/logo_white.png'
+import LogoDark from 'assets/images/header/logo_dark.svg'
+import LogoWhite from 'assets/images/header/logo-white.svg'
 import textLogo from 'assets/images/header/textlogo.svg'
 import styles from './header.module.scss'
 import './header.less'
@@ -67,7 +68,7 @@ const Header = ({ authorized, logOut, pushRoute, dark = false, logoText = false 
           <MenuBtn visible={menu} />
         </div>
         <div className={styles.logo}>
-          <img className={styles.logo_img} src={Logo} alt="logo" />
+          <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
           {logoText && dark && <img className={styles.logo_text} src={textLogo} alt="hh" />}
         </div>
         <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
