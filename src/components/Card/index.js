@@ -7,8 +7,10 @@ const Card = () => {
   const history = useHistory()
   return (
     <div className={styles.bg}>
-      <p>qweqweqwe</p>
-      <Link to="/dashboard/profile" style={{ color: 'red' }}>
+      <Link to="/settings" style={{ color: 'red' }}>
+        Account Settings
+      </Link>
+      <Link to="/dashboard/profile" style={{ color: 'grey' }}>
         Dashboard/Profile
       </Link>
       <hr style={{ width: 250, color: 'grey' }} />

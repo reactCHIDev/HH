@@ -5,6 +5,8 @@ const desktop = {
   signup: '/signup',
   signupflow: '/signupflow',
   forgot: '/forgot',
+  profile: '/profile',
+  settings: '/settings',
   aboutUs: '/about_us',
   features: '/features',
   community: '/community',

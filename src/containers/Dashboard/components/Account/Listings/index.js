@@ -2,6 +2,7 @@ import React from 'react'
 import T from 'prop-types'
 import ChkBox from 'components/ChkBox'
 import CollapsedBlock from './components/CollapsedBlock'
+import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
 
@@ -28,15 +29,26 @@ const Listings = (props) => {
 
   return (
     <div className={styles.container}>
-      {filters.map((el, i) => (
-        <CollapsedBlock key={Object.keys(el)[0]} headerText={Object.keys(el)[0]} color={colors[i]}>
-          <div className={styles.panel_content}>
-            {Object.values(el)[0].map((chk) => (
-              <ChkBox key={chk} labelText={chk} />
-            ))}
-          </div>
-        </CollapsedBlock>
-      ))}
+      <div className={styles.filter_block}>
+        {filters.map((el, i) => (
+          <CollapsedBlock
+            key={Object.keys(el)[0]}
+            headerText={Object.keys(el)[0]}
+            color={colors[i]}
+          >
+            <div className={styles.panel_content}>
+              {Object.values(el)[0].map((chk) => (
+                <ChkBox key={chk} labelText={chk} />
+              ))}
+            </div>
+          </CollapsedBlock>
+        ))}
+      </div>
+      <div className={styles.listing}>
+        <Product />
+        <Product />
+        <Product />
+      </div>
     </div>
   )
 }

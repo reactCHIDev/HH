@@ -1,0 +1,51 @@
+@import 'styles/styles.scss';
+
+.container {
+  border-bottom: 1px solid lightgrey;
+
+  .content {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    .image_container {
+      width: 120px;
+      margin-right: 20px;
+    }
+    .product_name {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 23px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.5px;
+      color: #3c3e43;
+      margin: 0 20px 0 0;
+    }
+    .edit_btn_container {
+      width: 41px;
+      height: 31px;
+      border: 2px solid lightgrey;
+      border-radius: 5px;
+      padding: 3px 10px;
+      margin-right: 20px;
+      cursor: pointer;
+      .edit_btn_img {
+        width: 100%;
+        margin-bottom: 3px;
+      }
+    }
+    .rating_container {
+      margin-right: 20px;
+    }
+    .status_option_container {
+      margin: 0 20px;
+    }
+    .stock {
+      margin: 0 20px;
+    }
+    .preorder {
+      margin: 0 20px;
+    }
+  }
+}

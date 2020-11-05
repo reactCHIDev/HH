@@ -1,4 +1,13 @@
-.panel_content {
+.container {
   display: flex;
-  flex-direction: column;
+  .filter_block {
+    .panel_content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .listing {
+    display: flex;
+    flex-direction: column;
+  }
 }
