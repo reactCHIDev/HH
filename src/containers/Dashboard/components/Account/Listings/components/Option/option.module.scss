@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  align-items: center;
+  .on {
+    color: black;
+    font-family: DM Sans Bold;
+    margin: 0;
+  }
+  .off {
+    color: grey;
+    font-family: DM Sans Bold;
+    margin: 0;
+  }
+}

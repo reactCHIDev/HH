@@ -1,5 +1,5 @@
 export default {
-  url: true ? process.env.REACT_APP_BASE_URL : 'localhost:3000',
+  url: false ? process.env.REACT_APP_BASE_URL : 'localhost:3000',
 
   // Test
   userbyname: '/v1/user/profile_name/',
@@ -12,6 +12,11 @@ export default {
   logout: '/v1/user/logout',
   forgotStep1: '/v1/user/forgot_password/step_one',
   forgotStep3: '/v1/user/forgot_password/step_two',
+
+  // Account
+  getUserAccount: '/v1/account/',
+  updateSettings: '/v1/account/update_settings',
+  confirmEmailUpdate: '/v1/account/confirm_email_update',
 
   //
   //

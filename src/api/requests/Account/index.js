@@ -1,6 +1,19 @@
 import apiClient from 'utils/apiClient'
 import PATHS from 'api/paths'
 
+export const getUserAccount = (id) => apiClient.get(PATHS.getUserAccount + id)
+export const updateSettings = (data) => apiClient.patch(PATHS.updateSettings, { data })
+export const confirmEmailUpdate = (data) => apiClient.patch(PATHS.confirmEmailUpdate, { data })
+
+//
+//
+//
+//
+//
+//
+// ===========================================================
+
+/*
 export const getProfileImages = () => apiClient.get(PATHS.profileImages)
 export const uploadProfileImages = (data) => apiClient.post(PATHS.profileImages, { data })
 export const updateProfileImage = (data, id) => apiClient.put(PATHS.profileImagesById(id), { data })
@@ -26,3 +39,4 @@ export const getUsersConnections = (id) => apiClient.get(PATHS.usersConnections(
 
 export const linkAlfaAndFB = (data) => apiClient.post(PATHS.linkFBAndAlfaAccounts, { data })
 export const unlinkAlfaAndFB = () => apiClient.delete(PATHS.linkFBAndAlfaAccounts)
+*/

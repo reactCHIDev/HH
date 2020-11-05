@@ -17,7 +17,7 @@ const Account = (props) => {
       <p className={styles.heading}>{`${profileName}'s account info`}</p>
       <TabsUnderlined
         tabs={{
-          bookmark: { mark: false, content: null },
+          // bookmark: { mark: false, content: null },
           listings: { mark: false, content: <Listings /> },
           orders: {
             mark: false,

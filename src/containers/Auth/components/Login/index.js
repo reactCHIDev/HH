@@ -1,35 +1,50 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import _ from 'lodash/fp'
+import * as jwt from 'jsonwebtoken'
 import { Link, useParams } from 'react-router-dom'
 import { push, replace } from 'connected-react-router'
 import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
 import { loginRequest, loginErrorReset, invalidLink } from 'actions/login'
+import { emailConfirm } from 'actions/account'
 import Error from 'containers/Auth/components/Forgot/components/Error'
 import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
+import PATHS from 'api/paths'
 import T from 'prop-types'
 import styles from './login.module.scss'
 
 const Login = (props) => {
-  const { loginRequest, pushRoute, replaceRoute, error, loginErrorReset, invalidLink } = props
+  const {
+    loginRequest,
+    pushRoute,
+    replaceRoute,
+    authorized,
+    url,
+    error,
+    loginErrorReset,
+    emailConfirm,
+    invalidLink,
+  } = props
+  const { register, handleSubmit, errors } = useForm()
   const { step } = useParams()
 
-  if (step.substring(0, 12) === 'confirmemail') replaceRoute('/login/regular')
+  const isСhangeMailRoute = step.substring(0, 12) === 'change_email'
+
   const steps = new Set(['forgotstep1', 'forgotstep2', 'forgotstep3', 'forgotstep4'])
   const isForgotRoute = steps.has(step.substring(0, 11))
-  let forgotStep = ''
+
   let token = ''
+  let forgotStep = ''
+
   if (isForgotRoute) {
     forgotStep = Number(step.substring(10, 11))
     if (forgotStep === 3) {
       token = step.substring(11)
     }
   }
-
-  const { register, handleSubmit, errors } = useForm()
 
   const onSubmit = (credentials) => {
     loginRequest(credentials)
@@ -54,6 +69,36 @@ const Login = (props) => {
   const togglePassword = () => {
     setType(type === 'password' ? 'text' : 'password')
   }
+
+  // =================================================
+  if (isСhangeMailRoute) {
+    token = step.substring(12)
+
+    console.log('%c   ChangeEmail process   ', 'color: darkgreen; background: palegreen;')
+
+    const jwtData = token ? jwt.decode(token, 'secret') : null
+    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
+
+    console.log('%c   valid   ', 'color: white; background: salmon;', valid)
+    console.log('%c   jwtData   ', 'color: white; background: salmon;', jwtData)
+    console.log('%c   authorized   ', 'color: white; background: salmon;', authorized)
+    if (!valid) {
+      invalidLink()
+      forgotClose()
+    }
+
+    if (valid && authorized) {
+      const payload = {
+        updateEmailLink: PATHS.url + url,
+        newEmail: jwtData.newEmail,
+      }
+      console.log('payload', payload)
+      emailConfirm(payload)
+    }
+
+    replace('/login/regular')
+  }
+  // =============================================
 
   return (
     <div className={styles.container}>
@@ -125,13 +170,25 @@ Login.propTypes = {
   replaceRoute: T.func.isRequired,
   loginErrorReset: T.func.isRequired,
   invalidLink: T.func.isRequired,
+  emailConfirm: T.func.isRequired,
+  authorized: T.bool.isRequired,
+  url: T.string,
   error: T.string.isRequired,
 }
 
-export default connect(({ login: { error } }) => ({ error }), {
-  loginRequest,
-  pushRoute: push,
-  replaceRoute: replace,
-  loginErrorReset,
-  invalidLink,
-})(Login)
+export default connect(
+  ({
+    login: { error, authorized },
+    router: {
+      location: { pathname },
+    },
+  }) => ({ error, authorized, url: pathname }),
+  {
+    loginRequest,
+    pushRoute: push,
+    replaceRoute: replace,
+    loginErrorReset,
+    emailConfirm,
+    invalidLink,
+  },
+)(Login)

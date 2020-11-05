@@ -13,6 +13,7 @@ export const forgotStep3 = (data) => apiClient.post(PATHS.forgotStep3, { data })
 //
 //
 // ====================================================================================================
+/*
 export const registration = (data) => apiClient.post(PATHS.registration, { data })
 
 export const signUp = (data) => apiClient.post(PATHS.signUp, { data })
@@ -32,3 +33,4 @@ export const refreshToken = (token) =>
       'Refresh-Token': token,
     },
   })
+*/

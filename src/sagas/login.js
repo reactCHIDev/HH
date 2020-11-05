@@ -7,7 +7,7 @@ import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../actions
 export function* logout() {
   logoutRequest()
   removeItems(['authorization-token', 'user-id'])
-  yield put(push('/'))
+  yield put(push('/login/regular'))
 }
 
 function* loginFlow({ creds }) {
@@ -18,7 +18,7 @@ function* loginFlow({ creds }) {
       { key: 'user-id', value: data.id },
     ]
     yield setItems(localData)
-    yield put({ type: LOGIN_SUCCESS, name: data.profileName })
+    yield put({ type: LOGIN_SUCCESS, payload: { name: data.profileName, id: data.id } })
     yield put(push('/card'))
   } catch (error) {
     if (error.response) {
