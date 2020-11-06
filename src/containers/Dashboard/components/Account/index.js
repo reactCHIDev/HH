@@ -1,6 +1,7 @@
 import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
+import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Exp from 'components/Tabs/Test/Exp'
 import Comp from 'components/Tabs/Test/Comp'
@@ -14,18 +15,18 @@ const Account = (props) => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.heading}>{`${profileName}'s account info`}</p>
+      <p className={styles.heading}>{`${profileName || getItem('user-name')}'s account info`}</p>
       <TabsUnderlined
         tabs={{
-          // bookmark: { mark: false, content: null },
           listings: { mark: false, content: <Listings /> },
+          profile: { mark: false, content: <Profile profileName={profileName} /> },
+          bookmark: { mark: false, content: null },
           orders: {
             mark: false,
             content: <Exp />,
           },
           review: { mark: true, content: null },
           'blog submission': { mark: false, content: <Comp /> },
-          profile: { mark: false, content: <Profile profileName={profileName} /> },
         }}
       />
     </div>

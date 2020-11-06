@@ -99,7 +99,6 @@ function App({ pathname }) {
               path="/landing/create_shop"
               component={WaitingComponent(CreateShopLanding)}
             />
-            <PublicRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />

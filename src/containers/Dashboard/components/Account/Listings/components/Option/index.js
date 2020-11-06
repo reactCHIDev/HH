@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import cls from 'classnames'
 import T from 'prop-types'
 import { Switch } from 'antd'
 
@@ -14,7 +15,7 @@ const Option = ({ checked = false }) => {
 
   return (
     <div className={styles.container}>
-      <p className={state ? styles.off : styles.on}>PAUSED</p>
+      <p className={cls(styles.title, state ? styles.off : '')}>PAUSED</p>
       <Switch className="switch" size="small" onChange={onChange} />
       <p className={state ? styles.on : styles.off}>PUBLISHED</p>
     </div>

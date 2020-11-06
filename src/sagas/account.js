@@ -42,7 +42,7 @@ function* updateUserAccount({ payload }) {
   }
   try {
     const response = yield updateSettings(submittedData)
-    yield put({ type: UPDATE_ACCOUNT_SUCCESS, data: response.data })
+    yield put({ type: UPDATE_ACCOUNT_SUCCESS, payload: { data: response.data, newEmail } })
   } catch (error) {
     if (error.response) {
       yield put({ type: UPDATE_ACCOUNT_ERROR, error: error.response.data.error })

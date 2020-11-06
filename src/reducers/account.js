@@ -54,18 +54,21 @@ const reducer = function accountReducer(state = initialState, action) {
         error: '',
       }
     case UPDATE_ACCOUNT_SUCCESS:
-      const { data } = action
+      const { data, newEmail } = action.payload
+      console.log('%c   newEmail   ', 'color: darkgreen; background: palegreen;', !!newEmail)
+      console.log('%c   data   ', 'color: darkgreen; background: palegreen;', data)
       return {
         ...state,
         ...data,
         requesting: false,
-        awaitingConfirmation: true,
+        awaitingConfirmation: !!newEmail,
       }
 
     case RESET_CONFIRMATION:
       return {
         ...state,
         awaitingConfirmation: false,
+        error: null,
       }
     case UPDATE_ACCOUNT_ERROR:
       return {

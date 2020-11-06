@@ -1,6 +1,8 @@
 import React from 'react'
 import T from 'prop-types'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
+import ChkIcon from 'assets/icons/svg/chk-icon.svg'
+import DashIcon from 'assets/icons/svg/dash-icon.svg'
 import ProdPhoto from 'assets/images/landings/create_experience/sec24.jpg'
 import { Rate } from 'antd'
 import Option from '../Option'
@@ -27,7 +29,9 @@ const Product = (props) => {
           <Option />
         </div>
         <p className={styles.stock}>321</p>
-        <p className={styles.preorder}>-</p>
+        <p className={styles.preorder}>
+          <img src={true ? ChkIcon : DashIcon} alt="" />
+        </p>
       </div>
     </div>
   )

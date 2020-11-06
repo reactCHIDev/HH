@@ -8,13 +8,15 @@ label {
   margin: 11px 0px;
   text-transform: capitalize;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   input[type='checkbox'] {
     width: 14px;
     height: 14px;
     border: 0px solid #808080;
     border-radius: 4px;
-    margin: 2px 16px 0 2px;
+    margin: 0px 16px 0 2px;
     cursor: pointer;
   }
 

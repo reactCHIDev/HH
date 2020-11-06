@@ -30,8 +30,9 @@ export const updateAccount = (data) => ({
   payload: data,
 })
 
-export const updateAccountSuccess = () => ({
+export const updateAccountSuccess = (payload) => ({
   type: UPDATE_ACCOUNT_SUCCESS,
+  payload,
 })
 
 export const updateAccountError = (payload) => ({
