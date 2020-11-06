@@ -220,7 +220,7 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
           <CheckMail close={modalClose} />
         </Modal>
       )}
-      {error && <Error close={modalClose} />}
+      {error && <Error msg={error} close={modalClose} />}
     </div>
   )
 }

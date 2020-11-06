@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  cursor: pointer;
+  .title {
+    margin: 0 7px;
+  }
+  .img_wrapper {
+    width: 10px;
+    img {
+      display: block;
+    }
+    .icon1 {
+      margin-bottom: 6px;
+    }
+  }
+}

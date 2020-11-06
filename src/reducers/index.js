@@ -5,6 +5,7 @@ import connection from './connection'
 import signup from './signup'
 import login from './login'
 import account from './account'
+import listing from './listing'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -12,6 +13,7 @@ const createRootReducer = (history) =>
     signup,
     login,
     account,
+    listing,
     connection,
   })
 

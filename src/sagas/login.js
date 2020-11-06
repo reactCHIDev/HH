@@ -13,9 +13,11 @@ export function* logout() {
 function* loginFlow({ creds }) {
   try {
     const { data, headers } = yield loginRequest(creds)
+
     const localData = [
       { key: 'authorization-token', value: headers.authorization },
       { key: 'user-id', value: data.id },
+      { key: 'user-name', value: data.profileName },
     ]
     yield setItems(localData)
     yield put({ type: LOGIN_SUCCESS, payload: { name: data.profileName, id: data.id } })

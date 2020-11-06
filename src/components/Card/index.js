@@ -7,11 +7,11 @@ const Card = () => {
   const history = useHistory()
   return (
     <div className={styles.bg}>
-      <Link to="/settings" style={{ color: 'red' }}>
+      <Link to="/settings" style={{ color: 'grey' }}>
         Account Settings
       </Link>
-      <Link to="/dashboard/profile" style={{ color: 'grey' }}>
-        Dashboard/Profile
+      <Link to="/profile" style={{ color: 'grey' }}>
+        Profile / Listings
       </Link>
       <hr style={{ width: 250, color: 'grey' }} />
       <Link to="/signupflow">Sign up flow</Link>
