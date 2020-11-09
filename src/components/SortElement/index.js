@@ -20,7 +20,7 @@ const Sort = (props) => {
 
 Sort.propTypes = {
   title: T.string.isRequired,
-  onClick: T.func.isRequired,
+  onClick: T.func,
 }
 
 export default Sort

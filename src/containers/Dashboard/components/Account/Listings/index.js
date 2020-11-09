@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import T from 'prop-types'
+import T, { shape } from 'prop-types'
 import { connect } from 'react-redux'
 import ChkBox from 'components/ChkBox'
 import SortElement from 'components/SortElement'
@@ -22,11 +22,11 @@ const colors = [
 ]
 
 const sorts = [
-  { title: 'Name', width: '40%' },
-  { title: 'Rating', width: '19%' },
-  { title: 'Status', width: '19%' },
-  { title: 'Stock', width: '10%' },
-  { title: 'Pre-order', width: '10%' },
+  { title: 'Name', width: '40%', id: 1 },
+  { title: 'Rating', width: '19%', id: 2 },
+  { title: 'Status', width: '19%', id: 3 },
+  { title: 'Stock', width: '10%', id: 4 },
+  { title: 'Pre-order', width: '10%', id: 5 },
 ]
 
 const Listings = (props) => {
@@ -62,8 +62,8 @@ const Listings = (props) => {
         </div>
         <div className={styles.listing}>
           <div className={styles.sort_block}>
-            {sorts.map((e) => (
-              <div style={{ width: e.width }}>
+            {sorts.map((e, i) => (
+              <div key={e.id} style={{ width: e.width }}>
                 <SortElement title={e.title} />{' '}
               </div>
             ))}
@@ -78,7 +78,7 @@ const Listings = (props) => {
 }
 
 Listings.propTypes = {
-  types: T.shape(),
+  types: T.arrayOf(shape()),
   getProductTypes: T.func,
 }
 
