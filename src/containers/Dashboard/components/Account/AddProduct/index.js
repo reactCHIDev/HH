@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import { Steps, Divider } from 'antd'
+import { setItem, getItem, removeKey } from 'utils/localStorage'
 import Button from 'components/Button'
 import Step1 from './components/Steps/Step1'
 import Step2 from './components/Steps/Step2'
@@ -37,13 +38,10 @@ const AddProduct = (props) => {
         </div>
         <div className={styles.main_block}>
           <div className={styles.section}>
-            {step === 0 && <Step1 step={step} />}
-            {step === 1 && <Step2 step={step} />}
-            {step === 2 && <Step3 step={step} />}
-            {step === 3 && <Step4 step={step} />}
-          </div>
-          <div className={styles.btn}>
-            <Button title={step < 3 ? 'Next' : 'Publish'} onClick={step < 3 ? onClick : publish} />
+            {step === 0 && <Step1 setStep={onClick} />}
+            {step === 1 && <Step2 setStep={onClick} />}
+            {step === 2 && <Step3 setStep={onClick} />}
+            {step === 3 && <Step4 setStep={onClick} />}
           </div>
         </div>
       </div>

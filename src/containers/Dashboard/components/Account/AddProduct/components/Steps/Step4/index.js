@@ -4,18 +4,17 @@ import styles from './step4.module.scss'
 import './step4.less'
 
 const Step4 = (props) => {
-  const { step } = props
+  const { setStep } = props
 
   return (
     <div className={styles.container}>
       <div className={styles.content} />
-      {step}
     </div>
   )
 }
 
 Step4.propTypes = {
-  step: T.number.isRequired,
+  setStep: T.func.isRequired,
 }
 
 export default Step4
