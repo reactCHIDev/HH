@@ -12,6 +12,10 @@ import sec24 from 'assets/images/landings/create_experience/sec24.jpg'
 import sec31 from 'assets/images/landings/create_experience/sec31.jpg'
 import sec32 from 'assets/images/landings/create_experience/sec32.jpg'
 import sec33 from 'assets/images/landings/create_experience/sec33.jpg'
+import star1 from 'assets/images/landings/create_experience/star1.svg'
+import star2 from 'assets/images/landings/create_experience/star2.svg'
+import star3 from 'assets/images/landings/create_experience/star3.svg'
+import sparks from 'assets/images/landings/create_experience/sparks.svg'
 import calendar from 'assets/images/landings/create_experience/calendar.svg'
 import mixer from 'assets/images/landings/create_experience/mixer.svg'
 import styles from '../styles.module.scss'
@@ -107,6 +111,9 @@ const CreateExperience = () => {
           </div>
           <div className={styles.img_container}>
             <img src={sec23} alt="" className={styles.img} />
+            <img src={star1} alt="" className={styles.star1} />
+            <img src={star2} alt="" className={styles.star2} />
+            <img src={star3} alt="" className={styles.star3} />
           </div>
         </section>
 
@@ -122,6 +129,7 @@ const CreateExperience = () => {
           </div>
           <div className={styles.img_container}>
             <img src={sec24} alt="" className={styles.img} />
+            <img src={sparks} alt="" className={styles.sparks} />
           </div>
         </section>
         <button type="button" className={styles.btn_alone}>

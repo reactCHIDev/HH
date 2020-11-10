@@ -313,6 +313,16 @@ p {
         display: none;
       }
     }
+    .parachute {
+      width: 160px;
+      position: absolute;
+      left: 73px;
+      top: -140px;
+      z-index: 3;
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
 
     h2 {
       max-width: 829px;
@@ -696,9 +706,11 @@ p {
   }
   .img_container {
     width: 50%;
+    height: 100%;
     margin-left: 24px;
     border-radius: 16px;
     overflow: hidden;
+    position: relative;
 
     @media (max-width: 768px) {
       width: 100%;
@@ -706,6 +718,43 @@ p {
     }
     .img {
       width: 100%;
+    }
+    .hearts {
+      position: absolute;
+      width: 20%;
+      top: -3%;
+      left: 17%;
+    }
+    .donut {
+      position: absolute;
+      width: 11%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-25%, 17%);
+    }
+    .star1 {
+      position: absolute;
+      width: 9%;
+      top: 19%;
+      left: 61%;
+    }
+    .star2 {
+      position: absolute;
+      width: 9%;
+      top: 23%;
+      left: 48%;
+    }
+    .star3 {
+      position: absolute;
+      width: 9%;
+      top: 16%;
+      left: 37%;
+    }
+    .sparks {
+      position: absolute;
+      width: 50%;
+      top: 5%;
+      left: 14%;
     }
   }
 }

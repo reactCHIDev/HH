@@ -125,7 +125,7 @@ const CreateExperience = () => {
         </button>
 
         <section className={styles.learn_more}>
-          <img className={styles.abs} src={parachute} alt="parachute" />
+          <img className={styles.parachute} src={parachute} alt="parachute" />
 
           <h2>Learn more about other dedicated food makers</h2>
           <div className={styles.cards_wrapper}>
