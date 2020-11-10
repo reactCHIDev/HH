@@ -1,0 +1,17 @@
+.container {
+  .content {
+    position: relative;
+
+    .header {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 140%;
+      letter-spacing: 0.5px;
+      color: #3c3e43;
+    }
+  }
+  .btn_container {
+    width: 160px;
+  }
+}

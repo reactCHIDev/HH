@@ -3,10 +3,10 @@ import T from 'prop-types'
 import styles from './button.module.scss'
 
 const Button = (props) => {
-  const { title, onClick } = props
+  const { title, dark = true, onClick } = props
 
   return (
-    <button className={styles.btn} type="button" onClick={onClick}>
+    <button className={dark ? styles.btn : styles.white_btn} type="button" onClick={onClick}>
       {title}
     </button>
   )
@@ -14,6 +14,7 @@ const Button = (props) => {
 
 Button.propTypes = {
   title: T.string,
+  dark: T.bool,
   onClick: T.func,
 }
 

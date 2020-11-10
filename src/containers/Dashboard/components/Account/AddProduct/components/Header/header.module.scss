@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  padding: 40px 50px 0px;
+  background: #f5f8fb;
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      display: flex;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 32px;
+      line-height: 42px;
+      letter-spacing: 0.3px;
+      color: #31394d;
+      margin: 0 8px 0 0;
+      .back_arrow {
+        padding: 0 20px;
+        border-right: 1px solid lightgrey;
+      }
+      .back_title {
+        padding: 0 20px;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 32px;
+        line-height: 42px;
+        letter-spacing: 0.3px;
+        color: #31394d;
+      }
+    }
+    .saved {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 160%;
+      letter-spacing: 0.5px;
+      color: #31394d;
+    }
+  }
+}

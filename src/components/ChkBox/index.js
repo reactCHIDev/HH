@@ -7,7 +7,7 @@ const ChkBox = (props) => {
   const { id, labelText, name, checked, onChange, register } = props
 
   return (
-    <label id={id}>
+    <label className={styles.label_chkbox} id={id}>
       <input
         type="checkbox"
         name={name}
