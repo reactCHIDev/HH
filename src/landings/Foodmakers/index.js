@@ -13,6 +13,7 @@ import sec23 from 'assets/images/landings/foodmakers/sec2-3.jpg'
 import sec31 from 'assets/images/landings/foodmakers/sec3-1.jpg'
 import sec32 from 'assets/images/landings/foodmakers/sec3-2.jpg'
 import sec33 from 'assets/images/landings/foodmakers/sec3-3.jpg'
+import hearts from 'assets/images/landings/foodmakers/hearts.svg'
 import bag from 'assets/images/landings/foodmakers/bag.svg'
 import styles from '../styles.module.scss'
 import './foodmakers.less'
@@ -99,6 +100,7 @@ const Foodmakers = () => {
           </div>
           <div className={styles.img_container}>
             <img src={sec21} alt="" className={styles.img} />
+            <img src={hearts} alt="" className={styles.hearts} />\
           </div>
         </section>
 

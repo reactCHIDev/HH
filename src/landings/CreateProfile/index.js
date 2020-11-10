@@ -15,6 +15,7 @@ import how1 from 'assets/images/landings/create_profile/howitworks1.svg'
 import how2 from 'assets/images/landings/create_profile/howitworks2.svg'
 import how31 from 'assets/images/landings/create_profile/howitworks31.svg'
 import how32 from 'assets/images/landings/create_profile/howitworks32.svg'
+import donut from 'assets/images/landings/create_profile/donut.svg'
 import cake from 'assets/images/landings/create_profile/cake.svg'
 import glass from 'assets/images/landings/create_profile/glass.svg'
 import styles from '../styles.module.scss'
@@ -91,6 +92,7 @@ const CreateProfile = () => {
 
           <div className={styles.img_container}>
             <img src={sec22} alt="" className={styles.img} />
+            <img src={donut} alt="" className={styles.donut} />
           </div>
         </section>
 
