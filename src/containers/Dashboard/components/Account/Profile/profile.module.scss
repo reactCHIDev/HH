@@ -1,6 +1,7 @@
 .info_container {
   display: flex;
   align-items: center;
+  padding: 20px 50px;
   @media (max-width: 900px) {
     flex-direction: column;
   }

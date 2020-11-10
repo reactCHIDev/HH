@@ -7,6 +7,7 @@ import Exp from 'components/Tabs/Test/Exp'
 import Comp from 'components/Tabs/Test/Comp'
 import Listings from 'containers/Dashboard/components/Account/Listings'
 import Profile from 'containers/Dashboard/components/Account/Profile'
+import AddProduct from 'containers/Dashboard/components/Account/AddProduct'
 import styles from './account.module.scss'
 import './account.less'
 
@@ -18,9 +19,9 @@ const Account = (props) => {
       <p className={styles.heading}>{`${profileName || getItem('user-name')}'s account info`}</p>
       <TabsUnderlined
         tabs={{
+          addProduct: { mark: false, content: <AddProduct /> },
           listings: { mark: false, content: <Listings /> },
           profile: { mark: false, content: <Profile profileName={profileName} /> },
-          bookmark: { mark: false, content: null },
           orders: {
             mark: false,
             content: <Exp />,
