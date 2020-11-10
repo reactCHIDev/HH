@@ -7,11 +7,11 @@ const ChkBox = (props) => {
   const { id, labelText, name, checked, onChange, register } = props
 
   return (
-    <label>
+    <label id={id}>
       <input
         type="checkbox"
-        id={id}
         name={name}
+        id={id}
         ref={register}
         checked={checked}
         onChange={onChange}
@@ -22,7 +22,7 @@ const ChkBox = (props) => {
 }
 
 ChkBox.propTypes = {
-  id: T.string.isRequired,
+  id: T.number.isRequired,
   labelText: T.string.isRequired,
   checked: T.bool,
   onChange: T.func,

@@ -22,6 +22,7 @@ import Header from 'components/Header'
 import desktop from 'routing/PATHS'
 import styles from './app.module.scss'
 import './App.less'
+import './App.css'
 
 const PageNotFound = lazy(() => import('components/PageNotFound'))
 const Login = lazy(() => import('containers/Auth/components/Login'))

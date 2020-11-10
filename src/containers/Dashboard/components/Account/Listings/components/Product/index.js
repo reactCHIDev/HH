@@ -9,28 +9,34 @@ import Option from '../Option'
 import styles from './product.module.scss'
 import './product.less'
 
-const Product = (props) => {
-  const { x } = props
+const Product = ({ product }) => {
+  const { coverPhoto, title, rating, status, quantity, available } = product
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.image_container}>
-          <img src={ProdPhoto} alt="product" />
+          <img
+            src={
+              /* coverPhoto */
+              'https://eda.ru/img/eda/c380x380i/s1.eda.ru/StaticContent/Photos/120131082242/170418161009/p_O.jpg'
+            }
+            alt="product"
+          />
         </div>
-        <p className={styles.product_name}>Pie with carrots and apple</p>
+        <p className={styles.product_name}>{title}</p>
         <div className={styles.edit_btn_container}>
           <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
         </div>
         <div className={styles.rating_container}>
-          <Rate style={{ color: '#3C3E43' }} />
+          <Rate style={{ color: '#3C3E43' }} disabled defaultValue={rating} />
         </div>
         <div className={styles.status_option_container}>
-          <Option />
+          <Option checked={status === 'PUBLISHED'} />
         </div>
-        <p className={styles.stock}>321</p>
+        <p className={styles.stock}>{quantity}</p>
         <p className={styles.preorder}>
-          <img src={true ? ChkIcon : DashIcon} alt="" />
+          <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
         </p>
       </div>
     </div>

@@ -1,5 +1,8 @@
 @import 'styles/styles.scss';
 
+:global(p) {
+}
+
 body {
   font-family: $base-font-DM-Sans;
   color: $black;
