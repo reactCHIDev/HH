@@ -14,7 +14,7 @@ import './add_product.less'
 
 const AddProduct = (props) => {
   const { x } = props
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(2)
 
   const { Step } = Steps
 
