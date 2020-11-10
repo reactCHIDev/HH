@@ -5,15 +5,27 @@ import SortIcon2 from 'assets/icons/svg/sort2.svg'
 import styles from './sort.module.scss'
 
 const Sort = (props) => {
-  const { title, onClick } = props
+  const { title, type, onClick } = props
 
   return (
-    <div className={styles.container} onClick={onClick}>
-      <p className={styles.title}>{title}</p>
-      <div className={styles.img_wrapper}>
-        <img className={styles.icon1} src={SortIcon1} alt="sort" />
-        <img className={styles.icon2} src={SortIcon2} alt="sort" />
-      </div>
+    <div className={styles.container} onClick={onClick} title={title} type={type}>
+      {title && (
+        <>
+          <p className={styles.title}>{title}</p>
+          <div className={styles.img_wrapper}>
+            <img
+              className={type === 'asc' ? styles.iconasc1 : styles.icondesc1}
+              src={SortIcon1}
+              alt="sort"
+            />
+            <img
+              className={type === 'asc' ? styles.iconasc2 : styles.icondesc2}
+              src={SortIcon2}
+              alt="sort"
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }

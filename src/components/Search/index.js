@@ -4,9 +4,13 @@ import T from 'prop-types'
 import styles from './search.module.scss'
 
 const Search = (props) => {
+  const { onSearch } = props
   const [value, setValue] = useState('')
 
-  const onChange = (e) => setValue(e.target.value)
+  const onChange = (e) => {
+    setValue(e.target.value)
+    onSearch(String(e.target.value).toLowerCase())
+  }
 
   return (
     <div className={styles.container}>
@@ -16,6 +20,8 @@ const Search = (props) => {
   )
 }
 
-Search.propTypes = {}
+Search.propTypes = {
+  onSearch: T.func,
+}
 
 export default Search

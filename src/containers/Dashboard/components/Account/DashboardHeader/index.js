@@ -6,7 +6,7 @@ import styles from './header.module.scss'
 import './header.less'
 
 const Header = (props) => {
-  const { x } = props
+  const { onSearch } = props
 
   const extraMark = (num) => <div className={styles.extra_mark}>{num}</div>
 
@@ -18,7 +18,7 @@ const Header = (props) => {
           {extraMark(4)}
         </div>
         <div className={styles.srch_block}>
-          <Search />
+          <Search onSearch={onSearch} />
           <div className={styles.btn_wrapper}>
             <Button title="ADD PRODUCT" onClick={null} />
           </div>
@@ -28,6 +28,8 @@ const Header = (props) => {
   )
 }
 
-Header.propTypes = {}
+Header.propTypes = {
+  onSearch: T.func,
+}
 
 export default Header

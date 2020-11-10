@@ -7,11 +7,11 @@ const ChkBox = (props) => {
   const { id, labelText, name, checked, onChange, register } = props
 
   return (
-    <label>
+    <label id={id}>
       <input
         type="checkbox"
-        id={id}
         name={name}
+        id={id}
         ref={register}
         checked={checked}
         onChange={onChange}
