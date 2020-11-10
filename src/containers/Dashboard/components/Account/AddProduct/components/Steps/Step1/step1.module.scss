@@ -23,14 +23,9 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      // font-family: 'DM Sans';
       background: #ffffff;
       border-radius: 16px;
       margin-bottom: 14px;
-      /* .form {
-      background: #0e101c;
-      max-width: 400px;
-      margin: 0 auto; */
 
       .label {
         font-style: normal;
@@ -55,15 +50,10 @@
         border: 1px solid #adb0b8;
         box-sizing: border-box;
         backdrop-filter: blur(6px);
-        /* Note: backdrop-filter has minimal browser support */
         border-radius: 8px;
         @media (max-width: 420px) {
           width: 343px;
         }
-      }
-
-      input[name='password']:focus {
-        z-index: 2;
       }
 
       ::-webkit-input-placeholder,
