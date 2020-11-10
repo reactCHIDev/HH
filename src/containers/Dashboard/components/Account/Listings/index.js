@@ -44,13 +44,19 @@ const Listings = (props) => {
   const [searchSubstring, setSearchSubstring] = useState('')
   const [productsToShow, setProductsToShow] = useState(myProducts)
 
-  console.log(
-    '%c   searchSubstring   ',
-    'color: darkgreen; background: palegreen;',
-    searchSubstring,
-  )
-
   const pageSize = 3
+
+  const resetFilters = () => {
+    setFilters(
+      types.map((type) => {
+        type.productCategories = type.productCategories.map((category) => {
+          category.checked = false
+          return category
+        })
+        return type
+      }),
+    )
+  }
 
   useEffect(() => {
     getProductTypes()
@@ -61,42 +67,22 @@ const Listings = (props) => {
   }, [myProducts])
 
   useEffect(() => {
-    console.log('%c   ids   ', 'color: white; background: royalblue;', ids)
-  }, [ids])
-
-  useEffect(() => {
-    console.log('%c   filters   ', 'color: white; background: royalblue;', filters)
     filterProducts(
       myProducts
         .filter((p) => ids.includes(String(p.productCategoryId)))
         .filter((p) => p.title.toLowerCase().includes(searchSubstring)),
-      // .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize),
     )
   }, [filters])
 
   useEffect(() => {
-    console.log('%c   total   ', 'color: white; background: royalblue;', total)
     setTotal(filteredProducts.length)
     setPage(1)
   }, [filteredProducts])
 
-  /*   useEffect(() => {
-    console.log('%c   page   ', 'color: white; background: royalblue;', page)
-    filterProducts(filteredProducts.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize))
-  }, [page]) */
-
   useEffect(() => {
     if (types.length > 0) {
       // getMyProductList()
-      setFilters(
-        types.map((type) => {
-          type.productCategories = type.productCategories.map((category) => {
-            category.checked = false
-            return category
-          })
-          return type
-        }),
-      )
+      resetFilters()
     }
   }, [types])
 
@@ -142,12 +128,19 @@ const Listings = (props) => {
         return 1
       return -1
     })
+
     setSort(tmp)
     filterProducts(filtered)
   }
 
   const onSearch = (value) => {
-    if (value === '') return
+    if (value === '') {
+      resetFilters()
+      setIds([])
+      setSearchSubstring('')
+      return
+    }
+
     const tmp = [...myProducts]
     setFilters(
       types.map((type) => {
@@ -172,7 +165,6 @@ const Listings = (props) => {
         .filter((p) => p.title.toLowerCase().includes(value))
         .map((el) => String(el.productCategoryId)),
     )
-    // setIds(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'])
     setSearchSubstring(String(value).toLowerCase())
   }
 

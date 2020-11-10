@@ -12,8 +12,6 @@ const ListContainer = (props) => {
     pageChange(page)
   }
 
-  console.log('%c   page   ', 'color: white; background: royalblue;', page)
-
   return (
     <div className={styles.container}>
       {children}
