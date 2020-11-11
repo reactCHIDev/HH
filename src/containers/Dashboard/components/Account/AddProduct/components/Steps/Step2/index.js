@@ -80,8 +80,7 @@ const Step2 = (props) => {
           <textarea
             className={styles.textarea}
             name="description"
-            rows="8"
-            cols="42"
+            rows="4"
             ref={register({
               required: true,
             })}

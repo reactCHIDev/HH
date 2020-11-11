@@ -202,8 +202,8 @@ const Step4 = (props) => {
                 ))}
 
                 <Form.Item>
-                  <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                    Add
+                  <Button onClick={() => add()} icon={<PlusOutlined />}>
+                    ADD
                   </Button>
                 </Form.Item>
               </>
@@ -211,16 +211,14 @@ const Step4 = (props) => {
           </Form.List>
 
           <Row>
-            <Col sm={12} md={10}>
-              <Form.Item name="chkInrg">
-                <Checkbox checked={ingredients} onChange={ingredientsChk}>
-                  Ingredients
-                </Checkbox>
-              </Form.Item>
+            <Col flex="150px" wrap={false}>
+              <Checkbox checked={ingredients} onChange={ingredientsChk}>
+                Ingredients
+              </Checkbox>
             </Col>
-            <Col sm={12} md={14}>
+            <Col flex="auto">
               <Form.Item name="ingredients" wrapperCol={{ span: 24, offset: 0 }}>
-                <Input.TextArea />
+                <Input.TextArea rows={4} />
               </Form.Item>
             </Col>
           </Row>
@@ -402,8 +400,8 @@ const Step4 = (props) => {
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item {...tailFormItemLayout} wrapperCol={2}>
+            <Button type="primary" block size="large" htmlType="submit">
               PUBLISH
             </Button>
           </Form.Item>
