@@ -128,54 +128,44 @@ const Step4 = (props) => {
           scrollToFirstError
         >
           <Form.List name="order">
-            {(fields, { add, remove }) => {
-              console.log('fields', fields)
-              /* fields.push({ fieldKey: 123, isListField: true, key: 123, name: 123 }) */
-              return (
-                <>
-                  {fields.map((field) => (
-                    <Space key={[field.key, 'space']} align="baseline">
-                      <Form.Item
-                        noStyle
-                        shouldUpdate={(prevValues, curValues) =>
-                          prevValues.area !== curValues.area ||
-                          prevValues.sights !== curValues.sights
-                        }
-                      >
-                        <div className="numeric_selector">
-                          <Form.Item
-                            {...field}
-                            key={[field.name, 'volume']}
-                            name={[field.name, 'volume']}
-                            fieldKey={[field.fieldKey, 'volume']}
-                            rules={[{ required: false, message: 'Please input volume!' }]}
-                          >
-                            <InputNumber min={0} max={99999} onChange={onChange} />
-                          </Form.Item>
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map((field) => (
+                  <Row key={field.key}>
+                    <Space align="baseline">
+                      <div className="numeric_selector">
+                        <Form.Item
+                          {...field}
+                          key={[field.name, 'volume']}
+                          name={[field.name, 'volume']}
+                          fieldKey={[field.fieldKey, 'volume']}
+                          rules={[{ required: false, message: 'Please input volume!' }]}
+                        >
+                          <InputNumber min={0} max={99999} onChange={onChange} />
+                        </Form.Item>
 
-                          <Form.Item
-                            {...field}
-                            key={[field.name, 'ed']}
-                            name={[field.name, 'ed']}
-                            fieldKey={[field.fieldKey, 'ed']}
-                            rules={[{ required: true, message: 'Please input volume!' }]}
+                        <Form.Item
+                          {...field}
+                          key={[field.name, 'ed']}
+                          name={[field.name, 'ed']}
+                          fieldKey={[field.fieldKey, 'ed']}
+                          rules={[{ required: false, message: 'Please input volume!' }]}
+                        >
+                          <Select
+                            style={{
+                              width: 70,
+                            }}
                           >
-                            <Select
-                              style={{
-                                width: 70,
-                              }}
-                            >
-                              <Option value="g">ml</Option>
-                              <Option value="kg">cl</Option>
-                              <Option value="ml">ml</Option>
-                              <Option value="l">cl</Option>
-                              <Option value="S">l</Option>
-                              <Option value="M">ml</Option>
-                              <Option value="L">cl</Option>
-                            </Select>
-                          </Form.Item>
-                        </div>
-                      </Form.Item>
+                            <Option value="g">ml</Option>
+                            <Option value="kg">cl</Option>
+                            <Option value="ml">ml</Option>
+                            <Option value="l">cl</Option>
+                            <Option value="S">l</Option>
+                            <Option value="M">ml</Option>
+                            <Option value="L">cl</Option>
+                          </Select>
+                        </Form.Item>
+                      </div>
 
                       <div className="numeric_selector">
                         <Form.Item
@@ -192,7 +182,7 @@ const Step4 = (props) => {
                           key={[field.name, 'currency']}
                           name={[field.name, 'currency']}
                           fieldKey={[field.fieldKey, 'currency']}
-                          rules={[{ required: true, message: 'Please choose currency!' }]}
+                          rules={[{ required: false, message: 'Please choose currency!' }]}
                         >
                           <Select
                             style={{
@@ -208,16 +198,16 @@ const Step4 = (props) => {
 
                       {field.key > 0 && <MinusCircleOutlined onClick={() => remove(field.name)} />}
                     </Space>
-                  ))}
+                  </Row>
+                ))}
 
-                  <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                      Add
-                    </Button>
-                  </Form.Item>
-                </>
-              )
-            }}
+                <Form.Item>
+                  <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                    Add
+                  </Button>
+                </Form.Item>
+              </>
+            )}
           </Form.List>
 
           <Row>
@@ -251,21 +241,18 @@ const Step4 = (props) => {
             </Select>
           </Form.Item>
 
-          <Form.Item name="region" wrapperCol={{ span: 24, offset: 0 }}>
-            <Radio.Group onChange={onRegionRadio} value={selectedRegionRadio}>
-              <Radio style={radioStyle} value={1}>
-                Local
-              </Radio>
-              <Radio style={radioStyle} value={2}>
-                Worldwide
-              </Radio>
-              <Radio style={radioStyle} value={3}>
-                Select countries
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
-
-          <Form.Item name="countries" wrapperCol={{ span: 24, offset: 2 }}>
+          <Radio.Group onChange={onRegionRadio} value={selectedRegionRadio}>
+            <Radio style={radioStyle} value={1}>
+              Local
+            </Radio>
+            <Radio style={radioStyle} value={2}>
+              Worldwide
+            </Radio>
+            <Radio style={radioStyle} value={3}>
+              Select countries
+            </Radio>
+          </Radio.Group>
+          <div style={{ padding: '5px 0 0 24px' }}>
             <Radio.Group
               onChange={onCountryRadio}
               value={selectedCountryRadio}
@@ -294,7 +281,7 @@ const Step4 = (props) => {
                 Worldwide, except
               </Radio>
             </Radio.Group>
-          </Form.Item>
+          </div>
 
           <Divider />
 
