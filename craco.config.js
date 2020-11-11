@@ -11,6 +11,7 @@ module.exports = {
               '@primary-color': '#31394D',
               '@border-radius-base': '6px',
               '@font-family': 'DM Sans',
+              '@input-height-base': '48px',
             },
             javascriptEnabled: true,
           },
