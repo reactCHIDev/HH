@@ -3,6 +3,9 @@ import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import { Steps, Divider } from 'antd'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
+import { getProductTypes } from 'actions/listing'
+import { createProductRequest } from 'actions/product'
+
 import Button from 'components/Button'
 import Step1 from './components/Steps/Step1'
 import Step2 from './components/Steps/Step2'
@@ -13,8 +16,12 @@ import styles from './add_product.module.scss'
 import './add_product.less'
 
 const AddProduct = (props) => {
-  const { x } = props
+  const { types, getProductTypes, createProductRequest } = props
   const [step, setStep] = useState(0)
+
+  useEffect(() => {
+    getProductTypes()
+  }, [])
 
   const { Step } = Steps
 
@@ -39,9 +46,9 @@ const AddProduct = (props) => {
         <div className={styles.main_block}>
           <div className={styles.section}>
             {step === 0 && <Step1 setStep={onClick} />}
-            {step === 1 && <Step2 setStep={onClick} />}
+            {step === 1 && <Step2 setStep={onClick} types={types} />}
             {step === 2 && <Step3 setStep={onClick} />}
-            {step === 3 && <Step4 setStep={onClick} />}
+            {step === 3 && <Step4 setStep={onClick} create={createProductRequest} />}
           </div>
         </div>
       </div>
@@ -49,6 +56,13 @@ const AddProduct = (props) => {
   )
 }
 
-AddProduct.propTypes = {}
+AddProduct.propTypes = {
+  types: T.arrayOf(shape()),
+  getProductTypes: T.func,
+  createProductRequest: T.func,
+}
 
-export default AddProduct
+export default connect(({ listing: { types } }) => ({ types }), {
+  getProductTypes,
+  createProductRequest,
+})(AddProduct)

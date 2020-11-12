@@ -18,6 +18,8 @@ import {
   Space,
 } from 'antd'
 import moment from 'moment'
+import { getItem, setItem } from 'utils/localStorage'
+
 import cls from 'classnames'
 import { QuestionCircleOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import styles from './step4.module.scss'
@@ -61,22 +63,101 @@ const tailFormItemLayout = {
   },
 }
 
-const Step4 = (props) => {
+const Step4 = ({ create }) => {
   const [form] = Form.useForm()
   const { RangePicker } = DatePicker
 
   const [ingredients, setIngredients] = useState(false)
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedCountries, setSelectedCountries] = useState([])
-  const [selectedRegionRadio, setSelectedRegionRadio] = useState([])
-  const [selectedCountryRadio, setSelectedCountryRadio] = useState([])
-  const [delivery, setDelivery] = useState({})
+  const [selectedRegionRadio, setSelectedRegionRadio] = useState(1)
+  const [selectedCountryRadio, setSelectedCountryRadio] = useState(1)
+  const [delivery, setDelivery] = useState([0, 0, 0, 0])
+  const [availabilityStartDate, setStartDate] = useState('')
+  const [availabilityEndDate, setEndDate] = useState('')
+  const [qtyChk, setQtyChk] = useState(false)
 
-  const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters']
+  const OPTIONS = [
+    { id: '1', tagName: 'Drink' },
+    { id: '2', tagName: 'Salad' },
+    { id: '3', tagName: 'Bread' },
+    { id: '4', tagName: 'Soup' },
+    { id: '5', tagName: 'Pasta' },
+  ]
+
+  const normalizeTags = (value) => {
+    const v = value.map((t) => OPTIONS.find((e) => e.tagName === t).id)
+    console.log('v', v)
+    return v
+  }
+
   const COUNTRIES = ['China', 'Malaysia', 'Japan', 'Vietnam']
+
+  const deliveryMethodData = [
+    {
+      type: 'Standart',
+      description: '',
+      price: 0,
+      currency: '$',
+    },
+    {
+      type: 'Pick-up',
+      description: '',
+      price: 0,
+      currency: '$',
+    },
+    {
+      type: 'Express',
+      description: '',
+      price: 0,
+      currency: '$',
+    },
+    {
+      type: 'Free',
+      description: '',
+      price: 0,
+      currency: null,
+    },
+  ]
 
   const onFinish = (values) => {
     console.log('Received values of form: ', { ...values, chkIngr: ingredients })
+
+    // ================
+
+    let deliveryRegion = ''
+    let deliveryRegionException = ''
+    if (selectedRegionRadio < 3) {
+      const deliveryRegionData = { '1': 'Local', '2': 'Worldwide' }
+      deliveryRegion = deliveryRegionData[selectedRegionRadio]
+    } else {
+      if (selectedCountryRadio == 4) deliveryRegion = selectedCountries
+      if (selectedCountryRadio == 5) deliveryRegionException = selectedCountries
+    }
+
+    // =================
+
+    const deliveryMethod = deliveryMethodData.filter((m, i) => delivery[i])
+
+    // =================
+
+    const productTagIds = normalizeTags(selectedItems)
+
+    // =================
+
+    const formData = {
+      ...values,
+      deliveryRegion,
+      deliveryRegionException,
+      deliveryMethod,
+      availabilityStartDate,
+      availabilityEndDate,
+      productTagIds,
+    }
+    const prevStep = getItem('addProduct')
+    const productData = { ...prevStep, ...formData }
+    setItem('addProduct', productData)
+    create(productData)
   }
 
   const onRegionRadio = (e) => {
@@ -97,7 +178,7 @@ const Step4 = (props) => {
     setSelectedCountries(selectedItms)
   }
 
-  const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o))
+  const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o.id))
   const filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
 
   const radioStyle = {
@@ -106,7 +187,23 @@ const Step4 = (props) => {
     lineHeight: '30px',
   }
 
-  const [autoCompleteResult, setAutoCompleteResult] = useState([])
+  const onChangeDeliveryChkBox = (e) => {
+    setDelivery((d) => {
+      d[e.target.id] = !d[e.target.id]
+      console.log('d', d)
+      return d
+    })
+  }
+
+  const onChangeStartDate = (e) => {
+    setStartDate(new Date(e).toISOString())
+  }
+  const onChangeEndDate = (e) => {
+    setEndDate(new Date(e).toISOString())
+  }
+  const onQtyChk = () => {
+    setQtyChk((c) => !c)
+  }
 
   const onChange = () => {}
 
@@ -121,13 +218,13 @@ const Step4 = (props) => {
           name="register"
           onFinish={onFinish}
           initialValues={{
-            order: [{ ed: 'ml', currency: '$' }],
+            parameters: [{ measure: 'ml', currency: '$' }],
             ed: 'cl',
             ed2: '$',
           }}
           scrollToFirstError
         >
-          <Form.List name="order">
+          <Form.List name="parameters">
             {(fields, { add, remove }) => (
               <>
                 {fields.map((field) => (
@@ -141,14 +238,14 @@ const Step4 = (props) => {
                           fieldKey={[field.fieldKey, 'volume']}
                           rules={[{ required: false, message: 'Please input volume!' }]}
                         >
-                          <InputNumber min={0} max={99999} onChange={onChange} />
+                          <InputNumber min={0} max={99999} />
                         </Form.Item>
 
                         <Form.Item
                           {...field}
-                          key={[field.name, 'ed']}
-                          name={[field.name, 'ed']}
-                          fieldKey={[field.fieldKey, 'ed']}
+                          key={[field.name, 'measure']}
+                          name={[field.name, 'measure']}
+                          fieldKey={[field.fieldKey, 'measure']}
                           rules={[{ required: false, message: 'Please input volume!' }]}
                         >
                           <Select
@@ -156,13 +253,13 @@ const Step4 = (props) => {
                               width: 70,
                             }}
                           >
-                            <Option value="g">ml</Option>
-                            <Option value="kg">cl</Option>
+                            <Option value="g">g</Option>
+                            <Option value="kg">kg</Option>
                             <Option value="ml">ml</Option>
-                            <Option value="l">cl</Option>
-                            <Option value="S">l</Option>
-                            <Option value="M">ml</Option>
-                            <Option value="L">cl</Option>
+                            <Option value="l">l</Option>
+                            <Option value="S">S</Option>
+                            <Option value="M">M</Option>
+                            <Option value="L">L</Option>
                           </Select>
                         </Form.Item>
                       </div>
@@ -170,12 +267,12 @@ const Step4 = (props) => {
                       <div className="numeric_selector">
                         <Form.Item
                           {...field}
-                          key={[field.name, 'money']}
-                          name={[field.name, 'money']}
-                          fieldKey={[field.fieldKey, 'money']}
+                          key={[field.name, 'price']}
+                          name={[field.name, 'price']}
+                          fieldKey={[field.fieldKey, 'price']}
                           rules={[{ required: false, message: 'Please input volume!' }]}
                         >
-                          <InputNumber min={0} max={999999999999} onChange={onChange} />
+                          <InputNumber min={0} max={999999999999} />
                         </Form.Item>
                         <Form.Item
                           {...field}
@@ -211,7 +308,7 @@ const Step4 = (props) => {
           </Form.List>
 
           <Row>
-            <Col flex="150px" wrap={false}>
+            <Col flex="150px">
               <Checkbox checked={ingredients} onChange={ingredientsChk}>
                 Ingredients
               </Checkbox>
@@ -222,18 +319,18 @@ const Step4 = (props) => {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="tags" wrapperCol={{ span: 24, offset: 0 }}>
+          <Form.Item name="productTagIds" wrapperCol={{ span: 24, offset: 0 }}>
+            <label className="form-text">Tags</label>
             <Select
               mode="multiple"
-              placeholder="Inserted are removed"
               value={selectedItems}
               onChange={handleChangeTags}
               showArrow
               style={{ width: '100%' }}
             >
               {filteredOptions.map((item) => (
-                <Select.Option key={item} value={item}>
-                  {item}
+                <Select.Option key={item.id} value={item.tagName}>
+                  {item.tagName}
                 </Select.Option>
               ))}
             </Select>
@@ -250,6 +347,7 @@ const Step4 = (props) => {
               Select countries
             </Radio>
           </Radio.Group>
+
           <div style={{ padding: '5px 0 0 24px' }}>
             <Radio.Group
               onChange={onCountryRadio}
@@ -284,10 +382,11 @@ const Step4 = (props) => {
           <Divider />
 
           <p className={styles.header}>Delivery method</p>
+          <span className="form-text">Delivery type </span>
           <Row>
             <Col sm={12} md={12}>
               <Form.Item name="standart">
-                <Checkbox checked={true} onChange={onChange}>
+                <Checkbox id="0" onChange={onChangeDeliveryChkBox}>
                   Standart
                 </Checkbox>
                 <div style={{ padding: '5px 0 0 24px' }}>
@@ -304,7 +403,7 @@ const Step4 = (props) => {
             </Col>
             <Col sm={12} md={12}>
               <Form.Item name="standart">
-                <Checkbox checked={true} onChange={onChange}>
+                <Checkbox id="1" onChange={onChangeDeliveryChkBox}>
                   Pick-up
                 </Checkbox>
                 <div style={{ padding: '5px 0 0 24px' }}>
@@ -319,7 +418,7 @@ const Step4 = (props) => {
           <Row>
             <Col sm={12} md={12}>
               <Form.Item name="standart">
-                <Checkbox checked={true} onChange={onChange}>
+                <Checkbox id="2" onChange={onChangeDeliveryChkBox}>
                   Express
                 </Checkbox>
                 <div style={{ padding: '5px 0 0 24px' }}>
@@ -336,7 +435,7 @@ const Step4 = (props) => {
             </Col>
             <Col sm={12} md={12}>
               <Form.Item name="standart">
-                <Checkbox checked={true} onChange={onChange}>
+                <Checkbox id="3" onChange={onChangeDeliveryChkBox}>
                   Free
                 </Checkbox>
                 <div style={{ padding: '5px 0 0 24px' }}>
@@ -354,20 +453,22 @@ const Step4 = (props) => {
 
           <Row gutter={20} align="bottom">
             <Col gutter={20}>
-              <Form.Item name="availability" wrapperCol={{ span: 24, offset: 0 }}>
-                <Radio.Group onChange={onRegionRadio} value={selectedRegionRadio}>
-                  <Radio style={radioStyle} value={1}>
+              <Form.Item name="available" rules={[{ required: true, message: 'Required field' }]}>
+                <Radio.Group>
+                  <Radio style={radioStyle} value="Available">
                     Available now
                   </Radio>
-                  <Radio style={radioStyle} value={2}>
+                  <Radio style={radioStyle} value="Preorder">
                     Pre-order
                   </Radio>
                 </Radio.Group>
               </Form.Item>
 
-              <DatePicker onChange={onChange} />
-              <span>{' - '}</span>
-              <DatePicker onChange={onChange} />
+              <Form.Item name="dates" dependencies={['available']}>
+                <DatePicker id="1" format="DD MMM YY" onChange={onChangeStartDate} />
+                <span>{' - '}</span>
+                <DatePicker id="2" format="DD MMM YY" onChange={onChangeEndDate} />
+              </Form.Item>
             </Col>
             <Col gutter={20} align="bottom">
               <span className="form-text">Over 18 Requirement </span>
@@ -378,23 +479,26 @@ const Step4 = (props) => {
           </Row>
 
           <div style={{ marginTop: 20 }}>
-            <Checkbox checked={true} onChange={onChange}>
-              Quantity (optional)
-            </Checkbox>
-            <div style={{ padding: '5px 0 0 24px' }}>
-              <InputNumber onChange={onChange} />
-            </div>
+            <Checkbox onChange={onQtyChk}>Quantity (optional)</Checkbox>
+            <Form.Item name="quantity" normalize={(value) => Number(value)}>
+              <div style={{ padding: '5px 0 0 24px' }}>
+                <InputNumber disabled={!qtyChk} onChange={onChange} />
+              </div>
+            </Form.Item>
           </div>
 
           <Divider />
 
           <p className={styles.header}>Refund policy</p>
-          <Form.Item name="refund">
-            <Radio.Group onChange={onRegionRadio} value={selectedRegionRadio}>
-              <Radio style={radioStyle} value={1}>
+          <Form.Item
+            name="refundPolicy"
+            rules={[{ required: true, message: 'Please choose refund policy' }]}
+          >
+            <Radio.Group>
+              <Radio style={radioStyle} value="FULL_REFUND">
                 Full refund
               </Radio>
-              <Radio style={radioStyle} value={2}>
+              <Radio style={radioStyle} value="NO_REFUND">
                 Non-refundable
               </Radio>
             </Radio.Group>
@@ -413,6 +517,7 @@ const Step4 = (props) => {
 
 Step4.propTypes = {
   setStep: T.func.isRequired,
+  create: T.func.isRequired,
 }
 
 export default Step4

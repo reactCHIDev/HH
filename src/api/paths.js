@@ -21,7 +21,9 @@ export default {
   // Listing
   getProductTypes: '/v1/product/list_types',
 
-  //
+  // Product
+  createProduct: '/v1/product/create',
+
   //
   //
   //

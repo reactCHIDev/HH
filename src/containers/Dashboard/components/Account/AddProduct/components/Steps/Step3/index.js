@@ -43,7 +43,8 @@ const Step3 = (props) => {
     const prevSteps = getItem('addProduct')
     setItem('addProduct', {
       ...prevSteps,
-      fileList,
+      coverPhoto: fileList[0].response.url,
+      otherPhotos: fileList.slice(1),
     })
     setStep()
   }
