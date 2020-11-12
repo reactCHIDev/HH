@@ -76,6 +76,7 @@ const Step4 = ({ create }) => {
   const [availabilityStartDate, setStartDate] = useState('')
   const [availabilityEndDate, setEndDate] = useState('')
   const [qtyChk, setQtyChk] = useState(false)
+  const [dates, setDates] = useState('Available')
 
   const OPTIONS = [
     { id: '1', tagName: 'Drink' },
@@ -203,6 +204,11 @@ const Step4 = ({ create }) => {
   }
   const onQtyChk = () => {
     setQtyChk((c) => !c)
+  }
+
+  const toggleDates = (e) => {
+    console.log('%c   value   ', 'color: white; background: salmon;', e)
+    setDates(e.target.value !== 'Preorder')
   }
 
   const onChange = () => {}
@@ -454,7 +460,7 @@ const Step4 = ({ create }) => {
           <Row gutter={20} align="bottom">
             <Col gutter={20}>
               <Form.Item name="available" rules={[{ required: true, message: 'Required field' }]}>
-                <Radio.Group>
+                <Radio.Group onChange={toggleDates}>
                   <Radio style={radioStyle} value="Available">
                     Available now
                   </Radio>
@@ -464,11 +470,9 @@ const Step4 = ({ create }) => {
                 </Radio.Group>
               </Form.Item>
 
-              <Form.Item name="dates" dependencies={['available']}>
-                <DatePicker id="1" format="DD MMM YY" onChange={onChangeStartDate} />
-                <span>{' - '}</span>
-                <DatePicker id="2" format="DD MMM YY" onChange={onChangeEndDate} />
-              </Form.Item>
+              <DatePicker disabled={dates} id="1" format="DD MMM YY" onChange={onChangeStartDate} />
+              <span>{' - '}</span>
+              <DatePicker disabled={dates} id="2" format="DD MMM YY" onChange={onChangeEndDate} />
             </Col>
             <Col gutter={20} align="bottom">
               <span className="form-text">Over 18 Requirement </span>
