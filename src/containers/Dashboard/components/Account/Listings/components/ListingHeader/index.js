@@ -1,12 +1,13 @@
 import React from 'react'
 import T from 'prop-types'
+import { Link } from 'react-router-dom'
 import Search from 'components/Search'
 import Button from 'components/Button'
 import styles from './header.module.scss'
 import './header.less'
 
 const Header = (props) => {
-  const { onSearch, onClick } = props
+  const { onSearch } = props
 
   const extraMark = (num) => <div className={styles.extra_mark}>{num}</div>
 
@@ -20,7 +21,9 @@ const Header = (props) => {
         <div className={styles.srch_block}>
           <Search onSearch={onSearch} />
           <div className={styles.btn_wrapper}>
-            <Button title="ADD PRODUCT" onClick={onClick} />
+            <Link to="/addproduct/0" style={{ color: 'grey' }}>
+              <Button title="ADD PRODUCT" />
+            </Link>
           </div>
         </div>
       </div>
