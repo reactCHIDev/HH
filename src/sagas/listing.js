@@ -1,7 +1,7 @@
 import { put, takeEvery, takeLatest } from 'redux-saga/effects'
 import PATHS from 'api/paths'
 
-import { getProductTypes, getMyProductListReq } from 'api/requests/Listing'
+import { getProductTypesReq, getMyProductListReq } from 'api/requests/Listing'
 import { getMyProductListSuccess } from 'actions/listing'
 
 import {
@@ -15,10 +15,10 @@ import {
 
 function* getProductTypeSaga() {
   try {
-    const response = yield getProductTypes()
-    const list = yield getMyProductListReq()
+    const response = yield getProductTypesReq()
+    // const list = yield getMyProductListReq()
     yield put({ type: GET_PRODUCT_TYPES_SUCCESS, data: response.data })
-    yield put({ type: GET_MY_PRODUCT_LIST_SUCCESS, data: list.data })
+    yield put({ type: GET_MY_PRODUCT_LIST_REQUESTING })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_PRODUCT_TYPES_ERROR, error: error.response.data.error })
@@ -27,19 +27,23 @@ function* getProductTypeSaga() {
 }
 
 function* getMyProductListSaga() {
+  console.log('saga 1')
   try {
     const response = yield getMyProductListReq()
+    console.log('saga 2', response.data)
     yield put({ type: GET_MY_PRODUCT_LIST_SUCCESS, data: response.data })
+    // yield put(getMyProductListSuccess({ data: response.data }))
   } catch (error) {
+    console.log('error', error)
     if (error.response) {
       yield put({ type: GET_PRODUCT_TYPES_ERROR, error: error.response.data.error })
     }
   }
 }
 
-function* accountWatcher() {
+function* listingWatcher() {
   yield takeEvery(GET_PRODUCT_TYPES_REQUESTING, getProductTypeSaga)
-  yield takeLatest(GET_MY_PRODUCT_LIST_REQUESTING, getMyProductListSaga)
+  yield takeEvery(GET_MY_PRODUCT_LIST_REQUESTING, getMyProductListSaga)
 }
 
-export default accountWatcher
+export default listingWatcher

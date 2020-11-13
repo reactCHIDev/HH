@@ -10,6 +10,7 @@ import CollapsedBlock from './components/CollapsedBlock'
 import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
+import { map } from 'lodash'
 
 const colors = [
   '#fff3f3',
@@ -38,6 +39,7 @@ const Listings = (props) => {
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
   const [filters, setFilters] = useState(types)
+  const [productTypes, setProductTypes] = useState([])
   const [ids, setIds] = useState([])
   const [sort, setSort] = useState(sorts)
   const [filteredProducts, filterProducts] = useState(myProducts)
@@ -46,13 +48,17 @@ const Listings = (props) => {
 
   const pageSize = 3
 
+  console.log('productTypes', productTypes)
+  console.log('filters', filters)
+
   const resetFilters = () => {
     setFilters(
-      types.map((type) => {
+      productTypes.map((type) => {
         type.productCategories = type.productCategories.map((category) => {
           category.checked = false
           return category
         })
+
         return type
       }),
     )
@@ -61,6 +67,15 @@ const Listings = (props) => {
   useEffect(() => {
     getProductTypes()
   }, [])
+
+  useEffect(() => {
+    setProductTypes(
+      types.map((e1) => ({
+        ...e1,
+        productCategories: [...e1.productCategories].map((e3) => ({ ...e3 })),
+      })),
+    )
+  }, [types])
 
   useEffect(() => {
     filterProducts(myProducts)
@@ -80,11 +95,12 @@ const Listings = (props) => {
   }, [filteredProducts])
 
   useEffect(() => {
-    if (types.length > 0) {
+    if (productTypes.length > 0) {
+      console.log('reset')
       // getMyProductList()
       resetFilters()
     }
-  }, [types])
+  }, [productTypes])
 
   const onChangeChkBox = (e) => {
     const { id, checked } = e.currentTarget
@@ -143,7 +159,7 @@ const Listings = (props) => {
 
     const tmp = [...myProducts]
     setFilters(
-      types.map((type) => {
+      productTypes.map((type) => {
         type.productCategories = type.productCategories.map((category) => {
           if (
             tmp
