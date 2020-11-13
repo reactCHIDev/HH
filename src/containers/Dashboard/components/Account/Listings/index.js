@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 import ChkBox from 'components/ChkBox'
 import ListContainer from 'components/ListContainer'
 import SortElement from 'components/SortElement'
@@ -33,7 +34,7 @@ const sorts = [
 ]
 
 const Listings = (props) => {
-  const { types, myProducts = [], getProductTypes, getMyProductList } = props
+  const { types, myProducts = [], getProductTypes, getMyProductList, pushRoute } = props
 
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
@@ -168,9 +169,11 @@ const Listings = (props) => {
     setSearchSubstring(String(value).toLowerCase())
   }
 
+  const addProductRedirect = () => pushRoute('/addproduct/0')
+
   return (
     <div className={styles.container}>
-      <Header onSearch={onSearch} />
+      <Header onSearch={onSearch} onClick={addProductRedirect} />
       <div className={styles.main}>
         <div className={styles.filter_block}>
           {filters.length &&
@@ -220,9 +223,11 @@ Listings.propTypes = {
   myProducts: T.arrayOf(shape()),
   getProductTypes: T.func,
   getMyProductList: T.func,
+  pushRoute: T.func,
 }
 
 export default connect(({ listing: { types, myProducts } }) => ({ types, myProducts }), {
   getProductTypes,
   getMyProductList,
+  pushRoute: push,
 })(Listings)

@@ -39,7 +39,7 @@ function* getMyProductListSaga() {
 
 function* accountWatcher() {
   yield takeEvery(GET_PRODUCT_TYPES_REQUESTING, getProductTypeSaga)
-  // yield takeLatest(GET_MY_PRODUCT_LIST_REQUESTING, getMyProductListSaga)
+  yield takeLatest(GET_MY_PRODUCT_LIST_REQUESTING, getMyProductListSaga)
 }
 
 export default accountWatcher

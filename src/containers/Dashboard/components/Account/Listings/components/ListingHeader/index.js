@@ -6,7 +6,7 @@ import styles from './header.module.scss'
 import './header.less'
 
 const Header = (props) => {
-  const { onSearch } = props
+  const { onSearch, onClick } = props
 
   const extraMark = (num) => <div className={styles.extra_mark}>{num}</div>
 
@@ -20,7 +20,7 @@ const Header = (props) => {
         <div className={styles.srch_block}>
           <Search onSearch={onSearch} />
           <div className={styles.btn_wrapper}>
-            <Button title="ADD PRODUCT" onClick={null} />
+            <Button title="ADD PRODUCT" onClick={onClick} />
           </div>
         </div>
       </div>

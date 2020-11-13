@@ -30,6 +30,7 @@ const Signup = lazy(() => import('containers/Auth/components/Signup'))
 const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
 const Account = lazy(() => import('containers/Dashboard/components/Account'))
+const AddProduct = lazy(() => import('containers/Dashboard/components/Account/AddProduct'))
 const Settings = lazy(() => import('containers/Dashboard/components/Account/Settings'))
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
@@ -103,6 +104,7 @@ function App({ pathname }) {
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
+            <PrivateRoute exact path="/addproduct/:step" component={WaitingComponent(AddProduct)} />
             <PrivateRoute exact path={desktop.settings} component={WaitingComponent(Settings)} />
             <Route exact path={desktop.card} component={Card} />
             <Route path="/*" component={WaitingComponent(PageNotFound)} />

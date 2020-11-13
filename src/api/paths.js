@@ -14,14 +14,16 @@ export default {
   forgotStep3: '/v1/user/forgot_password/step_two',
 
   // Account
-  getUserAccount: '/v1/account/',
+  getUserAccount: '/v1/account/info/',
   updateSettings: '/v1/account/update_settings',
   confirmEmailUpdate: '/v1/account/confirm_email_update',
 
   // Listing
   getProductTypes: '/v1/product/list_types',
 
-  //
+  // Product
+  createProduct: '/v1/product/create',
+
   //
   //
   //

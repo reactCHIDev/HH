@@ -6,50 +6,69 @@ import ChkBox from 'components/ChkBox'
 import { CaretDownOutlined } from '@ant-design/icons'
 import cls from 'classnames'
 import _ from 'lodash/fp'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import styles from './step2.module.scss'
 import './step2.less'
 import { setTemporaryEndpoint } from 'utils/apiClient'
 
 const Step2 = (props) => {
-  const { setStep } = props
+  const { setStep, types = [] } = props
 
-  const [type, setType] = useState('')
-  const [category, setCategory] = useState('')
   const [discount, setDiscount] = useState(false)
   const [discValue, setDiscountValue] = useState(0)
   const [qtyValue, setQtyValue] = useState(0)
+  const [category, setCategory] = useState([])
 
   const { Option } = Select
 
-  const { register, handleSubmit, errors } = useForm({
+  console.log('%c   types   ', 'color: darkgreen; background: palegreen;', category)
+
+  const defaultValues = {}
+  const { register, handleSubmit, control, watch, errors } = useForm({
     mode: 'onBlur',
+    defaultValues,
   })
 
   const nums = ['Food', 'Drinks', 'qweqwe', 'sdfsdfsd', 'zxczxcz', 'yuryutyu', 'ghfghfg']
-  const discnt = ['5%', '10%', '15%', '20%', '25%', '30%', '40%']
-  const qty = ['5qty', '10qty', '15qty', '20qty', '25qty', '30qty', '40qty']
+  const discnt = [
+    { value: 5, title: '5%' },
+    { value: 10, title: '10%' },
+    { value: 15, title: '15%' },
+    { value: 20, title: '20%' },
+    { value: 25, title: '25%' },
+    { value: 30, title: '30%' },
+    { value: 40, title: '40%' },
+    { value: 50, title: '50%' },
+  ]
+  const qty = [
+    { value: 5, title: '5qty' },
+    { value: 10, title: '10qty' },
+    { value: 15, title: '15qty' },
+    { value: 20, title: '20qty' },
+    { value: 25, title: '25qty' },
+    { value: 30, title: '30qty' },
+    { value: 40, title: '40qty' },
+    { value: 50, title: '50qty' },
+  ]
 
   const onNext = (data) => {
     const step1 = getItem('addProduct')
     setItem('addProduct', {
       ...step1,
       ...data,
-      type,
-      category,
-      discount,
-      discValue,
-      qtyValue,
+      discount: { quantity: discount ? qtyValue : 0, discount: discount ? discValue : 0 },
     })
-    setStep()
+    setStep(2)
   }
-
-  const handleTypeChange = (value) => setType(value)
-  const handleCategoryChange = (value) => setCategory(value)
 
   const onChangeChkBox = () => setDiscount(!discount)
   const handleDiscountChange = (value) => setDiscountValue(value)
   const handleQuantityChange = (value) => setQtyValue(value)
+
+  const handleType = (onChange) => (e) => {
+    setCategory(types.find((t) => t.id === e).productCategories)
+    onChange(e)
+  }
 
   return (
     <div className={styles.container}>
@@ -75,13 +94,12 @@ const Step2 = (props) => {
             <p className={styles.errmsg}>Max length 66 symbols</p>
           )}
           <label htmlFor="step2-2" className={styles.label}>
-            Product title (no more than 66 char. recommened)
+            Description
           </label>
           <textarea
             className={styles.textarea}
             name="description"
-            rows="8"
-            cols="42"
+            rows="4"
             ref={register({
               required: true,
             })}
@@ -89,21 +107,54 @@ const Step2 = (props) => {
           {_.get('description.type', errors) === 'required' && (
             <p className={styles.errmsg}>This field is required</p>
           )}
+
           <div className={cls(styles.select_container, 'selects')}>
-            <Select defaultValue={nums[0]} onChange={handleTypeChange}>
-              {nums.map((n, i) => (
-                <Option key={i + n} value={n}>
-                  {n}
-                </Option>
-              ))}
-            </Select>
-            <Select defaultValue={nums[0]} onChange={handleCategoryChange}>
-              {nums.map((n, i) => (
-                <Option key={i + n} value={n}>
-                  {n}
-                </Option>
-              ))}
-            </Select>
+            <Controller
+              control={control}
+              name="productTypeId"
+              rules={{ required: true }}
+              render={({ onChange, value, name }) => (
+                <div className={styles.item_container}>
+                  <label className={styles.label}>Type of product</label>
+                  <Select onChange={handleType(onChange)} name={name} value={value}>
+                    {types &&
+                      types.map((type) => (
+                        <Option key={type.id} value={type.id}>
+                          {type.title}
+                        </Option>
+                      ))}
+                  </Select>
+                  {_.get('productTypeId.type', errors) === 'required' && (
+                    <p className={styles.errmsg}>This field is required</p>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              control={control}
+              name="productCategoryId"
+              rules={{ required: true }}
+              render={({ onChange, value, name }) => (
+                <div className={styles.item_container}>
+                  <label className={styles.label}>Category</label>
+                  <Select
+                    onChange={onChange}
+                    name={name}
+                    value={value}
+                    // disabled={watch('productTypeId') === 'Food'}
+                  >
+                    {category.map((cat) => (
+                      <Option key={cat.id} value={cat.id}>
+                        {cat.title}
+                      </Option>
+                    ))}
+                  </Select>
+                  {_.get('productCategoryId.type', errors) === 'required' && (
+                    <p className={styles.errmsg}>This field is required</p>
+                  )}
+                </div>
+              )}
+            />
           </div>
           <div className={cls(styles.discount_container, 'discount')}>
             <ChkBox
@@ -113,17 +164,17 @@ const Step2 = (props) => {
               onChange={onChangeChkBox}
             />
             <Select defaultValue={discValue} onChange={handleDiscountChange}>
-              {discnt.map((n, i) => (
-                <Option key={i + n} value={n}>
-                  {n}
+              {discnt.map((n) => (
+                <Option key={n.value} value={n.value}>
+                  {n.title}
                 </Option>
               ))}
             </Select>
             <p className={styles.discount_text}>when buying from</p>
             <Select defaultValue={qtyValue} onChange={handleQuantityChange}>
-              {qty.map((n, i) => (
-                <Option key={i + n} value={n}>
-                  {n}
+              {qty.map((n) => (
+                <Option key={n.value} value={n.value}>
+                  {n.title}
                 </Option>
               ))}
             </Select>
@@ -137,6 +188,7 @@ const Step2 = (props) => {
 
 Step2.propTypes = {
   setStep: T.func.isRequired,
+  types: T.shape(),
 }
 
 export default Step2

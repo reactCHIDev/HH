@@ -16,7 +16,7 @@ const Step1 = (props) => {
 
   const onNext = (data) => {
     setItem('addProduct', data)
-    setStep()
+    setStep(1)
   }
 
   return (
@@ -30,18 +30,18 @@ const Step1 = (props) => {
           </label>
           <input
             id="step1"
-            name="name"
+            name="shopName"
             ref={register({
-              required: true,
+              required: false,
               maxLength: {
                 value: 200,
               },
             })}
           />
-          {_.get('name.type', errors) === 'required' && (
+          {_.get('shopName.type', errors) === 'required' && (
             <p className={styles.errmsg}>This field is required</p>
           )}
-          {_.get('name.type', errors) === 'maxLength' && (
+          {_.get('shopName.type', errors) === 'maxLength' && (
             <p className={styles.errmsg}>Max length 200 symbols</p>
           )}
           <p className={styles.description}>You can create one experience for free forever.</p>

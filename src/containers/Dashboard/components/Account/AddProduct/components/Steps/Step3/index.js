@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
+import { Button } from 'antd'
+import cls from 'classnames'
 import { Upload, Modal } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import { getItem, setItem } from 'utils/localStorage'
-import Button from 'components/Button'
 import styles from './step3.module.scss'
 import './step3.less'
 
@@ -41,11 +42,17 @@ const Step3 = (props) => {
 
   const onNext = (data) => {
     const prevSteps = getItem('addProduct')
+
+    const formData = {}
+
+    formData.coverPhoto = fileList.length ? fileList[0].response.url : ''
+    formData.otherPhotos = fileList.length ? fileList.slice(1).map((f) => f.response.url) : []
+
     setItem('addProduct', {
       ...prevSteps,
-      fileList,
+      ...formData,
     })
-    setStep()
+    setStep(3)
   }
 
   const uploadButton = (
@@ -54,9 +61,13 @@ const Step3 = (props) => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   )
+
+  const onFinish = (values) =>
+    console.log('%c   values   ', 'color: white; background: royalblue;', values)
+
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
+      <div className={cls(styles.content, 'main')}>
         <p className={styles.header}>Add cover & photos</p>
         <div className="photo_container">
           <Upload
@@ -77,9 +88,9 @@ const Step3 = (props) => {
             <img alt="example" style={{ width: '100%' }} src={previewImage} />
           </Modal>
         </div>
-      </div>
-      <div className={styles.btn_container}>
-        <Button title="Next" onClick={onNext} />
+        <Button type="primary" block disabled={fileList.length < 3} size="large" onClick={onNext}>
+          NEXT
+        </Button>
       </div>
     </div>
   )
