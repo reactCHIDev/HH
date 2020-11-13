@@ -16,7 +16,7 @@ const Step1 = (props) => {
 
   const onNext = (data) => {
     setItem('addProduct', data)
-    setStep()
+    setStep(1)
   }
 
   return (
@@ -32,7 +32,7 @@ const Step1 = (props) => {
             id="step1"
             name="shopName"
             ref={register({
-              required: true,
+              required: false,
               maxLength: {
                 value: 200,
               },

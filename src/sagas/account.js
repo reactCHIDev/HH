@@ -36,7 +36,7 @@ function* updateUserAccount({ payload }) {
   const submittedData = { ...payload }
   const { newEmail } = submittedData
   if (newEmail) {
-    const token = jwt.sign({ newEmail }, 'secret', { expiresIn: 600 })
+    const token = jwt.sign({ newEmail }, process.env.REACT_APP_JWT_SECRET_KEY, { expiresIn: 600 })
     const { url } = PATHS
     submittedData.updateEmailLink = `${url}/login/change_email${token}`
   }

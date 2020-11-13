@@ -22,7 +22,7 @@ const Signup = ({ signupReq, req }) => {
   )
   const generateLink = (credentials) => {
     const { email } = credentials
-    const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
+    const token = jwt.sign({ email }, process.env.REACT_APP_JWT_SECRET_KEY, { expiresIn: 600 })
     const { url } = PATHS
     return url + '/login/confirmemail' + token
   }

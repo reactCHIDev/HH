@@ -10,7 +10,7 @@ import PATHS from 'api/paths'
 const ChangeEmail = (props) => {
   console.log('%c   ChangeEmail process   ', 'color: darkgreen; background: palegreen;')
   const { token, url, req, err, athorized, close, emailConfirm, invalidLink, replace } = props
-  const jwtData = token ? jwt.decode(token, 'secret') : null
+  const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
   const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
 
   if (!valid) {

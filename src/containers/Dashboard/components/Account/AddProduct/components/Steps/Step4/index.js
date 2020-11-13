@@ -63,7 +63,7 @@ const tailFormItemLayout = {
   },
 }
 
-const Step4 = ({ create }) => {
+const Step4 = ({ create, pushRoute }) => {
   const [form] = Form.useForm()
   const { RangePicker } = DatePicker
 
@@ -132,8 +132,8 @@ const Step4 = ({ create }) => {
       const deliveryRegionData = { '1': 'Local', '2': 'Worldwide' }
       deliveryRegion = deliveryRegionData[selectedRegionRadio]
     } else {
-      if (selectedCountryRadio == 4) deliveryRegion = selectedCountries
-      if (selectedCountryRadio == 5) deliveryRegionException = selectedCountries
+      if (selectedCountryRadio == 4) deliveryRegion = selectedCountries.join(' ')
+      if (selectedCountryRadio == 5) deliveryRegionException = selectedCountries.join(' ')
     }
 
     // =================
@@ -151,14 +151,19 @@ const Step4 = ({ create }) => {
       deliveryRegion,
       deliveryRegionException,
       deliveryMethod,
-      availabilityStartDate,
-      availabilityEndDate,
       productTagIds,
     }
+
+    if (availabilityStartDate && availabilityEndDate) {
+      formData.availabilityStartDate = availabilityStartDate
+      formData.availabilityEndDate = availabilityEndDate
+    }
+
     const prevStep = getItem('addProduct')
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
     create(productData)
+    pushRoute('/card')
   }
 
   const onRegionRadio = (e) => {
@@ -225,8 +230,8 @@ const Step4 = ({ create }) => {
           onFinish={onFinish}
           initialValues={{
             parameters: [{ measure: 'ml', currency: '$' }],
-            ed: 'cl',
-            ed2: '$',
+            available: 'Available',
+            refundPolicy: 'FULL_REFUND',
           }}
           scrollToFirstError
         >
@@ -242,7 +247,7 @@ const Step4 = ({ create }) => {
                           key={[field.name, 'volume']}
                           name={[field.name, 'volume']}
                           fieldKey={[field.fieldKey, 'volume']}
-                          rules={[{ required: false, message: 'Please input volume!' }]}
+                          rules={[{ required: true, message: 'Please input volume!' }]}
                         >
                           <InputNumber min={0} max={99999} />
                         </Form.Item>
@@ -252,7 +257,7 @@ const Step4 = ({ create }) => {
                           key={[field.name, 'measure']}
                           name={[field.name, 'measure']}
                           fieldKey={[field.fieldKey, 'measure']}
-                          rules={[{ required: false, message: 'Please input volume!' }]}
+                          rules={[{ required: true, message: 'Please input volume!' }]}
                         >
                           <Select
                             style={{
@@ -276,7 +281,7 @@ const Step4 = ({ create }) => {
                           key={[field.name, 'price']}
                           name={[field.name, 'price']}
                           fieldKey={[field.fieldKey, 'price']}
-                          rules={[{ required: false, message: 'Please input volume!' }]}
+                          rules={[{ required: true, message: 'Please input price!' }]}
                         >
                           <InputNumber min={0} max={999999999999} />
                         </Form.Item>
@@ -285,7 +290,7 @@ const Step4 = ({ create }) => {
                           key={[field.name, 'currency']}
                           name={[field.name, 'currency']}
                           fieldKey={[field.fieldKey, 'currency']}
-                          rules={[{ required: false, message: 'Please choose currency!' }]}
+                          rules={[{ required: true, message: 'Please choose currency!' }]}
                         >
                           <Select
                             style={{

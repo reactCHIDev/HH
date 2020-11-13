@@ -42,12 +42,17 @@ const Step3 = (props) => {
 
   const onNext = (data) => {
     const prevSteps = getItem('addProduct')
+
+    const formData = {}
+
+    formData.coverPhoto = fileList.length ? fileList[0].response.url : ''
+    formData.otherPhotos = fileList.length ? fileList.slice(1).map((f) => f.response.url) : []
+
     setItem('addProduct', {
       ...prevSteps,
-      coverPhoto: fileList[0].response.url,
-      otherPhotos: fileList.slice(1).map((f) => f.response.url),
+      ...formData,
     })
-    setStep()
+    setStep(3)
   }
 
   const uploadButton = (
@@ -83,7 +88,7 @@ const Step3 = (props) => {
             <img alt="example" style={{ width: '100%' }} src={previewImage} />
           </Modal>
         </div>
-        <Button type="primary" block size="large" disabled={!fileList.length} onClick={onNext}>
+        <Button type="primary" block disabled={fileList.length < 3} size="large" onClick={onNext}>
           NEXT
         </Button>
       </div>

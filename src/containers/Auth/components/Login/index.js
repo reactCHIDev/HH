@@ -78,7 +78,7 @@ const Login = (props) => {
 
     console.log('%c   ChangeEmail process   ', 'color: darkgreen; background: palegreen;')
 
-    const jwtData = token ? jwt.decode(token, 'secret') : null
+    const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
     const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
 
     console.log('%c   valid   ', 'color: white; background: salmon;', valid)

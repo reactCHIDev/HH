@@ -58,7 +58,7 @@ const Step2 = (props) => {
       ...data,
       discount: { quantity: discount ? qtyValue : 0, discount: discount ? discValue : 0 },
     })
-    setStep()
+    setStep(2)
   }
 
   const onChangeChkBox = () => setDiscount(!discount)

@@ -16,7 +16,7 @@ import {
 } from '../actions/constants'
 
 function* forgotStepOne({ email }) {
-  const token = jwt.sign({ email }, 'secret', { expiresIn: 3600 })
+  const token = jwt.sign({ email }, process.env.REACT_APP_JWT_SECRET_KEY, { expiresIn: 3600 })
   const { url } = PATHS
   const data = { email, secretLink: `${url}/login/forgotstep3${token}` }
   // const hide = message.loading('Wait please..', 2)
