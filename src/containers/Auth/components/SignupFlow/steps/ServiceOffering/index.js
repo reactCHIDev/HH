@@ -32,7 +32,7 @@ const BusinessSize = (props) => {
   }, [])
 
   const onClick = (e) => {
-    onSubmit({ businessServiceIds: options.sort() })
+    onSubmit({ businessServiceIds: options.sort().map(Number) })
   }
 
   const onSelect = (e) => {

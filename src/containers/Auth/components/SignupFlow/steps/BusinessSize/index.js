@@ -23,7 +23,7 @@ const BusinessSize = ({ onSubmit }) => {
   }, [])
 
   const onClick = (e) => {
-    onSubmit({ businessSizeId: e.currentTarget.id })
+    onSubmit({ businessSizeId: Number(e.currentTarget.id) })
   }
 
   const settings = {

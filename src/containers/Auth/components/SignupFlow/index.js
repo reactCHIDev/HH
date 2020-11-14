@@ -33,19 +33,22 @@ const steps = [
   { screen: PhoneStep, props: { name: 'phone', value: '' } },
   {
     screen: SocialsStep,
-    props: { name: 'social', value: ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/'] },
+    props: { name: 'socialURL', value: ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/'] },
   },
   {
     screen: BusinessAdress,
-    props: { name: 'businessAddressId', value: { adress: '', mapURL: '' } },
+    props: { name: 'businessAdress', value: { adress: '', location: '' } },
   },
   { screen: ServiceOffering, props: { name: 'businessServiceIds', value: [] } },
   { screen: ProfileName, props: { name: 'profileName', value: '' } },
   { screen: WebSiteName, props: { name: 'hungryHuggerLink', value: 'www.hungryhugger.com/' } },
   { screen: AboutYourself, props: { name: 'about', value: '' } },
-  { screen: Tags, props: { name: 'serviceTagIds', value: { mainTags: [], addTags: [] } } },
+  {
+    screen: Tags,
+    props: { name: 'serviceTagIds', value: { serviceTagIds: [], specialityTagIds: [] } },
+  },
   { screen: Photo, props: { name: 'otherPhotos', value: { coverPhoto: '', otherPhotos: [] } } },
-  { screen: Congrats, props: {} },
+  { screen: Congrats, props: { name: 'congratz', value: '' } },
   { screen: Finish, props: { name: 'finish', value: '' } },
 ]
 
@@ -99,19 +102,36 @@ const Signup = () => {
     setStep(5)
   }
 
+  const collectData = (state) => {
+    return state.slice(0, 16).reduce(
+      (acc, step, index) => {
+        if (step.props.name === 'serviceTagIds') {
+          acc.serviceTagIds = step.props.value.serviceTagIds
+          acc.specialityTagIds = step.props.value.specialityTagIds
+          return acc
+        }
+        if (step.props.name === 'otherPhotos') {
+          acc.coverPhoto = step.props.value.coverPhoto
+          acc.otherPhotos = step.props.value.otherPhotos
+          return acc
+        }
+        if (index === 4) return acc
+        acc[step.props.name] = step.props.value
+        return acc
+      },
+      {
+        cityId: 1,
+        role: 'FOODMAKER',
+        registrationLink: 'https://registration_link_should_be_here',
+      },
+    )
+  }
+
   if (step === 16) {
+    console.log('%c   collected   ', 'color: black; background: gold;', collectData(state))
     setTimeout(() => {
       setStep(17)
     }, 5000)
-  }
-
-  const collectData = (state) => {
-    console.log(
-      state.reduce((acc, step, index) => {
-        acc[step.props.name] = step.props.value
-        return acc
-      }, {}),
-    )
   }
 
   const onSubmit = (submitData) => {
@@ -122,7 +142,7 @@ const Signup = () => {
     setStep((curstep) => curstep + 1)
     // console.clear()
     console.log('submitData', submitData)
-    if (step === 15) collectData(state)
+    if (step === 16) collectData(state)
   }
 
   const stepBack = () => {

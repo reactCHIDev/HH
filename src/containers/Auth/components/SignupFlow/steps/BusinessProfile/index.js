@@ -25,7 +25,7 @@ const BusinessProfile = ({ onSubmit }) => {
   }, [])
 
   const onClick = (e) => {
-    onSubmit({ businessProfileId: e.currentTarget.id })
+    onSubmit({ businessProfileId: Number(e.currentTarget.id) })
   }
 
   const settings = {

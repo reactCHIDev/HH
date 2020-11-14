@@ -37,7 +37,7 @@ const Socials = (props) => {
   }
 
   const submitData = {
-    social: [curHHValue, curFBValue, curInstaValue],
+    socialURL: [curHHValue, curFBValue, curInstaValue],
   }
 
   return (
@@ -61,11 +61,11 @@ const Socials = (props) => {
           />
           {errors?.hh?.type === 'required' && <p>This field is required</p>}
           {errors?.hh?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {
+          {/*  {
             <button type="button" className={styles.next} onClick={() => fb.current.focus()}>
               {'>'}
             </button>
-          }
+          } */}
         </div>
 
         <div className={styles.input_wrapper}>
@@ -88,11 +88,11 @@ const Socials = (props) => {
           />
           {errors?.fb?.type === 'required' && <p>This field is required</p>}
           {errors?.fb?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {
+          {/* {
             <button type="button" className={styles.next} onClick={() => insta.current.focus()}>
               {'>'}
             </button>
-          }
+          } */}
         </div>
 
         <div className={styles.input_wrapper}>
@@ -115,11 +115,11 @@ const Socials = (props) => {
           />
           {errors?.insta?.type === 'required' && <p>This field is required</p>}
           {errors?.insta?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {
+          {/* {
             <button type="button" className={styles.next} onClick={() => {}}>
               {'>'}
             </button>
-          }
+          } */}
         </div>
         <button className={styles.submit} disabled={false} type="submit">
           {'Next >'}
@@ -132,7 +132,7 @@ const Socials = (props) => {
 Socials.propTypes = {
   properties: T.shape({
     name: T.string,
-    value: T.string,
+    value: T.array,
   }),
   onSubmit: T.func,
 }
