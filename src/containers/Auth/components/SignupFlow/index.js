@@ -23,7 +23,6 @@ import Photo from './steps/Photo'
 import Requesting from './steps/Requesting'
 import Congrats from './steps/Congrats'
 import Finish from './steps/Finish'
-import TMP from './steps/1TMP'
 
 const steps = [
   { screen: FirstNameStep, props: { name: 'firstName', value: '' } },
@@ -93,57 +92,30 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
       removeKey('signup_data')
       removeKey('step')
     }
+    if (step === 4 && !state[4].showed) {
+      setTimeout(() => {
+        setStep(5)
+        dispatch({ type: 'SHOWED' })
+        // steps[step].showed = true
+      }, 5000)
+    }
+
+    if (step === 4 && state[step].showed && direction === 'forward') {
+      setStep(5)
+    }
+
+    if (step === 17) {
+      setTimeout(() => {
+        setStep(18)
+      }, 5000)
+    }
   }, [step])
 
-  if (step === 4 && !state[4].showed) {
-    setTimeout(() => {
-      setStep(5)
-      dispatch({ type: 'SHOWED' })
-      // steps[step].showed = true
-    }, 5000)
-  }
-
-  if (step === 4 && state[step].showed && direction === 'forward') {
-    setStep(5)
-  }
-
-  const collectData = (state) => {
-    return state.slice(0, 16).reduce(
-      (acc, step, index) => {
-        if (step.props.name === 'serviceTagIds') {
-          acc.serviceTagIds = step.props.value.serviceTagIds
-          acc.specialityTagIds = step.props.value.specialityTagIds
-          return acc
-        }
-        if (step.props.name === 'otherPhotos') {
-          acc.coverPhoto = step.props.value.coverPhoto
-          acc.otherPhotos = step.props.value.otherPhotos
-          return acc
-        }
-        if (index === 4) return acc
-        acc[step.props.name] = step.props.value
-        return acc
-      },
-      {
-        cityId: 1,
-        role: 'FOODMAKER',
-        // registrationLink: 'https://registration_link_should_be_here',
-      },
-    )
-  }
-
-  if (step === 16) {
-    console.log('%c   success   ', 'color: darkgreen; background: palegreen;', success)
-    // if (!requesting && !success && !error) signupFoodmakerAC(collectData(state))
-    if (!requesting && success) setStep(17)
-    // if (error) setStep(1)
-  }
-
-  if (step === 17) {
-    setTimeout(() => {
-      setStep(18)
-    }, 5000)
-  }
+  useEffect(() => {
+    if (step === 16) {
+      if (!requesting && success) setStep(17)
+    }
+  }, [success])
 
   const onSubmit = (submitData) => {
     dispatch({ type: 'SUBMIT', data: { submitData, step } })
@@ -151,9 +123,6 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
     if (step + 1 === state.length) return
     setDirection('forward')
     setStep((curstep) => curstep + 1)
-    // console.clear()
-    console.log('submitData', submitData)
-    if (step === 16) collectData(state)
   }
 
   const stepBack = () => {

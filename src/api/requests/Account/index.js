@@ -2,6 +2,7 @@ import apiClient from 'utils/apiClient'
 import PATHS from 'api/paths'
 
 export const getUserAccount = (id) => apiClient.get(PATHS.getUserAccount + id)
+export const getUserByHHLink = (link) => apiClient.get(PATHS.getUserByHHLink + link)
 export const updateSettings = (data) => apiClient.patch(PATHS.updateSettings, { data })
 export const confirmEmailUpdate = (data) => apiClient.patch(PATHS.confirmEmailUpdate, { data })
 

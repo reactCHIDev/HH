@@ -35,45 +35,11 @@ const Requesting = ({
         {
           cityId: 1,
           role: 'FOODMAKER',
-          // registrationLink: 'https://registration_link_should_be_here',
         },
       ),
     )
   }, [])
 
-  console.log('%c   properties   ', 'color: white; background: royalblue;', {
-    state,
-    requesting,
-    success,
-    error,
-  })
-
-  console.log(
-    '%c   collected   ',
-    'color: white; background: royalblue;',
-    state.slice(0, 16).reduce(
-      (acc, step, index) => {
-        if (step.props.name === 'serviceTagIds') {
-          acc.serviceTagIds = step.props.value.serviceTagIds
-          acc.specialityTagIds = step.props.value.specialityTagIds
-          return acc
-        }
-        if (step.props.name === 'otherPhotos') {
-          acc.coverPhoto = step.props.value.coverPhoto
-          acc.otherPhotos = step.props.value.otherPhotos
-          return acc
-        }
-        if (index === 4) return acc
-        acc[step.props.name] = step.props.value
-        return acc
-      },
-      {
-        cityId: 1,
-        role: 'FOODMAKER',
-        // registrationLink: 'https://registration_link_should_be_here',
-      },
-    ),
-  )
   return (
     <>
       <p className={styles.heading}>{!error ? 'Processing...' : 'Error:'}</p>
@@ -82,7 +48,7 @@ const Requesting = ({
         <input
           className={styles.next}
           disabled={!error}
-          onClick={() => setStep(1)}
+          onClick={() => setStep(0)}
           type="button"
           value="Review info"
         />

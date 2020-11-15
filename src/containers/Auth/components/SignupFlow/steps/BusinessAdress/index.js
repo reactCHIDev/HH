@@ -91,7 +91,7 @@ const BusinessAdress = (props) => {
 BusinessAdress.propTypes = {
   properties: T.shape({
     name: T.string,
-    value: T.string,
+    value: T.shape(),
   }),
   onSubmit: T.func,
 }

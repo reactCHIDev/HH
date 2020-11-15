@@ -50,7 +50,7 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
               width:
                 step > 4 && step <= 16
                   ? (containerWidth / 16) * step
-                  : step > 15 && step !== 17
+                  : step > 15 && step !== 18
                   ? containerWidth
                   : 0,
             }}
