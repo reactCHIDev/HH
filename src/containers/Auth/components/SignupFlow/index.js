@@ -87,16 +87,13 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
 
   useEffect(() => {
     const lastStep = getItem('step')
+
     if (lastStep < step || step === 1) setItem('step', step)
-    if (step === 18) {
-      removeKey('signup_data')
-      removeKey('step')
-    }
+
     if (step === 4 && !state[4].showed) {
       setTimeout(() => {
         setStep(5)
         dispatch({ type: 'SHOWED' })
-        // steps[step].showed = true
       }, 5000)
     }
 
@@ -109,6 +106,11 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
         setStep(18)
       }, 5000)
     }
+
+    if (step === 18) {
+      removeKey('signup_data')
+      removeKey('step')
+    }
   }, [step])
 
   useEffect(() => {
@@ -119,7 +121,6 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
 
   const onSubmit = (submitData) => {
     dispatch({ type: 'SUBMIT', data: { submitData, step } })
-    // steps[step].props.value = submitData[steps[step].props.name]
     if (step + 1 === state.length) return
     setDirection('forward')
     setStep((curstep) => curstep + 1)
@@ -143,7 +144,6 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
 
   return (
     <SignupContainer footer stepBack={stepBack} step={step}>
-      {/* <TMP steps={state} step={step} setStep={setStep} /> */}
       <Screen onSubmit={onSubmit} properties={properties} />
     </SignupContainer>
   )
