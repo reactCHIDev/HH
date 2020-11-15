@@ -4,6 +4,7 @@ export default {
   // Test
   userbyname: '/v1/user/profile_name/',
   userbyemail: '/v1/user/email/',
+  getUserByHHLink: '/v1/user/hh_link/',
   getCities: '/v1/city/list',
 
   // Auth

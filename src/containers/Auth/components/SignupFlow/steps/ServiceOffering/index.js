@@ -138,7 +138,7 @@ const BusinessSize = (props) => {
 BusinessSize.propTypes = {
   properties: T.shape({
     name: T.string,
-    value: T.string,
+    value: T.array,
   }),
   onSubmit: T.func,
 }

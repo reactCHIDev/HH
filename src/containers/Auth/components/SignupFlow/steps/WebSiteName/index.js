@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
+import { getUserByHHLink } from 'api/requests/Account'
 import { useForm } from 'react-hook-form'
 import Heading from '../../components/heading'
 import styles from './websitename.module.scss'
@@ -43,6 +44,13 @@ const WebSiteName = (props) => {
                 if (value.length > 21) return true
                 return false
               },
+              /* validate: async (value) => {
+                if (value.length > 21) {
+                  const user = await getUserByHHLink(value)
+                  return !user.data?.profileName
+                }
+                return false
+              }, */
               pattern: {
                 value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{12,12}\.[a-z]{3,3}\b([-a-zA-Z0-9@:%_\+.~#?&//=])/,
               },
