@@ -23,7 +23,7 @@ const BusinessSize = (props) => {
   const handleResize = () => setWidth(window.innerWidth)
 
   useEffect(() => {
-    addOptions(value)
+    // addOptions(value)
     window.addEventListener('resize', handleResize)
     setWidth(window.innerWidth)
     return () => {

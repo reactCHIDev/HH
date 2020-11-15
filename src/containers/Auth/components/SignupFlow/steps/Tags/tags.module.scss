@@ -35,6 +35,9 @@
 
   input:disabled {
     opacity: 0.4;
+    &:hover {
+      opacity: 0.5;
+    }
   }
 
   button[type='button'],

@@ -38,14 +38,19 @@ const WebSiteName = (props) => {
             type="text"
             onChange={onChange}
             ref={register({
+              required: true,
+              validate: (value) => {
+                if (value.length > 21) return true
+                return false
+              },
               pattern: {
-                value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
-                message: 'Invalid name symbols',
+                value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{12,12}\.[a-z]{3,3}\b([-a-zA-Z0-9@:%_\+.~#?&//=])/,
               },
             })}
           />
-          {errors?.hh?.type === 'required' && <p>This field is required</p>}
-          {errors?.hh?.type === 'pattern' && <p>Invalid symbols or format</p>}
+          {errors?.[name]?.type === 'required' && <p>This field is required</p>}
+          {errors?.[name]?.type === 'pattern' && <p>Invalid symbols or format</p>}
+          {errors?.[name]?.type === 'validate' && <p>This field is required</p>}
           {
             <button type="submit" className={styles.next}>
               {'>'}

@@ -8,6 +8,7 @@ export default {
 
   // Auth
   signUpUser: '/v1/user/register_foodlover',
+  signUpFoodmaker: '/v1/user/register_foodmaker',
   loginUser: '/v1/user/login',
   logout: '/v1/user/logout',
   forgotStep1: '/v1/user/forgot_password/step_one',

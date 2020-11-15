@@ -32,7 +32,7 @@ const PhoneStep = (props) => {
           registerObj={{
             required: true,
             pattern: {
-              value: /([- _():=+]?\d[- _():=+]?){8,14}(\s*)?/,
+              value: /([- _():=+]?\d[- _():=+]?){10,14}(\s*)?/,
               message: 'Invalid name symbols or less than 8 digits',
             },
           }}

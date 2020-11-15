@@ -93,7 +93,7 @@ const Photo = (props) => {
       </p>
       <input
         className={styles.next}
-        disabled={otherPhotos.length < 0}
+        disabled={fileList.length < 3}
         onClick={submit}
         type="button"
         value="Next  >"

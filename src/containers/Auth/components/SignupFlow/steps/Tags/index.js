@@ -6,22 +6,38 @@ import styles from './tags.module.scss'
 import './tags.less'
 
 const OPTIONS_MAIN = [
-  'Apples',
-  'Nails',
-  'Bananas',
-  'Helicopters',
-  'Coocking class',
-  'Tour',
-  'smth else',
+  'Chef',
+  'Backer',
+  'Mixologist',
+  'Taste maker',
+  'Food maker',
+  'Craft maker',
+  'Urban Farmer',
+  'Chocolatier',
+  'Cheese maker',
+  'Food guide',
+  'Food & Beverage Brand',
+  'Festival/Event Host',
+  'Coffe',
+  'Beer & Cider',
+  'Wine',
+  'Whisky',
+  'Spirits',
+  'Tea',
+  'Health Drinks',
+  'Cakes & Bakes',
+  'Paste, Sauce & Spreads',
+  'Snacks',
+  'Kitchen & Dining',
 ]
 const OPTIONS_ADD = [
-  'Apples',
-  'Nails',
-  'Bananas',
-  'Helicopters',
-  'Coocking class',
+  'Event hire',
+  'Catering',
+  'Custom made',
+  'Cooking Class',
   'Tour',
-  'smth else',
+  'Workshop',
+  'Dining',
 ]
 
 const Tags = (props) => {
@@ -113,7 +129,13 @@ const Tags = (props) => {
           ))}
         </Select>
       </div>
-      <input className={styles.next} onClick={submit} type="button" value="Next  >" />
+      <input
+        className={styles.next}
+        disabled={!serviceTagIds.length || !specialityTagIds.length}
+        onClick={submit}
+        type="button"
+        value="Next  >"
+      />
     </div>
   )
 }

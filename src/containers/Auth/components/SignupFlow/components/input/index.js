@@ -46,8 +46,8 @@ const Input = ({ name, value, placeholder, registerObj, focus, fixedText, onSubm
             ref={register(registerObj)}
           />
           {errors?.[name]?.type === 'required' && <p>This field is required</p>}
-          {errors?.[name]?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {errors?.[name]?.type === 'minLength' && <p>Min length 8 symbols</p>}
+          {errors?.[name]?.type === 'pattern' && <p>Invalid format or length</p>}
+          {errors?.[name]?.type === 'minLength' && <p>`Min length 8 symbols`</p>}
           {name === 'password' && (
             <button type="button" className={styles.psw_eye} onClick={togglePassword}>
               <img src={type === 'password' ? EyeOpen : EyeClosed} alt="eye" />

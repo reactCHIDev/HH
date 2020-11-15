@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import T from 'prop-types'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
+import { signupFoodmakerAC } from 'actions/signup'
+import { connect } from 'react-redux'
 import SignupContainer from './components/container'
 import FirstNameStep from './steps/FirstName'
 import LastNameStep from './steps/LastName'
@@ -18,6 +20,7 @@ import WebSiteName from './steps/WebSiteName'
 import AboutYourself from './steps/AboutYourself'
 import Tags from './steps/Tags'
 import Photo from './steps/Photo'
+import Requesting from './steps/Requesting'
 import Congrats from './steps/Congrats'
 import Finish from './steps/Finish'
 import TMP from './steps/1TMP'
@@ -48,11 +51,12 @@ const steps = [
     props: { name: 'serviceTagIds', value: { serviceTagIds: [], specialityTagIds: [] } },
   },
   { screen: Photo, props: { name: 'otherPhotos', value: { coverPhoto: '', otherPhotos: [] } } },
+  { screen: Requesting, props: { name: 'requesting', value: '' } },
   { screen: Congrats, props: { name: 'congratz', value: '' } },
   { screen: Finish, props: { name: 'finish', value: '' } },
 ]
 
-const Signup = () => {
+const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
   const [step, setStep] = useState(getItem('step') ? getItem('step') : 0)
   const [direction, setDirection] = useState('forward')
 
@@ -83,8 +87,9 @@ const Signup = () => {
   useEffect(() => setItem('signup_data', state), [state])
 
   useEffect(() => {
-    if (getItem('step') < step) setItem('step', step)
-    if (step === 17) {
+    const lastStep = getItem('step')
+    if (lastStep < step || step === 1) setItem('step', step)
+    if (step === 18) {
       removeKey('signup_data')
       removeKey('step')
     }
@@ -122,15 +127,21 @@ const Signup = () => {
       {
         cityId: 1,
         role: 'FOODMAKER',
-        registrationLink: 'https://registration_link_should_be_here',
+        // registrationLink: 'https://registration_link_should_be_here',
       },
     )
   }
 
   if (step === 16) {
-    console.log('%c   collected   ', 'color: black; background: gold;', collectData(state))
+    console.log('%c   success   ', 'color: darkgreen; background: palegreen;', success)
+    // if (!requesting && !success && !error) signupFoodmakerAC(collectData(state))
+    if (!requesting && success) setStep(17)
+    // if (error) setStep(1)
+  }
+
+  if (step === 17) {
     setTimeout(() => {
-      setStep(17)
+      setStep(18)
     }, 5000)
   }
 
@@ -156,7 +167,10 @@ const Signup = () => {
   }
 
   const Screen = state[step].screen
-  const properties = state[step].props
+  const properties =
+    step !== 16
+      ? state[step].props
+      : { setStep, signupFoodmakerAC, state, requesting, success, error }
 
   return (
     <SignupContainer footer stepBack={stepBack} step={step}>
@@ -166,6 +180,16 @@ const Signup = () => {
   )
 }
 
-Signup.propTypes = {}
+Signup.propTypes = {
+  signupFoodmakerAC: T.func,
+  requesting: T.bool,
+  success: T.bool,
+  error: T.bool,
+}
 
-export default Signup
+export default connect(
+  ({ signup: { requesting, success, error } }) => ({ requesting, success, error }),
+  {
+    signupFoodmakerAC,
+  },
+)(Signup)
