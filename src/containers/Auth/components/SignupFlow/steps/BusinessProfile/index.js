@@ -25,7 +25,7 @@ const BusinessProfile = ({ onSubmit }) => {
   }, [])
 
   const onClick = (e) => {
-    onSubmit({ businessProfileId: e.currentTarget.id })
+    onSubmit({ businessProfileId: Number(e.currentTarget.id) })
   }
 
   const settings = {
@@ -46,7 +46,7 @@ const BusinessProfile = ({ onSubmit }) => {
       <div className={styles.slider_container}>
         <Slider {...settings}>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="1" onClick={onClick}>
+            <div className={styles.img_container} id="3" onClick={onClick}>
               <img className={styles.business_chef} src={Chef} alt="small" />
               <p className={styles.profile}>Chef / Baker</p>
               <p className={styles.description}>
@@ -56,21 +56,21 @@ const BusinessProfile = ({ onSubmit }) => {
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="2" onClick={onClick}>
+            <div className={styles.img_container} id="4" onClick={onClick}>
               <img className={styles.business_taste} src={Taste} alt="medium" />
               <p className={styles.profile}>Taste Maker</p>
               <p className={styles.description}>I am a professional in tasting / teaching</p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="3" onClick={onClick}>
+            <div className={styles.img_container} id="5" onClick={onClick}>
               <img className={styles.business_craft} src={Craft} alt="large" />
               <p className={styles.profile}>Craft Maker</p>
               <p className={styles.description}>I make and teach craft related to food</p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="4" onClick={onClick}>
+            <div className={styles.img_container} id="6" onClick={onClick}>
               <img className={styles.business_guide} src={Guide} alt="large" />
               <p className={styles.profile}>Foodie Guide</p>
               <p className={styles.description}>
@@ -79,7 +79,7 @@ const BusinessProfile = ({ onSubmit }) => {
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="5" onClick={onClick}>
+            <div className={styles.img_container} id="7" onClick={onClick}>
               <img className={styles.business_guide} src={Pear} alt="pear" />
               <p className={styles.profile}>Brand</p>
               <p className={styles.description}>I am a festival or event organiser.</p>

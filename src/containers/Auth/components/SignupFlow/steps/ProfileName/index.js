@@ -21,7 +21,7 @@ const ProfileName = (props) => {
         registerObj={{
           required: true,
           pattern: {
-            value: /^(?=.{1,15}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/,
+            value: /^(?=.{2,200}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/,
             message: 'Invalid name symbols',
           },
         }}

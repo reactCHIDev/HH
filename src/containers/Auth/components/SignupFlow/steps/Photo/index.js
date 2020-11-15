@@ -52,16 +52,17 @@ const Photo = (props) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
 
-  const handleChange = ({ fileList }) => setOtherPhotos(fileList)
+  const handleChange = ({ fileList }) => addFileList(fileList)
 
-  const submitData = {
-    otherPhotos: {
-      coverPhoto,
-      otherPhotos,
-    },
+  const submit = () => {
+    const submitData = {
+      otherPhotos: {
+        coverPhoto: fileList.length > 0 ? fileList[0].response.url : '',
+        otherPhotos: fileList.length > 1 ? fileList.slice(1).map((e) => e.response.url) : [],
+      },
+    }
+    onSubmit(submitData)
   }
-
-  const submit = () => onSubmit(submitData)
 
   const uploadButton = (
     <div>
@@ -77,7 +78,7 @@ const Photo = (props) => {
         <Upload
           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
           listType="picture-card"
-          fileList={otherPhotos}
+          fileList={fileList}
           onPreview={handlePreview}
           onChange={handleChange}
         >
@@ -92,7 +93,7 @@ const Photo = (props) => {
       </p>
       <input
         className={styles.next}
-        disabled={otherPhotos.length < 0}
+        disabled={fileList.length < 3}
         onClick={submit}
         type="button"
         value="Next  >"

@@ -54,8 +54,9 @@ const CreatePassword = (props) => {
             type={type}
             onChange={onChange}
             ref={register({
+              required: true,
               pattern: {
-                value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
+                value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,100}$/,
                 minLength: {
                   value: 8,
                   message: 'Min length 8 symbols',

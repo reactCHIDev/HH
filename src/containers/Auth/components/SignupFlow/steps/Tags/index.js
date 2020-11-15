@@ -6,22 +6,38 @@ import styles from './tags.module.scss'
 import './tags.less'
 
 const OPTIONS_MAIN = [
-  'Apples',
-  'Nails',
-  'Bananas',
-  'Helicopters',
-  'Coocking class',
-  'Tour',
-  'smth else',
+  'Chef',
+  'Backer',
+  'Mixologist',
+  'Taste maker',
+  'Food maker',
+  'Craft maker',
+  'Urban Farmer',
+  'Chocolatier',
+  'Cheese maker',
+  'Food guide',
+  'Food & Beverage Brand',
+  'Festival/Event Host',
+  'Coffe',
+  'Beer & Cider',
+  'Wine',
+  'Whisky',
+  'Spirits',
+  'Tea',
+  'Health Drinks',
+  'Cakes & Bakes',
+  'Paste, Sauce & Spreads',
+  'Snacks',
+  'Kitchen & Dining',
 ]
 const OPTIONS_ADD = [
-  'Apples',
-  'Nails',
-  'Bananas',
-  'Helicopters',
-  'Coocking class',
+  'Event hire',
+  'Catering',
+  'Custom made',
+  'Cooking Class',
   'Tour',
-  'smth else',
+  'Workshop',
+  'Dining',
 ]
 
 const Tags = (props) => {
@@ -29,12 +45,22 @@ const Tags = (props) => {
     properties: { name, value },
     onSubmit,
   } = props
-  const [mainTags, setMainTags] = useState(value.mainTags)
-  const [addTags, setAddTags] = useState(value.addTags)
+  const [serviceTagIds, setMainTags] = useState([])
+  const [specialityTagIds, setAddTags] = useState([])
 
   useEffect(() => {
-    setMainTags(value.mainTags)
-    setAddTags(value.addTags)
+    setMainTags(
+      OPTIONS_MAIN.reduce((acc, o, i) => {
+        if (value.serviceTagIds.includes(i)) return acc.concat([o])
+        return acc
+      }, []),
+    )
+    setAddTags(
+      OPTIONS_ADD.reduce((acc, o, i) => {
+        if (value.specialityTagIds.includes(i)) return acc.concat([o])
+        return acc
+      }, []),
+    )
   }, [])
 
   const handleChangeMain = (selectedItems) => {
@@ -46,15 +72,26 @@ const Tags = (props) => {
 
   const submitData = {
     serviceTagIds: {
-      mainTags,
-      addTags,
+      serviceTagIds: OPTIONS_MAIN.reduce((acc, o, i) => {
+        if (serviceTagIds.includes(o)) return acc.concat([i])
+        return acc
+      }, []),
+      specialityTagIds: OPTIONS_ADD.reduce((acc, o, i) => {
+        if (specialityTagIds.includes(o)) return acc.concat([i])
+        return acc
+      }, []),
     },
   }
 
   const submit = () => onSubmit(submitData)
 
-  const filteredOptions = OPTIONS_MAIN.filter((o) => !mainTags.includes(o))
-  const filteredAddOptions = OPTIONS_ADD.filter((o) => !addTags.includes(o))
+  const filteredOptions = OPTIONS_MAIN.filter((o) => !serviceTagIds.includes(o))
+  const filteredAddOptions = OPTIONS_ADD.filter((o) => !specialityTagIds.includes(o))
+
+  /* const filteredOptions = OPTIONS_MAIN.reduce((acc, o, i) => {
+    if (!mainTags.includes(o)) return acc.concat([i])
+    return acc
+  }, []) */
 
   return (
     <div className={styles.container}>
@@ -64,7 +101,7 @@ const Tags = (props) => {
         <Select
           mode="multiple"
           placeholder="Customize your tags"
-          value={mainTags}
+          value={serviceTagIds}
           showArrow
           onChange={handleChangeMain}
           style={{ width: '100%' }}
@@ -80,7 +117,7 @@ const Tags = (props) => {
         <Select
           mode="tags"
           placeholder="Customize your tags"
-          value={addTags}
+          value={specialityTagIds}
           showArrow
           onChange={handleChangeAdd}
           style={{ width: '100%' }}
@@ -92,7 +129,13 @@ const Tags = (props) => {
           ))}
         </Select>
       </div>
-      <input className={styles.next} onClick={submit} type="button" value="Next  >" />
+      <input
+        className={styles.next}
+        disabled={!serviceTagIds.length || !specialityTagIds.length}
+        onClick={submit}
+        type="button"
+        value="Next  >"
+      />
     </div>
   )
 }

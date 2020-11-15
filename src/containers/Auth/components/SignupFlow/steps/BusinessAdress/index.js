@@ -14,12 +14,12 @@ const BusinessAdress = (props) => {
   } = props
   const [showMap, setMap] = useState(false)
   const [curTextValue, setTextValue] = useState(value.adress)
-  const [curInputValue, setInputalue] = useState(value.mapURL)
+  const [curInputValue, setInputalue] = useState(value.location)
   const { register, handleSubmit, errors } = useForm()
 
   useEffect(() => {
     setTextValue(value.adress)
-    setInputalue(value.mapURL)
+    setInputalue(value.location)
   }, [])
 
   const onChange = (e) => {
@@ -30,9 +30,9 @@ const BusinessAdress = (props) => {
   }
 
   const submitData = {
-    businessAddressId: {
+    businessAdress: {
       adress: curTextValue,
-      mapURL: curInputValue,
+      location: curInputValue,
     },
   }
 

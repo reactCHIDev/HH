@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import T from 'prop-types'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
+import { signupFoodmakerAC } from 'actions/signup'
+import { connect } from 'react-redux'
 import SignupContainer from './components/container'
 import FirstNameStep from './steps/FirstName'
 import LastNameStep from './steps/LastName'
@@ -18,6 +20,7 @@ import WebSiteName from './steps/WebSiteName'
 import AboutYourself from './steps/AboutYourself'
 import Tags from './steps/Tags'
 import Photo from './steps/Photo'
+import Requesting from './steps/Requesting'
 import Congrats from './steps/Congrats'
 import Finish from './steps/Finish'
 import TMP from './steps/1TMP'
@@ -33,23 +36,27 @@ const steps = [
   { screen: PhoneStep, props: { name: 'phone', value: '' } },
   {
     screen: SocialsStep,
-    props: { name: 'social', value: ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/'] },
+    props: { name: 'socialURL', value: ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/'] },
   },
   {
     screen: BusinessAdress,
-    props: { name: 'businessAddressId', value: { adress: '', mapURL: '' } },
+    props: { name: 'businessAdress', value: { adress: '', location: '' } },
   },
   { screen: ServiceOffering, props: { name: 'businessServiceIds', value: [] } },
   { screen: ProfileName, props: { name: 'profileName', value: '' } },
   { screen: WebSiteName, props: { name: 'hungryHuggerLink', value: 'www.hungryhugger.com/' } },
   { screen: AboutYourself, props: { name: 'about', value: '' } },
-  { screen: Tags, props: { name: 'serviceTagIds', value: { mainTags: [], addTags: [] } } },
+  {
+    screen: Tags,
+    props: { name: 'serviceTagIds', value: { serviceTagIds: [], specialityTagIds: [] } },
+  },
   { screen: Photo, props: { name: 'otherPhotos', value: { coverPhoto: '', otherPhotos: [] } } },
-  { screen: Congrats, props: {} },
+  { screen: Requesting, props: { name: 'requesting', value: '' } },
+  { screen: Congrats, props: { name: 'congratz', value: '' } },
   { screen: Finish, props: { name: 'finish', value: '' } },
 ]
 
-const Signup = () => {
+const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
   const [step, setStep] = useState(getItem('step') ? getItem('step') : 0)
   const [direction, setDirection] = useState('forward')
 
@@ -80,8 +87,9 @@ const Signup = () => {
   useEffect(() => setItem('signup_data', state), [state])
 
   useEffect(() => {
-    if (getItem('step') < step) setItem('step', step)
-    if (step === 17) {
+    const lastStep = getItem('step')
+    if (lastStep < step || step === 1) setItem('step', step)
+    if (step === 18) {
       removeKey('signup_data')
       removeKey('step')
     }
@@ -99,19 +107,42 @@ const Signup = () => {
     setStep(5)
   }
 
-  if (step === 16) {
-    setTimeout(() => {
-      setStep(17)
-    }, 5000)
-  }
-
   const collectData = (state) => {
-    console.log(
-      state.reduce((acc, step, index) => {
+    return state.slice(0, 16).reduce(
+      (acc, step, index) => {
+        if (step.props.name === 'serviceTagIds') {
+          acc.serviceTagIds = step.props.value.serviceTagIds
+          acc.specialityTagIds = step.props.value.specialityTagIds
+          return acc
+        }
+        if (step.props.name === 'otherPhotos') {
+          acc.coverPhoto = step.props.value.coverPhoto
+          acc.otherPhotos = step.props.value.otherPhotos
+          return acc
+        }
+        if (index === 4) return acc
         acc[step.props.name] = step.props.value
         return acc
-      }, {}),
+      },
+      {
+        cityId: 1,
+        role: 'FOODMAKER',
+        // registrationLink: 'https://registration_link_should_be_here',
+      },
     )
+  }
+
+  if (step === 16) {
+    console.log('%c   success   ', 'color: darkgreen; background: palegreen;', success)
+    // if (!requesting && !success && !error) signupFoodmakerAC(collectData(state))
+    if (!requesting && success) setStep(17)
+    // if (error) setStep(1)
+  }
+
+  if (step === 17) {
+    setTimeout(() => {
+      setStep(18)
+    }, 5000)
   }
 
   const onSubmit = (submitData) => {
@@ -122,7 +153,7 @@ const Signup = () => {
     setStep((curstep) => curstep + 1)
     // console.clear()
     console.log('submitData', submitData)
-    if (step === 15) collectData(state)
+    if (step === 16) collectData(state)
   }
 
   const stepBack = () => {
@@ -136,7 +167,10 @@ const Signup = () => {
   }
 
   const Screen = state[step].screen
-  const properties = state[step].props
+  const properties =
+    step !== 16
+      ? state[step].props
+      : { setStep, signupFoodmakerAC, state, requesting, success, error }
 
   return (
     <SignupContainer footer stepBack={stepBack} step={step}>
@@ -146,6 +180,16 @@ const Signup = () => {
   )
 }
 
-Signup.propTypes = {}
+Signup.propTypes = {
+  signupFoodmakerAC: T.func,
+  requesting: T.bool,
+  success: T.bool,
+  error: T.bool,
+}
 
-export default Signup
+export default connect(
+  ({ signup: { requesting, success, error } }) => ({ requesting, success, error }),
+  {
+    signupFoodmakerAC,
+  },
+)(Signup)

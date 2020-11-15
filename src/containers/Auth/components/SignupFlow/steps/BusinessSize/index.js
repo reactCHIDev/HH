@@ -23,7 +23,7 @@ const BusinessSize = ({ onSubmit }) => {
   }, [])
 
   const onClick = (e) => {
-    onSubmit({ businessSizeId: e.currentTarget.id })
+    onSubmit({ businessSizeId: Number(e.currentTarget.id) })
   }
 
   const settings = {
@@ -44,19 +44,19 @@ const BusinessSize = ({ onSubmit }) => {
       <div className={styles.slider_container}>
         <Slider {...settings}>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="1" onClick={onClick}>
+            <div className={styles.img_container} id="2" onClick={onClick}>
               <img className={styles.business_small} src={Small} alt="small" />
               <p className={styles.description}>1-5 people</p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="2" onClick={onClick}>
+            <div className={styles.img_container} id="3" onClick={onClick}>
               <img className={styles.business_medium} src={Medium} alt="medium" />
               <p className={styles.description}>6-20 people</p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="3" onClick={onClick}>
+            <div className={styles.img_container} id="4" onClick={onClick}>
               <img className={styles.business_large} src={Large} alt="large" />
               <p className={styles.description}>20+ people</p>
             </div>
