@@ -11,6 +11,7 @@ import styles from './businesssize.module.scss'
 
 const BusinessSize = ({ onSubmit }) => {
   const [sliderWidth, setWidth] = useState(320)
+  const [mouseDownTime, setTimeStamp] = useState(0)
 
   const handleResize = () => setWidth(window.innerWidth)
 
@@ -22,8 +23,13 @@ const BusinessSize = ({ onSubmit }) => {
     }
   }, [])
 
-  const onClick = (e) => {
-    onSubmit({ businessSizeId: Number(e.currentTarget.id) })
+  const mouseDown = (e) => {
+    setTimeStamp(e.timeStamp)
+  }
+
+  const mouseUp = (e) => {
+    const time = e.timeStamp - mouseDownTime
+    if (time < 200) onSubmit({ businessSizeId: Number(e.currentTarget.id) })
   }
 
   const settings = {
@@ -44,19 +50,34 @@ const BusinessSize = ({ onSubmit }) => {
       <div className={styles.slider_container}>
         <Slider {...settings}>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="2" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="2"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_small} src={Small} alt="small" />
               <p className={styles.description}>1-5 people</p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="3" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="3"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_medium} src={Medium} alt="medium" />
               <p className={styles.description}>6-20 people</p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="4" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="4"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_large} src={Large} alt="large" />
               <p className={styles.description}>20+ people</p>
             </div>
