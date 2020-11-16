@@ -10,6 +10,12 @@ const Card = () => {
       <Link to="/product_page" style={{ color: 'grey' }}>
         Product Page
       </Link>
+      <Link to="/foodmaker_page" style={{ color: 'grey' }}>
+        Foodmaker Page
+      </Link>
+      <Link to="/product_page" style={{ color: 'grey' }}>
+        Product Page
+      </Link>
       <Link to="/addproduct/0" style={{ color: 'grey' }}>
         Add Product
       </Link>
