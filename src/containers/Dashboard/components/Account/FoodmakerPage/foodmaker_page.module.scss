@@ -1,4 +1,6 @@
 .container {
+  max-width: 1440px;
+  margin: auto;
   .content {
     .header {
       background: #31394d;
@@ -257,6 +259,8 @@
       }
     }
     .section_experiences {
+      max-width: 1100px;
+      margin: auto;
       margin-bottom: 60px;
       .exp_heading {
         font-style: normal;
