@@ -42,6 +42,7 @@ const BusinessAdress = (props) => {
 
   return (
     <div className={styles.container}>
+      {/* <Location /> */}
       <Heading category="Contact info (not-public)" name="Business address or Google map link" />
       <form className={styles.form} onSubmit={handleSubmit(() => onSubmit(submitData))}>
         <textarea

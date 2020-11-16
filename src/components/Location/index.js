@@ -98,37 +98,36 @@ const Location = ({ setLocationVisibility, clearLocationField }) => {
 
     setCoordinates(data)
   }
-  return <div />
-  /*  return (
-      <div ref={locationRef}>
-        <WrappedMap
-          // eslint-disable-next-line max-len
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}&language=en`}
-          loadingElement={<div style={{ height: '100%' }} />}
-          containerElement={<div className="location-map" />}
-          mapElement={
-            <div
-              style={{
-                height: 'calc(100% - 57px)',
-                border: '3px solid #fff',
-                borderRadius: '20px',
-                position: 'absolute',
-                top: '50px',
-                left: '0',
-                width: '100%',
-              }}
-            />
-          }
-          coordinates={coordinates}
-          setCoordinates={setCoordinates}
-          setLocationVisibility={setLocationVisibility}
-          onMarketDragEnd={onMarketDragEnd}
-          onPlaceSelected={onPlaceSelected}
-          clearLocationField={clearLocationField}
-        />
-      </div>
-    )
-  } */
+  if (!coordinates) return <div />
+  return (
+    <div ref={locationRef}>
+      <WrappedMap
+        // eslint-disable-next-line max-len
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}&language=en`}
+        loadingElement={<div style={{ height: '100%' }} />}
+        containerElement={<div className="location-map" />}
+        mapElement={
+          <div
+            style={{
+              height: 'calc(100% - 57px)',
+              border: '3px solid #fff',
+              borderRadius: '20px',
+              position: 'absolute',
+              top: '50px',
+              left: '0',
+              width: '100%',
+            }}
+          />
+        }
+        coordinates={coordinates}
+        setCoordinates={setCoordinates}
+        setLocationVisibility={setLocationVisibility}
+        onMarketDragEnd={onMarketDragEnd}
+        onPlaceSelected={onPlaceSelected}
+        clearLocationField={clearLocationField}
+      />
+    </div>
+  )
 }
 
 Location.propTypes = {

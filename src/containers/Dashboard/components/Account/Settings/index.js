@@ -39,21 +39,21 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
     if (userData.notifications.length === 1) chkBoxEl.current.disabled = 'disabled'
   }, [userData])
 
-  useEffect(() => {
-    mailEl.current.focus()
-    phoneEl.current.focus()
-  }, [emailDisabled, phoneDisabled])
+  // useEffect(() => {
+  // mailEl.current.focus()
+  // phoneEl.current.focus()
+  // }, [emailDisabled, phoneDisabled])
 
   const { register, handleSubmit, errors, watch } = useForm({
     mode: 'onBlur',
   })
 
   const toggleEmailEdit = () => {
-    setEmailDisabled(false)
+    // setEmailDisabled(false)
     mailEl.current.focus()
   }
   const togglePhoneEdit = () => {
-    setPhoneDisabled(false)
+    // setPhoneDisabled(false)
     phoneEl.current.focus()
   }
 
@@ -93,7 +93,7 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
               name="email"
               placeholder={userData.email || ' '}
               type="text"
-              disabled={emailDisabled}
+              // disabled={emailDisabled}
               ref={(el) => {
                 register(el, {
                   validate: async (value) => {
@@ -130,7 +130,7 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
               name="phone"
               placeholder={userData.phone || ' '}
               type="text"
-              disabled={phoneDisabled}
+              // disabled={phoneDisabled}
               ref={(el) => {
                 register(el, {
                   required: false,
