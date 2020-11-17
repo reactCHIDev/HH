@@ -1,6 +1,8 @@
 import React from 'react'
-import T from 'prop-types'
-import leading from 'assets/images/landings/create_experience/leading.jpg'
+import stub1 from 'assets/images/landings/create_experience/leading.jpg'
+import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
+import stub3 from 'assets/images/landings/create_experience/sec22.jpg'
+import stub4 from 'assets/images/landings/create_experience/sec23.jpg'
 import styles from './product_page.module.scss'
 import ImagePreviewer from './components/ImagePreviewer'
 import Header from './components/Header'
@@ -13,7 +15,7 @@ const ProductPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <ImagePreviewer images={[leading, leading, leading, leading]} />
+        <ImagePreviewer images={[stub1, stub2, stub3, stub4, stub1, stub2, stub3, stub4]} />
         <div className={styles.inner_content}>
           <Header text="Pie with carrots, apple and cinnamon" />
           <Toolbar
@@ -30,7 +32,7 @@ const ProductPage = () => {
         </div>
       </div>
     </div>
-  ) 
+  )
 }
 
 ProductPage.propTypes = {}

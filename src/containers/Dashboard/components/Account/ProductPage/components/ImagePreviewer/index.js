@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import T from 'prop-types'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -8,29 +8,35 @@ import './image_previewer.less'
 
 const ImagePreviewer = (props) => {
   const { images } = props
-  const settings = {
-    draggable: true,
-    touchThreshold: 30,
-    useCSS: true,
-    swipeToSlide: true,
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    customPaging(i) {
-      return <img src={images[i]} alt="" className={styles.img} />
-    },
-    dotsClass: styles.img_preview,
-  }
+  const [selectedImage, setSelectedImage] = useState(images[0])
+
+  const settings = useMemo(
+    () => ({
+      draggable: true,
+      touchThreshold: 30,
+      useCSS: true,
+      swipeToSlide: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      arrows: false,
+    }),
+    [],
+  )
+
+  const handleImageClick = useCallback((e) => setSelectedImage(e.target.src))
 
   return (
-    <div className={styles.overflow_container}>
+    <div className={styles.container}>
+      <div className={styles.img_container}>
+        <img src={selectedImage} alt="" className={styles.img} />
+      </div>
       <div className={styles.slider_container}>
         <Slider {...settings}>
           {images.map((image) => (
-            <div className={styles.img_container}>
-              <img src={image} alt="" className={styles.img} />
+            <div className={styles.preview_container}>
+              <img src={image} alt="" className={styles.preview_img} onClick={handleImageClick} />
             </div>
           ))}
         </Slider>
