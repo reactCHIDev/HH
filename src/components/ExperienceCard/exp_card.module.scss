@@ -1,9 +1,68 @@
 .container {
   .content {
-    width: 300px;
-    height: 240px;
-    background-color: royalblue;
+    width: 384px;
+    height: 384px;
     border-radius: 16px;
+    overflow: hidden;
     margin: 20px;
+    border: 2px solid #f7f7f7;
+    .img_container {
+      height: 65%;
+      border-radius: 16px 16px 0px 0px;
+      overflow: hidden;
+      position: relative;
+      .card_like {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .card_img {
+        object-fit: cover;
+      }
+    }
+    .info_container {
+      padding: 20px;
+      height: 35%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .exp_title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 26px;
+        letter-spacing: 0.5px;
+        text-transform: capitalize;
+        color: #31394d;
+        margin: 0;
+      }
+
+      .stats_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        .exp_price {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 19px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: #31394d;
+          opacity: 0.6;
+          margin: 0;
+        }
+        .rating_container {
+          display: flex;
+          align-items: center;
+          .qauntity {
+            margin: 0;
+          }
+        }
+      }
+    }
   }
 }
