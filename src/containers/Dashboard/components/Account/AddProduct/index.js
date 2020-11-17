@@ -25,7 +25,7 @@ const AddProduct = (props) => {
   console.log('%c   step   ', 'color: white; background: salmon;', step)
 
   useEffect(() => {
-    // getProductTypes()
+    getProductTypes()
   }, [])
 
   const { Step } = Steps
