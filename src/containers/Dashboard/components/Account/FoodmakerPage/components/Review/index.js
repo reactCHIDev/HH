@@ -29,7 +29,6 @@ const Review = (props) => {
               <img src={coverPhoto} alt="avatar" />
             </div>
             <div className={styles.title}>Cultural Dinner: Art, Music and Fun</div>
-            <div className={styles.date}>22 May</div>
           </div>
           <div className={cls(styles.review_stats, 'rating')}>
             <Rate style={{ color: '#31394C' }} disabled defaultValue={3} />
@@ -39,6 +38,7 @@ const Review = (props) => {
               </div>
               <div className={styles.qty_reads}>4</div>
             </div>
+            <div className={styles.date}>22 May</div>
           </div>
           <div className={styles.review_content}>
             Super cool gin program they have going here. All the different infusions are super
