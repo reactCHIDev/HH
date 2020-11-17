@@ -2,15 +2,18 @@ import React, { useState } from 'react'
 import T from 'prop-types'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
+import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import avatar from 'assets/TMP-AVATAR.jpg'
 import mapMarker from 'assets/icons/svg/map_marker.svg'
 import likeHeart from 'assets/icons/svg/like_heart.svg'
 import envelope from 'assets/icons/svg/envelope.svg'
+import review from 'assets/images/signup-flow/svg/medium-business.svg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import acessorieFm from 'assets/icons/svg/FM_page_acessorie.svg'
-import { Rate } from 'antd'
+import Review from './components/Review'
+import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
 
@@ -38,7 +41,7 @@ const FoodmakerPage = (props) => {
                 </p>
               </div>
               <div className={styles.rating_container}>
-                <Rate disabled defaultValue={3} />
+                <Rate style={{ color: '#EB5769' }} disabled defaultValue={3} />
                 <p className={styles.qauntity}>(32)</p>
               </div>
             </div>
@@ -63,6 +66,7 @@ const FoodmakerPage = (props) => {
             </div>
           </div>
         </div>
+
         <div className={styles.section_about}>
           <div className={styles.about_shop_container}>
             <div className={styles.about_shop}>
@@ -96,6 +100,7 @@ const FoodmakerPage = (props) => {
             </div>
           </div>
         </div>
+
         <div className={styles.section_experiences}>
           <p className={styles.exp_heading}>Upcoming experiences</p>
           <div className={styles.exp_container}>
@@ -105,6 +110,20 @@ const FoodmakerPage = (props) => {
           </div>
           <div className={styles.exp_btn_container}>
             <Button title="See all experiences" dark="true" />
+          </div>
+        </div>
+
+        <div className={styles.slider_section}>
+          <SliderSection />
+        </div>
+
+        <div className={styles.section_review}>
+          <img className={styles.section_image} src={review} alt="review" />
+          <p className={styles.review_heading}>Reviews of Annett’s experiences</p>
+          <div className={styles.review_container}>
+            {[1, 1, 1].map((e) => (
+              <Review />
+            ))}
           </div>
         </div>
         <BottomSection />
