@@ -4,6 +4,12 @@
   overflow-y: hidden;
   padding-right: 10%;
 
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
   .img_container {
     text-align: center;
     .img {
@@ -18,7 +24,7 @@
       padding: 10px;
 
       .preview_img {
-        opacity: 0.5;
+        opacity: 0.4;
         cursor: pointer;
 
         &:hover {
@@ -29,56 +35,3 @@
   }
 }
 
-// .overflow_container {
-//   width: 50%;
-//   padding-bottom: 104px;
-//   padding-right: 10%;
-//   overflow-x: hidden;
-//   overflow-y: hidden;
-//   @media (max-width: 768px) {
-//     width: calc(100% + 32px);
-//     margin: 0 -16px;
-//     overflow-x: hidden;
-//   }
-//   .slider_container {
-//     width: 100%;
-//     // margin-left: 24px;
-//     @media (max-width: 768px) {
-//       margin: 0 -40px 30px;
-//       width: calc(100% + 80px);
-//     }
-//     .img_container {
-//       padding: 0 10px;
-//       border-radius: 16px;
-//       @media (max-width: 768px) {
-//       }
-
-//       .img {
-//         width: 100%;
-//         border-radius: 16px;
-//         overflow: hidden;
-//       }
-//     }
-
-//     .img_preview {
-//       position: absolute;
-//       bottom: -80px;
-//       display: block;
-//       width: 100%;
-//       padding: 0;
-//       margin: 0;
-//       list-style: none;
-//       text-align: center;    
-//     }
-
-//     .img_preview li {
-//       position: relative;
-//       display: inline-block;
-//       width: 104px;
-//       margin: 0 5px;
-//       padding: 0;
-//       cursor: pointer;
-//       border-radius: 10px;
-//     }
-//   }
-// }
