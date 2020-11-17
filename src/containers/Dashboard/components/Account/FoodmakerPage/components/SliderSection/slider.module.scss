@@ -1,0 +1,20 @@
+.container {
+  .content {
+    .slider_container {
+      width: 100%;
+      height: 760px;
+      .img_container {
+        width: 100%;
+        height: 760px;
+        padding: 10px;
+        border-radius: 0px;
+        overflow: hidden;
+
+        .slider_img {
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

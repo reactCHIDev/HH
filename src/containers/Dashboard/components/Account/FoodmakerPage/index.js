@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import T from 'prop-types'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
-import Review from './components/Review'
+import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import avatar from 'assets/TMP-AVATAR.jpg'
@@ -12,7 +12,8 @@ import envelope from 'assets/icons/svg/envelope.svg'
 import review from 'assets/images/signup-flow/svg/medium-business.svg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import acessorieFm from 'assets/icons/svg/FM_page_acessorie.svg'
-import { Rate } from 'antd'
+import Review from './components/Review'
+import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
 
@@ -112,7 +113,9 @@ const FoodmakerPage = (props) => {
           </div>
         </div>
 
-        <div className={styles.slider_section}></div>
+        <div className={styles.slider_section}>
+          <SliderSection />
+        </div>
 
         <div className={styles.section_review}>
           <img className={styles.section_image} src={review} alt="review" />
