@@ -8,25 +8,18 @@ import cls from 'classnames'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import styles from './slider.module.scss'
-import { sortedIndex } from 'lodash'
 
 const SliderSection = (props) => {
-  const { x } = props
+  const {} = props
+
   const [containerWidth, setWidth] = useState(0)
   const [slider1, setSlider1] = useState(null)
   const [slider2, setSlider2] = useState(null)
   const [index, setIndex] = useState(0)
+
   const slider = useRef(null)
   const previewSlider = useRef(null)
   const container = useRef(null)
-
-  useEffect(() => {
-    console.log(
-      '%c   index   ',
-      'color: darkgreen; background: palegreen;',
-      container.current.offsetWidth,
-    )
-  })
 
   useEffect(() => {
     setSlider1(slider.current)
@@ -44,12 +37,6 @@ const SliderSection = (props) => {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-
-  /* useEffect(() => {
-    if (previewSlider.current) {
-      setWidth(previewSlider.current.offsetWidth)
-    }
-  }) */
 
   const settings = {
     draggable: true,

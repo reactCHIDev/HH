@@ -3,10 +3,8 @@
     position: relative;
     .slider_container {
       width: 100%;
-      height: 760px;
       .img_container {
         width: 100%;
-        height: 760px;
         padding: 10px;
         border-radius: 0px;
         overflow: hidden;
@@ -23,6 +21,9 @@
       right: 50px;
       width: 45%;
       height: 60px;
+      @media (max-width: 1024px) {
+        display: none;
+      }
       .preview_container {
         width: 160px;
         height: 120px;
@@ -73,8 +74,29 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      @media (max-width: 1024px) {
+        width: 80%;
+        bottom: -40px;
+      }
+      @media (max-width: 1024px) {
+        position: relative;
+        top: -60px;
+        width: 80%;
+        flex-direction: column;
+      }
+      @media (max-width: 480px) {
+        left: 20px;
+        top: -30px;
+        width: 90%;
+        padding: 10px;
+      }
       .descr_container {
         width: 70%;
+        margin-bottom: 24px;
+        margin-right: 16px;
+        @media (max-width: 1024px) {
+          width: 90%;
+        }
         .description {
           font-style: normal;
           font-weight: 500;
@@ -83,12 +105,16 @@
           letter-spacing: 0.5px;
           text-transform: capitalize;
           color: #31394c;
+          margin-bottom: 16px;
         }
-
         .stats_container {
           display: flex;
           justify-content: space-between;
           align-items: flex-end;
+          @media (max-width: 1024px) {
+            flex-direction: column;
+            align-items: flex-start;
+          }
           .exp_price {
             font-style: normal;
             font-weight: bold;
