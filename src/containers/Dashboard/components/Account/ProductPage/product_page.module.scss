@@ -1,16 +1,27 @@
 .container {
-  background-color: #F4F7FA;
-
-  .content {
-    display: flex;
-    padding-top: 30px;
-    max-width: 1440px;
-    margin: auto;
+  .product {
+    background-color: #F4F7FA;
   
-    .inner_content {
-      font-size: 72px;
-      flex-grow: 1;
-      max-width: 50%;
+    .content {
+      display: flex;
+      padding-top: 30px;
+      max-width: 1440px;
+      margin: auto;
+      flex-wrap: wrap;
+
+      @media (min-width: 768px) {
+        flex-wrap: nowrap;
+      }
+    
+      .inner_content {
+        font-size: 72px;
+        flex-grow: 1;
+        width: 50%;
+  
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+      }
     }
   }
 }
