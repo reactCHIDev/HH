@@ -29,7 +29,9 @@ const ExpCard = (props) => {
           <div className={styles.stats_container}>
             <div className={styles.exp_price_container}>
               <p className={styles.exp_price}>{`FROM $${price}`}</p>
-              <img src={OutlinedCartIcon} className={styles.outlined_cat} alt="buy product" />
+              {isShowCart && (
+                <img src={OutlinedCartIcon} className={styles.outlined_cat} alt="buy product" />
+              )}
             </div>
             <div className={cls(styles.rating_container, 'rating')}>
               <Rate style={{ color: '#31394C' }} disabled defaultValue={3} value={rating} />
