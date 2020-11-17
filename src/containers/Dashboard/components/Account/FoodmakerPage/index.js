@@ -126,8 +126,12 @@ const FoodmakerPage = (props) => {
             ))}
           </div>
         </div>
-        <BottomSection />
-        <Footer />
+        <div className={styles.bottom_section_container}>
+          <BottomSection />
+        </div>
+        <div className={styles.footer_container}>
+          <Footer />
+        </div>
       </div>
     </div>
   )
