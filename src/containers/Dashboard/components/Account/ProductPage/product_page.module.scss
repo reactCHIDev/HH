@@ -1,5 +1,16 @@
 .container {
+  background-color: #F4F7FA;
+
   .content {
-    font-size: 72px;
+    display: flex;
+    padding-top: 30px;
+    max-width: 1440px;
+    margin: auto;
+  
+    .inner_content {
+      font-size: 72px;
+      flex-grow: 1;
+      max-width: 50%;
+    }
   }
 }
