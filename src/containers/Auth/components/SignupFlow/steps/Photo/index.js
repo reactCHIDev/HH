@@ -72,11 +72,11 @@ const Photo = (props) => {
     </div>
   )
 
-  async function sendFile() {
+  async function sendFile({ file }) {
+    console.log('%c   fileList   ', 'color: darkgreen; background: palegreen;', file)
     const formData = new FormData()
-    formData.append('file', '')
+    formData.append('file', file)
     const headers = {
-      // ...formData.getHeaders(),
       'Content-Type': 'multipart/form-data',
       Accept: 'application/json',
       type: 'formData',
@@ -110,10 +110,9 @@ const Photo = (props) => {
       <div className="photo_container">
         <Upload
           action="https://hungryhugger.wildwebart.com/api/v1/file/upload/photo"
-          // customRequest={sendFile}
-          headers={headers}
+          customRequest={sendFile}
+          // headers={headers}
           listType="picture-card"
-          fileList={fileList}
           onPreview={handlePreview}
           onChange={handleChange}
         >
