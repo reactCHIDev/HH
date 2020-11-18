@@ -4,10 +4,12 @@
   overflow-y: hidden;
   padding-right: 10%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     width: 100%;
-    padding-left: 10%;
-    padding-right: 10%;
+    // padding-left: 10%;
+    // padding-right: 10%;
+    padding-right: 0;
+    
   }
 
   .img_container {
