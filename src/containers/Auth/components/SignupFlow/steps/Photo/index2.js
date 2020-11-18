@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { Upload, Modal } from 'antd'
-import axios from 'axios'
 import { PlusOutlined } from '@ant-design/icons'
 import Heading from '../../components/heading'
 import styles from './photo.module.scss'
@@ -72,46 +71,12 @@ const Photo = (props) => {
     </div>
   )
 
-  async function sendFile() {
-    const formData = new FormData()
-    formData.append('file', '')
-    const headers = {
-      // ...formData.getHeaders(),
-      'Content-Type': 'multipart/form-data',
-      Accept: 'application/json',
-      type: 'formData',
-      'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
-    }
-
-    const res = await axios.post(
-      'https://hungryhugger.wildwebart.com/api/v1/file/upload/photo',
-      formData,
-      {
-        headers,
-      },
-    )
-
-    console.log('res', res)
-  }
-
-  const headers = {
-    'Content-Type': 'multipart/form-data',
-    type: 'formData',
-    'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
-  }
-
   return (
     <div className={styles.container}>
       <Heading category="About" name="3 - 8 photos of your work" />
       <div className="photo_container">
         <Upload
-          action="https://hungryhugger.wildwebart.com/api/v1/file/upload/photo"
-          // customRequest={sendFile}
-          headers={headers}
+          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
           listType="picture-card"
           fileList={fileList}
           onPreview={handlePreview}
