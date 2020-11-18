@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-import { Upload, Modal } from 'antd'
+import { Upload, Modal, Progress } from 'antd'
 import axios from 'axios'
 import { PlusOutlined } from '@ant-design/icons'
 import Heading from '../../components/heading'
@@ -21,6 +21,7 @@ const Photo = (props) => {
     properties: { name, value },
     onSubmit,
   } = props
+
   const [coverPhoto, setCoverPhoto] = useState(value.coverPhoto)
   const [otherPhotos, setOtherPhotos] = useState(value.otherPhotos)
 
@@ -28,11 +29,22 @@ const Photo = (props) => {
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
   const [fileList, addFileList] = useState([])
+  const [url, setUrl] = useState('')
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     setCoverPhoto(value.coverPhoto)
     setOtherPhotos(value.otherPhotos)
   }, [])
+
+  useEffect(() => {
+    console.log('%c   useEffect  url ', 'color: darkgreen; background: palegreen;', url)
+    if (fileList.length) {
+      const list = [...fileList]
+      list[list.length - 1].url = url
+      addFileList(list)
+    }
+  }, [url])
 
   const handleChangeCover = (path) => {
     setCoverPhoto(path)
@@ -53,7 +65,28 @@ const Photo = (props) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
 
-  const handleChange = ({ fileList }) => addFileList(fileList)
+  const handleChange = ({ fileList }) => {
+    console.log(
+      '%c   handleChange fileList  ',
+      'color: darkgreen; background: palegreen;',
+      fileList,
+    )
+    const list = fileList.map((e, i) =>
+      i === fileList.length - 1
+        ? {
+            uid: e.uid,
+            name: e.name,
+            status: 'done',
+          }
+        : e,
+    )
+    addFileList(list)
+  }
+
+  // uid: '-1',
+  // name: 'image.png',
+  // status: 'done',
+  // url: "https...."
 
   const submit = () => {
     const submitData = {
@@ -72,8 +105,8 @@ const Photo = (props) => {
     </div>
   )
 
-  async function sendFile({ file }) {
-    console.log('%c   fileList   ', 'color: darkgreen; background: palegreen;', file)
+  async function sendFile(options) {
+    const { onSuccess, onError, file, onProgress } = options
     const formData = new FormData()
     formData.append('file', file)
     const headers = {
@@ -90,18 +123,26 @@ const Photo = (props) => {
       formData,
       {
         headers,
+        onUploadProgress: (event) => {
+          const percent = Math.floor((event.loaded / event.total) * 100)
+          setProgress(percent)
+          if (percent === 100) {
+            setTimeout(() => setProgress(0), 3000)
+          }
+          onProgress({ percent: (event.loaded / event.total) * 100 })
+        },
       },
     )
 
     console.log('res', res)
-  }
+    console.log('%c  req fileList   ', 'color: darkgreen; background: palegreen;', fileList)
 
-  const headers = {
-    'Content-Type': 'multipart/form-data',
-    type: 'formData',
-    'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
+    setUrl(res.data)
+
+    // uid: '-1',
+    // name: 'image.png',
+    // status: 'done',
+    // url: "https...."
   }
 
   return (
@@ -109,10 +150,11 @@ const Photo = (props) => {
       <Heading category="About" name="3 - 8 photos of your work" />
       <div className="photo_container">
         <Upload
-          action="https://hungryhugger.wildwebart.com/api/v1/file/upload/photo"
+          // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          // action="https://hungryhugger.wildwebart.com/api/v1/file/upload/photo"
           customRequest={sendFile}
-          // headers={headers}
           listType="picture-card"
+          fileList={fileList}
           onPreview={handlePreview}
           onChange={handleChange}
         >
@@ -121,6 +163,7 @@ const Photo = (props) => {
         <Modal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
+        {progress > 0 ? <Progress percent={progress} /> : null}
       </div>
       <p className={styles.description}>
         Show your work at its best! This directly affects the number of orders.
