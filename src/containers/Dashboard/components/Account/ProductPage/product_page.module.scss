@@ -4,14 +4,15 @@
   
     .content {
       display: flex;
-      padding-top: 30px;
+      padding-top: 0;
       padding-bottom: 100px;
       max-width: 1440px;
       margin: auto;
       flex-wrap: wrap;
 
-      @media (min-width: 768px) {
+      @media (min-width: 1024px) {
         flex-wrap: nowrap;
+        padding-top: 30px;
       }
     
       .inner_content {
@@ -19,7 +20,7 @@
         flex-grow: 1;
         width: 50%;
   
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
           width: 100%;
         }
       }
@@ -46,12 +47,7 @@
       max-width: 1440px;
       margin: auto;
       flex-wrap: wrap;
-      justify-content: space-between;
-
-      @media (max-width: 900px) {
-        flex-direction: column;
-        align-items: center;
-      }
+      justify-content: center;
     }
   }
 }

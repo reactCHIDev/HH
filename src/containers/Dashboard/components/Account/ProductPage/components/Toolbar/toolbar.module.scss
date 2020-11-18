@@ -7,6 +7,10 @@
   padding-bottom: 20px;
   flex-wrap: wrap;
 
+  @media (max-width: 1024px) {
+    padding: 0 20px 20px;
+  }
+
   .price {
     text-align: left;
     font-size: 32px;
@@ -15,13 +19,8 @@
     line-height: 42px;
     letter-spacing: 0.30000001192092896px;
     text-align: left;
-    width: 40%;
-    margin-bottom: 10px;
-
-    @media (min-width: 1092px) {
-      width: fit-content;
-      margin-bottom: 0;
-    }
+    width: fit-content;
+    margin-bottom: 0;
 
     &::before {
       content: '$';
@@ -48,11 +47,7 @@
     height: 48px;
     justify-content: space-around;
     align-items: center;
-    width: 40%;
-
-    @media (min-width: 1092px) {
-      width: 120px;
-    }
+    width: 120px;
 
     .button_left {
       display: inline-block;
@@ -91,10 +86,6 @@
   }
 
   .order_button {
-    width: 40%;
-
-    @media (min-width: 1092px) {
-      width: 200px;
-    }
+    width: 155px;
   }
 }
