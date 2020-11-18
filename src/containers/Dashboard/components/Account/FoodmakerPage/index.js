@@ -80,7 +80,7 @@ const FoodmakerPage = (props) => {
                 are known only in small communities across Asia
               </p>
               <div className={styles.btn_container}>
-                <Button title="Visit shop" dark="true" />
+                <Button title="Visit shop" dark={true} />
               </div>
             </div>
           </div>
@@ -104,12 +104,12 @@ const FoodmakerPage = (props) => {
         <div className={styles.section_experiences}>
           <p className={styles.exp_heading}>Upcoming experiences</p>
           <div className={styles.exp_container}>
-            {[1, 1, 1, 1, 1, 1].map((e) => (
-              <ExpCard />
+            {[1, 2, 3, 4, 5, 6].map((e) => (
+              <ExpCard key={e} />
             ))}
           </div>
           <div className={styles.exp_btn_container}>
-            <Button title="See all experiences" dark="true" />
+            <Button title="See all experiences" dark={true} />
           </div>
         </div>
 
@@ -121,8 +121,8 @@ const FoodmakerPage = (props) => {
           <img className={styles.section_image} src={review} alt="review" />
           <p className={styles.review_heading}>Reviews of Annett’s experiences</p>
           <div className={styles.review_container}>
-            {[1, 1, 1].map((e) => (
-              <Review />
+            {[1, 2, 3].map((e) => (
+              <Review key={e} />
             ))}
           </div>
         </div>
@@ -137,17 +137,6 @@ const FoodmakerPage = (props) => {
   )
 }
 
-FoodmakerPage.propTypes = {
-  a: T.number.isRequired,
-  b: T.string.isRequired,
-  c: T.bool.isRequired,
-  f: T.func.isRequired,
-  tabs: T.shape({
-    name: T.shape({
-      mark: T.bool,
-      content: T.node,
-    }).isRequired,
-  }).isRequired,
-}
+FoodmakerPage.propTypes = {}
 
 export default FoodmakerPage

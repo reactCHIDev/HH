@@ -8,6 +8,43 @@ import cls from 'classnames'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import styles from './slider.module.scss'
+import './slider.less'
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: 'block',
+        position: 'absolute',
+        right: 50,
+        transform: 'translate(50%,0)',
+        width: 50,
+      }}
+      onClick={onClick}
+    />
+  )
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: 'block',
+        position: 'absolute',
+        left: 50,
+        transform: 'translate(-50%,0)',
+        width: 50,
+      }}
+      onClick={onClick}
+    />
+  )
+}
 
 const SliderSection = (props) => {
   const {} = props
@@ -45,13 +82,14 @@ const SliderSection = (props) => {
     swipeToSlide: true,
     dots: false,
     arrows: true,
-    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     afterChange: (i) => {
       setIndex(i)
     },
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   }
   const previewSettings = {
     draggable: true,
@@ -60,7 +98,6 @@ const SliderSection = (props) => {
     swipeToSlide: true,
     dots: false,
     arrows: true,
-    infinite: false,
     speed: 500,
     slidesToShow: containerWidth / 160,
     slidesToScroll: 1,
@@ -72,10 +109,10 @@ const SliderSection = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.slider_container}>
+        <div className={cls(styles.slider_container, 'slider')}>
           <Slider {...settings} ref={slider} asNavFor={slider2}>
-            {[1, 1, 1, 1, 1, 1].map((e, i) => (
-              <div className={styles.img_container}>
+            {[1, 2, 3, 4, 5, 6].map((e, i) => (
+              <div key={e} className={styles.img_container}>
                 <img className={styles.slider_img} src={leading} alt="" />
               </div>
             ))}
@@ -83,8 +120,9 @@ const SliderSection = (props) => {
         </div>
         <div className={styles.preview_slider_container} ref={container}>
           <Slider {...previewSettings} ref={previewSlider} asNavFor={slider1}>
-            {[1, 1, 1, 1, 1, 1].map((e, i) => (
+            {[1, 2, 3, 4, 5, 6].map((e, i) => (
               <div
+                key={e}
                 className={cls(
                   styles.preview_container,
                   i === index ? styles.active_preview_container : '',
@@ -123,17 +161,6 @@ const SliderSection = (props) => {
   )
 }
 
-SliderSection.propTypes = {
-  a: T.number.isRequired,
-  b: T.string.isRequired,
-  c: T.bool.isRequired,
-  f: T.func.isRequired,
-  tabs: T.shape({
-    name: T.shape({
-      mark: T.bool,
-      content: T.node,
-    }).isRequired,
-  }).isRequired,
-}
+SliderSection.propTypes = {}
 
 export default SliderSection
