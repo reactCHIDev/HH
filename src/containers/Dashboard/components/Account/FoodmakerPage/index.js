@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
+import { connect } from 'react-redux'
+import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
 import { Rate } from 'antd'
@@ -22,7 +24,12 @@ const cutted =
   'I’m a nutritionist ,and baking cooking instructor. When I was younger I went to England for a year .The experience I had sharing a dormitory kitchen with many students from other countries made me fascinated with world food culture. After I came back to Japan I got a nutrition certificate and learned about cooking more. After I graduated from college,I worked a cooking school run by Tokyo-gas which is the largest gas company in Japan.I have lots of experience teach…'
 
 const FoodmakerPage = (props) => {
+  const { fm, getFoodmakerInfoAC } = props
   const [readMore, setReadMore] = useState(false)
+
+  useEffect(() => {
+    getFoodmakerInfoAC(43)
+  }, [])
 
   const onReadMore = () => setReadMore(!readMore)
 
@@ -38,15 +45,15 @@ const FoodmakerPage = (props) => {
               <div className={styles.maker_location}>
                 <img className={styles.map_marker} src={mapMarker} alt="marker" />
                 <p className={styles.from}>
-                  Maker from <span className={styles.city}>Osaka, Japan</span>
+                  Maker from <span className={styles.city}>{fm.city}</span>
                 </p>
               </div>
               <div className={styles.rating_container}>
-                <Rate style={{ color: '#EB5769' }} disabled defaultValue={3} />
+                <Rate style={{ color: '#EB5769' }} disabled defaultValue={fm.rating} />
                 <p className={styles.qauntity}>(32)</p>
               </div>
             </div>
-            <p className={styles.first_last_name}>Annette Pehrsson</p>
+            <p className={styles.first_last_name}>{fm.firstName + ' ' + fm.lastName}</p>
             <div className={styles.descr}>
               <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
             </div>
@@ -155,6 +162,11 @@ const FoodmakerPage = (props) => {
   )
 }
 
-FoodmakerPage.propTypes = {}
+FoodmakerPage.propTypes = {
+  getFoodmakerInfoAC: T.func.isRequired,
+  fm: T.shape(),
+}
 
-export default FoodmakerPage
+export default connect(({ foodmaker }) => ({ fm: foodmaker }), { getFoodmakerInfoAC })(
+  FoodmakerPage,
+)
