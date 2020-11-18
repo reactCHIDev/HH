@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import T from 'prop-types'
+import { connect } from 'react-redux'
+import { getProductInfoRequestAC } from 'actions/product'
 import cls from 'classnames'
 import stub1 from 'assets/images/landings/create_experience/leading.jpg'
 import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
@@ -15,7 +18,17 @@ import Tabs from './components/Tabs'
 import AboutMaker from './components/AboutMaker'
 import './product_page.less'
 
-const ProductPage = () => {
+const ProductPage = (props) => {
+  const { info, getProductInfoRequestAC } = props
+
+  useEffect(() => {
+    getProductInfoRequestAC(188)
+  }, [])
+
+  useEffect(() => console.log('%c   product  info ', 'color: white; background: salmon;', info), [
+    info,
+  ])
+
   return (
     <div className={cls('product-container', styles.container)}>
       <div className={styles.product}>
@@ -69,6 +82,11 @@ const ProductPage = () => {
   )
 }
 
-ProductPage.propTypes = {}
+ProductPage.propTypes = {
+  getProductInfoRequestAC: T.func.isRequired,
+  info: T.shape,
+}
 
-export default ProductPage
+export default connect(({ product }) => ({ info: product.info }), { getProductInfoRequestAC })(
+  ProductPage,
+)
