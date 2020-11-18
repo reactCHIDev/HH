@@ -20,7 +20,7 @@ const ExpCard = (props) => {
           <img className={styles.card_img} src={photo ?? sec21} alt="cardimg" />
           <div className={cls('tags', styles.tags_container)}>
             {tags.map((tag) => (
-              <Tag>{tag}</Tag>
+              <Tag key={tag}>{tag}</Tag>
             ))}
           </div>
         </div>

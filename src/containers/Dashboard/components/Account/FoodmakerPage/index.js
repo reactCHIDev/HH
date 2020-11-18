@@ -6,6 +6,7 @@ import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import avatar from 'assets/TMP-AVATAR.jpg'
+import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import mapMarker from 'assets/icons/svg/map_marker.svg'
 import likeHeart from 'assets/icons/svg/like_heart.svg'
 import envelope from 'assets/icons/svg/envelope.svg'
@@ -105,7 +106,24 @@ const FoodmakerPage = (props) => {
           <p className={styles.exp_heading}>Upcoming experiences</p>
           <div className={styles.exp_container}>
             {[1, 2, 3, 4, 5, 6].map((e) => (
-              <ExpCard key={e} />
+              <ExpCard
+                key={e}
+                photo={sec21}
+                tags={[
+                  'Chef',
+                  'Backer',
+                  'Mixologist',
+                  'Taste maker',
+                  'Food maker',
+                  'Craft maker',
+                  'Urban Farmer',
+                  'Chocolatier',
+                ]}
+                name="Singapore Cooking Lesson: Charity Project"
+                price={650}
+                rating={3}
+                rateCount={32}
+              />
             ))}
           </div>
           <div className={styles.exp_btn_container}>
