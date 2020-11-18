@@ -20,12 +20,13 @@ const Input = ({ name, value, placeholder, registerObj, focus, fixedText, onSubm
   }
 
   const onChange = (e) => {
-    const value = e.target.value
+    const { value } = e.target
+    console.log('%c   value   ', 'color: darkgreen; background: palegreen;', value)
     if (fixedText) {
-      if (value.substring(0, fixedText.length) === fixedText) setValue(e.target.value)
+      if (value.substring(0, fixedText.length) === fixedText) setValue(value)
       return
     }
-    setValue(e.target.value)
+    setValue(value)
   }
 
   const togglePassword = () => {
