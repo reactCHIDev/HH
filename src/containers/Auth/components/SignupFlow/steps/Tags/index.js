@@ -51,13 +51,13 @@ const Tags = (props) => {
   useEffect(() => {
     setMainTags(
       OPTIONS_MAIN.reduce((acc, o, i) => {
-        if (value.serviceTagIds.includes(i)) return acc.concat([o])
+        if (value.serviceTagIds && value.serviceTagIds.includes(i)) return acc.concat([o])
         return acc
       }, []),
     )
     setAddTags(
       OPTIONS_ADD.reduce((acc, o, i) => {
-        if (value.specialityTagIds.includes(i)) return acc.concat([o])
+        if (value.specialityTagIds && value.specialityTagIds.includes(i)) return acc.concat([o])
         return acc
       }, []),
     )
