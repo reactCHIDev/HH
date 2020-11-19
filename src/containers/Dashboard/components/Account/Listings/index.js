@@ -25,8 +25,6 @@ const colors = [
 
 const sorts = [
   { title: 'Name', type: 'desc', width: '10%', id: 1 },
-  { title: '', type: 'desc', width: '27%', id: 1 },
-  { title: '', type: 'desc', width: '3%', id: 1 },
   { title: 'Rating', type: 'desc', width: '19%', id: 2 },
   { title: 'Status', type: 'desc', width: '19%', id: 3 },
   { title: 'Stock', type: 'desc', width: '10%', id: 4 },
@@ -208,22 +206,25 @@ const Listings = (props) => {
         </div>
         {filteredProducts.length > 0 && (
           <div className={styles.listing}>
-            <div className={styles.sort_block}>
-              {sorts.map((e, i) => (
-                <div key={e.id + String(i)} style={{ width: e.width }}>
-                  <SortElement title={e.title} type={e.type} onClick={onSort} />{' '}
-                </div>
-              ))}
-            </div>
-            <ListContainer page={page} pageChange={setPage} pageSize={pageSize} total={total}>
-              <>
-                {filteredProducts
-                  .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-                  .map((product) => (
-                    <Product key={product.id} product={product} />
-                  ))}
-              </>
-            </ListContainer>
+            <table className={styles.product_table}>
+              <tr>
+                {sorts.map((e, i) => (
+                  <th key={e.id + String(i)}>
+                    <SortElement title={e.title} type={e.type} onClick={onSort} />{' '}
+                  </th>
+                ))}
+              </tr>
+              <ListContainer page={page} pageChange={setPage} pageSize={pageSize} total={total}>
+                <>
+                  {filteredProducts
+                    .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
+                    .map((product) => (
+                      <Product key={product.id} product={product} />
+                    ))}
+                </>
+              </ListContainer>
+            </table>
+            
           </div>
         )}
       </div>

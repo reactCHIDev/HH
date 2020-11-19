@@ -13,33 +13,46 @@ const Product = ({ product }) => {
   const { coverPhoto, title, rating, status, quantity, available } = product
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.image_container}>
-          <img
-            src={
-              /* coverPhoto */
-              'https://eda.ru/img/eda/c380x380i/s1.eda.ru/StaticContent/Photos/120131082242/170418161009/p_O.jpg'
-            }
-            alt="product"
-          />
+    <tr>
+      <td>
+        <div className={styles.description}>
+          <div className={styles.description_content}>
+            <div className={styles.image_container}>
+              <img  
+                src={
+                  /* coverPhoto */
+                  'https://eda.ru/img/eda/c380x380i/s1.eda.ru/StaticContent/Photos/120131082242/170418161009/p_O.jpg'
+                }
+                alt="product"
+              />
+            </div>
+            <span className={styles.product_name}>{title}</span>
+          </div>
+          
+          <div className={styles.edit_btn_container}>
+            <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
+          </div>
         </div>
-        <p className={styles.product_name}>{title}</p>
-        <div className={styles.edit_btn_container}>
-          <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
-        </div>
+      </td>
+      <td>
         <div className={styles.rating_container}>
           <Rate style={{ color: '#3C3E43' }} disabled defaultValue={rating} />
         </div>
+      </td>     
+      <td>
         <div className={styles.status_option_container}>
-          <Option checked={status === 'PUBLISHED'} />
-        </div>
-        <p className={styles.stock}>{quantity}</p>
-        <p className={styles.preorder}>
-          <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
-        </p>
+        <Option checked={status === 'PUBLISHED'} />
       </div>
-    </div>
+      </td>
+      <td>
+        <span className={styles.stock}>{quantity}</span>
+      </td>
+      <td>
+        <span className={styles.preorder}>
+          <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
+        </span>
+      </td>
+    </tr>
   )
 }
 
