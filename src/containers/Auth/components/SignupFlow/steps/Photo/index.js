@@ -111,26 +111,31 @@ const Photo = (props) => {
       type: 'formData',
       'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
       // Authorization:
-      //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
+      // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
     }
-
-    const res = await axios.post(
-      'https://hungryhugger.wildwebart.com/api/v1/file/upload/photo',
-      formData,
-      {
-        headers,
-        onUploadProgress: (event) => {
-          const percent = Math.floor((event.loaded / event.total) * 100)
-          setProgress(percent)
-          if (percent === 100) {
-            setTimeout(() => setProgress(0), 3000)
-          }
-          onProgress({ percent: (event.loaded / event.total) * 100 })
+    try {
+      const res = await axios.post(
+        'https://hungryhugger.wildwebart.com/api/v1/file/upload/photo',
+        formData,
+        {
+          headers,
+          onUploadProgress: (event) => {
+            const percent = Math.floor((event.loaded / event.total) * 100)
+            setProgress(percent)
+            if (percent === 100) {
+              setTimeout(() => setProgress(0), 3000)
+            }
+            onProgress({ percent: (event.loaded / event.total) * 100 })
+          },
         },
-      },
-    )
+      )
 
-    setUrl(res.data)
+      setUrl(res.data)
+    } catch (error) {
+      console.log('error', error)
+      // addFileList(defaultFileList.slice(0, -1))
+      // throw new Error(`ERROR`)
+    }
   }
 
   return (

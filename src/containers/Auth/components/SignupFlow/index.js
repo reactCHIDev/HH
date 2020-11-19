@@ -43,7 +43,10 @@ const steps = [
   },
   { screen: ServiceOffering, props: { name: 'businessServiceIds', value: [] } },
   { screen: ProfileName, props: { name: 'profileName', value: '' } },
-  { screen: WebSiteName, props: { name: 'hungryHuggerLink', value: 'www.hungryhugger.com/' } },
+  {
+    screen: WebSiteName,
+    props: { name: 'hungryHuggerLink', value: 'www.hungryhugger.wildwebart.com/' },
+  },
   { screen: AboutYourself, props: { name: 'about', value: '' } },
   {
     screen: Tags,
