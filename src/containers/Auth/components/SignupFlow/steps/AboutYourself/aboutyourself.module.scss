@@ -16,8 +16,8 @@
     .textarea {
       resize: none;
       display: block;
-      // width: 396px;
-      // height: 56px;
+      width: 594px;
+      height: 336px;
       padding: 10px 15px;
       margin-bottom: 22px;
       font-size: 14px;
@@ -33,8 +33,8 @@
       color: #3c3e43;
       background: #fbe4e4;
       @media (max-width: 1440px) {
-        width: 512px;
-        height: 270px;
+        width: 594px;
+        height: 336px;
         margin-bottom: 24px;
       }
       @media (max-width: 600px) {

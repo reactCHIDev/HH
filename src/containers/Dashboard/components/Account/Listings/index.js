@@ -66,6 +66,7 @@ const Listings = (props) => {
 
   useEffect(() => {
     getProductTypes()
+    getMyProductList()
   }, [])
 
   useEffect(() => {

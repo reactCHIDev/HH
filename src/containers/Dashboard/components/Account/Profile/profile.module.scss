@@ -37,6 +37,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .photo_uploader {
+        width: 150px;
+        .progress_container {
+          padding-top: 5px;
+          height: 30px;
+        }
+      }
       .change_photo {
         font-style: normal;
         font-weight: bold;

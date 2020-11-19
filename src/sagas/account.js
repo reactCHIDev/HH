@@ -20,6 +20,7 @@ import {
 } from '../actions/constants'
 
 function* getUserAccountSaga() {
+  console.log('%c   saggga   ', 'color: white; background: salmon;')
   const userId = getItem('user-id')
   try {
     const response = yield getUserAccount(userId)

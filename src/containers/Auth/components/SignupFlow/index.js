@@ -8,6 +8,7 @@ import FirstNameStep from './steps/FirstName'
 import LastNameStep from './steps/LastName'
 import EmailStep from './steps/Email'
 import CreatePassword from './steps/CreatePassword'
+import City from './steps/City'
 import LetsCreate from './steps/LetsCreate'
 import BusinessSize from './steps/BusinessSize'
 import BusinessProfile from './steps/BusinessProfile'
@@ -29,6 +30,7 @@ const steps = [
   { screen: LastNameStep, props: { name: 'lastName', value: '' } },
   { screen: EmailStep, props: { name: 'email', value: '' } },
   { screen: CreatePassword, props: { name: 'password', value: '' } },
+  { screen: City, props: { name: 'city', value: '' } },
   { screen: LetsCreate, props: {}, showed: false },
   { screen: BusinessSize, props: { name: 'businessSizeId', value: '' } },
   { screen: BusinessProfile, props: { name: 'businessProfileId', value: '' } },
@@ -68,7 +70,7 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
         const { payload } = action
         return steps.map((e, i) => ({ screen: e.screen, ...payload[i] }))
       case 'SHOWED':
-        return state.map((s, i) => (i === 4 ? { ...s, showed: true } : s))
+        return state.map((s, i) => (i === 5 ? { ...s, showed: true } : s))
       case 'SUBMIT':
         const { submitData, step } = action.data
         return state.map((s, i) =>
@@ -93,32 +95,32 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
 
     if (lastStep < step || step === 1) setItem('step', step)
 
-    if (step === 4 && !state[4].showed) {
+    if (step === 5 && !state[5].showed) {
       setTimeout(() => {
-        setStep(5)
+        setStep(6)
         dispatch({ type: 'SHOWED' })
       }, 5000)
     }
 
-    if (step === 4 && state[step].showed && direction === 'forward') {
-      setStep(5)
-    }
-
-    if (step === 17) {
-      setTimeout(() => {
-        setStep(18)
-      }, 5000)
+    if (step === 5 && state[step].showed && direction === 'forward') {
+      setStep(6)
     }
 
     if (step === 18) {
+      setTimeout(() => {
+        setStep(19)
+      }, 5000)
+    }
+
+    if (step === 19) {
       removeKey('signup_data')
       removeKey('step')
     }
   }, [step])
 
   useEffect(() => {
-    if (step === 16) {
-      if (!requesting && success) setStep(17)
+    if (step === 17) {
+      if (!requesting && success) setStep(18)
     }
   }, [success])
 
@@ -132,8 +134,8 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
   const stepBack = () => {
     if (step === 0) return
     setDirection('back')
-    if (step === 5 && state[step - 1].showed) {
-      setStep(3)
+    if (step === 6 && state[step - 1].showed) {
+      setStep(4)
     } else {
       setStep((curstep) => curstep - 1)
     }
@@ -141,7 +143,7 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
 
   const Screen = state[step].screen
   const properties =
-    step !== 16
+    step !== 17
       ? state[step].props
       : { setStep, signupFoodmakerAC, state, requesting, success, error }
 
