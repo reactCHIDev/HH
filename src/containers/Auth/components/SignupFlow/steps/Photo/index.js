@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
+import T, { nominalTypeHack } from 'prop-types'
 import { Upload, Modal, Progress } from 'antd'
 import axios from 'axios'
 import { PlusOutlined } from '@ant-design/icons'
@@ -28,7 +28,7 @@ const Photo = (props) => {
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
-  const [fileList, addFileList] = useState([])
+  const [defaultFileList, addFileList] = useState([])
   const [url, setUrl] = useState('')
   const [progress, setProgress] = useState(0)
 
@@ -39,8 +39,8 @@ const Photo = (props) => {
 
   useEffect(() => {
     console.log('%c   useEffect  url ', 'color: darkgreen; background: palegreen;', url)
-    if (fileList.length) {
-      const list = [...fileList]
+    if (defaultFileList.length) {
+      const list = [...defaultFileList]
       list[list.length - 1].url = url
       addFileList(list)
     }
@@ -66,33 +66,29 @@ const Photo = (props) => {
   }
 
   const handleChange = ({ fileList }) => {
-    console.log(
-      '%c   handleChange fileList  ',
-      'color: darkgreen; background: palegreen;',
-      fileList,
-    )
-    const list = fileList.map((e, i) =>
-      i === fileList.length - 1
-        ? {
-            uid: e.uid,
-            name: e.name,
-            status: 'done',
-          }
-        : e,
-    )
+    let list = []
+
+    if (defaultFileList.length < fileList.length) {
+      list = fileList.map((e, i) =>
+        i === fileList.length - 1
+          ? {
+              uid: e.uid,
+              name: e.name,
+              status: 'done',
+            }
+          : e,
+      )
+    } else {
+      list = defaultFileList.filter((e) => fileList.find((f) => f.uid === e.uid))
+    }
     addFileList(list)
   }
-
-  // uid: '-1',
-  // name: 'image.png',
-  // status: 'done',
-  // url: "https...."
 
   const submit = () => {
     const submitData = {
       otherPhotos: {
-        coverPhoto: fileList.length > 0 ? fileList[0].response.url : '',
-        otherPhotos: fileList.length > 1 ? fileList.slice(1).map((e) => e.response.url) : [],
+        coverPhoto: defaultFileList.length > 0 ? defaultFileList[0].url : '',
+        otherPhotos: defaultFileList.length > 1 ? defaultFileList.slice(1).map((e) => e.url) : [],
       },
     }
     onSubmit(submitData)
@@ -114,8 +110,8 @@ const Photo = (props) => {
       Accept: 'application/json',
       type: 'formData',
       'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
+      // Authorization:
+      //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
     }
 
     const res = await axios.post(
@@ -134,15 +130,7 @@ const Photo = (props) => {
       },
     )
 
-    console.log('res', res)
-    console.log('%c  req fileList   ', 'color: darkgreen; background: palegreen;', fileList)
-
     setUrl(res.data)
-
-    // uid: '-1',
-    // name: 'image.png',
-    // status: 'done',
-    // url: "https...."
   }
 
   return (
@@ -154,23 +142,23 @@ const Photo = (props) => {
           // action="https://hungryhugger.wildwebart.com/api/v1/file/upload/photo"
           customRequest={sendFile}
           listType="picture-card"
-          fileList={fileList}
+          fileList={defaultFileList}
           onPreview={handlePreview}
           onChange={handleChange}
         >
-          {fileList.length >= 8 ? null : uploadButton}
+          {defaultFileList.length >= 8 || progress > 0 ? null : uploadButton}
         </Upload>
         <Modal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
-        {progress > 0 ? <Progress percent={progress} /> : null}
+        {progress > 0 ? <Progress percent={progress} /> : <div style={{ height: 20 }} />}
       </div>
       <p className={styles.description}>
         Show your work at its best! This directly affects the number of orders.
       </p>
       <input
         className={styles.next}
-        disabled={fileList.length < 3}
+        disabled={defaultFileList.length < 3}
         onClick={submit}
         type="button"
         value="Next  >"
