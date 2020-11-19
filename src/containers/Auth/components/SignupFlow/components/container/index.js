@@ -37,7 +37,7 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
       <div className={styles.content}>{children}</div>
       {footer && (
         <div className={styles.footer}>
-          {step > 0 && step !== 4 && step < 16 && (
+          {step > 0 && step !== 5 && step < 17 && (
             <div className={styles.btn_container}>
               <button type="button" className={styles.btn} onClick={stepBack}>
                 {'< Back'}
@@ -48,16 +48,16 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
             className={styles.progress}
             style={{
               width:
-                step > 4 && step <= 16
-                  ? (containerWidth / 16) * step
-                  : step > 15 && step !== 18
+                step > 5 && step <= 17
+                  ? (containerWidth / 17) * step
+                  : step > 16 && step !== 19
                   ? containerWidth
                   : 0,
             }}
           >
             <div
               className={styles.meatball}
-              style={{ transform: `rotate(${step <= 16 ? step * 220 : 16 * 220}deg)` }}
+              style={{ transform: `rotate(${step <= 17 ? step * 220 : 17 * 220}deg)` }}
             >
               <img src={Meatball} alt="meatball" />
             </div>

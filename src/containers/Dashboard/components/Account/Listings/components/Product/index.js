@@ -16,13 +16,7 @@ const Product = ({ product }) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.image_container}>
-          <img
-            src={
-              /* coverPhoto */
-              'https://eda.ru/img/eda/c380x380i/s1.eda.ru/StaticContent/Photos/120131082242/170418161009/p_O.jpg'
-            }
-            alt="product"
-          />
+          <img src={coverPhoto} alt="product" />
         </div>
         <p className={styles.product_name}>{title}</p>
         <div className={styles.edit_btn_container}>

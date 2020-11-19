@@ -61,8 +61,8 @@ const BusinessProfile = ({ onSubmit }) => {
               <img className={styles.business_chef} src={Chef} alt="small" />
               <p className={styles.profile}>Chef / Baker</p>
               <p className={styles.description}>
-                I am a professional or self-taught chef/ baker/ brewer/ mixologist/ farmer/ cheese
-                maker chocolatier
+                I am a professional or self-taught food maker. (eg. chef, baker, brewer,
+                chocolatier, etc.)
               </p>
             </div>
           </div>

@@ -11,11 +11,10 @@
 
     .textarea {
       display: block;
-      width: 343px;
       // height: 56px;
       padding: 10px 15px;
       margin-bottom: 22px;
-      font-size: 14px;
+      font-size: 22px;
       border: 2px solid #31394d;
       box-sizing: border-box;
       backdrop-filter: blur(6px);
@@ -55,14 +54,20 @@
       input {
         display: block;
         width: 512px;
-        height: 56px;
-        padding: 10px 15px;
+        height: 72px;
+        padding: 10px 24px;
         margin-bottom: 22px;
-        font-size: 14px;
-        border: 2px solid #adb0b8;
+        font-size: 22px;
+        border: 2px solid #31394d;
         box-sizing: border-box;
         backdrop-filter: blur(6px);
         border-radius: 8px;
+        background-color: #fbe4e4;
+        &:focus {
+          background-color: white;
+          border: none;
+        }
+
         @media (max-width: 1440px) {
           width: 512px;
           height: 72px;
@@ -82,8 +87,8 @@
 
       .psw_eye {
         position: absolute;
-        right: 20px;
-        top: 13px;
+        right: 24px;
+        top: 21px;
         width: 20px;
         height: 20px;
         background: white;
@@ -119,6 +124,7 @@
       text-align: center;
       letter-spacing: 0.5px;
       color: white;
+      border: none;
     }
 
     button[type='submit']:hover {
