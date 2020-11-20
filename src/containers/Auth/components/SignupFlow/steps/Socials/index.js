@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
+import instaIcon from 'assets/icons/svg/hh.svg'
+import fbIcon from 'assets/icons/svg/fb.svg'
+import hhIcon from 'assets/icons/svg/insta.svg'
 import Heading from '../../components/heading'
-
 import styles from './socials.module.scss'
 
 const Socials = (props) => {
@@ -61,6 +63,7 @@ const Socials = (props) => {
           />
           {errors?.hh?.type === 'required' && <p>This field is required</p>}
           {errors?.hh?.type === 'pattern' && <p>Invalid symbols or format</p>}
+          <img className={styles.icon} src={hhIcon} alt="ico" />
           {/*  {
             <button type="button" className={styles.next} onClick={() => fb.current.focus()}>
               {'>'}
@@ -88,6 +91,8 @@ const Socials = (props) => {
           />
           {errors?.fb?.type === 'required' && <p>This field is required</p>}
           {errors?.fb?.type === 'pattern' && <p>Invalid symbols or format</p>}
+          <img className={styles.icon} src={fbIcon} alt="ico" />
+
           {/* {
             <button type="button" className={styles.next} onClick={() => insta.current.focus()}>
               {'>'}
@@ -115,6 +120,8 @@ const Socials = (props) => {
           />
           {errors?.insta?.type === 'required' && <p>This field is required</p>}
           {errors?.insta?.type === 'pattern' && <p>Invalid symbols or format</p>}
+          <img className={styles.icon} src={instaIcon} alt="ico" />
+
           {/* {
             <button type="button" className={styles.next} onClick={() => {}}>
               {'>'}

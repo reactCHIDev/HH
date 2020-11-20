@@ -75,7 +75,9 @@ const BusinessProfile = ({ onSubmit }) => {
             >
               <img className={styles.business_taste} src={Taste} alt="medium" />
               <p className={styles.profile}>Taste Maker</p>
-              <p className={styles.description}>I am a professional in tasting / teaching</p>
+              <p className={styles.description}>
+                I specialize in tasting and/or teaching about certain food or beverages.
+              </p>
             </div>
           </div>
           <div className={styles.card_container}>
@@ -87,7 +89,7 @@ const BusinessProfile = ({ onSubmit }) => {
             >
               <img className={styles.business_craft} src={Craft} alt="large" />
               <p className={styles.profile}>Craft Maker</p>
-              <p className={styles.description}>I make and teach craft related to food</p>
+              <p className={styles.description}>I make and/or teach craftgoods related to food.</p>
             </div>
           </div>
           <div className={styles.card_container}>

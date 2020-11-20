@@ -115,7 +115,7 @@ const Tags = (props) => {
 
         <p className={styles.label}>Additional Tags</p>
         <Select
-          mode="tags"
+          mode="multiple"
           placeholder="Customize your tags"
           value={specialityTagIds}
           showArrow

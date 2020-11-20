@@ -11,11 +11,19 @@
     .input_wrapper {
       position: relative;
 
+      .icon {
+        position: absolute;
+        left: 20px;
+        top: 23px;
+        width: 24px;
+        height: 24px;
+      }
+
       input {
         display: block;
         width: 396px;
         height: 72px;
-        padding: 10px 24px;
+        padding: 10px 24px 10px 64px;
         margin-bottom: 22px;
         font-size: 18px;
         border: 2px solid #31394d;

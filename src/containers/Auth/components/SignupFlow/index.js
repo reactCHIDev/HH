@@ -47,7 +47,7 @@ const steps = [
   { screen: ProfileName, props: { name: 'profileName', value: '' } },
   {
     screen: WebSiteName,
-    props: { name: 'hungryHuggerLink', value: 'www.hungryhugger.wildwebart.com/' },
+    props: { name: 'hungryHuggerLink', value: 'www.hungryhugger.com/' },
   },
   { screen: AboutYourself, props: { name: 'about', value: '' } },
   {
