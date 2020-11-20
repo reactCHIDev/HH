@@ -17,7 +17,7 @@ const WebSiteName = (props) => {
     mode: 'onBlur',
   })
 
-  const fixedText = 'www.hungryhugger.wildwebart.com/'
+  const fixedText = 'www.hungryhugger.com/'
 
   const onChange = (e) => {
     const { value } = e.target
