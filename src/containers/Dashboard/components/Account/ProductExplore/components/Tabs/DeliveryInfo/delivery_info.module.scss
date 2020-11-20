@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  min-height: 350px;
+  
+  .info_section {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+
+    .title {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0.5px;
+      color: #3C3E43;
+      opacity: 0.6;
+      margin-bottom: 15px;
+    }
+
+    .text {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0.3px;
+      color: #3C3E43;
+      opacity: 0.8;
+      margin-bottom: 5px;
+    }
+
+    .sub_title {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: 0.3px;
+      color: #3C3E43;
+      margin-bottom: 5px;
+    }
+  }
+}
