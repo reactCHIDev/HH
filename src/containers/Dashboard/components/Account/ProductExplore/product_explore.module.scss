@@ -1,0 +1,31 @@
+.container {
+  .header_section {
+    .range_container {
+      width: 300px;
+      padding: 32px;
+    }
+  }
+  .products {
+    padding-top: 20px;
+    margin-bottom: 100px;
+
+    h2 {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 48px;
+      line-height: 64px;
+      letter-spacing: 0.5px;
+      color: #31394d;
+      text-align: center;
+    }
+
+    .content {
+      display: flex;
+      padding-top: 30px;
+      max-width: 1440px;
+      margin: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}
