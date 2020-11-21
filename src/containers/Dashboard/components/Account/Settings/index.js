@@ -18,6 +18,7 @@ import { replace } from 'connected-react-router'
 
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import check from 'assets/icons/svg/check.svg'
+import info from 'assets/icons/svg/info.svg'
 import ChkBox from 'components/ChkBox'
 import PATHS from 'api/paths'
 import CheckMail from './components/CheckMail'
@@ -41,15 +42,13 @@ const Settings = ({
   const [emailDisabled, setEmailDisabled] = useState(true)
   const [phoneDisabled, setPhoneDisabled] = useState(true)
 
-  const { awaitingConfirmation, requesting } = userData
+  const { awaitingConfirmation, newEmail, requesting } = userData
 
   const { confirmation } = useParams()
 
   console.log('confirmation', confirmation)
 
   const isСhangeMailRoute = confirmation.substring(0, 12) === 'change_email'
-
-  console.log('%c    isСhangeMailRoute  ', 'color: white; background: salmon;', isСhangeMailRoute)
 
   if (isСhangeMailRoute) {
     const token = confirmation.substring(12)
@@ -59,11 +58,7 @@ const Settings = ({
     if (!valid) {
       invalidLink('Your email link is expired !')
     }
-    console.log('%c   valid   ', 'color: white; background: salmon;', valid)
-    console.log('%c    payload  ', 'color: white; background: salmon;', {
-      updateEmailLink: PATHS.url + url,
-      newEmail: jwtData.newEmail,
-    })
+
     if (valid && authorized) {
       const payload = {
         updateEmailLink: PATHS.url + url,
@@ -74,6 +69,14 @@ const Settings = ({
     }
 
     replace('/settings/account')
+  }
+
+  const resend = () => {
+    const payload = {
+      newEmail,
+    }
+
+    updateAccount(payload)
   }
 
   const mailEl = useRef()
@@ -164,10 +167,17 @@ const Settings = ({
                   mailEl.current = el
                 }}
               />{' '}
-              <div className={styles.verificated}>
-                <img className={styles.check} src={check} alt="checked" />
-                VERIFICATED
-              </div>
+              {!newEmail ? (
+                <div className={styles.verificated}>
+                  <img className={styles.check} src={check} alt="checked" />
+                  VERIFICATED
+                </div>
+              ) : (
+                <div className={styles.checklink} onClick={resend}>
+                  <img className={styles.check} src={info} alt="info" />
+                  CHECK LINK IN THE E-MAIL {'  '} <span>Resend</span>
+                </div>
+              )}
             </div>
             {_.get('email.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>Invalid e-mail adress</p>

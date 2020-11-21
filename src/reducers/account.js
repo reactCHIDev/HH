@@ -34,6 +34,7 @@ const reducer = function accountReducer(state = initialState, action) {
         requesting: true,
         error: '',
       }
+
     case GET_USER_ACCOUNT_SUCCESS:
       return {
         ...state,
@@ -41,18 +42,21 @@ const reducer = function accountReducer(state = initialState, action) {
         requesting: false,
         error: '',
       }
+
     case GET_USER_ACCOUNT_ERROR:
       return {
         ...state,
         requesting: false,
         error: action.error,
       }
+
     case UPDATE_ACCOUNT_REQUESTING:
       return {
         ...state,
         requesting: true,
         error: '',
       }
+
     case UPDATE_ACCOUNT_SUCCESS:
       const { data, newEmail } = action.payload
       console.log('%c   newEmail   ', 'color: darkgreen; background: palegreen;', !!newEmail)
@@ -70,6 +74,7 @@ const reducer = function accountReducer(state = initialState, action) {
         awaitingConfirmation: false,
         error: null,
       }
+
     case UPDATE_ACCOUNT_ERROR:
       return {
         ...state,
