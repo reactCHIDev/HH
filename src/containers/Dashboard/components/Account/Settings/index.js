@@ -31,6 +31,7 @@ const Settings = ({
   updateAccount,
   resetConfirmation,
   loginErrorReset,
+  emailConfirm,
   logout,
   invalidLink,
   authorized,
@@ -297,6 +298,7 @@ Settings.propTypes = {
   invalidLink: T.func,
   authorized: T.bool,
   error: T.string,
+  emailConfirm: T.func,
 }
 
 export default connect(
@@ -314,5 +316,6 @@ export default connect(
     logout,
     invalidLink,
     loginErrorReset,
+    emailConfirm,
   },
 )(Settings)
