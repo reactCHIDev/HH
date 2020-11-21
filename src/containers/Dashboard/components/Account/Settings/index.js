@@ -5,23 +5,38 @@ import { connect } from 'react-redux'
 import _ from 'lodash/fp'
 import { Link, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import * as jwt from 'jsonwebtoken'
 
 import { getUserByEmail } from 'api/requests/Auth'
 import { getUserAccount, updateAccount, resetConfirmation } from 'actions/account'
+import { invalidLink } from 'actions/login'
+
 import { logout } from 'actions/login'
 import Modal from 'components/UniversalModal'
 import Tint from 'components/Tint'
 import Error from 'components/Error'
+import { emailConfirm } from 'actions/account'
+import { push, replace } from 'connected-react-router'
 
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import check from 'assets/icons/svg/check.svg'
 import ChkBox from 'components/ChkBox'
 import CheckMail from './components/CheckMail'
+import PATHS from 'api/paths'
 
 import styles from './settings.module.scss'
 import './settings.less'
 
-const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, logout }) => {
+const Settings = ({
+  userData,
+  getUserAccount,
+  updateAccount,
+  resetConfirmation,
+  logout,
+  invalidLink,
+  authorized,
+  url,
+}) => {
   const [emailDisabled, setEmailDisabled] = useState(true)
   const [phoneDisabled, setPhoneDisabled] = useState(true)
 
@@ -30,6 +45,39 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
   const { confirmation } = useParams()
 
   console.log('confirmation', confirmation)
+
+  const isСhangeMailRoute = confirmation.substring(0, 12) === 'change_email'
+  // console.log('%c   url   ', 'color: white; background: salmon;', url)
+  console.log('%c    isСhangeMailRoute  ', 'color: white; background: salmon;', isСhangeMailRoute)
+
+  if (isСhangeMailRoute) {
+    const token = confirmation.substring(12)
+
+    console.log('%c   ChangeEmail process   ', 'color: darkgreen; background: palegreen;')
+
+    const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
+    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
+
+    console.log('%c   valid   ', 'color: white; background: salmon;', valid)
+    console.log('%c   jwtData   ', 'color: white; background: salmon;', jwtData)
+    console.log('%c   authorized   ', 'color: white; background: salmon;', authorized)
+    console.log('%c   PATHS.url + url   ', 'color: white; background: salmon;', PATHS.url + url)
+    console.log('%c   newEmail  ', 'color: white; background: salmon;', jwtData.newEmail)
+    if (!valid) {
+      invalidLink()
+    }
+
+    if (valid && authorized) {
+      const payload = {
+        updateEmailLink: PATHS.url + url,
+        newEmail: jwtData.newEmail,
+      }
+      console.log('payload', payload)
+      emailConfirm(payload)
+    }
+
+    replace('/settings/account')
+  }
 
   const mailEl = useRef()
   const phoneEl = useRef()
@@ -248,11 +296,23 @@ Settings.propTypes = {
   updateAccount: T.func,
   resetConfirmation: T.func,
   logout: T.func,
+  invalidLink: T.func,
+  authorized: T.bool,
 }
 
-export default connect(({ account }) => ({ userData: account }), {
-  getUserAccount,
-  updateAccount,
-  resetConfirmation,
-  logout,
-})(Settings)
+export default connect(
+  ({
+    account,
+    login,
+    router: {
+      location: { pathname },
+    },
+  }) => ({ userData: account, authorized: login.authorized, url: pathname }),
+  {
+    getUserAccount,
+    updateAccount,
+    resetConfirmation,
+    logout,
+    invalidLink,
+  },
+)(Settings)
