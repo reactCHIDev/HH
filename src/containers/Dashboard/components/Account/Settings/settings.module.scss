@@ -82,6 +82,42 @@
             margin-right: 5px;
           }
         }
+        .checklink {
+          display: flex;
+          justify-content: center;
+          width: 260px;
+          height: 23px;
+          background: rgba(230, 209, 104, 0.2);
+          border-radius: 6px;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 160%;
+          display: flex;
+          align-items: center;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          color: #d7c049;
+          .check {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+          }
+          span {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 160%;
+            text-transform: capitalize;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+            text-decoration-line: underline;
+            color: #5375cb;
+            margin-left: 5px;
+            cursor: pointer;
+          }
+        }
       }
       .edit_icon {
         align-self: flex-end;
