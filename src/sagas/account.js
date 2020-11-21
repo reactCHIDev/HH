@@ -39,7 +39,7 @@ function* updateUserAccount({ payload }) {
   if (newEmail) {
     const token = jwt.sign({ newEmail }, process.env.REACT_APP_JWT_SECRET_KEY, { expiresIn: 600 })
     const { url } = PATHS
-    submittedData.updateEmailLink = `${url}/login/change_email${token}`
+    submittedData.updateEmailLink = `${url}/settings/change_email${token}`
   }
   try {
     const response = yield updateSettings(submittedData)
