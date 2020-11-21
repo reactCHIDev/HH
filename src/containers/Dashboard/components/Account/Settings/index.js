@@ -8,21 +8,19 @@ import { useForm } from 'react-hook-form'
 import * as jwt from 'jsonwebtoken'
 
 import { getUserByEmail } from 'api/requests/Auth'
-import { getUserAccount, updateAccount, resetConfirmation } from 'actions/account'
-import { invalidLink } from 'actions/login'
+import { getUserAccount, updateAccount, resetConfirmation, emailConfirm } from 'actions/account'
+import { invalidLink, loginErrorReset, logout } from 'actions/login'
 
-import { logout } from 'actions/login'
 import Modal from 'components/UniversalModal'
 import Tint from 'components/Tint'
 import Error from 'components/Error'
-import { emailConfirm } from 'actions/account'
-import { push, replace } from 'connected-react-router'
+import { replace } from 'connected-react-router'
 
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import check from 'assets/icons/svg/check.svg'
 import ChkBox from 'components/ChkBox'
-import CheckMail from './components/CheckMail'
 import PATHS from 'api/paths'
+import CheckMail from './components/CheckMail'
 
 import styles from './settings.module.scss'
 import './settings.less'
@@ -32,47 +30,45 @@ const Settings = ({
   getUserAccount,
   updateAccount,
   resetConfirmation,
+  loginErrorReset,
   logout,
   invalidLink,
   authorized,
   url,
+  error,
 }) => {
   const [emailDisabled, setEmailDisabled] = useState(true)
   const [phoneDisabled, setPhoneDisabled] = useState(true)
 
-  const { awaitingConfirmation, requesting, error } = userData
+  const { awaitingConfirmation, requesting } = userData
 
   const { confirmation } = useParams()
 
   console.log('confirmation', confirmation)
 
   const isСhangeMailRoute = confirmation.substring(0, 12) === 'change_email'
-  // console.log('%c   url   ', 'color: white; background: salmon;', url)
+
   console.log('%c    isСhangeMailRoute  ', 'color: white; background: salmon;', isСhangeMailRoute)
 
   if (isСhangeMailRoute) {
     const token = confirmation.substring(12)
-
-    console.log('%c   ChangeEmail process   ', 'color: darkgreen; background: palegreen;')
-
     const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
-    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
+    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : false
 
-    console.log('%c   valid   ', 'color: white; background: salmon;', valid)
-    console.log('%c   jwtData   ', 'color: white; background: salmon;', jwtData)
-    console.log('%c   authorized   ', 'color: white; background: salmon;', authorized)
-    console.log('%c   PATHS.url + url   ', 'color: white; background: salmon;', PATHS.url + url)
-    console.log('%c   newEmail  ', 'color: white; background: salmon;', jwtData.newEmail)
     if (!valid) {
-      invalidLink()
+      invalidLink('Your email link is expired !')
     }
-
+    console.log('%c   valid   ', 'color: white; background: salmon;', valid)
+    console.log('%c    payload  ', 'color: white; background: salmon;', {
+      updateEmailLink: PATHS.url + url,
+      newEmail: jwtData.newEmail,
+    })
     if (valid && authorized) {
       const payload = {
         updateEmailLink: PATHS.url + url,
         newEmail: jwtData.newEmail,
       }
-      console.log('payload', payload)
+
       emailConfirm(payload)
     }
 
@@ -113,6 +109,7 @@ const Settings = ({
 
   const modalClose = () => {
     resetConfirmation()
+    loginErrorReset()
   }
 
   const onSubmit = (credentials) => {}
@@ -296,8 +293,10 @@ Settings.propTypes = {
   updateAccount: T.func,
   resetConfirmation: T.func,
   logout: T.func,
+  loginErrorReset: T.func,
   invalidLink: T.func,
   authorized: T.bool,
+  error: T.string,
 }
 
 export default connect(
@@ -307,12 +306,13 @@ export default connect(
     router: {
       location: { pathname },
     },
-  }) => ({ userData: account, authorized: login.authorized, url: pathname }),
+  }) => ({ userData: account, authorized: login.authorized, url: pathname, error: login.error }),
   {
     getUserAccount,
     updateAccount,
     resetConfirmation,
     logout,
     invalidLink,
+    loginErrorReset,
   },
 )(Settings)
