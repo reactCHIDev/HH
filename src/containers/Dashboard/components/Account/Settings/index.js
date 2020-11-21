@@ -3,7 +3,7 @@ import T from 'prop-types'
 
 import { connect } from 'react-redux'
 import _ from 'lodash/fp'
-import { Link, useParams } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as jwt from 'jsonwebtoken'
 
@@ -14,8 +14,8 @@ import { invalidLink, loginErrorReset, logout } from 'actions/login'
 import Modal from 'components/UniversalModal'
 import Tint from 'components/Tint'
 import Error from 'components/Error'
-import { replace } from 'connected-react-router'
-
+import EyeOpen from 'assets/icons/svg/eye-open.svg'
+import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import check from 'assets/icons/svg/check.svg'
 import info from 'assets/icons/svg/info.svg'
@@ -33,7 +33,6 @@ const Settings = ({
   resetConfirmation,
   loginErrorReset,
   emailConfirm,
-  logout,
   invalidLink,
   authorized,
   url,
@@ -41,6 +40,12 @@ const Settings = ({
 }) => {
   const [emailDisabled, setEmailDisabled] = useState(true)
   const [phoneDisabled, setPhoneDisabled] = useState(true)
+
+  const [type, setType] = useState('password')
+
+  const togglePassword = () => {
+    setType(type === 'password' ? 'text' : 'password')
+  }
 
   const { awaitingConfirmation, newEmail, requesting } = userData
 
@@ -67,8 +72,6 @@ const Settings = ({
 
       emailConfirm(payload)
     }
-
-    replace('/settings/account')
   }
 
   const resend = () => {
@@ -243,15 +246,21 @@ const Settings = ({
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onApply)}>
           <label className={styles.label}>Current password</label>
-          <input
-            name="oldPassword"
-            ref={register({
-              required: false,
-              pattern: {
-                value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
-              },
-            })}
-          />
+          <div className={styles.psw_wrapper}>
+            <input
+              name="oldPassword"
+              type={type}
+              ref={register({
+                required: false,
+                pattern: {
+                  value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
+                },
+              })}
+            />
+            <button type="button" className={styles.psw_eye} onClick={togglePassword}>
+              <img src={type === 'password' ? EyeOpen : EyeClosed} alt="eye" />
+            </button>
+          </div>
           {_.get('oldPassword.type', errors) === 'required' && <p>This field is required</p>}
           {_.get('oldPassword.type', errors) === 'pattern' && (
             <p>Letters, numbers, length 8 symbols</p>
@@ -259,6 +268,7 @@ const Settings = ({
           <label className={styles.label}>New password</label>
           <input
             name="newPassword"
+            type={type}
             ref={register({
               required: false,
               pattern: {
@@ -274,6 +284,7 @@ const Settings = ({
           <label className={styles.label}>Confirm password</label>
           <input
             name="confirm"
+            type={type}
             ref={register({
               validate: (value) => value === watch('newPassword'),
             })}

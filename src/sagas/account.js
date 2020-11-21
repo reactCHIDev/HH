@@ -55,6 +55,7 @@ function* changeEmailConfirm({ payload }) {
   try {
     const response = yield confirmEmailUpdate(payload)
     yield put({ type: EMAIL_CONFIRM_SUCCESS, data: response.data })
+    replace('/settings/account')
   } catch (error) {
     if (error.response) {
       yield put({ type: EMAIL_CONFIRM_ERROR, error: error.response.data.error })
