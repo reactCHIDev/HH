@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   padding: 50px;
@@ -43,26 +44,52 @@
         color: #838894;
         margin-bottom: 0;
       }
-      .input_name {
-        width: 300px;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 160%;
+      .input_wrapper {
         display: flex;
         align-items: center;
-        letter-spacing: 0.5px;
-        color: #3c3e43;
-        border: none;
+        .input_name {
+          width: 300px;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 160%;
+          display: flex;
+          align-items: center;
+          letter-spacing: 0.5px;
+          color: #3c3e43;
+          border: none;
+        }
+        .verificated {
+          margin: 0 0 0px 20px;
+          display: flex;
+          justify-content: center;
+          width: 116px;
+          height: 23px;
+          background: rgba(122, 211, 152, 0.1);
+          border-radius: 6px;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 160%;
+          display: flex;
+          align-items: center;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          color: #4dc876;
+          .check {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+          }
+        }
       }
       .edit_icon {
         align-self: flex-end;
-        margin-bottom: 6px;
-        width: 20px;
+        margin-bottom: 5px;
         cursor: pointer;
 
-        img {
-          width: 100%;
+        .edit_btn {
+          width: 20px;
         }
       }
       .errmsg {
@@ -151,7 +178,7 @@
         font-size: 16px;
         line-height: 160%;
         letter-spacing: 0.5px;
-        color: #393644;
+        color: #3c3e43;
         opacity: 0.6;
       }
 
@@ -230,5 +257,42 @@
         border-radius: 4px;
       }
     }
+  }
+  .success {
+    position: absolute;
+    width: 198px;
+    height: 37px;
+    left: 621px;
+    top: 624px;
+    background: rgba(122, 211, 152, 0.1);
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 160%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.5px;
+    color: #7ad398;
+  }
+
+  .error {
+    position: absolute;
+    width: 543px;
+    height: 37px;
+    left: 448px;
+    top: 671px;
+    background: rgba(235, 87, 105, 0.05);
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 160%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.5px;
+    color: #eb5769;
   }
 }

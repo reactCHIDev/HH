@@ -3,6 +3,7 @@ import T from 'prop-types'
 
 import { connect } from 'react-redux'
 import _ from 'lodash/fp'
+import { Link, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 import { getUserByEmail } from 'api/requests/Auth'
@@ -13,6 +14,7 @@ import Tint from 'components/Tint'
 import Error from 'components/Error'
 
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
+import check from 'assets/icons/svg/check.svg'
 import ChkBox from 'components/ChkBox'
 import CheckMail from './components/CheckMail'
 
@@ -24,6 +26,10 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
   const [phoneDisabled, setPhoneDisabled] = useState(true)
 
   const { awaitingConfirmation, requesting, error } = userData
+
+  const { confirmation } = useParams()
+
+  console.log('confirmation', confirmation)
 
   const mailEl = useRef()
   const phoneEl = useRef()
@@ -39,21 +45,21 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
     if (userData.notifications.length === 1) chkBoxEl.current.disabled = 'disabled'
   }, [userData])
 
-  // useEffect(() => {
-  // mailEl.current.focus()
-  // phoneEl.current.focus()
-  // }, [emailDisabled, phoneDisabled])
+  useEffect(() => {
+    mailEl.current.focus()
+    phoneEl.current.focus()
+  }, [emailDisabled, phoneDisabled])
 
   const { register, handleSubmit, errors, watch } = useForm({
     mode: 'onBlur',
   })
 
   const toggleEmailEdit = () => {
-    // setEmailDisabled(false)
+    setEmailDisabled(false)
     mailEl.current.focus()
   }
   const togglePhoneEdit = () => {
-    // setPhoneDisabled(false)
+    setPhoneDisabled(false)
     phoneEl.current.focus()
   }
 
@@ -88,29 +94,35 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
         <div className={styles.input_section}>
           <div className={styles.content}>
             <p className={styles.label}>Contact e-mail</p>
-            <input
-              className={styles.input_name}
-              name="email"
-              placeholder={userData.email || ' '}
-              type="text"
-              // disabled={emailDisabled}
-              ref={(el) => {
-                register(el, {
-                  validate: async (value) => {
-                    if (value) {
-                      const name = await getUserByEmail(value.replace('@', '%40'))
-                      return !name.data?.email
-                    }
-                  },
-                  required: false,
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Invalid email address',
-                  },
-                })
-                mailEl.current = el
-              }}
-            />
+            <div className={styles.input_wrapper}>
+              <input
+                className={styles.input_name}
+                name="email"
+                placeholder={userData.email || ' '}
+                type="text"
+                disabled={emailDisabled}
+                ref={(el) => {
+                  register(el, {
+                    validate: async (value) => {
+                      if (value) {
+                        const name = await getUserByEmail(value.replace('@', '%40'))
+                        return !name.data?.email
+                      }
+                    },
+                    required: false,
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address',
+                    },
+                  })
+                  mailEl.current = el
+                }}
+              />{' '}
+              <div className={styles.verificated}>
+                <img className={styles.check} src={check} alt="checked" />
+                VERIFICATED
+              </div>
+            </div>
             {_.get('email.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>Invalid e-mail adress</p>
             )}
@@ -119,35 +131,37 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
             )}
           </div>
           <div className={styles.edit_icon} onClick={toggleEmailEdit}>
-            <img src={EditIcon} alt="editEmail" />
+            <img className={styles.edit_btn} src={EditIcon} alt="editEmail" />
           </div>
         </div>
         <div className={styles.input_section}>
           <div className={styles.content}>
             <p className={styles.label}>Contact phone</p>
-            <input
-              className={styles.input_name}
-              name="phone"
-              placeholder={userData.phone || ' '}
-              type="text"
-              // disabled={phoneDisabled}
-              ref={(el) => {
-                register(el, {
-                  required: false,
-                  pattern: {
-                    value: /([- _():=+]?\d[- _():=+]?){10,14}(\s*)?/,
-                    message: 'Invalid name symbols',
-                  },
-                })
-                phoneEl.current = el
-              }}
-            />
+            <div className={styles.input_wrapper}>
+              <input
+                className={styles.input_name}
+                name="phone"
+                placeholder={userData.phone || ' '}
+                type="text"
+                disabled={phoneDisabled}
+                ref={(el) => {
+                  register(el, {
+                    required: false,
+                    pattern: {
+                      value: /([- _():=+]?\d[- _():=+]?){10,14}(\s*)?/,
+                      message: 'Invalid name symbols',
+                    },
+                  })
+                  phoneEl.current = el
+                }}
+              />
+            </div>
             {_.get('phone.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>Invalid phone number</p>
             )}
           </div>
           <div className={styles.edit_icon} onClick={togglePhoneEdit}>
-            <img src={EditIcon} alt="editPhone" />
+            <img className={styles.edit_btn} src={EditIcon} alt="editPhone" />
           </div>
         </div>
         <div className={styles.header_section}>
@@ -221,6 +235,8 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
         </Modal>
       )}
       {error && <Error msg={error} close={modalClose} />}
+      <div className={styles.success}>Saved successfully</div>
+      <div className={styles.error}>There was an error while saving changes, please try again</div>
     </div>
   )
 }
