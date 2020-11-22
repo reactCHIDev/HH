@@ -4,6 +4,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import _ from 'lodash/fp'
 import { Redirect, useParams } from 'react-router-dom'
+import { replace } from 'connected-react-router'
 import { useForm } from 'react-hook-form'
 import * as jwt from 'jsonwebtoken'
 
@@ -34,6 +35,7 @@ const Settings = ({
   loginErrorReset,
   emailConfirm,
   invalidLink,
+  replace,
   authorized,
   url,
   error,
@@ -51,8 +53,6 @@ const Settings = ({
 
   const { confirmation } = useParams()
 
-  console.log('confirmation', confirmation)
-
   const isСhangeMailRoute = confirmation.substring(0, 12) === 'change_email'
 
   if (isСhangeMailRoute) {
@@ -62,6 +62,7 @@ const Settings = ({
 
     if (!valid) {
       invalidLink('Your email link is expired !')
+      replace('/settings/account')
     }
 
     if (valid && authorized) {
@@ -118,8 +119,6 @@ const Settings = ({
     resetConfirmation()
     loginErrorReset()
   }
-
-  const onSubmit = (credentials) => {}
 
   const onApply = (data) => {
     const formData = {}
@@ -320,6 +319,7 @@ Settings.propTypes = {
   authorized: T.bool,
   error: T.string,
   emailConfirm: T.func,
+  replace: T.func,
 }
 
 export default connect(
@@ -338,5 +338,6 @@ export default connect(
     invalidLink,
     loginErrorReset,
     emailConfirm,
+    replace,
   },
 )(Settings)
