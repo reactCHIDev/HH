@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, delay } from 'redux-saga/effects'
 import { replace } from 'connected-react-router'
 import * as jwt from 'jsonwebtoken'
 import PATHS from 'api/paths'
@@ -44,6 +44,8 @@ function* updateUserAccount({ payload }) {
   try {
     const response = yield updateSettings(submittedData)
     yield put({ type: UPDATE_ACCOUNT_SUCCESS, payload: { data: response.data, newEmail } })
+    yield delay(3000)
+    yield put({ type: 'RESET_SUCCESS' })
   } catch (error) {
     if (error.response) {
       yield put({ type: UPDATE_ACCOUNT_ERROR, error: error.response.data.error })

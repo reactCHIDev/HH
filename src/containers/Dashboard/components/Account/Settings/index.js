@@ -38,7 +38,6 @@ const Settings = ({
   replace,
   authorized,
   url,
-  error,
 }) => {
   const [emailDisabled, setEmailDisabled] = useState(true)
   const [phoneDisabled, setPhoneDisabled] = useState(true)
@@ -49,7 +48,7 @@ const Settings = ({
     setType(type === 'password' ? 'text' : 'password')
   }
 
-  const { awaitingConfirmation, newEmail, requesting } = userData
+  const { awaitingConfirmation, newEmail, requesting, error, success } = userData
 
   const { confirmation } = useParams()
 
@@ -301,8 +300,12 @@ const Settings = ({
         </Modal>
       )}
       {error && <Error msg={error} close={modalClose} />}
-      <div className={styles.success}>Saved successfully</div>
-      <div className={styles.error}>There was an error while saving changes, please try again</div>
+      {success && <div className={styles.success}>Saved successfully</div>}
+      {error && (
+        <div className={styles.error}>
+          There was an error while saving changes, please try again
+        </div>
+      )}
     </div>
   )
 }
@@ -317,7 +320,6 @@ Settings.propTypes = {
   loginErrorReset: T.func,
   invalidLink: T.func,
   authorized: T.bool,
-  error: T.string,
   emailConfirm: T.func,
   replace: T.func,
 }
@@ -329,7 +331,7 @@ export default connect(
     router: {
       location: { pathname },
     },
-  }) => ({ userData: account, authorized: login.authorized, url: pathname, error: login.error }),
+  }) => ({ userData: account, authorized: login.authorized, url: pathname }),
   {
     getUserAccount,
     updateAccount,

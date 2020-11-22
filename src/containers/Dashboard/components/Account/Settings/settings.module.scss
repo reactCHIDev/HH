@@ -20,7 +20,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
     }
     .bottom_section {
       padding: 16px 0;
@@ -158,6 +157,7 @@
     }
 
     form {
+      padding-top: 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -329,8 +329,9 @@
     position: absolute;
     width: 198px;
     height: 37px;
-    left: 621px;
-    top: 624px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, 0);
     background: rgba(122, 211, 152, 0.1);
     border-radius: 6px;
     font-style: normal;
@@ -348,8 +349,9 @@
     position: absolute;
     width: 543px;
     height: 37px;
-    left: 448px;
-    top: 671px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 45%;
     background: rgba(235, 87, 105, 0.05);
     border-radius: 6px;
     font-style: normal;
