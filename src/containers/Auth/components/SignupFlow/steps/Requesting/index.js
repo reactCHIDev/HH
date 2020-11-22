@@ -26,6 +26,14 @@ const Requesting = ({
           )
             return acc
 
+          /*  if (step.props.name === 'hungryHuggerLink') {
+            acc.hungryHuggerLink = step.props.value.replace(
+              'www.hungryhugger.com/',
+              'https://hungryhugger.wildwebart.com/',
+            )
+            return acc
+          } */
+
           if (step.props.name === 'about' && step.props.value === '') return acc
 
           if (index === 5 || index === 4) return acc

@@ -1,28 +1,44 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { history } from 'store'
+import QR from 'qrcode'
 import Download from 'assets/images/signup-flow/svg/download.svg'
 import styles from './finish.module.scss'
+import { T } from 'lodash/fp'
 
-const Finish = () => {
+const Finish = ({ hhLink }) => {
+  const [qrImgSource, setQrImgSource] = useState(null)
+
   const onClick = () => {
     history.push('/card')
   }
+
+  const generateQR = async (text) => {
+    try {
+      const qr = await QR.toDataURL(text)
+      setQrImgSource(qr)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  generateQR(hhLink)
+
   return (
     <>
       <div className={styles.heading_container}>
         <p className={styles.heading}>Your unique URL:</p>
-        <p className={styles.adress}>www.hungryhugger.com/annettechef</p>
+        <p className={styles.adress}>{hhLink}</p>
       </div>
+
       <div className={styles.qr_container}>
         <p className={styles.heading}>Your QR-code</p>
         <div className={styles.qr}>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100" />
+          <a href={qrImgSource} download="qr.png">
+            <img src={qrImgSource} alt="qr" />
+          </a>
         </div>
         <button type="button">
-          <a
-            href="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100"
-            download="qr.png"
-          >
+          <a href={qrImgSource} download="qr.png">
             <img src={Download} alt="download" />
             Download
           </a>
@@ -41,6 +57,8 @@ const Finish = () => {
   )
 }
 
-Finish.propTypes = {}
+Finish.propTypes = {
+  hhLink: T.string,
+}
 
 export default Finish
