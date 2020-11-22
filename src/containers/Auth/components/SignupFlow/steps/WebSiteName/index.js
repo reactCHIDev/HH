@@ -11,7 +11,9 @@ const WebSiteName = (props) => {
     onSubmit,
   } = props
 
-  const [curSiteValue, setSiteValue] = useState(value)
+  const [curSiteValue, setSiteValue] = useState(
+    value.replace('https://hungryhugger.wildwebart.com/', 'www.hungryhugger.com/'),
+  )
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
@@ -25,7 +27,10 @@ const WebSiteName = (props) => {
   }
 
   const submitData = {
-    hungryHuggerLink: curSiteValue,
+    hungryHuggerLink: curSiteValue.replace(
+      'www.hungryhugger.com/',
+      'https://hungryhugger.wildwebart.com/',
+    ),
   }
 
   return (
@@ -40,17 +45,30 @@ const WebSiteName = (props) => {
             onChange={onChange}
             ref={register({
               required: true,
-              validate: (value) => {
+              /* validate:  (value) => {
                 if (value.length > 21) return true
                 return false
-              },
-              /* validate: async (value) => {
+              }, */
+              validate: async (value) => {
+                console.log(
+                  '%c   value   ',
+                  'color: darkgreen; background: palegreen;',
+                  value.slice(21),
+                )
                 if (value.length > 21) {
-                  const user = await getUserByHHLink(value)
+                  const user = await getUserByHHLink(
+                    encodeURIComponent(
+                      curSiteValue.replace(
+                        'www.hungryhugger.com/',
+                        'https://hungryhugger.wildwebart.com/',
+                      ),
+                    ),
+                  )
+                  console.log('%c   user   ', 'color: darkgreen; background: palegreen;', user)
                   return !user.data?.profileName
                 }
                 return false
-              }, */
+              },
               pattern: {
                 value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{12,12}\.[a-z]{3,3}\b([-a-zA-Z0-9@:%_\+.~#?&//=])/,
               },
@@ -58,7 +76,9 @@ const WebSiteName = (props) => {
           />
           {errors?.[name]?.type === 'required' && <p>This field is required</p>}
           {errors?.[name]?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {errors?.[name]?.type === 'validate' && <p>This field is required</p>}
+          {errors?.[name]?.type === 'validate' && (
+            <p>A user with these parameters already exists</p>
+          )}
           {
             <button type="submit" className={styles.next}>
               {'>'}

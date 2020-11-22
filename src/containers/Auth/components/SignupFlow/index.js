@@ -63,6 +63,7 @@ const steps = [
 const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
   const [step, setStep] = useState(getItem('step') ? getItem('step') : 0)
   const [direction, setDirection] = useState('forward')
+  const [hhLink, setHHLink] = useState('')
 
   function reducer(state, action) {
     switch (action.type) {
@@ -73,6 +74,7 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
         return state.map((s, i) => (i === 5 ? { ...s, showed: true } : s))
       case 'SUBMIT':
         const { submitData, step } = action.data
+        if (step === 13) setHHLink(submitData.hungryHuggerLink)
         return state.map((s, i) =>
           i === step ? { ...s, props: { ...s.props, value: submitData[s.props.name] } } : s,
         )
@@ -149,7 +151,7 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
 
   return (
     <SignupContainer footer stepBack={stepBack} step={step}>
-      <Screen onSubmit={onSubmit} properties={properties} />
+      <Screen onSubmit={onSubmit} properties={properties} hhLink={hhLink} />
     </SignupContainer>
   )
 }
