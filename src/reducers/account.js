@@ -5,6 +5,9 @@ import {
   UPDATE_ACCOUNT_REQUESTING,
   UPDATE_ACCOUNT_SUCCESS,
   UPDATE_ACCOUNT_ERROR,
+  UPDATE_PHOTO_NAME_REQUESTING,
+  UPDATE_PHOTO_NAME_SUCCESS,
+  UPDATE_PHOTO_NAME_ERROR,
   RESET_CONFIRMATION,
 } from '../actions/constants'
 
@@ -68,6 +71,20 @@ const reducer = function accountReducer(state = initialState, action) {
         requesting: false,
         success: true,
         awaitingConfirmation: !!newEmail,
+      }
+
+    case UPDATE_PHOTO_NAME_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
+    case UPDATE_PHOTO_NAME_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        success: true,
       }
 
     case 'RESET_SUCCESS':
