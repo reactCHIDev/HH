@@ -37,12 +37,12 @@ const PhoneStep = (props) => {
   }
 
   return (
-    <div>
+    <>
       <Heading category="Contact info (not-public)" name="Phone" />
       <div className={cls(styles.container, 'select')}>
         <form className={styles.form} onSubmit={handleSubmit((data) => onSubmit(submitData(data)))}>
           <div className={styles.input_wrapper}>
-            <div className={styles.prefix.wrapper}>
+            <div className={styles.prefix_wrapper}>
               <input
                 className={styles.prefix}
                 name="prefix"
@@ -110,7 +110,7 @@ const PhoneStep = (props) => {
           }}
         /> */}
       </div>
-    </div>
+    </>
   )
 }
 

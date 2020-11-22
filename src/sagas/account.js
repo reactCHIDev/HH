@@ -4,7 +4,6 @@ import * as jwt from 'jsonwebtoken'
 import PATHS from 'api/paths'
 
 import { updateSettings, getUserAccount, confirmEmailUpdate } from 'api/requests/Account'
-import { removeItems, setItems } from '../utils/localStorage'
 
 import { getItem } from '../utils/localStorage'
 import {
@@ -20,12 +19,10 @@ import {
 } from '../actions/constants'
 
 function* getUserAccountSaga() {
-  console.log('%c   saggga   ', 'color: white; background: salmon;')
   const userId = getItem('user-id')
   try {
     const response = yield getUserAccount(userId)
     yield put({ type: GET_USER_ACCOUNT_SUCCESS, data: response.data })
-    // yield put(replace('/login'))
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_USER_ACCOUNT_ERROR, error: error.response.data.error })
