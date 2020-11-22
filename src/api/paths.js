@@ -19,6 +19,7 @@ export default {
   getUserAccount: '/v1/account/info/',
   updateSettings: '/v1/account/update_settings',
   confirmEmailUpdate: '/v1/account/confirm_email_update',
+  updatePhotoName: '/v1/account/update_photo_name',
 
   // Listing
   getProductTypes: '/v1/product/list_types',

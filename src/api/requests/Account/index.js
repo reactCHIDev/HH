@@ -5,6 +5,7 @@ export const getUserAccount = (id) => apiClient.get(PATHS.getUserAccount + id)
 export const getUserByHHLink = (link) => apiClient.get(PATHS.getUserByHHLink + link)
 export const updateSettings = (data) => apiClient.patch(PATHS.updateSettings, { data })
 export const confirmEmailUpdate = (data) => apiClient.patch(PATHS.confirmEmailUpdate, { data })
+export const updatePhotoName = (data) => apiClient.patch(PATHS.updatePhotoName, { data })
 
 //
 //

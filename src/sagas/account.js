@@ -3,7 +3,12 @@ import { replace } from 'connected-react-router'
 import * as jwt from 'jsonwebtoken'
 import PATHS from 'api/paths'
 
-import { updateSettings, getUserAccount, confirmEmailUpdate } from 'api/requests/Account'
+import {
+  updateSettings,
+  getUserAccount,
+  confirmEmailUpdate,
+  updatePhotoName,
+} from 'api/requests/Account'
 
 import { getItem } from '../utils/localStorage'
 import {
@@ -13,6 +18,9 @@ import {
   UPDATE_ACCOUNT_REQUESTING,
   UPDATE_ACCOUNT_SUCCESS,
   UPDATE_ACCOUNT_ERROR,
+  UPDATE_PHOTO_NAME_REQUESTING,
+  UPDATE_PHOTO_NAME_SUCCESS,
+  UPDATE_PHOTO_NAME_ERROR,
   EMAIL_CONFIRM_SUCCESS,
   EMAIL_CONFIRM_ERROR,
   EMAIL_CONFIRM,
@@ -50,6 +58,19 @@ function* updateUserAccount({ payload }) {
   }
 }
 
+function* changePhotoName({ payload }) {
+  try {
+    const response = yield updatePhotoName(payload)
+    yield put({ type: UPDATE_PHOTO_NAME_SUCCESS, payload: { data: response.data } })
+    yield delay(3000)
+    yield put({ type: 'RESET_SUCCESS' })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: UPDATE_PHOTO_NAME_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* changeEmailConfirm({ payload }) {
   try {
     const response = yield confirmEmailUpdate(payload)
@@ -66,6 +87,7 @@ function* accountWatcher() {
   yield takeEvery(GET_USER_ACCOUNT_REQUESTING, getUserAccountSaga)
   yield takeEvery(UPDATE_ACCOUNT_REQUESTING, updateUserAccount)
   yield takeEvery(EMAIL_CONFIRM, changeEmailConfirm)
+  yield takeEvery(UPDATE_PHOTO_NAME_REQUESTING, changePhotoName)
 }
 
 export default accountWatcher

@@ -1,34 +1,47 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
+import Button from 'components/Button'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import { connect } from 'react-redux'
 import { getItem } from 'utils/localStorage'
 import axios from 'axios'
-import { getUserAccount } from 'actions/account'
+import { getUserAccount, updatePhotoNameAC } from 'actions/account'
 import { Upload, Progress } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import styles from './profile.module.scss'
 import './profile.less'
 
-const Profile = ({ profileName, account, getUserAccount }) => {
-  const [defaultFileList, setFileList] = useState([
-    {
-      uid: 'rc-upload-1605812040561-4',
-      name: 'photo.jpg',
-      status: 'done',
-      url:
-        'https://hungryhugger-space.fra1.digitaloceanspaces.com/1b8b72fc-3432-4e74-8b2f-7c7bcd6069f9_1605812138932_photo.jpg',
-    },
-  ])
-  const [name, setName] = useState(profileName)
+const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
+  const { success } = account
+
+  const [defaultFileList, setFileList] = useState([])
+  const [name, setName] = useState('')
   const [url, setUrl] = useState('')
   const [progress, setProgress] = useState(0)
   const [avatar, setAvatar] = useState('')
+
+  const onSubmit = () => {
+    const payload = {}
+    if (name !== account.profileName) payload.profileName = name
+    if (defaultFileList.length) payload.userPhoto = defaultFileList[0].url
+    updatePhotoNameAC(payload)
+  }
 
   useEffect(() => {
     const id = getItem('user-id')
     if (id) getUserAccount(id)
   }, [])
+
+  useEffect(() => {
+    if (success) {
+      const id = getItem('user-id')
+      if (id) getUserAccount(id)
+    }
+  }, [success])
+
+  useEffect(() => {
+    setName(account.profileName)
+  }, [account])
 
   /*  useEffect(() => {
     if (account.userPhoto) setFileList({ url: account.userPhoto, uid: '-1' })
@@ -124,6 +137,7 @@ const Profile = ({ profileName, account, getUserAccount }) => {
         <p className={styles.head}>Profile</p>
         <p className={styles.subhead}>User info</p>
         <div id="uploader" className={styles.uploader}>
+          {success && <div className={styles.success}>Saved successfully</div>}
           {defaultFileList && (
             <div className={styles.photo_uploader}>
               <ImgCrop rotate>
@@ -161,6 +175,9 @@ const Profile = ({ profileName, account, getUserAccount }) => {
             <img src={EditIcon} alt="edit" />
           </div>
         </div>
+        <div className={styles.btn_container}>
+          <Button title="Apply" onClick={onSubmit} />
+        </div>
       </div>
       <div className={styles.rewards}>
         <p className={styles.heading}>Rewards earned</p>
@@ -175,7 +192,10 @@ const Profile = ({ profileName, account, getUserAccount }) => {
 Profile.propTypes = {
   profileName: T.string,
   getUserAccount: T.func,
+  updatePhotoNameAC: T.func,
   account: T.shape(),
 }
 
-export default connect(({ account }) => ({ account }), { getUserAccount })(Profile)
+export default connect(({ account }) => ({ account }), { getUserAccount, updatePhotoNameAC })(
+  Profile,
+)
