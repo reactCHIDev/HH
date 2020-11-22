@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
+import { T } from 'lodash/fp'
 import { history } from 'store'
 import QR from 'qrcode'
 import Download from 'assets/images/signup-flow/svg/download.svg'
 import styles from './finish.module.scss'
-import { T } from 'lodash/fp'
 
 const Finish = ({ hhLink }) => {
   const [qrImgSource, setQrImgSource] = useState(null)
@@ -27,7 +27,9 @@ const Finish = ({ hhLink }) => {
     <>
       <div className={styles.heading_container}>
         <p className={styles.heading}>Your unique URL:</p>
-        <p className={styles.adress}>{hhLink}</p>
+        <a className={styles.adress} href={hhLink}>
+          {hhLink}
+        </a>
       </div>
 
       <div className={styles.qr_container}>

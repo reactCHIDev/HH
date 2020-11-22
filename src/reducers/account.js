@@ -24,6 +24,7 @@ const initialState = {
   requesting: false,
   error: '',
   awaitingConfirmation: false,
+  success: false,
 }
 
 const reducer = function accountReducer(state = initialState, action) {
@@ -65,7 +66,14 @@ const reducer = function accountReducer(state = initialState, action) {
         ...state,
         ...data,
         requesting: false,
+        success: true,
         awaitingConfirmation: !!newEmail,
+      }
+
+    case 'RESET_SUCCESS':
+      return {
+        ...state,
+        success: false,
       }
 
     case RESET_CONFIRMATION:

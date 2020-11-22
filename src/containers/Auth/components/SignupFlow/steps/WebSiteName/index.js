@@ -45,16 +45,7 @@ const WebSiteName = (props) => {
             onChange={onChange}
             ref={register({
               required: true,
-              /* validate:  (value) => {
-                if (value.length > 21) return true
-                return false
-              }, */
               validate: async (value) => {
-                console.log(
-                  '%c   value   ',
-                  'color: darkgreen; background: palegreen;',
-                  value.slice(21),
-                )
                 if (value.length > 21) {
                   const user = await getUserByHHLink(
                     encodeURIComponent(
@@ -64,7 +55,6 @@ const WebSiteName = (props) => {
                       ),
                     ),
                   )
-                  console.log('%c   user   ', 'color: darkgreen; background: palegreen;', user)
                   return !user.data?.profileName
                 }
                 return false
