@@ -8,7 +8,7 @@ const Progress5 = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (time === 100) return
-      setTime((ms) => ms + 1)
+      setTime((ms) => ms + 2)
     }, 40)
     if (time === 100) clearInterval(interval)
     return () => clearInterval(interval)

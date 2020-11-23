@@ -37,7 +37,10 @@ const steps = [
   { screen: PhoneStep, props: { name: 'phone', value: '' } },
   {
     screen: SocialsStep,
-    props: { name: 'socialURL', value: ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/'] },
+    props: {
+      name: 'socialURL',
+      value: ['www.hungryhugger.com/', 'www.facebook.com/', 'www.instagram.com/'],
+    },
   },
   {
     screen: BusinessAdress,
@@ -101,7 +104,7 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
       setTimeout(() => {
         setStep(6)
         dispatch({ type: 'SHOWED' })
-      }, 5000)
+      }, 2500)
     }
 
     if (step === 5 && state[step].showed && direction === 'forward') {

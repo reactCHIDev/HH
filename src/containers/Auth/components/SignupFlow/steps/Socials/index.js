@@ -30,7 +30,7 @@ const Socials = (props) => {
     setInstaValue(value[2])
   }, [value])
 
-  const fixedText = ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/']
+  const fixedText = ['www.hungryhugger.com/', 'www.facebook.com/', 'www.instagram.com/']
   const setters = [setHHValue, setFBValue, setInstaValue]
 
   const onChange = (e) => {

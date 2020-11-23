@@ -46,6 +46,7 @@ const PhoneStep = (props) => {
               <input
                 className={styles.prefix}
                 name="prefix"
+                placeholder="Country code"
                 value={prefix}
                 type="text"
                 onChange={onChangePrefix}
@@ -64,6 +65,7 @@ const PhoneStep = (props) => {
               <input
                 className={styles.phone}
                 name="phone"
+                placeholder="Contact number"
                 value={phone}
                 type="text"
                 onChange={onChangePhone}

@@ -35,7 +35,7 @@ const WebSiteName = (props) => {
 
   return (
     <div className={styles.container}>
-      <Heading category="Link" name="Your website link on HH" />
+      <Heading category="Link" name="Your website link on Hungry Hugger" />
       <form className={styles.form} onSubmit={handleSubmit(() => onSubmit(submitData))}>
         <div className={styles.input_wrapper}>
           <input
@@ -77,7 +77,7 @@ const WebSiteName = (props) => {
         </div>
       </form>
       <p className={styles.description}>
-        Get a simple and memorable link to your Hungry Huggers profile
+        Get a simple and memorable link to your Hungry Hugger profile
       </p>
     </div>
   )

@@ -31,7 +31,6 @@ const ProfileName = (props) => {
           },
         }}
       />
-      <p className={styles.description}>An easy to remember name with a humour</p>
     </>
   )
 }

@@ -8,7 +8,6 @@ const LetsCreate = () => {
     <>
       <img className={styles.pasta} src={Pasta} alt="pasta" />
       <p className={styles.heading}>Let's create your profile!</p>
-      <p className={styles.description}>The whole process will take about 5 minutes</p>
       <Progress />
     </>
   )

@@ -8,7 +8,7 @@ import './tags.less'
 
 const OPTIONS_MAIN = [
   'Chef',
-  'Backer',
+  'Baker',
   'Mixologist',
   'Taste maker',
   'Food maker',
@@ -98,10 +98,10 @@ const Tags = (props) => {
     <div className={styles.container}>
       <Heading category="About" name="Customize your tags" />
       <div className={cls(styles.selectors, 'selector_container')}>
-        <p className={styles.label}>Service tags</p>
+        <p className={styles.label}>Your speciality</p>
         <Select
           mode="multiple"
-          placeholder="Customize your tags"
+          placeholder="Baker"
           value={serviceTagIds}
           showArrow
           onChange={handleChangeMain}
@@ -114,10 +114,10 @@ const Tags = (props) => {
           ))}
         </Select>
 
-        <p className={styles.label}>Additional Tags</p>
+        <p className={styles.label}>Your services tags and additional tags</p>
         <Select
           mode="multiple"
-          placeholder="Customize your tags"
+          placeholder="Catering, Custom made"
           value={specialityTagIds}
           showArrow
           onChange={handleChangeAdd}
