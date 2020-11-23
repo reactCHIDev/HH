@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import T from 'prop-types'
+import T, { shape } from 'prop-types'
 import {
   Form,
   Input,
@@ -72,13 +72,12 @@ const Step4 = ({ create, pushRoute }) => {
   const [selectedCountries, setSelectedCountries] = useState([])
   const [selectedRegionRadio, setSelectedRegionRadio] = useState(1)
   const [selectedCountryRadio, setSelectedCountryRadio] = useState(1)
-  const [delivery, setDelivery] = useState([0, 0, 0, 0])
   const [availabilityStartDate, setStartDate] = useState('')
   const [availabilityEndDate, setEndDate] = useState('')
-  const [qtyChk, setQtyChk] = useState(false)
+  const [isAdult, setIsAdult] = useState(false)
   const [dates, setDates] = useState('Available')
 
-  const OPTIONS = [
+  const tags = [
     { id: '1', tagName: 'Drink' },
     { id: '2', tagName: 'Salad' },
     { id: '3', tagName: 'Bread' },
@@ -87,7 +86,7 @@ const Step4 = ({ create, pushRoute }) => {
   ]
 
   const normalizeTags = (value) => {
-    const v = value.map((t) => OPTIONS.find((e) => e.tagName === t).id)
+    const v = value.map((t) => tags.find((e) => e.tagName === t).id)
     console.log('v', v)
     return v
   }
@@ -121,8 +120,10 @@ const Step4 = ({ create, pushRoute }) => {
     },
   ]
 
-  const onFinish = (values) => {
-    console.log('Received values of form: ', { ...values, chkIngr: ingredients })
+  const onFinish = (vals) => {
+    console.log('Received values of form: ', { ...vals, chkIngr: ingredients })
+
+    const values = { ...vals }
 
     // ================
 
@@ -138,7 +139,14 @@ const Step4 = ({ create, pushRoute }) => {
 
     // =================
 
-    const deliveryMethod = deliveryMethodData.filter((m, i) => delivery[i])
+    if (!ingredients || values.ingredients.trim() === '') {
+      delete values.ingredients
+      console.log('%c   values.ingredients   ', 'color: darkgreen; background: palegreen;', values)
+    }
+
+    // =================
+
+    // const deliveryMethod = deliveryMethodData.filter((m, i) => delivery[i])
 
     // =================
 
@@ -148,9 +156,10 @@ const Step4 = ({ create, pushRoute }) => {
 
     const formData = {
       ...values,
+      isAdult,
       deliveryRegion,
       deliveryRegionException,
-      deliveryMethod,
+      // deliveryMethod,
       productTagIds,
     }
 
@@ -160,10 +169,12 @@ const Step4 = ({ create, pushRoute }) => {
     }
 
     const prevStep = getItem('addProduct')
+    delete prevStep.ingredients
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
-    create(productData)
-    pushRoute('/card')
+    console.log('%c   productData   ', 'color: white; background: royalblue;', productData)
+    // create(productData)
+    // pushRoute('/card')
   }
 
   const onRegionRadio = (e) => {
@@ -176,6 +187,8 @@ const Step4 = ({ create, pushRoute }) => {
 
   const ingredientsChk = () => setIngredients((i) => !i)
 
+  const isAdultChk = () => setIsAdult((a) => !a)
+
   const handleChangeTags = (selectedItms) => {
     setSelectedItems(selectedItms)
   }
@@ -184,7 +197,7 @@ const Step4 = ({ create, pushRoute }) => {
     setSelectedCountries(selectedItms)
   }
 
-  const filteredOptions = OPTIONS.filter((o) => !selectedItems.includes(o.id))
+  const filteredTags = tags.filter((o) => !selectedItems.includes(o.id))
   const filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
 
   const radioStyle = {
@@ -193,30 +206,17 @@ const Step4 = ({ create, pushRoute }) => {
     lineHeight: '30px',
   }
 
-  const onChangeDeliveryChkBox = (e) => {
-    setDelivery((d) => {
-      d[e.target.id] = !d[e.target.id]
-      console.log('d', d)
-      return d
-    })
-  }
-
   const onChangeStartDate = (e) => {
     setStartDate(new Date(e).toISOString())
   }
   const onChangeEndDate = (e) => {
     setEndDate(new Date(e).toISOString())
   }
-  const onQtyChk = () => {
-    setQtyChk((c) => !c)
-  }
 
   const toggleDates = (e) => {
     console.log('%c   value   ', 'color: white; background: salmon;', e)
     setDates(e.target.value !== 'Preorder')
   }
-
-  const onChange = () => {}
 
   return (
     <div className={styles.container}>
@@ -326,20 +326,20 @@ const Step4 = ({ create, pushRoute }) => {
             </Col>
             <Col flex="auto">
               <Form.Item name="ingredients" wrapperCol={{ span: 24, offset: 0 }}>
-                <Input.TextArea rows={4} />
+                <Input.TextArea rows={4} disabled={!ingredients} />
               </Form.Item>
             </Col>
           </Row>
           <Form.Item name="productTagIds" wrapperCol={{ span: 24, offset: 0 }}>
             <label className="form-text">Tags</label>
             <Select
-              mode="multiple"
+              mode="tags"
               value={selectedItems}
               onChange={handleChangeTags}
               showArrow
               style={{ width: '100%' }}
             >
-              {filteredOptions.map((item) => (
+              {filteredTags.map((item) => (
                 <Select.Option key={item.id} value={item.tagName}>
                   {item.tagName}
                 </Select.Option>
@@ -390,9 +390,9 @@ const Step4 = ({ create, pushRoute }) => {
             </Radio.Group>
           </div>
 
-          <Divider />
+          {/*  <Divider />
 
-          <p className={styles.header}>Delivery method</p>
+        <p className={styles.header}>Delivery method</p>
           <span className="form-text">Delivery type </span>
           <Row>
             <Col sm={12} md={12}>
@@ -456,7 +456,7 @@ const Step4 = ({ create, pushRoute }) => {
                 </div>
               </Form.Item>
             </Col>
-          </Row>
+          </Row> */}
 
           <Divider />
 
@@ -481,17 +481,21 @@ const Step4 = ({ create, pushRoute }) => {
             </Col>
             <Col gutter={20} align="bottom">
               <span className="form-text">Over 18 Requirement </span>
-              <Checkbox checked={true} onChange={onChange}>
+              <Checkbox checked={isAdult} onChange={isAdultChk}>
                 Verify customer is over 18 years old
               </Checkbox>
             </Col>
           </Row>
 
           <div style={{ marginTop: 20 }}>
-            <Checkbox onChange={onQtyChk}>Quantity (optional)</Checkbox>
-            <Form.Item name="quantity" normalize={(value) => Number(value)}>
+            <label className="form-text">Quantity</label>
+            <Form.Item
+              name="quantity"
+              rules={[{ required: true, message: 'Please enter quantity' }]}
+              normalize={(value) => Number(value)}
+            >
               <div style={{ padding: '5px 0 0 24px' }}>
-                <InputNumber disabled={!qtyChk} onChange={onChange} />
+                <InputNumber />
               </div>
             </Form.Item>
           </div>
@@ -525,8 +529,9 @@ const Step4 = ({ create, pushRoute }) => {
 }
 
 Step4.propTypes = {
-  setStep: T.func.isRequired,
   create: T.func.isRequired,
+  pushRoute: T.func.isRequired,
+  tags: T.arrayOf(shape()).isRequired,
 }
 
 export default Step4
