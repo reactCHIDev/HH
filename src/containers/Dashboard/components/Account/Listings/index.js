@@ -11,6 +11,8 @@ import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
 
+import cls from "classnames"
+
 const colors = [
   '#fff3f3',
   '#fff7ef',
@@ -42,6 +44,7 @@ const Listings = (props) => {
   const [filteredProducts, filterProducts] = useState(myProducts)
   const [searchSubstring, setSearchSubstring] = useState('')
   const [productsToShow, setProductsToShow] = useState(myProducts)
+  const [menu, setMenu] = useState(false)
 
   const pageSize = 3
 
@@ -185,7 +188,17 @@ const Listings = (props) => {
   return (
     <div className={styles.container}>
       <Header onSearch={onSearch} />
-      <div className={styles.main}>
+      <div className={cls(styles.main,menu ? styles.filter_active : " ")}>
+
+        <div className={styles.filter_item_list}>
+          <div>
+            <a href="#" onClick={()=>setMenu(!menu)} className={styles.filter_btn}>Filter</a>
+            <span className={styles.categories}>
+              Categories: <span className={styles.categories_item}>5 selected</span>
+            </span>
+          </div>
+          <a href="#">Clear</a>
+        </div>
         <div className={styles.filter_block}>
           {filters.length &&
             filters.map((el, i) => (
