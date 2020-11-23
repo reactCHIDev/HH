@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import ChkBox from 'components/ChkBox'
-import ListContainer from 'components/ListContainer'
+import { Pagination } from 'antd'
 import SortElement from 'components/SortElement'
 import { getProductTypes, getMyProductList } from 'actions/listing'
 import Header from './components/ListingHeader'
@@ -206,25 +206,30 @@ const Listings = (props) => {
         </div>
         {filteredProducts.length > 0 && (
           <div className={styles.listing}>
-            <table className={styles.product_table}>
-              <tr>
+            <div className={styles.product_table}>
+              <div className={styles.tr}>
                 {sorts.map((e, i) => (
-                  <th key={e.id + String(i)}>
+                  <div className={styles.th} key={e.id + String(i)}>
                     <SortElement title={e.title} type={e.type} onClick={onSort} />{' '}
-                  </th>
+                  </div>
                 ))}
-              </tr>
-              <ListContainer page={page} pageChange={setPage} pageSize={pageSize} total={total}>
-                <>
-                  {filteredProducts
-                    .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-                    .map((product) => (
-                      <Product key={product.id} product={product} />
-                    ))}
-                </>
-              </ListContainer>
-            </table>
+              </div>
             
+              {filteredProducts
+                .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
+                .map((product) => (
+                  <Product key={product.id} product={product} />
+              ))}
+            </div>
+            <Pagination
+              defaultCurrent={page}
+              defaultPageSize={pageSize}
+              current={page}
+              onChange={setPage}
+              onShowSizeChange={null}
+              pageSizeOptions={null}
+              total={total}
+            />
           </div>
         )}
       </div>

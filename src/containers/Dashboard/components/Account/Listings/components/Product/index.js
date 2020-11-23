@@ -13,8 +13,8 @@ const Product = ({ product }) => {
   const { coverPhoto, title, rating, status, quantity, available } = product
 
   return (
-    <tr>
-      <td>
+    <div className={styles.tr}>
+      <div className={styles.td}>
         <div className={styles.description}>
           <div className={styles.description_content}>
             <div className={styles.image_container}>
@@ -33,26 +33,26 @@ const Product = ({ product }) => {
             <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
           </div>
         </div>
-      </td>
-      <td>
+      </div>
+      <div className={styles.td}>
         <div className={styles.rating_container}>
           <Rate style={{ color: '#3C3E43' }} disabled defaultValue={rating} />
         </div>
-      </td>     
-      <td>
+      </div>     
+      <div className={styles.td}>
         <div className={styles.status_option_container}>
         <Option checked={status === 'PUBLISHED'} />
       </div>
-      </td>
-      <td>
+      </div>
+      <div className={styles.td}>
         <span className={styles.stock}>{quantity}</span>
-      </td>
-      <td>
+      </div>
+      <div className={styles.td}>
         <span className={styles.preorder}>
           <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
         </span>
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
 
