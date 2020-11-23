@@ -27,6 +27,7 @@ export default {
   // Product
   createProduct: '/v1/product/create',
   getProductInfo: '/v1/product/info/',
+  getProductTags: '/v1/product/tags',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

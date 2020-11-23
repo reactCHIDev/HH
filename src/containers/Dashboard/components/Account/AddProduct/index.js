@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { push } from 'connected-react-router'
+import { replace } from 'connected-react-router'
 import { Steps, Divider } from 'antd'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
 import { getProductTypes } from 'actions/listing'
-import { createProductRequest } from 'actions/product'
+import { createProductRequestAC, getProductTagsRequestAC } from 'actions/product'
 
 import Button from 'components/Button'
 import Step1 from './components/Steps/Step1'
@@ -18,19 +18,25 @@ import styles from './add_product.module.scss'
 import './add_product.less'
 
 const AddProduct = (props) => {
-  const { types, getProductTypes, createProductRequest, pushRoute } = props
+  const {
+    types,
+    tags,
+    getProductTypes,
+    createProductRequestAC,
+    getProductTagsRequestAC,
+    replaceRoute,
+  } = props
   const { step } = useParams()
   // const [step, setStep] = useState(0)
 
-  console.log('%c   step   ', 'color: white; background: salmon;', step)
-
   useEffect(() => {
     getProductTypes()
+    getProductTagsRequestAC()
   }, [])
 
   const { Step } = Steps
 
-  const onClick = (s) => pushRoute(`/addproduct/${s}`)
+  const onClick = (s) => replaceRoute(`/addproduct/${s}`)
   const publish = () => console.log('%c   published   ', 'color: darkgreen; background: palegreen;')
 
   return (
@@ -53,7 +59,9 @@ const AddProduct = (props) => {
             {Number(step) === 0 && <Step1 setStep={onClick} />}
             {Number(step) === 1 && <Step2 setStep={onClick} types={types} />}
             {Number(step) === 2 && <Step3 setStep={onClick} />}
-            {Number(step) === 3 && <Step4 pushRoute={pushRoute} create={createProductRequest} />}
+            {Number(step) === 3 && (
+              <Step4 pushRoute={replaceRoute} create={createProductRequestAC} tags={tags} />
+            )}
           </div>
         </div>
       </div>
@@ -63,13 +71,16 @@ const AddProduct = (props) => {
 
 AddProduct.propTypes = {
   types: T.arrayOf(shape()),
+  tags: T.arrayOf(shape()),
   getProductTypes: T.func,
-  createProductRequest: T.func,
-  pushRoute: T.func,
+  createProductRequestAC: T.func,
+  getProductTagsRequestAC: T.func,
+  replaceRoute: T.func,
 }
 
-export default connect(({ listing: { types } }) => ({ types }), {
+export default connect(({ listing: { types }, product: { tags } }) => ({ types, tags }), {
   getProductTypes,
-  createProductRequest,
-  pushRoute: push,
+  createProductRequestAC,
+  getProductTagsRequestAC,
+  replaceRoute: replace,
 })(AddProduct)
