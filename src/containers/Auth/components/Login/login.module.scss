@@ -103,6 +103,8 @@
 
       .forgot {
         display: inline-block;
+        line-height: 20px;
+
         position: absolute;
         right: 12px;
         top: 24%;
@@ -197,6 +199,7 @@
   .register {
     display: flex;
     align-self: center;
+    margin: 0;
     p {
       padding: 0 10px;
       font-size: 16px;
@@ -206,6 +209,8 @@
       user-select: none;
     }
     .suggest {
+      display: block;
+      line-height: 26px;
       font-size: 16px;
       letter-spacing: 0.5px;
       color: #5375cb;

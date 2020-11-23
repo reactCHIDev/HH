@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
+import cls from 'classnames'
 import { Select } from 'antd'
 import Heading from '../../components/heading'
 import styles from './tags.module.scss'
@@ -96,7 +97,7 @@ const Tags = (props) => {
   return (
     <div className={styles.container}>
       <Heading category="About" name="Customize your tags" />
-      <div className="selector_container">
+      <div className={cls(styles.selectors, 'selector_container')}>
         <p className={styles.label}>Service tags</p>
         <Select
           mode="multiple"
@@ -115,7 +116,7 @@ const Tags = (props) => {
 
         <p className={styles.label}>Additional Tags</p>
         <Select
-          mode="tags"
+          mode="multiple"
           placeholder="Customize your tags"
           value={specialityTagIds}
           showArrow

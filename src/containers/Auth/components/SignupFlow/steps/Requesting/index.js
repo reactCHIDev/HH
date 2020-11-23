@@ -6,7 +6,7 @@ const Requesting = ({
 }) => {
   useEffect(() => {
     signupFoodmakerAC(
-      state.slice(0, 16).reduce(
+      state.slice(0, 17).reduce(
         (acc, step, index) => {
           if (step.props.name === 'serviceTagIds') {
             acc.serviceTagIds = step.props.value.serviceTagIds
@@ -26,9 +26,17 @@ const Requesting = ({
           )
             return acc
 
+          /*  if (step.props.name === 'hungryHuggerLink') {
+            acc.hungryHuggerLink = step.props.value.replace(
+              'www.hungryhugger.com/',
+              'https://hungryhugger.wildwebart.com/',
+            )
+            return acc
+          } */
+
           if (step.props.name === 'about' && step.props.value === '') return acc
 
-          if (index === 4) return acc
+          if (index === 5 || index === 4) return acc
           acc[step.props.name] = step.props.value
           return acc
         },

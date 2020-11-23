@@ -27,8 +27,9 @@ export const logout = () => ({
   type: LOGOUT,
 })
 
-export const invalidLink = () => ({
+export const invalidLink = (error) => ({
   type: LINK_ERROR_SET,
+  error,
 })
 
 export const loginErrorReset = () => ({

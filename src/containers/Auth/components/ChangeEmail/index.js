@@ -14,7 +14,7 @@ const ChangeEmail = (props) => {
   const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
 
   if (!valid) {
-    invalidLink()
+    invalidLink('Your link is expired!!!')
     close()
   }
 

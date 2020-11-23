@@ -1,0 +1,22 @@
+.container {
+  padding: 30px;
+  min-height: 350px;
+
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 160%;
+    /* or 22px */
+
+    letter-spacing: 0.5px;
+
+    color: #31394D;
+  }
+
+  .additional_info {
+    span {
+      font-weight: bold;
+    }
+  }
+}

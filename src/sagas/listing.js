@@ -18,7 +18,7 @@ function* getProductTypeSaga() {
     const response = yield getProductTypesReq()
     // const list = yield getMyProductListReq()
     yield put({ type: GET_PRODUCT_TYPES_SUCCESS, data: response.data })
-    yield put({ type: GET_MY_PRODUCT_LIST_REQUESTING })
+    // yield put({ type: GET_MY_PRODUCT_LIST_REQUESTING })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_PRODUCT_TYPES_ERROR, error: error.response.data.error })
@@ -36,7 +36,7 @@ function* getMyProductListSaga() {
   } catch (error) {
     console.log('error', error)
     if (error.response) {
-      yield put({ type: GET_PRODUCT_TYPES_ERROR, error: error.response.data.error })
+      yield put({ type: GET_MY_PRODUCT_LIST_ERROR, error: error.response.data.error })
     }
   }
 }

@@ -3,14 +3,13 @@ import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import ChkBox from 'components/ChkBox'
 import { Pagination } from 'antd'
+import CollapsedBlock from 'components/CollapsedBlock'
 import SortElement from 'components/SortElement'
 import { getProductTypes, getMyProductList } from 'actions/listing'
 import Header from './components/ListingHeader'
-import CollapsedBlock from './components/CollapsedBlock'
 import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
-import { map } from 'lodash'
 
 const colors = [
   '#fff3f3',
@@ -64,6 +63,7 @@ const Listings = (props) => {
 
   useEffect(() => {
     getProductTypes()
+    getMyProductList()
   }, [])
 
   useEffect(() => {

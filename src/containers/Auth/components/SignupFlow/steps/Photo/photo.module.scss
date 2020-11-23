@@ -12,6 +12,7 @@
   }
 
   .description {
+    margin: 0 auto 32px;
     width: 296px;
     font-style: normal;
     font-weight: normal;
@@ -38,6 +39,7 @@
     color: #ffffff;
     display: block;
     margin: auto;
+    border: none;
   }
 
   input[type='button']:hover {
