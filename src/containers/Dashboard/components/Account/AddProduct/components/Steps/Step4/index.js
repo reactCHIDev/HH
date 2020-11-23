@@ -63,7 +63,7 @@ const tailFormItemLayout = {
   },
 }
 
-const Step4 = ({ create, pushRoute }) => {
+const Step4 = ({ create, pushRoute, tags }) => {
   const [form] = Form.useForm()
   const { RangePicker } = DatePicker
 
@@ -77,12 +77,12 @@ const Step4 = ({ create, pushRoute }) => {
   const [isAdult, setIsAdult] = useState(false)
   const [dates, setDates] = useState('Available')
 
-  const tags = [
-    { id: '1', tagName: 'Drink' },
-    { id: '2', tagName: 'Salad' },
-    { id: '3', tagName: 'Bread' },
-    { id: '4', tagName: 'Soup' },
-    { id: '5', tagName: 'Pasta' },
+  const OPTIONS = [
+    { id: 1, tagName: 'Drink' },
+    { id: 2, tagName: 'Salad' },
+    { id: 3, tagName: 'Bread' },
+    { id: 4, tagName: 'Soup' },
+    { id: 5, tagName: 'Pasta' },
   ]
 
   const normalizeTags = (value) => {
@@ -92,33 +92,6 @@ const Step4 = ({ create, pushRoute }) => {
   }
 
   const COUNTRIES = ['China', 'Malaysia', 'Japan', 'Vietnam']
-
-  const deliveryMethodData = [
-    {
-      type: 'Standart',
-      description: '',
-      price: 0,
-      currency: '$',
-    },
-    {
-      type: 'Pick-up',
-      description: '',
-      price: 0,
-      currency: '$',
-    },
-    {
-      type: 'Express',
-      description: '',
-      price: 0,
-      currency: '$',
-    },
-    {
-      type: 'Free',
-      description: '',
-      price: 0,
-      currency: null,
-    },
-  ]
 
   const onFinish = (vals) => {
     console.log('Received values of form: ', { ...vals, chkIngr: ingredients })
@@ -141,12 +114,7 @@ const Step4 = ({ create, pushRoute }) => {
 
     if (!ingredients || values.ingredients.trim() === '') {
       delete values.ingredients
-      console.log('%c   values.ingredients   ', 'color: darkgreen; background: palegreen;', values)
     }
-
-    // =================
-
-    // const deliveryMethod = deliveryMethodData.filter((m, i) => delivery[i])
 
     // =================
 
@@ -173,8 +141,8 @@ const Step4 = ({ create, pushRoute }) => {
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
     console.log('%c   productData   ', 'color: white; background: royalblue;', productData)
-    // create(productData)
-    // pushRoute('/card')
+    create(productData)
+    pushRoute('/card')
   }
 
   const onRegionRadio = (e) => {
@@ -190,6 +158,7 @@ const Step4 = ({ create, pushRoute }) => {
   const isAdultChk = () => setIsAdult((a) => !a)
 
   const handleChangeTags = (selectedItms) => {
+    console.log('%c     selectedItms ', 'color: darkgreen; background: palegreen;', selectedItms)
     setSelectedItems(selectedItms)
   }
 
@@ -330,8 +299,15 @@ const Step4 = ({ create, pushRoute }) => {
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="productTagIds" wrapperCol={{ span: 24, offset: 0 }}>
-            <label className="form-text">Tags</label>
+
+          <label className="form-text">Tags</label>
+          <Form.Item
+            name="productTagIds"
+            rules={[
+              { required: true, type: 'array', min: 2, message: 'Please choose at least 2 tags!' },
+            ]}
+            wrapperCol={{ span: 24, offset: 0 }}
+          >
             <Select
               mode="tags"
               value={selectedItems}
@@ -390,74 +366,6 @@ const Step4 = ({ create, pushRoute }) => {
             </Radio.Group>
           </div>
 
-          {/*  <Divider />
-
-        <p className={styles.header}>Delivery method</p>
-          <span className="form-text">Delivery type </span>
-          <Row>
-            <Col sm={12} md={12}>
-              <Form.Item name="standart">
-                <Checkbox id="0" onChange={onChangeDeliveryChkBox}>
-                  Standart
-                </Checkbox>
-                <div style={{ padding: '5px 0 0 24px' }}>
-                  <span className="form-text">
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.
-                  </span>
-                  <InputNumber
-                    formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                    onChange={onChange}
-                  />
-                </div>
-              </Form.Item>
-            </Col>
-            <Col sm={12} md={12}>
-              <Form.Item name="standart">
-                <Checkbox id="1" onChange={onChangeDeliveryChkBox}>
-                  Pick-up
-                </Checkbox>
-                <div style={{ padding: '5px 0 0 24px' }}>
-                  <span className="form-text">
-                    Sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </span>
-                  <Input />
-                </div>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={12} md={12}>
-              <Form.Item name="standart">
-                <Checkbox id="2" onChange={onChangeDeliveryChkBox}>
-                  Express
-                </Checkbox>
-                <div style={{ padding: '5px 0 0 24px' }}>
-                  <span className="form-text">
-                    Sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </span>
-                  <InputNumber
-                    formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                    onChange={onChange}
-                  />
-                </div>
-              </Form.Item>
-            </Col>
-            <Col sm={12} md={12}>
-              <Form.Item name="standart">
-                <Checkbox id="3" onChange={onChangeDeliveryChkBox}>
-                  Free
-                </Checkbox>
-                <div style={{ padding: '5px 0 0 24px' }}>
-                  <span className="form-text">
-                    Sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </span>
-                </div>
-              </Form.Item>
-            </Col>
-          </Row> */}
-
           <Divider />
 
           <p className={styles.header}>Availability</p>
@@ -492,10 +400,10 @@ const Step4 = ({ create, pushRoute }) => {
             <Form.Item
               name="quantity"
               rules={[{ required: true, message: 'Please enter quantity' }]}
-              normalize={(value) => Number(value)}
+              normalize={(value) => Math.abs(Number(value))}
             >
               <div style={{ padding: '5px 0 0 24px' }}>
-                <InputNumber />
+                <InputNumber min={0} />
               </div>
             </Form.Item>
           </div>

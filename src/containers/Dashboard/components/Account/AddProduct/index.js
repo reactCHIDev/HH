@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { push } from 'connected-react-router'
+import { replace } from 'connected-react-router'
 import { Steps, Divider } from 'antd'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
 import { getProductTypes } from 'actions/listing'
@@ -24,7 +24,7 @@ const AddProduct = (props) => {
     getProductTypes,
     createProductRequestAC,
     getProductTagsRequestAC,
-    pushRoute,
+    replaceRoute,
   } = props
   const { step } = useParams()
   // const [step, setStep] = useState(0)
@@ -36,7 +36,7 @@ const AddProduct = (props) => {
 
   const { Step } = Steps
 
-  const onClick = (s) => pushRoute(`/addproduct/${s}`)
+  const onClick = (s) => replaceRoute(`/addproduct/${s}`)
   const publish = () => console.log('%c   published   ', 'color: darkgreen; background: palegreen;')
 
   return (
@@ -60,7 +60,7 @@ const AddProduct = (props) => {
             {Number(step) === 1 && <Step2 setStep={onClick} types={types} />}
             {Number(step) === 2 && <Step3 setStep={onClick} />}
             {Number(step) === 3 && (
-              <Step4 pushRoute={pushRoute} create={createProductRequestAC} tags={tags} />
+              <Step4 pushRoute={replaceRoute} create={createProductRequestAC} tags={tags} />
             )}
           </div>
         </div>
@@ -75,12 +75,12 @@ AddProduct.propTypes = {
   getProductTypes: T.func,
   createProductRequestAC: T.func,
   getProductTagsRequestAC: T.func,
-  pushRoute: T.func,
+  replaceRoute: T.func,
 }
 
 export default connect(({ listing: { types }, product: { tags } }) => ({ types, tags }), {
   getProductTypes,
   createProductRequestAC,
   getProductTagsRequestAC,
-  pushRoute: push,
+  replaceRoute: replace,
 })(AddProduct)
