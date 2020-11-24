@@ -1,5 +1,5 @@
 /* REACT */
-import React, { Suspense, lazy } from 'react'
+import React, { useEffect, Suspense, lazy } from 'react'
 import T from 'prop-types'
 
 /* MODULES */
@@ -9,6 +9,9 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Spin, Space } from 'antd'
 
 /* CUSTOM MODULES */
+import { getUserAccount } from 'actions/account'
+import { getItem } from 'utils/localStorage'
+
 import PublicRoute from 'components/Routing/PublicRoute'
 import PrivateRoute from 'components/Routing/PrivateRoute'
 import ConnectionProvider from 'components/ConnectionProvider'
@@ -56,7 +59,12 @@ function WaitingComponent(Component) {
   )
 }
 
-function App({ pathname }) {
+function App({ authorized, pathname, getUserAccount }) {
+  useEffect(() => {
+    const id = getItem('user-id')
+    if (authorized && id) getUserAccount(id)
+  }, [authorized])
+
   const url = `${process.env.REACT_APP_BASE_URL}/api`
   setBaseEndpoint(url)
 
@@ -64,11 +72,7 @@ function App({ pathname }) {
     <div className={styles.container}>
       <ConnectedRouter history={history}>
         <ConnectionProvider>
-          {pathname !== '/signupflow' && pathname !== '/dashboard/profile' ? (
-            <Header dark logoText />
-          ) : pathname !== '/signupflow' ? (
-            <Header logoText />
-          ) : null}
+          {pathname !== '/signupflow' && <Header />}
           <Switch>
             <PublicRoute
               exact
@@ -135,6 +139,8 @@ function App({ pathname }) {
 
 App.propTypes = {
   pathname: T.string.isRequired,
+  authorized: T.bool.isRequired,
+  getUserAccount: T.func.isRequired,
 }
 
 export default connect(
@@ -142,8 +148,10 @@ export default connect(
     router: {
       location: { pathname },
     },
+    login: { authorized },
   }) => ({
     pathname,
+    authorized,
   }),
-  null,
+  { getUserAccount },
 )(App)

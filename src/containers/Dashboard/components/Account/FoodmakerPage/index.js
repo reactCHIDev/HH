@@ -24,12 +24,12 @@ const cutted =
   'I’m a nutritionist ,and baking cooking instructor. When I was younger I went to England for a year .The experience I had sharing a dormitory kitchen with many students from other countries made me fascinated with world food culture. After I came back to Japan I got a nutrition certificate and learned about cooking more. After I graduated from college,I worked a cooking school run by Tokyo-gas which is the largest gas company in Japan.I have lots of experience teach…'
 
 const FoodmakerPage = (props) => {
-  const { fm, getFoodmakerInfoAC } = props
+  const { fm, getFoodmakerInfoAC, account } = props
   const [readMore, setReadMore] = useState(false)
 
   useEffect(() => {
-    getFoodmakerInfoAC(43)
-  }, [])
+    getFoodmakerInfoAC(account.id)
+  }, [account])
 
   const onReadMore = () => setReadMore(!readMore)
 
@@ -167,6 +167,6 @@ FoodmakerPage.propTypes = {
   fm: T.shape(),
 }
 
-export default connect(({ foodmaker }) => ({ fm: foodmaker }), { getFoodmakerInfoAC })(
-  FoodmakerPage,
-)
+export default connect(({ foodmaker, account }) => ({ fm: foodmaker, account }), {
+  getFoodmakerInfoAC,
+})(FoodmakerPage)

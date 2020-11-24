@@ -1,8 +1,14 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects'
-import { push } from 'connected-react-router'
+import { push, replace } from 'connected-react-router'
 import { login as loginRequest, logout as logoutRequest } from 'api/requests/Auth'
 import { removeItems, setItems } from '../utils/localStorage'
-import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../actions/constants'
+import {
+  LOGIN_REQUESTING,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT,
+  GET_USER_ACCOUNT_REQUESTING,
+} from '../actions/constants'
 
 export function* logout() {
   logoutRequest()
@@ -20,8 +26,13 @@ function* loginFlow({ creds }) {
       { key: 'user-name', value: data.profileName },
     ]
     yield setItems(localData)
-    yield put({ type: LOGIN_SUCCESS, payload: { name: data.profileName, id: data.id } })
-    yield put(push('/card'))
+    yield put({
+      type: LOGIN_SUCCESS,
+      payload: { name: data.profileName, id: data.id, role: data.role },
+    })
+    yield put({ type: GET_USER_ACCOUNT_REQUESTING })
+
+    yield put(replace('/card'))
   } catch (error) {
     if (error.response) {
       yield put({ type: LOGIN_ERROR, error: error.response.data.error })
