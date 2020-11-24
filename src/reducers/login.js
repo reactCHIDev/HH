@@ -46,11 +46,12 @@ const reducer = function loginReducer(state = initialState, action) {
       }
 
     case LOGIN_SUCCESS:
-      const { name, id } = action.payload
+      const { name, id, role } = action.payload
       return {
         ...state,
         profileName: name,
         id,
+        role,
         requesting: false,
         feed: action.response,
         authorized: true,

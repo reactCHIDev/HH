@@ -140,7 +140,7 @@ const Photo = (props) => {
 
   return (
     <div className={styles.container}>
-      <Heading category="About" name="3 - 8 photos of your work" />
+      <Heading category="About" name="2 - 8 photos of your work" />
       <div className="photo_container">
         <Upload
           // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -163,7 +163,7 @@ const Photo = (props) => {
       </p>
       <input
         className={styles.next}
-        disabled={defaultFileList.length < 3}
+        disabled={defaultFileList.length < 2}
         onClick={submit}
         type="button"
         value="Next  >"
