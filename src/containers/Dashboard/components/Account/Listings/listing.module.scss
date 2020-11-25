@@ -6,6 +6,10 @@
   @media screen and (max-width:1024px) {
     padding:20px 16px;
   }
+
+  @media screen and (max-width:376px) {
+    padding:20px 10px;
+  }
   .main {
     display: flex;
     justify-content: flex-start;
@@ -108,6 +112,7 @@
 
         @media screen and (max-width:768px) {
           display: block;
+          margin: 0 0 20px;
         }
 
         .tr{

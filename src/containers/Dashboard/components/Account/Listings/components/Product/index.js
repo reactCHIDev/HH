@@ -10,6 +10,8 @@ import styles from './product.module.scss'
 import './product.less'
 import cls from "classnames"
 
+// const [status_hidden, setHidden] = useState(false)
+
 const Product = ({ product }) => {
   const { coverPhoto, title, rating, status, quantity, available } = product
 
@@ -46,16 +48,20 @@ const Product = ({ product }) => {
           <Rate style={{ color: '#3C3E43' }} disabled defaultValue={rating} />
         </div>
       </div>     
-      <div className={styles.td}>
+      <div  className={cls(styles.td,styles.td_hidden)}>
         <div className={styles.status_option_container}>
-        <Option checked={status === 'PUBLISHED'} />
-      </div>
+          <Option checked={status === 'PUBLISHED'} />
+        </div>
       </div>
       <div className={styles.td}>
-        <span className={styles.stock}>{quantity}</span>
+        <span className={styles.stock}>
+          <span className={styles.mobile_hidden_text}>Stock:</span>
+          {quantity}
+        </span>
       </div>
       <div className={styles.td}>
         <span className={styles.preorder}>
+          <span className={styles.mobile_hidden_text}>Pre-order:</span>
           <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
         </span>
       </div>
