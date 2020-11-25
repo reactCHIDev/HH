@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import ChkBox from 'components/ChkBox'
+import { Pagination } from 'antd'
 import CollapsedBlock from 'components/CollapsedBlock'
-import ListContainer from 'components/ListContainer'
 import SortElement from 'components/SortElement'
 import { getProductTypes, getMyProductList } from 'actions/listing'
 import Header from './components/ListingHeader'
 import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
-import { map } from 'lodash'
+
+import cls from "classnames"
 
 const colors = [
   '#fff3f3',
@@ -25,8 +26,6 @@ const colors = [
 
 const sorts = [
   { title: 'Name', type: 'desc', width: '10%', id: 1 },
-  { title: '', type: 'desc', width: '27%', id: 1 },
-  { title: '', type: 'desc', width: '3%', id: 1 },
   { title: 'Rating', type: 'desc', width: '19%', id: 2 },
   { title: 'Status', type: 'desc', width: '19%', id: 3 },
   { title: 'Stock', type: 'desc', width: '10%', id: 4 },
@@ -45,6 +44,7 @@ const Listings = (props) => {
   const [filteredProducts, filterProducts] = useState(myProducts)
   const [searchSubstring, setSearchSubstring] = useState('')
   const [productsToShow, setProductsToShow] = useState(myProducts)
+  const [menu, setMenu] = useState(false)
 
   const pageSize = 3
 
@@ -188,8 +188,21 @@ const Listings = (props) => {
   return (
     <div className={styles.container}>
       <Header onSearch={onSearch} />
-      <div className={styles.main}>
+      <div className={cls(styles.main,menu ? styles.filter_active : " ")}>
+
+        <div className={styles.filter_item_list}>
+          <div>
+            <a href="#" onClick={()=>setMenu(!menu)} className={styles.filter_btn}>Filter</a>
+            <span className={styles.categories}>
+              Categories: <span className={styles.categories_item}>5 selected</span>
+            </span>
+          </div>
+          <a href="#">Clear</a>
+        </div>
         <div className={styles.filter_block}>
+          <a href="#" onClick={()=>setMenu(!menu)} className={styles.filter_btn}>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/860/860796.svg" alt="icon"/>
+          </a>
           {filters.length &&
             filters.map((el, i) => (
               <CollapsedBlock key={el.title} headerText={el.title} color={colors[i]}>
@@ -209,22 +222,30 @@ const Listings = (props) => {
         </div>
         {filteredProducts.length > 0 && (
           <div className={styles.listing}>
-            <div className={styles.sort_block}>
-              {sorts.map((e, i) => (
-                <div key={e.id + String(i)} style={{ width: e.width }}>
-                  <SortElement title={e.title} type={e.type} onClick={onSort} />{' '}
-                </div>
+            <div className={styles.product_table}>
+              <div className={styles.tr}>
+                {sorts.map((e, i) => (
+                  <div className={styles.th} key={e.id + String(i)}>
+                    <SortElement title={e.title} type={e.type} onClick={onSort} />{' '}
+                  </div>
+                ))}
+              </div>
+            
+              {filteredProducts
+                .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
+                .map((product) => (
+                  <Product key={product.id} product={product} />
               ))}
             </div>
-            <ListContainer page={page} pageChange={setPage} pageSize={pageSize} total={total}>
-              <>
-                {filteredProducts
-                  .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-                  .map((product) => (
-                    <Product key={product.id} product={product} />
-                  ))}
-              </>
-            </ListContainer>
+            <Pagination
+              defaultCurrent={page}
+              defaultPageSize={pageSize}
+              current={page}
+              onChange={setPage}
+              onShowSizeChange={null}
+              pageSizeOptions={null}
+              total={total}
+            />
           </div>
         )}
       </div>

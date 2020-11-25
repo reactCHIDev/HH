@@ -21,7 +21,7 @@ const ListContainer = (props) => {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       {children}
       {total > 0 && (
         <Pagination
@@ -34,7 +34,7 @@ const ListContainer = (props) => {
           total={total}
         />
       )}
-    </div>
+    </>
   )
 }
 

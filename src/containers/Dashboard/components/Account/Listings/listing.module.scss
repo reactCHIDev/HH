@@ -2,11 +2,92 @@
   display: flex;
   flex-direction: column;
   padding: 20px 50px;
+
+  @media screen and (max-width:1400px) {
+    padding:20px 16px;
+  }
+
+  @media screen and (max-width:376px) {
+    padding:20px 10px;
+  }
   .main {
     display: flex;
+    justify-content: flex-start;
+
+    @media screen and (max-width:1200px) {
+      flex-direction: column;
+    }
+
+    .filter_item_list{
+      width: 100%;
+      border-radius: 10px;
+      padding: 8px 16px;
+       margin: 0 0 10px; 
+      justify-content: space-between;
+      background:#FFF1E2;
+      font-size: 12px;
+      color: #838894;
+      transition: padding 0.3s;
+      display: none;
+
+      @media screen and (max-width:1200px) {
+        display: flex;
+      }
+      
+      a{
+        color:#5375CB;
+        border-bottom: 1px dotted #5375CB;
+      }
+
+      .filter_btn{
+        margin-right: 30px;
+        position: static;
+      }
+
+      .categories_item{
+        color: #000;
+        margin-left: 5px;
+      }
+    }
+
+    &.filter_active{
+      .filter_block {
+        left: 0;
+      }
+    }
+
+    .filter_btn{
+      display: none;
+
+      @media screen and (max-width:1200px) {
+        display: inline-block;
+        position: absolute;
+        right: 12px;
+        top: 7px;
+
+       img{
+         width: 16px;
+         height: 16px;
+       }
+      }
+    }
+
     .filter_block {
       width: 300px;
       margin-right: 30px;
+
+      @media screen and (max-width:1200px) {
+        position: fixed;
+        left: -300px;
+        bottom: 0;
+        transition: left 0.3s;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+        z-index: 2;
+        background: #fff;
+        padding: 30px 0 0;
+      }
+
       .panel_content {
         display: flex;
         flex-direction: column;
@@ -16,12 +97,56 @@
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+
       .sort_block {
         width: 100%;
         display: flex;
         padding-bottom: 5px;
         border-bottom: 1px solid lightgrey;
       }
+
+      .product_table{
+        width: 100%;
+        display: table;
+        margin: 0 0 40px;
+
+        @media screen and (max-width:768px) {
+          display: block;
+          margin: 0 0 20px;
+        }
+
+        .tr{
+
+          &:first-child{
+            display: table-header-group;
+
+            @media screen and (max-width:768px) {
+              display: none;
+            }
+          }
+
+          .th{
+            border-bottom: 1px solid #f4f4f4;
+            display: table-cell;
+            padding: 0 0 5px;
+
+            @media screen and (max-width:768px) {
+              display: block;
+              border-top: 1px solid #f4f4f4;
+            }
+          }
+
+          .td{
+            display: table-cell;
+            padding: 0 0 5px;
+
+            @media screen and (max-width:768px) {
+              display: block;
+            }
+          }
+        }
+      }
     }
   }
+
 }
