@@ -200,6 +200,9 @@ const Listings = (props) => {
           <a href="#">Clear</a>
         </div>
         <div className={styles.filter_block}>
+          <a href="#" onClick={()=>setMenu(!menu)} className={styles.filter_btn}>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/860/860796.svg" alt="icon"/>
+          </a>
           {filters.length &&
             filters.map((el, i) => (
               <CollapsedBlock key={el.title} headerText={el.title} color={colors[i]}>

@@ -8,6 +8,7 @@ import { Rate } from 'antd'
 import Option from '../Option'
 import styles from './product.module.scss'
 import './product.less'
+import cls from "classnames"
 
 const Product = ({ product }) => {
   const { coverPhoto, title, rating, status, quantity, available } = product
@@ -26,7 +27,13 @@ const Product = ({ product }) => {
                 alt="product"
               />
             </div>
-            <span className={styles.product_name}>{title}</span>
+            <div className={styles.product_option}>
+              <span className={styles.product_name}>{title}</span>
+              <div className={styles.status_option_container}>
+                <Option checked={status === 'PUBLISHED'} />
+              </div>
+            </div>
+            
           </div>
           
           <div className={styles.edit_btn_container}>
@@ -35,7 +42,7 @@ const Product = ({ product }) => {
         </div>
       </div>
       <div className={styles.td}>
-        <div className={styles.rating_container}>
+        <div className={cls(styles.rating_container,"rating")}>
           <Rate style={{ color: '#3C3E43' }} disabled defaultValue={rating} />
         </div>
       </div>     

@@ -20,11 +20,10 @@ const Header = (props) => {
         </div>
         <div className={styles.srch_block}>
           <Search onSearch={onSearch} />
-          <div className={styles.btn_wrapper}>
-            <Link to="/addproduct/0" style={{ color: 'grey' }}>
-              <Button title="ADD PRODUCT" />
-            </Link>
-          </div>
+          <Link to="/addproduct/0">
+            {/* <Button title="ADD PRODUCT" /> */}
+            ADD <span>PRODUCT</span>
+          </Link>
         </div>
       </div>
     </div>
