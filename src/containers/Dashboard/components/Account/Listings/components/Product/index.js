@@ -8,7 +8,7 @@ import { Rate } from 'antd'
 import Option from '../Option'
 import styles from './product.module.scss'
 import './product.less'
-import cls from "classnames"
+import cls from 'classnames'
 
 // const [status_hidden, setHidden] = useState(false)
 
@@ -21,13 +21,7 @@ const Product = ({ product }) => {
         <div className={styles.description}>
           <div className={styles.description_content}>
             <div className={styles.image_container}>
-              <img  
-                src={
-                  /* coverPhoto */
-                  'https://eda.ru/img/eda/c380x380i/s1.eda.ru/StaticContent/Photos/120131082242/170418161009/p_O.jpg'
-                }
-                alt="product"
-              />
+              <img src={coverPhoto} alt="product" />
             </div>
             <div className={styles.product_option}>
               <span className={styles.product_name}>{title}</span>
@@ -35,20 +29,19 @@ const Product = ({ product }) => {
                 <Option checked={status === 'PUBLISHED'} />
               </div>
             </div>
-            
           </div>
-          
+
           <div className={styles.edit_btn_container}>
             <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
           </div>
         </div>
       </div>
       <div className={styles.td}>
-        <div className={cls(styles.rating_container,"rating")}>
+        <div className={cls(styles.rating_container, 'rating')}>
           <Rate style={{ color: '#3C3E43' }} disabled defaultValue={rating} />
         </div>
-      </div>     
-      <div  className={cls(styles.td,styles.td_hidden)}>
+      </div>
+      <div className={cls(styles.td, styles.td_hidden)}>
         <div className={styles.status_option_container}>
           <Option checked={status === 'PUBLISHED'} />
         </div>
