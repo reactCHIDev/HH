@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 20px 50px;
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
+
+  .content {
+    flex-grow: 2;
+    margin-bottom: 50px;
+    @media (max-width: 900px) {
+      width: 100%;
+    }
+    .head {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 32px;
+      line-height: 42px;
+      letter-spacing: 0.3px;
+      color: #31394d;
+    }
+
+    .uploader {
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .photo_uploader {
+        width: 150px;
+        .progress_container {
+          padding-top: 5px;
+          height: 30px;
+        }
+      }
+      .change_photo {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 19px;
+        text-align: right;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #5375cb;
+        cursor: pointer;
+      }
+      .success {
+        position: absolute;
+        width: 198px;
+        height: 37px;
+        left: 0;
+        bottom: 0;
+        background: rgba(122, 211, 152, 0.1);
+        border-radius: 6px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 160%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        letter-spacing: 0.5px;
+        color: #7ad398;
+      }
+      .photo_btn {
+        .btn_container {
+          width: 160px;
+        }
+      }
+    }
+    .label {
+      display: block;
+      padding-bottom: 8px;
+      font-size: 12px;
+      color: #838894;
+    }
+    .profile_name {
+      width: 572px;
+      margin-bottom: 50px;
+      .user_data {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px 0;
+        .refer {
+          display: flex;
+          flex-direction: column;
+          width: 116px;
+        }
+        .first_name,
+        .last_name {
+          width: 198px;
+        }
+      }
+      .about {
+        margin-bottom: 32px;
+      }
+      .service_tags {
+      }
+    }
+    .profile_url {
+      width: 572px;
+      margin-bottom: 50px;
+    }
+  }
+}

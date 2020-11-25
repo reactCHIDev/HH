@@ -20,6 +20,8 @@ export default {
   updateSettings: '/v1/account/update_settings',
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',
+  updateFoodmakerAccount: '/v1/account/update_foodmaker',
+  getSpecialityTags: '/v1/tag/speciality_tag',
 
   // Listing
   getProductTypes: '/v1/product/list_types',
