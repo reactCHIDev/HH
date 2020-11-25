@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import ChkBox from 'components/ChkBox'
-import { Pagination } from 'antd'
 import CollapsedBlock from 'components/CollapsedBlock'
 import SortElement from 'components/SortElement'
 import { getProductTypes, getMyProductList } from 'actions/listing'
@@ -11,7 +10,7 @@ import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
 
-import cls from "classnames"
+import cls from 'classnames'
 
 const colors = [
   '#fff3f3',
@@ -35,23 +34,16 @@ const sorts = [
 const Listings = (props) => {
   const { types, myProducts = [], getProductTypes, getMyProductList } = props
 
-  const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
   const [filters, setFilters] = useState(types)
   const [productTypes, setProductTypes] = useState([])
   const [ids, setIds] = useState([])
   const [sort, setSort] = useState(sorts)
   const [filteredProducts, filterProducts] = useState(myProducts)
   const [searchSubstring, setSearchSubstring] = useState('')
-  const [productsToShow, setProductsToShow] = useState(myProducts)
   const [menu, setMenu] = useState(false)
 
-  const pageSize = 3
-
-  console.log('productTypes', productTypes)
-  console.log('filters', filters)
-
   const resetFilters = () => {
+    setIds([])
     setFilters(
       productTypes.map((type) => {
         type.productCategories = type.productCategories.map((category) => {
@@ -85,15 +77,10 @@ const Listings = (props) => {
   useEffect(() => {
     filterProducts(
       myProducts
-        .filter((p) => ids.includes(String(p.productCategoryId)))
+        .filter((p) => (ids.length ? ids.includes(String(p.productCategoryId)) : true))
         .filter((p) => p.title.toLowerCase().includes(searchSubstring)),
     )
   }, [filters])
-
-  useEffect(() => {
-    setTotal(filteredProducts.length)
-    setPage(1)
-  }, [filteredProducts])
 
   useEffect(() => {
     if (productTypes.length > 0) {
@@ -130,18 +117,11 @@ const Listings = (props) => {
     } else {
       tmp[index].type = 'asc'
     }
+
     const filtered = filteredProducts.sort((a, b) => {
-      if (
-        tmp[index].type === 'desc' &&
-        String(a[keyForSort[clickedSort]]).toLowerCase() <
-          String(b[keyForSort[clickedSort]]).toLowerCase()
-      )
+      if (tmp[index].type === 'desc' && a[keyForSort[clickedSort]] < b[keyForSort[clickedSort]])
         return 1
-      if (
-        tmp[index].type === 'asc' &&
-        String(a[keyForSort[clickedSort]]).toLowerCase() >=
-          String(b[keyForSort[clickedSort]]).toLowerCase()
-      )
+      if (tmp[index].type === 'asc' && a[keyForSort[clickedSort]] >= b[keyForSort[clickedSort]])
         return 1
       return -1
     })
@@ -188,20 +168,23 @@ const Listings = (props) => {
   return (
     <div className={styles.container}>
       <Header onSearch={onSearch} />
-      <div className={cls(styles.main,menu ? styles.filter_active : " ")}>
-
+      <div className={cls(styles.main, menu ? styles.filter_active : ' ')}>
         <div className={styles.filter_item_list}>
           <div>
-            <a href="#" onClick={()=>setMenu(!menu)} className={styles.filter_btn}>Filter</a>
+            <a href="#" onClick={() => setMenu(!menu)} className={styles.filter_btn}>
+              Filter
+            </a>
             <span className={styles.categories}>
-              Categories: <span className={styles.categories_item}>5 selected</span>
+              Categories: <span className={styles.categories_item}>{`${ids.length} selected`}</span>
             </span>
           </div>
-          <a href="#">Clear</a>
+          <a href="#" onClick={resetFilters}>
+            Clear
+          </a>
         </div>
         <div className={styles.filter_block}>
-          <a href="#" onClick={()=>setMenu(!menu)} className={styles.filter_btn}>
-            <img src="https://www.flaticon.com/svg/static/icons/svg/860/860796.svg" alt="icon"/>
+          <a href="#" onClick={() => setMenu(!menu)} className={styles.filter_btn}>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/860/860796.svg" alt="icon" />
           </a>
           {filters.length &&
             filters.map((el, i) => (
@@ -230,22 +213,11 @@ const Listings = (props) => {
                   </div>
                 ))}
               </div>
-            
-              {filteredProducts
-                .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-                .map((product) => (
-                  <Product key={product.id} product={product} />
+
+              {filteredProducts.map((product) => (
+                <Product key={product.id} product={product} />
               ))}
             </div>
-            <Pagination
-              defaultCurrent={page}
-              defaultPageSize={pageSize}
-              current={page}
-              onChange={setPage}
-              onShowSizeChange={null}
-              pageSizeOptions={null}
-              total={total}
-            />
           </div>
         )}
       </div>
