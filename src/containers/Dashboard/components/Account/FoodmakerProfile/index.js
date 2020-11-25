@@ -79,8 +79,8 @@ const FoodmakerProfile = (props) => {
     setSelectedLangs(selectedLngs)
   }
 
-  const filteredTags = tags.filter((o) => !selectedItems.includes(o.id))
-  const filteredLangs = langs.filter((o) => !selectedLangs.includes(o.id))
+  const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
+  const filteredLangs = langs.filter((o) => !selectedLangs.includes(o.tagName))
 
   const { Option } = Select
 
