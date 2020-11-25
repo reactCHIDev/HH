@@ -2,16 +2,16 @@
   display: flex;
   align-items: center;
   padding: 20px 50px;
-  @media (max-width: 900px) {
-    flex-direction: column;
+  @media (max-width: 768px) {
+    padding: 18px;
   }
 
   .content {
-    flex-grow: 2;
     margin-bottom: 50px;
+    width: 100%;
     @media (max-width: 900px) {
-      width: 100%;
     }
+
     .head {
       font-style: normal;
       font-weight: normal;
@@ -22,11 +22,13 @@
     }
 
     .uploader {
+      width: 100%;
       position: relative;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
+      margin-bottom: 40px;
       .photo_uploader {
         width: 150px;
         .progress_container {
@@ -69,38 +71,69 @@
         }
       }
     }
-    .label {
-      display: block;
-      padding-bottom: 8px;
-      font-size: 12px;
-      color: #838894;
-    }
-    .profile_name {
-      width: 572px;
-      margin-bottom: 50px;
-      .user_data {
-        display: flex;
-        justify-content: space-between;
-        padding: 30px 0;
-        .refer {
+
+    .data_section {
+      display: flex;
+      justify-content: space-between;
+      @media (max-width: 1024px) {
+        flex-direction: column;
+      }
+
+      .label {
+        display: block;
+        padding-bottom: 8px;
+        font-size: 12px;
+        color: #838894;
+      }
+
+      .profile_section {
+        width: 45%;
+        margin-bottom: 50px;
+        @media (max-width: 1024px) {
+          width: 100%;
+        }
+
+        .user_data {
           display: flex;
-          flex-direction: column;
-          width: 116px;
+          justify-content: flex-start;
+          padding: 30px 0;
+          @media (max-width: 768px) {
+            flex-direction: column;
+          }
+          .refer {
+            display: flex;
+            flex-direction: column;
+            width: 116px;
+            margin-right: 32px;
+          }
+          .first_name,
+          .last_name {
+            width: 198px;
+          }
+          .first_name {
+            margin-right: 32px;
+          }
         }
-        .first_name,
-        .last_name {
-          width: 198px;
+        .about {
+          margin-bottom: 32px;
+        }
+        .service_tags {
         }
       }
-      .about {
-        margin-bottom: 32px;
+      .profile_url {
+        padding: 30px 0;
       }
-      .service_tags {
+      .gallery_section {
+        width: 45%;
+        margin-bottom: 50px;
+        @media (max-width: 1024px) {
+          width: 100%;
+        }
+
+        .gallery_container {
+          margin-bottom: 14px;
+        }
       }
-    }
-    .profile_url {
-      width: 572px;
-      margin-bottom: 50px;
     }
   }
 }
