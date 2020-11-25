@@ -24,7 +24,7 @@ const Create = ({ onSubmit }) => {
         <div className={styles.input_wrapper}>
           <input
             name="password"
-            placeholder="Letters, numbers, length 8"
+            placeholder="8 characters, 1 letter and 1 number"
             type={type}
             ref={register({
               required: true,
@@ -47,7 +47,7 @@ const Create = ({ onSubmit }) => {
 
         <input
           name="confirm"
-          placeholder="confirm"
+          placeholder="Confirm password"
           type={type}
           ref={register({
             required: true,

@@ -247,12 +247,12 @@ const Header = (props) => {
 
 Header.propTypes = {
   authorized: T.bool.isRequired,
-  id: T.number.isRequired,
-  role: T.string.isRequired,
+  id: T.string,
+  role: T.string,
   pathname: T.string.isRequired,
   logOut: T.func.isRequired,
   pushRoute: T.func.isRequired,
-  userPhoto: T.string.isRequired,
+  userPhoto: T.string,
   getUserAccount: T.func.isRequired,
 }
 

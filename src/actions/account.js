@@ -8,10 +8,16 @@ import {
   UPDATE_PHOTO_NAME_REQUESTING,
   UPDATE_PHOTO_NAME_SUCCESS,
   UPDATE_PHOTO_NAME_ERROR,
+  UPDATE_FOODMAKER_ACCOUNT_REQUESTING,
+  UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
+  UPDATE_FOODMAKER_ACCOUNT_ERROR,
   RESET_CONFIRMATION,
   EMAIL_CONFIRM,
   EMAIL_CONFIRM_SUCCESS,
   EMAIL_CONFIRM_ERROR,
+  GET_SPECIALITY_TAGS_REQUESTING,
+  GET_SPECIALITY_TAGS_SUCCESS,
+  GET_SPECIALITY_TAGS_ERROR,
 } from './constants'
 
 export const getUserAccount = (id) => ({
@@ -19,8 +25,9 @@ export const getUserAccount = (id) => ({
   id,
 })
 
-export const getUserAccountSuccess = () => ({
+export const getUserAccountSuccess = (payload) => ({
   type: GET_USER_ACCOUNT_SUCCESS,
+  payload,
 })
 
 export const getUserAccountError = (payload) => ({
@@ -58,6 +65,21 @@ export const updatePhotoNameErrorAC = (payload) => ({
   payload,
 })
 
+export const updateFoodmakerAccountAC = (data) => ({
+  type: UPDATE_FOODMAKER_ACCOUNT_REQUESTING,
+  payload: data,
+})
+
+export const updateFoodmakerAccountSuccessAC = (payload) => ({
+  type: UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
+  payload,
+})
+
+export const updateFoodmakerAccountErrorAC = (payload) => ({
+  type: UPDATE_FOODMAKER_ACCOUNT_ERROR,
+  payload,
+})
+
 export const resetConfirmation = () => ({
   type: RESET_CONFIRMATION,
 })
@@ -74,5 +96,19 @@ export const emailConfirmSuccess = (data) => ({
 
 export const emailConfirmFailed = (payload) => ({
   type: EMAIL_CONFIRM_ERROR,
+  payload,
+})
+
+export const getSpecialityTagsAC = () => ({
+  type: GET_SPECIALITY_TAGS_REQUESTING,
+})
+
+export const getSpecialityTagsSuccessAC = (payload) => ({
+  type: GET_SPECIALITY_TAGS_SUCCESS,
+  payload,
+})
+
+export const getSpecialityTagsErrorAC = (payload) => ({
+  type: GET_SPECIALITY_TAGS_ERROR,
   payload,
 })

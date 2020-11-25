@@ -8,6 +8,8 @@ import {
   getUserAccount,
   confirmEmailUpdate,
   updatePhotoName,
+  updateFoodmakerAccount,
+  getSpecialityTags,
 } from 'api/requests/Account'
 
 import { getItem } from '../utils/localStorage'
@@ -21,9 +23,15 @@ import {
   UPDATE_PHOTO_NAME_REQUESTING,
   UPDATE_PHOTO_NAME_SUCCESS,
   UPDATE_PHOTO_NAME_ERROR,
+  UPDATE_FOODMAKER_ACCOUNT_REQUESTING,
+  UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
+  UPDATE_FOODMAKER_ACCOUNT_ERROR,
   EMAIL_CONFIRM_SUCCESS,
   EMAIL_CONFIRM_ERROR,
   EMAIL_CONFIRM,
+  GET_SPECIALITY_TAGS_REQUESTING,
+  GET_SPECIALITY_TAGS_SUCCESS,
+  GET_SPECIALITY_TAGS_ERROR,
 } from '../actions/constants'
 
 function* getUserAccountSaga() {
@@ -71,6 +79,19 @@ function* changePhotoName({ payload }) {
   }
 }
 
+function* changeFoodmakerAccount({ payload }) {
+  try {
+    const response = yield updateFoodmakerAccount(payload)
+    yield put({ type: UPDATE_FOODMAKER_ACCOUNT_SUCCESS, payload: { data: response.data } })
+    yield delay(3000)
+    yield put({ type: 'RESET_SUCCESS' })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: UPDATE_FOODMAKER_ACCOUNT_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* changeEmailConfirm({ payload }) {
   try {
     const response = yield confirmEmailUpdate(payload)
@@ -83,11 +104,24 @@ function* changeEmailConfirm({ payload }) {
   }
 }
 
+function* getSpecialityTagsSaga() {
+  try {
+    const response = yield getSpecialityTags()
+    yield put({ type: GET_SPECIALITY_TAGS_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_SPECIALITY_TAGS_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(GET_USER_ACCOUNT_REQUESTING, getUserAccountSaga)
   yield takeEvery(UPDATE_ACCOUNT_REQUESTING, updateUserAccount)
   yield takeEvery(EMAIL_CONFIRM, changeEmailConfirm)
   yield takeEvery(UPDATE_PHOTO_NAME_REQUESTING, changePhotoName)
+  yield takeEvery(UPDATE_FOODMAKER_ACCOUNT_REQUESTING, changeFoodmakerAccount)
+  yield takeEvery(GET_SPECIALITY_TAGS_REQUESTING, getSpecialityTagsSaga)
 }
 
 export default accountWatcher
