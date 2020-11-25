@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getUserAccount, updateFoodmakerAccountAC } from 'actions/account'
 import { Upload, Modal, Progress } from 'antd'
+import QR from 'qrcode'
+
 import ImgCrop from 'antd-img-crop'
 import Button from 'components/Button'
 import { Input, Select, InputNumber, Checkbox } from 'antd'
@@ -42,6 +44,18 @@ const FoodmakerProfile = (props) => {
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedLangs, setSelectedLangs] = useState([])
 
+  const [hhUrl, setHHUrl] = useState('test')
+  const [qrImgSource, setQrImgSource] = useState(null)
+
+  const generateQR = async (text) => {
+    try {
+      const qr = await QR.toDataURL(text)
+      setQrImgSource(qr)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   const tags = [
     { id: 1, tagName: 'Drink' },
     { id: 2, tagName: 'Salad' },
@@ -80,6 +94,10 @@ const FoodmakerProfile = (props) => {
     const id = getItem('user-id')
     if (id) getUserAccount(id)
   }, [])
+
+  useEffect(() => {
+    generateQR(hhUrl)
+  }, [hhUrl])
 
   useEffect(() => {
     if (success) {
@@ -160,8 +178,6 @@ const FoodmakerProfile = (props) => {
       Accept: 'application/json',
       type: 'formData',
       'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
-      // Authorization:
-      // 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsQGJpZ2RpZy5jb20udWEiLCJwcm9maWxlTmFtZSI6IkFsZXhGTSIsInJvbGUiOiJGT09ETUFLRVIiLCJpYXQiOjE2MDUyNzU5Nzh9.QluuzPvYk3e4g_mMFD-mVvnWJknyl1OIxz3fAwuemzc',
     }
     try {
       const res = await axios.post(
@@ -182,8 +198,6 @@ const FoodmakerProfile = (props) => {
       avatar ? setUrl(res.data) : setGalleryUrl(res.data)
     } catch (error) {
       console.log('error', error)
-      // addFileList(defaultFileList.slice(0, -1))
-      // throw new Error(`ERROR`)
     }
   }
 
@@ -299,6 +313,18 @@ const FoodmakerProfile = (props) => {
                   </label>
                   <Input onChange={onChangeUrl} value={url} />
                 </div>
+
+                <div className={styles.qr}>
+                  <a className={styles.qr_wrapper} href={qrImgSource} download="qr.png">
+                    <img className={styles.qr_img} src={qrImgSource} alt="qr" />
+                  </a>
+                  <div className={styles.qr_link}>
+                    <div className={styles.link_title}>Your qr-code</div>
+                    <a className={styles.link_link} href={qrImgSource} download="qr.png">
+                      Download
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -307,8 +333,6 @@ const FoodmakerProfile = (props) => {
 
               <div className="photo_container">
                 <Upload
-                  // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  // action="https://hungryhugger.wildwebart.com/api/v1/file/upload/photo"
                   customRequest={sendFile}
                   listType="picture-card"
                   fileList={galleryFileList}
@@ -330,7 +354,7 @@ const FoodmakerProfile = (props) => {
             </div>
             <p className={styles.sec1}>Languages you speak</p>
 
-            <div className={styles.service_tags}>
+            <div className={styles.lang_tags}>
               <Select
                 mode="multiple"
                 value={selectedLangs}
