@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-import { getUserAccount, updateFoodmakerAccountAC } from 'actions/account'
+import { getUserAccount, updateAccount } from 'actions/account'
+import { updateFoodmakerAccountAC } from 'actions/foodmaker'
+import { getSpecialityTagsAC } from 'actions/system'
 import { Upload, Modal, Progress } from 'antd'
 import QR from 'qrcode'
 
 import ImgCrop from 'antd-img-crop'
-import Button from 'components/Button'
-import { Input, Select, InputNumber, Checkbox } from 'antd'
+import Btn from 'components/Button'
+import { Input, Select, Button, Form } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
-import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import { connect } from 'react-redux'
 import { getItem } from 'utils/localStorage'
 import axios from 'axios'
@@ -26,8 +27,14 @@ function getBase64(file) {
 }
 
 const FoodmakerProfile = (props) => {
-  const { account, getUserAccount, updateFoodmakerAccountAC } = props
-  const { success } = account
+  const {
+    account,
+    specialityTags,
+    getUserAccount,
+    updateFoodmakerAccountAC,
+    getSpecialityTagsAC,
+  } = props
+  const { id, success } = account
 
   const [defaultFileList, setFileList] = useState([])
   const [url, setUrl] = useState('')
@@ -39,13 +46,14 @@ const FoodmakerProfile = (props) => {
   const [previewTitle, setPreviewTitle] = useState('')
 
   const [progress, setProgress] = useState(0)
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+
+  const [tags, setTags] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedLangs, setSelectedLangs] = useState([])
 
-  const [hhUrl, setHHUrl] = useState('test')
   const [qrImgSource, setQrImgSource] = useState(null)
+
+  const [hungryHuggerLink, setSiteValue] = useState('www.hungryhugger.com/')
 
   const generateQR = async (text) => {
     try {
@@ -56,7 +64,8 @@ const FoodmakerProfile = (props) => {
     }
   }
 
-  const tags = [
+  console.log('%c   specialityTags   ', 'color: white; background: royalblue;', specialityTags)
+  const ttags = [
     { id: 1, tagName: 'Drink' },
     { id: 2, tagName: 'Salad' },
     { id: 3, tagName: 'Bread' },
@@ -79,7 +88,13 @@ const FoodmakerProfile = (props) => {
     setSelectedLangs(selectedLngs)
   }
 
-  const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
+  const normalizeTagsForSubmit = (value, allTags) =>
+    value.map((t) => allTags.find((e) => e.tagName === t).id)
+
+  const normalizeTagsForRender = (value, allTags) =>
+    value.map((t) => allTags.find((e) => e.id === t).tagName)
+
+  const filteredTags = tags.length ? tags.filter((o) => !selectedItems.includes(o.tagName)) : []
   const filteredLangs = langs.filter((o) => !selectedLangs.includes(o.tagName))
 
   const { Option } = Select
@@ -91,17 +106,34 @@ const FoodmakerProfile = (props) => {
   ]
 
   useEffect(() => {
-    const id = getItem('user-id')
     if (id) getUserAccount(id)
+    getSpecialityTagsAC()
   }, [])
 
   useEffect(() => {
-    generateQR(hhUrl)
-  }, [hhUrl])
+    if (account.hungryHuggerLink)
+      setSiteValue(
+        account.hungryHuggerLink.replace(
+          'https://hungryhugger.wildwebart.com/',
+          'www.hungryhugger.com/',
+        ),
+      )
+    setSelectedLangs(normalizeTagsForRender([1, 3], langs))
+  }, [account])
+
+  useEffect(() => {
+    if (specialityTags && specialityTags.length) {
+      setTags(specialityTags)
+      setSelectedItems(normalizeTagsForRender([1, 3, 5], specialityTags))
+    }
+  }, [specialityTags])
+
+  useEffect(() => {
+    generateQR(hungryHuggerLink)
+  }, [hungryHuggerLink])
 
   useEffect(() => {
     if (success) {
-      const id = getItem('user-id')
       if (id) getUserAccount(id)
     }
   }, [success])
@@ -201,17 +233,35 @@ const FoodmakerProfile = (props) => {
     }
   }
 
-  const onChangeName = (e) => setFirstName(e.target.value)
-  const onChangeLastName = (e) => setLastName(e.target.value)
-  const onChangeUrl = (e) => {} // setUrl(e.target.value)
+  const fixedText = 'www.hungryhugger.com/'
 
-  const onSubmit = () => {
-    const payload = {}
-    // if (name !== account.profileName) payload.profileName = name
-    if (defaultFileList.length) payload.userPhoto = defaultFileList[0].url
+  const onChangeHHLink = (e) => {
+    const { value } = e.target
+    if (value.substring(0, fixedText.length) === fixedText) setSiteValue(value)
+  }
 
-    console.log('%c   SUBMIT   ', 'color: white; background: royalblue;', payload)
-    // updateFoodmakerAccountAC(payload)
+  const onSubmit = (formValues) => {
+    const userPhoto = defaultFileList.length ? defaultFileList[0].url : ''
+    const coverPhoto = galleryFileList.length ? galleryFileList[0].url : ''
+    const otherPhotos = galleryFileList.length > 1 ? galleryFileList.slice(1).map((f) => f.url) : []
+    const specialityTagIds = normalizeTagsForSubmit(selectedItems, tags)
+    const languages = selectedLangs
+
+    const payload = {
+      ...formValues,
+      specialityTagIds,
+      coverPhoto,
+      otherPhotos,
+      userPhoto,
+      hungryHuggerLink,
+      languages,
+    }
+
+    Object.keys(payload).forEach((f) => {
+      if (!payload[f] || payload[f].length === 0) delete payload[f]
+    })
+
+    updateFoodmakerAccountAC(payload)
   }
 
   const uploadButton = (
@@ -221,169 +271,203 @@ const FoodmakerProfile = (props) => {
     </div>
   )
 
+  const { reffering, firstName, lastName, about } = account
+
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
-        <p className={styles.head}>Foodmaker Profile</p>
+      {account.firstName && (
+        <div className={styles.content}>
+          <p className={styles.head}>Foodmaker Profile</p>
 
-        <div id="uploader_fm" className={styles.uploader}>
-          {success && <div className={styles.success}>Saved successfully</div>}
-          {defaultFileList && (
-            <div className={styles.photo_uploader}>
-              <ImgCrop rotate>
-                <Upload
-                  // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  customRequest={(options) => sendFile(options, true)}
-                  listType="picture-card"
-                  fileList={defaultFileList}
-                  onChange={(options) => onChange(options, true)}
-                  onPreview={onPreview}
-                >
-                  {defaultFileList.length < 1 && '+ Upload'}
-                </Upload>
-              </ImgCrop>
-              <div className={styles.progress_container}>
-                {progress > 0 ? <Progress percent={progress} /> : null}
-              </div>
-            </div>
-          )}
-          <div className={styles.photo_btn}>
-            <p>Avatar</p>
-            <div className={styles.btn_container}>
-              <Button title="UPLOAD PHOTO" onClick={onSubmit} />
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.data_section}>
-          <div className={styles.profile_section}>
-            <p className={styles.sec1}>Profile name</p>
-
-            <div className={styles.user_data}>
-              <div className={styles.refer}>
-                <label className={styles.label}>Ms/Mss/Mr</label>
-                <Select onChange={() => {}}>
-                  {discnt.map((n) => (
-                    <Option key={n.value} value={n.value}>
-                      {n.title}
-                    </Option>
-                  ))}
-                </Select>
-              </div>
-              <div className={styles.first_name}>
-                <label className={styles.label}>First name</label>
-                <Input onChange={onChangeName} value={firstName} />
-              </div>
-              <div className={styles.last_name}>
-                <label className={styles.label}>Last name</label>
-                <Input onChange={onChangeLastName} value={lastName} />
-              </div>
-            </div>
-            <p className={styles.sec1}>About you</p>
-
-            <div className={styles.about}>
-              <Input.TextArea rows={4} />
-            </div>
-            <p className={styles.sec1}>Tags (Up to 5 tags for your speciality and services)</p>
-
-            <div className={styles.service_tags}>
-              <Select
-                mode="multiple"
-                value={selectedItems}
-                onChange={handleChangeTags}
-                showArrow
-                style={{ width: '100%' }}
-              >
-                {filteredTags.map((item) => (
-                  <Select.Option key={item.id} value={item.tagName}>
-                    {item.tagName}
-                  </Select.Option>
-                ))}
-              </Select>
-            </div>
-          </div>
-
-          <div className={styles.gallery_section}>
-            <p className={styles.sec2}>Profile url</p>
-            <div className={styles.profile_url}>
-              <div className={styles.profile_data}>
-                <div className={styles.url_name}>
-                  <label className={styles.label}>
-                    Try to make the link to your profile memorable
-                  </label>
-                  <Input onChange={onChangeUrl} value={url} />
+          <div id="uploader_fm" className={styles.uploader}>
+            {defaultFileList && (
+              <div className={styles.photo_uploader}>
+                <ImgCrop rotate>
+                  <Upload
+                    customRequest={(options) => sendFile(options, true)}
+                    listType="picture-card"
+                    fileList={defaultFileList}
+                    onChange={(options) => onChange(options, true)}
+                    onPreview={onPreview}
+                  >
+                    {defaultFileList.length < 1 && '+ Upload'}
+                  </Upload>
+                </ImgCrop>
+                <div className={styles.progress_container}>
+                  {progress > 0 ? <Progress percent={progress} /> : null}
                 </div>
+              </div>
+            )}
+            <div className={styles.photo_btn}>
+              <p>Avatar</p>
+              <div className={styles.btn_container}>
+                <Btn title="UPLOAD PHOTO" onClick={onSubmit} />
+              </div>
+            </div>
+          </div>
 
-                <div className={styles.qr}>
-                  <a className={styles.qr_wrapper} href={qrImgSource} download="qr.png">
-                    <img className={styles.qr_img} src={qrImgSource} alt="qr" />
-                  </a>
-                  <div className={styles.qr_link}>
-                    <div className={styles.link_title}>Your qr-code</div>
-                    <a className={styles.link_link} href={qrImgSource} download="qr.png">
-                      Download
-                    </a>
+          <Form
+            layout="vertical"
+            name="fmProfile"
+            onFinish={onSubmit}
+            initialValues={{ reffering, firstName: firstName, lastName, about }}
+            scrollToFirstError
+          >
+            <div className={styles.data_section}>
+              <div className={styles.profile_section}>
+                <p className={styles.sec1}>Profile name</p>
+
+                <div className={styles.user_data}>
+                  <div className={styles.refer}>
+                    <label className={styles.label}>Ms/Mss/Mr</label>
+                    <Form.Item name="reffering">
+                      <Select onChange={() => {}}>
+                        {discnt.map((n) => (
+                          <Option key={n.value} value={n.value}>
+                            {n.title}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
+                  <div className={styles.first_name}>
+                    <label className={styles.label}>First name</label>
+                    <Form.Item name="firstName">
+                      <Input />
+                    </Form.Item>
+                  </div>
+
+                  <div className={styles.last_name}>
+                    <label className={styles.label}>Last name</label>
+                    <Form.Item name="lastName">
+                      <Input />
+                    </Form.Item>
                   </div>
                 </div>
+
+                <p className={styles.sec1}>About you</p>
+                <div className={styles.about}>
+                  <Form.Item name="about">
+                    <Input.TextArea rows={4} />
+                  </Form.Item>
+                </div>
+
+                <p className={styles.sec1}>Tags (Up to 5 tags for your speciality and services)</p>
+                <div className={styles.service_tags}>
+                  <Select
+                    mode="multiple"
+                    value={selectedItems}
+                    onChange={handleChangeTags}
+                    showArrow
+                    style={{ width: '100%' }}
+                  >
+                    {filteredTags.map((item) => (
+                      <Select.Option key={item.id} value={item.tagName}>
+                        {item.tagName}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </div>
+              </div>
+
+              <div className={styles.gallery_section}>
+                <p className={styles.sec2}>Profile url</p>
+                <div className={styles.profile_url}>
+                  <div className={styles.profile_data}>
+                    <div className={styles.url_name}>
+                      <label className={styles.label}>
+                        Try to make the link to your profile memorable
+                      </label>
+                      <Input onChange={onChangeHHLink} value={hungryHuggerLink} />
+                    </div>
+
+                    {hungryHuggerLink && (
+                      <div className={styles.qr}>
+                        <a className={styles.qr_wrapper} href={qrImgSource} download="qr.png">
+                          <img className={styles.qr_img} src={qrImgSource} alt="qr" />
+                        </a>
+                        <div className={styles.qr_link}>
+                          <div className={styles.link_title}>Your qr-code</div>
+                          <a className={styles.link_link} href={qrImgSource} download="qr.png">
+                            Download
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className={styles.gallery_container}>
+                  <p className={styles.sec1}>Gallery</p>
+
+                  <div className="photo_container">
+                    <Upload
+                      customRequest={sendFile}
+                      listType="picture-card"
+                      fileList={galleryFileList}
+                      onPreview={handlePreview}
+                      onChange={onChange}
+                    >
+                      {defaultFileList.length >= 8 || progress > 0 ? null : uploadButton}
+                    </Upload>
+                    <Modal
+                      visible={previewVisible}
+                      title={previewTitle}
+                      footer={null}
+                      onCancel={handleCancel}
+                    >
+                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                    </Modal>
+                    {progress > 0 ? (
+                      <Progress percent={progress} />
+                    ) : (
+                      <div style={{ height: 20 }} />
+                    )}
+                  </div>
+                </div>
+                <p className={styles.sec1}>Languages you speak</p>
+
+                <div className={styles.lang_tags}>
+                  <Select
+                    mode="multiple"
+                    value={selectedLangs}
+                    onChange={handleChangeLangs}
+                    showArrow
+                    style={{ width: '100%' }}
+                  >
+                    {filteredLangs.map((item) => (
+                      <Select.Option key={item.id} value={item.tagName}>
+                        {item.tagName}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </div>
               </div>
             </div>
-
-            <div className={styles.gallery_container}>
-              <p className={styles.sec1}>Gallery</p>
-
-              <div className="photo_container">
-                <Upload
-                  customRequest={sendFile}
-                  listType="picture-card"
-                  fileList={galleryFileList}
-                  onPreview={handlePreview}
-                  onChange={onChange}
-                >
-                  {defaultFileList.length >= 8 || progress > 0 ? null : uploadButton}
-                </Upload>
-                <Modal
-                  visible={previewVisible}
-                  title={previewTitle}
-                  footer={null}
-                  onCancel={handleCancel}
-                >
-                  <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                </Modal>
-                {progress > 0 ? <Progress percent={progress} /> : <div style={{ height: 20 }} />}
-              </div>
-            </div>
-            <p className={styles.sec1}>Languages you speak</p>
-
-            <div className={styles.lang_tags}>
-              <Select
-                mode="multiple"
-                value={selectedLangs}
-                onChange={handleChangeLangs}
-                showArrow
-                style={{ width: '100%' }}
-              >
-                {filteredLangs.map((item) => (
-                  <Select.Option key={item.id} value={item.tagName}>
-                    {item.tagName}
-                  </Select.Option>
-                ))}
-              </Select>
-            </div>
-          </div>
+            <Form.Item>
+              <Button type="primary" size="large" htmlType="submit">
+                APPLY
+              </Button>
+            </Form.Item>
+            {success && <div className={styles.success}>Saved successfully</div>}
+          </Form>
         </div>
-      </div>
+      )}
     </div>
   )
 }
 
 FoodmakerProfile.propTypes = {
-  profileName: T.string,
   getUserAccount: T.func,
   updateFoodmakerAccountAC: T.func,
+  getSpecialityTagsAC: T.func,
   account: T.shape(),
+  specialityTags: T.arrayOf(T.shape()),
 }
 
-export default connect(({ account }) => ({ account }), {
+export default connect(({ account, system: { specialityTags } }) => ({ account, specialityTags }), {
   getUserAccount,
   updateFoodmakerAccountAC,
+  getSpecialityTagsAC,
 })(FoodmakerProfile)
