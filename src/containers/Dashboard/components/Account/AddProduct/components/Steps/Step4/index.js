@@ -85,11 +85,7 @@ const Step4 = ({ create, pushRoute, tags }) => {
     { id: 5, tagName: 'Pasta' },
   ]
 
-  const normalizeTags = (value) => {
-    const v = value.map((t) => tags.find((e) => e.tagName === t).id)
-    console.log('v', v)
-    return v
-  }
+  const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
   const COUNTRIES = ['China', 'Malaysia', 'Japan', 'Vietnam']
 

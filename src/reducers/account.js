@@ -12,9 +12,6 @@ import {
   UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
   UPDATE_FOODMAKER_ACCOUNT_ERROR,
   RESET_CONFIRMATION,
-  GET_SPECIALITY_TAGS_REQUESTING,
-  GET_SPECIALITY_TAGS_SUCCESS,
-  GET_SPECIALITY_TAGS_ERROR,
 } from '../actions/constants'
 
 const isLogin = !!JSON.parse(localStorage.getItem('authorization-token'))
@@ -121,7 +118,7 @@ const reducer = function accountReducer(state = initialState, action) {
         error: action.error,
       }
 
-    case 'RESET_SUCCESS':
+    case 'RESET_ACCOUNT_SUCCESS':
       return {
         ...state,
         success: false,
@@ -141,27 +138,6 @@ const reducer = function accountReducer(state = initialState, action) {
         error: action.error,
       }
 
-    case GET_SPECIALITY_TAGS_REQUESTING:
-      return {
-        ...state,
-        requesting: true,
-        error: '',
-      }
-
-    case GET_SPECIALITY_TAGS_SUCCESS:
-      return {
-        ...state,
-        ...action.data,
-        requesting: false,
-        error: '',
-      }
-
-    case GET_SPECIALITY_TAGS_ERROR:
-      return {
-        ...state,
-        requesting: false,
-        error: action.error,
-      }
     default:
       return state
   }
