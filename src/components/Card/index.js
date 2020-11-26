@@ -7,6 +7,9 @@ const Card = () => {
   const history = useHistory()
   return (
     <div className={styles.bg}>
+      <Link to="/shop_profile" style={{ color: 'grey' }}>
+        Shop Profile
+      </Link>
       <Link to="/foodmaker_profile" style={{ color: 'grey' }}>
         Foodmaker Profile
       </Link>

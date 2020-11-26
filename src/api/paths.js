@@ -20,19 +20,22 @@ export default {
   updateSettings: '/v1/account/update_settings',
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',
-  getSpecialityTags: '/v1/tag/speciality_tag',
 
   // Listing
-  getProductTypes: '/v1/product/list_types',
 
   // Product
   createProduct: '/v1/product/create',
   getProductInfo: '/v1/product/info/',
-  getProductTags: '/v1/product/tags',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
   updateFoodmakerAccount: '/v1/account/update_foodmaker',
+
+  // System
+  getProductTypes: '/v1/product/list_types',
+  getServiceTags: '/v1/tag/service_tag',
+  getSpecialityTags: '/v1/tag/speciality_tag',
+  getProductTags: '/v1/product/tags',
 
   //
   //

@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import { Steps, Divider } from 'antd'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
-import { getProductTypes } from 'actions/listing'
-import { createProductRequestAC, getProductTagsRequestAC } from 'actions/product'
+import { createProductRequestAC } from 'actions/product'
+import { getProductTypes, getProductTagsRequestAC } from 'actions/system'
 
 import Button from 'components/Button'
 import Step1 from './components/Steps/Step1'
@@ -78,9 +78,12 @@ AddProduct.propTypes = {
   replaceRoute: T.func,
 }
 
-export default connect(({ listing: { types }, product: { tags } }) => ({ types, tags }), {
-  getProductTypes,
-  createProductRequestAC,
-  getProductTagsRequestAC,
-  replaceRoute: replace,
-})(AddProduct)
+export default connect(
+  ({ system: { specialityTags, productTypes } }) => ({ types: productTypes, tags: specialityTags }),
+  {
+    getProductTypes,
+    createProductRequestAC,
+    getProductTagsRequestAC,
+    replaceRoute: replace,
+  },
+)(AddProduct)

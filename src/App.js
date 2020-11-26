@@ -40,6 +40,7 @@ const FoodmakerPage = lazy(() => import('containers/Dashboard/components/Account
 const FoodmakerProfile = lazy(() =>
   import('containers/Dashboard/components/Account/FoodmakerProfile'),
 )
+const ShopProfile = lazy(() => import('containers/Dashboard/components/Account/ShopProfile'))
 const Settings = lazy(() => import('containers/Dashboard/components/Account/Settings'))
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
@@ -121,6 +122,7 @@ function App({ authorized, pathname, getUserAccount }) {
               path="/foodmaker_profile"
               component={WaitingComponent(FoodmakerProfile)}
             />
+            <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} />
             <PrivateRoute
               exact
               path="/product_explore"

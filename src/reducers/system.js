@@ -1,13 +1,69 @@
 import {
+  GET_PRODUCT_TYPES_REQUESTING,
+  GET_PRODUCT_TYPES_SUCCESS,
+  GET_PRODUCT_TYPES_ERROR,
+  GET_SERVICE_TAGS_REQUESTING,
+  GET_SERVICE_TAGS_SUCCESS,
+  GET_SERVICE_TAGS_ERROR,
   GET_SPECIALITY_TAGS_REQUESTING,
   GET_SPECIALITY_TAGS_SUCCESS,
   GET_SPECIALITY_TAGS_ERROR,
+  GET_PRODUCT_TAGS_REQUESTING,
+  GET_PRODUCT_TAGS_SUCCESS,
+  GET_PRODUCT_TAGS_ERROR,
 } from '../actions/constants'
 
-const initialState = {}
+const initialState = {
+  productTypes: [],
+  serviceTags: [],
+  specialityTags: [],
+  productTags: [],
+  requesting: false,
+  error: '',
+}
 
 const reducer = function accountReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_PRODUCT_TYPES_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case GET_PRODUCT_TYPES_SUCCESS:
+      return {
+        ...state,
+        productTypes: action.data,
+        requesting: false,
+        error: '',
+      }
+    case GET_PRODUCT_TYPES_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+    case GET_SERVICE_TAGS_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
+    case GET_SERVICE_TAGS_SUCCESS:
+      return {
+        ...state,
+        serviceTags: action.data,
+        requesting: false,
+        error: '',
+      }
+
+    case GET_SERVICE_TAGS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
     case GET_SPECIALITY_TAGS_REQUESTING:
       return {
         ...state,
@@ -29,6 +85,27 @@ const reducer = function accountReducer(state = initialState, action) {
         requesting: false,
         error: action.error,
       }
+
+    case GET_PRODUCT_TAGS_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case GET_PRODUCT_TAGS_SUCCESS:
+      return {
+        ...state,
+        productTags: action.data,
+        requesting: false,
+        error: '',
+      }
+    case GET_PRODUCT_TAGS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+
     default:
       return state
   }
