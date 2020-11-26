@@ -16,6 +16,12 @@ import ArrowDark from 'assets/icons/svg/down-arrow.svg'
 import styles from './header.module.scss'
 import './header.less'
 import Avatar from './components/Avatar'
+import Cup from 'assets/images/header/cup.svg'
+import Gallery_icon from 'assets/images/header/Component 150.svg'
+import Gallery_icon_1 from 'assets/images/header/Component 148.svg'
+import Setting from 'assets/images/header/Setting.svg'
+import LogOut from 'assets/images/header/LogOut.svg'
+
 
 const Header = (props) => {
   const { authorized, id, role, userPhoto, logOut, pathname, pushRoute, getUserAccount } = props
@@ -86,8 +92,8 @@ const Header = (props) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.placeholder} />
-      <div className={cls(styles.container, dark ? styles.dark : styles.light)}>
+      <header className={cls(styles.header, dark ? styles.dark : styles.light)}>
+         <div className={styles.container}>
         <div className={styles.menu_btn} onClick={toggleMenu}>
           <MenuBtn visible={menu} />
         </div>
@@ -235,12 +241,45 @@ const Header = (props) => {
         {isSubmenu && item && <MenuContainer dark={dark} item={item} click={switchMenu} />}
         {settings && (
           <div className={styles.settings_container}>
-            <p style={{ color: 'black', padding: 30, cursor: 'pointer' }} onClick={logout}>
-              LogOut
-            </p>
+
+            <ul className={styles.link_list}>
+              <li>
+                <img src={Cup} alt="icon"/>
+                <a href="#"> food lover dashboard</a>
+              </li>
+            </ul>
+
+            <p>Food maker profile</p>
+
+            <ul className={styles.link_list}>
+              <li>
+                <img src={Gallery_icon} alt="icon"/>
+                <a href="#"> create Experience</a>
+              </li>
+              <li>
+                <img src={Gallery_icon_1} alt="icon"/>
+                <a href="#"> add product </a> 
+              </li>
+            </ul>
+
+            <ul className={styles.link_list}>
+              <li>
+                <img src={Setting} alt="icon"/>
+                <a href="#"> Setting </a>
+              </li>
+              <li>
+                <img src={LogOut} alt="icon"/>
+                <a href="#" className={styles.logout_btn} onClick={logout}>
+                Log Out
+                </a> 
+              </li>
+            </ul>
+            
           </div>
         )}
       </div>
+      </header>
+     
     </div>
   )
 }
