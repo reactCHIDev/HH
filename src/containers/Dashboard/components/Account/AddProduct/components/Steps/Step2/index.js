@@ -40,6 +40,8 @@ const Step2 = (props) => {
         productCategoryId: types
           .find((t) => t.id === productTypeId)
           .productCategories.find((c) => c.id === productCategoryId)?.id,
+        discountVal: discValue,
+        qtyVal: qtyValue,
       }
     : {}
 
@@ -72,10 +74,14 @@ const Step2 = (props) => {
 
   const onNext = (data) => {
     const step1 = getItem('addProduct')
+    const { discountVal, qtyVal } = data
+    delete data.discountVal
+    delete data.qtyVal
+
     setItem('addProduct', {
       ...step1,
       ...data,
-      discount: { quantity: discnt ? qtyValue : 0, discount: discnt ? discValue : 0 },
+      discount: { quantity: discnt ? qtyVal : 0, discount: discnt ? discountVal : 0 },
     })
     setStep(2)
     setStepper(false)
@@ -108,7 +114,9 @@ const Step2 = (props) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <form className={styles.form} onChange={onChangeForm} onSubmit={handleSubmit(onNext)}>
-          <label className={styles.label}>Product title (no more than 66 char. recommened)</label>
+          <label className={styles.label}>
+            Product title (no more than 66 characters recommended)
+          </label>
           <input
             className={styles.input}
             id="step2"
@@ -197,7 +205,39 @@ const Step2 = (props) => {
               checked={discnt}
               onChange={onChangeChkBox}
             />
-            <Select defaultValue={discValue} onChange={handleDiscountChange}>
+            <div className={styles.discount_wrapper}>
+              <input
+                className={styles.disc_input}
+                name="discountVal"
+                type="text"
+                disabled={!discnt}
+                ref={register({
+                  required: false,
+                  validate: (value) => value >= 0 && value <= 100,
+                })}
+              />
+              {_.get('discountVal.type', errors) === 'validate' && (
+                <p className={styles.errmsg}>Range is 0 - 100</p>
+              )}
+            </div>
+            <p className={styles.discount_text}>when order from</p>
+            <div className={styles.discount_wrapper}>
+              <input
+                className={styles.disc_input}
+                name="qtyVal"
+                type="text"
+                disabled={!discnt}
+                ref={register({
+                  required: false,
+                  validate: (value) => value >= 0,
+                })}
+              />
+              {_.get('qtyVal.type', errors) === 'validate' && (
+                <p className={styles.errmsg}>Should be > 0</p>
+              )}
+            </div>
+
+            {/*  <Select defaultValue={discValue} onChange={handleDiscountChange}>
               {discntArr.map((n) => (
                 <Option key={n.value} value={n.value}>
                   {n.title}
@@ -211,7 +251,7 @@ const Step2 = (props) => {
                   {n.title}
                 </Option>
               ))}
-            </Select>
+            </Select> */}
           </div>
           <input type="submit" value="Next" />
         </form>

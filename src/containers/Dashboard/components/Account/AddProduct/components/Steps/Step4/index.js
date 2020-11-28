@@ -185,7 +185,8 @@ const Step4 = ({ create, pushRoute }) => {
     setSelectedCountries(selectedItms)
   }
 
-  const filteredTags = tags.filter((o) => !selectedItems.includes(o.id))
+  const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
+  console.log('%c   filteredTags   ', 'color: darkgreen; background: palegreen;', filteredTags)
   let filteredCountries = COUNTRIES
   if (selectedCountries && selectedCountries.length) {
     filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
@@ -243,7 +244,11 @@ const Step4 = ({ create, pushRoute }) => {
                           fieldKey={[field.fieldKey, 'volume']}
                           rules={[{ required: true, message: 'Please input volume!' }]}
                         >
-                          <InputNumber min={0} max={99999} />
+                          <InputNumber
+                            min={0}
+                            max={99999}
+                            disabled={form.getFieldValue([field.name, 'measure']) === 'none'}
+                          />
                         </Form.Item>
 
                         <Form.Item
@@ -265,6 +270,7 @@ const Step4 = ({ create, pushRoute }) => {
                             <Option value="S">S</Option>
                             <Option value="M">M</Option>
                             <Option value="L">L</Option>
+                            <Option value="L">none</Option>
                           </Select>
                         </Form.Item>
                       </div>
@@ -302,12 +308,11 @@ const Step4 = ({ create, pushRoute }) => {
                     </Space>
                   </Row>
                 ))}
-
-                <Form.Item>
-                  <Button onClick={() => add()} icon={<PlusOutlined />}>
-                    ADD
-                  </Button>
-                </Form.Item>
+                {/*  <Form.Item> */}
+                <div className={cls(styles.add_btn_wrapper, 'add_btn')}>
+                  <Button onClick={() => add()}>ADD</Button>
+                </div>
+                {/* </Form.Item> */}
               </>
             )}
           </Form.List>
@@ -334,7 +339,7 @@ const Step4 = ({ create, pushRoute }) => {
             wrapperCol={{ span: 24, offset: 0 }}
           >
             <Select
-              mode="tags"
+              mode="multiple"
               value={selectedItems}
               onChange={handleChangeTags}
               showArrow

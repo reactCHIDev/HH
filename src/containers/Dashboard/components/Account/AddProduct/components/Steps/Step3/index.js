@@ -159,7 +159,7 @@ const Step3 = (props) => {
         <Button
           type="primary"
           block
-          disabled={defaultFileList.length < 3}
+          disabled={defaultFileList.length < 2}
           size="large"
           onClick={onNext}
         >

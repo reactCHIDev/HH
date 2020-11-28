@@ -30,7 +30,7 @@
         letter-spacing: 0.5px;
         color: #838894;
         margin: 10px 0 0 0;
-        padding-left: 10px;
+        padding-left: 0px;
       }
 
       .input[type='text'] {
@@ -171,7 +171,27 @@
         margin-bottom: 96px;
 
         .discount_text {
-          margin: 0px;
+          margin: 0 14px 0 0px;
+        }
+
+        .disc_input[type='text'] {
+          display: block;
+          margin: 22px 14px;
+          position: relative;
+          width: 88px;
+          height: 56px;
+          padding: 16px;
+          border: 1px solid #adb0b8;
+          box-sizing: border-box;
+          backdrop-filter: blur(6px);
+          border-radius: 8px;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 160%;
+          letter-spacing: 0.5px;
+          color: #31394d;
+          opacity: 0.8;
         }
       }
     }

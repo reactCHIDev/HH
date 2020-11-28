@@ -73,7 +73,7 @@ const AddProduct = (props) => {
     <div className={styles.container}>
       <Header />
       <div className={styles.main}>
-        <div className={styles.stepper}>
+        <div id="stepper" className={styles.stepper}>
           {/* <Popover content={content} visible={popover}> */}
           <Steps progressDot current={Number(step)} onChange={onChange} direction="vertical">
             <Step title="STEP 1" disabled={stepper} />
