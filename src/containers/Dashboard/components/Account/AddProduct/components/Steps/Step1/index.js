@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import T from 'prop-types'
 import { setItem, getItem } from 'utils/localStorage'
 import { useForm, Controller } from 'react-hook-form'
-
+import { isShopExist } from 'api/requests/Shop'
 import cls from 'classnames'
 import { Input, InputNumber, Checkbox, Button } from 'antd'
 import _ from 'lodash/fp'
@@ -58,6 +58,10 @@ const Step1 = (props) => {
             type="text"
             ref={register({
               required: true,
+              validate: async (value) => {
+                const name = await isShopExist(value)
+                return !name.data
+              },
               maxLength: {
                 value: 66,
               },
@@ -65,6 +69,9 @@ const Step1 = (props) => {
           />
           {_.get('shopName.type', errors) === 'required' && (
             <p className={styles.errmsg}>This field is required</p>
+          )}
+          {_.get('shopName.type', errors) === 'validate' && (
+            <p className={styles.errmsg}>This name is already exist</p>
           )}
           {_.get('shopName.type', errors) === 'maxLength' && (
             <p className={styles.errmsg}>Max length 66 symbols</p>

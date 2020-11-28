@@ -6,7 +6,7 @@ import Input from '../../components/input'
 
 const EmailStep = (props) => {
   const {
-    properties: { name, value },
+    properties: { name, value, email },
     onSubmit,
   } = props
   return (
@@ -15,12 +15,13 @@ const EmailStep = (props) => {
       <Input
         name={name}
         placeholder="email"
-        value={value}
+        value={email || value}
         focus
         onSubmit={onSubmit}
         registerObj={{
           required: true,
           validate: async (value) => {
+            if (value === email) return true
             const mail = await getUserByEmail(value.replace('@', '%40'))
             return !mail.data?.email
           },
@@ -38,6 +39,7 @@ EmailStep.propTypes = {
   properties: T.shape({
     name: T.string,
     value: T.string,
+    email: T.string,
   }),
   onSubmit: T.func,
 }

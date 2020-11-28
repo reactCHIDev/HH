@@ -8,6 +8,7 @@ import {
   getServiceTags,
   getSpecialityTags,
   getProductTagsReq,
+  getCitiesReq,
 } from 'api/requests/System'
 
 import {
@@ -23,6 +24,9 @@ import {
   GET_PRODUCT_TAGS_REQUESTING,
   GET_PRODUCT_TAGS_SUCCESS,
   GET_PRODUCT_TAGS_ERROR,
+  GET_CITIES_REQUESTING,
+  GET_CITIES_SUCCESS,
+  GET_CITIES_ERROR,
 } from '../actions/constants'
 
 function* getProductTypeSaga() {
@@ -71,11 +75,23 @@ function* getProductTagsSaga() {
   }
 }
 
+function* getCitiesSaga() {
+  try {
+    const response = yield getCitiesReq()
+    yield put({ type: GET_CITIES_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_CITIES_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(GET_PRODUCT_TYPES_REQUESTING, getProductTypeSaga)
   yield takeEvery(GET_SERVICE_TAGS_REQUESTING, getServiceTagsSaga)
   yield takeEvery(GET_SPECIALITY_TAGS_REQUESTING, getSpecialityTagsSaga)
   yield takeEvery(GET_PRODUCT_TAGS_REQUESTING, getProductTagsSaga)
+  yield takeEvery(GET_CITIES_REQUESTING, getCitiesSaga)
 }
 
 export default accountWatcher

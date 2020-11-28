@@ -5,7 +5,6 @@ export default {
   userbyname: '/v1/user/profile_name/',
   userbyemail: '/v1/user/email/',
   getUserByHHLink: '/v1/user/hh_link/',
-  getCities: '/v1/city/list',
 
   // Auth
   signUpUser: '/v1/user/register_foodlover',
@@ -37,6 +36,10 @@ export default {
   getServiceTags: '/v1/tag/service_tag',
   getSpecialityTags: '/v1/tag/speciality_tag',
   getProductTags: '/v1/product/tags',
+  getCities: '/v1/city/list',
+
+  // Shop
+  isShopExist: '/v1/shop/check_if_exist/',
 
   //
   //

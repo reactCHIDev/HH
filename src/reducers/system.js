@@ -11,6 +11,9 @@ import {
   GET_PRODUCT_TAGS_REQUESTING,
   GET_PRODUCT_TAGS_SUCCESS,
   GET_PRODUCT_TAGS_ERROR,
+  GET_CITIES_REQUESTING,
+  GET_CITIES_SUCCESS,
+  GET_CITIES_ERROR,
 } from '../actions/constants'
 
 const initialState = {
@@ -18,6 +21,7 @@ const initialState = {
   serviceTags: [],
   specialityTags: [],
   productTags: [],
+  cities: [],
   requesting: false,
   error: '',
 }
@@ -100,6 +104,26 @@ const reducer = function accountReducer(state = initialState, action) {
         error: '',
       }
     case GET_PRODUCT_TAGS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+
+    case GET_CITIES_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case GET_CITIES_SUCCESS:
+      return {
+        ...state,
+        cities: action.data,
+        requesting: false,
+        error: '',
+      }
+    case GET_CITIES_ERROR:
       return {
         ...state,
         requesting: false,
