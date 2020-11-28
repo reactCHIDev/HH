@@ -1,4 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects'
+import { replace } from 'connected-react-router'
+import { removeKey } from '../utils/localStorage'
+
 import PATHS from 'api/paths'
 
 import { createProductReq, getProductInfoReq } from 'api/requests/Product'
@@ -15,6 +18,8 @@ function* createProductSaga({ payload }) {
   try {
     yield createProductReq(payload)
     yield put(createProductSuccess())
+    removeKey('addProduct')
+    yield put(replace('/card'))
   } catch (error) {
     if (error.response) {
       yield put(createProductError())

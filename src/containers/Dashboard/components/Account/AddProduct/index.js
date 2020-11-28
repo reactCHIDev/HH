@@ -46,7 +46,7 @@ const AddProduct = (props) => {
   }, [step])
 
   useEffect(() => {
-    const firstStep = account && Number(account?.shop?.id) > 0 ? 3 : 3
+    const firstStep = account && Number(account?.shop?.id) > 0 ? 0 : 0
     setFirstStep(firstStep)
     setStep(firstStep)
     setProgress(firstStep)
@@ -68,7 +68,7 @@ const AddProduct = (props) => {
   // replaceRoute(`/addproduct/${s}`)
   const publish = () => console.log('%c   published   ', 'color: darkgreen; background: palegreen;')
 
-  if (step === null) return <></>
+  if (step === null || types.length === 0) return <></>
   return (
     <div className={styles.container}>
       <Header />

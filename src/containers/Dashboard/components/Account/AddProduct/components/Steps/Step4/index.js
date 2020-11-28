@@ -7,30 +7,24 @@ import {
   Radio,
   Divider,
   DatePicker,
-  Tooltip,
-  Cascader,
   Select,
   Row,
   Col,
   Checkbox,
   Button,
-  AutoComplete,
   Space,
 } from 'antd'
 import moment from 'moment'
+
 import { getItem, setItem } from 'utils/localStorage'
 
 import cls from 'classnames'
-import { QuestionCircleOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import styles from './step4.module.scss'
 import './step4.less'
 
 const { Option } = Select
-const AutoCompleteOption = AutoComplete.Option
-const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 8 },
-}
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -83,29 +77,35 @@ const Step4 = ({ create, pushRoute }) => {
 
   const [ingredients, setIngredients] = useState(!!prevState?.ingredients)
   const [selectedItems, setSelectedItems] = useState(
-    prevState?.productTagIds.length ? normalizeTagsDefaults(prevState?.productTagIds) : [],
+    prevState?.productTagIds && prevState?.productTagIds.length
+      ? normalizeTagsDefaults(prevState?.productTagIds)
+      : [],
   )
   const [selectedRegionRadio, setSelectedRegionRadio] = useState(
-    deliveryRegionDataForm[prevState.deliveryRegion] === 'Local'
-      ? 1
-      : deliveryRegionDataForm[prevState.deliveryRegion] === 'Worldwide'
-      ? 2
-      : 3,
+    prevState?.deliveryRegion
+      ? prevState.deliveryRegion === 'Local'
+        ? 1
+        : prevState.deliveryRegion === 'Worldwide'
+        ? 2
+        : 3
+      : prevState?.deliveryRegion === ''
+      ? 3
+      : 1,
   )
   const [selectedCountryRadio, setSelectedCountryRadio] = useState(
-    prevState.deliveryRegionException.length ? 5 : 4,
+    prevState?.deliveryRegionException && prevState.deliveryRegionException.length ? 5 : 4,
   )
   const [selectedCountries, setSelectedCountries] = useState(
     selectedRegionRadio === 3
       ? selectedCountryRadio === 4
-        ? prevState.deliveryRegion.split(' ')
-        : prevState.deliveryRegionException.split(' ')
+        ? prevState?.deliveryRegion && prevState.deliveryRegion.split(' ')
+        : prevState?.deliveryRegionException && prevState.deliveryRegionException.split(' ')
       : [],
   )
-  const [availabilityStartDate, setStartDate] = useState(prevState.availabilityStartDate)
-  const [availabilityEndDate, setEndDate] = useState(prevState.availabilityEndDate)
-  const [isAdult, setIsAdult] = useState(prevState.isAdult)
-  const [dates, setDates] = useState(prevState.available !== 'Preorder')
+  const [availabilityStartDate, setStartDate] = useState(prevState?.availabilityStartDate)
+  const [availabilityEndDate, setEndDate] = useState(prevState?.availabilityEndDate)
+  const [isAdult, setIsAdult] = useState(!!prevState?.isAdult)
+  const [dates, setDates] = useState(prevState?.available !== 'Preorder')
 
   const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
@@ -115,8 +115,6 @@ const Step4 = ({ create, pushRoute }) => {
     console.log('Received values of form: ', { ...vals, chkIngr: ingredients })
 
     const values = { ...vals }
-
-    delete values.countries
 
     // ================
 
@@ -161,7 +159,8 @@ const Step4 = ({ create, pushRoute }) => {
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
     console.log('%c   productData   ', 'color: white; background: royalblue;', productData)
-    // create(productData)
+    delete productData.countries
+    create(productData)
     // pushRoute('/card')
   }
 
@@ -187,7 +186,10 @@ const Step4 = ({ create, pushRoute }) => {
   }
 
   const filteredTags = tags.filter((o) => !selectedItems.includes(o.id))
-  const filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
+  let filteredCountries = COUNTRIES
+  if (selectedCountries && selectedCountries.length) {
+    filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
+  }
 
   const radioStyle = {
     display: 'block',
@@ -221,9 +223,9 @@ const Step4 = ({ create, pushRoute }) => {
             ingredients: prevState?.ingredients || ' ',
             productTagIds: selectedItems,
             countries: selectedCountries,
-            quantity: prevState.quantity,
-            available: prevState.available,
-            refundPolicy: prevState.refundPolicy,
+            quantity: prevState?.quantity,
+            available: prevState?.available,
+            refundPolicy: prevState?.refundPolicy,
           }}
           scrollToFirstError
         >
@@ -380,7 +382,7 @@ const Step4 = ({ create, pushRoute }) => {
                   value={selectedCountries}
                   onChange={handleChangeCountryTags}
                   showArrow
-                  disabled={selectedCountryRadio < 4}
+                  disabled={selectedCountryRadio < 3}
                   style={{ width: '100%' }}
                 >
                   {filteredCountries.map((item) => (

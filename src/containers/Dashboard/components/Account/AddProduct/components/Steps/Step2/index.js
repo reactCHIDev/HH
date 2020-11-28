@@ -13,7 +13,10 @@ import { setTemporaryEndpoint } from 'utils/apiClient'
 
 const Step2 = (props) => {
   const { setStep, types = [], stepper, setStepper } = props
-  const { title, description, productCategoryId, productTypeId, discount } = getItem('addProduct')
+
+  let title, description, productCategoryId, productTypeId, discount
+  if (getItem('addProduct'))
+    ({ title, description, productCategoryId, productTypeId, discount } = getItem('addProduct'))
 
   const [discnt, setDiscount] = useState(!!discount?.discount && !!discount?.quantity)
   const [discValue, setDiscountValue] = useState(discount?.discount)
@@ -34,13 +37,13 @@ const Step2 = (props) => {
         title,
         description,
         productTypeId,
-        /* productCategoryId: types
+        productCategoryId: types
           .find((t) => t.id === productTypeId)
-          .productCategories.find((c) => c.id === productCategoryId).title, */
+          .productCategories.find((c) => c.id === productCategoryId)?.id,
       }
     : {}
 
-  const { register, handleSubmit, control, watch, errors } = useForm({
+  const { register, handleSubmit, control, watch, setValue, errors } = useForm({
     mode: 'onBlur',
     defaultValues,
   })
@@ -93,6 +96,7 @@ const Step2 = (props) => {
   const handleType = (onChange) => (e) => {
     setCategory(types.find((t) => t.id === e).productCategories)
     onChange(e)
+    setValue('productCategoryId', types.find((t) => t.id === e).productCategories[0]?.id)
     if (!stepper) setStepper(true)
   }
 
