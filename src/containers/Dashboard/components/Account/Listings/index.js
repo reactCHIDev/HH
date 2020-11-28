@@ -233,7 +233,10 @@ Listings.propTypes = {
   getMyProductList: T.func,
 }
 
-export default connect(({ listing: { types, myProducts } }) => ({ types, myProducts }), {
-  getProductTypes,
-  getMyProductList,
-})(Listings)
+export default connect(
+  ({ listing: { myProducts }, system: { productTypes: types } }) => ({ types, myProducts }),
+  {
+    getProductTypes,
+    getMyProductList,
+  },
+)(Listings)

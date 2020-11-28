@@ -63,27 +63,49 @@ const tailFormItemLayout = {
   },
 }
 
-const Step4 = ({ create, pushRoute, tags }) => {
+const Step4 = ({ create, pushRoute }) => {
   const [form] = Form.useForm()
-  const { RangePicker } = DatePicker
-
-  const [ingredients, setIngredients] = useState(false)
-  const [selectedItems, setSelectedItems] = useState([])
-  const [selectedCountries, setSelectedCountries] = useState([])
-  const [selectedRegionRadio, setSelectedRegionRadio] = useState(1)
-  const [selectedCountryRadio, setSelectedCountryRadio] = useState(1)
-  const [availabilityStartDate, setStartDate] = useState('')
-  const [availabilityEndDate, setEndDate] = useState('')
-  const [isAdult, setIsAdult] = useState(false)
-  const [dates, setDates] = useState('Available')
-
-  const OPTIONS = [
+  const tags = [
     { id: 1, tagName: 'Drink' },
     { id: 2, tagName: 'Salad' },
     { id: 3, tagName: 'Bread' },
     { id: 4, tagName: 'Soup' },
     { id: 5, tagName: 'Pasta' },
   ]
+  const { RangePicker } = DatePicker
+
+  const prevState = getItem('addProduct')
+  const normalizeTagsDefaults = (value) => value.map((t) => tags.find((e) => e.id === t).tagName)
+
+  console.log('prevState', prevState)
+
+  const deliveryRegionDataForm = { Local: 1, Worldwide: 2 }
+
+  const [ingredients, setIngredients] = useState(!!prevState?.ingredients)
+  const [selectedItems, setSelectedItems] = useState(
+    prevState?.productTagIds.length ? normalizeTagsDefaults(prevState?.productTagIds) : [],
+  )
+  const [selectedRegionRadio, setSelectedRegionRadio] = useState(
+    deliveryRegionDataForm[prevState.deliveryRegion] === 'Local'
+      ? 1
+      : deliveryRegionDataForm[prevState.deliveryRegion] === 'Worldwide'
+      ? 2
+      : 3,
+  )
+  const [selectedCountryRadio, setSelectedCountryRadio] = useState(
+    prevState.deliveryRegionException.length ? 5 : 4,
+  )
+  const [selectedCountries, setSelectedCountries] = useState(
+    selectedRegionRadio === 3
+      ? selectedCountryRadio === 4
+        ? prevState.deliveryRegion.split(' ')
+        : prevState.deliveryRegionException.split(' ')
+      : [],
+  )
+  const [availabilityStartDate, setStartDate] = useState(prevState.availabilityStartDate)
+  const [availabilityEndDate, setEndDate] = useState(prevState.availabilityEndDate)
+  const [isAdult, setIsAdult] = useState(prevState.isAdult)
+  const [dates, setDates] = useState(prevState.available !== 'Preorder')
 
   const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
@@ -93,6 +115,8 @@ const Step4 = ({ create, pushRoute, tags }) => {
     console.log('Received values of form: ', { ...vals, chkIngr: ingredients })
 
     const values = { ...vals }
+
+    delete values.countries
 
     // ================
 
@@ -137,8 +161,8 @@ const Step4 = ({ create, pushRoute, tags }) => {
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
     console.log('%c   productData   ', 'color: white; background: royalblue;', productData)
-    create(productData)
-    pushRoute('/card')
+    // create(productData)
+    // pushRoute('/card')
   }
 
   const onRegionRadio = (e) => {
@@ -179,7 +203,6 @@ const Step4 = ({ create, pushRoute, tags }) => {
   }
 
   const toggleDates = (e) => {
-    console.log('%c   value   ', 'color: white; background: salmon;', e)
     setDates(e.target.value !== 'Preorder')
   }
 
@@ -194,9 +217,13 @@ const Step4 = ({ create, pushRoute, tags }) => {
           name="register"
           onFinish={onFinish}
           initialValues={{
-            parameters: [{ measure: 'ml', currency: '$' }],
-            available: 'Available',
-            refundPolicy: 'FULL_REFUND',
+            parameters: prevState?.parameters || [{ measure: 'ml', currency: '$' }],
+            ingredients: prevState?.ingredients || ' ',
+            productTagIds: selectedItems,
+            countries: selectedCountries,
+            quantity: prevState.quantity,
+            available: prevState.available,
+            refundPolicy: prevState.refundPolicy,
           }}
           scrollToFirstError
         >
@@ -341,21 +368,28 @@ const Step4 = ({ create, pushRoute, tags }) => {
               <Radio style={radioStyle} value={4}>
                 Available countries
               </Radio>
-              <Select
-                mode="multiple"
-                placeholder="Inserted are removed"
-                value={selectedCountries}
-                onChange={handleChangeCountryTags}
-                showArrow
-                disabled={selectedCountryRadio !== 4}
-                style={{ width: '100%' }}
+              <Form.Item
+                name="countries"
+                rules={[
+                  { required: selectedRegionRadio === 3, message: 'Please select countries!' },
+                ]}
               >
-                {filteredCountries.map((item) => (
-                  <Select.Option key={item} value={item}>
-                    {item}
-                  </Select.Option>
-                ))}
-              </Select>
+                <Select
+                  mode="multiple"
+                  placeholder="Inserted are removed"
+                  value={selectedCountries}
+                  onChange={handleChangeCountryTags}
+                  showArrow
+                  disabled={selectedCountryRadio < 4}
+                  style={{ width: '100%' }}
+                >
+                  {filteredCountries.map((item) => (
+                    <Select.Option key={item} value={item}>
+                      {item}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
               <Radio style={radioStyle} value={5}>
                 Worldwide, except
               </Radio>
@@ -379,9 +413,21 @@ const Step4 = ({ create, pushRoute, tags }) => {
                 </Radio.Group>
               </Form.Item>
 
-              <DatePicker disabled={dates} id="1" format="DD MMM YY" onChange={onChangeStartDate} />
+              <DatePicker
+                defaultValue={moment(availabilityStartDate)}
+                disabled={dates}
+                id="1"
+                format="DD MMM YY"
+                onChange={onChangeStartDate}
+              />
               <span>{' - '}</span>
-              <DatePicker disabled={dates} id="2" format="DD MMM YY" onChange={onChangeEndDate} />
+              <DatePicker
+                defaultValue={moment(availabilityEndDate)}
+                disabled={dates}
+                id="2"
+                format="DD MMM YY"
+                onChange={onChangeEndDate}
+              />
             </Col>
             <Col gutter={20} align="bottom">
               <span className="form-text">Over 18 Requirement </span>
@@ -392,16 +438,16 @@ const Step4 = ({ create, pushRoute, tags }) => {
           </Row>
 
           <div style={{ marginTop: 20 }}>
-            <label className="form-text">Quantity</label>
-            <Form.Item
-              name="quantity"
-              rules={[{ required: true, message: 'Please enter quantity' }]}
-              normalize={(value) => Math.abs(Number(value))}
-            >
-              <div style={{ padding: '5px 0 0 24px' }}>
+            <div style={{ padding: '5px 0 0 24px' }}>
+              <label className="form-text">Quantity</label>
+              <Form.Item
+                name="quantity"
+                rules={[{ required: true, message: 'Please enter quantity' }]}
+                normalize={(value) => Math.abs(Number(value))}
+              >
                 <InputNumber min={0} />
-              </div>
-            </Form.Item>
+              </Form.Item>
+            </div>
           </div>
 
           <Divider />

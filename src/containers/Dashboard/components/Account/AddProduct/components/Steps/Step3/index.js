@@ -19,14 +19,20 @@ function getBase64(file) {
 
 const Step3 = (props) => {
   const { setStep } = props
-  const [coverPhoto, setCoverPhoto] = useState([])
-  const [otherPhotos, setOtherPhotos] = useState([])
+
+  const prevState = getItem('addProduct')
+
+  const [coverPhoto, setCoverPhoto] = useState(prevState?.coverPhoto || '')
+  const [otherPhotos, setOtherPhotos] = useState(prevState?.otherPhotos)
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
   const [defaultFileList, addFileList] = useState([])
   const [url, setUrl] = useState('')
   const [progress, setProgress] = useState(0)
+
+  console.log('%c   coverPhoto   ', 'color: darkgreen; background: palegreen;', coverPhoto)
+  console.log('%c   otherPhotos   ', 'color: darkgreen; background: palegreen;', otherPhotos)
 
   useEffect(() => {
     if (defaultFileList.length) {

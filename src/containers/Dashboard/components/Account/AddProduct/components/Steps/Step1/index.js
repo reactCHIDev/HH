@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
-import { setItem } from 'utils/localStorage'
+import { setItem, getItem } from 'utils/localStorage'
 import cls from 'classnames'
 import { Input, InputNumber, Checkbox, Button } from 'antd'
 import _ from 'lodash/fp'
@@ -9,9 +9,10 @@ import styles from './step1.module.scss'
 import './step1.less'
 
 const Step1 = (props) => {
-  const { setStep } = props
+  const { setStep, stepper, setStepper } = props
 
-  const [name, setName] = useState('')
+  const { shopName } = getItem('addProduct')
+  const [name, setName] = useState(shopName)
   /* const [standart, setStandart] = useState(true)
   const [freepick, setFreepick] = useState(false)
   const [express, setExpress] = useState(false)
@@ -23,11 +24,15 @@ const Step1 = (props) => {
   const onChangeFreeChkBox = (e) => setFree(e.target.checked) */
   //const onChange = () => {}
 
-  const onChangeName = (e) => setName(e.target.value)
+  const onChangeName = (e) => {
+    if (!stepper) setStepper(true)
+    setName(e.target.value)
+  }
 
   const onNext = () => {
     setItem('addProduct', { shopName: name })
     setStep(1)
+    setStepper(false)
   }
 
   return (

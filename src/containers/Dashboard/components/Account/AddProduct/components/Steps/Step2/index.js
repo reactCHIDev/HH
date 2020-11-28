@@ -12,25 +12,41 @@ import './step2.less'
 import { setTemporaryEndpoint } from 'utils/apiClient'
 
 const Step2 = (props) => {
-  const { setStep, types = [] } = props
+  const { setStep, types = [], stepper, setStepper } = props
+  const { title, description, productCategoryId, productTypeId, discount } = getItem('addProduct')
 
-  const [discount, setDiscount] = useState(false)
-  const [discValue, setDiscountValue] = useState(0)
-  const [qtyValue, setQtyValue] = useState(0)
-  const [category, setCategory] = useState([])
+  const [discnt, setDiscount] = useState(!!discount?.discount && !!discount?.quantity)
+  const [discValue, setDiscountValue] = useState(discount?.discount)
+  const [qtyValue, setQtyValue] = useState(discount?.quantity)
+  const [category, setCategory] = useState(
+    types.find((t) => t.id === productTypeId)?.productCategories || [],
+  )
 
   const { Option } = Select
 
   console.log('%c   types   ', 'color: darkgreen; background: palegreen;', category)
 
-  const defaultValues = {}
+  console.log('types', types)
+  console.log('productTypeId', productTypeId)
+
+  const defaultValues = productTypeId
+    ? {
+        title,
+        description,
+        productTypeId,
+        /* productCategoryId: types
+          .find((t) => t.id === productTypeId)
+          .productCategories.find((c) => c.id === productCategoryId).title, */
+      }
+    : {}
+
   const { register, handleSubmit, control, watch, errors } = useForm({
     mode: 'onBlur',
     defaultValues,
   })
 
   const nums = ['Food', 'Drinks', 'qweqwe', 'sdfsdfsd', 'zxczxcz', 'yuryutyu', 'ghfghfg']
-  const discnt = [
+  const discntArr = [
     { value: 5, title: '5%' },
     { value: 10, title: '10%' },
     { value: 15, title: '15%' },
@@ -56,24 +72,38 @@ const Step2 = (props) => {
     setItem('addProduct', {
       ...step1,
       ...data,
-      discount: { quantity: discount ? qtyValue : 0, discount: discount ? discValue : 0 },
+      discount: { quantity: discnt ? qtyValue : 0, discount: discnt ? discValue : 0 },
     })
     setStep(2)
+    setStepper(false)
   }
 
-  const onChangeChkBox = () => setDiscount(!discount)
-  const handleDiscountChange = (value) => setDiscountValue(value)
-  const handleQuantityChange = (value) => setQtyValue(value)
+  const onChangeChkBox = () => setDiscount(!discnt)
+
+  const handleDiscountChange = (value) => {
+    setDiscountValue(value)
+    if (!stepper) setStepper(true)
+  }
+
+  const handleQuantityChange = (value) => {
+    setQtyValue(value)
+    if (!stepper) setStepper(true)
+  }
 
   const handleType = (onChange) => (e) => {
     setCategory(types.find((t) => t.id === e).productCategories)
     onChange(e)
+    if (!stepper) setStepper(true)
+  }
+
+  const onChangeForm = () => {
+    if (!stepper) setStepper(true)
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <form className={styles.form} onSubmit={handleSubmit(onNext)}>
+        <form className={styles.form} onChange={onChangeForm} onSubmit={handleSubmit(onNext)}>
           <label className={styles.label}>Product title (no more than 66 char. recommened)</label>
           <input
             className={styles.input}
@@ -160,11 +190,11 @@ const Step2 = (props) => {
             <ChkBox
               id="discount"
               labelText="Add discount"
-              checked={discount}
+              checked={discnt}
               onChange={onChangeChkBox}
             />
             <Select defaultValue={discValue} onChange={handleDiscountChange}>
-              {discnt.map((n) => (
+              {discntArr.map((n) => (
                 <Option key={n.value} value={n.value}>
                   {n.title}
                 </Option>

@@ -115,7 +115,7 @@ function App({ authorized, pathname, getUserAccount }) {
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
-            <PrivateRoute exact path="/addproduct/:step" component={WaitingComponent(AddProduct)} />
+            <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
             <PrivateRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
             <PrivateRoute
               exact
