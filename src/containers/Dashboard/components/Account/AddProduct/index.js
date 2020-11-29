@@ -46,7 +46,7 @@ const AddProduct = (props) => {
   }, [step])
 
   useEffect(() => {
-    const firstStep = account && Number(account?.shop?.id) > 0 ? 1 : 0
+    const firstStep = account && Number(account?.shop?.id) > 0 ? 2 : 2
     setFirstStep(firstStep)
     setStep(firstStep)
     setProgress(firstStep)

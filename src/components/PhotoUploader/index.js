@@ -32,12 +32,12 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
 
   useEffect(() => {
     let slide = 0
-    if (list.length - containerWidth / 140 > 0) {
-      slide = list.length - containerWidth / 140
+    if (list.length + 1 - containerWidth / 140 > 0) {
+      slide = list.length + 1 - containerWidth / 140
     } else {
       slide = 0
     }
-    if (list && list.length) setSlide(Math.round(slide) + 1)
+    if (list && list.length) setSlide(Math.round(slide))
   }, [list, containerWidth])
 
   const handleResize = () => {
@@ -108,6 +108,7 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
 
   const onRadio = (e) => {
     const { value } = e.target
+    console.log('%c   value   ', 'color: darkgreen; background: palegreen;', value)
     setCover(Number(value))
   }
 
@@ -136,10 +137,6 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
                   className={cls(styles.url_img, i === cover ? styles.cover : styles.other)}
                   src={e}
                   alt="preview"
-                  onLoad={() => {
-                    if (i === list.length - 1) {
-                    }
-                  }}
                 />
                 <div className={styles.cover_selector}>
                   <input

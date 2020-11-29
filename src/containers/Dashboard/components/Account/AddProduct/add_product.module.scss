@@ -13,10 +13,8 @@
       width: 160px;
     }
     .main_block {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
       padding: 80px 0;
+      width: calc(100% - 300px);
       .section {
         padding: 20px 40px;
       }

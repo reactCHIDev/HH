@@ -14,7 +14,7 @@ const Photo = (props) => {
   const [fileList, setFilelist] = useState([])
 
   useEffect(() => {
-    if (value.coverPhoto) setFilelist([value.coverPhoto].concat(value.otherPhotos))
+    if (value?.coverPhoto) setFilelist([value.coverPhoto].concat(value.otherPhotos))
   }, [])
 
   const submit = () => {
@@ -28,11 +28,9 @@ const Photo = (props) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.photo_container}>
       <Heading category="About" name="2 - 8 photos of your work" />
-      <div className={styles.photo_container}>
-        <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} />
-      </div>
+      <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} />
       <p className={styles.description}>
         Show your work at its best! This directly affects the number of orders.
       </p>

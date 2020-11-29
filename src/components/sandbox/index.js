@@ -124,7 +124,6 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
 
   return (
     <div className={styles.gallery}>
-      <div style={{ width: 100, height: 100, background: 'salmon' }} />
       <div className={styles.container} ref={container}>
         <Slider {...settings} ref={slider}>
           {list.map((e, i) => (
