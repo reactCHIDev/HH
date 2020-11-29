@@ -46,7 +46,7 @@ const AddProduct = (props) => {
   }, [step])
 
   useEffect(() => {
-    const firstStep = account && Number(account?.shop?.id) > 0 ? 2 : 2
+    const firstStep = account && Number(account?.shop?.id) > 0 ? 1 : 0
     setFirstStep(firstStep)
     setStep(firstStep)
     setProgress(firstStep)
@@ -65,8 +65,8 @@ const AddProduct = (props) => {
   }
 
   const onClick = (s) => setStep(s)
-  // replaceRoute(`/addproduct/${s}`)
-  const publish = () => console.log('%c   published   ', 'color: darkgreen; background: palegreen;')
+
+  const prevStep = () => (step > firstStep ? setStep(step - 1) : null)
 
   if (step === null || types.length === 0) return <></>
   return (
@@ -83,7 +83,7 @@ const AddProduct = (props) => {
           </Steps>
           {/*  </Popover> */}
           <div className={styles.btn_preview}>
-            <Button title="Preview" dark={false} onClick={() => {}} />
+            <Button title="Preview" dark={false} onClick={prevStep} />
           </div>
         </div>
         <div className={styles.main_block}>
