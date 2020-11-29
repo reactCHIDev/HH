@@ -46,6 +46,7 @@ const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
+const Sandbox = lazy(() => import('components/sandbox/wrapper'))
 
 function WaitingComponent(Component) {
   return (props) => (
@@ -88,6 +89,7 @@ function App({ authorized, pathname, getUserAccount }) {
               path="/login"
               component={() => <Redirect exact to="/login/regular" />}
             />
+            <PublicRoute exact path="/sandbox" component={WaitingComponent(Sandbox)} />
             <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
             <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />

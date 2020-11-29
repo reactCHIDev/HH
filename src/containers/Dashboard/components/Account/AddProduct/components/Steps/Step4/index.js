@@ -238,17 +238,14 @@ const Step4 = ({ create, pushRoute }) => {
                     <Space align="baseline">
                       <div className="numeric_selector">
                         <Form.Item
+                          shouldUpdate
                           {...field}
                           key={[field.name, 'volume']}
                           name={[field.name, 'volume']}
                           fieldKey={[field.fieldKey, 'volume']}
                           rules={[{ required: true, message: 'Please input volume!' }]}
                         >
-                          <InputNumber
-                            min={0}
-                            max={99999}
-                            disabled={form.getFieldValue([field.name, 'measure']) === 'none'}
-                          />
+                          <InputNumber min={0} max={99999} />
                         </Form.Item>
 
                         <Form.Item
@@ -266,7 +263,7 @@ const Step4 = ({ create, pushRoute }) => {
                             <Option value="g">g</Option>
                             <Option value="kg">kg</Option>
                             <Option value="ml">ml</Option>
-                            <Option value="l">l</Option>
+                            <Option value="l">lg</Option>
                             <Option value="S">S</Option>
                             <Option value="M">M</Option>
                             <Option value="L">L</Option>

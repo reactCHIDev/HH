@@ -1,4 +1,12 @@
 .container {
+  .photo_container {
+    width: 100%;
+    max-width: 700px;
+    padding-bottom: 20px;
+    @media (max-width: 480px) {
+      margin-bottom: 24px;
+    }
+  }
   .label {
     font-style: normal;
     font-weight: normal;
