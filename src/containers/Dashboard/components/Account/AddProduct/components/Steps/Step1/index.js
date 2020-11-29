@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
-import { setItem } from 'utils/localStorage'
+import { setItem, getItem } from 'utils/localStorage'
+import { useForm, Controller } from 'react-hook-form'
+import { isShopExist } from 'api/requests/Shop'
 import cls from 'classnames'
 import { Input, InputNumber, Checkbox, Button } from 'antd'
 import _ from 'lodash/fp'
 import open from 'assets/images/open-table.svg'
+import addHint from 'assets/icons/svg/add_hint.svg'
 import styles from './step1.module.scss'
 import './step1.less'
 
 const Step1 = (props) => {
-  const { setStep } = props
+  const { setStep, stepper, setStepper } = props
 
-  const [name, setName] = useState('')
+  let shopName = ''
+  const allValues = getItem('addProduct')
+  if (allValues?.shopName) shopName = allValues?.shopName
   /* const [standart, setStandart] = useState(true)
   const [freepick, setFreepick] = useState(false)
   const [express, setExpress] = useState(false)
@@ -23,11 +28,20 @@ const Step1 = (props) => {
   const onChangeFreeChkBox = (e) => setFree(e.target.checked) */
   //const onChange = () => {}
 
-  const onChangeName = (e) => setName(e.target.value)
+  const { register, handleSubmit, control, watch, errors } = useForm({
+    mode: 'onBlur',
+    defaultValues: { shopName },
+  })
 
-  const onNext = () => {
-    setItem('addProduct', { shopName: name })
+  const onNext = (name) => {
+    const values = getItem('addProduct')
+    setItem('addProduct', { ...values, ...name })
     setStep(1)
+    setStepper(false)
+  }
+
+  const onChangeForm = () => {
+    if (!stepper) setStepper(true)
   }
 
   return (
@@ -35,11 +49,39 @@ const Step1 = (props) => {
       <div className={styles.content}>
         <img className={styles.open} src={open} alt="open" />
         <p className={styles.header}>Start setting up you shop now</p>
-
-        <label className={styles.label}>Shop name (you can change it later)</label>
-        <Input onChange={onChangeName} value={name} />
-
-        <p className={styles.hint}>You can create one experience for free forever.</p>
+        <form className={styles.form} onChange={onChangeForm} onSubmit={handleSubmit(onNext)}>
+          <label className={styles.label}>Shop name (you can change it later)</label>
+          <input
+            className={styles.input}
+            id="step1"
+            name="shopName"
+            type="text"
+            ref={register({
+              required: true,
+              validate: async (value) => {
+                const name = await isShopExist(value)
+                return !name.data
+              },
+              maxLength: {
+                value: 66,
+              },
+            })}
+          />
+          {_.get('shopName.type', errors) === 'required' && (
+            <p className={styles.errmsg}>This field is required</p>
+          )}
+          {_.get('shopName.type', errors) === 'validate' && (
+            <p className={styles.errmsg}>This name is already exist</p>
+          )}
+          {_.get('shopName.type', errors) === 'maxLength' && (
+            <p className={styles.errmsg}>Max length 66 symbols</p>
+          )}
+          <div className={styles.hint_wrapper}>
+            <img className={styles.hint_icon} src={addHint} alt="hint" />
+            <p className={styles.hint}>You can create one experience for free forever.</p>
+          </div>
+          <input type="submit" value="Next" />
+        </form>
 
         {/* <p className={styles.header}>Delivery policy</p>
         <div className={styles.delivery_layout}>
@@ -114,11 +156,6 @@ const Step1 = (props) => {
             </div>
           </div>
         </div> */}
-        <div className={styles.btn_container}>
-          <Button type="primary" block size="large" onClick={onNext}>
-            NEXT
-          </Button>
-        </div>
       </div>
     </div>
   )

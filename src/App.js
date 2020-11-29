@@ -40,11 +40,13 @@ const FoodmakerPage = lazy(() => import('containers/Dashboard/components/Account
 const FoodmakerProfile = lazy(() =>
   import('containers/Dashboard/components/Account/FoodmakerProfile'),
 )
+const ShopProfile = lazy(() => import('containers/Dashboard/components/Account/ShopProfile'))
 const Settings = lazy(() => import('containers/Dashboard/components/Account/Settings'))
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
+const Sandbox = lazy(() => import('components/sandbox/wrapper'))
 
 function WaitingComponent(Component) {
   return (props) => (
@@ -87,6 +89,7 @@ function App({ authorized, pathname, getUserAccount }) {
               path="/login"
               component={() => <Redirect exact to="/login/regular" />}
             />
+            <PublicRoute exact path="/sandbox" component={WaitingComponent(Sandbox)} />
             <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
             <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
@@ -114,13 +117,14 @@ function App({ authorized, pathname, getUserAccount }) {
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
-            <PrivateRoute exact path="/addproduct/:step" component={WaitingComponent(AddProduct)} />
+            <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
             <PrivateRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
             <PrivateRoute
               exact
               path="/foodmaker_profile"
               component={WaitingComponent(FoodmakerProfile)}
             />
+            <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} />
             <PrivateRoute
               exact
               path="/product_explore"

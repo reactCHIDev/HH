@@ -12,25 +12,46 @@ import './step2.less'
 import { setTemporaryEndpoint } from 'utils/apiClient'
 
 const Step2 = (props) => {
-  const { setStep, types = [] } = props
+  const { setStep, types = [], stepper, setStepper } = props
 
-  const [discount, setDiscount] = useState(false)
-  const [discValue, setDiscountValue] = useState(0)
-  const [qtyValue, setQtyValue] = useState(0)
-  const [category, setCategory] = useState([])
+  let title, description, productCategoryId, productTypeId, discount
+  if (getItem('addProduct'))
+    ({ title, description, productCategoryId, productTypeId, discount } = getItem('addProduct'))
+
+  const [discnt, setDiscount] = useState(!!discount?.discount && !!discount?.quantity)
+  const [discValue, setDiscountValue] = useState(discount?.discount)
+  const [qtyValue, setQtyValue] = useState(discount?.quantity)
+  const [category, setCategory] = useState(
+    types.find((t) => t.id === productTypeId)?.productCategories || [],
+  )
 
   const { Option } = Select
 
   console.log('%c   types   ', 'color: darkgreen; background: palegreen;', category)
 
-  const defaultValues = {}
-  const { register, handleSubmit, control, watch, errors } = useForm({
+  console.log('types', types)
+  console.log('productTypeId', productTypeId)
+
+  const defaultValues = productTypeId
+    ? {
+        title,
+        description,
+        productTypeId,
+        productCategoryId: types
+          .find((t) => t.id === productTypeId)
+          .productCategories.find((c) => c.id === productCategoryId)?.id,
+        discountVal: discValue,
+        qtyVal: qtyValue,
+      }
+    : {}
+
+  const { register, handleSubmit, control, watch, setValue, errors } = useForm({
     mode: 'onBlur',
     defaultValues,
   })
 
   const nums = ['Food', 'Drinks', 'qweqwe', 'sdfsdfsd', 'zxczxcz', 'yuryutyu', 'ghfghfg']
-  const discnt = [
+  const discntArr = [
     { value: 5, title: '5%' },
     { value: 10, title: '10%' },
     { value: 15, title: '15%' },
@@ -53,28 +74,49 @@ const Step2 = (props) => {
 
   const onNext = (data) => {
     const step1 = getItem('addProduct')
+    const { discountVal, qtyVal } = data
+    delete data.discountVal
+    delete data.qtyVal
+
     setItem('addProduct', {
       ...step1,
       ...data,
-      discount: { quantity: discount ? qtyValue : 0, discount: discount ? discValue : 0 },
+      discount: { quantity: discnt ? qtyVal : 0, discount: discnt ? discountVal : 0 },
     })
     setStep(2)
+    setStepper(false)
   }
 
-  const onChangeChkBox = () => setDiscount(!discount)
-  const handleDiscountChange = (value) => setDiscountValue(value)
-  const handleQuantityChange = (value) => setQtyValue(value)
+  const onChangeChkBox = () => setDiscount(!discnt)
+
+  const handleDiscountChange = (value) => {
+    setDiscountValue(value)
+    if (!stepper) setStepper(true)
+  }
+
+  const handleQuantityChange = (value) => {
+    setQtyValue(value)
+    if (!stepper) setStepper(true)
+  }
 
   const handleType = (onChange) => (e) => {
     setCategory(types.find((t) => t.id === e).productCategories)
     onChange(e)
+    setValue('productCategoryId', types.find((t) => t.id === e).productCategories[0]?.id)
+    if (!stepper) setStepper(true)
+  }
+
+  const onChangeForm = () => {
+    if (!stepper) setStepper(true)
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <form className={styles.form} onSubmit={handleSubmit(onNext)}>
-          <label className={styles.label}>Product title (no more than 66 char. recommened)</label>
+        <form className={styles.form} onChange={onChangeForm} onSubmit={handleSubmit(onNext)}>
+          <label className={styles.label}>
+            Product title (no more than 66 characters recommended)
+          </label>
           <input
             className={styles.input}
             id="step2"
@@ -160,11 +202,43 @@ const Step2 = (props) => {
             <ChkBox
               id="discount"
               labelText="Add discount"
-              checked={discount}
+              checked={discnt}
               onChange={onChangeChkBox}
             />
-            <Select defaultValue={discValue} onChange={handleDiscountChange}>
-              {discnt.map((n) => (
+            <div className={styles.discount_wrapper}>
+              <input
+                className={styles.disc_input}
+                name="discountVal"
+                type="text"
+                disabled={!discnt}
+                ref={register({
+                  required: false,
+                  validate: (value) => value >= 0 && value <= 100,
+                })}
+              />
+              {_.get('discountVal.type', errors) === 'validate' && (
+                <p className={styles.errmsg}>Range is 0 - 100</p>
+              )}
+            </div>
+            <p className={styles.discount_text}>when order from</p>
+            <div className={styles.discount_wrapper}>
+              <input
+                className={styles.disc_input}
+                name="qtyVal"
+                type="text"
+                disabled={!discnt}
+                ref={register({
+                  required: false,
+                  validate: (value) => value >= 0,
+                })}
+              />
+              {_.get('qtyVal.type', errors) === 'validate' && (
+                <p className={styles.errmsg}>Should be > 0</p>
+              )}
+            </div>
+
+            {/*  <Select defaultValue={discValue} onChange={handleDiscountChange}>
+              {discntArr.map((n) => (
                 <Option key={n.value} value={n.value}>
                   {n.title}
                 </Option>
@@ -177,7 +251,7 @@ const Step2 = (props) => {
                   {n.title}
                 </Option>
               ))}
-            </Select>
+            </Select> */}
           </div>
           <input type="submit" value="Next" />
         </form>

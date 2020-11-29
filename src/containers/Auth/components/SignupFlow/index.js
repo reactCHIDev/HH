@@ -2,6 +2,8 @@ import React, { useState, useEffect, useReducer } from 'react'
 import T from 'prop-types'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
 import { signupFoodmakerAC } from 'actions/signup'
+import { getUserAccount } from 'actions/account'
+import { getCitiesAC } from 'actions/system'
 import { connect } from 'react-redux'
 import SignupContainer from './components/container'
 import FirstNameStep from './steps/FirstName'
@@ -63,7 +65,17 @@ const steps = [
   { screen: Finish, props: { name: 'finish', value: '' } },
 ]
 
-const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
+const Signup = ({
+  signupFoodmakerAC,
+  getUserAccount,
+  cities,
+  getCitiesAC,
+  requesting,
+  success,
+  error,
+  profileName,
+  email,
+}) => {
   const [step, setStep] = useState(getItem('step') ? getItem('step') : 0)
   const [direction, setDirection] = useState('forward')
   const [hhLink, setHHLink] = useState('')
@@ -92,6 +104,12 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
       ? steps.map((e, i) => ({ screen: e.screen, ...getItem('signup_data')[i] }))
       : steps,
   )
+
+  useEffect(() => {
+    getCitiesAC()
+    const id = getItem('user-id')
+    if (id) getUserAccount(id)
+  }, [])
 
   useEffect(() => setItem('signup_data', state), [state])
 
@@ -147,10 +165,21 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
   }
 
   const Screen = state[step].screen
-  const properties =
+  let properties =
     step !== 17
       ? state[step].props
       : { setStep, signupFoodmakerAC, state, requesting, success, error }
+  if (step === 2)
+    properties = {
+      ...state[step].props,
+      email,
+    }
+  if (step === 12)
+    properties = {
+      ...state[step].props,
+      profileName,
+    }
+  if (step === 4) properties = { ...state[step].props, cities }
 
   return (
     <SignupContainer footer stepBack={stepBack} step={step}>
@@ -161,14 +190,31 @@ const Signup = ({ signupFoodmakerAC, requesting, success, error }) => {
 
 Signup.propTypes = {
   signupFoodmakerAC: T.func,
+  getCitiesAC: T.func,
+  getUserAccount: T.func,
   requesting: T.bool,
   success: T.bool,
   error: T.bool,
+  profileName: T.string,
+  email: T.string,
 }
 
 export default connect(
-  ({ signup: { requesting, success, error } }) => ({ requesting, success, error }),
+  ({
+    signup: { requesting, success, error },
+    system: { cities },
+    account: { profileName, email },
+  }) => ({
+    requesting,
+    success,
+    error,
+    cities,
+    profileName,
+    email,
+  }),
   {
     signupFoodmakerAC,
+    getCitiesAC,
+    getUserAccount,
   },
 )(Signup)

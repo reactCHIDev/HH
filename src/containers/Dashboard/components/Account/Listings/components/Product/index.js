@@ -12,8 +12,8 @@ import cls from 'classnames'
 
 // const [status_hidden, setHidden] = useState(false)
 
-const Product = ({ product }) => {
-  const { coverPhoto, title, rating, status, quantity, available } = product
+const Product = ({ product, onToggle }) => {
+  const { id, coverPhoto, title, rating, status, quantity, available } = product
 
   return (
     <div className={styles.tr}>
@@ -26,7 +26,7 @@ const Product = ({ product }) => {
             <div className={styles.product_option}>
               <span className={styles.product_name}>{title}</span>
               <div className={styles.status_option_container}>
-                <Option checked={status === 'PUBLISHED'} />
+                <Option checked={status} onClick={onToggle} />
               </div>
             </div>
           </div>
@@ -43,7 +43,7 @@ const Product = ({ product }) => {
       </div>
       <div className={cls(styles.td, styles.td_hidden)}>
         <div className={styles.status_option_container}>
-          <Option checked={status === 'PUBLISHED'} />
+          <Option checked={status === 'PUBLISHED'} onChange={onToggle} id={id} />
         </div>
       </div>
       <div className={styles.td}>

@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import ChkBox from 'components/ChkBox'
 import CollapsedBlock from 'components/CollapsedBlock'
 import SortElement from 'components/SortElement'
-import { getProductTypes, getMyProductList } from 'actions/listing'
+import { toggleProductStatusRequestAC } from 'actions/product'
+import { getMyProductList } from 'actions/listing'
+import { getProductTypes } from 'actions/system'
 import Header from './components/ListingHeader'
 import Product from './components/Product'
 import styles from './listing.module.scss'
@@ -32,7 +34,13 @@ const sorts = [
 ]
 
 const Listings = (props) => {
-  const { types, myProducts = [], getProductTypes, getMyProductList } = props
+  const {
+    types,
+    myProducts = [],
+    getProductTypes,
+    getMyProductList,
+    toggleProductStatusRequestAC,
+  } = props
 
   const [filters, setFilters] = useState(types)
   const [productTypes, setProductTypes] = useState([])
@@ -165,6 +173,11 @@ const Listings = (props) => {
     setSearchSubstring(String(value).toLowerCase())
   }
 
+  const test = (data) => {
+    toggleProductStatusRequestAC(data)
+    console.log('%c   toggle   ', 'color: white; background: royalblue;')
+  }
+
   return (
     <div className={styles.container}>
       <Header onSearch={onSearch} />
@@ -215,7 +228,7 @@ const Listings = (props) => {
               </div>
 
               {filteredProducts.map((product) => (
-                <Product key={product.id} product={product} />
+                <Product key={product.id} product={product} onToggle={test} />
               ))}
             </div>
           </div>
@@ -230,9 +243,14 @@ Listings.propTypes = {
   myProducts: T.arrayOf(shape()),
   getProductTypes: T.func,
   getMyProductList: T.func,
+  toggleProductStatusRequestAC: T.func,
 }
 
-export default connect(({ listing: { types, myProducts } }) => ({ types, myProducts }), {
-  getProductTypes,
-  getMyProductList,
-})(Listings)
+export default connect(
+  ({ listing: { myProducts }, system: { productTypes: types } }) => ({ types, myProducts }),
+  {
+    getProductTypes,
+    getMyProductList,
+    toggleProductStatusRequestAC,
+  },
+)(Listings)
