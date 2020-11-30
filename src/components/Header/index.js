@@ -47,6 +47,7 @@ const Header = (props) => {
   const toggleMenu = () => {
     if (!menu) {
       setMenu(true)
+      setItem('all')
     } else {
       setMenu(false)
       setSubmenu(false)
@@ -60,7 +61,6 @@ const Header = (props) => {
     } else {
       setItem('')
       setSubmenu(false)
-      toggleMenu()
     }
   }
 
@@ -79,6 +79,10 @@ const Header = (props) => {
       setItem(id)
     }
   }
+
+  /*  const menuItemClick = () => {
+    setSubmenu(!isSubmenu)
+  } */
 
   const onSettings = () => setSettings((s) => !s)
 
@@ -102,7 +106,7 @@ const Header = (props) => {
           </div>
           <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
             <li className={styles.menuitem} id="explore" onClick={menuItemClick}>
-              EXPLORE{' '}
+              EXPLORE
               <svg
                 width="10"
                 height="7"
@@ -114,7 +118,7 @@ const Header = (props) => {
               </svg>
             </li>
             <li className={styles.menuitem} id="foodmakers" onClick={menuItemClick}>
-              FOR FOOD MAKERS{' '}
+              FOR FOOD MAKERS
               <svg
                 width="10"
                 height="7"
@@ -240,7 +244,25 @@ const Header = (props) => {
               </div>
             )}
           </div>
-          {isSubmenu && item && <MenuContainer dark={dark} item={item} click={switchMenu} />}
+          {isSubmenu && item && (
+            <MenuContainer
+              dark={dark}
+              item={item}
+              click={switchMenu}
+              setSubmenu={setSubmenu}
+              resetItem={setItem}
+              setMenu={setMenu}
+            />
+          )}
+          {menu && item === 'all' && (
+            <MenuContainer
+              dark={dark}
+              item="all"
+              setSubmenu={setSubmenu}
+              setMenu={setMenu}
+              resetItem={setItem}
+            />
+          )}
           {settings && (
             <div className={styles.settings_container}>
               <ul className={styles.link_list}>
