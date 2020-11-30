@@ -3,28 +3,14 @@ import T from 'prop-types'
 import { getUserAccount, updateAccount } from 'actions/account'
 import { updateFoodmakerAccountAC } from 'actions/foodmaker'
 import { getSpecialityTagsAC } from 'actions/system'
-import { Upload, Modal, Progress } from 'antd'
 import QR from 'qrcode'
-
-import ImgCrop from 'antd-img-crop'
-import Btn from 'components/Button'
+import AvaUploader from 'components/AvatarUploader'
+import Uploader from 'components/PhotoUploader'
 import { Input, Select, Button, Form } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
-
 import { connect } from 'react-redux'
 import { getItem } from 'utils/localStorage'
-import axios from 'axios'
 import styles from './foodmakerprofile.module.scss'
 import './foodmakerprofile.less'
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = (error) => reject(error)
-  })
-}
 
 const FoodmakerProfile = (props) => {
   const {
@@ -34,18 +20,11 @@ const FoodmakerProfile = (props) => {
     updateFoodmakerAccountAC,
     getSpecialityTagsAC,
   } = props
-  const { id, success } = account
+  const { id, userPhoto, success } = account
 
-  const [defaultFileList, setFileList] = useState([])
-  const [url, setUrl] = useState('')
-  const [galleryFileList, setGalleryFileList] = useState([])
-  const [galleryUrl, setGalleryUrl] = useState('')
-
-  const [previewVisible, setPreviewVisible] = useState(false)
-  const [previewImage, setPreviewImage] = useState('')
-  const [previewTitle, setPreviewTitle] = useState('')
-
-  const [progress, setProgress] = useState(0)
+  const [avatar, setAvatar] = useState('')
+  const [cover, setCover] = useState(0)
+  const [fileList, setFilelist] = useState([])
 
   const [tags, setTags] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
@@ -118,6 +97,8 @@ const FoodmakerProfile = (props) => {
           'www.hungryhugger.com/',
         ),
       )
+    setAvatar(account?.userPhoto || '')
+    if (account?.coverPhoto) setFilelist([account?.coverPhoto].concat(account?.otherPhotos || []))
     setSelectedLangs(normalizeTagsForRender([1, 3], langs))
   }, [account])
 
@@ -138,101 +119,6 @@ const FoodmakerProfile = (props) => {
     }
   }, [success])
 
-  useEffect(() => {
-    if (defaultFileList.length) {
-      const list = [...defaultFileList]
-      list[list.length - 1].url = url
-      setFileList(list)
-    }
-  }, [url])
-
-  useEffect(() => {
-    if (galleryFileList.length) {
-      const list = [...galleryFileList]
-      list[list.length - 1].url = galleryUrl
-      setGalleryFileList(list)
-    }
-  }, [galleryUrl])
-
-  const handleCancel = () => setPreviewVisible(false)
-
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj)
-    }
-
-    setPreviewImage(file.url || file.preview)
-    setPreviewVisible(true)
-    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
-  }
-
-  const onChange = ({ fileList: newFileList }, avatar) => {
-    let list = []
-    const targetList = avatar ? defaultFileList : galleryFileList
-
-    if (targetList.length < newFileList.length) {
-      list = newFileList.map((e, i) =>
-        i === newFileList.length - 1
-          ? {
-              uid: e.uid,
-              name: e.name,
-              status: 'done',
-            }
-          : e,
-      )
-    } else {
-      list = targetList.filter((e) => newFileList.find((f) => f.uid === e.uid))
-    }
-    avatar ? setFileList(list) : setGalleryFileList(list)
-  }
-
-  const onPreview = async (file) => {
-    let src = file.url
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file.originFileObj)
-        reader.onload = () => resolve(reader.result)
-      })
-    }
-    const image = new Image()
-    image.src = src
-    const imgWindow = window.open(src)
-    imgWindow.document.write(image.outerHTML)
-  }
-
-  async function sendFile(options, avatar) {
-    const { onSuccess, onError, file, onProgress } = options
-    const formData = new FormData()
-    formData.append('file', file)
-    const headers = {
-      'Content-Type': 'multipart/form-data',
-      Accept: 'application/json',
-      type: 'formData',
-      'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
-    }
-    try {
-      const res = await axios.post(
-        'https://hungryhugger.wildwebart.com/api/v1/file/upload/photo',
-        formData,
-        {
-          headers,
-          onUploadProgress: (event) => {
-            const percent = Math.floor((event.loaded / event.total) * 100)
-            setProgress(percent)
-            if (percent === 100) {
-              setTimeout(() => setProgress(0), 3000)
-            }
-            onProgress({ percent: (event.loaded / event.total) * 100 })
-          },
-        },
-      )
-      avatar ? setUrl(res.data) : setGalleryUrl(res.data)
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
   const fixedText = 'www.hungryhugger.com/'
 
   const onChangeHHLink = (e) => {
@@ -241,9 +127,9 @@ const FoodmakerProfile = (props) => {
   }
 
   const onSubmit = (formValues) => {
-    const userPhoto = defaultFileList.length ? defaultFileList[0].url : ''
-    const coverPhoto = galleryFileList.length ? galleryFileList[0].url : ''
-    const otherPhotos = galleryFileList.length > 1 ? galleryFileList.slice(1).map((f) => f.url) : []
+    const userPhoto = avatar
+    const coverPhoto = fileList.length ? fileList[cover] : ''
+    const otherPhotos = fileList.length > 1 ? fileList.filter((_, i) => i !== cover) : []
     const specialityTagIds = normalizeTagsForSubmit(selectedItems, tags)
     const languages = selectedLangs
 
@@ -264,13 +150,6 @@ const FoodmakerProfile = (props) => {
     updateFoodmakerAccountAC(payload)
   }
 
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  )
-
   const { reffering, firstName, lastName, about } = account
 
   return (
@@ -278,31 +157,13 @@ const FoodmakerProfile = (props) => {
       {account.firstName && (
         <div className={styles.content}>
           <p className={styles.head}>Foodmaker Profile</p>
-
-          <div id="uploader_fm" className={styles.uploader}>
-            {defaultFileList && (
-              <div className={styles.photo_uploader}>
-                <ImgCrop rotate>
-                  <Upload
-                    customRequest={(options) => sendFile(options, true)}
-                    listType="picture-card"
-                    fileList={defaultFileList}
-                    onChange={(options) => onChange(options, true)}
-                    onPreview={onPreview}
-                  >
-                    {defaultFileList.length < 1 && '+ Upload'}
-                  </Upload>
-                </ImgCrop>
-                <div className={styles.progress_container}>
-                  {progress > 0 ? <Progress percent={progress} /> : null}
-                </div>
-              </div>
-            )}
-            <div className={styles.photo_btn}>
-              <p>Avatar</p>
-              <div className={styles.btn_container}>
-                <Btn title="UPLOAD PHOTO" onClick={onSubmit} />
-              </div>
+          <div className={styles.avatar_container}>
+            <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
+            <div className={styles.loader_wrapper}>
+              <p>Avatar *</p>
+              <Button type="primary" size="large" htmlType="submit">
+                UPLOAD PHOTO
+              </Button>
             </div>
           </div>
 
@@ -349,7 +210,7 @@ const FoodmakerProfile = (props) => {
                 <p className={styles.sec1}>About you</p>
                 <div className={styles.about}>
                   <Form.Item name="about">
-                    <Input.TextArea rows={4} />
+                    <Input.TextArea rows={7} />
                   </Form.Item>
                 </div>
 
@@ -400,31 +261,12 @@ const FoodmakerProfile = (props) => {
 
                 <div className={styles.gallery_container}>
                   <p className={styles.sec1}>Gallery</p>
-
-                  <div className="photo_container">
-                    <Upload
-                      customRequest={sendFile}
-                      listType="picture-card"
-                      fileList={galleryFileList}
-                      onPreview={handlePreview}
-                      onChange={onChange}
-                    >
-                      {defaultFileList.length >= 8 || progress > 0 ? null : uploadButton}
-                    </Upload>
-                    <Modal
-                      visible={previewVisible}
-                      title={previewTitle}
-                      footer={null}
-                      onCancel={handleCancel}
-                    >
-                      <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                    </Modal>
-                    {progress > 0 ? (
-                      <Progress percent={progress} />
-                    ) : (
-                      <div style={{ height: 20 }} />
-                    )}
-                  </div>
+                  <Uploader
+                    list={fileList}
+                    listSet={setFilelist}
+                    cover={cover}
+                    setCover={setCover}
+                  />
                 </div>
                 <p className={styles.sec1}>Languages you speak</p>
 
@@ -445,12 +287,12 @@ const FoodmakerProfile = (props) => {
                 </div>
               </div>
             </div>
+            {success && <div className={styles.success}>Saved successfully</div>}
             <Form.Item>
               <Button type="primary" size="large" htmlType="submit">
                 APPLY
               </Button>
             </Form.Item>
-            {success && <div className={styles.success}>Saved successfully</div>}
           </Form>
         </div>
       )}
