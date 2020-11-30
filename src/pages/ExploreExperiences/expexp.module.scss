@@ -1,0 +1,97 @@
+.container {
+  .page_header {
+    padding: 80px 20px;
+    background-color: #31394d;
+    color: white;
+    .header_content {
+      width: 100%;
+      max-width: 1440px;
+      margin: auto;
+      .search_block {
+        display: flex;
+        align-items: flex-end;
+        .input_wrapper {
+          .label {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 160%;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+            color: #838894;
+            margin: 10px 0 0 0;
+            padding-left: 0px;
+          }
+
+          .input[type='text'] {
+            display: block;
+            position: relative;
+            width: 200px;
+            height: 56px;
+            padding: 16px;
+            border: 1px solid #adb0b8;
+            box-sizing: border-box;
+            backdrop-filter: blur(6px);
+            border-radius: 8px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 160%;
+            letter-spacing: 0.5px;
+            color: #31394d;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+  .content {
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    padding: 80px 20px;
+    .exp_section {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .product_section {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #f4f7fa;
+    }
+    .lessons_section {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+  .faq_container {
+    background-color: #f4f7fa;
+    padding: 100px 0;
+    .faq_heading {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 48px;
+      line-height: 64px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #31394d;
+      margin-bottom: 40px;
+      @media (max-width: 768px) {
+        font-size: 24px;
+        line-height: 31px;
+        text-align: center;
+        letter-spacing: 0.3px;
+        margin: 0 20px 32px;
+      }
+    }
+    .section_faq {
+      width: 100%;
+      max-width: 1008px;
+      background: #ffffff;
+      border-radius: 16px;
+      margin: 0 auto 150px;
+      padding: 10px 32px 32px;
+    }
+  }
+}
