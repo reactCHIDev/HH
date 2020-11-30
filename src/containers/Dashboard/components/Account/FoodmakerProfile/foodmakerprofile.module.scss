@@ -21,60 +21,23 @@
       color: #31394d;
     }
 
-    .uploader {
+    .avatar_container {
       width: 100%;
       position: relative;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: flex-start;
-      align-items: flex-start;
+      align-items: center;
+      padding-bottom: 32px;
       margin-bottom: 40px;
-      .photo_uploader {
-        width: 150px;
-        .progress_container {
-          padding-top: 5px;
-          height: 30px;
-        }
-      }
-      .change_photo {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 12px;
-        line-height: 19px;
-        text-align: right;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        color: #5375cb;
-        cursor: pointer;
-      }
-
-      .photo_btn {
-        .btn_container {
-          width: 160px;
-        }
+      .loader_wrapper {
+        width: 160px;
+        margin-left: 24px;
       }
     }
 
     // DATA SECTION
-    .success {
-      position: absolute;
-      width: 198px;
-      height: 37px;
-      left: 0;
-      bottom: 0;
-      background: rgba(122, 211, 152, 0.1);
-      border-radius: 6px;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 160%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      letter-spacing: 0.5px;
-      color: #7ad398;
-      margin: 20px 0;
-    }
+
     .data_section {
       display: flex;
       justify-content: space-between;
@@ -119,6 +82,7 @@
         }
         .about {
           margin-bottom: 32px;
+          height: 188px;
         }
         .service_tags {
         }
@@ -168,6 +132,25 @@
         .lang_tags {
         }
       }
+    }
+    .success {
+      // position: absolute;
+      width: 198px;
+      height: 37px;
+      // left: 0;
+      // bottom: 0;
+      background: rgba(122, 211, 152, 0.1);
+      border-radius: 6px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 160%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      letter-spacing: 0.5px;
+      color: #7ad398;
+      margin: 20px 0;
     }
   }
 }

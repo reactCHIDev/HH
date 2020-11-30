@@ -1,16 +1,14 @@
 .gallery {
   margin: 0 auto 50px;
-  padding: 10px;
   // display: flex;
   .container {
     width: 100%;
-    padding: 0 20px;
   }
 }
 .gallery_item {
   width: 120px;
   height: 170px;
-  margin: 10px;
+  margin: 0 10px;
   .cover {
     width: 152px;
   }
@@ -103,7 +101,7 @@ form {
     color: grey;
     background-color: white;
     border-radius: 8px;
-    margin: 10px;
+    margin: 0 10px;
     border: 2px solid #31394d;
   }
   .inputfile:focus + label,
