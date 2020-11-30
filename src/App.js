@@ -35,8 +35,8 @@ const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
 const Account = lazy(() => import('containers/Dashboard/components/Account'))
 const AddProduct = lazy(() => import('containers/Dashboard/components/Account/AddProduct'))
 const ProductPage = lazy(() => import('containers/Dashboard/components/Account/ProductPage'))
-const ProductExplore = lazy(() => import('containers/Dashboard/components/Account/ProductExplore'))
 const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
+const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakerPage = lazy(() => import('containers/Dashboard/components/Account/FoodmakerPage'))
 const FoodmakerProfile = lazy(() =>
   import('containers/Dashboard/components/Account/FoodmakerProfile'),
@@ -96,6 +96,11 @@ function App({ authorized, pathname, getUserAccount }) {
               path="/explore_experiences"
               component={WaitingComponent(ExploreExp)}
             />
+            {/*   <PublicRoute
+              exact
+              path="/product_explore"
+              component={WaitingComponent(ProductExplore)}
+            /> */}
             <PublicRoute
               exact
               path="/landing/foodmakers"
