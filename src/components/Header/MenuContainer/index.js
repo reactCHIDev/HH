@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
+import { Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import GetHired from 'assets/images/header/gethired.jpg'
@@ -28,18 +29,21 @@ const items = {
   ],
 }
 
-const MenuContainer = ({ item, dark, click, pushRoute }) => {
+const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [mounted])
 
-  const onClick = (e) => {
-    const { id } = e.currentTarget
-    click()
-    pushRoute(items[item][id].route)
+  const onClick = () => {
+    setMenu(false)
+    setSubmenu(false)
+    resetItem('')
   }
+  console.log('%c   item   ', 'color: darkgreen; background: palegreen;', item)
+
+  const menuContent = item !== 'all' && item !== '' ? items[item] : items.explore
 
   return (
     <div
@@ -50,18 +54,37 @@ const MenuContainer = ({ item, dark, click, pushRoute }) => {
       )}
     >
       <div className={styles.content}>
-
         <strong className={styles.content_title}>EXPLORE</strong>
         <ul className={styles.menu_container}>
-          {items[item].map((menuItem, index) => (
+          {menuContent.map((menuItem, index) => (
             <li className={styles.item} id={index} onClick={onClick}>
-              <div className={styles.img_container}>
-                <img className={styles.item_img} src={menuItem.img} alt="hired" />
-              </div>
+              <Link to={menuItem.route}>
+                <div className={styles.img_container}>
+                  <img className={styles.item_img} src={menuItem.img} alt="hired" />
+                </div>
+              </Link>
               <p className={styles.item_text}>{menuItem.heading}</p>
             </li>
           ))}
         </ul>
+        {item === 'all' && (
+          <>
+            <strong className={styles.content_title}>FOODMAKER</strong>
+            <ul className={styles.menu_container}>
+              {items.foodmakers.map((menuItem, index) => (
+                <li className={styles.item} id={index} onClick={onClick}>
+                  <Link to={menuItem.route}>
+                    <div className={styles.img_container}>
+                      <img className={styles.item_img} src={menuItem.img} alt="hired" />
+                    </div>
+                  </Link>
+
+                  <p className={styles.item_text}>{menuItem.heading}</p>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   )
