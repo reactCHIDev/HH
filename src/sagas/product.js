@@ -1,7 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects'
+import { replace } from 'connected-react-router'
+import { removeKey } from '../utils/localStorage'
+
 import PATHS from 'api/paths'
 
-import { createProductReq, getProductInfoReq, getProductTagsReq } from 'api/requests/Product'
+import { createProductReq, getProductInfoReq, toggleProductStatus } from 'api/requests/Product'
 import { createProductSuccess, createProductError } from 'actions/product'
 
 import {
@@ -9,15 +12,17 @@ import {
   GET_PRODUCT_INFO_REQUESTING,
   GET_PRODUCT_INFO_SUCCESS,
   GET_PRODUCT_INFO_ERROR,
-  GET_PRODUCT_TAGS_REQUESTING,
-  GET_PRODUCT_TAGS_SUCCESS,
-  GET_PRODUCT_TAGS_ERROR,
+  TOGGLE_PRODUCT_STATUS_REQUESTING,
+  TOGGLE_PRODUCT_STATUS_SUCCESS,
+  TOGGLE_PRODUCT_STATUS_ERROR,
 } from '../actions/constants'
 
 function* createProductSaga({ payload }) {
   try {
     yield createProductReq(payload)
     yield put(createProductSuccess())
+    removeKey('addProduct')
+    yield put(replace('/card'))
   } catch (error) {
     if (error.response) {
       yield put(createProductError())
@@ -36,13 +41,13 @@ function* getProductInfoSaga({ id }) {
   }
 }
 
-function* getProductTagsSaga() {
+function* toggleProductStatusSaga({ payload }) {
   try {
-    const response = yield getProductTagsReq()
-    yield put({ type: GET_PRODUCT_TAGS_SUCCESS, data: response.data })
+    yield toggleProductStatus({ id: payload })
+    yield put({ type: 'GET_MY_PRODUCT_LIST_REQUESTING' })
   } catch (error) {
     if (error.response) {
-      yield put({ type: GET_PRODUCT_TAGS_ERROR, error: error.response.data.error })
+      yield put({ type: TOGGLE_PRODUCT_STATUS_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -50,7 +55,7 @@ function* getProductTagsSaga() {
 function* accountWatcher() {
   yield takeEvery(CREATE_PRODUCT_REQUESTING, createProductSaga)
   yield takeEvery(GET_PRODUCT_INFO_REQUESTING, getProductInfoSaga)
-  yield takeEvery(GET_PRODUCT_TAGS_REQUESTING, getProductTagsSaga)
+  yield takeEvery(TOGGLE_PRODUCT_STATUS_REQUESTING, toggleProductStatusSaga)
 }
 
 export default accountWatcher

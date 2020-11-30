@@ -6,24 +6,19 @@ import { Switch } from 'antd'
 import styles from './option.module.scss'
 import './option.less'
 
-const Option = ({ checked }) => {
-  const [state, SetState] = useState(checked)
-
-  function onChange(chckd) {
-    // SetState(chckd)
-  }
-
+const Option = ({ checked, id, onChange }) => {
   return (
     <div className={styles.container}>
-      <p className={cls(styles.title, state ? styles.off : '')}>PAUSED</p>
-      <Switch className="switch" checked={state} size="small" onChange={onChange} />
-      <p className={state ? styles.on : styles.off}>PUBLISHED</p>
+      <p className={cls(styles.title, checked ? styles.off : '')}>PAUSED</p>
+      <Switch className="switch" checked={checked} size="small" onChange={() => onChange(id)} />
+      <p className={checked ? styles.on : styles.off}>PUBLISHED</p>
     </div>
   )
 }
 
 Option.propTypes = {
   checked: T.bool,
+  onChange: T.func,
 }
 
 export default Option

@@ -18,6 +18,7 @@ const initialState = {
   requesting: false,
   error: '',
   awaitingConfirmation: false,
+  success: false,
 }
 
 const reducer = function accountReducer(state = initialState, action) {

@@ -41,6 +41,7 @@ const Input = ({ name, value, placeholder, registerObj, focus, fixedText, onSubm
             placeholder={placeholder}
             value={curValue}
             type={type}
+            autoComplete="off"
             onChange={onChange}
             autoFocus={focus}
             ref={register(registerObj)}

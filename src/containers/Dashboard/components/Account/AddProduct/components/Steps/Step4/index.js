@@ -7,30 +7,24 @@ import {
   Radio,
   Divider,
   DatePicker,
-  Tooltip,
-  Cascader,
   Select,
   Row,
   Col,
   Checkbox,
   Button,
-  AutoComplete,
   Space,
 } from 'antd'
 import moment from 'moment'
+
 import { getItem, setItem } from 'utils/localStorage'
 
 import cls from 'classnames'
-import { QuestionCircleOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import styles from './step4.module.scss'
 import './step4.less'
 
 const { Option } = Select
-const AutoCompleteOption = AutoComplete.Option
-const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 8 },
-}
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -63,33 +57,57 @@ const tailFormItemLayout = {
   },
 }
 
-const Step4 = ({ create, pushRoute, tags }) => {
+const Step4 = ({ create, pushRoute }) => {
   const [form] = Form.useForm()
-  const { RangePicker } = DatePicker
-
-  const [ingredients, setIngredients] = useState(false)
-  const [selectedItems, setSelectedItems] = useState([])
-  const [selectedCountries, setSelectedCountries] = useState([])
-  const [selectedRegionRadio, setSelectedRegionRadio] = useState(1)
-  const [selectedCountryRadio, setSelectedCountryRadio] = useState(1)
-  const [availabilityStartDate, setStartDate] = useState('')
-  const [availabilityEndDate, setEndDate] = useState('')
-  const [isAdult, setIsAdult] = useState(false)
-  const [dates, setDates] = useState('Available')
-
-  const OPTIONS = [
+  const tags = [
     { id: 1, tagName: 'Drink' },
     { id: 2, tagName: 'Salad' },
     { id: 3, tagName: 'Bread' },
     { id: 4, tagName: 'Soup' },
     { id: 5, tagName: 'Pasta' },
   ]
+  const { RangePicker } = DatePicker
 
-  const normalizeTags = (value) => {
-    const v = value.map((t) => tags.find((e) => e.tagName === t).id)
-    console.log('v', v)
-    return v
-  }
+  const prevState = getItem('addProduct')
+  const normalizeTagsDefaults = (value) => value.map((t) => tags.find((e) => e.id === t).tagName)
+
+  console.log('prevState', prevState)
+
+  const deliveryRegionDataForm = { Local: 1, Worldwide: 2 }
+
+  const [ingredients, setIngredients] = useState(!!prevState?.ingredients)
+  const [selectedItems, setSelectedItems] = useState(
+    prevState?.productTagIds && prevState?.productTagIds.length
+      ? normalizeTagsDefaults(prevState?.productTagIds)
+      : [],
+  )
+  const [selectedRegionRadio, setSelectedRegionRadio] = useState(
+    prevState?.deliveryRegion
+      ? prevState.deliveryRegion === 'Local'
+        ? 1
+        : prevState.deliveryRegion === 'Worldwide'
+        ? 2
+        : 3
+      : prevState?.deliveryRegion === ''
+      ? 3
+      : 1,
+  )
+  const [selectedCountryRadio, setSelectedCountryRadio] = useState(
+    prevState?.deliveryRegionException && prevState.deliveryRegionException.length ? 5 : 4,
+  )
+  const [selectedCountries, setSelectedCountries] = useState(
+    selectedRegionRadio === 3
+      ? selectedCountryRadio === 4
+        ? prevState?.deliveryRegion && prevState.deliveryRegion.split(' ')
+        : prevState?.deliveryRegionException && prevState.deliveryRegionException.split(' ')
+      : [],
+  )
+  const [availabilityStartDate, setStartDate] = useState(prevState?.availabilityStartDate)
+  const [availabilityEndDate, setEndDate] = useState(prevState?.availabilityEndDate)
+  const [isAdult, setIsAdult] = useState(!!prevState?.isAdult)
+  const [dates, setDates] = useState(prevState?.available !== 'Preorder')
+
+  const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
   const COUNTRIES = ['China', 'Malaysia', 'Japan', 'Vietnam']
 
@@ -141,8 +159,9 @@ const Step4 = ({ create, pushRoute, tags }) => {
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
     console.log('%c   productData   ', 'color: white; background: royalblue;', productData)
+    delete productData.countries
     create(productData)
-    pushRoute('/card')
+    // pushRoute('/card')
   }
 
   const onRegionRadio = (e) => {
@@ -166,8 +185,12 @@ const Step4 = ({ create, pushRoute, tags }) => {
     setSelectedCountries(selectedItms)
   }
 
-  const filteredTags = tags.filter((o) => !selectedItems.includes(o.id))
-  const filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
+  const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
+  console.log('%c   filteredTags   ', 'color: darkgreen; background: palegreen;', filteredTags)
+  let filteredCountries = COUNTRIES
+  if (selectedCountries && selectedCountries.length) {
+    filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
+  }
 
   const radioStyle = {
     display: 'block',
@@ -183,7 +206,6 @@ const Step4 = ({ create, pushRoute, tags }) => {
   }
 
   const toggleDates = (e) => {
-    console.log('%c   value   ', 'color: white; background: salmon;', e)
     setDates(e.target.value !== 'Preorder')
   }
 
@@ -198,9 +220,13 @@ const Step4 = ({ create, pushRoute, tags }) => {
           name="register"
           onFinish={onFinish}
           initialValues={{
-            parameters: [{ measure: 'ml', currency: '$' }],
-            available: 'Available',
-            refundPolicy: 'FULL_REFUND',
+            parameters: prevState?.parameters || [{ measure: 'ml', currency: '$' }],
+            ingredients: prevState?.ingredients || ' ',
+            productTagIds: selectedItems,
+            countries: selectedCountries,
+            quantity: prevState?.quantity,
+            available: prevState?.available,
+            refundPolicy: prevState?.refundPolicy,
           }}
           scrollToFirstError
         >
@@ -212,6 +238,7 @@ const Step4 = ({ create, pushRoute, tags }) => {
                     <Space align="baseline">
                       <div className="numeric_selector">
                         <Form.Item
+                          shouldUpdate
                           {...field}
                           key={[field.name, 'volume']}
                           name={[field.name, 'volume']}
@@ -236,10 +263,11 @@ const Step4 = ({ create, pushRoute, tags }) => {
                             <Option value="g">g</Option>
                             <Option value="kg">kg</Option>
                             <Option value="ml">ml</Option>
-                            <Option value="l">l</Option>
+                            <Option value="l">lg</Option>
                             <Option value="S">S</Option>
                             <Option value="M">M</Option>
                             <Option value="L">L</Option>
+                            <Option value="L">none</Option>
                           </Select>
                         </Form.Item>
                       </div>
@@ -277,12 +305,11 @@ const Step4 = ({ create, pushRoute, tags }) => {
                     </Space>
                   </Row>
                 ))}
-
-                <Form.Item>
-                  <Button onClick={() => add()} icon={<PlusOutlined />}>
-                    ADD
-                  </Button>
-                </Form.Item>
+                {/*  <Form.Item> */}
+                <div className={cls(styles.add_btn_wrapper, 'add_btn')}>
+                  <Button onClick={() => add()}>ADD</Button>
+                </div>
+                {/* </Form.Item> */}
               </>
             )}
           </Form.List>
@@ -309,7 +336,7 @@ const Step4 = ({ create, pushRoute, tags }) => {
             wrapperCol={{ span: 24, offset: 0 }}
           >
             <Select
-              mode="tags"
+              mode="multiple"
               value={selectedItems}
               onChange={handleChangeTags}
               showArrow
@@ -345,21 +372,28 @@ const Step4 = ({ create, pushRoute, tags }) => {
               <Radio style={radioStyle} value={4}>
                 Available countries
               </Radio>
-              <Select
-                mode="multiple"
-                placeholder="Inserted are removed"
-                value={selectedCountries}
-                onChange={handleChangeCountryTags}
-                showArrow
-                disabled={selectedCountryRadio !== 4}
-                style={{ width: '100%' }}
+              <Form.Item
+                name="countries"
+                rules={[
+                  { required: selectedRegionRadio === 3, message: 'Please select countries!' },
+                ]}
               >
-                {filteredCountries.map((item) => (
-                  <Select.Option key={item} value={item}>
-                    {item}
-                  </Select.Option>
-                ))}
-              </Select>
+                <Select
+                  mode="multiple"
+                  placeholder="Inserted are removed"
+                  value={selectedCountries}
+                  onChange={handleChangeCountryTags}
+                  showArrow
+                  disabled={selectedCountryRadio < 3}
+                  style={{ width: '100%' }}
+                >
+                  {filteredCountries.map((item) => (
+                    <Select.Option key={item} value={item}>
+                      {item}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
               <Radio style={radioStyle} value={5}>
                 Worldwide, except
               </Radio>
@@ -383,9 +417,21 @@ const Step4 = ({ create, pushRoute, tags }) => {
                 </Radio.Group>
               </Form.Item>
 
-              <DatePicker disabled={dates} id="1" format="DD MMM YY" onChange={onChangeStartDate} />
+              <DatePicker
+                defaultValue={moment(availabilityStartDate)}
+                disabled={dates}
+                id="1"
+                format="DD MMM YY"
+                onChange={onChangeStartDate}
+              />
               <span>{' - '}</span>
-              <DatePicker disabled={dates} id="2" format="DD MMM YY" onChange={onChangeEndDate} />
+              <DatePicker
+                defaultValue={moment(availabilityEndDate)}
+                disabled={dates}
+                id="2"
+                format="DD MMM YY"
+                onChange={onChangeEndDate}
+              />
             </Col>
             <Col gutter={20} align="bottom">
               <span className="form-text">Over 18 Requirement </span>
@@ -396,16 +442,16 @@ const Step4 = ({ create, pushRoute, tags }) => {
           </Row>
 
           <div style={{ marginTop: 20 }}>
-            <label className="form-text">Quantity</label>
-            <Form.Item
-              name="quantity"
-              rules={[{ required: true, message: 'Please enter quantity' }]}
-              normalize={(value) => Math.abs(Number(value))}
-            >
-              <div style={{ padding: '5px 0 0 24px' }}>
+            <div style={{ padding: '5px 0 0 24px' }}>
+              <label className="form-text">Quantity</label>
+              <Form.Item
+                name="quantity"
+                rules={[{ required: true, message: 'Please enter quantity' }]}
+                normalize={(value) => Math.abs(Number(value))}
+              >
                 <InputNumber min={0} />
-              </div>
-            </Form.Item>
+              </Form.Item>
+            </div>
           </div>
 
           <Divider />

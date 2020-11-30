@@ -20,7 +20,7 @@ const Header = (props) => {
         </div>
         <div className={styles.srch_block}>
           <Search onSearch={onSearch} />
-          <Link to="/addproduct/0">
+          <Link to="/addproduct">
             {/* <Button title="ADD PRODUCT" /> */}
             ADD <span>PRODUCT</span>
           </Link>
