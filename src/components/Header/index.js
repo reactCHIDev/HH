@@ -21,6 +21,7 @@ import Gallery_icon from 'assets/images/header/Component 150.svg'
 import Gallery_icon_1 from 'assets/images/header/Component 148.svg'
 import Setting from 'assets/images/header/Setting.svg'
 import LogOut from 'assets/images/header/LogOut.svg'
+import textLogoBlue from 'assets/images/header/logo_text_beta_blue.svg'
 
 const Header = (props) => {
   const { authorized, id, role, userPhoto, logOut, pathname, pushRoute, getUserAccount } = props
@@ -103,6 +104,8 @@ const Header = (props) => {
           <div className={styles.logo}>
             <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
             {dark && <img className={styles.logo_text} src={textLogo} alt="hh" />}
+
+            <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
           </div>
           <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
             <li className={styles.menuitem} id="explore" onClick={menuItemClick}>
