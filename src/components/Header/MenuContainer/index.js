@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
+import { Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import GetHired from 'assets/images/header/gethired.jpg'
@@ -12,6 +13,12 @@ import Products from 'assets/images/landings/foodmakers/sec3-3.jpg'
 import Blog from 'assets/images/landings/create_shop/sec21.jpg'
 import FAQ from 'assets/images/landings/create_shop/sec32.jpg'
 import styles from './menucontainer.module.scss'
+import Close from 'assets/images/close-btn-white.svg'
+import Youtube from 'assets/images/youtube -white.svg'
+import Instagram from 'assets/images/instagram -white.svg'
+import Facebook from 'assets/images/facebook -white.svg'
+import UserAvatar from 'assets/images/user-avatar.jpg'
+import LogOut from 'assets/images/header/LogOut -gray.svg'
 
 const items = {
   foodmakers: [
@@ -28,18 +35,21 @@ const items = {
   ],
 }
 
-const MenuContainer = ({ item, dark, click, pushRoute }) => {
+const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [mounted])
 
-  const onClick = (e) => {
-    const { id } = e.currentTarget
-    click()
-    pushRoute(items[item][id].route)
+  const onClick = () => {
+    setMenu(false)
+    setSubmenu(false)
+    resetItem('')
   }
+  console.log('%c   item   ', 'color: darkgreen; background: palegreen;', item)
+
+  const menuContent = item !== 'all' && item !== '' ? items[item] : items.explore
 
   return (
     <div
@@ -50,18 +60,74 @@ const MenuContainer = ({ item, dark, click, pushRoute }) => {
       )}
     >
       <div className={styles.content}>
+        <div className={styles.top_header_holder}>
+          <div className={styles.top_mobile_wrapper}>
+            <span className={styles.img_close}>
+              <img src={Close} alt="close" width="16" height="16"/>
+            </span>
 
-        <strong className={styles.content_title}>EXPLORE</strong>
-        <ul className={styles.menu_container}>
-          {items[item].map((menuItem, index) => (
-            <li className={styles.item} id={index} onClick={onClick}>
-              <div className={styles.img_container}>
-                <img className={styles.item_img} src={menuItem.img} alt="hired" />
-              </div>
-              <p className={styles.item_text}>{menuItem.heading}</p>
-            </li>
-          ))}
-        </ul>
+            <ul className={styles.social_header_list}>
+              <li>
+                <a href="#">
+                  <img src={Instagram} alt="Instagram" width="22" height="22"/>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img src={Facebook} alt="Facebook" width="12" />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img src={Youtube} alt="Youtube" width="26" height="18"/>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <strong className={styles.content_title}>EXPLORE</strong>
+          <ul className={styles.menu_container}>
+            {menuContent.map((menuItem, index) => (
+              <li className={styles.item} id={index} onClick={onClick}>
+                <Link to={menuItem.route}>
+                  <div className={styles.img_container}>
+                    <img className={styles.item_img} src={menuItem.img} alt="hired" />
+                  </div>
+                </Link>
+                <p className={styles.item_text}>{menuItem.heading}</p>
+              </li>
+            ))}
+          </ul>
+          {item === 'all' && (
+            <>
+              <strong className={styles.content_title}>FOODMAKER</strong>
+              <ul className={styles.menu_container}>
+                {items.foodmakers.map((menuItem, index) => (
+                  <li className={styles.item} id={index} onClick={onClick}>
+                    <Link to={menuItem.route}>
+                      <div className={styles.img_container}>
+                        <img className={styles.item_img} src={menuItem.img} alt="hired" />
+                      </div>
+                    </Link>
+
+                    <p className={styles.item_text}>{menuItem.heading}</p>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+        <div  className={styles.bottom_holder}>
+            <a href="#" className={styles.account_info}>
+                  <span className={styles.img_holder}>
+                    <img src={UserAvatar} alt="UserAvatar"/>
+                  </span>
+                  <strong> Annette P. </strong>
+            </a>
+            <a href="#" className={styles.logout}>
+              <img src={LogOut} alt="Log out" width="17"/>
+              Log out
+            </a>
+        </div>
       </div>
     </div>
   )

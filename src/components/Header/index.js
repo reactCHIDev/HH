@@ -10,7 +10,7 @@ import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
 import LogoDark from 'assets/images/header/logo_dark.svg'
 import LogoWhite from 'assets/images/header/logo-white.svg'
-import textLogo from 'assets/images/header/textlogo.svg'
+import textLogo from 'assets/images/header/logo_text_beta.svg'
 import ArrowWhite from 'assets/icons/svg/down-arrow-white.svg'
 import ArrowDark from 'assets/icons/svg/down-arrow.svg'
 import styles from './header.module.scss'
@@ -21,6 +21,7 @@ import Gallery_icon from 'assets/images/header/Component 150.svg'
 import Gallery_icon_1 from 'assets/images/header/Component 148.svg'
 import Setting from 'assets/images/header/Setting.svg'
 import LogOut from 'assets/images/header/LogOut.svg'
+import textLogoBlue from 'assets/images/header/logo_text_beta_blue.svg'
 
 const Header = (props) => {
   const { authorized, id, role, userPhoto, logOut, pathname, pushRoute, getUserAccount } = props
@@ -47,6 +48,7 @@ const Header = (props) => {
   const toggleMenu = () => {
     if (!menu) {
       setMenu(true)
+      setItem('all')
     } else {
       setMenu(false)
       setSubmenu(false)
@@ -60,7 +62,6 @@ const Header = (props) => {
     } else {
       setItem('')
       setSubmenu(false)
-      toggleMenu()
     }
   }
 
@@ -79,6 +80,10 @@ const Header = (props) => {
       setItem(id)
     }
   }
+
+  /*  const menuItemClick = () => {
+    setSubmenu(!isSubmenu)
+  } */
 
   const onSettings = () => setSettings((s) => !s)
 
@@ -99,10 +104,12 @@ const Header = (props) => {
           <div className={styles.logo}>
             <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
             {dark && <img className={styles.logo_text} src={textLogo} alt="hh" />}
+
+            <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
           </div>
           <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
             <li className={styles.menuitem} id="explore" onClick={menuItemClick}>
-              EXPLORE{' '}
+              EXPLORE
               <svg
                 width="10"
                 height="7"
@@ -114,7 +121,7 @@ const Header = (props) => {
               </svg>
             </li>
             <li className={styles.menuitem} id="foodmakers" onClick={menuItemClick}>
-              FOR FOOD MAKERS{' '}
+              FOR FOOD MAKERS
               <svg
                 width="10"
                 height="7"
@@ -240,7 +247,25 @@ const Header = (props) => {
               </div>
             )}
           </div>
-          {isSubmenu && item && <MenuContainer dark={dark} item={item} click={switchMenu} />}
+          {isSubmenu && item && (
+            <MenuContainer
+              dark={dark}
+              item={item}
+              click={switchMenu}
+              setSubmenu={setSubmenu}
+              resetItem={setItem}
+              setMenu={setMenu}
+            />
+          )}
+          {menu && item === 'all' && (
+            <MenuContainer
+              dark={dark}
+              item="all"
+              setSubmenu={setSubmenu}
+              setMenu={setMenu}
+              resetItem={setItem}
+            />
+          )}
           {settings && (
             <div className={styles.settings_container}>
               <ul className={styles.link_list}>
