@@ -5,8 +5,6 @@ import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
-import { Collapse } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
 import T from 'prop-types'
 import styles from './prodexp.module.scss'
 
