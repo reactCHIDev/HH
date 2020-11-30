@@ -50,6 +50,8 @@ const MenuContainer = ({ item, dark, click, pushRoute }) => {
       )}
     >
       <div className={styles.content}>
+
+        <strong className={styles.content_title}>EXPLORE</strong>
         <ul className={styles.menu_container}>
           {items[item].map((menuItem, index) => (
             <li className={styles.item} id={index} onClick={onClick}>

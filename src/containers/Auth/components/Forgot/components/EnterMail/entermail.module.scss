@@ -8,7 +8,6 @@
   position: relative;
 
   .header {
-    font-style: normal;
     font-weight: normal;
     font-size: 28px;
     line-height: 36px;
@@ -18,7 +17,6 @@
     max-width: 394px;
   }
   .text {
-    font-style: normal;
     font-weight: normal;
     font-size: 13px;
     line-height: 160%;
@@ -36,9 +34,8 @@
     align-items: flex-start;
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    background: #ffffff;
+    background: #fff;
     border-radius: 16px;
-    // margin-bottom: 14px;
 
     input {
       display: block;
@@ -66,7 +63,6 @@
     ::-moz-placeholder,
     :-ms-input-placeholder,
     :-moz-placeholder {
-      font-style: normal;
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;

@@ -28,7 +28,6 @@
 
     h1 {
       color: #3c3e43;
-      font-style: normal;
       font-weight: 600;
       font-size: 32px;
       line-height: 42px;
@@ -62,8 +61,7 @@
     ::-moz-placeholder,
     :-ms-input-placeholder,
     :-moz-placeholder {
-      font-family: 'Helvetica Neue';
-      font-style: normal;
+      font-family: 'Helvetica';
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;

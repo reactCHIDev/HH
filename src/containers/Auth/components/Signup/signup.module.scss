@@ -22,8 +22,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    // font-family: 'DM Sans';
-    background: #ffffff;
+    font-family: 'DM Sans';
+    background: #fff;
     border-radius: 16px;
     margin-bottom: 14px;
     /* .form {
@@ -33,7 +33,6 @@
 
     h1 {
       color: #3c3e43;
-      font-style: normal;
       font-weight: 600;
       font-size: 32px;
       line-height: 42px;
@@ -71,8 +70,7 @@
     ::-moz-placeholder,
     :-ms-input-placeholder,
     :-moz-placeholder {
-      font-family: 'Helvetica Neue';
-      font-style: normal;
+      font-family: 'Helvetica';
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;

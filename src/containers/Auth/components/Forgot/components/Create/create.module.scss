@@ -4,11 +4,10 @@
   justify-content: center;
   align-items: center;
   padding: 48px;
-  background: #ffffff;
+  background: #fff;
   position: relative;
 
   .header {
-    font-style: normal;
     font-weight: normal;
     font-size: 28px;
     line-height: 36px;
@@ -18,7 +17,6 @@
     max-width: 394px;
   }
   .text {
-    font-style: normal;
     font-weight: normal;
     font-size: 13px;
     line-height: 160%;
@@ -91,7 +89,6 @@
       ::-moz-placeholder,
       :-ms-input-placeholder,
       :-moz-placeholder {
-        font-style: normal;
         font-weight: normal;
         font-size: 16px;
         line-height: 160%;
@@ -123,7 +120,6 @@
     ::-moz-placeholder,
     :-ms-input-placeholder,
     :-moz-placeholder {
-      font-style: normal;
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;

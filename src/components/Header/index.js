@@ -48,6 +48,7 @@ const Header = (props) => {
   const toggleMenu = () => {
     if (!menu) {
       setMenu(true)
+      switchMenu()
     } else {
       setMenu(false)
       setSubmenu(false)
@@ -94,8 +95,8 @@ const Header = (props) => {
     <div className={styles.wrapper}>
       <header className={cls(styles.header, dark ? styles.dark : styles.light)}>
          <div className={styles.container}>
-        <div className={styles.menu_btn} onClick={toggleMenu}>
-          <MenuBtn visible={menu} />
+        <div className={styles.menu_btn} onClick={toggleMenu} >
+          <MenuBtn visible={menu} dark={dark}/>
         </div>
         <div className={styles.logo}>
           <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
