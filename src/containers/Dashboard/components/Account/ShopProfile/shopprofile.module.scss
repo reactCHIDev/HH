@@ -89,6 +89,10 @@
       .about_item {
         width: 50%;
         margin-right: 36px;
+        @media (max-width: 768px) {
+          width: 100%;
+          margin-right: 0px;
+        }
       }
       .uploader {
         .avatar_container {
@@ -117,6 +121,9 @@
       max-width: 1024px;
       flex-wrap: wrap;
       margin-bottom: 0px;
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
       .label_note {
         margin-bottom: 8px;
       }
@@ -130,6 +137,10 @@
         width: 50%;
         padding: 24px 24px 24px 0;
         position: relative;
+        @media (max-width: 768px) {
+          width: 100%;
+          padding: 0;
+        }
         .standart_data {
           padding: 8px 0 0 24px;
           .standart_block {

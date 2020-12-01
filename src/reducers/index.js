@@ -9,6 +9,7 @@ import listing from './listing'
 import foodmaker from './foodmaker'
 import product from './product'
 import system from './system'
+import shop from './shop'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -21,6 +22,7 @@ const createRootReducer = (history) =>
     foodmaker,
     product,
     system,
+    shop,
   })
 
 export default createRootReducer

@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-
-import { getUserAccount, updateAccount } from 'actions/account'
-import { updateFoodmakerAccountAC } from 'actions/foodmaker'
+import { getUserAccount } from 'actions/account'
+import { updateShopAC } from 'actions/shop'
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
-
-import ImgCrop from 'antd-img-crop'
-import Btn from 'components/Button'
-import { Input, Select, Button, Form, Upload, Modal, Checkbox, InputNumber, Progress } from 'antd'
-import { PlusOutlined, LockOutlined } from '@ant-design/icons'
-
+import { Input, Select, Button, Form, Checkbox, InputNumber } from 'antd'
+import { LockOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
-import axios from 'axios'
-
 import styles from './shopprofile.module.scss'
 import './shopprofile.less'
 
@@ -29,6 +22,7 @@ const ShopProfile = (props) => {
     getServiceTagsAC,
     getSpecialityTagsAC,
     getProductTagsRequestAC,
+    updateShopAC,
   } = props
 
   const { id, success } = account
@@ -91,14 +85,7 @@ const ShopProfile = (props) => {
   }, [account])
 
   useEffect(() => {
-    if (
-      serviceTags &&
-      serviceTags.length &&
-      specialityTags &&
-      specialityTags.length &&
-      productTags &&
-      productTags.length
-    ) {
+    if (serviceTags?.length && specialityTags?.length && productTags?.length) {
       setTags([...specialityTags, ...productTags])
       setSelectedItems(normalizeTagsForRender([1, 3, 5], [...specialityTags, ...productTags]))
     }
@@ -115,38 +102,62 @@ const ShopProfile = (props) => {
   }, [success])
 
   const onSubmit = (formValues) => {
-    const userPhoto = avatar
+    const coverPhoto = avatar
 
     const values = { ...formValues }
 
-    if (!standart) {
-      delete values.standartCost
-      delete values.standartFreeEdge
-      delete values.standartNotes
+    const standartDelivery = {
+      type: 'standart',
+      price: values.standartCost,
+      freeDeliveryOver: values.standartFreeEdge,
+      note: values.standartNotes,
     }
-    if (!freepick) {
-      delete values.freePickNote
+    delete values.standartCost
+    delete values.standartFreeEdge
+    delete values.standartNotes
+
+    const freepickDelivery = {
+      note: values.freePickNote,
     }
-    if (!express) {
-      delete values.expressCost
-      delete values.expressFreeEdge
-      delete values.expressNotes
+    delete values.freePickNote
+
+    const expressDelivery = {
+      type: 'express',
+      price: values.expressCost,
+      freeDeliveryOver: values.expressFreeEdge,
+      note: values.expressNotes,
     }
-    if (!free) {
-      delete values.freeMinimum
+    delete values.expressCost
+    delete values.expressFreeEdge
+    delete values.expressNotes
+
+    const freeDelivery = {
+      type: 'free',
+      price: values.freeMinimum,
     }
+    delete values.freeMinimum
+
+    const delivery = []
+
+    if (standart) delivery.push(standartDelivery)
+    if (freepick) delivery.push(freepickDelivery)
+    if (express) delivery.push(expressDelivery)
+    if (free) delivery.push(freeDelivery)
+
+    console.log('%c   delivery   ', 'color: darkgreen; background: palegreen;', delivery)
 
     const payload = {
       ...values,
-      userPhoto,
+      coverPhoto,
       hungryHuggerLink,
+      deliveryMethods: delivery,
     }
 
     Object.keys(payload).forEach((f) => {
       if (!payload[f] || payload[f].length === 0) delete payload[f]
     })
     console.log('%c  payload    ', 'color: darkgreen; background: palegreen;', payload)
-    // updateFoodmakerAccountAC(payload)
+    updateShopAC(payload)
   }
 
   const { reffering, firstName, lastName, about } = account
@@ -160,8 +171,7 @@ const ShopProfile = (props) => {
           onFinish={onSubmit}
           initialValues={{
             reffering,
-            firstName: firstName,
-            lastName,
+            title: firstName,
             about,
           }}
           scrollToFirstError
@@ -172,7 +182,7 @@ const ShopProfile = (props) => {
 
               <div className={styles.first_name}>
                 <label className={styles.label}>The shop name will be visible to everyone</label>
-                <Form.Item name="shopName">
+                <Form.Item name="title">
                   <Input />
                 </Form.Item>
               </div>
@@ -209,7 +219,7 @@ const ShopProfile = (props) => {
             <div className={styles.about_item}>
               <p className={styles.title}>About you</p>
               <div className={styles.about}>
-                <Form.Item name="about">
+                <Form.Item name="description">
                   <Input.TextArea rows={5} />
                 </Form.Item>
               </div>
@@ -225,7 +235,7 @@ const ShopProfile = (props) => {
           <div className={styles.tags_wrapper}>
             <p className={styles.sec1}>Tags (Up to 5 tags for your speciality and services)</p>
             <div className={styles.service_tags}>
-              <Form.Item name="shopTags">
+              <Form.Item name="tags">
                 <Select
                   mode="multiple"
                   value={selectedItems}
@@ -380,7 +390,7 @@ const ShopProfile = (props) => {
 
 ShopProfile.propTypes = {
   getUserAccount: T.func,
-  updateFoodmakerAccountAC: T.func,
+  updateShopAC: T.func,
   getServiceTagsAC: T.func,
   getSpecialityTagsAC: T.func,
   getProductTagsRequestAC: T.func,
@@ -399,7 +409,7 @@ export default connect(
   }),
   {
     getUserAccount,
-    updateFoodmakerAccountAC,
+    updateShopAC,
     getServiceTagsAC,
     getSpecialityTagsAC,
     getProductTagsRequestAC,
