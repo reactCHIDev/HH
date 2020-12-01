@@ -53,10 +53,13 @@
     }
 
     .logo {
-      flex-shrink: 0;
       cursor: pointer;
       display: flex;
       align-items: center;
+
+      @media (max-width: 768px) {
+        flex-shrink: 0;
+      }
     
       .logo_img {
         width: 46px;
@@ -108,9 +111,16 @@
         text-align: right;
         letter-spacing: 1px;
         text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
 
         @media (max-width: 1024px) {
           margin: 0 0 0 10px;
+        }
+
+        svg{
+          margin-left: 8px;
         }
       }
     }
