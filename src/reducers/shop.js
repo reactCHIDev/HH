@@ -5,12 +5,9 @@ import {
 } from '../actions/constants'
 
 const initialState = {
-  title: '',
-  description: '',
-  tags: [],
-  coverPhoto: '',
-  deliveryMethods: [],
+  requesting: false,
   success: false,
+  error: '',
 }
 
 const reducer = function accountReducer(state = initialState, action) {
@@ -24,13 +21,12 @@ const reducer = function accountReducer(state = initialState, action) {
     case UPDATE_SHOP_SUCCESS:
       return {
         ...state,
-        ...action.data,
         success: true,
         requesting: false,
         error: '',
       }
 
-    case 'RESET_ACCOUNT_SUCCESS':
+    case 'RESET_SHOP_SUCCESS':
       return {
         ...state,
         success: false,

@@ -14,7 +14,9 @@ import './shopprofile.less'
 
 const ShopProfile = (props) => {
   const {
-    account,
+    id,
+    shop,
+    success,
     serviceTags,
     specialityTags,
     productTags,
@@ -25,18 +27,17 @@ const ShopProfile = (props) => {
     updateShopAC,
   } = props
 
-  const { id, success } = account
-
+  const [defaults, setDefaults] = useState({})
+  const [shopUrl, setShopUrl] = useState('')
   const [avatar, setAvatar] = useState('')
   const [tags, setTags] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
-  const [selectedLangs, setSelectedLangs] = useState([])
-
   const [qrImgSource, setQrImgSource] = useState(null)
+  const [hungryHuggerLink, setHungryHuggerLink] = useState(
+    'https://hungryhugger.wildwebart.com/shop/',
+  )
 
-  const [hungryHuggerLink, setSiteValue] = useState('www.hungryhugger.com/shop/')
-
-  const [standart, setStandart] = useState(true)
+  const [standart, setStandart] = useState(false)
   const [freepick, setFreepick] = useState(false)
   const [express, setExpress] = useState(false)
   const [free, setFree] = useState(false)
@@ -54,6 +55,36 @@ const ShopProfile = (props) => {
       console.error(err)
     }
   }
+
+  useEffect(() => {
+    console.log('%c   success   ', 'color: white; background: salmon;', success)
+    if (shop) {
+      const { title, shopUrl, description, coverPhoto, tags, deliveryMethods } = shop
+
+      setAvatar(coverPhoto)
+      setShopUrl(shopUrl)
+      const delivery = deliveryMethods.reduce((acc, dm) => {
+        Object.keys(dm).map((e) => {
+          if (e !== 'type') {
+            acc[dm.type + e] = dm[e]
+          } else {
+            if (dm[e] === 'standart') setStandart(true)
+            if (dm[e] === 'freepick') setFreepick(true)
+            if (dm[e] === 'express') setExpress(true)
+            if (dm[e] === 'free') setFree(true)
+          }
+        })
+        return acc
+      }, {})
+
+      setDefaults({
+        title,
+        description,
+        tags,
+        ...delivery,
+      })
+    }
+  }, [shop])
 
   const handleChangeTags = (selectedItms) => {
     setSelectedItems(selectedItms)
@@ -82,7 +113,7 @@ const ShopProfile = (props) => {
           'www.hungryhugger.com',
         ),
       ) */
-  }, [account])
+  }, [shop])
 
   useEffect(() => {
     if (serviceTags?.length && specialityTags?.length && productTags?.length) {
@@ -97,7 +128,7 @@ const ShopProfile = (props) => {
 
   useEffect(() => {
     if (success) {
-      // if (id) getUserAccount(id)
+      if (id) getUserAccount(id)
     }
   }, [success])
 
@@ -108,34 +139,35 @@ const ShopProfile = (props) => {
 
     const standartDelivery = {
       type: 'standart',
-      price: values.standartCost,
-      freeDeliveryOver: values.standartFreeEdge,
-      note: values.standartNotes,
+      price: values.standartprice,
+      freeDeliveryOver: values.standartfreeDeliveryOver,
+      note: values.standartnote,
     }
-    delete values.standartCost
-    delete values.standartFreeEdge
-    delete values.standartNotes
+    delete values.standartprice
+    delete values.standartfreeDeliveryOver
+    delete values.standartnote
 
     const freepickDelivery = {
-      note: values.freePickNote,
+      type: 'freepick',
+      note: values.freepicknote,
     }
-    delete values.freePickNote
+    delete values.freepicknote
 
     const expressDelivery = {
       type: 'express',
-      price: values.expressCost,
-      freeDeliveryOver: values.expressFreeEdge,
-      note: values.expressNotes,
+      price: values.expressprice,
+      freeDeliveryOver: values.expressfreeDeliveryOver,
+      note: values.expressnote,
     }
-    delete values.expressCost
-    delete values.expressFreeEdge
-    delete values.expressNotes
+    delete values.expressprice
+    delete values.expressfreeDeliveryOver
+    delete values.expressnote
 
     const freeDelivery = {
       type: 'free',
-      price: values.freeMinimum,
+      price: values.freeprice,
     }
-    delete values.freeMinimum
+    delete values.freeprice
 
     const delivery = []
 
@@ -148,8 +180,9 @@ const ShopProfile = (props) => {
 
     const payload = {
       ...values,
+      id: 12,
       coverPhoto,
-      hungryHuggerLink,
+      // hungryHuggerLink,
       deliveryMethods: delivery,
     }
 
@@ -160,8 +193,7 @@ const ShopProfile = (props) => {
     updateShopAC(payload)
   }
 
-  const { reffering, firstName, lastName, about } = account
-
+  if (!defaults.title) return <></>
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -170,9 +202,7 @@ const ShopProfile = (props) => {
           name="fmProfile"
           onFinish={onSubmit}
           initialValues={{
-            reffering,
-            title: firstName,
-            about,
+            ...defaults,
           }}
           scrollToFirstError
         >
@@ -194,7 +224,7 @@ const ShopProfile = (props) => {
                 <div className={styles.profile_data}>
                   <div className={styles.url_name}>
                     <label className={styles.label}>Generated automatically</label>
-                    <Input value={hungryHuggerLink} suffix={<LockOutlined />} />
+                    <Input value={shopUrl} suffix={<LockOutlined />} />
                   </div>
 
                   {hungryHuggerLink && (
@@ -242,6 +272,7 @@ const ShopProfile = (props) => {
                   onChange={handleChangeTags}
                   showArrow
                   style={{ width: '100%' }}
+                  tokenSeparators={[',']}
                 >
                   {filteredTags.map((item) => (
                     <Select.Option key={item.id} value={item.tagName}>
@@ -263,7 +294,7 @@ const ShopProfile = (props) => {
                 <div className={styles.standart_block}>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Cost of delivery</label>
-                    <Form.Item name="standartCost" normalize={(value) => Math.abs(Number(value))}>
+                    <Form.Item name="standartprice" normalize={(value) => Math.abs(Number(value))}>
                       <InputNumber
                         formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
@@ -274,7 +305,7 @@ const ShopProfile = (props) => {
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Free for order over</label>
                     <Form.Item
-                      name="standartFreeEdge"
+                      name="standartfreeDeliveryOver"
                       normalize={(value) => Math.abs(Number(value))}
                     >
                       <InputNumber
@@ -287,7 +318,7 @@ const ShopProfile = (props) => {
                 </div>
                 <div className={styles.notes}>
                   <p className={styles.label_note}>Note</p>
-                  <Form.Item name="standartNotes">
+                  <Form.Item name="standartnote">
                     <Input.TextArea
                       placeholder="Standard delivery description"
                       rows={5}
@@ -303,7 +334,7 @@ const ShopProfile = (props) => {
               </Checkbox>
               <div className={styles.notes}>
                 <p className={styles.label_note}>Note</p>
-                <Form.Item name="freePickNote">
+                <Form.Item name="freepicknote">
                   <Input.TextArea
                     placeholder="Pick up description."
                     rows={5}
@@ -320,7 +351,7 @@ const ShopProfile = (props) => {
                 <div className={styles.standart_block}>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Cost of delivery</label>
-                    <Form.Item name="expressCost" normalize={(value) => Math.abs(Number(value))}>
+                    <Form.Item name="expressprice" normalize={(value) => Math.abs(Number(value))}>
                       <InputNumber
                         formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
@@ -331,7 +362,7 @@ const ShopProfile = (props) => {
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Free for order over</label>
                     <Form.Item
-                      name="expressFreeEdge"
+                      name="expressfreeDeliveryOver"
                       normalize={(value) => Math.abs(Number(value))}
                     >
                       <InputNumber
@@ -344,7 +375,7 @@ const ShopProfile = (props) => {
                 </div>
                 <div className={styles.notes}>
                   <p className={styles.label_note}>Note</p>
-                  <Form.Item name="expressNotes">
+                  <Form.Item name="expressnote">
                     <Input.TextArea
                       placeholder="Express delivery description."
                       rows={5}
@@ -362,7 +393,7 @@ const ShopProfile = (props) => {
                 <div className={styles.standart_block}>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <p className={styles.label_note}>Minimum spend to recieve</p>
-                    <Form.Item name="freeMinimum" normalize={(value) => Math.abs(Number(value))}>
+                    <Form.Item name="freeprice" normalize={(value) => Math.abs(Number(value))}>
                       <InputNumber
                         formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
@@ -375,13 +406,13 @@ const ShopProfile = (props) => {
             </div>
           </div>
           <div className={styles.apply_btn}>
+            {success && <div className={styles.success}>Saved successfully</div>}
             <Form.Item>
               <Button type="primary" block size="large" htmlType="submit">
                 SAVE
               </Button>
             </Form.Item>
           </div>
-          {success && <div className={styles.success}>Saved successfully</div>}
         </Form>
       </div>
     </div>
@@ -394,15 +425,23 @@ ShopProfile.propTypes = {
   getServiceTagsAC: T.func,
   getSpecialityTagsAC: T.func,
   getProductTagsRequestAC: T.func,
-  account: T.shape(),
+  id: T.number,
+  shop: T.shape(),
+  success: T.bool,
   serviceTags: T.arrayOf(T.shape()),
   specialityTags: T.arrayOf(T.shape()),
   productTags: T.arrayOf(T.shape()),
 }
 
 export default connect(
-  ({ account, system: { serviceTags, specialityTags, productTags } }) => ({
-    account,
+  ({
+    account: { id, shop },
+    shop: { success },
+    system: { serviceTags, specialityTags, productTags },
+  }) => ({
+    id,
+    success,
+    shop,
     serviceTags,
     specialityTags,
     productTags,
