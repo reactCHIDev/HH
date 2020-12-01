@@ -60,7 +60,6 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
       )}
     >
       <div className={styles.content}>
-        <div className={styles.top_header_holder}>
           <div className={styles.top_mobile_wrapper}>
             <span className={styles.img_close} onClick={onClick}>
               <img src={Close} alt="close" width="16" height="16" />
@@ -84,6 +83,8 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
               </li>
             </ul>
           </div>
+        <div className={styles.top_header_holder}>
+        
           <strong className={styles.content_title}>EXPLORE</strong>
           <ul className={styles.menu_container}>
             {menuContent.map((menuItem, index) => (
