@@ -58,7 +58,7 @@ const Avatar = ({ avatarUrl, setAvatar }) => {
           className="avatar-uploader"
           customRequest={sendFile}
           showUploadList={false}
-          // beforeUpload={thisbeforeUpload}
+          // beforeUpload={beforeUpload}
           // onChange={this.handleChange}
         >
           {avatarUrl ? (

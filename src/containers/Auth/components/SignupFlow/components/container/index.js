@@ -27,7 +27,7 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
   })
 
   return (
-    <div className={styles.container} ref={container} style={{ height: containerHeight }}>
+    <div className={styles.container} ref={container} /* style={{ height: containerHeight }} */>
       <div className={styles.pattern} />
       <div className={styles.header}>
         <div className={styles.logo_container}>

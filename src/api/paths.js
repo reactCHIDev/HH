@@ -40,6 +40,7 @@ export default {
 
   // Shop
   isShopExist: '/v1/shop/check_if_exist/',
+  updateShop: '/v1/shop/update',
 
   //
   //
