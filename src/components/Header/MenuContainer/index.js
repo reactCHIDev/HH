@@ -62,14 +62,14 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
       <div className={styles.content}>
         <div className={styles.top_header_holder}>
           <div className={styles.top_mobile_wrapper}>
-            <span className={styles.img_close}>
-              <img src={Close} alt="close" width="16" height="16"/>
+            <span className={styles.img_close} onClick={onClick}>
+              <img src={Close} alt="close" width="16" height="16" />
             </span>
 
             <ul className={styles.social_header_list}>
               <li>
                 <a href="#">
-                  <img src={Instagram} alt="Instagram" width="22" height="22"/>
+                  <img src={Instagram} alt="Instagram" width="22" height="22" />
                 </a>
               </li>
               <li>
@@ -79,7 +79,7 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
               </li>
               <li>
                 <a href="#">
-                  <img src={Youtube} alt="Youtube" width="26" height="18"/>
+                  <img src={Youtube} alt="Youtube" width="26" height="18" />
                 </a>
               </li>
             </ul>
@@ -116,17 +116,17 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
             </>
           )}
         </div>
-        <div  className={styles.bottom_holder}>
-            <a href="#" className={styles.account_info}>
-                  <span className={styles.img_holder}>
-                    <img src={UserAvatar} alt="UserAvatar"/>
-                  </span>
-                  <strong> Annette P. </strong>
-            </a>
-            <a href="#" className={styles.logout}>
-              <img src={LogOut} alt="Log out" width="17"/>
-              Log out
-            </a>
+        <div className={styles.bottom_holder}>
+          <a href="#" className={styles.account_info}>
+            <span className={styles.img_holder}>
+              <img src={UserAvatar} alt="UserAvatar" />
+            </span>
+            <strong> Annette P. </strong>
+          </a>
+          <a href="#" className={styles.logout}>
+            <img src={LogOut} alt="Log out" width="17" />
+            Log out
+          </a>
         </div>
       </div>
     </div>
