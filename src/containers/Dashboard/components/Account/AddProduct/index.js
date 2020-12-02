@@ -6,7 +6,7 @@ import { replace } from 'connected-react-router'
 import { Steps, Popover } from 'antd'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
 import { createProductRequestAC } from 'actions/product'
-import { getProductTypes, getProductTagsRequestAC } from 'actions/system'
+import { getProductTypes, getProductTagsRequestAC, getCountriesAC } from 'actions/system'
 
 import Button from 'components/Button'
 import Step1 from './components/Steps/Step1'
@@ -20,8 +20,10 @@ import './add_product.less'
 const AddProduct = (props) => {
   const {
     account,
+    countries,
     types,
     tags,
+    getCountriesAC,
     getProductTypes,
     createProductRequestAC,
     getProductTagsRequestAC,
@@ -35,15 +37,26 @@ const AddProduct = (props) => {
   const [firstStep, setFirstStep] = useState(null)
   const [progress, setProgress] = useState(null)
   const [stepper, setStepper] = useState(false)
+  const [tagsCollection, setTagsCollection] = useState(false)
 
   useEffect(() => {
     getProductTypes()
     getProductTagsRequestAC()
+    getCountriesAC()
   }, [])
 
   useEffect(() => {
     if (step > progress) setProgress(step)
   }, [step])
+
+  useEffect(() => {
+    if (types && tags) {
+      const newTags = types.reduce((acc, e) => {
+        return acc.concat(e.productCategories.map((c) => c.title))
+      }, [])
+      setTagsCollection(tags)
+    }
+  }, [types, tags])
 
   useEffect(() => {
     const firstStep = account && Number(account?.shop?.id) > 0 ? 1 : 0
@@ -96,7 +109,12 @@ const AddProduct = (props) => {
             )}
             {Number(step) === 2 && <Step3 setStep={onClick} />}
             {Number(step) === 3 && (
-              <Step4 pushRoute={replaceRoute} create={createProductRequestAC} tags={tags} />
+              <Step4
+                pushRoute={replaceRoute}
+                create={createProductRequestAC}
+                tags={tagsCollection}
+                countries={countries}
+              />
             )}
           </div>
         </div>
@@ -108,7 +126,9 @@ const AddProduct = (props) => {
 AddProduct.propTypes = {
   types: T.arrayOf(shape()),
   tags: T.arrayOf(shape()),
+  countries: T.arrayOf(shape()),
   shopId: T.number,
+  getCountriesAC: T.func,
   getProductTypes: T.func,
   createProductRequestAC: T.func,
   getProductTagsRequestAC: T.func,
@@ -121,13 +141,15 @@ AddProduct.defaultProperties = {
 }
 
 export default connect(
-  ({ system: { specialityTags: tags, productTypes }, account }) => ({
+  ({ system: { productTags: tags, productTypes, countries }, account }) => ({
     tags,
     types: productTypes,
     account,
+    countries,
   }),
   {
     getProductTypes,
+    getCountriesAC,
     createProductRequestAC,
     getProductTagsRequestAC,
     replaceRoute: replace,

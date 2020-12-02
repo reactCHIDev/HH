@@ -27,6 +27,7 @@ const FoodmakerProfile = (props) => {
   const [fileList, setFilelist] = useState([])
 
   const [tags, setTags] = useState([])
+  const [languages, setLanguages] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
   const [selectedLangs, setSelectedLangs] = useState([])
 
@@ -74,7 +75,7 @@ const FoodmakerProfile = (props) => {
     value.map((t) => allTags.find((e) => e.id === t).tagName)
 
   const filteredTags = tags.length ? tags.filter((o) => !selectedItems.includes(o.tagName)) : []
-  const filteredLangs = langs.filter((o) => !selectedLangs.includes(o.tagName))
+  const filteredLangs = languages.filter((o) => !selectedLangs.includes(o.tagName))
 
   const { Option } = Select
 
@@ -99,13 +100,13 @@ const FoodmakerProfile = (props) => {
       )
     setAvatar(account?.userPhoto || '')
     if (account?.coverPhoto) setFilelist([account?.coverPhoto].concat(account?.otherPhotos || []))
-    setSelectedLangs(normalizeTagsForRender([1, 3], langs))
+    setSelectedItems(account?.tags || [])
+    setSelectedLangs(account?.languages || [])
   }, [account])
 
   useEffect(() => {
     if (specialityTags && specialityTags.length) {
       setTags(specialityTags)
-      setSelectedItems(normalizeTagsForRender([1, 3, 5], specialityTags))
     }
   }, [specialityTags])
 
@@ -130,12 +131,12 @@ const FoodmakerProfile = (props) => {
     const userPhoto = avatar
     const coverPhoto = fileList.length ? fileList[cover] : ''
     const otherPhotos = fileList.length > 1 ? fileList.filter((_, i) => i !== cover) : []
-    const specialityTagIds = normalizeTagsForSubmit(selectedItems, tags)
+    const tags = selectedItems
     const languages = selectedLangs
 
     const payload = {
       ...formValues,
-      specialityTagIds,
+      tags,
       coverPhoto,
       otherPhotos,
       userPhoto,
@@ -160,10 +161,10 @@ const FoodmakerProfile = (props) => {
           <div className={styles.avatar_container}>
             <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
             <div className={styles.loader_wrapper}>
-              <p>Avatar *</p>
+              {/* <p>Avatar *</p>
               <Button type="primary" size="large" htmlType="submit">
                 UPLOAD PHOTO
-              </Button>
+              </Button> */}
             </div>
           </div>
 
@@ -171,7 +172,7 @@ const FoodmakerProfile = (props) => {
             layout="vertical"
             name="fmProfile"
             onFinish={onSubmit}
-            initialValues={{ reffering, firstName: firstName, lastName, about }}
+            initialValues={{ reffering, firstName, lastName, about }}
             scrollToFirstError
           >
             <div className={styles.data_section}>
@@ -272,7 +273,7 @@ const FoodmakerProfile = (props) => {
 
                 <div className={styles.lang_tags}>
                   <Select
-                    mode="multiple"
+                    mode="tags"
                     value={selectedLangs}
                     onChange={handleChangeLangs}
                     showArrow

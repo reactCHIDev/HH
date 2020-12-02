@@ -180,7 +180,7 @@ const ShopProfile = (props) => {
 
     const payload = {
       ...values,
-      id: 12,
+      id,
       coverPhoto,
       // hungryHuggerLink,
       deliveryMethods: delivery,
@@ -435,11 +435,11 @@ ShopProfile.propTypes = {
 
 export default connect(
   ({
-    account: { id, shop },
+    account: { shop },
     shop: { success },
     system: { serviceTags, specialityTags, productTags },
   }) => ({
-    id,
+    id: shop?.id,
     success,
     shop,
     serviceTags,

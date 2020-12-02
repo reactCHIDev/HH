@@ -5,6 +5,9 @@ import {
   SIGNUP_FOODMAKER_REQUESTING,
   SIGNUP_FOODMAKER_SUCCESS,
   SIGNUP_FOODMAKER_ERROR,
+  SIGNUP_LOVER_AS_MAKER_REQUESTING,
+  SIGNUP_LOVER_AS_MAKER_SUCCESS,
+  SIGNUP_LOVER_AS_MAKER_ERROR,
   SIGNUP_FLAG_RESET,
   GET_USER_BY_NAME,
 } from './constants'
@@ -47,5 +50,12 @@ export const signupFoodmakerAC = (credentials) => {
 export const signupFoodmakerSuccessAC = () => {
   return {
     type: SIGNUP_FOODMAKER_SUCCESS,
+  }
+}
+
+export const signupLoverAsMakerAC = (credentials) => {
+  return {
+    type: SIGNUP_LOVER_AS_MAKER_REQUESTING,
+    credentials,
   }
 }
