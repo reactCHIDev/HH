@@ -108,7 +108,6 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
 
   const onRadio = (e) => {
     const { value } = e.target
-    console.log('%c   value   ', 'color: darkgreen; background: palegreen;', value)
     setCover(Number(value))
   }
 

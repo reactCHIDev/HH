@@ -92,8 +92,6 @@ const Header = (props) => {
     onSettings()
   }
 
-  console.log('%c   dark   ', 'color: darkgreen; background: palegreen;', dark)
-
   return (
     <div className={styles.wrapper}>
       <header className={cls(styles.header, dark ? styles.dark : styles.light)}>

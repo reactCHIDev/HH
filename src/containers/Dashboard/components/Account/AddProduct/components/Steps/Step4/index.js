@@ -110,8 +110,6 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
   const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
   const onFinish = (vals) => {
-    console.log('Received values of form: ', { ...vals, chkIngr: ingredients })
-
     const values = { ...vals }
 
     // ================
@@ -156,7 +154,6 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
     delete prevStep.ingredients
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
-    console.log('%c   productData   ', 'color: white; background: royalblue;', productData)
     delete productData.countries
     create(productData)
     // pushRoute('/card')
@@ -175,7 +172,6 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
   const isAdultChk = () => setIsAdult((a) => !a)
 
   const handleChangeTags = (selectedItms) => {
-    console.log('%c     selectedItms ', 'color: darkgreen; background: palegreen;', selectedItms)
     setSelectedItems(selectedItms)
   }
 
@@ -184,7 +180,6 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
   }
 
   const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
-  console.log('%c   filteredTags   ', 'color: darkgreen; background: palegreen;', filteredTags)
 
   const COUNTRIES = countries.map((e) => e.countryName)
   let filteredCountries = COUNTRIES

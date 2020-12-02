@@ -42,7 +42,6 @@ function* signUpFoodmakerSaga({ credentials }) {
     yield signUpFoodmaker(creds)
     yield put({ type: SIGNUP_FOODMAKER_SUCCESS })
   } catch (error) {
-    console.log('%c   error   ', 'color: white; background: salmon;', error.response.data)
     yield put({ type: SIGNUP_FOODMAKER_ERROR, error: error.response.data })
   }
 }
@@ -52,7 +51,6 @@ function* signUpLoverAsFoodmakerSaga({ credentials }) {
     yield signUpLoverAsFoodmaker(credentials)
     yield put({ type: SIGNUP_LOVER_AS_MAKER_SUCCESS })
   } catch (error) {
-    console.log('%c   error   ', 'color: white; background: salmon;', error.response.data)
     yield put({ type: SIGNUP_LOVER_AS_MAKER_ERROR, error: error.response.data })
   }
 }

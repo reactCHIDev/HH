@@ -57,7 +57,6 @@ const ShopProfile = (props) => {
   }
 
   useEffect(() => {
-    console.log('%c   success   ', 'color: white; background: salmon;', success)
     if (shop) {
       const { title, shopUrl, description, coverPhoto, tags, deliveryMethods } = shop
 
@@ -176,8 +175,6 @@ const ShopProfile = (props) => {
     if (express) delivery.push(expressDelivery)
     if (free) delivery.push(freeDelivery)
 
-    console.log('%c   delivery   ', 'color: darkgreen; background: palegreen;', delivery)
-
     const payload = {
       ...values,
       id,
@@ -189,7 +186,6 @@ const ShopProfile = (props) => {
     Object.keys(payload).forEach((f) => {
       if (!payload[f] || payload[f].length === 0) delete payload[f]
     })
-    console.log('%c  payload    ', 'color: darkgreen; background: palegreen;', payload)
     updateShopAC(payload)
   }
 

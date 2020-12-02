@@ -130,7 +130,6 @@ const Settings = ({
     }
 
     if (Object.keys(formData).length) {
-      console.log('%c   formData   ', 'color: white; background: salmon;', formData)
       updateAccount(formData)
     }
   }

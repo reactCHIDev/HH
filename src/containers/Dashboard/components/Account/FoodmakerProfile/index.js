@@ -44,7 +44,6 @@ const FoodmakerProfile = (props) => {
     }
   }
 
-  console.log('%c   specialityTags   ', 'color: white; background: royalblue;', specialityTags)
   const ttags = [
     { id: 1, tagName: 'Drink' },
     { id: 2, tagName: 'Salad' },

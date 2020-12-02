@@ -71,7 +71,6 @@ const ProductExplore = (props) => {
         return type
       }),
     )
-    console.log('%c   filters   ', 'color: white; background: salmon;', filters)
   }
 
   const onChangeChkBox = (e) => {
@@ -89,7 +88,6 @@ const ProductExplore = (props) => {
         return type
       }),
     )
-    console.log('%c   filters   ', 'color: white; background: salmon;', filters)
   }
 
   const handleType = (data) => {

@@ -47,7 +47,6 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
     setSubmenu(false)
     resetItem('')
   }
-  console.log('%c   item   ', 'color: darkgreen; background: palegreen;', item)
 
   const menuContent = item !== 'all' && item !== '' ? items[item] : items.explore
 
@@ -60,31 +59,30 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
       )}
     >
       <div className={styles.content}>
-          <div className={styles.top_mobile_wrapper}>
-            <span className={styles.img_close} onClick={onClick}>
-              <img src={Close} alt="close" width="16" height="16" />
-            </span>
+        <div className={styles.top_mobile_wrapper}>
+          <span className={styles.img_close} onClick={onClick}>
+            <img src={Close} alt="close" width="16" height="16" />
+          </span>
 
-            <ul className={styles.social_header_list}>
-              <li>
-                <a href="#">
-                  <img src={Instagram} alt="Instagram" width="22" height="22" />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src={Facebook} alt="Facebook" width="12" />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src={Youtube} alt="Youtube" width="26" height="18" />
-                </a>
-              </li>
-            </ul>
-          </div>
+          <ul className={styles.social_header_list}>
+            <li>
+              <a href="#">
+                <img src={Instagram} alt="Instagram" width="22" height="22" />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src={Facebook} alt="Facebook" width="12" />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src={Youtube} alt="Youtube" width="26" height="18" />
+              </a>
+            </li>
+          </ul>
+        </div>
         <div className={styles.top_header_holder}>
-        
           <strong className={styles.content_title}>EXPLORE</strong>
           <ul className={styles.menu_container}>
             {menuContent.map((menuItem, index) => (
