@@ -186,7 +186,7 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
   const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
   console.log('%c   filteredTags   ', 'color: darkgreen; background: palegreen;', filteredTags)
 
-  const COUNTRIES = countries.map((e) => e.cityName)
+  const COUNTRIES = countries.map((e) => e.countryName)
   let filteredCountries = COUNTRIES
   if (selectedCountries && selectedCountries.length) {
     filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))

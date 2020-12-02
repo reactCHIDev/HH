@@ -24,6 +24,7 @@ import {
   EMAIL_CONFIRM_SUCCESS,
   EMAIL_CONFIRM_ERROR,
   EMAIL_CONFIRM,
+  CREATE_PRODUCT_SUCCESS,
 } from '../actions/constants'
 
 function* getUserAccountSaga() {
@@ -85,6 +86,7 @@ function* changeEmailConfirm({ payload }) {
 
 function* accountWatcher() {
   yield takeEvery(GET_USER_ACCOUNT_REQUESTING, getUserAccountSaga)
+  yield takeEvery(CREATE_PRODUCT_SUCCESS, getUserAccountSaga)
   yield takeEvery(UPDATE_ACCOUNT_REQUESTING, updateUserAccount)
   yield takeEvery(EMAIL_CONFIRM, changeEmailConfirm)
   yield takeEvery(UPDATE_PHOTO_NAME_REQUESTING, changePhotoName)

@@ -9,6 +9,7 @@ import {
   getSpecialityTags,
   getProductTagsReq,
   getCitiesReq,
+  getCountriesReq,
 } from 'api/requests/System'
 
 import {
@@ -91,7 +92,7 @@ function* getCitiesSaga() {
 
 function* getCountriesSaga() {
   try {
-    const response = yield getCitiesReq()
+    const response = yield getCountriesReq()
     yield put({ type: GET_COUNTRIES_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {
