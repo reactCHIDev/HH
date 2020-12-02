@@ -1,141 +1,108 @@
 .container {
+
   .content {
-    border: 2px solid #f7f7f7;
     border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 20px;
+    padding: 24px;
+    margin-bottom: 32px;
     width: 100%;
-    background-color: #ffffff;
+    background: #F5F8FB;
     display: flex;
+    overflow: hidden;
+
     @media (max-width: 1024px) {
       flex-direction: column;
     }
+    
     .reviewer {
       display: flex;
-      width: 320px;
-      margin: 0 32px 24px 0;
+      width: 33.3%;
+      flex-shrink: 0;
+      margin: 0 23px 0 0;
+
       @media (max-width: 1024px) {
         width: 100%;
+
       }
       .avatar_container {
-        width: 48px;
-        height: 48px;
+        width: 96px;
+        height: 96px;
         border-radius: 50%;
         overflow: hidden;
-        margin: 0 16px 0 0;
+        margin: 0 26px 0 0;
+        flex-shrink: 0;
+
+        img{
+          width: 100%;
+        }
       }
       .reviewer_info {
+
         .reviewer_name {
-          font-style: normal;
           font-weight: bold;
           font-size: 18px;
-          line-height: 23px;
           display: flex;
           align-items: center;
-          letter-spacing: 0.5px;
-          color: #3c3e43;
-          margin: 0;
+          justify-content: space-between;
+          color: #3C3E43;
+          margin: 0 0 10px;
         }
         .timestamp {
-          font-style: normal;
           font-weight: normal;
-          font-size: 12px;
-          line-height: 140%;
+          font-size: 13px;
           display: flex;
           align-items: center;
-          letter-spacing: 0.3px;
-          color: #939d98;
-          margin: 0;
+          color: #353535;
+          margin: 0 0 4px;
         }
       }
+
+      .review_stats {
+        color: #939D98;
+        font-size: 11px;
+        font-weight: normal;
+        padding: 0 0 3px;
+
+        ul{
+          margin-right: 5px;
+          font-size: 13px;
+
+          li{
+            margin: 0 2px;
+          }
+        }
+      }
+
+      .autor{
+        font-weight: normal;
+        font-size: 13px;
+        color: #939D98;
+        margin: 0 0 10px;
+      }
+
+      .message_btn{
+        background: #FFF;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        padding: 11px 20px;
+        border: none;
+      }
+
+      
     }
     .review {
       display: flex;
-      flex-direction: column;
-      .review_header {
-        display: flex;
-        align-items: center;
-        .cover_photo {
-          width: 104px;
-          height: 64px;
-          border-radius: 8px;
-          margin: 0 24px 24px 0;
-          overflow: hidden;
-        }
-        .title {
-          font-style: normal;
-          font-weight: bold;
-          font-size: 18px;
-          line-height: 23px;
-          display: flex;
-          align-items: center;
-          letter-spacing: 0.5px;
-          color: #3c3e43;
-          flex-grow: 2;
-        }
-      }
-      .review_stats {
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        .reads {
-          margin: 0 24px;
-          align-items: center;
-          display: flex;
-          flex-grow: 2;
-          .reads_people {
-            width: 10px;
-            margin-right: 7px;
-            align-items: center;
-            display: flex;
-            .people {
-            }
-          }
-          .qty_reads {
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 160%;
-            letter-spacing: 0.5px;
-            color: #31394d;
-            opacity: 0.8;
-            margin-bottom: 0;
-          }
-        }
-        .date {
-          font-style: normal;
-          font-weight: normal;
-          font-size: 12px;
-          line-height: 140%;
-          display: flex;
-          align-items: center;
-          letter-spacing: 0.3px;
-          color: #939d98;
-          align-self: flex-end;
-        }
-      }
-      .review_content {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 160%;
-        letter-spacing: 0.5px;
-        color: #31394d;
-        opacity: 0.8;
-        margin-bottom: 24px;
-      }
-      .review_page {
-        display: flex;
-        .review_photo {
-          width: 56px;
-          height: 56px;
-          border-radius: 8px;
-          overflow: hidden;
-          margin-right: 12px;
-          .photo {
-            max-width: 150%;
-            width: 150%;
-          }
+      align-items: center;
+
+      .review_photo {
+        border-radius: 8px;
+        overflow: hidden;
+        margin-right: 24px;
+        width: 208px;
+        flex-shrink: 0;
+
+        .photo {
+          width: 100%;
         }
       }
     }

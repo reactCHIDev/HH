@@ -11,28 +11,29 @@ import styles from './prodexp.module.scss'
 const ProductExplore = (props) => {
   return (
     <div className={styles.container}>
-      <div className={styles.page_header}>
+      <div className={styles.page_header}> 
         <div className={styles.header_content}>
-          <p>Food experiences in Singapore</p>
+          <h1>Products from our food makers </h1>
           <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
-              <label className={styles.label}>Type of experience</label>
+              <label className={styles.label}>Type of products</label>
               <input className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
-              <label className={styles.label}>Date</label>
+              <label className={styles.label}>Category</label>
+              <input className={styles.input} type="text" placeholder="Beer, wine"/>
+            </div>
+            <div className={styles.input_wrapper}>
+              <label className={styles.label}>Price</label>
               <input className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
-              <label className={styles.label}>Number of guests</label>
-              <input className={styles.input} type="text" />
-            </div>
-            <div className={styles.input_wrapper}>
-              <label className={styles.label}>Price ($)</label>
-              <input className={styles.input} type="text" />
-            </div>
-            <div className={styles.input_wrapper}>
-              <button type="button">Q</button>
+              <button type="button">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
+                  <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -62,6 +63,9 @@ const ProductExplore = (props) => {
                 rateCount={63}
               />
             ))}
+            <div className={styles.btn_holder}>
+              <button>More</button>
+          </div>
         </div>
       </div>
 

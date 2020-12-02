@@ -12,14 +12,16 @@ import styles from './expexp.module.scss'
 
 const ExploreExp = (props) => {
   return (
-    <div className={styles.container}>
+    <div>
       <div className={styles.page_header}>
+        
         <div className={styles.header_content}>
-          <p>Food experiences in Singapore</p>
+          <h1>Food experiences in <mark>Singapore</mark> </h1>
           <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Type of experience</label>
               <input className={styles.input} type="text" />
+              <p className={styles.input_text}><span>Next week, Next weekend</span></p>
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Date</label>
@@ -34,41 +36,49 @@ const ExploreExp = (props) => {
               <input className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
-              <button type="button">Q</button>
+              <button type="button">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
+                  <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.exp_section}>
-          {Array(18)
-            .fill(1)
-            .map((e) => (
-              <ExpCard
-                photo={stub2}
-                tags={[
-                  'desserts',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                ]}
-                name="Donut Set 1 (x12)"
-                price={15.59}
-                rating={3}
-                rateCount={63}
-              />
-            ))}
+      <div className={styles.container}>
+       
+        <div className={styles.content}>
+          <div className={styles.exp_section}>
+            {Array(18)
+              .fill(1)
+              .map((e) => (
+                <ExpCard
+                  photo={stub2}
+                  tags={[
+                    'desserts',
+                    'cupcake',
+                    'cupcake',
+                    'cupcake',
+                    'cupcake',
+                    'cupcake',
+                    'cupcake',
+                    'cupcake',
+                    'cupcake',
+                  ]}
+                  name="Donut Set 1 (x12)"
+                  price={15.59}
+                  rating={3}
+                  rateCount={63}
+                />
+              ))}
+          </div>
         </div>
-      </div>
 
-      <BottomSection />
-      <Footer />
+        <BottomSection />
+        <Footer />
+      </div>
     </div>
   )
 }

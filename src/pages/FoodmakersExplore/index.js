@@ -11,9 +11,9 @@ import styles from './fmexp.module.scss'
 const FoodmakersExplore = (props) => {
   return (
     <div className={styles.container}>
-      <div className={styles.page_header}>
+      <section className={styles.page_header}>
         <div className={styles.header_content}>
-          <p>Food makers for food lovers</p>
+          <h1>Food makers for food lovers</h1>
           <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Type of Food Maker</label>
@@ -21,7 +21,7 @@ const FoodmakersExplore = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Search hosts or brands</label>
-              <input className={styles.input} type="text" />
+              <input className={styles.input} type="text" placeholder="E.g. Mike"/>
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Service type</label>
@@ -32,11 +32,16 @@ const FoodmakersExplore = (props) => {
               <input className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
-              <button type="button">Q</button>
+            <button type="button">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
+                  <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <div className={styles.content}>
         <div className={styles.exp_section}>
@@ -44,6 +49,10 @@ const FoodmakersExplore = (props) => {
             <FMCard key={e} />
           ))}
         </div>
+      </div>
+
+      <div className={styles.btn_holder}>
+          <button>More</button>
       </div>
 
       <BottomSection />

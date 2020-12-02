@@ -1,68 +1,166 @@
 .container {
+  overflow: hidden;
+
   .page_header {
-    padding: 80px 20px;
+    padding: 80px 0 140px; 
+    margin: 0 0 20px;
     background-color: #31394d;
+   
     color: white;
+    position: relative;
+
+    &:before{
+      content: " ";
+      position: absolute;
+      bottom: -13px;
+      left: 0;
+      width: 100vw;
+      height: 13px;
+
+      background: url(../../assets/images/bg-head.png) 50% 100%;
+      background-size: 100% 100%;
+    }
+
+    &:after{
+      content: " ";
+      position: absolute;
+      width: 708px;
+      height: 668px;
+      bottom: 0;
+      left: -80px;
+      background: url(../../assets/images/pattern.svg) no-repeat 50% 5%;
+      background-size: 100% 100%;
+    }
+
     .header_content {
       width: 100%;
-      max-width: 1440px;
+      max-width: 1230px;
       margin: auto;
+      padding: 0 15px;
+      position: relative;
+      z-index: 2;
+      color: #fff;
+
+      h1{
+        font-size: 56px;
+        text-align: center;
+        letter-spacing: 0.02em;
+
+        color: #fff;
+        font-weight: bold;
+        margin: 0;
+
+        mark{
+          color: #cc727b;
+          background: none;
+        }
+      }
+
+      .slogan{
+        font-weight: normal;
+        font-size: 28px;
+        text-align: center;
+        margin: 0 0 20px;
+      }
+
       .search_block {
         display: flex;
+        justify-content: space-between;
         align-items: flex-end;
+        margin: 0 -16px;
+
         .input_wrapper {
-          .label {
-            font-style: normal;
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 160%;
+          padding: 0 16px;
+
+          &:first-child{
+            width: 100%;
+          }
+
+          &:last-child{
             display: flex;
             align-items: center;
-            letter-spacing: 0.5px;
-            color: #838894;
-            margin: 10px 0 0 0;
-            padding-left: 0px;
+          }
+
+          .label {
+            font-weight: normal;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.07em;
+            color: #DCDDE1;
+            margin: 5px 0;
           }
 
           .input[type='text'] {
             display: block;
             position: relative;
-            width: 200px;
             height: 56px;
             padding: 16px;
-            border: 1px solid #adb0b8;
-            box-sizing: border-box;
-            backdrop-filter: blur(6px);
-            border-radius: 8px;
-            font-style: normal;
             font-weight: normal;
             font-size: 16px;
-            line-height: 160%;
-            letter-spacing: 0.5px;
             color: #31394d;
-            opacity: 0.8;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            min-width: 176px;
+          }
+
+          button{
+            width: 72px;
+            height: 56px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            border: none;
+            background: #FBE4E4;
+            border-radius: 8px;
           }
         }
       }
     }
   }
+
   .content {
-    width: 100%;
-    max-width: 1440px;
+    max-width: 1260px;
     margin: auto;
-    padding: 80px 20px;
+    padding: 40px 20px;
+
     .exp_section {
       display: flex;
       flex-wrap: wrap;
     }
+
     .product_section {
       display: flex;
       flex-wrap: wrap;
       background-color: #f4f7fa;
     }
+    
     .lessons_section {
       display: flex;
       flex-wrap: wrap;
+    }
+  }
+
+  .btn_holder{
+    margin: 0 0 96px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    button{
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #31394D;
+      border: 2px solid rgba(49, 57, 77, 0.2);
+      border-radius: 6px;
+      min-width: 160px;
+      padding: 11px 20px;
     }
   }
   .faq_container {

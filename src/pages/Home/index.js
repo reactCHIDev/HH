@@ -35,10 +35,10 @@ const Home = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <button type="button">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
-                <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
-              </svg>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
+                  <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
+                </svg>
               </button>
             </div>
           </div>
