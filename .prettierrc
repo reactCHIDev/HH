@@ -6,5 +6,6 @@
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
   "semi": false,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "editor.formatOnSave": true
 }

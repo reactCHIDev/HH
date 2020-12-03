@@ -52,7 +52,7 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
     resetItem('')
   }
 
-  useOutsideClick(wrapperRef, onClick)
+  useOutsideClick(wrapperRef, onClick, 'menu_item-uotsideclick')
 
   const menuContent = item !== 'all' && item !== '' ? items[item] : items.explore
 

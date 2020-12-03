@@ -32,9 +32,11 @@ const Header = (props) => {
   const [isSubmenu, setSubmenu] = useState(false)
   const [item, setItem] = useState('')
 
-  const settings_container = useRef(null)
+  const settingsСontainer = useRef(null)
 
-  const dark = pathname !== '/signupflow' && pathname !== '/card'
+  const lightTheme = ['/signupflow', '/card', '/foodmaker_profile', '/shop_profile']
+
+  const dark = !lightTheme.includes(pathname)
 
   useEffect(() => {
     if (id) {
@@ -91,7 +93,7 @@ const Header = (props) => {
   const onSettings = () => setSettings((s) => !s)
   const onSettingsSelect = () => setSettings((s) => !s)
 
-  useOutsideClick(settings_container, onSettings)
+  useOutsideClick(settingsСontainer, onSettings)
 
   const logout = () => {
     logOut()
@@ -112,7 +114,11 @@ const Header = (props) => {
             <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
           </div>
           <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
-            <li className={styles.menuitem} id="explore" onClick={menuItemClick}>
+            <li
+              className={cls(styles.menuitem, 'menu_item-uotsideclick')}
+              id="explore"
+              onClick={menuItemClick}
+            >
               EXPLORE
               <svg
                 width="10"
@@ -124,7 +130,11 @@ const Header = (props) => {
                 <path d="M1 1L5 5L9 1" stroke={dark ? 'white' : 'black'} strokeWidth="1.5" />
               </svg>
             </li>
-            <li className={styles.menuitem} id="foodmakers" onClick={menuItemClick}>
+            <li
+              className={cls(styles.menuitem, 'menu_item-uotsideclick')}
+              id="foodmakers"
+              onClick={menuItemClick}
+            >
               FOR FOOD MAKERS
               <svg
                 width="10"
@@ -264,6 +274,7 @@ const Header = (props) => {
           )}
           {menu && item === 'all' && (
             <MenuContainer
+              useOutsideClick={useOutsideClick}
               dark={dark}
               item="all"
               setSubmenu={setSubmenu}
@@ -272,7 +283,7 @@ const Header = (props) => {
             />
           )}
           {settings && (
-            <div className={styles.settings_container} ref={settings_container}>
+            <div className={styles.settings_container} ref={settingsСontainer}>
               <ul className={styles.link_list}>
                 <li onClick={onSettingsSelect}>
                   <img src={Cup} alt="icon" />
