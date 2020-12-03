@@ -13,7 +13,6 @@ import './home.less'
 import Button from 'components/Button'
 import Pattern2 from 'assets/images/pattern 2.svg'
 
-
 const Home = (props) => {
   const { Panel } = Collapse
 
@@ -21,12 +20,20 @@ const Home = (props) => {
     <div className={styles.container}>
       <section className={styles.page_header}>
         <div className={styles.header_content}>
-          <h1>Connecting curious <mark>Food Lovers</mark> </h1>
-          <p className={styles.slogan} >to a global marketplace of local and dedicated food makers</p>
+          <h1>
+            Connecting curious <mark>Food Lovers</mark>{' '}
+          </h1>
+          <p className={styles.slogan}>
+            to a global marketplace of local and dedicated food makers
+          </p>
           <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>What are you looking for? *</label>
-              <input className={styles.input} type="text" placeholder="Global search (Placeholder text - cakes & bakes products, team building experiences, food makers)" />
+              <input
+                className={styles.input}
+                type="text"
+                placeholder="Global search (Placeholder text - cakes & bakes products, team building experiences, food makers)"
+              />
               <span className={styles.label}>Celebration, Team Building, Family Day etc.</span>
             </div>
             <div className={styles.input_wrapper}>
@@ -35,7 +42,13 @@ const Home = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <button type="button">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
                   <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
                 </svg>
@@ -74,10 +87,13 @@ const Home = (props) => {
 
         <section className={styles.product_section}>
           <div className={styles.product_bg_container}>
-            <img src={Pattern2} alt="Pattern2"/>
+            <img src={Pattern2} alt="Pattern2" />
           </div>
           <h1>Shop local makers</h1>
-            <p className={styles.slogan} >Got a party to plan? Make a group booking for a masterclass or a winery, brewery or distillery tour. </p>
+          <p className={styles.slogan}>
+            Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
+            distillery tour.{' '}
+          </p>
           {[1, 2, 3, 4, 5, 6].map((e) => (
             <ExpCard
               key={e}
@@ -106,7 +122,10 @@ const Home = (props) => {
         </section>
 
         <div className={styles.lessons_section}>
-          <p className={styles.slogan} >Got a party to plan? Make a group booking for a masterclass or a winery, brewery or distillery tour.  </p>
+          <p className={styles.slogan}>
+            Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
+            distillery tour.{' '}
+          </p>
           {[1, 2, 3, 4, 5, 6].map((e) => (
             <ExpCard
               key={e}
