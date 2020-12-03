@@ -103,7 +103,8 @@ const Header = (props) => {
           <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
             <li className={styles.menuitem} id="explore" onClick={menuItemClick}>
               EXPLORE{' '}
-              <svg
+              <svglf
+              
                 width="10"
                 height="7"
                 viewBox="0 0 10 7"
@@ -111,7 +112,7 @@ const Header = (props) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M1 1L5 5L9 1" stroke={dark ? 'white' : 'black'} strokeWidth="1.5" />
-              </svg>
+              </svglf>
             </li>
             <li className={styles.menuitem} id="foodmakers" onClick={menuItemClick}>
               FOR FOOD MAKERS{' '}

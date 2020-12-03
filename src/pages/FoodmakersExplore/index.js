@@ -43,7 +43,7 @@ const FoodmakersExplore = (props) => {
         </div>
       </section>
 
-      <div className={styles.content}>
+      <div className={cls( styles.content , 'class') }>
         <div className={styles.exp_section}>
           {[1, 2, 3, 4, 5].fill(1).map((e, i) => (
             <FMCard key={e} />
@@ -52,7 +52,7 @@ const FoodmakersExplore = (props) => {
       </div>
 
       <div className={styles.btn_holder}>
-          <button>More</button>
+        <button>More</button>
       </div>
 
       <BottomSection />

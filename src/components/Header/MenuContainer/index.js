@@ -3,6 +3,7 @@ import T from 'prop-types'
 import cls from 'classnames'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
+import ForMakers from 'assets/images/header/for_makers.jpg'
 import GetHired from 'assets/images/header/gethired.jpg'
 import Experience from 'assets/images/header/experience.jpg'
 import CreateShop from 'assets/images/header/createshop.jpg'
@@ -13,8 +14,9 @@ import Blog from 'assets/images/landings/create_shop/sec21.jpg'
 import FAQ from 'assets/images/landings/create_shop/sec32.jpg'
 import styles from './menucontainer.module.scss'
 
-const items = {
-  foodmakers: [
+  const items = {
+    foodmakers: [
+    { img: ForMakers, heading: 'For Makers', route: '/landing/create_profile' },
     { img: GetHired, heading: 'Get Hired', route: '/landing/create_profile' },
     { img: Experience, heading: 'Create Experience', route: '/landing/create_experience' },
     { img: CreateShop, heading: 'Create Shop', route: '/landing/create_shop' },
