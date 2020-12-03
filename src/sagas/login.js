@@ -32,7 +32,7 @@ function* loginFlow({ creds }) {
     })
     yield put({ type: GET_USER_ACCOUNT_REQUESTING })
 
-    yield put(replace('/card'))
+    yield put(replace('/'))
   } catch (error) {
     if (error.response) {
       yield put({ type: LOGIN_ERROR, error: error.response.data.error })

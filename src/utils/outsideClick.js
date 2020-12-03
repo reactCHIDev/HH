@@ -4,11 +4,6 @@ import { useEffect } from 'react'
 export default function useOutsideClick(ref, handler, classId) {
   useEffect(() => {
     function handleClickOutside(event) {
-      console.log(
-        '%c   event.target.classList   ',
-        'color: white; background: royalblue;',
-        event.target.classList,
-      )
       const containsClasses = () => {
         if (typeof classId === 'object') {
           return !classId.includes(event.target.classList?.value)

@@ -55,7 +55,6 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
   return (
     <div className={styles.info_container}>
       <div className={styles.data_container}>
-        <p className={styles.head}>Profile</p>
         <p className={styles.subhead}>User info</p>
         <div id="uploader" className={styles.uploader}>
           {success && <div className={styles.success}>Saved successfully</div>}

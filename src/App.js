@@ -21,6 +21,7 @@ import Create from 'containers/Auth/components/Forgot/components/Create'
 import Card from 'components/Card'
 import Test from 'components/Tabs/Test'
 import Home from 'pages/Home'
+import Soon from 'components/ComingSoon'
 import Header from 'components/Header'
 import desktop from 'routing/PATHS'
 import styles from './app.module.scss'
@@ -32,19 +33,21 @@ const Login = lazy(() => import('containers/Auth/components/Login'))
 const Signup = lazy(() => import('containers/Auth/components/Signup'))
 const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
-const Account = lazy(() => import('containers/Dashboard/components/Account'))
-const AddProduct = lazy(() => import('containers/Dashboard/components/Account/AddProduct'))
-const ProductPage = lazy(() => import('containers/Dashboard/components/Account/ProductPage'))
+const Account = lazy(() => import('containers/Dashboard/Account'))
+const AddProduct = lazy(() => import('containers/Dashboard/Account/AddProduct'))
+const ProductPage = lazy(() => import('containers/Dashboard/Account/ProductPage'))
 const ShopPage = lazy(() => import('pages/ShopPage'))
+const ExpDashboard = lazy(() => import('containers/Dashboard/ExperienceDashboard'))
 const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
 const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
-const FoodmakerPage = lazy(() => import('containers/Dashboard/components/Account/FoodmakerPage'))
-const FoodmakerProfile = lazy(() =>
-  import('containers/Dashboard/components/Account/FoodmakerProfile'),
-)
-const ShopProfile = lazy(() => import('containers/Dashboard/components/Account/ShopProfile'))
-const Settings = lazy(() => import('containers/Dashboard/components/Account/Settings'))
+const FoodmakerPage = lazy(() => import('containers/Dashboard/Account/FoodmakerPage'))
+const AccountInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo'))
+// const FoodmakerProfile = lazy(() =>
+//   import('containers/Dashboard/components/Account/FoodmakerProfile'),
+// )
+// const ShopProfile = lazy(() => import('containers/Dashboard/components/Account/ShopProfile'))
+const Settings = lazy(() => import('containers/Dashboard/Account/Settings'))
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
@@ -95,6 +98,7 @@ function App({ authorized, pathname, getUserAccount }) {
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
             <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
             <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
+            <PublicRoute exact path="/coming_soon" component={WaitingComponent(Soon)} />
 
             {/* Pages */}
             <PublicRoute exact path="/shop_page" component={WaitingComponent(ShopPage)} />
@@ -136,14 +140,16 @@ function App({ authorized, pathname, getUserAccount }) {
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
+            <PrivateRoute exact path="/exp_dashboard" component={WaitingComponent(ExpDashboard)} />
             <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
             <PrivateRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
-            <PrivateRoute
+            <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
+            {/* <PrivateRoute
               exact
               path="/foodmaker_profile"
               component={WaitingComponent(FoodmakerProfile)}
             />
-            <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} />
+            <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
             <PrivateRoute
               exact
               path="/foodmaker_page"
