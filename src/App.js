@@ -79,7 +79,7 @@ function App({ authorized, pathname, getUserAccount }) {
   const hideHeader = ['/signupflow'].includes(pathname)
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="app-container">
       <ConnectedRouter history={history}>
         <ConnectionProvider>
           {!hideHeader && <Header />}
