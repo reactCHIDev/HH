@@ -27,11 +27,6 @@ const Step2 = (props) => {
 
   const { Option } = Select
 
-  console.log('%c   types   ', 'color: darkgreen; background: palegreen;', category)
-
-  console.log('types', types)
-  console.log('productTypeId', productTypeId)
-
   const defaultValues = productTypeId
     ? {
         title,

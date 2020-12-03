@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
+import cloneDeep from 'lodash/cloneDeep'
 import ChkBox from 'components/ChkBox'
 import CollapsedBlock from 'components/CollapsedBlock'
 import SortElement from 'components/SortElement'
@@ -46,7 +47,7 @@ const Listings = (props) => {
   const [productTypes, setProductTypes] = useState([])
   const [ids, setIds] = useState([])
   const [sort, setSort] = useState(sorts)
-  const [filteredProducts, filterProducts] = useState(myProducts)
+  const [filteredProducts, filterProducts] = useState([])
   const [searchSubstring, setSearchSubstring] = useState('')
   const [menu, setMenu] = useState(false)
 
@@ -70,16 +71,11 @@ const Listings = (props) => {
   }, [])
 
   useEffect(() => {
-    setProductTypes(
-      types.map((e1) => ({
-        ...e1,
-        productCategories: [...e1.productCategories].map((e3) => ({ ...e3 })),
-      })),
-    )
+    setProductTypes(cloneDeep(types))
   }, [types])
 
   useEffect(() => {
-    filterProducts(myProducts)
+    filterProducts(cloneDeep(myProducts))
   }, [myProducts])
 
   useEffect(() => {
@@ -92,7 +88,6 @@ const Listings = (props) => {
 
   useEffect(() => {
     if (productTypes.length > 0) {
-      console.log('reset')
       // getMyProductList()
       resetFilters()
     }
@@ -175,7 +170,6 @@ const Listings = (props) => {
 
   const test = (data) => {
     toggleProductStatusRequestAC(data)
-    console.log('%c   toggle   ', 'color: white; background: royalblue;')
   }
 
   return (

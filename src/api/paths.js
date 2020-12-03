@@ -9,6 +9,7 @@ export default {
   // Auth
   signUpUser: '/v1/user/register_foodlover',
   signUpFoodmaker: '/v1/user/register_foodmaker',
+  signUpLoverAsFoodmaker: '/v1/user/register_foodlover_as_foodmaker',
   loginUser: '/v1/user/login',
   logout: '/v1/user/logout',
   forgotStep1: '/v1/user/forgot_password/step_one',
@@ -37,9 +38,11 @@ export default {
   getSpecialityTags: '/v1/tag/speciality_tag',
   getProductTags: '/v1/product/tags',
   getCities: '/v1/city/list',
+  getCountries: '/v1/country/list',
 
   // Shop
   isShopExist: '/v1/shop/check_if_exist/',
+  updateShop: '/v1/shop/update',
 
   //
   //

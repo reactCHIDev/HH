@@ -39,7 +39,7 @@
     @media (max-width: 768px) {
       border: none;
       justify-content: space-between;
-      padding: 29px 20px;
+      padding: 25px 20px;
     }
 
     .menu_btn {
@@ -53,10 +53,13 @@
     }
 
     .logo {
-      display: flex;
-      flex-shrink: 0;
       cursor: pointer;
+      display: flex;
+      align-items: center;
 
+      @media (max-width: 768px) {
+        flex-shrink: 0;
+      }
     
       .logo_img {
         width: 46px;
@@ -68,15 +71,13 @@
         }
 
         @media (max-width: 376px) {
-          margin-left: 10px;
+          margin-left: 15px;
         }
   
       }
       .logo_text {
-        font-family: GrandHotel;
-        margin: 0;
-        font-size: 28px;
-        letter-spacing: 2px;
+        margin: 0 0 -14px;
+        width: 155px;
 
         @media (max-width: 1024px) {
           display: none;
@@ -90,15 +91,13 @@
       margin: 0px;
       flex-grow: 3;
       transition: opacity 0.3s;
+
       @media (max-width: 1024px) {
         margin: 0px;
       }
 
       @media (max-width: 768px) {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        background-color: $black;
+        display: none;
       }
 
       .menuitem {
@@ -112,9 +111,16 @@
         text-align: right;
         letter-spacing: 1px;
         text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
 
         @media (max-width: 1024px) {
           margin: 0 0 0 10px;
+        }
+
+        svg{
+          margin-left: 8px;
         }
       }
     }

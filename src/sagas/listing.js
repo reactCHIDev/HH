@@ -11,14 +11,11 @@ import {
 } from '../actions/constants'
 
 function* getMyProductListSaga() {
-  console.log('saga 1')
   try {
     const response = yield getMyProductListReq()
-    console.log('saga 2', response.data)
     yield put({ type: GET_MY_PRODUCT_LIST_SUCCESS, data: response.data })
     // yield put(getMyProductListSuccess({ data: response.data }))
   } catch (error) {
-    console.log('error', error)
     if (error.response) {
       yield put({ type: GET_MY_PRODUCT_LIST_ERROR, error: error.response.data.error })
     }

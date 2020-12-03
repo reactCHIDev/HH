@@ -62,7 +62,7 @@
 
     &.dark_opener{
 
-      > * {
+      span {
         background: #fff;
       }
     }
@@ -71,7 +71,7 @@
   .nav__opener_opened {
     display: block;
     position: absolute;
-    right: 0px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     width: 36px;
@@ -106,6 +106,13 @@
 
     &:hover {
       opacity: 0.6;
+    }
+
+    &.dark_opener{
+
+      span {
+        background: #fff;
+      }
     }
   }
 }

@@ -130,7 +130,6 @@ const Settings = ({
     }
 
     if (Object.keys(formData).length) {
-      console.log('%c   formData   ', 'color: white; background: salmon;', formData)
       updateAccount(formData)
     }
   }
@@ -171,7 +170,7 @@ const Settings = ({
               {!newEmail ? (
                 <div className={styles.verificated}>
                   <img className={styles.check} src={check} alt="checked" />
-                  VERIFICATED
+                  VERIFIED
                 </div>
               ) : (
                 <div className={styles.checklink} onClick={resend}>

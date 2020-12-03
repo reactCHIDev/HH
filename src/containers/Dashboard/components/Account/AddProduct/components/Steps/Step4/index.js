@@ -57,9 +57,9 @@ const tailFormItemLayout = {
   },
 }
 
-const Step4 = ({ create, pushRoute }) => {
+const Step4 = ({ create, countries, tags, pushRoute }) => {
   const [form] = Form.useForm()
-  const tags = [
+  const taggs = [
     { id: 1, tagName: 'Drink' },
     { id: 2, tagName: 'Salad' },
     { id: 3, tagName: 'Bread' },
@@ -109,11 +109,7 @@ const Step4 = ({ create, pushRoute }) => {
 
   const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
-  const COUNTRIES = ['China', 'Malaysia', 'Japan', 'Vietnam']
-
   const onFinish = (vals) => {
-    console.log('Received values of form: ', { ...vals, chkIngr: ingredients })
-
     const values = { ...vals }
 
     // ================
@@ -158,7 +154,6 @@ const Step4 = ({ create, pushRoute }) => {
     delete prevStep.ingredients
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
-    console.log('%c   productData   ', 'color: white; background: royalblue;', productData)
     delete productData.countries
     create(productData)
     // pushRoute('/card')
@@ -177,7 +172,6 @@ const Step4 = ({ create, pushRoute }) => {
   const isAdultChk = () => setIsAdult((a) => !a)
 
   const handleChangeTags = (selectedItms) => {
-    console.log('%c     selectedItms ', 'color: darkgreen; background: palegreen;', selectedItms)
     setSelectedItems(selectedItms)
   }
 
@@ -186,7 +180,8 @@ const Step4 = ({ create, pushRoute }) => {
   }
 
   const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
-  console.log('%c   filteredTags   ', 'color: darkgreen; background: palegreen;', filteredTags)
+
+  const COUNTRIES = countries.map((e) => e.countryName)
   let filteredCountries = COUNTRIES
   if (selectedCountries && selectedCountries.length) {
     filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
@@ -443,10 +438,10 @@ const Step4 = ({ create, pushRoute }) => {
 
           <div style={{ marginTop: 20 }}>
             <div style={{ padding: '5px 0 0 24px' }}>
-              <label className="form-text">Quantity</label>
+              <label className="form-text">Quantity (optional)</label>
               <Form.Item
                 name="quantity"
-                rules={[{ required: true, message: 'Please enter quantity' }]}
+                rules={[{ required: false, message: 'Please enter quantity' }]}
                 normalize={(value) => Math.abs(Number(value))}
               >
                 <InputNumber min={0} />
@@ -471,6 +466,11 @@ const Step4 = ({ create, pushRoute }) => {
             </Radio.Group>
           </Form.Item>
 
+          <label className="form-text">Note</label>
+          <Form.Item name="refundPolicyNote" wrapperCol={{ span: 12, offset: 0 }}>
+            <Input.TextArea rows={4} />
+          </Form.Item>
+
           <Form.Item {...tailFormItemLayout} wrapperCol={2}>
             <Button type="primary" block size="large" htmlType="submit">
               PUBLISH
@@ -486,6 +486,7 @@ Step4.propTypes = {
   create: T.func.isRequired,
   pushRoute: T.func.isRequired,
   tags: T.arrayOf(shape()).isRequired,
+  countries: T.arrayOf(shape()).isRequired,
 }
 
 export default Step4

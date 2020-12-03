@@ -14,10 +14,17 @@ import {
   GET_CITIES_REQUESTING,
   GET_CITIES_SUCCESS,
   GET_CITIES_ERROR,
+  GET_COUNTRIES_REQUESTING,
+  GET_COUNTRIES_SUCCESS,
+  GET_COUNTRIES_ERROR,
 } from './constants'
 
 export const getCitiesAC = () => ({
   type: GET_CITIES_REQUESTING,
+})
+
+export const getCountriesAC = () => ({
+  type: GET_COUNTRIES_REQUESTING,
 })
 
 export const getProductTypes = () => ({

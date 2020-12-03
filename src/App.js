@@ -76,11 +76,13 @@ function App({ authorized, pathname, getUserAccount }) {
   const url = `${process.env.REACT_APP_BASE_URL}/api`
   setBaseEndpoint(url)
 
+  const hideHeader = ['/signupflow'].includes(pathname)
+
   return (
     <div className={styles.container}>
       <ConnectedRouter history={history}>
         <ConnectionProvider>
-          {pathname !== '/signupflow' && <Header />}
+          {!hideHeader && <Header />}
           <Switch>
             <PublicRoute exact path={desktop.home} component={WaitingComponent(Home)} />
             <PublicRoute

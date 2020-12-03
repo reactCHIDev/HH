@@ -66,8 +66,6 @@ const reducer = function accountReducer(state = initialState, action) {
 
     case UPDATE_ACCOUNT_SUCCESS:
       const { data, newEmail } = action.payload
-      console.log('%c   newEmail   ', 'color: darkgreen; background: palegreen;', !!newEmail)
-      console.log('%c   data   ', 'color: darkgreen; background: palegreen;', data)
       return {
         ...state,
         ...data,

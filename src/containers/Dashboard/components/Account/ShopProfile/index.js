@@ -1,35 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-
-import { getUserAccount, updateAccount } from 'actions/account'
-import { updateFoodmakerAccountAC } from 'actions/foodmaker'
+import { getUserAccount } from 'actions/account'
+import { updateShopAC } from 'actions/shop'
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
 import QR from 'qrcode'
-
-import ImgCrop from 'antd-img-crop'
-import Btn from 'components/Button'
-import { Input, Select, Button, Form, Upload, Modal, Checkbox, InputNumber, Progress } from 'antd'
-import { PlusOutlined, LockOutlined } from '@ant-design/icons'
-
+import AvaUploader from 'components/AvatarUploader'
+import { Input, Select, Button, Form, Checkbox, InputNumber } from 'antd'
+import { LockOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
-import axios from 'axios'
-
 import styles from './shopprofile.module.scss'
 import './shopprofile.less'
 
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = (error) => reject(error)
-  })
-}
-
 const ShopProfile = (props) => {
   const {
-    account,
+    id,
+    shop,
+    success,
     serviceTags,
     specialityTags,
     productTags,
@@ -37,24 +24,20 @@ const ShopProfile = (props) => {
     getServiceTagsAC,
     getSpecialityTagsAC,
     getProductTagsRequestAC,
+    updateShopAC,
   } = props
 
-  const { id, success } = account
-
-  const [defaultFileList, setFileList] = useState([])
-  const [url, setUrl] = useState('')
-
-  const [progress, setProgress] = useState(0)
-
+  const [defaults, setDefaults] = useState({})
+  const [shopUrl, setShopUrl] = useState('')
+  const [avatar, setAvatar] = useState('')
   const [tags, setTags] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
-  const [selectedLangs, setSelectedLangs] = useState([])
-
   const [qrImgSource, setQrImgSource] = useState(null)
+  const [hungryHuggerLink, setHungryHuggerLink] = useState(
+    'https://hungryhugger.wildwebart.com/shop/',
+  )
 
-  const [hungryHuggerLink, setSiteValue] = useState('www.hungryhugger.com/shop/')
-
-  const [standart, setStandart] = useState(true)
+  const [standart, setStandart] = useState(false)
   const [freepick, setFreepick] = useState(false)
   const [express, setExpress] = useState(false)
   const [free, setFree] = useState(false)
@@ -72,6 +55,35 @@ const ShopProfile = (props) => {
       console.error(err)
     }
   }
+
+  useEffect(() => {
+    if (shop) {
+      const { title, shopUrl, description, coverPhoto, tags, deliveryMethods } = shop
+
+      setAvatar(coverPhoto)
+      setShopUrl(shopUrl)
+      const delivery = deliveryMethods.reduce((acc, dm) => {
+        Object.keys(dm).map((e) => {
+          if (e !== 'type') {
+            acc[dm.type + e] = dm[e]
+          } else {
+            if (dm[e] === 'standart') setStandart(true)
+            if (dm[e] === 'freepick') setFreepick(true)
+            if (dm[e] === 'express') setExpress(true)
+            if (dm[e] === 'free') setFree(true)
+          }
+        })
+        return acc
+      }, {})
+
+      setDefaults({
+        title,
+        description,
+        tags,
+        ...delivery,
+      })
+    }
+  }, [shop])
 
   const handleChangeTags = (selectedItms) => {
     setSelectedItems(selectedItms)
@@ -100,17 +112,10 @@ const ShopProfile = (props) => {
           'www.hungryhugger.com',
         ),
       ) */
-  }, [account])
+  }, [shop])
 
   useEffect(() => {
-    if (
-      serviceTags &&
-      serviceTags.length &&
-      specialityTags &&
-      specialityTags.length &&
-      productTags &&
-      productTags.length
-    ) {
+    if (serviceTags?.length && specialityTags?.length && productTags?.length) {
       setTags([...specialityTags, ...productTags])
       setSelectedItems(normalizeTagsForRender([1, 3, 5], [...specialityTags, ...productTags]))
     }
@@ -122,127 +127,69 @@ const ShopProfile = (props) => {
 
   useEffect(() => {
     if (success) {
-      // if (id) getUserAccount(id)
+      if (id) getUserAccount(id)
     }
   }, [success])
 
-  useEffect(() => {
-    if (defaultFileList.length) {
-      const list = [...defaultFileList]
-      list[list.length - 1].url = url
-      setFileList(list)
-    }
-  }, [url])
-
-  const onChange = ({ fileList: newFileList }) => {
-    let list = []
-    const targetList = defaultFileList
-
-    if (targetList.length < newFileList.length) {
-      list = newFileList.map((e, i) =>
-        i === newFileList.length - 1
-          ? {
-              uid: e.uid,
-              name: e.name,
-              status: 'done',
-            }
-          : e,
-      )
-    } else {
-      list = targetList.filter((e) => newFileList.find((f) => f.uid === e.uid))
-    }
-    setFileList(list)
-  }
-
-  const onPreview = async (file) => {
-    let src = file.url
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file.originFileObj)
-        reader.onload = () => resolve(reader.result)
-      })
-    }
-    const image = new Image()
-    image.src = src
-    const imgWindow = window.open(src)
-    imgWindow.document.write(image.outerHTML)
-  }
-
-  async function sendFile(options) {
-    const { onSuccess, onError, file, onProgress } = options
-    const formData = new FormData()
-    formData.append('file', file)
-    const headers = {
-      'Content-Type': 'multipart/form-data',
-      Accept: 'application/json',
-      type: 'formData',
-      'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
-    }
-    try {
-      const res = await axios.post(
-        'https://hungryhugger.wildwebart.com/api/v1/file/upload/photo',
-        formData,
-        {
-          headers,
-          onUploadProgress: (event) => {
-            const percent = Math.floor((event.loaded / event.total) * 100)
-            setProgress(percent)
-            if (percent === 100) {
-              setTimeout(() => setProgress(0), 3000)
-            }
-            onProgress({ percent: (event.loaded / event.total) * 100 })
-          },
-        },
-      )
-      setUrl(res.data)
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
   const onSubmit = (formValues) => {
-    const userPhoto = defaultFileList.length ? defaultFileList[0].url : ''
+    const coverPhoto = avatar
 
     const values = { ...formValues }
 
-    if (!standart) {
-      delete values.standartCost
-      delete values.standartFreeEdge
+    const standartDelivery = {
+      type: 'standart',
+      price: values.standartprice,
+      freeDeliveryOver: values.standartfreeDeliveryOver,
+      note: values.standartnote,
     }
-    if (!freepick) {
-      delete values.freePickNote
+    delete values.standartprice
+    delete values.standartfreeDeliveryOver
+    delete values.standartnote
+
+    const freepickDelivery = {
+      type: 'freepick',
+      note: values.freepicknote,
     }
-    if (!express) {
-      delete values.expressCost
-      delete values.expressFreeEdge
+    delete values.freepicknote
+
+    const expressDelivery = {
+      type: 'express',
+      price: values.expressprice,
+      freeDeliveryOver: values.expressfreeDeliveryOver,
+      note: values.expressnote,
     }
-    if (!free) {
-      delete values.freeMinimum
+    delete values.expressprice
+    delete values.expressfreeDeliveryOver
+    delete values.expressnote
+
+    const freeDelivery = {
+      type: 'free',
+      price: values.freeprice,
     }
+    delete values.freeprice
+
+    const delivery = []
+
+    if (standart) delivery.push(standartDelivery)
+    if (freepick) delivery.push(freepickDelivery)
+    if (express) delivery.push(expressDelivery)
+    if (free) delivery.push(freeDelivery)
 
     const payload = {
       ...values,
-      userPhoto,
-      hungryHuggerLink,
+      id,
+      coverPhoto,
+      // hungryHuggerLink,
+      deliveryMethods: delivery,
     }
 
     Object.keys(payload).forEach((f) => {
       if (!payload[f] || payload[f].length === 0) delete payload[f]
     })
-    console.log('%c  payload    ', 'color: darkgreen; background: palegreen;', payload)
-    // updateFoodmakerAccountAC(payload)
+    updateShopAC(payload)
   }
 
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  )
-
-  const { reffering, firstName, lastName, about } = account
-
+  if (!defaults.title) return <></>
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -250,7 +197,9 @@ const ShopProfile = (props) => {
           layout="vertical"
           name="fmProfile"
           onFinish={onSubmit}
-          initialValues={{ reffering, firstName: firstName, lastName, about }}
+          initialValues={{
+            ...defaults,
+          }}
           scrollToFirstError
         >
           <div className={styles.name_section}>
@@ -259,7 +208,7 @@ const ShopProfile = (props) => {
 
               <div className={styles.first_name}>
                 <label className={styles.label}>The shop name will be visible to everyone</label>
-                <Form.Item name="shopName">
+                <Form.Item name="title">
                   <Input />
                 </Form.Item>
               </div>
@@ -271,7 +220,7 @@ const ShopProfile = (props) => {
                 <div className={styles.profile_data}>
                   <div className={styles.url_name}>
                     <label className={styles.label}>Generated automatically</label>
-                    <Input value={hungryHuggerLink} suffix={<LockOutlined />} />
+                    <Input value={shopUrl} suffix={<LockOutlined />} />
                   </div>
 
                   {hungryHuggerLink && (
@@ -296,51 +245,30 @@ const ShopProfile = (props) => {
             <div className={styles.about_item}>
               <p className={styles.title}>About you</p>
               <div className={styles.about}>
-                <Form.Item name="about">
-                  <Input.TextArea rows={4} />
+                <Form.Item name="description">
+                  <Input.TextArea rows={5} />
                 </Form.Item>
               </div>
             </div>
 
             <div id="uploader_fm" className={styles.uploader}>
               <p className={styles.title}>Cover photo</p>
-              <div className={styles.uploader_wrapper}>
-                {defaultFileList && (
-                  <div className={styles.photo_uploader}>
-                    <ImgCrop rotate>
-                      <Upload
-                        customRequest={(options) => sendFile(options, true)}
-                        listType="picture-card"
-                        fileList={defaultFileList}
-                        onChange={(options) => onChange(options, true)}
-                        onPreview={onPreview}
-                      >
-                        {defaultFileList.length < 1 && '+ Upload'}
-                      </Upload>
-                    </ImgCrop>
-                    <div className={styles.progress_container}>
-                      {progress > 0 ? <Progress percent={progress} /> : null}
-                    </div>
-                  </div>
-                )}
-                <div className={styles.photo_btn}>
-                  <div className={styles.btn_container}>
-                    <Btn title="UPLOAD PHOTO" onClick={onSubmit} />
-                  </div>
-                </div>
+              <div className={styles.avatar_container}>
+                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
               </div>
             </div>
           </div>
           <div className={styles.tags_wrapper}>
             <p className={styles.sec1}>Tags (Up to 5 tags for your speciality and services)</p>
             <div className={styles.service_tags}>
-              <Form.Item name="shopTags">
+              <Form.Item name="tags">
                 <Select
                   mode="multiple"
                   value={selectedItems}
                   onChange={handleChangeTags}
                   showArrow
                   style={{ width: '100%' }}
+                  tokenSeparators={[',']}
                 >
                   {filteredTags.map((item) => (
                     <Select.Option key={item.id} value={item.tagName}>
@@ -358,23 +286,38 @@ const ShopProfile = (props) => {
               <Checkbox id="standart" checked={standart} onChange={onChangeStandartChkBox}>
                 Standart
               </Checkbox>
-              <div className={styles.standart_block}>
-                <div className={cls(styles.standart_cost, 'input_number')}>
-                  <label className={styles.label}>Cost of delivery</label>
-                  <Form.Item name="standartCost">
-                    <InputNumber
-                      formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                      disabled={!standart}
-                    />
-                  </Form.Item>
+              <div className={styles.standart_data}>
+                <div className={styles.standart_block}>
+                  <div className={cls(styles.standart_cost, 'delivery-input_number')}>
+                    <label className={styles.label}>Cost of delivery</label>
+                    <Form.Item name="standartprice" normalize={(value) => Math.abs(Number(value))}>
+                      <InputNumber
+                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                        disabled={!standart}
+                      />
+                    </Form.Item>
+                  </div>
+                  <div className={cls(styles.standart_cost, 'delivery-input_number')}>
+                    <label className={styles.label}>Free for order over</label>
+                    <Form.Item
+                      name="standartfreeDeliveryOver"
+                      normalize={(value) => Math.abs(Number(value))}
+                    >
+                      <InputNumber
+                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                        disabled={!standart}
+                      />
+                    </Form.Item>
+                  </div>
                 </div>
-                <div className={cls(styles.standart_cost, 'input_number')}>
-                  <label className={styles.label}>Free for order over</label>
-                  <Form.Item name="standartFreeEdge">
-                    <InputNumber
-                      formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                <div className={styles.notes}>
+                  <p className={styles.label_note}>Note</p>
+                  <Form.Item name="standartnote">
+                    <Input.TextArea
+                      placeholder="Standard delivery description"
+                      rows={5}
                       disabled={!standart}
                     />
                   </Form.Item>
@@ -385,10 +328,14 @@ const ShopProfile = (props) => {
               <Checkbox id="1" checked={freepick} onChange={onChangeFreePickChkBox}>
                 Free Pick-up
               </Checkbox>
-              <div style={{ padding: '5px 0 0 24px' }}>
-                <label className={styles.label}>Note</label>
-                <Form.Item name="freePickNote">
-                  <Input disabled={!freepick} />
+              <div className={styles.notes}>
+                <p className={styles.label_note}>Note</p>
+                <Form.Item name="freepicknote">
+                  <Input.TextArea
+                    placeholder="Pick up description."
+                    rows={5}
+                    disabled={!freepick}
+                  />
                 </Form.Item>
               </div>
             </div>
@@ -396,23 +343,38 @@ const ShopProfile = (props) => {
               <Checkbox id="0" checked={express} onChange={onChangeExpressChkBox}>
                 Express
               </Checkbox>
-              <div className={styles.standart_block}>
-                <div className={cls(styles.standart_cost, 'input_number')}>
-                  <label className={styles.label}>Cost of delivery</label>
-                  <Form.Item name="expressCost">
-                    <InputNumber
-                      formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                      disabled={!express}
-                    />
-                  </Form.Item>
+              <div className={styles.standart_data}>
+                <div className={styles.standart_block}>
+                  <div className={cls(styles.standart_cost, 'delivery-input_number')}>
+                    <label className={styles.label}>Cost of delivery</label>
+                    <Form.Item name="expressprice" normalize={(value) => Math.abs(Number(value))}>
+                      <InputNumber
+                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                        disabled={!express}
+                      />
+                    </Form.Item>
+                  </div>
+                  <div className={cls(styles.standart_cost, 'delivery-input_number')}>
+                    <label className={styles.label}>Free for order over</label>
+                    <Form.Item
+                      name="expressfreeDeliveryOver"
+                      normalize={(value) => Math.abs(Number(value))}
+                    >
+                      <InputNumber
+                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                        disabled={!express}
+                      />
+                    </Form.Item>
+                  </div>
                 </div>
-                <div className={cls(styles.standart_cost, 'input_number')}>
-                  <label className={styles.label}>Free for order over</label>
-                  <Form.Item name="expressFreeEdge">
-                    <InputNumber
-                      formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                <div className={styles.notes}>
+                  <p className={styles.label_note}>Note</p>
+                  <Form.Item name="expressnote">
+                    <Input.TextArea
+                      placeholder="Express delivery description."
+                      rows={5}
                       disabled={!express}
                     />
                   </Form.Item>
@@ -423,26 +385,30 @@ const ShopProfile = (props) => {
               <Checkbox id="3" checked={free} onChange={onChangeFreeChkBox}>
                 Free Delivery
               </Checkbox>
-              <div className={styles.standart_block}>
-                <div className={cls(styles.standart_cost, 'input_number')}>
-                  <label className={styles.label}>Minimum spend to recieve</label>
-                  <Form.Item name="freeMinimum">
-                    <InputNumber
-                      formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                      disabled={!free}
-                    />
-                  </Form.Item>
+              <div className={styles.standart_data}>
+                <div className={styles.standart_block}>
+                  <div className={cls(styles.standart_cost, 'delivery-input_number')}>
+                    <p className={styles.label_note}>Minimum spend to recieve</p>
+                    <Form.Item name="freeprice" normalize={(value) => Math.abs(Number(value))}>
+                      <InputNumber
+                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                        disabled={!free}
+                      />
+                    </Form.Item>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <Form.Item>
-            <Button type="primary" size="large" htmlType="submit">
-              SAVE
-            </Button>
-          </Form.Item>
-          {success && <div className={styles.success}>Saved successfully</div>}
+          <div className={styles.apply_btn}>
+            {success && <div className={styles.success}>Saved successfully</div>}
+            <Form.Item>
+              <Button type="primary" block size="large" htmlType="submit">
+                SAVE
+              </Button>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     </div>
@@ -451,26 +417,34 @@ const ShopProfile = (props) => {
 
 ShopProfile.propTypes = {
   getUserAccount: T.func,
-  updateFoodmakerAccountAC: T.func,
+  updateShopAC: T.func,
   getServiceTagsAC: T.func,
   getSpecialityTagsAC: T.func,
   getProductTagsRequestAC: T.func,
-  account: T.shape(),
+  id: T.number,
+  shop: T.shape(),
+  success: T.bool,
   serviceTags: T.arrayOf(T.shape()),
   specialityTags: T.arrayOf(T.shape()),
   productTags: T.arrayOf(T.shape()),
 }
 
 export default connect(
-  ({ account, system: { serviceTags, specialityTags, productTags } }) => ({
-    account,
+  ({
+    account: { shop },
+    shop: { success },
+    system: { serviceTags, specialityTags, productTags },
+  }) => ({
+    id: shop?.id,
+    success,
+    shop,
     serviceTags,
     specialityTags,
     productTags,
   }),
   {
     getUserAccount,
-    updateFoodmakerAccountAC,
+    updateShopAC,
     getServiceTagsAC,
     getSpecialityTagsAC,
     getProductTagsRequestAC,

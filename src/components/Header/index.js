@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { logout } from 'actions/login'
 import cls from 'classnames'
+import useOutsideClick from 'utils/outsideClick'
 import { getUserAccount } from 'actions/account'
 import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
 import LogoDark from 'assets/images/header/logo_dark.svg'
 import LogoWhite from 'assets/images/header/logo-white.svg'
-import textLogo from 'assets/images/header/textlogo.svg'
+import textLogo from 'assets/images/header/logo_text_beta.svg'
 import ArrowWhite from 'assets/icons/svg/down-arrow-white.svg'
 import ArrowDark from 'assets/icons/svg/down-arrow.svg'
 import styles from './header.module.scss'
@@ -21,6 +22,7 @@ import Gallery_icon from 'assets/images/header/Component 150.svg'
 import Gallery_icon_1 from 'assets/images/header/Component 148.svg'
 import Setting from 'assets/images/header/Setting.svg'
 import LogOut from 'assets/images/header/LogOut.svg'
+import textLogoBlue from 'assets/images/header/logo_text_beta_blue.svg'
 
 const Header = (props) => {
   const { authorized, id, role, userPhoto, logOut, pathname, pushRoute, getUserAccount } = props
@@ -30,7 +32,11 @@ const Header = (props) => {
   const [isSubmenu, setSubmenu] = useState(false)
   const [item, setItem] = useState('')
 
-  const dark = pathname !== '/signupflow' && pathname !== '/card'
+  const settingsСontainer = useRef(null)
+
+  const lightTheme = ['/signupflow', '/card', '/foodmaker_profile', '/shop_profile']
+
+  const dark = !lightTheme.includes(pathname)
 
   useEffect(() => {
     if (id) {
@@ -47,6 +53,7 @@ const Header = (props) => {
   const toggleMenu = () => {
     if (!menu) {
       setMenu(true)
+      setItem('all')
     } else {
       setMenu(false)
       setSubmenu(false)
@@ -60,7 +67,6 @@ const Header = (props) => {
     } else {
       setItem('')
       setSubmenu(false)
-      toggleMenu()
     }
   }
 
@@ -80,14 +86,19 @@ const Header = (props) => {
     }
   }
 
+  /*  const menuItemClick = () => {
+    setSubmenu(!isSubmenu)
+  } */
+
   const onSettings = () => setSettings((s) => !s)
+  const onSettingsSelect = () => setSettings((s) => !s)
+
+  useOutsideClick(settingsСontainer, onSettings)
 
   const logout = () => {
     logOut()
     onSettings()
   }
-
-  console.log('%c   dark   ', 'color: darkgreen; background: palegreen;', dark)
 
   return (
     <div className={styles.wrapper}>
@@ -99,12 +110,17 @@ const Header = (props) => {
           <div className={styles.logo}>
             <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
             {dark && <img className={styles.logo_text} src={textLogo} alt="hh" />}
+
+            <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
           </div>
           <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
-            <li className={styles.menuitem} id="explore" onClick={menuItemClick}>
-              EXPLORE{' '}
-              <svglf
-              
+            <li
+              className={cls(styles.menuitem, 'menu_item-uotsideclick')}
+              id="explore"
+              onClick={menuItemClick}
+            >
+              EXPLORE
+              <svg
                 width="10"
                 height="7"
                 viewBox="0 0 10 7"
@@ -112,10 +128,14 @@ const Header = (props) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M1 1L5 5L9 1" stroke={dark ? 'white' : 'black'} strokeWidth="1.5" />
-              </svglf>
+              </svg>
             </li>
-            <li className={styles.menuitem} id="foodmakers" onClick={menuItemClick}>
-              FOR FOOD MAKERS{' '}
+            <li
+              className={cls(styles.menuitem, 'menu_item-uotsideclick')}
+              id="foodmakers"
+              onClick={menuItemClick}
+            >
+              FOR FOOD MAKERS
               <svg
                 width="10"
                 height="7"
@@ -241,11 +261,31 @@ const Header = (props) => {
               </div>
             )}
           </div>
-          {isSubmenu && item && <MenuContainer dark={dark} item={item} click={switchMenu} />}
+          {isSubmenu && item && (
+            <MenuContainer
+              useOutsideClick={useOutsideClick}
+              dark={dark}
+              item={item}
+              click={switchMenu}
+              setSubmenu={setSubmenu}
+              resetItem={setItem}
+              setMenu={setMenu}
+            />
+          )}
+          {menu && item === 'all' && (
+            <MenuContainer
+              useOutsideClick={useOutsideClick}
+              dark={dark}
+              item="all"
+              setSubmenu={setSubmenu}
+              setMenu={setMenu}
+              resetItem={setItem}
+            />
+          )}
           {settings && (
-            <div className={styles.settings_container}>
+            <div className={styles.settings_container} ref={settingsСontainer}>
               <ul className={styles.link_list}>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Cup} alt="icon" />
                   <a href="#"> food lover dashboard</a>
                 </li>
@@ -254,22 +294,22 @@ const Header = (props) => {
               <p>Food maker profile</p>
 
               <ul className={styles.link_list}>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Gallery_icon} alt="icon" />
                   <a href="#"> create Experience</a>
                 </li>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Gallery_icon_1} alt="icon" />
                   <Link to="/addproduct">add product</Link>
                 </li>
               </ul>
 
               <ul className={styles.link_list}>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Setting} alt="icon" />
                   <Link to="/settings/account"> Setting</Link>
                 </li>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={LogOut} alt="icon" />
                   <a href="#" className={styles.logout_btn} onClick={logout}>
                     Log Out

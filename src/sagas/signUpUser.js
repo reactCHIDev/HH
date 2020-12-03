@@ -11,8 +11,16 @@ import {
   SIGNUP_FOODMAKER_REQUESTING,
   SIGNUP_FOODMAKER_SUCCESS,
   SIGNUP_FOODMAKER_ERROR,
+  SIGNUP_LOVER_AS_MAKER_REQUESTING,
+  SIGNUP_LOVER_AS_MAKER_SUCCESS,
+  SIGNUP_LOVER_AS_MAKER_ERROR,
 } from 'actions/constants'
-import { getUserByName, signUpUser, signUpFoodmaker } from 'api/requests/Auth'
+import {
+  getUserByName,
+  signUpUser,
+  signUpFoodmaker,
+  signUpLoverAsFoodmaker,
+} from 'api/requests/Auth'
 
 function* signUpProcess({ credentials }) {
   try {
@@ -34,8 +42,16 @@ function* signUpFoodmakerSaga({ credentials }) {
     yield signUpFoodmaker(creds)
     yield put({ type: SIGNUP_FOODMAKER_SUCCESS })
   } catch (error) {
-    console.log('%c   error   ', 'color: white; background: salmon;', error.response.data)
     yield put({ type: SIGNUP_FOODMAKER_ERROR, error: error.response.data })
+  }
+}
+
+function* signUpLoverAsFoodmakerSaga({ credentials }) {
+  try {
+    yield signUpLoverAsFoodmaker(credentials)
+    yield put({ type: SIGNUP_LOVER_AS_MAKER_SUCCESS })
+  } catch (error) {
+    yield put({ type: SIGNUP_LOVER_AS_MAKER_ERROR, error: error.response.data })
   }
 }
 
@@ -52,4 +68,5 @@ export default function* signUp() {
   yield takeEvery(SIGNUP_REQUESTING, signUpProcess)
   yield takeEvery(GET_USER_BY_NAME, getUserByNameSaga)
   yield takeEvery(SIGNUP_FOODMAKER_REQUESTING, signUpFoodmakerSaga)
+  yield takeEvery(SIGNUP_LOVER_AS_MAKER_REQUESTING, signUpLoverAsFoodmakerSaga)
 }

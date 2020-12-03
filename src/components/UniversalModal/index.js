@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import styles from './modal.module.scss'
 
 const Modal = (props) => {
-  const { children, mode = 'dark', classname, white, closeFunc } = props
+  const { children, mode = 'dark', classname, white, closeFunc, option } = props
   const [containerElement] = useState(document.getElementById('modal'))
   const [isDark, setIsDark] = useState(false)
 
@@ -30,7 +30,7 @@ const Modal = (props) => {
           styles.universal_modal__background,
           isDark ? styles.universal_modal__background_dark : '',
         )}
-        onClick={closemodal}
+        onClick={!option ? closemodal : undefined}
       />
       <div
         className={cls(

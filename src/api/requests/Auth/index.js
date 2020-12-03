@@ -3,6 +3,8 @@ import PATHS from 'api/paths'
 
 export const signUpUser = (data) => apiClient.post(PATHS.signUpUser, { data })
 export const signUpFoodmaker = (data) => apiClient.post(PATHS.signUpFoodmaker, { data })
+export const signUpLoverAsFoodmaker = (data) =>
+  apiClient.post(PATHS.signUpLoverAsFoodmaker, { data })
 export const login = (data) => apiClient.post(PATHS.loginUser, { data })
 export const logout = () => apiClient.patch(PATHS.logout)
 export const getUserByName = (name) => apiClient.get(PATHS.userbyname + name)

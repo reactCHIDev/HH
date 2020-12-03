@@ -7,7 +7,7 @@ import styles from './profilename.module.scss'
 
 const ProfileName = (props) => {
   const {
-    properties: { name, value, profileName },
+    properties: { name, value },
     onSubmit,
   } = props
   return (
@@ -16,13 +16,12 @@ const ProfileName = (props) => {
       <Input
         name={name}
         placeholder="public name"
-        value={profileName || value}
+        value={value}
         focus
         onSubmit={onSubmit}
         registerObj={{
           required: true,
           validate: async (value) => {
-            if (value === profileName) return true
             const user = await getUserByName(value)
             return !user.data?.profileName
           },
@@ -40,7 +39,6 @@ ProfileName.propTypes = {
   properties: T.shape({
     name: T.string,
     value: T.string,
-    profileName: T.string,
   }),
   onSubmit: T.func,
 }

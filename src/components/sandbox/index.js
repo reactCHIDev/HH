@@ -3,6 +3,7 @@ import T from 'prop-types'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import AvatarUploader from 'components/AvatarUploader'
 import cls from 'classnames'
 import axios from 'axios'
 import Cross from 'assets/icons/svg/close-cross.svg'
@@ -124,7 +125,7 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
 
   return (
     <div className={styles.gallery}>
-      <div className={styles.container} ref={container}>
+      {/*  <div className={styles.container} ref={container}>
         <Slider {...settings} ref={slider}>
           {list.map((e, i) => (
             <div key={e} className={styles.gallery_item} draggable={false}>
@@ -168,7 +169,8 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
         </Slider>
 
         <p>{progress}</p>
-      </div>
+      </div> */}
+      <AvatarUploader />
     </div>
   )
 }
