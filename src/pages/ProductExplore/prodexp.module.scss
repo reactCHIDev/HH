@@ -1,20 +1,4 @@
 .container {
-  overflow: hidden;
-
-  .btn_holder{
-    text-align: center;
-    padding: 40px 0;
-    width: 100%;
-
-    button{
-      display: inline-block;
-      vertical-align: top;
-      min-width: 240px;
-      width: auto;
-      padding: 0 55px;
-    }
-  }
-
   .page_header {
     padding: 80px 0 140px; 
     margin: 0 0 20px;
@@ -22,7 +6,7 @@
    
     color: white;
     position: relative;
-
+  
     &:before{
       content: " ";
       position: absolute;
@@ -30,11 +14,11 @@
       left: 0;
       width: 100vw;
       height: 13px;
-
+  
       background: url(../../assets/images/bg-head.png) 50% 100%;
       background-size: 100% 100%;
     }
-
+  
     &:after{
       content: " ";
       position: absolute;
@@ -45,7 +29,7 @@
       background: url(../../assets/images/pattern.svg) no-repeat 50% 5%;
       background-size: 100% 100%;
     }
-
+  
     .header_content {
       width: 100%;
       max-width: 1230px;
@@ -54,46 +38,47 @@
       position: relative;
       z-index: 2;
       color: #fff;
-
+  
       h1{
         font-size: 56px;
         text-align: center;
         letter-spacing: 0.02em;
-
+  
         color: #fff;
         font-weight: bold;
         margin: 0;
-
+  
         mark{
           color: #cc727b;
           background: none;
         }
       }
-
+  
       .slogan{
         font-weight: normal;
         font-size: 28px;
         text-align: center;
         margin: 0 0 20px;
       }
-
+  
       .search_block {
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
         margin: 0 -16px;
-
+  
         .input_wrapper {
           padding: 0 16px;
-
+  
           &:first-child{
             width: 100%;
           }
-
+  
           &:last-child{
             display: flex;
             align-items: center;
           }
-
+  
           .label {
             font-weight: normal;
             font-size: 14px;
@@ -103,7 +88,7 @@
             color: #DCDDE1;
             margin: 5px 0;
           }
-
+  
           .input[type='text'] {
             display: block;
             position: relative;
@@ -115,9 +100,9 @@
             border-radius: 8px;
             border: none;
             width: 100%;
-            min-width: 280px;
+            min-width: 176px;
           }
-
+  
           button{
             width: 72px;
             height: 56px;
@@ -130,9 +115,19 @@
             border-radius: 8px;
           }
         }
+  
+        .input_text{
+          font-weight: normal;
+          font-size: 12px;
+          color: #FFFFFF63;
+          margin: 8px 0 0;
+          display: flex;
+          justify-content: flex-end;
+        }
       }
     }
   }
+
   .content {
     width: 100%;
     max-width: 1314px;
@@ -142,64 +137,36 @@
     .exp_section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-    }
 
-    .product_section {
-      margin-top: 80px;
-      padding: 120px 0 10px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
+      .btn_holder{
+        padding: 38px 0 20px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
 
-      .product_bg_container{
-        background: #F4F7FA;
-        border-radius: 16px;
-        width:106%;
-        height: 400px;
-        overflow: hidden;
-        padding: 124px 0;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 0;
-        z-index: -1;
-
-        img{
-          position: absolute;
-          right: -180px;
-          top: -140px;
+        button{
+          background: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: #31394D;
+          border: 2px solid rgba(49, 57, 77, 0.2);
+          border-radius: 6px;
+          min-width: 160px;
+          padding: 11px 20px;
         }
       }
-
-      h1{
-        color: #31394D;
-        font-weight: bold;
-        font-size: 48px;
-        text-align: center;
-        letter-spacing: 0.02em;
-      }
-
-      .slogan{
-        text-align: center;
-        font-size: 24px;
-        font-weight: 600;
-      }
+    }
+    .product_section {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #f4f7fa;
     }
     .lessons_section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-
-      .slogan{
-        text-align: center;
-        letter-spacing: 0.02em;
-        color: #3C3E43;
-        font-weight: 600;
-        font-size: 24px;
-        opacity: 0.8;
-      }
     }
   }
   .faq_container {
@@ -207,6 +174,7 @@
     padding: 100px 0;
 
     .faq_heading {
+      
       font-weight: bold;
       font-size: 48px;
       line-height: 64px;
@@ -225,7 +193,7 @@
     .section_faq {
       width: 100%;
       max-width: 1008px;
-      background: #fff;
+      background: #ffffff;
       border-radius: 16px;
       margin: 0 auto 150px;
       padding: 10px 32px 32px;

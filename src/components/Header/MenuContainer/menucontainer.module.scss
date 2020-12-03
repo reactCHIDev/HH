@@ -1,4 +1,5 @@
 @import 'styles/core/_colors.scss';
+@import 'styles/styles.scss';
 
 .dark {
   background: $black;
@@ -24,12 +25,12 @@
   left: 0;
   border-top: 1px solid #5a6070;
   right: 0;
-  padding: 40px 0 10px;
+  padding: 0 0 10px;
 
-  @media (max-width: 1024px) {
-    height: calc(100vh - 104px);
+  @include media('<desktop') {
+    height: 80vh;
+    overflow-y: auto;
     padding: 20px;
-    border: none;
   }
 
   @media (max-width: 768px) {
@@ -65,7 +66,7 @@
       top: 27px;
     }
 
-    .img_close{
+    .img_close {
       padding: 5px;
       cursor: pointer;
     }
@@ -151,7 +152,7 @@
   .content_title {
     display: none;
 
-    @media (max-width: 768px) {
+    @include media('<tablet') {
       display: block;
       font-size: 12px;
       letter-spacing: 0.09em;
@@ -163,25 +164,15 @@
   .content {
     margin: 0 auto;
     max-width: 1260px;
-    padding: 0 30px;
+    padding: 40px 30px 0;
+    border-top: 1px solid #5a6070;
 
-    @media (max-width: 1024px) {
+    @include media('<desktop') {
       padding: 0;
     }
 
-    @media (max-width: 768px) {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow-y: auto;
-      overflow-x: hidden;
-      height: calc(100vh - 244px);
-    }
-
-    @media (max-width: 376px) {
-      height: calc(100vh - 184px);
-
+    @include media('<tablet') {
+      border: none;
     }
 
     .menu_container {
@@ -192,11 +183,11 @@
       padding: 0;
       margin: 0 -20px;
 
-      @media (max-width: 1200px) {
+      @include media('<wide') {
         margin: 0 -8px;
       }
 
-      @media (max-width: 1024px) {
+      @include media('<desktop') {
         margin: 20px -8px 32px;
       }
 
@@ -206,11 +197,11 @@
         width: 20%;
         padding: 0 20px;
 
-        @media (max-width: 1200px) {
+        @include media('<wide') {
           padding: 0 8px;
         }
 
-        @media (max-width: 1024px) {
+        @include media('<desktop') {
           width: auto;
           position: relative;
         }
@@ -230,7 +221,7 @@
           margin: 0 0 16px;
           overflow: hidden;
 
-          @media (max-width: 1024px) {
+          @include media('<desktop') {
             width: 150px;
             height: 88px;
           }
@@ -248,11 +239,11 @@
           color: #fff;
           opacity: 0.8;
 
-          @media (max-width: 1200px) {
+          @include media('<wide') {
             font-size: 16px;
           }
 
-          @media (max-width: 1024px) {
+          @include media('<desktop') {
             font-size: 12px;
             text-transform: uppercase;
             padding: 4px 20px;

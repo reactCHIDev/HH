@@ -109,9 +109,11 @@ const Header = (props) => {
           </div>
           <div className={styles.logo}>
             <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
-            {dark && <img className={styles.logo_text} src={textLogo} alt="hh" />}
-
-            <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
+            {dark ? (
+              <img className={styles.logo_text} src={textLogo} alt="hh" />
+            ) : (
+              <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
+            )}
           </div>
           <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
             <li

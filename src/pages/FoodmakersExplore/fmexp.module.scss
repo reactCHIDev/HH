@@ -1,20 +1,6 @@
 .container {
   overflow: hidden;
 
-  .btn_holder{
-    text-align: center;
-    padding: 40px 0;
-    width: 100%;
-
-    button{
-      display: inline-block;
-      vertical-align: top;
-      min-width: 240px;
-      width: auto;
-      padding: 0 55px;
-    }
-  }
-
   .page_header {
     padding: 80px 0 140px; 
     margin: 0 0 20px;
@@ -80,6 +66,7 @@
       .search_block {
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
         margin: 0 -16px;
 
         .input_wrapper {
@@ -115,7 +102,7 @@
             border-radius: 8px;
             border: none;
             width: 100%;
-            min-width: 280px;
+            min-width: 176px;
           }
 
           button{
@@ -133,80 +120,54 @@
       }
     }
   }
+
   .content {
-    width: 100%;
-    max-width: 1314px;
+    max-width: 1260px;
     margin: auto;
-    padding: 80px 20px;
+    padding: 40px 20px;
 
     .exp_section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
     .product_section {
-      margin-top: 80px;
-      padding: 120px 0 10px;
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
-      position: relative;
-
-      .product_bg_container{
-        background: #F4F7FA;
-        border-radius: 16px;
-        width:106%;
-        height: 400px;
-        overflow: hidden;
-        padding: 124px 0;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 0;
-        z-index: -1;
-
-        img{
-          position: absolute;
-          right: -180px;
-          top: -140px;
-        }
-      }
-
-      h1{
-        color: #31394D;
-        font-weight: bold;
-        font-size: 48px;
-        text-align: center;
-        letter-spacing: 0.02em;
-      }
-
-      .slogan{
-        text-align: center;
-        font-size: 24px;
-        font-weight: 600;
-      }
+      background-color: #f4f7fa;
     }
+    
     .lessons_section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+    }
+  }
 
-      .slogan{
-        text-align: center;
-        letter-spacing: 0.02em;
-        color: #3C3E43;
-        font-weight: 600;
-        font-size: 24px;
-        opacity: 0.8;
-      }
+  .btn_holder{
+    margin: 0 0 96px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    button{
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #31394D;
+      border: 2px solid rgba(49, 57, 77, 0.2);
+      border-radius: 6px;
+      min-width: 160px;
+      padding: 11px 20px;
     }
   }
   .faq_container {
     background-color: #f4f7fa;
     padding: 100px 0;
-
     .faq_heading {
+      font-style: normal;
       font-weight: bold;
       font-size: 48px;
       line-height: 64px;
@@ -225,7 +186,7 @@
     .section_faq {
       width: 100%;
       max-width: 1008px;
-      background: #fff;
+      background: #ffffff;
       border-radius: 16px;
       margin: 0 auto 150px;
       padding: 10px 32px 32px;
