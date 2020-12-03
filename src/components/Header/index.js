@@ -5,6 +5,7 @@ import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { logout } from 'actions/login'
 import cls from 'classnames'
+import useOutsideClick from 'utils/outsideClick'
 import { getUserAccount } from 'actions/account'
 import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
@@ -247,6 +248,7 @@ const Header = (props) => {
           </div>
           {isSubmenu && item && (
             <MenuContainer
+              useOutsideClick={useOutsideClick}
               dark={dark}
               item={item}
               click={switchMenu}

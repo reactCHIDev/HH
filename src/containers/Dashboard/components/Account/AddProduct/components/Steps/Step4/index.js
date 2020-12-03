@@ -466,6 +466,11 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
             </Radio.Group>
           </Form.Item>
 
+          <label className="form-text">Note</label>
+          <Form.Item name="refundPolicyNote" wrapperCol={{ span: 12, offset: 0 }}>
+            <Input.TextArea rows={4} />
+          </Form.Item>
+
           <Form.Item {...tailFormItemLayout} wrapperCol={2}>
             <Button type="primary" block size="large" htmlType="submit">
               PUBLISH

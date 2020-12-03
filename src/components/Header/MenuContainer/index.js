@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import { Link } from 'react-router-dom'
@@ -9,19 +9,21 @@ import Experience from 'assets/images/header/experience.jpg'
 import CreateShop from 'assets/images/header/createshop.jpg'
 import FoodExperience from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import FoodMakers from 'assets/images/landings/foodmakers/sec2-2.jpg'
+import ForMakers from 'assets/images/landings/create_profile/sec21.jpg'
 import Products from 'assets/images/landings/foodmakers/sec3-3.jpg'
 import Blog from 'assets/images/landings/create_shop/sec21.jpg'
 import FAQ from 'assets/images/landings/create_shop/sec32.jpg'
-import styles from './menucontainer.module.scss'
 import Close from 'assets/images/close-btn-white.svg'
 import Youtube from 'assets/images/youtube -white.svg'
 import Instagram from 'assets/images/instagram -white.svg'
 import Facebook from 'assets/images/facebook -white.svg'
 import UserAvatar from 'assets/images/user-avatar.jpg'
 import LogOut from 'assets/images/header/LogOut -gray.svg'
+import styles from './menucontainer.module.scss'
 
 const items = {
   foodmakers: [
+    { img: ForMakers, heading: 'For Makers', route: '/landing/foodmakers' },
     { img: GetHired, heading: 'Get Hired', route: '/landing/create_profile' },
     { img: Experience, heading: 'Create Experience', route: '/landing/create_experience' },
     { img: CreateShop, heading: 'Create Shop', route: '/landing/create_shop' },
@@ -35,8 +37,10 @@ const items = {
   ],
 }
 
-const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
+const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, setMenu }) => {
   const [mounted, setMounted] = useState(false)
+
+  const wrapperRef = useRef(null)
 
   useEffect(() => {
     setMounted(true)
@@ -48,10 +52,13 @@ const MenuContainer = ({ item, dark, resetItem, setSubmenu, setMenu }) => {
     resetItem('')
   }
 
+  useOutsideClick(wrapperRef, onClick)
+
   const menuContent = item !== 'all' && item !== '' ? items[item] : items.explore
 
   return (
     <div
+      ref={wrapperRef}
       className={cls(
         styles.container,
         dark ? styles.dark : styles.light,
