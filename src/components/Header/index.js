@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
@@ -31,6 +31,8 @@ const Header = (props) => {
   const [settings, setSettings] = useState(false)
   const [isSubmenu, setSubmenu] = useState(false)
   const [item, setItem] = useState('')
+
+  const settings_container = useRef(null)
 
   const dark = pathname !== '/signupflow' && pathname !== '/card'
 
@@ -87,6 +89,9 @@ const Header = (props) => {
   } */
 
   const onSettings = () => setSettings((s) => !s)
+  const onSettingsSelect = () => setSettings((s) => !s)
+
+  useOutsideClick(settings_container, onSettings)
 
   const logout = () => {
     logOut()
@@ -267,9 +272,9 @@ const Header = (props) => {
             />
           )}
           {settings && (
-            <div className={styles.settings_container}>
+            <div className={styles.settings_container} ref={settings_container}>
               <ul className={styles.link_list}>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Cup} alt="icon" />
                   <a href="#"> food lover dashboard</a>
                 </li>
@@ -278,22 +283,22 @@ const Header = (props) => {
               <p>Food maker profile</p>
 
               <ul className={styles.link_list}>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Gallery_icon} alt="icon" />
                   <a href="#"> create Experience</a>
                 </li>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Gallery_icon_1} alt="icon" />
                   <Link to="/addproduct">add product</Link>
                 </li>
               </ul>
 
               <ul className={styles.link_list}>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={Setting} alt="icon" />
                   <Link to="/settings/account"> Setting</Link>
                 </li>
-                <li>
+                <li onClick={onSettingsSelect}>
                   <img src={LogOut} alt="icon" />
                   <a href="#" className={styles.logout_btn} onClick={logout}>
                     Log Out
