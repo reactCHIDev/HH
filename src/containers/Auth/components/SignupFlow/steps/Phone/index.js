@@ -1,15 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import T from 'prop-types'
 import cls from 'classnames'
-import { Select } from 'antd'
 import Heading from '../../components/heading'
-import Input from '../../components/input'
 import styles from './phone.module.scss'
 import './phone.less'
-
-const { Option } = Select
-
-const nums = ['+32', '+5', '+322', '+34', '+54', '+3', '+87']
 
 const PhoneStep = (props) => {
   const {
@@ -17,21 +12,91 @@ const PhoneStep = (props) => {
     onSubmit,
   } = props
 
-  function handleChange(value) {
-    console.log(`selected ${value}`)
+  const [prefix, setPrefix] = useState('')
+  const [phone, setPhone] = useState('')
+
+  const { register, handleSubmit, errors } = useForm({
+    mode: 'onBlur',
+  })
+
+  useEffect(() => {
+    if (value && value.includes('-')) {
+      const [prefix, phone] = value.split('-')
+      setPrefix(prefix)
+      setPhone(phone)
+    } else {
+      setPhone(value)
+    }
+  }, [value])
+
+  const onChangePrefix = (e) => setPrefix(e.target.value)
+  const onChangePhone = (e) => setPhone(e.target.value)
+
+  const submitData = (data) => {
+    return { phone: data.prefix + '-' + data.phone }
   }
 
   return (
-    <div>
+    <>
       <Heading category="Contact info (not-public)" name="Phone" />
       <div className={cls(styles.container, 'select')}>
-        <Select defaultValue={nums[0]} onChange={handleChange}>
-          {nums.map((n, i) => (
-            <Option key={i + n} value={n}>
-              {n}
-            </Option>
-          ))}
-        </Select>
+        <form className={styles.form} onSubmit={handleSubmit((data) => onSubmit(submitData(data)))}>
+          <div className={styles.input_wrapper}>
+            <div className={styles.prefix_wrapper}>
+              <input
+                className={styles.prefix}
+                name="prefix"
+                placeholder="Country code"
+                value={prefix}
+                type="text"
+                onChange={onChangePrefix}
+                // autoFocus={focus}
+                ref={register({
+                  required: true,
+                  pattern: {
+                    value: /^(?=.*\d).{1,5}$/,
+                  },
+                })}
+              />
+              {errors?.prefix?.type === 'required' && <p>This field is required</p>}
+              {errors?.prefix?.type === 'pattern' && <p>1-5 ditits</p>}
+            </div>
+            <div className={styles.phone_wrapper}>
+              <input
+                className={styles.phone}
+                name="phone"
+                placeholder="Contact number"
+                value={phone}
+                type="text"
+                onChange={onChangePhone}
+                // autoFocus={focus}
+                ref={register({
+                  required: true,
+                  pattern: {
+                    value: /^(?=.*\d).{8,12}$/,
+                  },
+                })}
+              />
+              {errors?.phone?.type === 'required' && <p>This field is required</p>}
+              {errors?.phone?.type === 'pattern' && <p>8-12 digits</p>}
+            </div>
+          </div>
+          <input className={styles.submit} type="submit" value="Next >" />
+        </form>
+        {/* <Input
+          name="phone"
+          placeholder=""
+          value={value}
+          focus
+          onSubmit={onSubmit}
+          registerObj={{
+            required: true,
+            pattern: {
+              value: /([- _():=+]?\d[- _():=+]?){0,5}(\s*)?/,
+              message: 'Invalid name symbols or less than 8 digits',
+            },
+          }}
+        />
         <Input
           name={name}
           placeholder="phone"
@@ -42,12 +107,12 @@ const PhoneStep = (props) => {
             required: true,
             pattern: {
               value: /([- _():=+]?\d[- _():=+]?){10,14}(\s*)?/,
-              message: 'Invalid name symbols',
+              message: 'Invalid name symbols or less than 8 digits',
             },
           }}
-        />
+        /> */}
       </div>
-    </div>
+    </>
   )
 }
 

@@ -5,6 +5,9 @@ import {
   UPDATE_ACCOUNT_REQUESTING,
   UPDATE_ACCOUNT_SUCCESS,
   UPDATE_ACCOUNT_ERROR,
+  UPDATE_PHOTO_NAME_REQUESTING,
+  UPDATE_PHOTO_NAME_SUCCESS,
+  UPDATE_PHOTO_NAME_ERROR,
   RESET_CONFIRMATION,
   EMAIL_CONFIRM,
   EMAIL_CONFIRM_SUCCESS,
@@ -16,8 +19,9 @@ export const getUserAccount = (id) => ({
   id,
 })
 
-export const getUserAccountSuccess = () => ({
+export const getUserAccountSuccess = (payload) => ({
   type: GET_USER_ACCOUNT_SUCCESS,
+  payload,
 })
 
 export const getUserAccountError = (payload) => ({
@@ -37,6 +41,21 @@ export const updateAccountSuccess = (payload) => ({
 
 export const updateAccountError = (payload) => ({
   type: UPDATE_ACCOUNT_ERROR,
+  payload,
+})
+
+export const updatePhotoNameAC = (data) => ({
+  type: UPDATE_PHOTO_NAME_REQUESTING,
+  payload: data,
+})
+
+export const updatePhotoNameSuccessAC = (payload) => ({
+  type: UPDATE_PHOTO_NAME_SUCCESS,
+  payload,
+})
+
+export const updatePhotoNameErrorAC = (payload) => ({
+  type: UPDATE_PHOTO_NAME_ERROR,
   payload,
 })
 

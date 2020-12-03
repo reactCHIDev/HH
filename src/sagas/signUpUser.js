@@ -1,12 +1,26 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
+import * as jwt from 'jsonwebtoken'
+import PATHS from 'api/paths'
+
 import {
   SIGNUP_REQUESTING,
   SIGNUP_SUCCESS,
   GET_USER_BY_NAME,
   SIGNUP_ERROR,
+  SIGNUP_FOODMAKER_REQUESTING,
+  SIGNUP_FOODMAKER_SUCCESS,
+  SIGNUP_FOODMAKER_ERROR,
+  SIGNUP_LOVER_AS_MAKER_REQUESTING,
+  SIGNUP_LOVER_AS_MAKER_SUCCESS,
+  SIGNUP_LOVER_AS_MAKER_ERROR,
 } from 'actions/constants'
-import { getUserByName, signUpUser } from 'api/requests/Auth/index'
+import {
+  getUserByName,
+  signUpUser,
+  signUpFoodmaker,
+  signUpLoverAsFoodmaker,
+} from 'api/requests/Auth'
 
 function* signUpProcess({ credentials }) {
   try {
@@ -15,6 +29,29 @@ function* signUpProcess({ credentials }) {
     yield put(push('/login'))
   } catch (error) {
     yield put({ type: SIGNUP_ERROR })
+  }
+}
+
+function* signUpFoodmakerSaga({ credentials }) {
+  const creds = { ...credentials }
+  const { email } = creds
+  const token = jwt.sign({ email }, process.env.REACT_APP_JWT_SECRET_KEY, { expiresIn: 3600 })
+  const { url } = PATHS
+  creds.registrationLink = `${url}/${token}`
+  try {
+    yield signUpFoodmaker(creds)
+    yield put({ type: SIGNUP_FOODMAKER_SUCCESS })
+  } catch (error) {
+    yield put({ type: SIGNUP_FOODMAKER_ERROR, error: error.response.data })
+  }
+}
+
+function* signUpLoverAsFoodmakerSaga({ credentials }) {
+  try {
+    yield signUpLoverAsFoodmaker(credentials)
+    yield put({ type: SIGNUP_LOVER_AS_MAKER_SUCCESS })
+  } catch (error) {
+    yield put({ type: SIGNUP_LOVER_AS_MAKER_ERROR, error: error.response.data })
   }
 }
 
@@ -30,4 +67,6 @@ function* getUserByNameSaga({ name }) {
 export default function* signUp() {
   yield takeEvery(SIGNUP_REQUESTING, signUpProcess)
   yield takeEvery(GET_USER_BY_NAME, getUserByNameSaga)
+  yield takeEvery(SIGNUP_FOODMAKER_REQUESTING, signUpFoodmakerSaga)
+  yield takeEvery(SIGNUP_LOVER_AS_MAKER_REQUESTING, signUpLoverAsFoodmakerSaga)
 }

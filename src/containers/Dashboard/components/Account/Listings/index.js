@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
+import cloneDeep from 'lodash/cloneDeep'
 import ChkBox from 'components/ChkBox'
-import ListContainer from 'components/ListContainer'
+import CollapsedBlock from 'components/CollapsedBlock'
 import SortElement from 'components/SortElement'
-import { getProductTypes, getMyProductList } from 'actions/listing'
+import { toggleProductStatusRequestAC } from 'actions/product'
+import { getMyProductList } from 'actions/listing'
+import { getProductTypes } from 'actions/system'
 import Header from './components/ListingHeader'
-import CollapsedBlock from './components/CollapsedBlock'
 import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
+
+import cls from 'classnames'
 
 const colors = [
   '#fff3f3',
@@ -24,8 +28,6 @@ const colors = [
 
 const sorts = [
   { title: 'Name', type: 'desc', width: '10%', id: 1 },
-  { title: '', type: 'desc', width: '27%', id: 1 },
-  { title: '', type: 'desc', width: '3%', id: 1 },
   { title: 'Rating', type: 'desc', width: '19%', id: 2 },
   { title: 'Status', type: 'desc', width: '19%', id: 3 },
   { title: 'Stock', type: 'desc', width: '10%', id: 4 },
@@ -33,26 +35,31 @@ const sorts = [
 ]
 
 const Listings = (props) => {
-  const { types, myProducts = [], getProductTypes, getMyProductList } = props
+  const {
+    types,
+    myProducts = [],
+    getProductTypes,
+    getMyProductList,
+    toggleProductStatusRequestAC,
+  } = props
 
-  const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
   const [filters, setFilters] = useState(types)
+  const [productTypes, setProductTypes] = useState([])
   const [ids, setIds] = useState([])
   const [sort, setSort] = useState(sorts)
-  const [filteredProducts, filterProducts] = useState(myProducts)
+  const [filteredProducts, filterProducts] = useState([])
   const [searchSubstring, setSearchSubstring] = useState('')
-  const [productsToShow, setProductsToShow] = useState(myProducts)
-
-  const pageSize = 3
+  const [menu, setMenu] = useState(false)
 
   const resetFilters = () => {
+    setIds([])
     setFilters(
-      types.map((type) => {
+      productTypes.map((type) => {
         type.productCategories = type.productCategories.map((category) => {
           category.checked = false
           return category
         })
+
         return type
       }),
     )
@@ -60,31 +67,31 @@ const Listings = (props) => {
 
   useEffect(() => {
     getProductTypes()
+    getMyProductList()
   }, [])
 
   useEffect(() => {
-    filterProducts(myProducts)
+    setProductTypes(cloneDeep(types))
+  }, [types])
+
+  useEffect(() => {
+    filterProducts(cloneDeep(myProducts))
   }, [myProducts])
 
   useEffect(() => {
     filterProducts(
       myProducts
-        .filter((p) => ids.includes(String(p.productCategoryId)))
+        .filter((p) => (ids.length ? ids.includes(String(p.productCategoryId)) : true))
         .filter((p) => p.title.toLowerCase().includes(searchSubstring)),
     )
   }, [filters])
 
   useEffect(() => {
-    setTotal(filteredProducts.length)
-    setPage(1)
-  }, [filteredProducts])
-
-  useEffect(() => {
-    if (types.length > 0) {
+    if (productTypes.length > 0) {
       // getMyProductList()
       resetFilters()
     }
-  }, [types])
+  }, [productTypes])
 
   const onChangeChkBox = (e) => {
     const { id, checked } = e.currentTarget
@@ -113,18 +120,11 @@ const Listings = (props) => {
     } else {
       tmp[index].type = 'asc'
     }
+
     const filtered = filteredProducts.sort((a, b) => {
-      if (
-        tmp[index].type === 'desc' &&
-        String(a[keyForSort[clickedSort]]).toLowerCase() <
-          String(b[keyForSort[clickedSort]]).toLowerCase()
-      )
+      if (tmp[index].type === 'desc' && a[keyForSort[clickedSort]] < b[keyForSort[clickedSort]])
         return 1
-      if (
-        tmp[index].type === 'asc' &&
-        String(a[keyForSort[clickedSort]]).toLowerCase() >=
-          String(b[keyForSort[clickedSort]]).toLowerCase()
-      )
+      if (tmp[index].type === 'asc' && a[keyForSort[clickedSort]] >= b[keyForSort[clickedSort]])
         return 1
       return -1
     })
@@ -143,7 +143,7 @@ const Listings = (props) => {
 
     const tmp = [...myProducts]
     setFilters(
-      types.map((type) => {
+      productTypes.map((type) => {
         type.productCategories = type.productCategories.map((category) => {
           if (
             tmp
@@ -168,11 +168,31 @@ const Listings = (props) => {
     setSearchSubstring(String(value).toLowerCase())
   }
 
+  const test = (data) => {
+    toggleProductStatusRequestAC(data)
+  }
+
   return (
     <div className={styles.container}>
       <Header onSearch={onSearch} />
-      <div className={styles.main}>
+      <div className={cls(styles.main, menu ? styles.filter_active : ' ')}>
+        <div className={styles.filter_item_list}>
+          <div>
+            <a href="#" onClick={() => setMenu(!menu)} className={styles.filter_btn}>
+              Filter
+            </a>
+            <span className={styles.categories}>
+              Categories: <span className={styles.categories_item}>{`${ids.length} selected`}</span>
+            </span>
+          </div>
+          <a href="#" onClick={resetFilters}>
+            Clear
+          </a>
+        </div>
         <div className={styles.filter_block}>
+          <a href="#" onClick={() => setMenu(!menu)} className={styles.filter_btn}>
+            <img src="https://www.flaticon.com/svg/static/icons/svg/860/860796.svg" alt="icon" />
+          </a>
           {filters.length &&
             filters.map((el, i) => (
               <CollapsedBlock key={el.title} headerText={el.title} color={colors[i]}>
@@ -192,22 +212,19 @@ const Listings = (props) => {
         </div>
         {filteredProducts.length > 0 && (
           <div className={styles.listing}>
-            <div className={styles.sort_block}>
-              {sorts.map((e, i) => (
-                <div key={e.id + String(i)} style={{ width: e.width }}>
-                  <SortElement title={e.title} type={e.type} onClick={onSort} />{' '}
-                </div>
+            <div className={styles.product_table}>
+              <div className={styles.tr}>
+                {sorts.map((e, i) => (
+                  <div className={styles.th} key={e.id + String(i)}>
+                    <SortElement title={e.title} type={e.type} onClick={onSort} />{' '}
+                  </div>
+                ))}
+              </div>
+
+              {filteredProducts.map((product) => (
+                <Product key={product.id} product={product} onToggle={test} />
               ))}
             </div>
-            <ListContainer page={page} pageChange={setPage} pageSize={pageSize} total={total}>
-              <>
-                {filteredProducts
-                  .slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
-                  .map((product) => (
-                    <Product key={product.id} product={product} />
-                  ))}
-              </>
-            </ListContainer>
           </div>
         )}
       </div>
@@ -220,9 +237,14 @@ Listings.propTypes = {
   myProducts: T.arrayOf(shape()),
   getProductTypes: T.func,
   getMyProductList: T.func,
+  toggleProductStatusRequestAC: T.func,
 }
 
-export default connect(({ listing: { types, myProducts } }) => ({ types, myProducts }), {
-  getProductTypes,
-  getMyProductList,
-})(Listings)
+export default connect(
+  ({ listing: { myProducts }, system: { productTypes: types } }) => ({ types, myProducts }),
+  {
+    getProductTypes,
+    getMyProductList,
+    toggleProductStatusRequestAC,
+  },
+)(Listings)

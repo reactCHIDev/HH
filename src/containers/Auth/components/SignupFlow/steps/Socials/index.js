@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
+import instaIcon from 'assets/icons/svg/hh.svg'
+import fbIcon from 'assets/icons/svg/fb.svg'
+import hhIcon from 'assets/icons/svg/insta.svg'
 import Heading from '../../components/heading'
-
 import styles from './socials.module.scss'
 
 const Socials = (props) => {
@@ -28,7 +30,7 @@ const Socials = (props) => {
     setInstaValue(value[2])
   }, [value])
 
-  const fixedText = ['www.hh.com/', 'www.facebook.com/', 'www.instagram.com/']
+  const fixedText = ['www.hungryhugger.com/', 'www.facebook.com/', 'www.instagram.com/']
   const setters = [setHHValue, setFBValue, setInstaValue]
 
   const onChange = (e) => {
@@ -37,7 +39,7 @@ const Socials = (props) => {
   }
 
   const submitData = {
-    social: [curHHValue, curFBValue, curInstaValue],
+    socialURL: [curHHValue, curFBValue, curInstaValue],
   }
 
   return (
@@ -61,11 +63,12 @@ const Socials = (props) => {
           />
           {errors?.hh?.type === 'required' && <p>This field is required</p>}
           {errors?.hh?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {
+          <img className={styles.icon} src={hhIcon} alt="ico" />
+          {/*  {
             <button type="button" className={styles.next} onClick={() => fb.current.focus()}>
               {'>'}
             </button>
-          }
+          } */}
         </div>
 
         <div className={styles.input_wrapper}>
@@ -88,11 +91,13 @@ const Socials = (props) => {
           />
           {errors?.fb?.type === 'required' && <p>This field is required</p>}
           {errors?.fb?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {
+          <img className={styles.icon} src={fbIcon} alt="ico" />
+
+          {/* {
             <button type="button" className={styles.next} onClick={() => insta.current.focus()}>
               {'>'}
             </button>
-          }
+          } */}
         </div>
 
         <div className={styles.input_wrapper}>
@@ -115,11 +120,13 @@ const Socials = (props) => {
           />
           {errors?.insta?.type === 'required' && <p>This field is required</p>}
           {errors?.insta?.type === 'pattern' && <p>Invalid symbols or format</p>}
-          {
+          <img className={styles.icon} src={instaIcon} alt="ico" />
+
+          {/* {
             <button type="button" className={styles.next} onClick={() => {}}>
               {'>'}
             </button>
-          }
+          } */}
         </div>
         <button className={styles.submit} disabled={false} type="submit">
           {'Next >'}
@@ -132,7 +139,7 @@ const Socials = (props) => {
 Socials.propTypes = {
   properties: T.shape({
     name: T.string,
-    value: T.string,
+    value: T.array,
   }),
   onSubmit: T.func,
 }

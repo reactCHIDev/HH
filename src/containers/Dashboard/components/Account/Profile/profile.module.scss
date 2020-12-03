@@ -32,11 +32,19 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
     .uploader {
+      position: relative;
       padding-bottom: 24px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .photo_uploader {
+        width: 150px;
+        .progress_container {
+          padding-top: 5px;
+          height: 30px;
+        }
+      }
       .change_photo {
         font-style: normal;
         font-weight: bold;
@@ -47,6 +55,24 @@
         text-transform: uppercase;
         color: #5375cb;
         cursor: pointer;
+      }
+      .success {
+        position: absolute;
+        width: 198px;
+        height: 37px;
+        left: 0;
+        bottom: 0;
+        background: rgba(122, 211, 152, 0.1);
+        border-radius: 6px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 160%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        letter-spacing: 0.5px;
+        color: #7ad398;
       }
     }
     .name_section {
@@ -80,6 +106,9 @@
       .edit_icon {
         cursor: pointer;
       }
+    }
+    .btn_container {
+      width: 160px;
     }
   }
   .rewards {

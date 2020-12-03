@@ -28,7 +28,6 @@
 
     h1 {
       color: #3c3e43;
-      font-style: normal;
       font-weight: 600;
       font-size: 32px;
       line-height: 42px;
@@ -62,8 +61,7 @@
     ::-moz-placeholder,
     :-ms-input-placeholder,
     :-moz-placeholder {
-      font-family: 'Helvetica Neue';
-      font-style: normal;
+      font-family: 'Helvetica';
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;
@@ -103,6 +101,8 @@
 
       .forgot {
         display: inline-block;
+        line-height: 20px;
+
         position: absolute;
         right: 12px;
         top: 24%;
@@ -197,6 +197,7 @@
   .register {
     display: flex;
     align-self: center;
+    margin: 0;
     p {
       padding: 0 10px;
       font-size: 16px;
@@ -206,6 +207,8 @@
       user-select: none;
     }
     .suggest {
+      display: block;
+      line-height: 26px;
       font-size: 16px;
       letter-spacing: 0.5px;
       color: #5375cb;

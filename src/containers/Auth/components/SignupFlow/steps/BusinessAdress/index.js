@@ -14,12 +14,12 @@ const BusinessAdress = (props) => {
   } = props
   const [showMap, setMap] = useState(false)
   const [curTextValue, setTextValue] = useState(value.adress)
-  const [curInputValue, setInputalue] = useState(value.mapURL)
+  const [curInputValue, setInputalue] = useState(value.location)
   const { register, handleSubmit, errors } = useForm()
 
   useEffect(() => {
     setTextValue(value.adress)
-    setInputalue(value.mapURL)
+    setInputalue(value.location)
   }, [])
 
   const onChange = (e) => {
@@ -30,9 +30,9 @@ const BusinessAdress = (props) => {
   }
 
   const submitData = {
-    businessAddressId: {
+    businessAdress: {
       adress: curTextValue,
-      mapURL: curInputValue,
+      location: curInputValue,
     },
   }
 
@@ -42,6 +42,7 @@ const BusinessAdress = (props) => {
 
   return (
     <div className={styles.container}>
+      {/* <Location /> */}
       <Heading category="Contact info (not-public)" name="Business address or Google map link" />
       <form className={styles.form} onSubmit={handleSubmit(() => onSubmit(submitData))}>
         <textarea
@@ -91,7 +92,7 @@ const BusinessAdress = (props) => {
 BusinessAdress.propTypes = {
   properties: T.shape({
     name: T.string,
-    value: T.string,
+    value: T.shape(),
   }),
   onSubmit: T.func,
 }

@@ -1,0 +1,114 @@
+.gallery {
+  margin: 0 auto 50px;
+  // display: flex;
+  .container {
+    width: 100%;
+  }
+}
+.gallery_item {
+  width: 120px;
+  height: 170px;
+  margin: 0 10px;
+  .cover {
+    width: 152px;
+  }
+  .other {
+    width: 120px;
+  }
+  .img_wrapper {
+    position: relative;
+    height: 120px;
+    transition: width 0.2s ease-out;
+
+    .cross_container {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      right: 8px;
+      top: 8px;
+      user-select: none;
+      cursor: pointer;
+    }
+    .url_img {
+      display: inline-block;
+      border-radius: 8px;
+      // width: 120px;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 24px;
+      user-select: none;
+      transition: width 0.2s ease-out;
+    }
+  }
+  .radio_item {
+    margin-right: 10px;
+  }
+  .cover_selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-style: bold;
+
+    input[type='radio']:after {
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      top: -2px;
+      left: -1px;
+      position: relative;
+      background-color: #d1d3d1;
+      content: '';
+      display: inline-block;
+      visibility: visible;
+      border: 1px solid #31394d;
+      user-select: none;
+    }
+
+    input[type='radio']:checked:after {
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      top: -2px;
+      left: -1px;
+      position: relative;
+      background-color: #31394d;
+      content: '';
+      display: inline-block;
+      visibility: visible;
+      border: 1px solid #31394d;
+      user-select: none;
+    }
+  }
+}
+form {
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .inputfile + label {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    font-size: 20px;
+    font-weight: 100;
+    color: grey;
+    background-color: white;
+    border-radius: 8px;
+    margin: 0 10px;
+    border: 2px solid #31394d;
+  }
+  .inputfile:focus + label,
+  .inputfile + label:hover {
+    font-size: 30px;
+  }
+  .inputfile + label {
+    cursor: pointer; /* "hand" cursor */
+  }
+}

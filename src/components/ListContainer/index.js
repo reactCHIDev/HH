@@ -6,14 +6,22 @@ import styles from './list_container.module.scss'
 import './list_container.less'
 
 const ListContainer = (props) => {
-  const { page, pageChange, pageSize = 4, total = 30, children } = props
+  const {
+    page,
+    pageChange,
+    onShowSizeChange,
+    pageSizeOptions,
+    pageSize = 4,
+    total = 30,
+    children,
+  } = props
 
   const onChange = (page) => {
-    pageChange(page)
+    pageChange(page, pageSize)
   }
 
   return (
-    <div className={styles.container}>
+    <>
       {children}
       {total > 0 && (
         <Pagination
@@ -21,10 +29,12 @@ const ListContainer = (props) => {
           defaultPageSize={pageSize}
           current={page}
           onChange={onChange}
+          onShowSizeChange={onShowSizeChange}
+          pageSizeOptions={pageSizeOptions}
           total={total}
         />
       )}
-    </div>
+    </>
   )
 }
 
@@ -32,6 +42,8 @@ ListContainer.propTypes = {
   page: T.number.isRequired,
   pageChange: T.func.isRequired,
   pageSize: T.number.isRequired,
+  pageSizeOptions: T.arrayOf(T.string),
+  onShowSizeChange: T.func,
   total: T.number.isRequired,
   children: T.element,
 }

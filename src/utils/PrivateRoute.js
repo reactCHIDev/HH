@@ -6,7 +6,6 @@ import T from 'prop-types'
 
 const PrivateRouteContainer = (props) => {
   const { authorized, component: Component, ...restProps } = props
-  console.log('authorized', authorized)
   return (
     <Route
       {...restProps}

@@ -3,27 +3,84 @@ import T from 'prop-types'
 
 import { connect } from 'react-redux'
 import _ from 'lodash/fp'
+import { Redirect, useParams } from 'react-router-dom'
+import { replace } from 'connected-react-router'
 import { useForm } from 'react-hook-form'
+import * as jwt from 'jsonwebtoken'
 
 import { getUserByEmail } from 'api/requests/Auth'
-import { getUserAccount, updateAccount, resetConfirmation } from 'actions/account'
-import { logout } from 'actions/login'
+import { getUserAccount, updateAccount, resetConfirmation, emailConfirm } from 'actions/account'
+import { invalidLink, loginErrorReset, logout } from 'actions/login'
+
 import Modal from 'components/UniversalModal'
 import Tint from 'components/Tint'
 import Error from 'components/Error'
-
+import EyeOpen from 'assets/icons/svg/eye-open.svg'
+import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
+import check from 'assets/icons/svg/check.svg'
+import info from 'assets/icons/svg/info.svg'
 import ChkBox from 'components/ChkBox'
+import PATHS from 'api/paths'
 import CheckMail from './components/CheckMail'
 
 import styles from './settings.module.scss'
 import './settings.less'
 
-const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, logout }) => {
+const Settings = ({
+  userData,
+  getUserAccount,
+  updateAccount,
+  resetConfirmation,
+  loginErrorReset,
+  emailConfirm,
+  invalidLink,
+  replace,
+  authorized,
+  url,
+}) => {
   const [emailDisabled, setEmailDisabled] = useState(true)
   const [phoneDisabled, setPhoneDisabled] = useState(true)
 
-  const { awaitingConfirmation, requesting, error } = userData
+  const [type, setType] = useState('password')
+
+  const togglePassword = () => {
+    setType(type === 'password' ? 'text' : 'password')
+  }
+
+  const { awaitingConfirmation, newEmail, requesting, error, success } = userData
+
+  const { confirmation } = useParams()
+
+  const isСhangeMailRoute = confirmation.substring(0, 12) === 'change_email'
+
+  if (isСhangeMailRoute) {
+    const token = confirmation.substring(12)
+    const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
+    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : false
+
+    if (!valid) {
+      invalidLink('Your email link is expired !')
+      replace('/settings/account')
+    }
+
+    if (valid && authorized) {
+      const payload = {
+        updateEmailLink: PATHS.url + url,
+        newEmail: jwtData.newEmail,
+      }
+
+      emailConfirm(payload)
+    }
+  }
+
+  const resend = () => {
+    const payload = {
+      newEmail,
+    }
+
+    updateAccount(payload)
+  }
 
   const mailEl = useRef()
   const phoneEl = useRef()
@@ -59,9 +116,8 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
 
   const modalClose = () => {
     resetConfirmation()
+    loginErrorReset()
   }
-
-  const onSubmit = (credentials) => {}
 
   const onApply = (data) => {
     const formData = {}
@@ -74,7 +130,6 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
     }
 
     if (Object.keys(formData).length) {
-      console.log('%c   formData   ', 'color: white; background: salmon;', formData)
       updateAccount(formData)
     }
   }
@@ -88,29 +143,42 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
         <div className={styles.input_section}>
           <div className={styles.content}>
             <p className={styles.label}>Contact e-mail</p>
-            <input
-              className={styles.input_name}
-              name="email"
-              placeholder={userData.email || ' '}
-              type="text"
-              disabled={emailDisabled}
-              ref={(el) => {
-                register(el, {
-                  validate: async (value) => {
-                    if (value) {
-                      const name = await getUserByEmail(value.replace('@', '%40'))
-                      return !name.data?.email
-                    }
-                  },
-                  required: false,
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Invalid email address',
-                  },
-                })
-                mailEl.current = el
-              }}
-            />
+            <div className={styles.input_wrapper}>
+              <input
+                className={styles.input_name}
+                name="email"
+                placeholder={userData.email || ' '}
+                type="text"
+                disabled={emailDisabled}
+                ref={(el) => {
+                  register(el, {
+                    validate: async (value) => {
+                      if (value) {
+                        const name = await getUserByEmail(value.replace('@', '%40'))
+                        return !name.data?.email
+                      }
+                    },
+                    required: false,
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address',
+                    },
+                  })
+                  mailEl.current = el
+                }}
+              />{' '}
+              {!newEmail ? (
+                <div className={styles.verificated}>
+                  <img className={styles.check} src={check} alt="checked" />
+                  VERIFICATED
+                </div>
+              ) : (
+                <div className={styles.checklink} onClick={resend}>
+                  <img className={styles.check} src={info} alt="info" />
+                  CHECK LINK IN THE E-MAIL {'  '} <span>Resend</span>
+                </div>
+              )}
+            </div>
             {_.get('email.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>Invalid e-mail adress</p>
             )}
@@ -119,35 +187,37 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
             )}
           </div>
           <div className={styles.edit_icon} onClick={toggleEmailEdit}>
-            <img src={EditIcon} alt="editEmail" />
+            <img className={styles.edit_btn} src={EditIcon} alt="editEmail" />
           </div>
         </div>
         <div className={styles.input_section}>
           <div className={styles.content}>
             <p className={styles.label}>Contact phone</p>
-            <input
-              className={styles.input_name}
-              name="phone"
-              placeholder={userData.phone || ' '}
-              type="text"
-              disabled={phoneDisabled}
-              ref={(el) => {
-                register(el, {
-                  required: false,
-                  pattern: {
-                    value: /([- _():=+]?\d[- _():=+]?){10,14}(\s*)?/,
-                    message: 'Invalid name symbols',
-                  },
-                })
-                phoneEl.current = el
-              }}
-            />
+            <div className={styles.input_wrapper}>
+              <input
+                className={styles.input_name}
+                name="phone"
+                placeholder={userData.phone || ' '}
+                type="text"
+                disabled={phoneDisabled}
+                ref={(el) => {
+                  register(el, {
+                    required: false,
+                    pattern: {
+                      value: /([- _():=+]?\d[- _():=+]?){10,14}(\s*)?/,
+                      message: 'Invalid name symbols',
+                    },
+                  })
+                  phoneEl.current = el
+                }}
+              />
+            </div>
             {_.get('phone.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>Invalid phone number</p>
             )}
           </div>
           <div className={styles.edit_icon} onClick={togglePhoneEdit}>
-            <img src={EditIcon} alt="editPhone" />
+            <img className={styles.edit_btn} src={EditIcon} alt="editPhone" />
           </div>
         </div>
         <div className={styles.header_section}>
@@ -173,15 +243,21 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onApply)}>
           <label className={styles.label}>Current password</label>
-          <input
-            name="oldPassword"
-            ref={register({
-              required: false,
-              pattern: {
-                value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
-              },
-            })}
-          />
+          <div className={styles.psw_wrapper}>
+            <input
+              name="oldPassword"
+              type={type}
+              ref={register({
+                required: false,
+                pattern: {
+                  value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
+                },
+              })}
+            />
+            <button type="button" className={styles.psw_eye} onClick={togglePassword}>
+              <img src={type === 'password' ? EyeOpen : EyeClosed} alt="eye" />
+            </button>
+          </div>
           {_.get('oldPassword.type', errors) === 'required' && <p>This field is required</p>}
           {_.get('oldPassword.type', errors) === 'pattern' && (
             <p>Letters, numbers, length 8 symbols</p>
@@ -189,6 +265,7 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
           <label className={styles.label}>New password</label>
           <input
             name="newPassword"
+            type={type}
             ref={register({
               required: false,
               pattern: {
@@ -204,6 +281,7 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
           <label className={styles.label}>Confirm password</label>
           <input
             name="confirm"
+            type={type}
             ref={register({
               validate: (value) => value === watch('newPassword'),
             })}
@@ -221,6 +299,12 @@ const Settings = ({ userData, getUserAccount, updateAccount, resetConfirmation, 
         </Modal>
       )}
       {error && <Error msg={error} close={modalClose} />}
+      {success && <div className={styles.success}>Saved successfully</div>}
+      {error && (
+        <div className={styles.error}>
+          There was an error while saving changes, please try again
+        </div>
+      )}
     </div>
   )
 }
@@ -232,11 +316,29 @@ Settings.propTypes = {
   updateAccount: T.func,
   resetConfirmation: T.func,
   logout: T.func,
+  loginErrorReset: T.func,
+  invalidLink: T.func,
+  authorized: T.bool,
+  emailConfirm: T.func,
+  replace: T.func,
 }
 
-export default connect(({ account }) => ({ userData: account }), {
-  getUserAccount,
-  updateAccount,
-  resetConfirmation,
-  logout,
-})(Settings)
+export default connect(
+  ({
+    account,
+    login,
+    router: {
+      location: { pathname },
+    },
+  }) => ({ userData: account, authorized: login.authorized, url: pathname }),
+  {
+    getUserAccount,
+    updateAccount,
+    resetConfirmation,
+    logout,
+    invalidLink,
+    loginErrorReset,
+    emailConfirm,
+    replace,
+  },
+)(Settings)

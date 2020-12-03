@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
+import { getUserByHHLink } from 'api/requests/Account'
 import { useForm } from 'react-hook-form'
 import Heading from '../../components/heading'
 import styles from './websitename.module.scss'
@@ -10,7 +11,9 @@ const WebSiteName = (props) => {
     onSubmit,
   } = props
 
-  const [curSiteValue, setSiteValue] = useState(value)
+  const [curSiteValue, setSiteValue] = useState(
+    value.replace('https://hungryhugger.wildwebart.com/', 'www.hungryhugger.com/'),
+  )
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
@@ -24,12 +27,15 @@ const WebSiteName = (props) => {
   }
 
   const submitData = {
-    hungryHuggerLink: curSiteValue,
+    hungryHuggerLink: curSiteValue.replace(
+      'www.hungryhugger.com/',
+      'https://hungryhugger.wildwebart.com/',
+    ),
   }
 
   return (
     <div className={styles.container}>
-      <Heading category="Link" name="Your website link on HH" />
+      <Heading category="Link" name="Your website link on Hungry Hugger" />
       <form className={styles.form} onSubmit={handleSubmit(() => onSubmit(submitData))}>
         <div className={styles.input_wrapper}>
           <input
@@ -38,14 +44,31 @@ const WebSiteName = (props) => {
             type="text"
             onChange={onChange}
             ref={register({
+              required: true,
+              validate: async (value) => {
+                if (value.length > 21) {
+                  const user = await getUserByHHLink(
+                    encodeURIComponent(
+                      curSiteValue.replace(
+                        'www.hungryhugger.com/',
+                        'https://hungryhugger.wildwebart.com/',
+                      ),
+                    ),
+                  )
+                  return !user.data?.profileName
+                }
+                return false
+              },
               pattern: {
-                value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
-                message: 'Invalid name symbols',
+                value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{12,12}\.[a-z]{3,3}\b([-a-zA-Z0-9@:%_\+.~#?&//=])/,
               },
             })}
           />
-          {errors?.hh?.type === 'required' && <p>This field is required</p>}
-          {errors?.hh?.type === 'pattern' && <p>Invalid symbols or format</p>}
+          {errors?.[name]?.type === 'required' && <p>This field is required</p>}
+          {errors?.[name]?.type === 'pattern' && <p>Invalid symbols or format</p>}
+          {errors?.[name]?.type === 'validate' && (
+            <p>A user with these parameters already exists</p>
+          )}
           {
             <button type="submit" className={styles.next}>
               {'>'}
@@ -54,7 +77,7 @@ const WebSiteName = (props) => {
         </div>
       </form>
       <p className={styles.description}>
-        Get a simple and memorable link to your Hungry Huggers profile
+        Get a simple and memorable link to your Hungry Hugger profile
       </p>
     </div>
   )

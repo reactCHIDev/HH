@@ -13,6 +13,7 @@ import styles from './businessprofile.module.scss'
 
 const BusinessProfile = ({ onSubmit }) => {
   const [sliderWidth, setWidth] = useState(320)
+  const [mouseDownTime, setTimeStamp] = useState(0)
 
   const handleResize = () => setWidth(window.innerWidth)
 
@@ -24,8 +25,13 @@ const BusinessProfile = ({ onSubmit }) => {
     }
   }, [])
 
-  const onClick = (e) => {
-    onSubmit({ businessProfileId: e.currentTarget.id })
+  const mouseDown = (e) => {
+    setTimeStamp(e.timeStamp)
+  }
+
+  const mouseUp = (e) => {
+    const time = e.timeStamp - mouseDownTime
+    if (time < 200) onSubmit({ businessProfileId: Number(e.currentTarget.id) })
   }
 
   const settings = {
@@ -46,31 +52,53 @@ const BusinessProfile = ({ onSubmit }) => {
       <div className={styles.slider_container}>
         <Slider {...settings}>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="1" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="3"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_chef} src={Chef} alt="small" />
               <p className={styles.profile}>Chef / Baker</p>
               <p className={styles.description}>
-                I am a professional or self-taught chef/ baker/ brewer/ mixologist/ farmer/ cheese
-                maker chocolatier
+                I am a professional or self-taught food maker. (eg. chef, baker, brewer,
+                chocolatier, etc.)
               </p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="2" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="4"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_taste} src={Taste} alt="medium" />
               <p className={styles.profile}>Taste Maker</p>
-              <p className={styles.description}>I am a professional in tasting / teaching</p>
+              <p className={styles.description}>
+                I specialize in tasting and/or teaching about certain food or beverages.
+              </p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="3" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="5"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_craft} src={Craft} alt="large" />
               <p className={styles.profile}>Craft Maker</p>
-              <p className={styles.description}>I make and teach craft related to food</p>
+              <p className={styles.description}>I make and/or teach craftgoods related to food.</p>
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="4" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="6"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_guide} src={Guide} alt="large" />
               <p className={styles.profile}>Foodie Guide</p>
               <p className={styles.description}>
@@ -79,7 +107,12 @@ const BusinessProfile = ({ onSubmit }) => {
             </div>
           </div>
           <div className={styles.card_container}>
-            <div className={styles.img_container} id="5" onClick={onClick}>
+            <div
+              className={styles.img_container}
+              id="7"
+              onMouseDown={mouseDown}
+              onMouseUp={mouseUp}
+            >
               <img className={styles.business_guide} src={Pear} alt="pear" />
               <p className={styles.profile}>Brand</p>
               <p className={styles.description}>I am a festival or event organiser.</p>

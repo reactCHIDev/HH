@@ -11,8 +11,8 @@ const Sort = (props) => {
     <div className={styles.container} onClick={onClick} title={title} type={type}>
       {title && (
         <>
-          <p className={styles.title}>{title}</p>
-          <div className={styles.img_wrapper}>
+          <span className={styles.title}>{title}</span>
+          <span className={styles.img_wrapper}>
             <img
               className={type === 'asc' ? styles.iconasc1 : styles.icondesc1}
               src={SortIcon1}
@@ -23,7 +23,7 @@ const Sort = (props) => {
               src={SortIcon2}
               alt="sort"
             />
-          </div>
+          </span>
         </>
       )}
     </div>

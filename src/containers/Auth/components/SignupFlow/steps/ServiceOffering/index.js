@@ -23,7 +23,7 @@ const BusinessSize = (props) => {
   const handleResize = () => setWidth(window.innerWidth)
 
   useEffect(() => {
-    addOptions(value)
+    // addOptions(value)
     window.addEventListener('resize', handleResize)
     setWidth(window.innerWidth)
     return () => {
@@ -32,7 +32,7 @@ const BusinessSize = (props) => {
   }, [])
 
   const onClick = (e) => {
-    onSubmit({ businessServiceIds: options.sort() })
+    onSubmit({ businessServiceIds: options.sort().map(Number) })
   }
 
   const onSelect = (e) => {
@@ -138,7 +138,7 @@ const BusinessSize = (props) => {
 BusinessSize.propTypes = {
   properties: T.shape({
     name: T.string,
-    value: T.string,
+    value: T.array,
   }),
   onSubmit: T.func,
 }

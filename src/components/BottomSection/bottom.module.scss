@@ -1,0 +1,63 @@
+.bottom_sec {
+  position: relative;
+  background: url('~assets/images/landings/foodmakers/footer.jpg');
+  background-size: auto 100%;
+  width: 100%;
+  height: 502px;
+  margin: auto;
+
+  .joincard {
+    position: absolute;
+    width: 464px;
+    min-height: 294px;
+    left: 112px;
+    top: 104px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 42px;
+    letter-spacing: 0.3px;
+    color: #333333;
+
+    @media (max-width: 1024px) {
+      width: 80%;
+      max-width: 464px;
+      font-size: 24px;
+      left: 30px;
+    }
+    @media (max-width: 768px) {
+      width: 343px;
+      min-height: 0;
+
+      top: 360px;
+      left: 50%;
+      transform: translate(-50%);
+      font-size: 20px;
+      line-height: 140%;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      margin-bottom: 24px;
+    }
+
+    button {
+      width: 100%;
+      height: 56px;
+      background: #31394d;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 23px;
+      align-items: center;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}

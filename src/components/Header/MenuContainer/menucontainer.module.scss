@@ -7,6 +7,10 @@
 .light {
   background: white;
   color: $black;
+
+  .container {
+    display: none !important;
+  }
 }
 .onstart {
   opacity: 0;
@@ -16,30 +20,200 @@
 }
 .container {
   position: absolute;
-  top: 70px;
-  left: 0px;
-  transition: opacity 0.4s ease-out;
-  width: 100%;
+  top: 100%;
+  left: 0;
+  border-top: 1px solid #5a6070;
+  right: 0;
+  padding: 40px 0 10px;
+
   @media (max-width: 1024px) {
-    width: 320px;
-    height: 80vh;
-    overflow: auto;
+    height: calc(100vh - 104px);
     padding: 20px;
+    border: none;
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    right: auto;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    padding: 106px 20px 137px;
+  }
+
+  @media (max-width: 376px) {
+    padding: 80px 20px 90px;
+  }
+
+  .top_mobile_wrapper {
+    display: none;
+    background: #31394d;
+
+    @media (max-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: 30px;
+      left: 24px;
+      right: 20px;
+    }
+
+    @media (max-width: 376px) {
+      left: 16px;
+      top: 27px;
+    }
+
+    .img_close{
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    .social_header_list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 0 18px;
+      }
+
+      a {
+        min-width: 22px;
+      }
+    }
+  }
+
+  .bottom_holder {
+    display: none;
+    background: #31394d;
+
+    @media (max-width: 768px) {
+      display: flex;
+      border-top: 1px solid rgba(196, 196, 196, 0.2);
+      padding: 45px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 20px;
+    }
+
+    .account_info {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #fff;
+
+      .img_holder {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      strong {
+        margin-left: 12px;
+      }
+    }
+
+    .logout {
+      font-weight: bold;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-right: 11px;
+        fill: #fff;
+      }
+    }
+  }
+
+  .content_title {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #ffffffa6;
+    }
   }
 
   .content {
+    margin: 0 auto;
+    max-width: 1260px;
+    padding: 0 30px;
+
+    @media (max-width: 1024px) {
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: calc(100vh - 244px);
+    }
+
+    @media (max-width: 376px) {
+      height: calc(100vh - 184px);
+
+    }
+
     .menu_container {
       background: inherit;
       color: inherit;
       display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0 -20px;
+
+      @media (max-width: 1200px) {
+        margin: 0 -8px;
+      }
+
       @media (max-width: 1024px) {
-        margin: 20px 0;
-        flex-direction: column;
+        margin: 20px -8px 32px;
       }
 
       .item {
         list-style: none;
         cursor: pointer;
+        width: 20%;
+        padding: 0 20px;
+
+        @media (max-width: 1200px) {
+          padding: 0 8px;
+        }
+
+        @media (max-width: 1024px) {
+          width: auto;
+          position: relative;
+        }
 
         &:hover > .img_container {
           opacity: 1;
@@ -47,28 +221,47 @@
         &:hover > .item_text {
           opacity: 1;
         }
+
         .img_container {
-          width: 211px;
+          width: 100%;
           height: 120px;
           border-radius: 16px;
           opacity: 0.8;
-          margin: 16px 40px 16px 0;
+          margin: 0 0 16px;
           overflow: hidden;
+
+          @media (max-width: 1024px) {
+            width: 150px;
+            height: 88px;
+          }
 
           .item_img {
             width: 100%;
           }
         }
         .item_text {
-          font-style: normal;
           font-weight: bold;
           font-size: 18px;
-          line-height: 23px;
           display: flex;
           align-items: center;
-          letter-spacing: 0.5px;
-          color: #ffffff;
+          letter-spacing: 0.08em;
+          color: #fff;
           opacity: 0.8;
+
+          @media (max-width: 1200px) {
+            font-size: 16px;
+          }
+
+          @media (max-width: 1024px) {
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 4px 20px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(37, 43, 58, 0.3);
+          }
         }
       }
     }

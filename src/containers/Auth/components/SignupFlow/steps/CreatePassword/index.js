@@ -54,8 +54,9 @@ const CreatePassword = (props) => {
             type={type}
             onChange={onChange}
             ref={register({
+              required: true,
               pattern: {
-                value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
+                value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,100}$/,
                 minLength: {
                   value: 8,
                   message: 'Min length 8 symbols',
@@ -74,16 +75,16 @@ const CreatePassword = (props) => {
       <div className={styles.valid_block}>
         <div className={styles.valid}>
           <img
-            className={cls(styles.icon, !letter ? styles.show : styles.hide)}
+            className={cls(styles.icon, !length ? styles.show : styles.hide)}
             src={Cross}
             alt="cross"
           />
           <img
-            className={cls(styles.icon, letter ? styles.show : styles.hide)}
+            className={cls(styles.icon, length ? styles.show : styles.hide)}
             src={Check}
             alt=""
           />
-          <p>At least one letter</p>
+          <p>At least 8 characters</p>
         </div>
         <div className={styles.valid}>
           <img
@@ -96,20 +97,20 @@ const CreatePassword = (props) => {
             src={Check}
             alt=""
           />
-          <p>At least one number</p>
+          <p>At least 1 number</p>
         </div>
         <div className={styles.valid}>
           <img
-            className={cls(styles.icon, !length ? styles.show : styles.hide)}
+            className={cls(styles.icon, !letter ? styles.show : styles.hide)}
             src={Cross}
             alt="cross"
           />
           <img
-            className={cls(styles.icon, length ? styles.show : styles.hide)}
+            className={cls(styles.icon, letter ? styles.show : styles.hide)}
             src={Check}
             alt=""
           />
-          <p>At least 8 symbols</p>
+          <p>At least 1 letter</p>
         </div>
       </div>
     </div>

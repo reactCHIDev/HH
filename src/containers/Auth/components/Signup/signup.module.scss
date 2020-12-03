@@ -22,8 +22,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    // font-family: 'DM Sans';
-    background: #ffffff;
+    font-family: 'DM Sans';
+    background: #fff;
     border-radius: 16px;
     margin-bottom: 14px;
     /* .form {
@@ -33,7 +33,6 @@
 
     h1 {
       color: #3c3e43;
-      font-style: normal;
       font-weight: 600;
       font-size: 32px;
       line-height: 42px;
@@ -71,14 +70,43 @@
     ::-moz-placeholder,
     :-ms-input-placeholder,
     :-moz-placeholder {
-      font-family: 'Helvetica Neue';
-      font-style: normal;
+      font-family: 'Helvetica';
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;
       letter-spacing: 0.5px;
       color: #393644;
       opacity: 0.6;
+    }
+
+    .psw_wrapper {
+      position: relative;
+      .psw_eye {
+        position: absolute;
+        margin: 0;
+        z-index: 2;
+        right: 24px;
+        top: 13px;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 6px;
+        color: white;
+        border: none;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 13px;
+        letter-spacing: 1px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 0;
+
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
     }
 
     p {
@@ -168,6 +196,9 @@
       user-select: none;
     }
     .suggest {
+      display: block;
+      line-height: 26px;
+
       font-size: 16px;
       letter-spacing: 0.5px;
       color: #5375cb;

@@ -46,11 +46,12 @@ const reducer = function loginReducer(state = initialState, action) {
       }
 
     case LOGIN_SUCCESS:
-      const { name, id } = action.payload
+      const { name, id, role } = action.payload
       return {
         ...state,
         profileName: name,
         id,
+        role,
         requesting: false,
         feed: action.response,
         authorized: true,
@@ -62,15 +63,18 @@ const reducer = function loginReducer(state = initialState, action) {
         requesting: false,
         error: action.error,
       }
+
     case LOGIN_ERROR_RESET:
       return {
         ...state,
         error: '',
       }
+
     case LINK_ERROR_SET:
+      const { error } = action
       return {
         ...state,
-        error: 'Your link is expired !!!',
+        error,
       }
 
     case LOGOUT:
@@ -84,6 +88,7 @@ const reducer = function loginReducer(state = initialState, action) {
         ...state,
         requesting: false,
       }
+
     case PASSWORD_REQUESTING_ERROR:
       return {
         ...state,
@@ -96,6 +101,7 @@ const reducer = function loginReducer(state = initialState, action) {
         ...state,
         requesting: false,
       }
+
     case PASSWORD_CREATING_ERROR:
       return {
         ...state,

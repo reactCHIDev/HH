@@ -1,5 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
+import { getUserByName } from 'api/requests/Auth'
 import Heading from '../../components/heading'
 import Input from '../../components/input'
 import styles from './profilename.module.scss'
@@ -20,13 +21,16 @@ const ProfileName = (props) => {
         onSubmit={onSubmit}
         registerObj={{
           required: true,
+          validate: async (value) => {
+            const user = await getUserByName(value)
+            return !user.data?.profileName
+          },
           pattern: {
-            value: /^(?=.{1,15}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/,
+            value: /^(?=.{2,200}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/,
             message: 'Invalid name symbols',
           },
         }}
       />
-      <p className={styles.description}>An easy to remember name with a humour</p>
     </>
   )
 }

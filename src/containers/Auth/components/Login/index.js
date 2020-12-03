@@ -31,9 +31,9 @@ const Login = (props) => {
   const { register, handleSubmit, errors } = useForm()
   const { step } = useParams()
 
-  const isСhangeMailRoute = step.substring(0, 12) === 'change_email'
+  /*  const isСhangeMailRoute = step.substring(0, 12) === 'change_email'
   console.log('%c   url   ', 'color: white; background: salmon;', url)
-  console.log('%c    isСhangeMailRoute  ', 'color: white; background: salmon;', isСhangeMailRoute)
+  console.log('%c    isСhangeMailRoute  ', 'color: white; background: salmon;', isСhangeMailRoute) */
 
   const steps = new Set(['forgotstep1', 'forgotstep2', 'forgotstep3', 'forgotstep4'])
   const isForgotRoute = steps.has(step.substring(0, 11))
@@ -73,12 +73,12 @@ const Login = (props) => {
   }
 
   // =================================================
-  if (isСhangeMailRoute) {
+  /* if (isСhangeMailRoute) {
     token = step.substring(12)
 
     console.log('%c   ChangeEmail process   ', 'color: darkgreen; background: palegreen;')
 
-    const jwtData = token ? jwt.decode(token, 'secret') : null
+    const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
     const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
 
     console.log('%c   valid   ', 'color: white; background: salmon;', valid)
@@ -99,7 +99,7 @@ const Login = (props) => {
     }
 
     replace('/login/regular')
-  }
+  } */
   // =============================================
 
   return (

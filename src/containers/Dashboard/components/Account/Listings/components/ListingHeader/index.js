@@ -1,5 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
+import { Link } from 'react-router-dom'
 import Search from 'components/Search'
 import Button from 'components/Button'
 import styles from './header.module.scss'
@@ -19,9 +20,10 @@ const Header = (props) => {
         </div>
         <div className={styles.srch_block}>
           <Search onSearch={onSearch} />
-          <div className={styles.btn_wrapper}>
-            <Button title="ADD PRODUCT" onClick={null} />
-          </div>
+          <Link to="/addproduct">
+            {/* <Button title="ADD PRODUCT" /> */}
+            ADD <span>PRODUCT</span>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 /* REACT */
-import React, { Suspense, lazy } from 'react'
+import React, { useEffect, Suspense, lazy } from 'react'
 import T from 'prop-types'
 
 /* MODULES */
@@ -9,6 +9,9 @@ import { ConnectedRouter } from 'connected-react-router'
 import { Spin, Space } from 'antd'
 
 /* CUSTOM MODULES */
+import { getUserAccount } from 'actions/account'
+import { getItem } from 'utils/localStorage'
+
 import PublicRoute from 'components/Routing/PublicRoute'
 import PrivateRoute from 'components/Routing/PrivateRoute'
 import ConnectionProvider from 'components/ConnectionProvider'
@@ -30,11 +33,20 @@ const Signup = lazy(() => import('containers/Auth/components/Signup'))
 const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
 const Account = lazy(() => import('containers/Dashboard/components/Account'))
+const AddProduct = lazy(() => import('containers/Dashboard/components/Account/AddProduct'))
+const ProductPage = lazy(() => import('containers/Dashboard/components/Account/ProductPage'))
+const ProductExplore = lazy(() => import('containers/Dashboard/components/Account/ProductExplore'))
+const FoodmakerPage = lazy(() => import('containers/Dashboard/components/Account/FoodmakerPage'))
+const FoodmakerProfile = lazy(() =>
+  import('containers/Dashboard/components/Account/FoodmakerProfile'),
+)
+const ShopProfile = lazy(() => import('containers/Dashboard/components/Account/ShopProfile'))
 const Settings = lazy(() => import('containers/Dashboard/components/Account/Settings'))
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
+const Sandbox = lazy(() => import('components/sandbox/wrapper'))
 
 function WaitingComponent(Component) {
   return (props) => (
@@ -52,7 +64,12 @@ function WaitingComponent(Component) {
   )
 }
 
-function App({ pathname }) {
+function App({ authorized, pathname, getUserAccount }) {
+  useEffect(() => {
+    const id = getItem('user-id')
+    if (authorized && id) getUserAccount(id)
+  }, [authorized])
+
   const url = `${process.env.REACT_APP_BASE_URL}/api`
   setBaseEndpoint(url)
 
@@ -60,11 +77,7 @@ function App({ pathname }) {
     <div className={styles.container}>
       <ConnectedRouter history={history}>
         <ConnectionProvider>
-          {pathname !== '/signupflow' && pathname !== '/dashboard/profile' ? (
-            <Header dark logoText />
-          ) : pathname !== '/signupflow' ? (
-            <Header logoText />
-          ) : null}
+          {pathname !== '/signupflow' && <Header />}
           <Switch>
             <PublicRoute
               exact
@@ -76,6 +89,7 @@ function App({ pathname }) {
               path="/login"
               component={() => <Redirect exact to="/login/regular" />}
             />
+            <PublicRoute exact path="/sandbox" component={WaitingComponent(Sandbox)} />
             <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
             <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
@@ -103,7 +117,29 @@ function App({ pathname }) {
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
-            <PrivateRoute exact path={desktop.settings} component={WaitingComponent(Settings)} />
+            <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
+            <PrivateRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
+            <PrivateRoute
+              exact
+              path="/foodmaker_profile"
+              component={WaitingComponent(FoodmakerProfile)}
+            />
+            <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} />
+            <PrivateRoute
+              exact
+              path="/product_explore"
+              component={WaitingComponent(ProductExplore)}
+            />
+            <PrivateRoute
+              exact
+              path="/foodmaker_page"
+              component={WaitingComponent(FoodmakerPage)}
+            />
+            <PrivateRoute
+              exact
+              path="/settings/:confirmation"
+              component={WaitingComponent(Settings)}
+            />
             <Route exact path={desktop.card} component={Card} />
             <Route path="/*" component={WaitingComponent(PageNotFound)} />
           </Switch>
@@ -115,6 +151,8 @@ function App({ pathname }) {
 
 App.propTypes = {
   pathname: T.string.isRequired,
+  authorized: T.bool.isRequired,
+  getUserAccount: T.func.isRequired,
 }
 
 export default connect(
@@ -122,8 +160,10 @@ export default connect(
     router: {
       location: { pathname },
     },
+    login: { authorized },
   }) => ({
     pathname,
+    authorized,
   }),
-  null,
+  { getUserAccount },
 )(App)

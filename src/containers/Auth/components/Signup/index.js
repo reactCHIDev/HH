@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
 import * as jwt from 'jsonwebtoken'
 import _ from 'lodash/fp'
 import PATHS from 'api/paths'
 import Tint from 'components/Tint'
+import EyeOpen from 'assets/icons/svg/eye-open.svg'
+import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import { Link } from 'react-router-dom'
 import { signupRequest } from 'actions/signup'
 import { getUserByName, getUserByEmail } from 'api/requests/Auth'
@@ -15,16 +17,17 @@ import styles from './signup.module.scss'
 const Signup = ({ signupReq, req }) => {
   const { register, handleSubmit, errors, watch } = useForm()
 
-  console.log(
-    '%c   url   ',
-    'color: darkgreen; background: palegreen;',
-    process.env.REACT_APP_BASE_URL,
-  )
   const generateLink = (credentials) => {
     const { email } = credentials
-    const token = jwt.sign({ email }, 'secret', { expiresIn: 60 })
+    const token = jwt.sign({ email }, process.env.REACT_APP_JWT_SECRET_KEY, { expiresIn: 600 })
     const { url } = PATHS
     return url + '/login/confirmemail' + token
+  }
+
+  const [type, setType] = useState('password')
+
+  const togglePassword = () => {
+    setType(type === 'password' ? 'text' : 'password')
   }
 
   const onSubmit = (credentials) =>
@@ -82,21 +85,29 @@ const Signup = ({ signupReq, req }) => {
         {_.get('email.type', errors) === 'required' && <p>This field is required</p>}
         {_.get('email.type', errors) === 'pattern' && <p>Invalid e-mail adress</p>}
         {_.get('email.type', errors) === 'validate' && <p>E-mail adress already exist</p>}
-        <input
-          name="password"
-          placeholder="Password"
-          ref={register({
-            required: true,
-            pattern: {
-              value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
-            },
-          })}
-        />
+        <div className={styles.psw_wrapper}>
+          <input
+            name="password"
+            placeholder="Password"
+            type={type}
+            ref={register({
+              required: true,
+              pattern: {
+                value: /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
+              },
+            })}
+          />
+          <button type="button" className={styles.psw_eye} onClick={togglePassword}>
+            <img src={type === 'password' ? EyeOpen : EyeClosed} alt="eye" />
+          </button>
+        </div>
+
         {_.get('password.type', errors) === 'required' && <p>This field is required</p>}
         {_.get('password.type', errors) === 'pattern' && <p>Letters, numbers, length 8 symbols</p>}
         <input
           name="confirm"
           placeholder="Confirm password"
+          type={type}
           ref={register({
             validate: (value) => value === watch('password'),
           })}

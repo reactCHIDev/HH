@@ -1,4 +1,6 @@
 .container {
+  width: 100%;
+  padding: 0 10px;
   form {
     display: flex;
     flex-direction: column;
@@ -10,31 +12,38 @@
 
     .input_wrapper {
       position: relative;
-
+      width: 100%;
+      max-width: 532px;
       input {
         display: block;
-        width: 396px;
-        height: 56px;
+        width: 100%;
+        max-width: 532px;
+        height: 72px;
         padding: 10px 15px;
         margin-bottom: 22px;
-        font-size: 14px;
-        border: 2px solid #adb0b8;
+        font-size: 22px;
+        border: 2px solid #31394d;
         box-sizing: border-box;
         backdrop-filter: blur(6px);
         border-radius: 8px;
+        background-color: #fbe4e4;
+        &:focus {
+          background-color: white;
+          border: none;
+        }
+
         @media (max-width: 420px) {
-          width: 343px;
           height: 72px;
           margin-bottom: 24px;
+          font-size: 16px;
         }
       }
 
       .next {
         position: absolute;
-        right: 13px;
-        top: 13px;
-        width: 20px;
-        height: 20px;
+        right: 24px;
+        top: 21px;
+
         background: #31394d;
         border-radius: 6px;
         color: white;
@@ -128,6 +137,6 @@
     letter-spacing: 0.5px;
     color: #3c3e43;
     opacity: 0.4;
-    margin-top: -20px;
+    margin: -10px auto 0;
   }
 }

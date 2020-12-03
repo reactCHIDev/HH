@@ -1,61 +1,69 @@
-.container {
-  .label {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 160%;
-    letter-spacing: 0.5px;
-    color: #31394d;
-    opacity: 0.6;
-    margin-bottom: 8px;
-    padding: 0 3px;
+.photo_container {
+  width: 100%;
+  max-width: 700px;
+  padding-bottom: 20px;
+  @media (max-width: 480px) {
+    margin-bottom: 24px;
   }
+}
+.label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 160%;
+  letter-spacing: 0.5px;
+  color: #31394d;
+  opacity: 0.6;
+  margin-bottom: 8px;
+  padding: 0 3px;
+}
 
-  .description {
-    width: 296px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 160%;
-    text-align: center;
-    letter-spacing: 0.5px;
-    color: #31394d;
-    opacity: 0.4;
+.description {
+  margin: 0 auto 32px;
+  width: 296px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 160%;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #31394d;
+  opacity: 0.4;
+}
+
+.next {
+  width: 160px;
+  height: 56px;
+  background: #31394d;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  display: block;
+  margin: auto;
+  border: none;
+}
+
+input[type='button']:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+input:disabled {
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 0.5;
   }
+}
 
-  .next {
-    width: 160px;
-    height: 56px;
-    background: #31394d;
-    border-radius: 6px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 23px;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 0.5px;
-    color: #ffffff;
-    display: block;
-    margin: auto;
-  }
-
-  input[type='button']:hover {
-    opacity: 1;
-    cursor: pointer;
-  }
-
-  input:disabled {
-    opacity: 0.4;
-
-    &:hover {
-      opacity: 0.5;
-    }
-  }
-
-  button[type='button'],
-  input[type='button'],
-  input[type='submit'] {
-    -webkit-appearance: none;
-  }
+button[type='button'],
+input[type='button'],
+input[type='submit'] {
+  -webkit-appearance: none;
 }

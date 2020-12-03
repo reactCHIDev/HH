@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  min-height: 100vh;
   background: #fbe4e4;
   display: flex;
   flex-direction: column;
@@ -35,6 +36,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    overflow-y: scroll;
   }
   .footer {
     width: 100%;
@@ -49,12 +51,11 @@
 
       .btn {
         display: block;
-        background: #ffffff;
+        background: #fff;
         border-radius: 8px;
         width: 79px;
         height: 40px;
         border: none;
-        font-style: normal;
         font-weight: bold;
         font-size: 12px;
         line-height: 19px;
