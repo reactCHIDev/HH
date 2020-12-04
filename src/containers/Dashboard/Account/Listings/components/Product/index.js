@@ -26,7 +26,7 @@ const Product = ({ product, onToggle }) => {
             <div className={styles.product_option}>
               <span className={styles.product_name}>{title}</span>
               <div className={styles.status_option_container}>
-                <Option checked={status} onClick={onToggle} />
+                <Option checked={status === 'PUBLISHED'} onChange={onToggle} id={id} />
               </div>
             </div>
           </div>
