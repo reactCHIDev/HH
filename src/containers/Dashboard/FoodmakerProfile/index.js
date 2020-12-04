@@ -92,10 +92,7 @@ const FoodmakerProfile = (props) => {
   useEffect(() => {
     if (account.hungryHuggerLink)
       setSiteValue(
-        account.hungryHuggerLink.replace(
-          'https://hungryhugger.wildwebart.com/',
-          'www.hungryhugger.com/',
-        ),
+        account.hungryHuggerLink.replace(process.env.REACT_APP_BASE_URL, 'www.hungryhugger.com'),
       )
     setAvatar(account?.userPhoto || '')
     if (account?.coverPhoto) setFilelist([account?.coverPhoto].concat(account?.otherPhotos || []))

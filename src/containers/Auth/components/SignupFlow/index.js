@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import T from 'prop-types'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
+import { replace } from 'connected-react-router'
 import { signupFoodmakerAC, signupLoverAsMakerAC } from 'actions/signup'
 import { getUserAccount } from 'actions/account'
 import { getCitiesAC } from 'actions/system'
 import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Message from './components/Message'
+import MessageFM from './components/MessageFM'
 import SignupContainer from './components/container'
 import FirstNameStep from './steps/FirstName'
 import LastNameStep from './steps/LastName'
@@ -72,6 +74,7 @@ const Signup = ({
   signupLoverAsMakerAC,
   getUserAccount,
   role,
+  replace,
   cities,
   getCitiesAC,
   requesting,
@@ -84,8 +87,10 @@ const Signup = ({
   const [direction, setDirection] = useState('forward')
   const [hhLink, setHHLink] = useState('')
   const [msg, setMsg] = useState(false)
+  const [msgFM, setMsgFM] = useState(false)
 
   const isProcess = getItem('signup_data') && !!getItem('signup_data')[0]?.props?.value
+  const isFM = role === 'FOODMAKER'
 
   function reducer(state, action) {
     switch (action.type) {
@@ -132,8 +137,12 @@ const Signup = ({
   }, [])
 
   useEffect(() => {
-    if (isProcess) setMsg('true')
+    if (isProcess) setMsg(true)
   }, [isProcess])
+
+  useEffect(() => {
+    if (isFM) setMsgFM(true)
+  }, [isFM])
 
   useEffect(() => setItem('signup_data', state), [state])
 
@@ -229,6 +238,11 @@ const Signup = ({
     setMsg(false)
   }
 
+  const redirectHome = () => {
+    setMsgFM(false)
+    replace('/')
+  }
+
   return (
     <>
       <SignupContainer footer stepBack={stepBack} step={step}>
@@ -239,6 +253,11 @@ const Signup = ({
           <Message reset={reset} />
         </Modal>
       )}
+      {msgFM && (
+        <Modal closeFunc={closeModal} option>
+          <MessageFM reset={redirectHome} />
+        </Modal>
+      )}
     </>
   )
 }
@@ -247,6 +266,7 @@ Signup.propTypes = {
   signupFoodmakerAC: T.func,
   signupLoverAsMakerAC: T.func,
   role: T.string,
+  replace: T.func,
   getCitiesAC: T.func,
   getUserAccount: T.func,
   requesting: T.bool,
@@ -275,5 +295,6 @@ export default connect(
     signupLoverAsMakerAC,
     getCitiesAC,
     getUserAccount,
+    replace,
   },
 )(Signup)

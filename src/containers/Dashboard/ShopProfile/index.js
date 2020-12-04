@@ -34,7 +34,7 @@ const ShopProfile = (props) => {
   const [selectedItems, setSelectedItems] = useState([])
   const [qrImgSource, setQrImgSource] = useState(null)
   const [hungryHuggerLink, setHungryHuggerLink] = useState(
-    'https://hungryhugger.wildwebart.com/shop/',
+    `${process.env.REACT_APP_BASE_URL}/shop/`,
   )
 
   const [standart, setStandart] = useState(false)
@@ -122,8 +122,8 @@ const ShopProfile = (props) => {
   }, [serviceTags, specialityTags, productTags])
 
   useEffect(() => {
-    generateQR(hungryHuggerLink)
-  }, [hungryHuggerLink])
+    generateQR(shopUrl)
+  }, [shopUrl])
 
   useEffect(() => {
     if (success) {
@@ -223,7 +223,7 @@ const ShopProfile = (props) => {
                     <Input value={shopUrl} suffix={<LockOutlined />} />
                   </div>
 
-                  {hungryHuggerLink && (
+                  {shopUrl && (
                     <div className={styles.qr}>
                       <a className={styles.qr_wrapper} href={qrImgSource} download="qr.png">
                         <img className={styles.qr_img} src={qrImgSource} alt="qr" />
