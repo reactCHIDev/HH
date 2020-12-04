@@ -116,8 +116,7 @@ const Header = (props) => {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <header className={cls(styles.header, dark ? styles.dark : styles.light)}>
+    <header className={cls(styles.header, dark ? styles.dark : styles.light)}>
         <div className={styles.container}>
           <div className={styles.menu_btn} onClick={toggleMenu}>
             <MenuBtn visible={menu} dark={dark} />
@@ -357,7 +356,6 @@ const Header = (props) => {
           )}
         </div>
       </header>
-    </div>
   )
 }
 

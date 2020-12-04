@@ -1,18 +1,7 @@
 @import 'styles/core/_colors.scss';
 @import 'styles/styles.scss';
 
-.dark {
-  background: $black;
-  color: white;
-}
-.light {
-  background: white;
-  color: $black;
 
-  .container {
-    display: none !important;
-  }
-}
 .onstart {
   opacity: 0;
 }
@@ -22,18 +11,19 @@
 .container {
   position: absolute;
   top: 100%;
-  left: 0;
-  border-top: 1px solid #5a6070;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   padding: 0 0 10px;
+  box-shadow: 0 3px 3px rgba($white,0.08);
 
   @include media('<desktop') {
-    height: 80vh;
+    height: 82vh;
     overflow-y: auto;
     padding: 20px;
   }
 
-  @media (max-width: 768px) {
+  @include media('<tablet') {
     position: fixed;
     top: 0;
     right: auto;
@@ -43,15 +33,39 @@
     padding: 106px 20px 137px;
   }
 
-  @media (max-width: 376px) {
+  @include media('<xs-phone') {
     padding: 80px 20px 90px;
   }
+
+  &.dark {
+    background: $black;
+    color: #F4F7FA;
+  }
+  
+  &.light {
+    background: #F4F7FA;
+    color: $black;
+    box-shadow: 0 3px 3px rgba($black,0.05);
+
+    .container {
+      display: none !important;
+    }
+
+    .content{
+      border: none;
+    }
+
+    .item_text{
+      color: #31394d !important;
+    }
+  }
+  
 
   .top_mobile_wrapper {
     display: none;
     background: #31394d;
 
-    @media (max-width: 768px) {
+    @include media('<tablet') {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -61,7 +75,7 @@
       right: 20px;
     }
 
-    @media (max-width: 376px) {
+    @include media('<xs-phone') {
       left: 16px;
       top: 27px;
     }
@@ -93,7 +107,7 @@
     display: none;
     background: #31394d;
 
-    @media (max-width: 768px) {
+    @include media('<tablet') {
       display: flex;
       border-top: 1px solid rgba(196, 196, 196, 0.2);
       padding: 45px 0;
@@ -107,7 +121,7 @@
       right: 20px;
     }
 
-    @media (max-width: 480px) {
+    @include media('<phone') {
       padding: 20px;
     }
 
@@ -163,9 +177,13 @@
 
   .content {
     margin: 0 auto;
-    max-width: 1260px;
-    padding: 40px 30px 0;
+    max-width: 1340px;
+    padding: 40px 70px 0;
     border-top: 1px solid #5a6070;
+
+    @include media('<hd-screen') {
+      padding: 40px 40px 0;
+    }
 
     @include media('<desktop') {
       padding: 0;
