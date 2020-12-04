@@ -81,6 +81,8 @@ function App({ authorized, pathname, getUserAccount }) {
 
   const hideHeader = ['/signupflow'].includes(pathname)
 
+  console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
+
   return (
     <div className={styles.container} id="app-container">
       <ConnectedRouter history={history}>
