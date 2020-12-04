@@ -37,6 +37,9 @@
     padding: 80px 20px 90px;
   }
 
+
+    background: $black;
+    color: #F4F7FA;
   &.dark {
     background: $black;
     color: #F4F7FA;
@@ -55,17 +58,29 @@
       border: none;
     }
 
-    .item_text{
-      color: #31394d !important;
+    .content_title{
+       color: #31394d !important;
+    }
+
+    .bottom_holder{
+
+      .account_info,
+      .logout{
+        color:  #31394d !important;
+        
+        strong{
+          color:  #31394d !important;
+        }
+      }
     }
   }
   
-
   .top_mobile_wrapper {
     display: none;
     background: #31394d;
 
     @include media('<tablet') {
+      background: none;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -119,6 +134,7 @@
       bottom: 0;
       left: 20px;
       right: 20px;
+      background: none;
     }
 
     @include media('<phone') {
@@ -225,7 +241,7 @@
           border-radius: 16px;
           overflow: hidden;
           padding: 0;
-          margin: 0 8px;
+          margin: 0 8px 16px;
         }
 
         &:hover > .img_container {
@@ -237,16 +253,17 @@
 
         .img_container {
           width: 100%;
-          height: 120px;
+          height: 0;
           border-radius: 16px;
           opacity: 0.8;
-          margin: 0 0 16px;
           overflow: hidden;
+          padding-bottom: 56%;
 
           @include media('<desktop') {
             width: 150px;
-            height: 88px;
             margin: 0;
+            padding-bottom: 57%;
+
           }
 
           .item_img {
@@ -261,21 +278,23 @@
           letter-spacing: 0.08em;
           color: #fff;
           opacity: 0.8;
+          padding-top: 16px;
 
           @include media('<wide') {
             font-size: 16px;
           }
 
           @include media('<desktop') {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            padding: 4px 20px;
+            padding: 4px 15px;
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(37, 43, 58, 0.3);
+            background: rgba(37, 43, 58, 0.4);
             margin: 0;
+            opacity: 1;
           }
         }
       }
