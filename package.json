@@ -37,6 +37,7 @@
     "redux-saga": "^1.1.1",
     "redux-starter-kit": "^0.7.0",
     "sass-loader": "^10.0.5",
+    "serve": "^11.3.2",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {
