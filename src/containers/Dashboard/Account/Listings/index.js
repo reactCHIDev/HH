@@ -174,7 +174,7 @@ const Listings = (props) => {
 
   return (
     <div className={styles.container}>
-      <Header onSearch={onSearch} mark={myProducts?.length} />
+      <Header onSearch={onSearch} mark={filteredProducts?.length} />
       <div className={cls(styles.main, menu ? styles.filter_active : ' ')}>
         <div className={styles.filter_item_list}>
           <div>
