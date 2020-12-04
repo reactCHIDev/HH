@@ -27,6 +27,7 @@ import desktop from 'routing/PATHS'
 import styles from './app.module.scss'
 import './App.less'
 import './App.css'
+import 'styles/styles.scss'
 
 const PageNotFound = lazy(() => import('components/PageNotFound'))
 const Login = lazy(() => import('containers/Auth/components/Login'))
@@ -84,7 +85,7 @@ function App({ authorized, pathname, getUserAccount }) {
   console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
   return (
-    <div className={styles.container} id="app-container">
+    <div className={styles.app_container} id="app-container">
       <ConnectedRouter history={history}>
         <ConnectionProvider>
           {!hideHeader && <Header />}
