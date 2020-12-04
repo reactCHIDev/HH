@@ -30,7 +30,7 @@ const Photo = (props) => {
   return (
     <div className={styles.photo_container}>
       <Heading category="About" name="2 - 8 photos of your work" />
-      <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} />
+      <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} min={2} />
       <p className={styles.description}>
         Show your work at its best! This directly affects the number of orders.
       </p>

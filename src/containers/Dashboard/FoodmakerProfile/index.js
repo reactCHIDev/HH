@@ -262,6 +262,7 @@ const FoodmakerProfile = (props) => {
                     listSet={setFilelist}
                     cover={cover}
                     setCover={setCover}
+                    min={2}
                   />
                 </div>
                 <p className={styles.sec1}>Languages you speak</p>

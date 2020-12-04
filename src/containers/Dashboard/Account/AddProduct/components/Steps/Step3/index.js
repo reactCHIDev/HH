@@ -39,8 +39,8 @@ const Step3 = (props) => {
     <div className={styles.container}>
       <div className={cls(styles.content, 'main')}>
         <p className={styles.header}>Add cover & photos</p>
-        <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} />
-        <div className="photo_container"></div>
+        <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} min={0} />
+        <div className="photo_container" />
         <Button type="primary" block disabled={fileList.length < 2} size="large" onClick={onNext}>
           NEXT
         </Button>
