@@ -62,6 +62,14 @@
        color: #31394d !important;
     }
 
+    .item_text{
+      color: #31394d !important;
+
+      @include media('<desktop') {
+        color: #fff !important;
+      }
+   }
+
     .bottom_holder{
 
       .account_info,
