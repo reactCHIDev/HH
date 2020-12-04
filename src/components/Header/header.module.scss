@@ -1,8 +1,5 @@
 @import 'styles/core/_colors.scss';
 
-
-  
-
   .header{
     background: #F4F7FA;
 
@@ -101,7 +98,6 @@
         margin: 0 0 0 32px;
         font-weight: bold;
         font-size: 12px;
-        line-height: 19px;
         text-align: right;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -119,8 +115,6 @@
       }
     }
 
-    .on {
-    }
     .off {
       display: flex;
       @media (max-width: 768px) {
@@ -161,17 +155,19 @@
           height: 19px;
         }
       }
-    }
+    }   
 
     .signin {
       .avatar_container {
         display: flex;
         align-items: center;
         cursor: pointer;
+
         .arrow {
-          width: 10px;
-          height: 10px;
-          margin: 8px;
+          width: 26px;
+          height: 22px;
+          margin: 0 0 0 7px;
+          padding: 7px;
           transition: transform 200ms ease-out;
         }
         .arrow_up {
