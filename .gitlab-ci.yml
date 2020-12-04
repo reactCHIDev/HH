@@ -24,6 +24,6 @@ frontend_build-prod:
     - cat $env_prod > .env
     - docker stop ReactFrontend-prod && docker rm ReactFrontend-prod && docker rmi frontend:latest
     - docker build -t frontend:latest .
-    - docker run --name ReactFrontend-prod -id -p 3000:3000 frontend:latest
+    - docker run --name ReactFrontend-prod -id -p 3000:5000 frontend:latest
   only:
     - master
