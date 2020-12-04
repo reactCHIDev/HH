@@ -1,0 +1,8 @@
+export { default as mainPhone1 } from './main-phone1.png'
+export { default as AppStoreBlack } from './home/store/app-store-black.png'
+export { default as googleStoreBlack } from './home/store/google-store-black.png'
+export { default as test1 } from './features/test1.jpg'
+export { default as test2 } from './features/test2.jpeg'
+export { default as test3 } from './features/test3.jpg'
+export { default as test4 } from './features/test4.jpg'
+export { default as mountain } from './features/mountain.jpg'

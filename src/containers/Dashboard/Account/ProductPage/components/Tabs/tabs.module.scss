@@ -1,0 +1,11 @@
+.container {
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 16px;
+  margin-bottom: 30px;
+
+  @media (max-width: 1024px) {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+}

@@ -1,0 +1,22 @@
+.container {
+  align-self: center;
+  position: relative;
+  input {
+    max-width: 318px;
+    min-width: 200px;
+    width: 100%;
+    height: 48px;
+    border: 1px solid rgba(49, 57, 77, 0.2);
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding-left: 50px;
+  }
+  .search_icon {
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 15px;
+    left: 18px;
+    cursor: pointer;
+  }
+}

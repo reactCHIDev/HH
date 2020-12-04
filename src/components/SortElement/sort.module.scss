@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  cursor: pointer;
+  white-space: nowrap;
+
+  .title {
+    margin: 0 8px 0 0;
+  }
+  .img_wrapper {
+    width: 10px;
+
+    img {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .iconasc1 {
+      opacity: 1;
+      margin-bottom: 6px;
+    }
+    .iconasc2 {
+      opacity: 0.3;
+      margin-bottom: 0px;
+    }
+    .icondesc1 {
+      opacity: 0.3;
+      margin-bottom: 6px;
+    }
+    .icondesc2 {
+      opacity: 1;
+      margin-bottom: 0px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import 'styles/styles.scss';
+@import 'styles/core/_include-media.scss';
+
+
+:global(p) {
+}
+
+body {
+  font-family: $base-font-DM-Sans;
+  color: $black;
+}
+
+.app_container{
+  overflow: hidden;
+}

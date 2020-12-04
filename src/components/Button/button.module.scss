@@ -1,0 +1,34 @@
+.btn {
+  width: 100%;
+  height: 48px;
+  background: #31394d;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  display: block;
+  border: none;
+}
+.white_btn {
+  width: 100%;
+  height: 48px;
+  background: #fff;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #31394d;
+  display: block;
+  border: 2px solid #d8d8d8;
+}

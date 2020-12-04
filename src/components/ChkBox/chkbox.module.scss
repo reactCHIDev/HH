@@ -1,0 +1,69 @@
+.label_chkbox {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 160%;
+  letter-spacing: 0.5px;
+  color: #3c3e43;
+  margin: 11px 0px;
+  text-transform: capitalize;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+    border: 0px solid #808080;
+    border-radius: 4px;
+    margin: 0px 16px 0 2px;
+    cursor: pointer;
+  }
+
+  input[type='checkbox']:before {
+    position: relative;
+    display: block;
+    width: 14px;
+    height: 14px;
+    border: 0px solid #808080;
+    border-radius: 4px;
+    content: '';
+    background: #fff;
+  }
+  input[type='checkbox']:after {
+    position: relative;
+    display: block;
+    left: -2px;
+    top: -16px;
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: #b3b3b3 #dcddde #dcddde #b3b3b3;
+    background: #fff;
+    content: '';
+    // background-image: linear-gradient(135deg, #b1b6be 0%, #fff 100%);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  input[type='checkbox']:checked:after {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAQAAABuW59YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB2SURBVHjaAGkAlv8A3QDyAP0A/QD+Dam3W+kCAAD8APYAAgTVZaZCGwwA5wr0AvcA+Dh+7UX/x24AqK3Wg/8nt6w4/5q71wAAVP9g/7rTXf9n/+9N+AAAtpJa/zf/S//DhP8H/wAA4gzWj2P4lsf0JP0A/wADAHB0Ngka6UmKAAAAAElFTkSuQmCC');
+    //   linear-gradient(135deg, #b1b6be 0%, #fff 100%);
+  }
+  input[type='checkbox']:disabled:after {
+    -webkit-filter: opacity(0.4);
+  }
+  input[type='checkbox']:not(:disabled):checked:hover:after {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAQAAABuW59YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB2SURBVHjaAGkAlv8A3QDyAP0A/QD+Dam3W+kCAAD8APYAAgTVZaZCGwwA5wr0AvcA+Dh+7UX/x24AqK3Wg/8nt6w4/5q71wAAVP9g/7rTXf9n/+9N+AAAtpJa/zf/S//DhP8H/wAA4gzWj2P4lsf0JP0A/wADAHB0Ngka6UmKAAAAAElFTkSuQmCC');
+    // linear-gradient(135deg, #8bb0c2 0%, #fff 100%);
+  }
+  input[type='checkbox']:not(:disabled):hover:after {
+    // background-image: linear-gradient(135deg, #8bb0c2 0%, #fff 100%);
+    border-color: #85a9bb #92c2da #92c2da #85a9bb;
+    border-radius: 4px;
+  }
+  input[type='checkbox']:not(:disabled):hover:before {
+    border-color: #3d7591;
+    border-radius: 4px;
+  }
+}

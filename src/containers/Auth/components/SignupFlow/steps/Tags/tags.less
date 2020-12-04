@@ -1,0 +1,48 @@
+.selector_container {
+  width: 532px;
+  @media (max-width: 600px) {
+    width: 343px;
+  }
+}
+
+.selector_container > .ant-select {
+  margin-bottom: 32px;
+  border: 2px solid #31394d;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.selector_container > .ant-select > .ant-select-arrow {
+  color: #31394d;
+  width: 30px;
+}
+
+.selector_container > .ant-select > .ant-select-selector:hover {
+  cursor: pointer;
+}
+
+.selector_container > .ant-select > .ant-select-selector {
+  min-height: 75px;
+  background: #fbe4e4;
+  padding: 0 24px;
+  border: none;
+  @media (max-width: 600px) {
+    min-height: 90px;
+  }
+}
+
+.selector_container > .ant-select > .ant-select-selector > .ant-select-selection-item {
+  height: 24px;
+  background: white;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  color: #31394d;
+  @media (max-width: 600px) {
+    height: 22px;
+  }
+}

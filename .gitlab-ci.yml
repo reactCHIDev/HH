@@ -1,0 +1,29 @@
+stages:
+  - build
+
+
+frontend_build-dev:
+  stage: build
+  tags:
+    - react-front-dev
+  script:
+    - env
+    - cat $env > .env
+    - docker stop ReactFrontend-dev && docker rm ReactFrontend-dev && docker rmi frontend:latest
+    - docker build -t frontend:latest .
+    - docker run --name ReactFrontend-dev -id -p 5000:5000 frontend:latest
+  only:
+    - develop
+
+frontend_build-prod:
+  stage: build
+  tags:
+    - react-front-prod
+  script:
+    - env
+    - cat $env_prod > .env
+    - docker stop ReactFrontend-prod && docker rm ReactFrontend-prod && docker rmi frontend:latest
+    - docker build -t frontend:latest .
+    - docker run --name ReactFrontend-prod -id -p 5000:5000 frontend:latest
+  only:
+    - master

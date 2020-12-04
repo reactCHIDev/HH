@@ -1,0 +1,47 @@
+.chk_container {
+  position: relative;
+
+  width: 99px;
+  height: 84px;
+  margin-bottom: 32px;
+
+  .chk1 {
+    position: absolute;
+    top: 37px;
+    left: 0px;
+  }
+  .chk2 {
+    position: absolute;
+    top: 0px;
+    left: 30px;
+  }
+
+  .knife_off {
+    opacity: 0;
+  }
+
+  .knife_on {
+    position: absolute;
+    top: -30px;
+    left: -130px;
+    opacity: 1;
+    transition: opacity 3s;
+  }
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 42px;
+  text-align: center;
+  letter-spacing: 0.3px;
+  color: #31394d;
+}
+.description {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 160%;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #31394d;
+}

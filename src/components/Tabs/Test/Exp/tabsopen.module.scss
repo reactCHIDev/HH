@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  padding: 50px;
+
+  .extraMark {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #eb5769;
+    border-radius: 3px;
+    margin: 0 5px 5px;
+  }
+}

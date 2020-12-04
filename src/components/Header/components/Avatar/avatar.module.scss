@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+
+  .content {
+    display: flex;
+    .image_container {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      .extra_mark {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #eb5769;
+      }
+    }
+  }
+}

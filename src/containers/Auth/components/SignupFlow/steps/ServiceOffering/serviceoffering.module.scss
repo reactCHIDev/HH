@@ -1,0 +1,117 @@
+.slider_container {
+  width: 100%;
+  .card_container {
+    .img_container_active {
+      border: 3px solid #eb5769;
+      box-shadow: 0px 12px 32px rgba(49, 57, 77, 0.1);
+      transform: translate(0, -8px);
+    }
+
+    .img_container_inactive {
+      border: 2px solid #31394d;
+    }
+
+    .img_container {
+      position: relative;
+      box-sizing: border-box;
+      width: 240px;
+      height: 295px;
+      background: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 28px;
+      cursor: pointer;
+      transition: transform 0.3s;
+
+      &:hover {
+        // border: 3px solid #eb5769;
+        box-sizing: border-box;
+        box-shadow: 0px 12px 32px rgba(49, 57, 77, 0.1);
+        border-radius: 8px;
+        transform: translate(0, -8px);
+      }
+
+      .business_plate {
+        width: 80px;
+        margin-bottom: 24px;
+      }
+      .business_apple {
+        width: 68px;
+        margin-bottom: 24px;
+      }
+      .business_hire {
+        width: 78px;
+        margin-bottom: 24px;
+      }
+      .profile {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 160%;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #3c3e43;
+      }
+      .description {
+        width: 100%;
+        height: 30%;
+        text-align: center;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 160%;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #3c3e43;
+        opacity: 0.8;
+        padding: 0 10px;
+      }
+      .check_on {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        top: 16px;
+        left: 16px;
+      }
+      .check_off {
+        display: none;
+      }
+    }
+  }
+  input[type='button'] {
+    width: 160px;
+    height: 56px;
+    background: #31394d;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    margin: auto;
+    display: block;
+    border: none;
+  }
+
+  input[type='button']:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  input:disabled {
+    opacity: 0.4;
+
+    &:hover {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+}
