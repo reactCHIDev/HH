@@ -30,7 +30,7 @@ const Avatar = ({ avatarUrl, setAvatar }) => {
     }
     try {
       const res = await axios.post(
-        'https://hungryhugger.wildwebart.com/api/v1/file/upload/photo',
+        `${process.env.REACT_APP_BASE_URL}/api/v1/file/upload/photo`,
         formData,
         {
           headers,

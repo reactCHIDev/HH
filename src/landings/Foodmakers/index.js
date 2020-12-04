@@ -92,7 +92,7 @@ const Foodmakers = () => {
               hire.
             </p>
             <a
-              href="https://hungryhugger.wildwebart.com/landing/create_profile"
+              href={`${process.env.REACT_APP_BASE_URL}/landing/create_profile`}
               className={styles.btn}
             >
               Create profile
@@ -111,7 +111,7 @@ const Foodmakers = () => {
             </p>
             <p>Reach new audience with a diverse yet targeted food and drink makers community.</p>
             <a
-              href="https://hungryhugger.wildwebart.com/landing/create_experience"
+              href={`${process.env.REACT_APP_BASE_URL}/landing/create_experience`}
               className={styles.btn}
             >
               Create experience
@@ -129,7 +129,7 @@ const Foodmakers = () => {
               Set up a shop to list your products, services and experiences – all in the one place.
             </p>
             <a
-              href="https://hungryhugger.wildwebart.com/landing/create_shop"
+              href={`${process.env.REACT_APP_BASE_URL}/landing/create_shop`}
               className={styles.btn}
             >
               Create shop

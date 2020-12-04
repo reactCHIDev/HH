@@ -12,7 +12,7 @@ const WebSiteName = (props) => {
   } = props
 
   const [curSiteValue, setSiteValue] = useState(
-    value.replace('https://hungryhugger.wildwebart.com/', 'www.hungryhugger.com/'),
+    value.replace(process.env.REACT_APP_BASE_URL, 'www.hungryhugger.com'),
   )
 
   const { register, handleSubmit, errors } = useForm({
@@ -26,11 +26,10 @@ const WebSiteName = (props) => {
     if (value.substring(0, fixedText.length) === fixedText) setSiteValue(value)
   }
 
+  const curUrl = curSiteValue.replace('www.hungryhugger.com', process.env.REACT_APP_BASE_URL)
+
   const submitData = {
-    hungryHuggerLink: curSiteValue.replace(
-      'www.hungryhugger.com/',
-      'https://hungryhugger.wildwebart.com/',
-    ),
+    hungryHuggerLink: curUrl,
   }
 
   return (
@@ -47,14 +46,13 @@ const WebSiteName = (props) => {
               required: true,
               validate: async (value) => {
                 if (value.length > 21) {
-                  const user = await getUserByHHLink(
-                    encodeURIComponent(
-                      curSiteValue.replace(
-                        'www.hungryhugger.com/',
-                        'https://hungryhugger.wildwebart.com/',
-                      ),
-                    ),
+                  const url = curSiteValue.replace(
+                    'www.hungryhugger.com',
+                    process.env.REACT_APP_BASE_URL,
                   )
+                  console.log('%c   url   ', 'color: darkgreen; background: palegreen;', url)
+                  const user = await getUserByHHLink(encodeURIComponent(url))
+
                   return !user.data?.profileName
                 }
                 return false

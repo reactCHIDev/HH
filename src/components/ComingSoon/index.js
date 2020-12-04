@@ -1,5 +1,5 @@
 import React from 'react'
-import comingsoon from 'assets/images/comingsoon.jpeg'
+import comingsoon from 'assets/images/comingsoon.png'
 import styles from './soon.module.scss'
 
 const PageNotFound = () => {
