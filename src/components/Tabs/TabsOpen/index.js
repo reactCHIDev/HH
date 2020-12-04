@@ -20,7 +20,7 @@ const TabsOpen = ({ tabs }) => {
       <Tabs
         defaultActiveKey="1"
         tabPosition="top"
-        tabBarGutter={40}
+        tabBarGutter={12}
         onChange={callback}
         tabBarStyle={{
           background: 'white',
