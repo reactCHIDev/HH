@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
 import axios from 'axios'
+import { getItem } from 'utils/localStorage'
 import { Upload, message } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
@@ -13,11 +14,19 @@ const Avatar = ({ avatarUrl, setAvatar }) => {
     const { onSuccess, onError, file, onProgress } = options
     const formData = new FormData()
     formData.append('file', file)
+    const getToken = () => {
+      const accessToken = getItem('authorization-token')
+      if (accessToken) {
+        return { Authorization: accessToken }
+      }
+      return null
+    }
     const headers = {
       'Content-Type': 'multipart/form-data',
       Accept: 'application/json',
       type: 'formData',
-      'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
+      'x-api-key': process.env.REACT_APP_X_API_KEY,
+      ...getToken(),
     }
     try {
       const res = await axios.post(

@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import cls from 'classnames'
 import axios from 'axios'
+import { getItem } from 'utils/localStorage'
 import Cross from 'assets/icons/svg/close-cross.svg'
 import styles from './uploader.module.scss'
 
@@ -54,11 +55,19 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
   async function sendFile(file) {
     const formData = new FormData()
     formData.append('file', file)
+    const getToken = () => {
+      const accessToken = getItem('authorization-token')
+      if (accessToken) {
+        return { Authorization: accessToken }
+      }
+      return null
+    }
     const headers = {
       'Content-Type': 'multipart/form-data',
       Accept: 'application/json',
       type: 'formData',
-      'x-api-key': '11edff01b8c5e3cfa0027fd313365f264b',
+      'x-api-key': process.env.REACT_APP_X_API_KEY,
+      ...getToken(),
     }
     try {
       const res = await axios.post(
