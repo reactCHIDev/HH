@@ -7,7 +7,7 @@ import styles from './header.module.scss'
 import './header.less'
 
 const Header = (props) => {
-  const { onSearch } = props
+  const { onSearch, mark } = props
 
   const extraMark = (num) => <div className={styles.extra_mark}>{num}</div>
 
@@ -16,7 +16,7 @@ const Header = (props) => {
       <div className={styles.content}>
         <div className={styles.title}>
           <p className={styles.qwe}>Listing </p>
-          {extraMark(4)}
+          {extraMark(mark)}
         </div>
         <div className={styles.srch_block}>
           <Search onSearch={onSearch} />

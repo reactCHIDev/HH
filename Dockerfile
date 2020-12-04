@@ -7,6 +7,11 @@ RUN npm install
 
 RUN npm run build
 
-EXPOSE 3000/tcp
+RUN npm install -g serve
 
-CMD ["npm", "start"]
+
+#EXPOSE 3000/tcp
+EXPOSE 5000/tcp
+
+#CMD ["npm", "start"]
+CMD ["serve", "-s", "build"]

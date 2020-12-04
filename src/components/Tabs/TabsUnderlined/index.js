@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs } from 'antd'
 import T from 'prop-types'
+
 import styles from './tabs.module.scss'
 import './tabs.less'
 
@@ -10,12 +11,12 @@ function callback(key) {
   console.log(key)
 }
 
-const TabsUnderlined = ({ tabs }) => {
+const TabsUnderlined = ({ tabs, activeTab }) => {
   const extraMark = () => <span className={styles.extraMark} />
   return (
     <div className="tabs-underlined-container">
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey={activeTab}
         tabPosition="top"
         tabBarGutter={20}
         onChange={callback}
@@ -45,6 +46,7 @@ const TabsUnderlined = ({ tabs }) => {
 }
 
 TabsUnderlined.propTypes = {
+  activeTab: T.string,
   tabs: T.shape({
     name: T.shape({
       mark: T.bool,

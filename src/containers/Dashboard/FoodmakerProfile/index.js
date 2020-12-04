@@ -156,7 +156,6 @@ const FoodmakerProfile = (props) => {
     <div className={styles.container}>
       {account.firstName && (
         <div className={styles.content}>
-          <p className={styles.head}>Foodmaker Profile</p>
           <div className={styles.avatar_container}>
             <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
             <div className={styles.loader_wrapper}>
