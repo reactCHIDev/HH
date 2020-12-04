@@ -26,6 +26,7 @@ import desktop from 'routing/PATHS'
 import styles from './app.module.scss'
 import './App.less'
 import './App.css'
+import 'styles/styles.scss'
 
 const PageNotFound = lazy(() => import('components/PageNotFound'))
 const Login = lazy(() => import('containers/Auth/components/Login'))
@@ -79,7 +80,7 @@ function App({ authorized, pathname, getUserAccount }) {
   const hideHeader = ['/signupflow'].includes(pathname)
 
   return (
-    <div className={styles.container} id="app-container">
+    <div className={styles.app_container} id="app-container">
       <ConnectedRouter history={history}>
         <ConnectionProvider>
           {!hideHeader && <Header />}

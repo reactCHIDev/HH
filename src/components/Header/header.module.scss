@@ -1,30 +1,24 @@
 @import 'styles/core/_colors.scss';
 
-.wrapper {
-  position: relative;
-  background: #f5f8fb;
-  margin: 0 auto;
-  height: 104px;
 
-  .dark {
-    background: $black;
-    color: #f5f8fb;
-  }
-  .light {
-    background: #f5f8fb;
-    color: #31394d;
-
-    .nav__opener {
-      display: none !important;
-    }
-  }
+  
 
   .header{
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    right: 0;
-    left: 0;
+    background: #F4F7FA;
+
+    &.dark {
+      background: $black;
+      color: #F4F7FA;
+    }
+    
+    &.light {
+      background:#F4F7FA;
+      color: #31394d;
+  
+      .nav__opener {
+        display: none !important;
+      }
+    }
   }
 
   .container {
@@ -34,7 +28,8 @@
     max-width: 1260px;
     padding:29px 30px;
     margin: 0 auto;
-    // border-bottom: 1px solid rgba(90, 96, 112, 0.4);
+    position: relative;
+    z-index: 9999;
 
     @media (max-width: 768px) {
       border: none;
@@ -256,4 +251,3 @@
       }
     }
   }
-}
