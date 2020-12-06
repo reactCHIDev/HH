@@ -62,12 +62,24 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
   const [dates, setDates] = useState(prevState?.available !== 'Preorder')
   const [isQuantity, setIsQuantity] = useState(!!prevState?.quantity)
 
-  useEffect(() => {}, [])
+  useEffect(() => onFieldChange(), [
+    ingredients,
+    selectedItems,
+    selectedRegionRadio,
+    selectedCountryRadio,
+    selectedCountries,
+    availabilityStartDate,
+    availabilityEndDate,
+    isAdult,
+    dates,
+    isQuantity,
+  ])
 
   const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
   const onFinish = (vals) => {
     const values = { ...vals }
+    console.log('%c   vals   ', 'color: white; background: royalblue;', vals)
 
     // ================
 
@@ -83,7 +95,7 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
 
     // =================
 
-    if (!ingredients || values.ingredients.trim() === '') {
+    if (!ingredients || (values.ingredients && values.ingredients.trim() === '')) {
       delete values.ingredients
     }
 
@@ -121,8 +133,10 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
     create(productData)
   }
 
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
   function onFieldChange(vals) {
-    const values = { ...vals }
+    const values = vals ? { ...vals } : getItem('addProduct')
 
     // ================
 
@@ -138,7 +152,7 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
 
     // =================
 
-    if (!ingredients || values.ingredients.trim() === '') {
+    if (!ingredients || (values.ingredients && values.ingredients.trim() === '')) {
       delete values.ingredients
     }
 
@@ -220,7 +234,8 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
     setDates(e.target.value !== 'Preorder')
   }
 
-  const onValuesChange = (f, all) => {
+  const onValuesChange = (field, all) => {
+    console.log('%c   all   ', 'color: darkgreen; background: palegreen;', all)
     onFieldChange(all)
   }
 

@@ -13,22 +13,15 @@ import styles from './product.module.scss'
 import './product.less'
 import cls from 'classnames'
 
-// const [status_hidden, setHidden] = useState(false)
-
-const Product = ({ product, onToggle, onEdit }) => {
+const Product = ({ product, onToggle }) => {
   const { id, coverPhoto, title, rating, status, quantity, available } = product
 
-  const { edit, setEdit } = useState(false)
+  const onClick = () => setItem('addProduct', product)
 
-  const onClick = () => {
-    setItem('addProduct', product)
-    // onEdit(true)
-    console.log('%c   product   ', 'color: white; background: salmon;', product)
-  }
   return (
     <div className={styles.tr}>
       <div className={styles.td}>
-        <div className={styles.description} onClick={onClick}>
+        <div className={styles.description}>
           <div className={styles.description_content}>
             <div className={styles.image_container}>
               <img src={coverPhoto} alt="product" />
@@ -41,10 +34,8 @@ const Product = ({ product, onToggle, onEdit }) => {
             </div>
           </div>
 
-          <div className={styles.edit_btn_container}>
-            <Link to={{ pathname: '/addproduct', state: 'edit' }}>
-              <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
-            </Link>
+          <div className={styles.edit_btn_container} onClick={onClick}>
+            <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
           </div>
         </div>
       </div>
@@ -65,15 +56,20 @@ const Product = ({ product, onToggle, onEdit }) => {
         </span>
       </div>
       <div className={styles.td}>
-        <span className={styles.preorder}>
+        <span className={styles.preorder} onClick={onClick}>
           <span className={styles.mobile_hidden_text}>Pre-order:</span>
-          <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
+          <Link to={{ pathname: '/addproduct', state: 'edit' }}>
+            <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
+          </Link>
         </span>
       </div>
     </div>
   )
 }
 
-Product.propTypes = {}
+Product.propTypes = {
+  product: T.arrayOf(T.shape),
+  onToggle: T.func,
+}
 
 export default Product

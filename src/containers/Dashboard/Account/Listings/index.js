@@ -5,6 +5,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import { Spin, Space } from 'antd'
 import ChkBox from 'components/ChkBox'
 import CollapsedBlock from 'components/CollapsedBlock'
+import cls from 'classnames'
 import SortElement from 'components/SortElement'
 import Modal from 'components/UniversalModal'
 import EditProduct from 'containers/Dashboard/Account/Listings/components/EditProduct'
@@ -15,8 +16,6 @@ import Header from './components/ListingHeader'
 import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
-
-import cls from 'classnames'
 
 const colors = [
   '#fff3f3',
