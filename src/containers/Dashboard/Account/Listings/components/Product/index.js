@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import T from 'prop-types'
+import { getItem, setItem } from 'utils/localStorage'
+import { Link } from 'react-router-dom'
+
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import ChkIcon from 'assets/icons/svg/chk-icon.svg'
 import DashIcon from 'assets/icons/svg/dash-icon.svg'
@@ -12,13 +15,20 @@ import cls from 'classnames'
 
 // const [status_hidden, setHidden] = useState(false)
 
-const Product = ({ product, onToggle }) => {
+const Product = ({ product, onToggle, onEdit }) => {
   const { id, coverPhoto, title, rating, status, quantity, available } = product
 
+  const { edit, setEdit } = useState(false)
+
+  const onClick = () => {
+    setItem('addProduct', product)
+    // onEdit(true)
+    console.log('%c   product   ', 'color: white; background: salmon;', product)
+  }
   return (
     <div className={styles.tr}>
       <div className={styles.td}>
-        <div className={styles.description}>
+        <div className={styles.description} onClick={onClick}>
           <div className={styles.description_content}>
             <div className={styles.image_container}>
               <img src={coverPhoto} alt="product" />
@@ -32,7 +42,9 @@ const Product = ({ product, onToggle }) => {
           </div>
 
           <div className={styles.edit_btn_container}>
-            <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
+            <Link to={{ pathname: '/addproduct', state: 'edit' }}>
+              <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
+            </Link>
           </div>
         </div>
       </div>

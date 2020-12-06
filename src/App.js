@@ -36,6 +36,9 @@ const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
 const Account = lazy(() => import('containers/Dashboard/Account'))
 const AddProduct = lazy(() => import('containers/Dashboard/Account/AddProduct'))
+const EditProduct = lazy(() =>
+  import('containers/Dashboard/Account/Listings/components/EditProduct'),
+)
 const ProductPage = lazy(() => import('containers/Dashboard/Account/ProductPage'))
 const ShopPage = lazy(() => import('pages/ShopPage'))
 const ExpDashboard = lazy(() => import('containers/Dashboard/ExperienceDashboard'))
@@ -59,7 +62,7 @@ function WaitingComponent(Component) {
   return (props) => (
     <Suspense
       fallback={
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
           <Space size="middle">
             <Spin size="large" />
           </Space>
@@ -145,6 +148,7 @@ function App({ authorized, pathname, getUserAccount }) {
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
             <PrivateRoute exact path="/exp_dashboard" component={WaitingComponent(ExpDashboard)} />
             <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
+            <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
             <PrivateRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
             <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
             {/* <PrivateRoute

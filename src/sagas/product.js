@@ -22,7 +22,7 @@ function* createProductSaga({ payload }) {
     yield createProductReq(payload)
     yield put(createProductSuccess())
     removeKey('addProduct')
-    yield put(replace('/card'))
+    yield put(replace('/exp_dashboard'))
   } catch (error) {
     if (error.response) {
       yield put(createProductError())

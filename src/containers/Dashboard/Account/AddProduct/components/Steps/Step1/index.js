@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import T from 'prop-types'
 import { setItem, getItem } from 'utils/localStorage'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { isShopExist } from 'api/requests/Shop'
-import cls from 'classnames'
-import { Input, InputNumber, Checkbox, Button } from 'antd'
 import _ from 'lodash/fp'
 import open from 'assets/images/open-table.svg'
 import addHint from 'assets/icons/svg/add_hint.svg'
@@ -17,16 +15,6 @@ const Step1 = (props) => {
   let shopName = ''
   const allValues = getItem('addProduct')
   if (allValues?.shopName) shopName = allValues?.shopName
-  /* const [standart, setStandart] = useState(true)
-  const [freepick, setFreepick] = useState(false)
-  const [express, setExpress] = useState(false)
-  const [free, setFree] = useState(false)
-
-  const onChangeStandartChkBox = (e) => setStandart(e.target.checked)
-  const onChangeFreePickChkBox = (e) => setFreepick(e.target.checked)
-  const onChangeExpressChkBox = (e) => setExpress(e.target.checked)
-  const onChangeFreeChkBox = (e) => setFree(e.target.checked) */
-  //const onChange = () => {}
 
   const { register, handleSubmit, control, watch, errors } = useForm({
     mode: 'onBlur',
@@ -82,80 +70,6 @@ const Step1 = (props) => {
           </div>
           <input type="submit" value="Next" />
         </form>
-
-        {/* <p className={styles.header}>Delivery policy</p>
-        <div className={styles.delivery_layout}>
-          <div className={styles.delivery_container}>
-            <Checkbox id="standart" checked={standart} onChange={onChangeStandartChkBox}>
-              Standart
-            </Checkbox>
-            <div className={styles.standart_block}>
-              <div className={cls(styles.standart_cost, 'input_number')}>
-                <label className={styles.label}>Cost of delivery</label>
-                <InputNumber
-                  formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                  onChange={onChange}
-                />
-              </div>
-              <div className={cls(styles.standart_cost, 'input_number')}>
-                <label className={styles.label}>Free for order over</label>
-                <InputNumber
-                  formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                  onChange={onChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles.delivery_container}>
-            <Checkbox id="1" checked={freepick} onChange={onChangeFreePickChkBox}>
-              Free Pick-up
-            </Checkbox>
-            <div style={{ padding: '5px 0 0 24px' }}>
-              <label className={styles.label}>Note</label>
-              <Input />
-            </div>
-          </div>
-          <div className={styles.delivery_container}>
-            <Checkbox id="0" checked={express} onChange={onChangeExpressChkBox}>
-              Express
-            </Checkbox>
-            <div className={styles.standart_block}>
-              <div className={cls(styles.standart_cost, 'input_number')}>
-                <label className={styles.label}>Cost of delivery</label>
-                <InputNumber
-                  formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                  onChange={onChange}
-                />
-              </div>
-              <div className={cls(styles.standart_cost, 'input_number')}>
-                <label className={styles.label}>Free for order over</label>
-                <InputNumber
-                  formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                  onChange={onChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div className={styles.delivery_container}>
-            <Checkbox id="3" checked={free} onChange={onChangeFreeChkBox}>
-              Free Delivery
-            </Checkbox>
-            <div className={styles.standart_block}>
-              <div className={cls(styles.standart_cost, 'input_number')}>
-                <label className={styles.label}>Minimum spend to recieve</label>
-                <InputNumber
-                  formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                  onChange={onChange}
-                />
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   )

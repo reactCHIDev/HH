@@ -45,28 +45,6 @@ const Step2 = (props) => {
     defaultValues,
   })
 
-  const nums = ['Food', 'Drinks', 'qweqwe', 'sdfsdfsd', 'zxczxcz', 'yuryutyu', 'ghfghfg']
-  const discntArr = [
-    { value: 5, title: '5%' },
-    { value: 10, title: '10%' },
-    { value: 15, title: '15%' },
-    { value: 20, title: '20%' },
-    { value: 25, title: '25%' },
-    { value: 30, title: '30%' },
-    { value: 40, title: '40%' },
-    { value: 50, title: '50%' },
-  ]
-  const qty = [
-    { value: 5, title: '5qty' },
-    { value: 10, title: '10qty' },
-    { value: 15, title: '15qty' },
-    { value: 20, title: '20qty' },
-    { value: 25, title: '25qty' },
-    { value: 30, title: '30qty' },
-    { value: 40, title: '40qty' },
-    { value: 50, title: '50qty' },
-  ]
-
   const onNext = (data) => {
     const step1 = getItem('addProduct')
     const { discountVal, qtyVal } = data
@@ -78,21 +56,11 @@ const Step2 = (props) => {
       ...data,
       discount: { quantity: discnt ? qtyVal : 0, discount: discnt ? discountVal : 0 },
     })
-    setStep(2)
+    setStep()
     setStepper(false)
   }
 
   const onChangeChkBox = () => setDiscount(!discnt)
-
-  const handleDiscountChange = (value) => {
-    setDiscountValue(value)
-    if (!stepper) setStepper(true)
-  }
-
-  const handleQuantityChange = (value) => {
-    setQtyValue(value)
-    if (!stepper) setStepper(true)
-  }
 
   const handleType = (onChange) => (e) => {
     setCategory(types.find((t) => t.id === e).productCategories)
@@ -174,12 +142,7 @@ const Step2 = (props) => {
               render={({ onChange, value, name }) => (
                 <div className={styles.item_container}>
                   <label className={styles.label}>Category</label>
-                  <Select
-                    onChange={onChange}
-                    name={name}
-                    value={value}
-                    // disabled={watch('productTypeId') === 'Food'}
-                  >
+                  <Select onChange={onChange} name={name} value={value}>
                     {category.map((cat) => (
                       <Option key={cat.id} value={cat.id}>
                         {cat.title}
@@ -194,59 +157,47 @@ const Step2 = (props) => {
             />
           </div>
           <div className={cls(styles.discount_container, 'discount')}>
-            <ChkBox
-              id="discount"
-              labelText="Add discount"
-              checked={discnt}
-              onChange={onChangeChkBox}
-            />
-            <div className={styles.discount_wrapper}>
-              <input
-                className={styles.disc_input}
-                name="discountVal"
-                type="text"
-                disabled={!discnt}
-                ref={register({
-                  required: false,
-                  validate: (value) => value >= 0 && value <= 100,
-                })}
+            <div className={styles.discount_group}>
+              <ChkBox
+                id="discount"
+                labelText="Add discount"
+                checked={discnt}
+                onChange={onChangeChkBox}
               />
-              {_.get('discountVal.type', errors) === 'validate' && (
-                <p className={styles.errmsg}>Range is 0 - 100</p>
-              )}
+              <div className={styles.discount_wrapper}>
+                <input
+                  className={styles.disc_input}
+                  name="discountVal"
+                  type="text"
+                  disabled={!discnt}
+                  ref={register({
+                    required: false,
+                    validate: (value) => value >= 0 && value <= 100,
+                  })}
+                />
+                {_.get('discountVal.type', errors) === 'validate' && (
+                  <p className={styles.errmsg}>Range is 0 - 100</p>
+                )}
+              </div>
             </div>
-            <p className={styles.discount_text}>when order from</p>
-            <div className={styles.discount_wrapper}>
-              <input
-                className={styles.disc_input}
-                name="qtyVal"
-                type="text"
-                disabled={!discnt}
-                ref={register({
-                  required: false,
-                  validate: (value) => value >= 0,
-                })}
-              />
-              {_.get('qtyVal.type', errors) === 'validate' && (
-                <p className={styles.errmsg}>Should be > 0</p>
-              )}
+            <div className={styles.qty_group}>
+              <div className={styles.discount_text}>when order from</div>
+              <div className={styles.discount_wrapper}>
+                <input
+                  className={styles.disc_input}
+                  name="qtyVal"
+                  type="text"
+                  disabled={!discnt}
+                  ref={register({
+                    required: false,
+                    validate: (value) => value >= 0,
+                  })}
+                />
+                {_.get('qtyVal.type', errors) === 'validate' && (
+                  <p className={styles.errmsg}>Should be > 0</p>
+                )}
+              </div>
             </div>
-
-            {/*  <Select defaultValue={discValue} onChange={handleDiscountChange}>
-              {discntArr.map((n) => (
-                <Option key={n.value} value={n.value}>
-                  {n.title}
-                </Option>
-              ))}
-            </Select>
-            <p className={styles.discount_text}>when buying from</p>
-            <Select defaultValue={qtyValue} onChange={handleQuantityChange}>
-              {qty.map((n) => (
-                <Option key={n.value} value={n.value}>
-                  {n.title}
-                </Option>
-              ))}
-            </Select> */}
           </div>
           <input type="submit" value="Next" />
         </form>

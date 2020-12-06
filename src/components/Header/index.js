@@ -14,15 +14,15 @@ import LogoWhite from 'assets/images/header/logo-white.svg'
 import textLogo from 'assets/images/header/logo_text_beta.svg'
 import ArrowWhite from 'assets/icons/svg/down-arrow-white.svg'
 import ArrowDark from 'assets/icons/svg/down-arrow.svg'
-import styles from './header.module.scss'
 import './header.less'
-import Avatar from './components/Avatar'
 import Cup from 'assets/images/header/cup.svg'
 import Gallery_icon from 'assets/images/header/Component 150.svg'
 import Gallery_icon_1 from 'assets/images/header/Component 148.svg'
 import Setting from 'assets/images/header/Setting.svg'
 import LogOut from 'assets/images/header/LogOut.svg'
 import textLogoBlue from 'assets/images/header/logo_text_beta_blue.svg'
+import Avatar from './components/Avatar'
+import styles from './header.module.scss'
 
 const Header = (props) => {
   const { authorized, id, role, userPhoto, logOut, pathname, pushRoute, getUserAccount } = props
@@ -41,6 +41,7 @@ const Header = (props) => {
     '/exp_dashboard',
     '/account_info',
     '/addproduct',
+    '/editproduct',
     '/landing/create_experience',
     '/landing/foodmakers',
     '/landing/create_profile',

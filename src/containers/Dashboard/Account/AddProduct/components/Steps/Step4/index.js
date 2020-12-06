@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import T, { shape } from 'prop-types'
 import {
   Form,
@@ -9,71 +9,25 @@ import {
   DatePicker,
   Select,
   Row,
-  Col,
   Checkbox,
   Button,
-  Space,
 } from 'antd'
 import moment from 'moment'
 
 import { getItem, setItem } from 'utils/localStorage'
 
 import cls from 'classnames'
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
+import { MinusCircleOutlined } from '@ant-design/icons'
 import styles from './step4.module.scss'
 import './step4.less'
 
 const { Option } = Select
+const { RangePicker } = DatePicker
 
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-}
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-}
-
-const Step4 = ({ create, countries, tags, pushRoute }) => {
-  const [form] = Form.useForm()
-  const taggs = [
-    { id: 1, tagName: 'Drink' },
-    { id: 2, tagName: 'Salad' },
-    { id: 3, tagName: 'Bread' },
-    { id: 4, tagName: 'Soup' },
-    { id: 5, tagName: 'Pasta' },
-  ]
-  const { RangePicker } = DatePicker
-
+const Step4 = ({ create, countries, tags, edit = false }) => {
   const prevState = getItem('addProduct')
+
   const normalizeTagsDefaults = (value) => value.map((t) => tags.find((e) => e.id === t).tagName)
-
-  console.log('prevState', prevState)
-
-  const deliveryRegionDataForm = { Local: 1, Worldwide: 2 }
 
   const [ingredients, setIngredients] = useState(!!prevState?.ingredients)
   const [selectedItems, setSelectedItems] = useState(
@@ -106,6 +60,9 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
   const [availabilityEndDate, setEndDate] = useState(prevState?.availabilityEndDate)
   const [isAdult, setIsAdult] = useState(!!prevState?.isAdult)
   const [dates, setDates] = useState(prevState?.available !== 'Preorder')
+  const [isQuantity, setIsQuantity] = useState(!!prevState?.quantity)
+
+  useEffect(() => {}, [])
 
   const normalizeTags = (value) => value.map((t) => tags.find((e) => e.tagName === t).id)
 
@@ -136,6 +93,12 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
 
     // =================
 
+    if (!isQuantity) {
+      delete values.quantity
+    }
+
+    // =================
+
     const formData = {
       ...values,
       isAdult,
@@ -156,7 +119,59 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
     setItem('addProduct', productData)
     delete productData.countries
     create(productData)
-    // pushRoute('/card')
+  }
+
+  function onFieldChange(vals) {
+    const values = { ...vals }
+
+    // ================
+
+    let deliveryRegion = ''
+    let deliveryRegionException = ''
+    if (selectedRegionRadio < 3) {
+      const deliveryRegionData = { '1': 'Local', '2': 'Worldwide' }
+      deliveryRegion = deliveryRegionData[selectedRegionRadio]
+    } else {
+      if (selectedCountryRadio == 4) deliveryRegion = selectedCountries.join(' ')
+      if (selectedCountryRadio == 5) deliveryRegionException = selectedCountries.join(' ')
+    }
+
+    // =================
+
+    if (!ingredients || values.ingredients.trim() === '') {
+      delete values.ingredients
+    }
+
+    // =================
+
+    const productTagIds = normalizeTags(selectedItems)
+
+    // =================
+
+    if (!isQuantity) {
+      delete values.quantity
+    }
+
+    // =================
+
+    const formData = {
+      ...values,
+      isAdult,
+      deliveryRegion,
+      deliveryRegionException,
+      // deliveryMethod,
+      productTagIds,
+    }
+
+    if (availabilityStartDate && availabilityEndDate) {
+      formData.availabilityStartDate = availabilityStartDate
+      formData.availabilityEndDate = availabilityEndDate
+    }
+
+    const prevStep = getItem('addProduct')
+    delete prevStep.ingredients
+    const productData = { ...prevStep, ...formData }
+    setItem('addProduct', productData)
   }
 
   const onRegionRadio = (e) => {
@@ -170,6 +185,7 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
   const ingredientsChk = () => setIngredients((i) => !i)
 
   const isAdultChk = () => setIsAdult((a) => !a)
+  const isQuantityChk = () => setIsQuantity((a) => !a)
 
   const handleChangeTags = (selectedItms) => {
     setSelectedItems(selectedItms)
@@ -204,16 +220,19 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
     setDates(e.target.value !== 'Preorder')
   }
 
+  const onValuesChange = (f, all) => {
+    onFieldChange(all)
+  }
+
   return (
     <div className={styles.container}>
       <div className={cls(styles.content, 'add_form')}>
         <p className={styles.header}>Additional information</p>
         <Form
-          {...formItemLayout}
-          form={form}
           layout="vertical"
           name="register"
           onFinish={onFinish}
+          onValuesChange={onValuesChange}
           initialValues={{
             parameters: prevState?.parameters || [{ measure: 'ml', currency: '$' }],
             ingredients: prevState?.ingredients || ' ',
@@ -222,6 +241,7 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
             quantity: prevState?.quantity,
             available: prevState?.available,
             refundPolicy: prevState?.refundPolicy,
+            refundPolicyNote: prevState?.refundPolicyNote,
           }}
           scrollToFirstError
         >
@@ -230,97 +250,100 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
               <>
                 {fields.map((field) => (
                   <Row key={field.key}>
-                    <Space align="baseline">
-                      <div className="numeric_selector">
-                        <Form.Item
-                          shouldUpdate
-                          {...field}
-                          key={[field.name, 'volume']}
-                          name={[field.name, 'volume']}
-                          fieldKey={[field.fieldKey, 'volume']}
-                          rules={[{ required: true, message: 'Please input volume!' }]}
-                        >
-                          <InputNumber min={0} max={99999} />
-                        </Form.Item>
-
-                        <Form.Item
-                          {...field}
-                          key={[field.name, 'measure']}
-                          name={[field.name, 'measure']}
-                          fieldKey={[field.fieldKey, 'measure']}
-                          rules={[{ required: true, message: 'Please input volume!' }]}
-                        >
-                          <Select
-                            style={{
-                              width: 70,
-                            }}
+                    <div key={field.key} className={styles.items_wrapper}>
+                      <div className={styles.formlist_item}>
+                        <div className={cls(styles.num_selector, 'numeric_selector')}>
+                          <Form.Item
+                            shouldUpdate
+                            {...field}
+                            key={[field.name, 'volume']}
+                            name={[field.name, 'volume']}
+                            fieldKey={[field.fieldKey, 'volume']}
+                            rules={[{ required: true, message: 'Please input volume!' }]}
                           >
-                            <Option value="g">g</Option>
-                            <Option value="kg">kg</Option>
-                            <Option value="ml">ml</Option>
-                            <Option value="l">lg</Option>
-                            <Option value="S">S</Option>
-                            <Option value="M">M</Option>
-                            <Option value="L">L</Option>
-                            <Option value="L">none</Option>
-                          </Select>
-                        </Form.Item>
-                      </div>
+                            <InputNumber min={0} max={99999} />
+                          </Form.Item>
 
-                      <div className="numeric_selector">
-                        <Form.Item
-                          {...field}
-                          key={[field.name, 'price']}
-                          name={[field.name, 'price']}
-                          fieldKey={[field.fieldKey, 'price']}
-                          rules={[{ required: true, message: 'Please input price!' }]}
-                        >
-                          <InputNumber min={0} max={999999999999} />
-                        </Form.Item>
-                        <Form.Item
-                          {...field}
-                          key={[field.name, 'currency']}
-                          name={[field.name, 'currency']}
-                          fieldKey={[field.fieldKey, 'currency']}
-                          rules={[{ required: true, message: 'Please choose currency!' }]}
-                        >
-                          <Select
-                            style={{
-                              width: 70,
-                            }}
+                          <Form.Item
+                            {...field}
+                            key={[field.name, 'measure']}
+                            name={[field.name, 'measure']}
+                            fieldKey={[field.fieldKey, 'measure']}
+                            rules={[{ required: true, message: 'Please input volume!' }]}
                           >
-                            <Option value="$">$</Option>
-                            <Option value="E">E</Option>
-                            <Option value="Y">Y</Option>
-                          </Select>
-                        </Form.Item>
-                      </div>
+                            <Select
+                              style={{
+                                width: 70,
+                              }}
+                            >
+                              <Option value="g">g</Option>
+                              <Option value="kg">kg</Option>
+                              <Option value="ml">ml</Option>
+                              <Option value="l">lg</Option>
+                              <Option value="S">S</Option>
+                              <Option value="M">M</Option>
+                              <Option value="L">L</Option>
+                              <Option value="L">none</Option>
+                            </Select>
+                          </Form.Item>
+                        </div>
 
-                      {field.key > 0 && <MinusCircleOutlined onClick={() => remove(field.name)} />}
-                    </Space>
+                        <div className="numeric_selector">
+                          <Form.Item
+                            {...field}
+                            key={[field.name, 'price']}
+                            name={[field.name, 'price']}
+                            fieldKey={[field.fieldKey, 'price']}
+                            rules={[{ required: true, message: 'Please input price!' }]}
+                          >
+                            <InputNumber min={0} max={999999999999} />
+                          </Form.Item>
+                          <Form.Item
+                            {...field}
+                            key={[field.name, 'currency']}
+                            name={[field.name, 'currency']}
+                            fieldKey={[field.fieldKey, 'currency']}
+                            rules={[{ required: true, message: 'Please choose currency!' }]}
+                          >
+                            <Select
+                              style={{
+                                width: 70,
+                              }}
+                            >
+                              <Option value="$">$</Option>
+                              <Option value="E">E</Option>
+                              <Option value="Y">Y</Option>
+                            </Select>
+                          </Form.Item>
+                        </div>
+                      </div>
+                      <div className={styles.delBtn}>
+                        {field.key > 0 && (
+                          <MinusCircleOutlined onClick={() => remove(field.name)} />
+                        )}
+                      </div>
+                    </div>
                   </Row>
                 ))}
-                {/*  <Form.Item> */}
                 <div className={cls(styles.add_btn_wrapper, 'add_btn')}>
                   <Button onClick={() => add()}>ADD</Button>
                 </div>
-                {/* </Form.Item> */}
               </>
             )}
           </Form.List>
 
-          <Row>
-            <Col flex="150px">
+          <div className={styles.ingr_wrapper}>
+            <div className={styles.ingr_chk}>
               <Checkbox checked={ingredients} onChange={ingredientsChk}>
                 Ingredients
               </Checkbox>
-            </Col>
-            <Col flex="auto">
-              <Form.Item name="ingredients" wrapperCol={{ span: 24, offset: 0 }}>
+            </div>
+            <div className={styles.ingr_text}>
+              <Form.Item name="ingredients">
                 <Input.TextArea rows={4} disabled={!ingredients} />
               </Form.Item>
-            </Col>
-          </Row>
+            </div>
+          </div>
 
           <label className="form-text">Tags</label>
           <Form.Item
@@ -399,54 +422,57 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
 
           <p className={styles.header}>Availability</p>
 
-          <Row gutter={20} align="bottom">
-            <Col gutter={20}>
-              <Form.Item name="available" rules={[{ required: true, message: 'Required field' }]}>
-                <Radio.Group onChange={toggleDates}>
-                  <Radio style={radioStyle} value="Available">
-                    Available now
-                  </Radio>
-                  <Radio style={radioStyle} value="Preorder">
-                    Pre-order
-                  </Radio>
-                </Radio.Group>
-              </Form.Item>
-
-              <DatePicker
-                defaultValue={moment(availabilityStartDate)}
-                disabled={dates}
-                id="1"
-                format="DD MMM YY"
-                onChange={onChangeStartDate}
-              />
-              <span>{' - '}</span>
-              <DatePicker
-                defaultValue={moment(availabilityEndDate)}
-                disabled={dates}
-                id="2"
-                format="DD MMM YY"
-                onChange={onChangeEndDate}
-              />
-            </Col>
-            <Col gutter={20} align="bottom">
-              <span className="form-text">Over 18 Requirement </span>
-              <Checkbox checked={isAdult} onChange={isAdultChk}>
-                Verify customer is over 18 years old
-              </Checkbox>
-            </Col>
-          </Row>
+          <div className={styles.available}>
+            <Form.Item name="available" rules={[{ required: true, message: 'Required field' }]}>
+              <Radio.Group onChange={toggleDates}>
+                <Radio style={radioStyle} value="Available">
+                  Available now
+                </Radio>
+                <Radio style={radioStyle} value="Preorder">
+                  Pre-order
+                </Radio>
+              </Radio.Group>
+            </Form.Item>
+            <div className={styles.datepicker_wrapper}>
+              <div className={styles.datepicker_group}>
+                <DatePicker
+                  defaultValue={moment(availabilityStartDate)}
+                  disabled={dates}
+                  id="1"
+                  format="DD MMM YY"
+                  onChange={onChangeStartDate}
+                />
+                <span className={styles.dash}>{' - '}</span>
+                <DatePicker
+                  defaultValue={moment(availabilityEndDate)}
+                  disabled={dates}
+                  id="2"
+                  format="DD MMM YY"
+                  onChange={onChangeEndDate}
+                />
+              </div>
+            </div>
+          </div>
 
           <div style={{ marginTop: 20 }}>
-            <div style={{ padding: '5px 0 0 24px' }}>
-              <label className="form-text">Quantity (optional)</label>
+            <Checkbox checked={isQuantity} onChange={isQuantityChk}>
+              Quantity (optional)
+            </Checkbox>
+            <div className={styles.quantity_container}>
               <Form.Item
                 name="quantity"
                 rules={[{ required: false, message: 'Please enter quantity' }]}
                 normalize={(value) => Math.abs(Number(value))}
               >
-                <InputNumber min={0} />
+                <InputNumber disabled={!isQuantity} min={0} />
               </Form.Item>
             </div>
+          </div>
+
+          <div>
+            <Checkbox checked={isAdult} onChange={isAdultChk}>
+              Verify customer is over 18 years old
+            </Checkbox>
           </div>
 
           <Divider />
@@ -467,13 +493,13 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
           </Form.Item>
 
           <label className="form-text">Note</label>
-          <Form.Item name="refundPolicyNote" wrapperCol={{ span: 12, offset: 0 }}>
+          <Form.Item name="refundPolicyNote">
             <Input.TextArea rows={4} />
           </Form.Item>
 
-          <Form.Item {...tailFormItemLayout} wrapperCol={2}>
+          <Form.Item>
             <Button type="primary" block size="large" htmlType="submit">
-              PUBLISH
+              {edit ? 'SAVE CHANGES' : 'PUBLISH'}
             </Button>
           </Form.Item>
         </Form>
@@ -484,7 +510,6 @@ const Step4 = ({ create, countries, tags, pushRoute }) => {
 
 Step4.propTypes = {
   create: T.func.isRequired,
-  pushRoute: T.func.isRequired,
   tags: T.arrayOf(shape()).isRequired,
   countries: T.arrayOf(shape()).isRequired,
 }

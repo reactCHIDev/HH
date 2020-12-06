@@ -1,6 +1,7 @@
 .container {
   display: flex;
   padding: 20px 50px;
+  margin-bottom: 60px;
   background: #f5f8fb;
   @media (max-width: 768px) {
     padding: 10px 10px;
@@ -13,6 +14,7 @@
 
     .title {
       display: flex;
+      align-items: center;
       font-style: normal;
       font-weight: normal;
       font-size: 32px;
@@ -32,7 +34,7 @@
       }
       .back_title {
         // padding: 0 20px;
-        margin-left: 20px;
+        margin: 0 20px;
         font-style: normal;
         font-weight: bold;
         font-size: 32px;
@@ -52,6 +54,7 @@
       line-height: 160%;
       letter-spacing: 0.5px;
       color: #31394d;
+      margin: 0;
     }
   }
 }

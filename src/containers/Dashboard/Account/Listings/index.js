@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import T, { shape, string } from 'prop-types'
 import { connect } from 'react-redux'
 import cloneDeep from 'lodash/cloneDeep'
+import { Spin, Space } from 'antd'
 import ChkBox from 'components/ChkBox'
 import CollapsedBlock from 'components/CollapsedBlock'
 import SortElement from 'components/SortElement'
+import Modal from 'components/UniversalModal'
+import EditProduct from 'containers/Dashboard/Account/Listings/components/EditProduct'
 import { toggleProductStatusRequestAC } from 'actions/product'
 import { getMyProductList } from 'actions/listing'
 import { getProductTypes } from 'actions/system'
@@ -50,6 +53,7 @@ const Listings = (props) => {
   const [filteredProducts, filterProducts] = useState([])
   const [searchSubstring, setSearchSubstring] = useState('')
   const [menu, setMenu] = useState(false)
+  const [edit, showEdit] = useState(false)
 
   const resetFilters = () => {
     setIds([])
@@ -172,6 +176,8 @@ const Listings = (props) => {
     toggleProductStatusRequestAC(data)
   }
 
+  const closeEdit = () => showEdit(false)
+
   return (
     <div className={styles.container}>
       <Header onSearch={onSearch} mark={filteredProducts?.length} />
@@ -210,7 +216,7 @@ const Listings = (props) => {
               </CollapsedBlock>
             ))}
         </div>
-        {filteredProducts.length > 0 && (
+        {filteredProducts.length > 0 ? (
           <div className={styles.listing}>
             <div className={styles.product_table}>
               <div className={styles.tr}>
@@ -222,12 +228,23 @@ const Listings = (props) => {
               </div>
 
               {filteredProducts.map((product) => (
-                <Product key={product.id} product={product} onToggle={test} />
+                <Product key={product.id} product={product} onToggle={test} onEdit={showEdit} />
               ))}
             </div>
           </div>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+            <Space size="middle">
+              <Spin size="large" />
+            </Space>
+          </div>
         )}
       </div>
+      {edit && (
+        <Modal closeFunc={closeEdit}>
+          <EditProduct />
+        </Modal>
+      )}
     </div>
   )
 }
