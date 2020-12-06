@@ -30,7 +30,7 @@ const EnterMail = ({ onSubmit }) => {
         {_.get('email.type', errors) === 'required' && <p>This field is required</p>}
         {_.get('email.type', errors) === 'pattern' && <p>Invalid e-mail adress</p>}
 
-        <input type="submit" value="REQUEST PASSWORD" />
+        <input type="submit" value="RESET PASSWORD" />
       </form>
     </div>
   )

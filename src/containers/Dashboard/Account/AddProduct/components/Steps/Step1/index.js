@@ -76,10 +76,10 @@ const Step1 = (props) => {
           {_.get('shopName.type', errors) === 'maxLength' && (
             <p className={styles.errmsg}>Max length 66 symbols</p>
           )}
-          <div className={styles.hint_wrapper}>
+          {/* <div className={styles.hint_wrapper}>
             <img className={styles.hint_icon} src={addHint} alt="hint" />
             <p className={styles.hint}>You can create one experience for free forever.</p>
-          </div>
+          </div> */}
           <input type="submit" value="Next" />
         </form>
 
