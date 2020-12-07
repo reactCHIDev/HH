@@ -27,7 +27,10 @@ const Product = ({ product, onToggle }) => {
               <img src={coverPhoto} alt="product" />
             </div>
             <div className={styles.product_option}>
-              <span className={styles.product_name}>{title}</span>
+              <Link to={{ pathname: '/product_page', state: product }}>
+                <span className={styles.product_name}>{title}</span>
+              </Link>
+
               <div className={styles.status_option_container}>
                 <Option checked={status === 'PUBLISHED'} onChange={onToggle} id={id} />
               </div>

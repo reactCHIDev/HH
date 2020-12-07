@@ -39,13 +39,13 @@ const AddProduct = lazy(() => import('containers/Dashboard/Account/AddProduct'))
 const EditProduct = lazy(() =>
   import('containers/Dashboard/Account/Listings/components/EditProduct'),
 )
-const ProductPage = lazy(() => import('containers/Dashboard/Account/ProductPage'))
+const ProductPage = lazy(() => import('pages/ProductPage'))
 const ShopPage = lazy(() => import('pages/ShopPage'))
 const ExpDashboard = lazy(() => import('containers/Dashboard/ExperienceDashboard'))
 const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
 const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
-const FoodmakerPage = lazy(() => import('containers/Dashboard/Account/FoodmakerPage'))
+const FoodmakerPage = lazy(() => import('pages/FoodmakerPage'))
 const AccountInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo'))
 // const FoodmakerProfile = lazy(() =>
 //   import('containers/Dashboard/components/Account/FoodmakerProfile'),
@@ -57,6 +57,7 @@ const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
 const Sandbox = lazy(() => import('components/sandbox/wrapper'))
+const Cart = lazy(() => import('containers/Dashboard/ Cart'))
 
 function WaitingComponent(Component) {
   return (props) => (
@@ -144,6 +145,7 @@ function App({ authorized, pathname, getUserAccount }) {
               component={WaitingComponent(CreateShopLanding)}
             />
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
+            <PublicRoute exact path="/cart" component={WaitingComponent(Cart)} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
             <PrivateRoute exact path="/exp_dashboard" component={WaitingComponent(ExpDashboard)} />

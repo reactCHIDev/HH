@@ -19,7 +19,14 @@ import AboutMaker from './components/AboutMaker'
 import './product_page.less'
 
 const ProductPage = (props) => {
-  const { info, getProductInfoRequestAC } = props
+  const {
+    info,
+    getProductInfoRequestAC,
+    location: { state: product },
+  } = props
+
+  console.clear()
+  console.log('%c   product   ', 'color: darkgreen; background: palegreen;', product)
 
   useEffect(() => {
     getProductInfoRequestAC(188)
@@ -85,6 +92,7 @@ const ProductPage = (props) => {
 ProductPage.propTypes = {
   getProductInfoRequestAC: T.func.isRequired,
   info: T.shape,
+  product: T.shape,
 }
 
 export default connect(({ product }) => ({ info: product.info }), { getProductInfoRequestAC })(

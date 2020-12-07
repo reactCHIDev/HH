@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 20px 50px;
+  @media (max-width: 768px) {
+    padding: 18px;
+  }
+
+  .content {
+    margin-bottom: 50px;
+    width: 100%;
+    @media (max-width: 900px) {
+    }
+  }
+}
