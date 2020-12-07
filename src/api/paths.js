@@ -44,6 +44,9 @@ export default {
   isShopExist: '/v1/shop/check_if_exist/',
   updateShop: '/v1/shop/update',
 
+  // Home page
+  getHomePageProducts: '/v1/product/list_all',
+
   //
   //
   //

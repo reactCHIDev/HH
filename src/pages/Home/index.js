@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { getPublicProductsAC } from 'actions/pages'
 import ExpCard from 'components/ExperienceCard'
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
@@ -14,7 +15,15 @@ import Button from 'components/Button'
 import Pattern2 from 'assets/images/pattern 2.svg'
 
 const Home = (props) => {
+  const { getPublicProductsAC, productList } = props
   const { Panel } = Collapse
+
+  useEffect(() => {
+    getPublicProductsAC()
+  }, [])
+
+  console.clear()
+  console.log('%c   productList   ', 'color: white; background: salmon;', productList)
 
   return (
     <div className={styles.container}>
@@ -94,28 +103,23 @@ const Home = (props) => {
             Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
             distillery tour.{' '}
           </p>
-          {[1, 2, 3, 4, 5, 6].map((e) => (
-            <ExpCard
-              key={e}
-              photo={stub2}
-              tags={[
-                'desserts',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-              ]}
-              name="Donut Set 1 (x12)"
-              price={15.59}
-              rating={3}
-              rateCount={63}
-              isShowCart
-            />
-          ))}
+          {productList?.length &&
+            productList.map((p) =>
+              p.coverPhoto ? (
+                <ExpCard
+                  key={p.id}
+                  photo={p.coverPhoto}
+                  tags={p.productTags.map((t) => t.tagName)}
+                  name={p.title}
+                  price={p.price}
+                  rating={p.rating}
+                  rateCount={p.reviews?.length}
+                  isShowCart
+                />
+              ) : (
+                <></>
+              ),
+            )}
           <div className={styles.btn_holder}>
             <Button title="More products near you" dark={true} />
           </div>
@@ -226,6 +230,11 @@ const Home = (props) => {
   )
 }
 
-Home.propTypes = {}
+Home.propTypes = {
+  getPublicProductsAC: T.func,
+  productList: T.arrayOf(T.shape),
+}
 
-export default connect(null, null)(Home)
+export default connect(({ pages }) => ({ productList: pages.products }), {
+  getPublicProductsAC,
+})(Home)
