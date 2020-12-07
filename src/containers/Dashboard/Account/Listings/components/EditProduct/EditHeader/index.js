@@ -18,7 +18,7 @@ const Header = (props) => {
           <Link to="/profile" onClick={goBack}>
             <p className={styles.back_arrow}>{'<'}</p>
           </Link>
-          <p className={styles.back_title}>Add Product </p>
+          <p className={styles.back_title}>Edit Product </p>
         </div>
         <p className={styles.saved}>All changes saved</p>
       </div>

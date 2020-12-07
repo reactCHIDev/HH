@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import T from 'prop-types'
+import { getItem, setItem } from 'utils/localStorage'
+import { Link } from 'react-router-dom'
+
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import ChkIcon from 'assets/icons/svg/chk-icon.svg'
 import DashIcon from 'assets/icons/svg/dash-icon.svg'
@@ -10,10 +13,10 @@ import styles from './product.module.scss'
 import './product.less'
 import cls from 'classnames'
 
-// const [status_hidden, setHidden] = useState(false)
-
 const Product = ({ product, onToggle }) => {
   const { id, coverPhoto, title, rating, status, quantity, available } = product
+
+  const onClick = () => setItem('addProduct', product)
 
   return (
     <div className={styles.tr}>
@@ -31,7 +34,7 @@ const Product = ({ product, onToggle }) => {
             </div>
           </div>
 
-          <div className={styles.edit_btn_container}>
+          <div className={styles.edit_btn_container} onClick={onClick}>
             <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
           </div>
         </div>
@@ -53,15 +56,20 @@ const Product = ({ product, onToggle }) => {
         </span>
       </div>
       <div className={styles.td}>
-        <span className={styles.preorder}>
+        <span className={styles.preorder} onClick={onClick}>
           <span className={styles.mobile_hidden_text}>Pre-order:</span>
-          <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
+          <Link to={{ pathname: '/addproduct', state: 'edit' }}>
+            <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
+          </Link>
         </span>
       </div>
     </div>
   )
 }
 
-Product.propTypes = {}
+Product.propTypes = {
+  product: T.arrayOf(T.shape),
+  onToggle: T.func,
+}
 
 export default Product
