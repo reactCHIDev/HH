@@ -1,17 +1,13 @@
 .container {
-  padding: 30px;
-  min-height: 350px;
+  padding: 16px;
+  min-height: 320px;
+  font-weight: normal;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: #31394D81;
 
   p {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 160%;
-    /* or 22px */
-
-    letter-spacing: 0.5px;
-
-    color: #31394D;
+    margin: 0;
   }
 
   .additional_info {

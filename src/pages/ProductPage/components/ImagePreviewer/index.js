@@ -25,23 +25,22 @@ const ImagePreviewer = (props) => {
     [],
   )
 
-  const handleImageClick = useCallback((e) => setSelectedImage(e.target.src))
+  const handleImageClick = useCallback((e,image) => setSelectedImage(image))
 
   return (
     <div className={styles.container}>
-      <div className={styles.img_container}>
-        <img src={selectedImage} alt="" className={styles.img} />
+      <div className={styles.img_container} style={{backgroundImage:`url("${selectedImage}")`}}>
       </div>
       <div className={styles.slider_container}>
         <Slider {...settings}>
           {images.map((image) => (
-            <div className={styles.preview_container}>
-              <img
-                src={image}
-                alt=""
-                className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}
-                onClick={handleImageClick}
-              />
+            <div 
+              className={styles.preview_container}
+              onClick={(e,image)=>handleImageClick(image)}>
+                <span 
+                  style={{backgroundImage:`url("${image}")`}}
+                  className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}>
+                </span>
             </div>
           ))}
         </Slider>
