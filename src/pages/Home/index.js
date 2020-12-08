@@ -127,9 +127,10 @@ const Home = (props) => {
           </div>
           {productCollection?.length &&
             productCollection.map((product) => (
-              // <Link className={styles.card_link} to={{ pathname: '/product_page', state: product }}>
               <ExpCard
                 key={product.id}
+                pathname="/product_page"
+                state={product}
                 photo={product.coverPhoto}
                 tags={product.productTags.map((t) => t.tagName)}
                 name={product.title}
@@ -138,7 +139,6 @@ const Home = (props) => {
                 rateCount={product.reviews?.length}
                 isShowCart
               />
-              // </Link>
             ))}
           <div className={styles.btn_holder}>
             <Button title="More products near you" dark={true} onClick={moreProducts} />

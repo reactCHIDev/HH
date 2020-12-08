@@ -1,5 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
+import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import { Rate, Tag } from 'antd'
 
@@ -10,7 +11,7 @@ import styles from './exp_card.module.scss'
 import './exp_card.less'
 
 const ExpCard = (props) => {
-  const { photo, tags, name, price, rating, rateCount, isShowCart } = props
+  const { photo, tags, name, price, rating, rateCount, isShowCart, pathname, state } = props
 
   return (
     <div className={styles.container}>
@@ -25,7 +26,9 @@ const ExpCard = (props) => {
           </div>
         </div>
         <div className={styles.info_container}>
-          <p className={styles.exp_title}>{name}</p>
+          <Link className={styles.card_link} to={{ pathname, state }}>
+            <p className={styles.exp_title}>{name}</p>
+          </Link>
           <div className={styles.stats_container}>
             <div className={styles.exp_price_container}>
               <p className={styles.exp_price}>{`FROM $${price}`}</p>

@@ -17,13 +17,13 @@
   }
 
   @media (max-width: 480px) {
-    padding: 8px 0;    
-    width: 300px; 
+    padding: 8px 0;
+    width: 300px;
   }
 
   @media (max-width: 376px) {
-    padding: 8px 0;    
-    width: 100%; 
+    padding: 8px 0;
+    width: 100%;
   }
 
   .content {
@@ -79,7 +79,9 @@
         text-transform: capitalize;
         color: #31394d;
         min-height: 52px;
-
+        &:hover {
+          opacity: 0.6;
+        }
       }
 
       .stats_container {
@@ -113,11 +115,11 @@
           .qauntity {
             margin: 3px 0 0;
             font-size: 10px;
-            color: #31394D;
+            color: #31394d;
             opacity: 0.6;
           }
 
-          ul{
+          ul {
             font-size: 14px;
             margin-right: 8px;
           }
