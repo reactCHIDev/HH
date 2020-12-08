@@ -15,43 +15,35 @@
     margin-right: 40px;
     text-align: center;
 
-    .mail_icon {
-      position: absolute;
-      top: 68px;
-      right: -11px;
-      width: 80px;
-      cursor: pointer;
-
+    span{
+      width: 96px !important;
+      height: 96px !important;
     }
 
-    img {
-      margin-bottom: 10px;
+    .mail_icon {
+      position: absolute;
+      bottom: 40px;
+      right: -20px;
+      width: 70px;
+      cursor: pointer;
     }
 
     .maker_name {
-      font-style: normal;
       font-weight: bold;
-      font-size: 20px;
-      line-height: 23px;
+      font-size: 18px;
       display: flex;
       align-items: center;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.02em ;
       display: block;
-
       color: #3C3E43;
       margin-bottom: 5px;
     }
 
     .maker_title {
-      font-style: normal;
       font-weight: normal;
-      font-size: 15px;
-      line-height: 140%;
-
-      display: flex;
-      align-items: center;
+      font-size: 13px;
+      letter-spacing: 0.05em ;
       text-align: center;
-      letter-spacing: 0.3px;
       display: block;
 
       color: #838894;
@@ -63,21 +55,13 @@
     flex-direction: column;
 
     .description_title {
-      font-style: normal;
       font-weight: 600;
       font-size: 22px;
-      line-height: 26px;
-
-      display: flex;
-      align-items: center;
-      letter-spacing: 0.5px;
-
       color: #3C3E43;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
     .description_text {
-      font-style: normal;
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;
