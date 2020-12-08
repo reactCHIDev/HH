@@ -34,6 +34,10 @@
       padding: 60px 0 80px;
     }
 
+    @media (max-width: 480px) {
+      padding: 40px 0 60px;
+    }
+
     &:before {
       content: ' ';
       position: absolute;

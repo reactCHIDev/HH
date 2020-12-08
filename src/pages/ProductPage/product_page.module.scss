@@ -42,10 +42,15 @@
     .content {
       display: flex;
       padding-top: 30px;
-      max-width: 1440px;
+      padding: 0 15px;
+      max-width: 1240px;
       margin: auto;
       flex-wrap: wrap;
       justify-content: center;
+
+      @media (max-width: 1024px) {
+        padding: 0 10px;
+      }
     }
   }
 }
