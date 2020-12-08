@@ -3,14 +3,12 @@ import T from 'prop-types'
 import styles from './delivery_info.module.scss'
 import './delivery_info.less'
 
-const DeliveryInfo = () => {
+const DeliveryInfo = ({ region }) => {
   return (
     <div className={styles.container}>
       <div className={styles.info_section}>
         <div className={styles.title}>Delivery region</div>
-        <div className={styles.text}>
-          Singapore, China, Russia, Japan, S.Korea, Spain, USA, Canada
-        </div>
+        <div className={styles.text}>{region}</div>
       </div>
       <div className={styles.info_section}>
         <div className={styles.title}>Delivery type</div>
@@ -27,6 +25,8 @@ const DeliveryInfo = () => {
   )
 }
 
-DeliveryInfo.propTypes = {}
+DeliveryInfo.propTypes = {
+  region: toString,
+}
 
 export default DeliveryInfo

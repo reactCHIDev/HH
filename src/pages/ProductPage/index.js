@@ -3,10 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
 import cls from 'classnames'
-import stub1 from 'assets/images/landings/create_experience/leading.jpg'
 import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
-import stub3 from 'assets/images/landings/create_experience/sec22.jpg'
-import stub4 from 'assets/images/landings/create_experience/sec23.jpg'
 import Card from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -25,8 +22,7 @@ const ProductPage = (props) => {
     location: { state: product },
   } = props
 
-  console.clear()
-  console.log('%c   product   ', 'color: darkgreen; background: palegreen;', product)
+  const { userProfile } = product
 
   useEffect(() => {
     getProductInfoRequestAC(188)
@@ -40,19 +36,15 @@ const ProductPage = (props) => {
     <div className={cls('product-container', styles.container)}>
       <div className={styles.product}>
         <div className={styles.content}>
-          <ImagePreviewer images={[stub1, stub2, stub3, stub4, stub1, stub2, stub3, stub4]} />
+          <ImagePreviewer images={[product.coverPhoto, ...product.otherPhotos]} />
           <div className={styles.inner_content}>
-            <Header text="Pie with carrots, apple and cinnamon" />
-            <Toolbar
-              price={12.59}
-              weightOptions={[250, 450, 600]}
-              isShowWeightOptions
-              isPreOrderOnly={false}
-            />
-            <Tabs />
+            <Header text={product.title} />
+            <Toolbar params={product.parameters} isPreOrderOnly={false} />
+            <Tabs product={product} />
             <AboutMaker
-              name="Annette P."
-              text="I’m a nutritionist ,and baking cooking instructor. When I was younger I went to England for a year. The experience I had sharing a dormitory kitchen a nutritionist ,and baking cooking nutritionist ,and baking cooking instructor. When I was cooking."
+              name={userProfile.firstName}
+              text={userProfile.about}
+              photo={userProfile.coverPhoto}
             />
           </div>
         </div>
