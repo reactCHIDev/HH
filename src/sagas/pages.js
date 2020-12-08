@@ -3,13 +3,16 @@ import { replace } from 'connected-react-router'
 
 import PATHS from 'api/paths'
 
-import { getHomePageProductsReq } from 'api/requests/Pages'
+import { getHomePageProductsReq, getFoodmakesForHomePageReq } from 'api/requests/Pages'
 import { createProductSuccess, createProductError } from 'actions/product'
 
 import {
   GET_PUBLIC_PRODUCTS,
   GET_PUBLIC_PRODUCTS_SUCCESS,
   GET_PUBLIC_PRODUCTS_ERROR,
+  GET_PUBLIC_FOODMAKERS,
+  GET_PUBLIC_FOODMAKERS_SUCCESS,
+  GET_PUBLIC_FOODMAKERS_ERROR,
 } from '../actions/constants'
 
 function* getProductsSaga({ payload }) {
@@ -23,8 +26,20 @@ function* getProductsSaga({ payload }) {
   }
 }
 
+function* getFoodmakersSaga({ payload }) {
+  try {
+    const response = yield getFoodmakesForHomePageReq(payload)
+    yield put({ type: GET_PUBLIC_FOODMAKERS_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_PUBLIC_FOODMAKERS_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* pagesWatcher() {
   yield takeEvery(GET_PUBLIC_PRODUCTS, getProductsSaga)
+  yield takeEvery(GET_PUBLIC_FOODMAKERS, getFoodmakersSaga)
 }
 
 export default pagesWatcher

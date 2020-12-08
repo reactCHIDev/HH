@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getPublicProductsAC } from 'actions/pages'
+import { getPublicProductsAC, getPublicFoodmakersAC } from 'actions/pages'
 import ExpCard from 'components/ExperienceCard'
 import { Link } from 'react-router-dom'
 import cls from 'classnames'
@@ -28,22 +28,36 @@ import avatar3 from 'assets/images/landings/home_page/Ellipse 6.png'
 import hands from 'assets/images/landings/home_page/Group 677.svg'
 
 const Home = (props) => {
-  const { getPublicProductsAC, productList } = props
+  const { getPublicProductsAC, getPublicFoodmakersAC, productList, foodmakersList } = props
   const { Panel } = Collapse
 
-  const [startIndex, setStartIndex] = useState(0)
+  const [productStartIndex, setProductStartIndex] = useState(0)
   const [productCollection, setProductCollection] = useState([])
+  const [foodmakerStartIndex, setFoodmakerStartIndex] = useState(0)
+  const [foodmakerCollection, setFoodmakerCollection] = useState([])
 
   useEffect(() => {
-    getPublicProductsAC(startIndex, 6)
-  }, [startIndex])
+    getPublicProductsAC(productStartIndex, 6)
+  }, [productStartIndex])
+
+  useEffect(() => {
+    getPublicFoodmakersAC(foodmakerStartIndex, 3)
+  }, [foodmakerStartIndex])
 
   useEffect(() => {
     setProductCollection((p) => p.concat(productList))
   }, [productList])
 
+  useEffect(() => {
+    setFoodmakerCollection((p) => p.concat(foodmakersList))
+  }, [foodmakersList])
+
+  const moreFoodmakers = () => {
+    setFoodmakerStartIndex((si) => si + 3)
+  }
+
   const moreProducts = () => {
-    setStartIndex((si) => si + 6)
+    setProductStartIndex((si) => si + 6)
   }
 
   return (
@@ -190,13 +204,13 @@ const Home = (props) => {
           </h1>
 
           <div className={styles.local_tree_columns}>
-            <FMCard />
-            <FMCard />
-            <FMCard />
+            {foodmakerCollection &&
+              foodmakerCollection.length > 0 &&
+              foodmakerCollection.map((fm) => <FMCard foodmaker={fm} />)}
           </div>
 
           <div className={styles.btn_holder}>
-            <Button title="Explore foodmakers" dark={true} />
+            <Button title="Explore foodmakers" dark onClick={moreFoodmakers} />
           </div>
         </div>
       </section>
@@ -277,10 +291,16 @@ const Home = (props) => {
 }
 
 Home.propTypes = {
-  getPublicProductsAC: T.func,
   productList: T.arrayOf(T.shape),
+  foodmakersList: T.arrayOf(T.shape),
+  getPublicProductsAC: T.func,
+  getPublicFoodmakersAC: T.func,
 }
 
-export default connect(({ pages }) => ({ productList: pages.products }), {
-  getPublicProductsAC,
-})(Home)
+export default connect(
+  ({ pages }) => ({ productList: pages.products, foodmakersList: pages.foodmakers }),
+  {
+    getPublicProductsAC,
+    getPublicFoodmakersAC,
+  },
+)(Home)

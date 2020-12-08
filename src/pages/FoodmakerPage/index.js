@@ -24,12 +24,19 @@ const cutted =
   'I’m a nutritionist ,and baking cooking instructor. When I was younger I went to England for a year .The experience I had sharing a dormitory kitchen with many students from other countries made me fascinated with world food culture. After I came back to Japan I got a nutrition certificate and learned about cooking more. After I graduated from college,I worked a cooking school run by Tokyo-gas which is the largest gas company in Japan.I have lots of experience teach…'
 
 const FoodmakerPage = (props) => {
-  const { fm, getFoodmakerInfoAC, account } = props
+  const {
+    fm,
+    getFoodmakerInfoAC,
+    account,
+    location: { state: id },
+  } = props
   const [readMore, setReadMore] = useState(false)
 
+  console.log('%c   fm   ', 'color: white; background: salmon;', fm)
+
   useEffect(() => {
-    getFoodmakerInfoAC(account.id)
-  }, [account])
+    getFoodmakerInfoAC(id)
+  }, [])
 
   const onReadMore = () => setReadMore(!readMore)
 
@@ -39,7 +46,7 @@ const FoodmakerPage = (props) => {
         <div className={styles.header}>
           <div className={styles.info_section}>
             <div className={styles.avatar_container}>
-              <img src={avatar} alt="avatar" />
+              <img src={fm.userPhoto} alt="avatar" />
             </div>
             <div className={styles.location}>
               <div className={styles.maker_location}>
