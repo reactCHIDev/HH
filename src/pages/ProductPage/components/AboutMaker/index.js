@@ -11,10 +11,14 @@ const AboutMaker = ({ name, photo, text }) => {
   return (
     <div className={cls('about-maker', styles.container)}>
       <div className={styles.avatar_container}>
-        <Avatar size={140} icon={photo ? <img src={photo} alt="foodmaker" /> : <UserOutlined />} />
-        <img className={styles.mail_icon} src={MailIcon} alt="email" />
-        <div className={styles.maker_name}>{name}</div>
-        <div className={styles.maker_title}>Foodmaker</div>
+        <div className={styles.avatar_holder}>
+           <Avatar icon={photo ? <img src={photo} alt="foodmaker" /> : <UserOutlined />} />
+          <img className={styles.mail_icon} src={MailIcon} alt="email" />
+        </div>
+        <div>
+           <div className={styles.maker_name}>{name}</div>
+          <div className={styles.maker_title}>Foodmaker</div>
+        </div>
       </div>
       <div className={styles.description}>
         <div className={styles.description_title}>About maker</div>

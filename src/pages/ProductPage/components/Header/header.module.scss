@@ -30,6 +30,10 @@
     letter-spacing: 0.02em;
     margin:0 0 24px ; 
 
+    @media (max-width: 768px) {
+      font-size: 22px;
+    }
+
     p{margin: 0;}
   }
 }
