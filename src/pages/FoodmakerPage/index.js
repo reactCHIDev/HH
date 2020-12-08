@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { getShopByFoodmakerIdAC } from 'actions/shop'
 import Button from 'components/Button'
+import { Link } from 'react-router-dom'
 import ExpCard from 'components/ExperienceCard'
 import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
@@ -20,22 +22,25 @@ import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
 
-const cutted =
-  'I’m a nutritionist ,and baking cooking instructor. When I was younger I went to England for a year .The experience I had sharing a dormitory kitchen with many students from other countries made me fascinated with world food culture. After I came back to Japan I got a nutrition certificate and learned about cooking more. After I graduated from college,I worked a cooking school run by Tokyo-gas which is the largest gas company in Japan.I have lots of experience teach…'
+const cutted = 'qweqwe'
 
 const FoodmakerPage = (props) => {
   const {
     fm,
+    shop,
     getFoodmakerInfoAC,
+    getShopByFoodmakerIdAC,
     account,
     location: { state: id },
   } = props
+
   const [readMore, setReadMore] = useState(false)
 
-  console.log('%c   fm   ', 'color: white; background: salmon;', fm)
+  const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
 
   useEffect(() => {
     getFoodmakerInfoAC(id)
+    getShopByFoodmakerIdAC(id)
   }, [])
 
   const onReadMore = () => setReadMore(!readMore)
@@ -60,7 +65,7 @@ const FoodmakerPage = (props) => {
                 <p className={styles.qauntity}>(32)</p>
               </div>
             </div>
-            <p className={styles.first_last_name}>{fm.firstName + ' ' + fm.lastName}</p>
+            <p className={styles.first_last_name}>{name}</p>
             <div className={styles.descr}>
               <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
             </div>
@@ -87,15 +92,13 @@ const FoodmakerPage = (props) => {
             <div className={styles.about_shop}>
               <div className={styles.about_header}>
                 <img className={styles.shop_icon} src={coverPhoto} alt="icon" />
-                <p className={styles.shop_name}>Catch and eat</p>
+                <p className={styles.shop_name}>{shop.title}</p>
               </div>
-              <p className={styles.shop_descr}>
-                Annette is a “Сatch and eat” head. She lives and breathes flavours. At his bar
-                Oriental Elixir, he plays with flavours from around Asia. Exploring ingredients that
-                are known only in small communities across Asia
-              </p>
+              <p className={styles.shop_descr}>{shop.description}</p>
               <div className={styles.btn_container}>
-                <Button title="Visit shop" dark={true} />
+                <Link to={{ pathname: '/shop_page', state: id }}>
+                  <Button title="Visit shop" dark={true} />
+                </Link>
               </div>
             </div>
           </div>
@@ -171,9 +174,15 @@ const FoodmakerPage = (props) => {
 
 FoodmakerPage.propTypes = {
   getFoodmakerInfoAC: T.func.isRequired,
+  getShopByFoodmakerIdAC: T.func.isRequired,
   fm: T.shape(),
+  shop: T.shape(),
 }
 
-export default connect(({ foodmaker, account }) => ({ fm: foodmaker, account }), {
-  getFoodmakerInfoAC,
-})(FoodmakerPage)
+export default connect(
+  ({ foodmaker, account, shop }) => ({ fm: foodmaker, account, shop: shop.shopData }),
+  {
+    getFoodmakerInfoAC,
+    getShopByFoodmakerIdAC,
+  },
+)(FoodmakerPage)

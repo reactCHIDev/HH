@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
+import { Redirect, Link } from 'react-router-dom'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { getShopByFoodmakerIdAC } from 'actions/shop'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
 import { Rate } from 'antd'
@@ -20,20 +22,26 @@ import Pattern2 from 'assets/images/pattern 2.svg'
 import Shop from 'assets/images/landings/create_shop/shop.svg'
 import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
 
-const aboutShop =
-  "After walking the same ground as the best boxers of all time, learning some of it's history and watching future legends prepare for upcoming matches. It’s your turn to step into the ring. After walking the same ground as the best boxers of all time, learning some of it's history and watching future legends prepare for upcoming matches, it’s your turn to step into the ring. It's history and watching future legends prepare for upcoming matches. "
-
 const ShopPage = (props) => {
-  const { fm, getFoodmakerInfoAC, account } = props
+  const { location, fm, shop, getFoodmakerInfoAC, getShopByFoodmakerIdAC } = props
 
-  /*   useEffect(() => {
-    getFoodmakerInfoAC(account.id)
-  }, [account]) */
+  const id = location.state
+
+  const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
+
+  useEffect(() => {
+    getFoodmakerInfoAC(id)
+    getShopByFoodmakerIdAC(id)
+  }, [])
+
+  if (!id) return <Redirect to="/" />
 
   return (
     <div>
       <div className={styles.header}>
-        <div className={styles.pattern}><img src={Pattern2} alt="Pattern2"/></div>
+        <div className={styles.pattern}>
+          <img src={Pattern2} alt="Pattern2" />
+        </div>
         <div className={styles.container}>
           <div className={styles.info_section}>
             <div className={styles.location}>
@@ -48,7 +56,7 @@ const ShopPage = (props) => {
                 <p className={styles.qauntity}>(32)</p>
               </div>
             </div>
-            <p className={styles.first_last_name}>{fm.firstName + ' ' + fm.lastName}</p>
+            <p className={styles.first_last_name}>{name}</p>
             <div className={styles.descr}>
               <p>Event hire, custom made, catering.</p>
               <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
@@ -107,20 +115,21 @@ const ShopPage = (props) => {
               <div className={styles.about_shop}>
                 <img className={styles.acc} src={Shop} alt="Shop" />
                 <p className={styles.heading}>A few words about the shop</p>
-                <p className={styles.about_text}>{aboutShop}</p>
                 <div className={styles.shop_autor}>
-                  <img src={Avatar} alt="Avatar" className={styles.avatar}/>
+                  <img src={Avatar} alt="Avatar" className={styles.avatar} />
                   <div className={styles.text_holder}>
                     <span className={styles.owner}>Shop owner</span>
                     <strong className={styles.title}>Annette Pehrsson</strong>
-                    <p>I’m a nutritionist ,and baking cooking instructor. When I was younger I went to England for a year .The experience I had sharing a dormy... <a href="#">Read more</a></p>
+                    <p>
+                      I’m a nutritionist ,and baking cooking instructor. When I was younger I went
+                      to England for a year .The experience I had sharing a dormy...{' '}
+                      <a href="#">Read more</a>
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
       </div>
       <div className={styles.bottom_section_container}>
@@ -134,10 +143,14 @@ const ShopPage = (props) => {
 }
 
 ShopPage.propTypes = {
-  getFoodmakerInfoAC: T.func.isRequired,
+  location: T.shape(),
   fm: T.shape(),
+  shop: T.shape(),
+  getFoodmakerInfoAC: T.func.isRequired,
+  getShopByFoodmakerIdAC: T.func.isRequired,
 }
 
-export default connect(({ foodmaker, account }) => ({ fm: foodmaker, account }), {
+export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.shopData }), {
   getFoodmakerInfoAC,
+  getShopByFoodmakerIdAC,
 })(ShopPage)
