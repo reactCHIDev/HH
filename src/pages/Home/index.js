@@ -9,6 +9,7 @@ import Footer from 'components/Footer'
 import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
 import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import FMCard from './LocalFMCard'
 import T from 'prop-types'
 import styles from './home.module.scss'
 import './home.less'
@@ -67,8 +68,8 @@ const Home = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>City *</label>
-              <input className={styles.input} type="text" placeholder="Select a city"/>
-              <span className={cls(styles.label ,'mobile_hidden')}>Hong-Kong,  Sydney</span>
+              <input className={styles.input} type="text" placeholder="Select a city" />
+              <span className={cls(styles.label, 'mobile_hidden')}>Hong-Kong, Sydney</span>
             </div>
             <div className={styles.input_wrapper}>
               <button type="button">
@@ -124,25 +125,20 @@ const Home = (props) => {
               distillery tour.{' '}
             </p>
           </div>
-          <h1>Shop local makers</h1>
-          <p className={styles.slogan}>
-            Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
-            distillery tour.{' '}
-          </p>
           {productCollection?.length &&
             productCollection.map((product) => (
-              <Link to={{ pathname: '/product_page', state: product }}>
-                <ExpCard
-                  key={product.id}
-                  photo={product.coverPhoto}
-                  tags={product.productTags.map((t) => t.tagName)}
-                  name={product.title}
-                  price={product.price}
-                  rating={product.rating}
-                  rateCount={product.reviews?.length}
-                  isShowCart
-                />
-              </Link>
+              // <Link className={styles.card_link} to={{ pathname: '/product_page', state: product }}>
+              <ExpCard
+                key={product.id}
+                photo={product.coverPhoto}
+                tags={product.productTags.map((t) => t.tagName)}
+                name={product.title}
+                price={product.price}
+                rating={product.rating}
+                rateCount={product.reviews?.length}
+                isShowCart
+              />
+              // </Link>
             ))}
           <div className={styles.btn_holder}>
             <Button title="More products near you" dark={true} onClick={moreProducts} />
@@ -184,97 +180,25 @@ const Home = (props) => {
       </div>
 
       <section className={styles.local_makers_content}>
-          <div className={styles.local_makers_container}>
+        <div className={styles.local_makers_container}>
+          <h1>
+            <p>
+              {' '}
+              <img src={hands} alt="img" />
+            </p>
+            Your local food makers
+          </h1>
 
-            <h1>
-               
-                <p> <img src={hands} alt="img"/></p>
-               Your local food makers 
-            </h1>
-
-            <div className={styles.local_tree_columns}>
-
-              <div className={styles.local_makers_col}>
-                <div className={styles.local_makers_col_bg}>
-                  <ul className={styles.local_img_box}>
-                    <li><img src={Rectangle} alt="img"/></li>
-                    <li><img src={Rectangle1} alt="img"/></li>
-                    <li><img src={Rectangle2} alt="img"/></li>
-                  </ul>
-                  <div className={styles.local_bottom_box}>
-                    <div className={styles.local_avatar_info}>
-                      <div className={styles.local_avatar_box}>
-                        <img src={avatar3} alt="avatar"/>
-                      </div>
-                      <p className={styles.local_name}>Kaspar N.
-                        <p>Chief, Chocolatier</p>
-                      </p>
-                    </div>
-                    <div className={styles.local_raiting_holder}>
-                        rating-block
-                      <p>4,3 for 32 experiences</p>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.local_makers_col}>
-                <div className={styles.local_makers_col_bg}>
-                  <ul className={styles.local_img_box}>
-                    <li><img src={Rectangle3} alt="img"/></li>
-                    <li><img src={Rectangle4} alt="img"/></li>
-                    <li><img src={Rectangle5} alt="img"/></li>
-                  </ul>
-                  <div className={styles.local_bottom_box}>
-                    <div className={styles.local_avatar_info}>
-                      <div className={styles.local_avatar_box}>
-                        <img src={avatar3} alt="avatar"/>
-                      </div>
-                      <p className={styles.local_name}>Kaspar N.
-                        <p>Chief, Chocolatier</p>
-                      </p>
-                    </div>
-                    <div className={styles.local_raiting_holder}>
-                        rating-block
-                      <p>4,3 for 32 experiences</p>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.local_makers_col}>
-                <div className={styles.local_makers_col_bg}>
-                  <ul className={styles.local_img_box}>
-                    <li><img src={Rectangle6} alt="img"/></li>
-                    <li><img src={Rectangle7} alt="img"/></li>
-                    <li><img src={Rectangle8} alt="img"/></li>
-                  </ul>
-                  <div className={styles.local_bottom_box}>
-                    <div className={styles.local_avatar_info}>
-                      <div className={styles.local_avatar_box}>
-                        <img src={avatar3} alt="avatar"/>
-                      </div>
-                      <p className={styles.local_name}>Kaspar N.
-                        <p>Chief, Chocolatier</p>
-                      </p>
-                    </div>
-                    <div className={styles.local_raiting_holder}>
-                        rating-block
-                      <p>4,3 for 32 experiences</p>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={styles.btn_holder}>
-              <Button title="Explore foodmakers" dark={true} />
-            </div>
-
+          <div className={styles.local_tree_columns}>
+            <FMCard />
+            <FMCard />
+            <FMCard />
           </div>
+
+          <div className={styles.btn_holder}>
+            <Button title="Explore foodmakers" dark={true} />
+          </div>
+        </div>
       </section>
 
       <div className={styles.faq_container}>
