@@ -14,6 +14,17 @@ import styles from './home.module.scss'
 import './home.less'
 import Button from 'components/Button'
 import Pattern2 from 'assets/images/pattern 2.svg'
+import Rectangle from 'assets/images/landings/home_page/Rectangle.png'
+import Rectangle1 from 'assets/images/landings/home_page/Rectangle (1).png'
+import Rectangle2 from 'assets/images/landings/home_page/Rectangle (2).png'
+import Rectangle3 from 'assets/images/landings/home_page/Rectangle (3).png'
+import Rectangle4 from 'assets/images/landings/home_page/Rectangle (4).png'
+import Rectangle5 from 'assets/images/landings/home_page/Rectangle (5).png'
+import Rectangle6 from 'assets/images/landings/home_page/Rectangle (6).png'
+import Rectangle7 from 'assets/images/landings/home_page/Rectangle (7).png'
+import Rectangle8 from 'assets/images/landings/home_page/Rectangle (8).png'
+import avatar3 from 'assets/images/landings/home_page/Ellipse 6.png'
+import hands from 'assets/images/landings/home_page/Group 677.svg'
 
 const Home = (props) => {
   const { getPublicProductsAC, productList } = props
@@ -56,7 +67,8 @@ const Home = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>City *</label>
-              <input className={styles.input} type="text" />
+              <input className={styles.input} type="text" placeholder="Select a city"/>
+              <span className={cls(styles.label ,'mobile_hidden')}>Hong-Kong,  Sydney</span>
             </div>
             <div className={styles.input_wrapper}>
               <button type="button">
@@ -106,6 +118,11 @@ const Home = (props) => {
         <section className={styles.product_section}>
           <div className={styles.product_bg_container}>
             <img src={Pattern2} alt="Pattern2" />
+            <h1>Shop local makers</h1>
+            <p className={styles.slogan}>
+              Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
+              distillery tour.{' '}
+            </p>
           </div>
           <h1>Shop local makers</h1>
           <p className={styles.slogan}>
@@ -160,7 +177,105 @@ const Home = (props) => {
             />
           ))}
         </div>
+
+        <div className={styles.btn_holder}>
+          <Button title="More experiences near you" dark={true} />
+        </div>
       </div>
+
+      <section className={styles.local_makers_content}>
+          <div className={styles.local_makers_container}>
+
+            <h1>
+               
+                <p> <img src={hands} alt="img"/></p>
+               Your local food makers 
+            </h1>
+
+            <div className={styles.local_tree_columns}>
+
+              <div className={styles.local_makers_col}>
+                <div className={styles.local_makers_col_bg}>
+                  <ul className={styles.local_img_box}>
+                    <li><img src={Rectangle} alt="img"/></li>
+                    <li><img src={Rectangle1} alt="img"/></li>
+                    <li><img src={Rectangle2} alt="img"/></li>
+                  </ul>
+                  <div className={styles.local_bottom_box}>
+                    <div className={styles.local_avatar_info}>
+                      <div className={styles.local_avatar_box}>
+                        <img src={avatar3} alt="avatar"/>
+                      </div>
+                      <p className={styles.local_name}>Kaspar N.
+                        <p>Chief, Chocolatier</p>
+                      </p>
+                    </div>
+                    <div className={styles.local_raiting_holder}>
+                        rating-block
+                      <p>4,3 for 32 experiences</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.local_makers_col}>
+                <div className={styles.local_makers_col_bg}>
+                  <ul className={styles.local_img_box}>
+                    <li><img src={Rectangle3} alt="img"/></li>
+                    <li><img src={Rectangle4} alt="img"/></li>
+                    <li><img src={Rectangle5} alt="img"/></li>
+                  </ul>
+                  <div className={styles.local_bottom_box}>
+                    <div className={styles.local_avatar_info}>
+                      <div className={styles.local_avatar_box}>
+                        <img src={avatar3} alt="avatar"/>
+                      </div>
+                      <p className={styles.local_name}>Kaspar N.
+                        <p>Chief, Chocolatier</p>
+                      </p>
+                    </div>
+                    <div className={styles.local_raiting_holder}>
+                        rating-block
+                      <p>4,3 for 32 experiences</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.local_makers_col}>
+                <div className={styles.local_makers_col_bg}>
+                  <ul className={styles.local_img_box}>
+                    <li><img src={Rectangle6} alt="img"/></li>
+                    <li><img src={Rectangle7} alt="img"/></li>
+                    <li><img src={Rectangle8} alt="img"/></li>
+                  </ul>
+                  <div className={styles.local_bottom_box}>
+                    <div className={styles.local_avatar_info}>
+                      <div className={styles.local_avatar_box}>
+                        <img src={avatar3} alt="avatar"/>
+                      </div>
+                      <p className={styles.local_name}>Kaspar N.
+                        <p>Chief, Chocolatier</p>
+                      </p>
+                    </div>
+                    <div className={styles.local_raiting_holder}>
+                        rating-block
+                      <p>4,3 for 32 experiences</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.btn_holder}>
+              <Button title="Explore foodmakers" dark={true} />
+            </div>
+
+          </div>
+      </section>
 
       <div className={styles.faq_container}>
         <p className={styles.faq_heading}>Frequently Asked Questions</p>
