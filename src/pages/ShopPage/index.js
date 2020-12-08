@@ -24,8 +24,9 @@ import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
 
 const ShopPage = (props) => {
   const { location, fm, shop, getFoodmakerInfoAC, getShopByFoodmakerIdAC } = props
-
   const id = location.state
+
+  const [productCount, setProductCount] = useState(4)
 
   const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
 
@@ -33,6 +34,8 @@ const ShopPage = (props) => {
     getFoodmakerInfoAC(id)
     getShopByFoodmakerIdAC(id)
   }, [])
+
+  const showMore = () => setProductCount((c) => c + 4)
 
   if (!id) return <Redirect to="/" />
 
@@ -85,29 +88,22 @@ const ShopPage = (props) => {
           <div className={styles.content_container}>
             <div className={styles.section_experiences}>
               <div className={styles.exp_container}>
-                {[1, 2, 3, 4, 5, 6].map((e) => (
-                  <ExpCard
-                    key={e}
-                    photo={sec21}
-                    tags={[
-                      'Chef',
-                      'Backer',
-                      'Mixologist',
-                      'Taste maker',
-                      'Food maker',
-                      'Craft maker',
-                      'Urban Farmer',
-                      'Chocolatier',
-                    ]}
-                    name="Singapore Cooking Lesson: Charity Project"
-                    price={650}
-                    rating={3}
-                    rateCount={32}
-                  />
-                ))}
+                {shop.products &&
+                  shop.products.length &&
+                  shop.products.slice(0, productCount).map((e) => (
+                    <ExpCard
+                      key={e.id}
+                      photo={e.coverPhoto}
+                      tags={['asdasd', 'asdasd', 'werwer']}
+                      name={e.title}
+                      price={e.price}
+                      rating={e.rating}
+                      // rateCount={32}
+                    />
+                  ))}
               </div>
               <div className={styles.exp_btn_container}>
-                <Button title="See all experiences" dark={true} />
+                <Button title="See all experiences" dark onClick={showMore} />
               </div>
             </div>
 
@@ -115,16 +111,13 @@ const ShopPage = (props) => {
               <div className={styles.about_shop}>
                 <img className={styles.acc} src={Shop} alt="Shop" />
                 <p className={styles.heading}>A few words about the shop</p>
+                <p className={styles.about_text}>{shop.description}</p>
                 <div className={styles.shop_autor}>
-                  <img src={Avatar} alt="Avatar" className={styles.avatar} />
+                  <img src={fm.userPhoto} alt="Avatar" className={styles.avatar} />
                   <div className={styles.text_holder}>
                     <span className={styles.owner}>Shop owner</span>
-                    <strong className={styles.title}>Annette Pehrsson</strong>
-                    <p>
-                      I’m a nutritionist ,and baking cooking instructor. When I was younger I went
-                      to England for a year .The experience I had sharing a dormy...{' '}
-                      <a href="#">Read more</a>
-                    </p>
+                    <strong className={styles.title}>{name}</strong>
+                    <p>{fm.about}</p>
                   </div>
                 </div>
               </div>

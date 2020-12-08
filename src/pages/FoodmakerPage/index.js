@@ -119,7 +119,7 @@ const FoodmakerPage = (props) => {
           </div>
         </div>
 
-        <div className={styles.section_experiences}>
+        {/* <div className={styles.section_experiences}>
           <p className={styles.exp_heading}>Upcoming experiences</p>
           <div className={styles.exp_container}>
             {[1, 2, 3, 4, 5, 6].map((e) => (
@@ -146,7 +146,7 @@ const FoodmakerPage = (props) => {
           <div className={styles.exp_btn_container}>
             <Button title="See all experiences" dark={true} />
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.slider_section}>
           <SliderSection />

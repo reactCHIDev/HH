@@ -104,7 +104,7 @@ const Home = (props) => {
       </section>
 
       <div className={styles.content}>
-        <div className={styles.exp_section}>
+        {/* <div className={styles.exp_section}>
           {[1, 2, 3, 4, 5, 6].map((e) => (
             <ExpCard
               photo={stub2}
@@ -128,7 +128,7 @@ const Home = (props) => {
           <div className={styles.btn_holder}>
             <Button title="Explore more" dark={true} />
           </div>
-        </div>
+        </div> */}
 
         <section className={styles.product_section}>
           <div className={styles.product_bg_container}>
@@ -159,7 +159,7 @@ const Home = (props) => {
           </div>
         </section>
 
-        <div className={styles.lessons_section}>
+        {/* <div className={styles.lessons_section}>
           <p className={styles.slogan}>
             Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
             distillery tour.{' '}
@@ -190,7 +190,7 @@ const Home = (props) => {
 
         <div className={styles.btn_holder}>
           <Button title="More experiences near you" dark={true} />
-        </div>
+        </div> */}
       </div>
 
       <section className={styles.local_makers_content}>

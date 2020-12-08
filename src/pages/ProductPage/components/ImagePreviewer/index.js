@@ -25,22 +25,25 @@ const ImagePreviewer = (props) => {
     [],
   )
 
-  const handleImageClick = useCallback((e,image) => setSelectedImage(image))
+  const handleImageClick = useCallback((e) => {
+    console.log('%c   image   ', 'color: white; background: royalblue;', e.currentTarget.id)
+    setSelectedImage(e.currentTarget.id)
+  })
 
   return (
     <div className={styles.container}>
-      <div className={styles.img_container} style={{backgroundImage:`url("${selectedImage}")`}}>
-      </div>
+      <div
+        className={styles.img_container}
+        style={{ backgroundImage: `url("${selectedImage}")` }}
+      ></div>
       <div className={styles.slider_container}>
         <Slider {...settings}>
           {images.map((image) => (
-            <div 
-              className={styles.preview_container}
-              onClick={(e,image)=>handleImageClick(image)}>
-                <span 
-                  style={{backgroundImage:`url("${image}")`}}
-                  className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}>
-                </span>
+            <div className={styles.preview_container} id={image} onClick={handleImageClick}>
+              <span
+                style={{ backgroundImage: `url("${image}")` }}
+                className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}
+              ></span>
             </div>
           ))}
         </Slider>
