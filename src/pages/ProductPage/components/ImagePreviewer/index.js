@@ -36,7 +36,12 @@ const ImagePreviewer = (props) => {
         <Slider {...settings}>
           {images.map((image) => (
             <div className={styles.preview_container}>
-              <img src={image} alt="" className={styles.preview_img} onClick={handleImageClick} />
+              <img
+                src={image}
+                alt=""
+                className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}
+                onClick={handleImageClick}
+              />
             </div>
           ))}
         </Slider>

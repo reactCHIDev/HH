@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getPublicProductsAC } from 'actions/pages'
 import ExpCard from 'components/ExperienceCard'
+import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -18,12 +19,20 @@ const Home = (props) => {
   const { getPublicProductsAC, productList } = props
   const { Panel } = Collapse
 
-  useEffect(() => {
-    getPublicProductsAC()
-  }, [])
+  const [startIndex, setStartIndex] = useState(0)
+  const [productCollection, setProductCollection] = useState([])
 
-  console.clear()
-  console.log('%c   productList   ', 'color: white; background: salmon;', productList)
+  useEffect(() => {
+    getPublicProductsAC(startIndex, 6)
+  }, [startIndex])
+
+  useEffect(() => {
+    setProductCollection((p) => p.concat(productList))
+  }, [productList])
+
+  const moreProducts = () => {
+    setStartIndex((si) => si + 6)
+  }
 
   return (
     <div className={styles.container}>
@@ -103,25 +112,23 @@ const Home = (props) => {
             Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
             distillery tour.{' '}
           </p>
-          {productList?.length &&
-            productList.map((p) =>
-              p.coverPhoto ? (
+          {productCollection?.length &&
+            productCollection.map((product) => (
+              <Link to={{ pathname: '/product_page', state: product }}>
                 <ExpCard
-                  key={p.id}
-                  photo={p.coverPhoto}
-                  tags={p.productTags.map((t) => t.tagName)}
-                  name={p.title}
-                  price={p.price}
-                  rating={p.rating}
-                  rateCount={p.reviews?.length}
+                  key={product.id}
+                  photo={product.coverPhoto}
+                  tags={product.productTags.map((t) => t.tagName)}
+                  name={product.title}
+                  price={product.price}
+                  rating={product.rating}
+                  rateCount={product.reviews?.length}
                   isShowCart
                 />
-              ) : (
-                <></>
-              ),
-            )}
+              </Link>
+            ))}
           <div className={styles.btn_holder}>
-            <Button title="More products near you" dark={true} />
+            <Button title="More products near you" dark={true} onClick={moreProducts} />
           </div>
         </section>
 

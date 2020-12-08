@@ -9,19 +9,23 @@ import RefundPolicyTab from './RefundPolicy'
 import styles from './tabs.module.scss'
 import './tabs.less'
 
-const Tabs = () => {
+const Tabs = (props) => {
+  const {
+    product: { description, ingedients, deliveryRegion, refundPolicy, refundPolicyNote },
+  } = props
+
   const tabs = {
     INFORMATION: {
-      content: <InformationTab />,
+      content: <InformationTab description={description} ingedients={ingedients} />,
     },
     REVIEWS: {
       content: <ReviewTab />,
     },
     'DELIVERY INFO': {
-      content: <DeliveryInfoTab />,
+      content: <DeliveryInfoTab region={deliveryRegion} />,
     },
     'REFUND POLICY': {
-      content: <RefundPolicyTab />,
+      content: <RefundPolicyTab refund={refundPolicy} note={refundPolicyNote} />,
     },
   }
 
@@ -32,6 +36,13 @@ const Tabs = () => {
   )
 }
 
-Tabs.propTypes = {}
+Tabs.propTypes = {
+  product: T.shape,
+  description: T.string,
+  ingedients: T.string,
+  deliveryRegion: T.string,
+  refundPolicy: T.string,
+  refundPolicyNote: T.string,
+}
 
 export default Tabs

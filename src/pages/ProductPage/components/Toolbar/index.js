@@ -6,8 +6,8 @@ import Button from 'components/Button/index'
 import styles from './toolbar.module.scss'
 import './toolbar.less'
 
-const Toolbar = ({ price, weightOptions, isShowWeightOptions, isPreOrderOnly }) => {
-  const [weightOption, setWeightOption] = useState(weightOptions[0])
+const Toolbar = ({ params, isPreOrderOnly }) => {
+  const [weightOption, setWeightOption] = useState(params[0].volume)
   const [count, setCount] = useState(1)
 
   const handleWeightChange = (value) => setWeightOption(value)
@@ -19,15 +19,19 @@ const Toolbar = ({ price, weightOptions, isShowWeightOptions, isPreOrderOnly }) 
 
   return (
     <div className={styles.container}>
-      <div className={styles.price}>{price}</div>
+      <div className={styles.price}>
+        {params.find((p) => p.volume === weightOption)?.price.toFixed(2)}
+      </div>
       <div className={cls(styles.select_container, 'selects')}>
         <Select defaultValue={weightOption} onChange={handleWeightChange}>
-          {isShowWeightOptions &&
-            weightOptions.map((weight) => (
-              <Option key={weight} value={weight}>
-                {`${weight}g`}
-              </Option>
-            ))}
+          {true &&
+            params
+              .map((p) => p.volume)
+              .map((weight) => (
+                <Option key={weight} value={weight}>
+                  {`${weight}g`}
+                </Option>
+              ))}
         </Select>
       </div>
       <div className={styles.count}>
@@ -61,9 +65,7 @@ const Toolbar = ({ price, weightOptions, isShowWeightOptions, isPreOrderOnly }) 
 }
 
 Toolbar.propTypes = {
-  price: T.number.isRequired,
-  weightOptions: T.arrayOf(T.string).isRequired,
-  isShowWeightOptions: T.bool.isRequired,
+  params: T.arrayOf(T.shape).isRequired,
   isPreOrderOnly: T.bool.isRequired,
 }
 
