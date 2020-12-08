@@ -1,29 +1,29 @@
 .container {
-  width: 33.33%;
+  // width: 33.33%;
+  width: 410px;
+  flex-shrink: 0;
   padding: 24px 16px;
   display: flex;
   position: relative;
   z-index: 2;
+  min-width: 380px;
 
   @media (max-width: 1024px) {
-    min-width: 322px;
-    width: 47%;
+    // min-width: 322px;
+    // width: 47%;
   }
 
   @media (max-width: 768px) {
-    min-width: 300px;
+    // min-width: 300px;
     padding: 10px 5px;
-    width: 50%;
+    width: 388px;
   }
 
   @media (max-width: 480px) {
     padding: 8px 0;
-    width: 300px;
-  }
-
-  @media (max-width: 376px) {
-    padding: 8px 0;
     width: 100%;
+    max-width: 380px;
+    min-width: 1px;
   }
 
   .content {
