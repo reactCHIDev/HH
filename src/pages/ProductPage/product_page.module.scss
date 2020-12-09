@@ -12,6 +12,10 @@
       @media (max-width: 1024px) {
         padding-bottom: 100px;
       }
+
+      @media (max-width: 768px) {
+        padding-bottom: 40px;
+      }
     
       .inner_content {
         font-size: 72px;
@@ -30,13 +34,20 @@
     margin-bottom: 100px;
 
     h2 {
-      font-style: normal;
       font-weight: bold;
       font-size: 48px;
       line-height: 64px;
       letter-spacing: 0.5px;
       color: #31394D;
       text-align: center;
+
+      @media (max-width: 1024px) {
+        font-size: 38px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 25px;
+      }
     }
   
     .content {

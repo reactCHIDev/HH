@@ -8,46 +8,74 @@
     margin: 0 20px;
   }
 
+  @media (max-width: 768px) {
+    padding: 20px;
+    margin: 0;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
   .avatar_container {
-    display: flex;
-    flex-direction: column;
     position: relative;
-    margin-right: 40px;
+    padding: 0 40px 0 0;
     text-align: center;
 
-    span{
-      width: 96px !important;
-      height: 96px !important;
-    }
-
-    .mail_icon {
-      position: absolute;
-      bottom: 40px;
-      right: -20px;
-      width: 70px;
-      cursor: pointer;
-    }
-
-    .maker_name {
-      font-weight: bold;
-      font-size: 18px;
+    @media (max-width: 768px) {
+      padding: 10px 0 24px;
+      text-align: left;
       display: flex;
       align-items: center;
-      letter-spacing: 0.02em ;
-      display: block;
-      color: #3C3E43;
-      margin-bottom: 5px;
     }
 
-    .maker_title {
-      font-weight: normal;
-      font-size: 13px;
-      letter-spacing: 0.05em ;
-      text-align: center;
-      display: block;
+    .avatar_holder{
+      position: relative;
 
-      color: #838894;
+      @media (max-width: 768px) {
+        margin-right: 25px;
+      }
+
+      span{
+        width: 96px;
+        height: 96px;
+        margin: 0;
+      }
+  
+      .mail_icon {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 70px;
+        cursor: pointer;
+      }
+  
+      
     }
+    .maker_name {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1.2;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.01em;
+        display: block;
+        color: #3C3E43;
+        margin: 15px 0 5px;
+
+        @media (max-width: 768px) {
+          margin-top: 0;
+        }
+      }
+  
+      .maker_title {
+        font-weight: normal;
+        font-size: 13px;
+        letter-spacing: 0.05em ;
+        text-align: center;
+        display: block;
+  
+        color: #838894;
+      }
   }
 
   .description {
@@ -59,19 +87,27 @@
       font-size: 22px;
       color: #3C3E43;
       margin-bottom: 10px;
+
+      @media (max-width: 480px) {
+          font-size: 18px;
+      }
     }
 
     .description_text {
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;
-      /* or 22px */
+      letter-spacing: 0.05em;
+      color: #6b789981;
 
-      letter-spacing: 0.5px;
+      @media (max-width: 480px) {
+        font-size: 12px;
+      }
 
-      color: #31394D;
-
-      opacity: 0.8;
+      a{
+        color:#31394D;
+        margin-left: 5px;
+      }
     }
   }
 }
