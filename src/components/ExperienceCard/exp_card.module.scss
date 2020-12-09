@@ -1,20 +1,12 @@
 .container {
-  // width: 33.33%;
   width: 410px;
   flex-shrink: 0;
   padding: 24px 16px;
   display: flex;
   position: relative;
   z-index: 2;
-  min-width: 380px;
-
-  @media (max-width: 1024px) {
-    // min-width: 322px;
-    // width: 47%;
-  }
 
   @media (max-width: 768px) {
-    // min-width: 300px;
     padding: 10px 5px;
     width: 388px;
   }
@@ -70,16 +62,17 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-
+      flex-grow: 1;
+      
       .exp_title {
         font-weight: 500;
         font-size: 20px;
         letter-spacing: 0.05em;
         text-transform: capitalize;
         color: #31394d;
-        min-height: 52px;
+        
         &:hover {
-          opacity: 0.6;
+          opacity: 0.8;
         }
       }
 
