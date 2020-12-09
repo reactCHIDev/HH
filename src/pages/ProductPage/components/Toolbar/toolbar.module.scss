@@ -55,8 +55,11 @@
     justify-content: space-around;
     align-items: center;
     width: 120px !important;
-    margin: 0 8px 10px;
+    margin: 0 8px ;
     
+    @media (max-width: 768px) {
+      margin: 0 8px 10px;
+    }
 
     .button_left {
       display: inline-block;
