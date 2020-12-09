@@ -2,6 +2,7 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { replace } from 'connected-react-router'
 import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
@@ -13,15 +14,19 @@ import styles from './expdb.module.scss'
 import './expdb.less'
 
 const ExperienceDashboard = (props) => {
-  const { profileName } = props
+  const { profileName, replaceRoute } = props
   const { activeTab } = useParams()
 
-  console.log('%c   activeTab   ', 'color: darkgreen; background: palegreen;', activeTab)
+  const onChange = (key) => {
+    replaceRoute(`/exp_dashboard/${key}`)
+    console.log('%c   key   ', 'color: darkgreen; background: palegreen;', replaceRoute)
+  }
 
   return (
     <div className={styles.container}>
       <p className={styles.heading}>Experience dashboard</p>
       <TabsUnderlined
+        onChange={onChange}
         activeTab={activeTab || 'overview'}
         tabs={{
           overview: { mark: false, content: <Soon /> },
@@ -44,6 +49,9 @@ const ExperienceDashboard = (props) => {
 
 ExperienceDashboard.propTypes = {
   profileName: T.string.isRequired,
+  replaceRoute: T.func,
 }
 
-export default connect(({ login: { profileName } }) => ({ profileName }), null)(ExperienceDashboard)
+export default connect(({ login: { profileName } }) => ({ profileName }), {
+  replaceRoute: replace,
+})(ExperienceDashboard)

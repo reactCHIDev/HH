@@ -55,25 +55,23 @@ const ProductPage = (props) => {
       <div className={styles.related_products}>
         <h2>Related products</h2>
         <div className={styles.content}>
-          <CardsContainer>
-            {info &&
-              info?.relatedProducts &&
-              info.relatedProducts.map((product) => (
-                <Card
-                  key={product.id}
-                  pathname="/product_page"
-                  state={product}
-                  photo={product.coverPhoto}
-                  // tags={product.productTags.map((t) => t.tagName)}
-                  tags={['Vegan']}
-                  name={product.title}
-                  price={product.price}
-                  rating={product.rating}
-                  rateCount={product.reviews?.length}
-                  isShowCart
-                />
-              ))}
-          </CardsContainer>
+          {info &&
+            info?.relatedProducts &&
+            info.relatedProducts.map((product) => (
+              <Card
+                key={product.id}
+                pathname="/product_page"
+                state={product}
+                photo={product.coverPhoto}
+                tags={product.productTags.map((t) => t.tagName)}
+                // tags={['Vegan']}
+                name={product.title}
+                price={product.price}
+                rating={product.rating}
+                rateCount={product.reviews?.length}
+                isShowCart
+              />
+            ))}
         </div>
       </div>
       <BottomSection />

@@ -2,6 +2,9 @@ import {
   CREATE_PRODUCT_REQUESTING,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_ERROR,
+  UPDATE_PRODUCT_REQUESTING,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_ERROR,
   GET_PRODUCT_INFO_REQUESTING,
   GET_PRODUCT_INFO_SUCCESS,
   GET_PRODUCT_INFO_ERROR,
@@ -21,6 +24,20 @@ export const toggleProductStatusSuccess = () => ({
 
 export const toggleProductStatusError = (error) => ({
   type: TOGGLE_PRODUCT_STATUS_ERROR,
+  error,
+})
+
+export const updateProductRequestAC = (payload) => ({
+  type: UPDATE_PRODUCT_REQUESTING,
+  payload,
+})
+
+export const updateProductSuccess = () => ({
+  type: UPDATE_PRODUCT_SUCCESS,
+})
+
+export const updateProductError = (error) => ({
+  type: UPDATE_PRODUCT_ERROR,
   error,
 })
 

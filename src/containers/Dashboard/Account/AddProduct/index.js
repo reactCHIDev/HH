@@ -3,7 +3,7 @@ import T, { shape } from 'prop-types'
 import { connect } from 'react-redux'
 import { Steps } from 'antd'
 import { removeKey } from 'utils/localStorage'
-import { createProductRequestAC } from 'actions/product'
+import { createProductRequestAC, updateProductRequestAC } from 'actions/product'
 import { getProductTypes, getProductTagsRequestAC, getCountriesAC } from 'actions/system'
 import SubHeader from 'components/SubHeader'
 import Eye from 'assets/icons/svg/eye-preview.svg'
@@ -24,6 +24,7 @@ const AddProduct = (props) => {
     getCountriesAC,
     getProductTypes,
     createProductRequestAC,
+    updateProductRequestAC,
     getProductTagsRequestAC,
     location: { state: edit },
   } = props
@@ -38,6 +39,7 @@ const AddProduct = (props) => {
     getProductTypes()
     getProductTagsRequestAC()
     getCountriesAC()
+    if (!edit) removeKey('addProduct')
   }, [])
 
   useEffect(() => {
@@ -75,7 +77,11 @@ const AddProduct = (props) => {
   if (step === null || types.length === 0) return <></>
   return (
     <div className={styles.container}>
-      <SubHeader linkTo="/profile" onBack={goBack} title={edit ? 'Edit Product' : 'Add Product'} />
+      <SubHeader
+        linkTo="/exp_dashboard/listings"
+        onBack={goBack}
+        title={edit ? 'Edit Product' : 'Add Product'}
+      />
       <div className={styles.main}>
         <div id="stepper" className={styles.stepper}>
           <Steps progressDot current={Number(step)} onChange={onChange} direction="vertical">
@@ -116,7 +122,7 @@ const AddProduct = (props) => {
             {Number(step + firstStep) === 2 && <Step3 setStep={onClick} />}
             {Number(step + firstStep) === 3 && (
               <Step4
-                create={createProductRequestAC}
+                create={edit ? updateProductRequestAC : createProductRequestAC}
                 tags={tagsCollection}
                 countries={countries}
                 edit={edit}
@@ -137,6 +143,7 @@ AddProduct.propTypes = {
   getCountriesAC: T.func,
   getProductTypes: T.func,
   createProductRequestAC: T.func,
+  updateProductRequestAC: T.func,
   getProductTagsRequestAC: T.func,
 }
 
@@ -156,6 +163,7 @@ export default connect(
     getProductTypes,
     getCountriesAC,
     createProductRequestAC,
+    updateProductRequestAC,
     getProductTagsRequestAC,
   },
 )(AddProduct)
