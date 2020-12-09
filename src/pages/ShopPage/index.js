@@ -93,6 +93,8 @@ const ShopPage = (props) => {
                   shop.products.slice(0, productCount).map((e) => (
                     <ExpCard
                       key={e.id}
+                      pathname="/product_page"
+                      state={e}
                       photo={e.coverPhoto}
                       tags={['asdasd', 'asdasd', 'werwer']}
                       name={e.title}
