@@ -1,14 +1,9 @@
 import React from 'react'
 import T from 'prop-types'
 import styles from './cardscontainer.module.scss'
-import Cards from './components/Cards'
 
-const CardsContainer = () => {
-  return (
-    <div className={styles.container}>
-       <Cards />
-    </div>
-  )
+const CardsContainer = ({ children }) => {
+  return <div className={styles.container}>{children}</div>
 }
 
 CardsContainer.propTypes = {}

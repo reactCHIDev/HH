@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
 import cls from 'classnames'
 import { Link } from 'react-router-dom'
+import CardsContainer from 'components/CardsContainer'
 import Card from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -54,23 +55,25 @@ const ProductPage = (props) => {
       <div className={styles.related_products}>
         <h2>Related products</h2>
         <div className={styles.content}>
-          {info &&
-            info?.relatedProducts &&
-            info.relatedProducts.map((product) => (
-              <Card
-                key={product.id}
-                pathname="/product_page"
-                state={product}
-                photo={product.coverPhoto}
-                // tags={product.productTags.map((t) => t.tagName)}
-                tags={['Vegan']}
-                name={product.title}
-                price={product.price}
-                rating={product.rating}
-                rateCount={product.reviews?.length}
-                isShowCart
-              />
-            ))}
+          <CardsContainer>
+            {info &&
+              info?.relatedProducts &&
+              info.relatedProducts.map((product) => (
+                <Card
+                  key={product.id}
+                  pathname="/product_page"
+                  state={product}
+                  photo={product.coverPhoto}
+                  // tags={product.productTags.map((t) => t.tagName)}
+                  tags={['Vegan']}
+                  name={product.title}
+                  price={product.price}
+                  rating={product.rating}
+                  rateCount={product.reviews?.length}
+                  isShowCart
+                />
+              ))}
+          </CardsContainer>
         </div>
       </div>
       <BottomSection />
