@@ -39,6 +39,7 @@ const AddProduct = (props) => {
     getProductTypes()
     getProductTagsRequestAC()
     getCountriesAC()
+    if (!edit) removeKey('addProduct')
   }, [])
 
   useEffect(() => {
@@ -76,7 +77,11 @@ const AddProduct = (props) => {
   if (step === null || types.length === 0) return <></>
   return (
     <div className={styles.container}>
-      <SubHeader linkTo="/profile" onBack={goBack} title={edit ? 'Edit Product' : 'Add Product'} />
+      <SubHeader
+        linkTo="/exp_dashboard/listings"
+        onBack={goBack}
+        title={edit ? 'Edit Product' : 'Add Product'}
+      />
       <div className={styles.main}>
         <div id="stepper" className={styles.stepper}>
           <Steps progressDot current={Number(step)} onChange={onChange} direction="vertical">

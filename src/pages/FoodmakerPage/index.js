@@ -69,7 +69,7 @@ const FoodmakerPage = (props) => {
               </div>
               <div className={styles.rating_container}>
                 <Rate style={{ color: '#EB5769' }} disabled defaultValue={fm.rating} />
-                <p className={styles.qauntity}>(32)</p>
+                <p className={styles.qauntity}>(0)</p>
               </div>
             </div>
             <p className={styles.first_last_name}>{name}</p>
@@ -80,7 +80,7 @@ const FoodmakerPage = (props) => {
               <div className={styles.fav_button}>
                 <img className={styles.heart} src={likeHeart} alt="heart" />
                 <p className={styles.btn_text}>Favorite Maker</p>
-                <p className={styles.likes}>(27)</p>
+                <p className={styles.likes}>(0)</p>
               </div>
               <div className={styles.send_msg}>
                 <img className={styles.heart} src={envelope} alt="envelope" />

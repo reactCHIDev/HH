@@ -38,7 +38,9 @@ const Product = ({ product, userProfile, onToggle }) => {
           </div>
 
           <div className={styles.edit_btn_container} onClick={onClick}>
-            <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
+            <Link to={{ pathname: '/addproduct', state: 'edit' }}>
+              <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
+            </Link>
           </div>
         </div>
       </div>
@@ -59,11 +61,9 @@ const Product = ({ product, userProfile, onToggle }) => {
         </span>
       </div>
       <div className={styles.td}>
-        <span className={styles.preorder} onClick={onClick}>
+        <span className={styles.preorder}>
           <span className={styles.mobile_hidden_text}>Pre-order:</span>
-          <Link to={{ pathname: '/addproduct', state: 'edit' }}>
-            <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
-          </Link>
+          <img src={available === 'Available' ? ChkIcon : DashIcon} alt="" />
         </span>
       </div>
     </div>

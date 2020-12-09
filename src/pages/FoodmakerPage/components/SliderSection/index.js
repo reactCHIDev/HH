@@ -150,7 +150,7 @@ const SliderSection = (props) => {
               <p className={styles.exp_price}>FROM $650</p>
               <div className={cls(styles.rating_container, 'rating')}>
                 <Rate style={{ color: '#31394C' }} disabled defaultValue={3} />
-                <p className={styles.qauntity}>(8)</p>
+                <p className={styles.qauntity}>(0)</p>
               </div>
             </div>
           </div>
