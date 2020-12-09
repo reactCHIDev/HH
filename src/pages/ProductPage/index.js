@@ -62,8 +62,8 @@ const ProductPage = (props) => {
                 pathname="/product_page"
                 state={product}
                 photo={product.coverPhoto}
-                // tags={product.productTags.map((t) => t.tagName)}
-                tags={['Vegan']}
+                tags={product.productTags.map((t) => t.tagName)}
+                // tags={['Vegan']}
                 name={product.title}
                 price={product.price}
                 rating={product.rating}

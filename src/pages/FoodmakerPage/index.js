@@ -35,13 +35,20 @@ const FoodmakerPage = (props) => {
   } = props
 
   const [readMore, setReadMore] = useState(false)
-
-  const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
+  const [name, setName] = useState('')
+  const [gallery, setGallery] = useState([])
 
   useEffect(() => {
     getFoodmakerInfoAC(id)
     getShopByFoodmakerIdAC(id)
   }, [])
+
+  useEffect(() => {
+    if (fm) {
+      setName(fm.firstName ? fm.firstName + ' ' + fm.lastName : '')
+      setGallery([fm.coverPhoto].concat(fm.otherPhotos))
+    }
+  }, [fm])
 
   const onReadMore = () => setReadMore(!readMore)
 
@@ -149,12 +156,12 @@ const FoodmakerPage = (props) => {
         </div> */}
 
         <div className={styles.slider_section}>
-          <SliderSection />
+          <SliderSection gallery={gallery} />
         </div>
 
         <div className={styles.section_review}>
           <img className={styles.section_image} src={review} alt="review" />
-          <p className={styles.review_heading}>Reviews of Annett’s experiences</p>
+          <p className={styles.review_heading}>{`Reviews of ${fm.firstName}'s experiences`}</p>
           <div className={styles.review_container}>
             {[1, 2, 3].map((e) => (
               <Review key={e} />

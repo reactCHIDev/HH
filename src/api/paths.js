@@ -25,6 +25,7 @@ export default {
 
   // Product
   createProduct: '/v1/product/create',
+  updateProduct: '/v1/product/update',
   getProductInfo: '/v1/product/info/',
   toggleStatus: '/v1/product/toggle_status',
 

@@ -114,9 +114,9 @@ const ShopPage = (props) => {
                     />
                   ))}
               </div>
-              <div className={styles.exp_btn_container}>
+              {/* <div className={styles.exp_btn_container}>
                 <Button title="More products" dark onClick={showMore} />
-              </div>
+              </div> */}
             </div>
 
             <div className={styles.about_shop_container}>

@@ -40,6 +40,7 @@ const Listings = (props) => {
   const {
     types,
     myProducts = [],
+    userProfile,
     getProductTypes,
     getMyProductList,
     toggleProductStatusRequestAC,
@@ -227,7 +228,13 @@ const Listings = (props) => {
               </div>
 
               {filteredProducts.map((product) => (
-                <Product key={product.id} product={product} onToggle={test} onEdit={showEdit} />
+                <Product
+                  key={product.id}
+                  product={product}
+                  userProfile={userProfile}
+                  onToggle={test}
+                  onEdit={showEdit}
+                />
               ))}
             </div>
           </div>
@@ -251,13 +258,19 @@ const Listings = (props) => {
 Listings.propTypes = {
   types: T.arrayOf(shape()),
   myProducts: T.arrayOf(shape()),
+  userProfile: T.shape(),
   getProductTypes: T.func,
   getMyProductList: T.func,
   toggleProductStatusRequestAC: T.func,
 }
 
 export default connect(
-  ({ listing: { myProducts }, system: { productTypes: types } }) => ({ types, myProducts }),
+  ({
+    listing: {
+      myProducts: { products: myProducts, userProfile },
+    },
+    system: { productTypes: types },
+  }) => ({ types, myProducts, userProfile }),
   {
     getProductTypes,
     getMyProductList,

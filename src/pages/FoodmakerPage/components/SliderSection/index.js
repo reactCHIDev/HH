@@ -47,7 +47,7 @@ function SamplePrevArrow(props) {
 }
 
 const SliderSection = (props) => {
-  const {} = props
+  const { gallery } = props
 
   const [containerWidth, setWidth] = useState(0)
   const [slider1, setSlider1] = useState(null)
@@ -113,16 +113,16 @@ const SliderSection = (props) => {
       <div className={styles.content}>
         <div className={cls(styles.slider_container, 'slider')}>
           <Slider {...settings} ref={slider} asNavFor={slider2}>
-            {[1, 2, 3, 4, 5, 6].map((e, i) => (
+            {gallery.map((e, i) => (
               <div key={e} className={styles.img_container}>
-                <img className={styles.slider_img} src={leading} alt="" />
+                <img className={styles.slider_img} src={e} alt="" />
               </div>
             ))}
           </Slider>
         </div>
         <div className={styles.preview_slider_container} ref={container}>
           <Slider {...previewSettings} ref={previewSlider} asNavFor={slider1}>
-            {[1, 2, 3, 4, 5, 6].map((e, i) => (
+            {gallery.map((e, i) => (
               <div
                 key={e}
                 className={cls(
@@ -135,7 +135,7 @@ const SliderSection = (props) => {
                   id={i}
                   onClick={onClick}
                 >
-                  <img className={cls(styles.preview_slider_img)} src={leading} alt="" />
+                  <img className={cls(styles.preview_slider_img)} src={e} alt="" />
                 </div>
               </div>
             ))}

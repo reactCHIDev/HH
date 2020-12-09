@@ -13,7 +13,7 @@ import styles from './product.module.scss'
 import './product.less'
 import cls from 'classnames'
 
-const Product = ({ product, onToggle }) => {
+const Product = ({ product, userProfile, onToggle }) => {
   const { id, coverPhoto, title, rating, status, quantity, available } = product
 
   const onClick = () => setItem('addProduct', product)
@@ -27,7 +27,7 @@ const Product = ({ product, onToggle }) => {
               <img src={coverPhoto} alt="product" />
             </div>
             <div className={styles.product_option}>
-              <Link to={{ pathname: '/product_page', state: product }}>
+              <Link to={{ pathname: '/product_page', state: { ...product, userProfile } }}>
                 <span className={styles.product_name}>{title}</span>
               </Link>
 
