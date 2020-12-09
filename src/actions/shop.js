@@ -1,4 +1,11 @@
-import { UPDATE_SHOP_REQUESTING, UPDATE_SHOP_SUCCESS, UPDATE_SHOP_ERROR } from './constants'
+import {
+  UPDATE_SHOP_REQUESTING,
+  UPDATE_SHOP_SUCCESS,
+  UPDATE_SHOP_ERROR,
+  GET_SHOP_BY_FM_ID_REQUESTING,
+  GET_SHOP_BY_FM_ID_SUCCESS,
+  GET_SHOP_BY_FM_ID_ERROR,
+} from './constants'
 
 export const updateShopAC = (data) => ({
   type: UPDATE_SHOP_REQUESTING,
@@ -13,4 +20,9 @@ export const updateShopSuccessAC = (payload) => ({
 export const updateShopErrorAC = (payload) => ({
   type: UPDATE_SHOP_ERROR,
   payload,
+})
+
+export const getShopByFoodmakerIdAC = (data) => ({
+  type: GET_SHOP_BY_FM_ID_REQUESTING,
+  payload: data,
 })

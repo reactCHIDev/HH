@@ -17,23 +17,29 @@ const FoodmakersExplore = (props) => {
           <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Type of Food Maker</label>
-              <input className={styles.input} type="text" />
+              <input disabled className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Search hosts or brands</label>
-              <input className={styles.input} type="text" placeholder="E.g. Mike"/>
+              <input disabled className={styles.input} type="text" placeholder="E.g. Mike" />
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Service type</label>
-              <input className={styles.input} type="text" />
+              <input disabled className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Host speciality</label>
-              <input className={styles.input} type="text" />
+              <input disabled className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
-            <button type="button">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <button type="button">
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
                   <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
                 </svg>
@@ -43,7 +49,7 @@ const FoodmakersExplore = (props) => {
         </div>
       </section>
 
-      <div className={cls( styles.content , 'class') }>
+      <div className={cls(styles.content, 'class')}>
         <div className={styles.exp_section}>
           {[1, 2, 3, 4, 5].fill(1).map((e, i) => (
             <FMCard key={e} />

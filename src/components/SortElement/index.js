@@ -12,18 +12,20 @@ const Sort = (props) => {
       {title && (
         <>
           <span className={styles.title}>{title}</span>
-          <span className={styles.img_wrapper}>
-            <img
-              className={type === 'asc' ? styles.iconasc1 : styles.icondesc1}
-              src={SortIcon1}
-              alt="sort"
-            />
-            <img
-              className={type === 'asc' ? styles.iconasc2 : styles.icondesc2}
-              src={SortIcon2}
-              alt="sort"
-            />
-          </span>
+          {type !== 'nosort' && (
+            <span className={styles.img_wrapper}>
+              <img
+                className={type === 'asc' ? styles.iconasc1 : styles.icondesc1}
+                src={SortIcon1}
+                alt="sort"
+              />
+              <img
+                className={type === 'asc' ? styles.iconasc2 : styles.icondesc2}
+                src={SortIcon2}
+                alt="sort"
+              />
+            </span>
+          )}
         </>
       )}
     </div>

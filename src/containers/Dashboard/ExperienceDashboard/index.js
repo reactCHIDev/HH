@@ -2,6 +2,7 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { replace } from 'connected-react-router'
 import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
@@ -13,22 +14,25 @@ import styles from './expdb.module.scss'
 import './expdb.less'
 
 const ExperienceDashboard = (props) => {
-  const { profileName } = props
+  const { profileName, replaceRoute } = props
   const { activeTab } = useParams()
 
-  console.log('%c   activeTab   ', 'color: darkgreen; background: palegreen;', activeTab)
+  const onChange = (key) => {
+    replaceRoute(`/exp_dashboard/${key}`)
+  }
 
   return (
     <div className={styles.container}>
       <p className={styles.heading}>Experience dashboard</p>
       <TabsUnderlined
-        activeTab={activeTab || 'overview'}
+        onChange={onChange}
+        activeTab={activeTab || 'listings'}
         tabs={{
-          overview: { mark: false, content: <Soon /> },
+          overview: { mark: false, disabled: true, content: <Soon /> },
           listings: { mark: false, content: <Listings /> },
-          booking: { mark: false, content: <Soon /> },
-          reviews: { mark: false, content: <Soon /> },
-          performance: { mark: false, content: <Soon /> },
+          booking: { mark: false, disabled: true, content: <Soon /> },
+          reviews: { mark: false, disabled: true, content: <Soon /> },
+          performance: { mark: false, disabled: true, content: <Soon /> },
           profile: { mark: false, content: <ProfileTab profileName={profileName} /> },
           /*           orders: {
             mark: false,
@@ -44,6 +48,9 @@ const ExperienceDashboard = (props) => {
 
 ExperienceDashboard.propTypes = {
   profileName: T.string.isRequired,
+  replaceRoute: T.func,
 }
 
-export default connect(({ login: { profileName } }) => ({ profileName }), null)(ExperienceDashboard)
+export default connect(({ login: { profileName } }) => ({ profileName }), {
+  replaceRoute: replace,
+})(ExperienceDashboard)

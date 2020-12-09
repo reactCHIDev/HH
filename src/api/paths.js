@@ -25,6 +25,7 @@ export default {
 
   // Product
   createProduct: '/v1/product/create',
+  updateProduct: '/v1/product/update',
   getProductInfo: '/v1/product/info/',
   toggleStatus: '/v1/product/toggle_status',
 
@@ -43,6 +44,11 @@ export default {
   // Shop
   isShopExist: '/v1/shop/check_if_exist/',
   updateShop: '/v1/shop/update',
+  getShopByFoodmakerId: '/v1/shop/foodmaker/',
+
+  // Home page
+  getHomePageProducts: '/v1/product/list_all',
+  listFoodmakersForHome: '/v1/foodmaker/list_all',
 
   //
   //

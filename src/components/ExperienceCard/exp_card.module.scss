@@ -1,16 +1,40 @@
 .container {
+  width: 410px;
+  flex-shrink: 0;
+  padding: 24px 16px;
+  display: flex;
+  position: relative;
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    padding: 10px 5px;
+    width: 388px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px 0;
+    width: 100%;
+    max-width: 380px;
+    min-width: 1px;
+  }
+
   .content {
-    max-width: 384px;
-    height: 384px;
     border-radius: 16px;
     overflow: hidden;
-    margin: 20px;
+    position: relative;
     border: 2px solid #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
     .img_container {
-      height: 65%;
+      height: 0;
+      padding-bottom: 65%;
+      position: relative;
       border-radius: 16px 16px 0px 0px;
       overflow: hidden;
-      position: relative;
+
       .card_like {
         position: absolute;
         top: 16px;
@@ -20,7 +44,11 @@
         cursor: pointer;
       }
       .card_img {
-        object-fit: cover;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 115%;
+        top: 0;
       }
       .tags_container {
         position: absolute;
@@ -28,20 +56,24 @@
         left: 15px;
       }
     }
+
     .info_container {
       padding: 20px;
-      height: 35%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      flex-grow: 1;
+      
       .exp_title {
         font-weight: 500;
         font-size: 20px;
-        line-height: 26px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.05em;
         text-transform: capitalize;
         color: #31394d;
-        margin: 0;
+        
+        &:hover {
+          opacity: 0.8;
+        }
       }
 
       .stats_container {
@@ -71,8 +103,17 @@
         .rating_container {
           display: flex;
           align-items: center;
+
           .qauntity {
-            margin: 0;
+            margin: 3px 0 0;
+            font-size: 10px;
+            color: #31394d;
+            opacity: 0.6;
+          }
+
+          ul {
+            font-size: 14px;
+            margin-right: 8px;
           }
         }
       }

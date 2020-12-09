@@ -1,20 +1,64 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import ExpCard from 'components/ExperienceCard'
+import { getPublicProductsAC, getPublicFoodmakersAC } from 'actions/pages'
+import ProdCard from 'components/ProductCard'
+import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
 import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import FMCard from './LocalFMCard'
 import T from 'prop-types'
 import styles from './home.module.scss'
 import './home.less'
 import Button from 'components/Button'
 import Pattern2 from 'assets/images/pattern 2.svg'
+import Rectangle from 'assets/images/landings/home_page/Rectangle.png'
+import Rectangle1 from 'assets/images/landings/home_page/Rectangle (1).png'
+import Rectangle2 from 'assets/images/landings/home_page/Rectangle (2).png'
+import Rectangle3 from 'assets/images/landings/home_page/Rectangle (3).png'
+import Rectangle4 from 'assets/images/landings/home_page/Rectangle (4).png'
+import Rectangle5 from 'assets/images/landings/home_page/Rectangle (5).png'
+import Rectangle6 from 'assets/images/landings/home_page/Rectangle (6).png'
+import Rectangle7 from 'assets/images/landings/home_page/Rectangle (7).png'
+import Rectangle8 from 'assets/images/landings/home_page/Rectangle (8).png'
+import avatar3 from 'assets/images/landings/home_page/Ellipse 6.png'
+import hands from 'assets/images/landings/home_page/Group 677.svg'
 
 const Home = (props) => {
+  const { getPublicProductsAC, getPublicFoodmakersAC, productList, foodmakersList } = props
   const { Panel } = Collapse
+
+  const [productStartIndex, setProductStartIndex] = useState(0)
+  const [productCollection, setProductCollection] = useState([])
+  const [foodmakerStartIndex, setFoodmakerStartIndex] = useState(0)
+  const [foodmakerCollection, setFoodmakerCollection] = useState([])
+
+  useEffect(() => {
+    getPublicProductsAC(productStartIndex, 6)
+  }, [productStartIndex])
+
+  useEffect(() => {
+    getPublicFoodmakersAC(foodmakerStartIndex, 3)
+  }, [foodmakerStartIndex])
+
+  useEffect(() => {
+    setProductCollection((p) => p.concat(productList))
+  }, [productList])
+
+  useEffect(() => {
+    setFoodmakerCollection((p) => p.concat(foodmakersList))
+  }, [foodmakersList])
+
+  const moreFoodmakers = () => {
+    setFoodmakerStartIndex((si) => si + 3)
+  }
+
+  const moreProducts = () => {
+    setProductStartIndex((si) => si + 6)
+  }
 
   return (
     <div className={styles.container}>
@@ -30,6 +74,7 @@ const Home = (props) => {
             <div className={styles.input_wrapper}>
               <label className={styles.label}>What are you looking for? *</label>
               <input
+                disabled
                 className={styles.input}
                 type="text"
                 placeholder="Global search (Placeholder text - cakes & bakes products, team building experiences, food makers)"
@@ -38,7 +83,8 @@ const Home = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>City *</label>
-              <input className={styles.input} type="text" />
+              <input disabled className={styles.input} type="text" placeholder="Select a city" />
+              <span className={cls(styles.label, 'mobile_hidden')}>Hong-Kong, Sydney</span>
             </div>
             <div className={styles.input_wrapper}>
               <button type="button">
@@ -59,7 +105,7 @@ const Home = (props) => {
       </section>
 
       <div className={styles.content}>
-        <div className={styles.exp_section}>
+        {/* <div className={styles.exp_section}>
           {[1, 2, 3, 4, 5, 6].map((e) => (
             <ExpCard
               photo={stub2}
@@ -83,45 +129,38 @@ const Home = (props) => {
           <div className={styles.btn_holder}>
             <Button title="Explore more" dark={true} />
           </div>
-        </div>
+        </div> */}
 
         <section className={styles.product_section}>
           <div className={styles.product_bg_container}>
             <img src={Pattern2} alt="Pattern2" />
+            <h1>Shop local makers</h1>
+            <p className={styles.slogan}>
+              Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
+              distillery tour.{' '}
+            </p>
           </div>
-          <h1>Shop local makers</h1>
-          <p className={styles.slogan}>
-            Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
-            distillery tour.{' '}
-          </p>
-          {[1, 2, 3, 4, 5, 6].map((e) => (
-            <ExpCard
-              key={e}
-              photo={stub2}
-              tags={[
-                'desserts',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-                'cupcake',
-              ]}
-              name="Donut Set 1 (x12)"
-              price={15.59}
-              rating={3}
-              rateCount={63}
-              isShowCart
-            />
-          ))}
+          {productCollection?.length &&
+            productCollection.map((product) => (
+              <ProdCard
+                key={product.id}
+                pathname="/product_page"
+                state={product}
+                photo={product.coverPhoto}
+                tags={product.productTags.map((t) => t.tagName)}
+                name={product.title}
+                price={product.price}
+                rating={product.rating}
+                rateCount={product.reviews?.length}
+                isShowCart
+              />
+            ))}
           <div className={styles.btn_holder}>
-            <Button title="More products near you" dark={true} />
+            <Button title="More products near you" dark={true} onClick={moreProducts} />
           </div>
         </section>
 
-        <div className={styles.lessons_section}>
+        {/* <div className={styles.lessons_section}>
           <p className={styles.slogan}>
             Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
             distillery tour.{' '}
@@ -149,7 +188,33 @@ const Home = (props) => {
             />
           ))}
         </div>
+
+        <div className={styles.btn_holder}>
+          <Button title="More experiences near you" dark={true} />
+        </div> */}
       </div>
+
+      <section className={styles.local_makers_content}>
+        <div className={styles.local_makers_container}>
+          <h1>
+            <p>
+              {' '}
+              <img src={hands} alt="img" />
+            </p>
+            Your local food makers
+          </h1>
+
+          <div className={styles.local_tree_columns}>
+            {foodmakerCollection &&
+              foodmakerCollection.length > 0 &&
+              foodmakerCollection.map((fm) => <FMCard foodmaker={fm} />)}
+          </div>
+
+          <div className={styles.btn_holder}>
+            <Button title="Explore foodmakers" dark onClick={moreFoodmakers} />
+          </div>
+        </div>
+      </section>
 
       <div className={styles.faq_container}>
         <p className={styles.faq_heading}>Frequently Asked Questions</p>
@@ -226,6 +291,17 @@ const Home = (props) => {
   )
 }
 
-Home.propTypes = {}
+Home.propTypes = {
+  productList: T.arrayOf(T.shape),
+  foodmakersList: T.arrayOf(T.shape),
+  getPublicProductsAC: T.func,
+  getPublicFoodmakersAC: T.func,
+}
 
-export default connect(null, null)(Home)
+export default connect(
+  ({ pages }) => ({ productList: pages.products, foodmakersList: pages.foodmakers }),
+  {
+    getPublicProductsAC,
+    getPublicFoodmakersAC,
+  },
+)(Home)

@@ -16,18 +16,16 @@ const AccountInfo = (props) => {
   const { profileName } = props
   const { activeTab } = useParams()
 
-  console.log('%c   activeTab   ', 'color: darkgreen; background: palegreen;', activeTab)
-
   return (
     <div className={styles.container}>
       <p className={styles.heading}>{`${profileName} account info`}</p>
       <TabsUnderlined
-        activeTab={activeTab || 'overview'}
+        activeTab={activeTab || 'profile'}
         tabs={{
-          bookmarks: { mark: false, content: <Soon /> },
-          orders: { mark: false, content: <Soon /> },
-          review: { mark: false, content: <Soon /> },
-          'blog submission': { mark: false, content: <Soon /> },
+          bookmarks: { mark: false, disabled: true, content: <Soon /> },
+          orders: { mark: false, disabled: true, content: <Soon /> },
+          review: { mark: false, disabled: true, content: <Soon /> },
+          'blog submission': { mark: false, disabled: true, content: <Soon /> },
           profile: { mark: false, content: <ProfileTab profileName={profileName} /> },
           /*           orders: {
             mark: false,

@@ -9,7 +9,7 @@ import { getItem } from 'utils/localStorage'
 import Cross from 'assets/icons/svg/close-cross.svg'
 import styles from './uploader.module.scss'
 
-const Uploader = ({ list, listSet, cover, setCover }) => {
+const Uploader = ({ list, listSet, cover, setCover, min }) => {
   const [progress, setProgress] = useState(0)
   const [url, setUrl] = useState()
   const [containerWidth, setWidth] = useState(0)
@@ -138,9 +138,11 @@ const Uploader = ({ list, listSet, cover, setCover }) => {
           {list.map((e, i) => (
             <div key={e} className={styles.gallery_item} draggable={false}>
               <div className={cls(styles.img_wrapper, i === cover ? styles.cover : styles.other)}>
-                <div className={styles.cross_container} id={e} onClick={onDelete}>
-                  <img src={Cross} alt="cross" draggable={false} />
-                </div>
+                {list?.length > min && (
+                  <div className={styles.cross_container} id={e} onClick={onDelete}>
+                    <img src={Cross} alt="cross" draggable={false} />
+                  </div>
+                )}
                 <img
                   className={cls(styles.url_img, i === cover ? styles.cover : styles.other)}
                   src={e}
@@ -183,6 +185,7 @@ Uploader.propTypes = {
   listSet: T.func.isRequired,
   cover: T.number.isRequired,
   setCover: T.func.isRequired,
+  min: T.number.isRequired,
 }
 
 export default Uploader

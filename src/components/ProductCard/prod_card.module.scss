@@ -1,0 +1,126 @@
+.container {
+  width: 410px;
+  flex-shrink: 0;
+  padding: 24px 16px;
+  display: flex;
+  position: relative;
+  z-index: 2;
+  min-width: 380px;
+
+  @media (max-width: 768px) {
+    padding: 10px 5px;
+    width: 388px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px 0;
+    width: 100%;
+    max-width: 380px;
+    min-width: 1px;
+  }
+
+  .content {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
+    .img_container {
+      height: 0;
+      padding-bottom: 100%;
+      position: relative;
+      border-radius: 16px 16px 0px 0px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: 50% 0;
+      .card_like {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .card_img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 115%;
+        top: 0;
+      }
+      .tags_container {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+      }
+    }
+
+    .info_container {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+
+      .exp_title {
+        font-weight: 500;
+        font-size: 20px;
+        letter-spacing: 0.05em;
+        text-transform: capitalize;
+        color: #3c3e43;
+        margin: 0 0 10px;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      .stats_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .exp_price_container {
+          display: flex;
+          align-items: center;
+
+          p {
+            margin-right: 10px;
+          }
+        }
+
+        .exp_price {
+          font-weight: bold;
+          font-size: 20px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: #31394d;
+          margin: 0 16px 0 0 !important;
+        }
+        .rating_container {
+          display: flex;
+          align-items: center;
+
+          .qauntity {
+            margin: 3px 0 0;
+            font-size: 10px;
+            color: #31394d61;
+          }
+
+          ul {
+            font-size: 12px;
+            margin-right: 8px;
+
+            li {
+              margin-right: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

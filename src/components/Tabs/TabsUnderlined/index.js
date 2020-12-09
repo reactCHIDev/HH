@@ -7,19 +7,16 @@ import './tabs.less'
 
 const { TabPane } = Tabs
 
-function callback(key) {
-  console.log(key)
-}
-
-const TabsUnderlined = ({ tabs, activeTab }) => {
+const TabsUnderlined = ({ tabs, activeTab, onChange }) => {
   const extraMark = () => <span className={styles.extraMark} />
   return (
     <div className="tabs-underlined-container">
       <Tabs
         defaultActiveKey={activeTab}
+        animated={false}
         tabPosition="top"
         tabBarGutter={20}
-        onChange={callback}
+        onChange={onChange}
         tabBarStyle={{
           background: '#F5F8FB',
           fontSize: 14,
@@ -36,6 +33,7 @@ const TabsUnderlined = ({ tabs, activeTab }) => {
               </span>
             }
             key={tab}
+            disabled={tabs[tab].disabled}
           >
             <div>{tabs[tab].content}</div>
           </TabPane>
@@ -47,6 +45,7 @@ const TabsUnderlined = ({ tabs, activeTab }) => {
 
 TabsUnderlined.propTypes = {
   activeTab: T.string,
+  onChange: T.func,
   tabs: T.shape({
     name: T.shape({
       mark: T.bool,

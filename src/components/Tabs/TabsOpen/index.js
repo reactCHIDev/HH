@@ -6,9 +6,7 @@ import './tabs.less'
 
 const { TabPane } = Tabs
 
-function callback(key) {
-  console.log(key)
-}
+function callback(key) {}
 const TabsOpen = ({ tabs }) => {
   const extraMark = (num) => (
     <div className="extra-mark" style={{ fontSize: 12, paddingTop: 6 }}>
@@ -39,6 +37,7 @@ const TabsOpen = ({ tabs }) => {
               </div>
             }
             key={tab}
+            disabled={tabs[tab].disabled}
           >
             <div>{tabs[tab].content}</div>
           </TabPane>

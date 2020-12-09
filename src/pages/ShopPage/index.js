@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
+import { Redirect, Link } from 'react-router-dom'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { getProductInfoRequestAC } from 'actions/product'
+import { getShopByFoodmakerIdAC } from 'actions/shop'
 import Button from 'components/Button'
-import ExpCard from 'components/ExperienceCard'
+import ProdCard from 'components/ProductCard'
 import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -20,20 +23,38 @@ import Pattern2 from 'assets/images/pattern 2.svg'
 import Shop from 'assets/images/landings/create_shop/shop.svg'
 import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
 
-const aboutShop =
-  "After walking the same ground as the best boxers of all time, learning some of it's history and watching future legends prepare for upcoming matches. It’s your turn to step into the ring. After walking the same ground as the best boxers of all time, learning some of it's history and watching future legends prepare for upcoming matches, it’s your turn to step into the ring. It's history and watching future legends prepare for upcoming matches. "
-
 const ShopPage = (props) => {
-  const { fm, getFoodmakerInfoAC, account } = props
+  const {
+    location,
+    fm,
+    product,
+    shop,
+    getFoodmakerInfoAC,
+    getProductInfoRequestAC,
+    getShopByFoodmakerIdAC,
+  } = props
+  const id = location.state
 
-  /*   useEffect(() => {
-    getFoodmakerInfoAC(account.id)
-  }, [account]) */
+  const [productCount, setProductCount] = useState(4)
+
+  const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
+
+  useEffect(() => {
+    getFoodmakerInfoAC(id)
+    getProductInfoRequestAC(id)
+    getShopByFoodmakerIdAC(id)
+  }, [])
+
+  const showMore = () => setProductCount((c) => c + 4)
+
+  if (!id) return <Redirect to="/" />
 
   return (
     <div>
       <div className={styles.header}>
-        <div className={styles.pattern}><img src={Pattern2} alt="Pattern2"/></div>
+        <div className={styles.pattern}>
+          <img src={Pattern2} alt="Pattern2" />
+        </div>
         <div className={styles.container}>
           <div className={styles.info_section}>
             <div className={styles.location}>
@@ -45,10 +66,10 @@ const ShopPage = (props) => {
               </div>
               <div className={styles.rating_container}>
                 <Rate style={{ color: '#EB5769' }} disabled defaultValue={fm.rating} />
-                <p className={styles.qauntity}>(32)</p>
+                <p className={styles.qauntity}>(0)</p>
               </div>
             </div>
-            <p className={styles.first_last_name}>{fm.firstName + ' ' + fm.lastName}</p>
+            <p className={styles.first_last_name}>{shop.title}</p>
             <div className={styles.descr}>
               <p>Event hire, custom made, catering.</p>
               <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
@@ -57,7 +78,7 @@ const ShopPage = (props) => {
               <div className={styles.fav_button}>
                 <img className={styles.heart} src={likeHeart} alt="heart" />
                 <p className={styles.btn_text}>Favorite Maker</p>
-                <span className={styles.likes}>(27)</span>
+                <span className={styles.likes}>(0)</span>
               </div>
               <div className={styles.send_msg}>
                 <img className={styles.heart} src={envelope} alt="envelope" />
@@ -66,7 +87,7 @@ const ShopPage = (props) => {
           </div>
           <div className={styles.photo_section}>
             <div className={styles.cover_photo_container}>
-              <img className={styles.cover_photo} src={coverPhoto} alt="envelope" />
+              <img className={styles.cover_photo} src={shop.coverPhoto} alt="envelope" />
             </div>
           </div>
         </div>
@@ -77,50 +98,43 @@ const ShopPage = (props) => {
           <div className={styles.content_container}>
             <div className={styles.section_experiences}>
               <div className={styles.exp_container}>
-                {[1, 2, 3, 4, 5, 6].map((e) => (
-                  <ExpCard
-                    key={e}
-                    photo={sec21}
-                    tags={[
-                      'Chef',
-                      'Backer',
-                      'Mixologist',
-                      'Taste maker',
-                      'Food maker',
-                      'Craft maker',
-                      'Urban Farmer',
-                      'Chocolatier',
-                    ]}
-                    name="Singapore Cooking Lesson: Charity Project"
-                    price={650}
-                    rating={3}
-                    rateCount={32}
-                  />
-                ))}
+                {shop.products &&
+                  shop.products.length &&
+                  shop.products.slice(0, productCount).map((e) => (
+                    <ProdCard
+                      key={e.id}
+                      pathname="/product_page"
+                      state={{ ...e, userProfile: shop.userProfile }}
+                      photo={e.coverPhoto}
+                      tags={['asdasd', 'asdasd', 'werwer']}
+                      name={e.title}
+                      price={e.price}
+                      rating={e.rating}
+                      // rateCount={32}
+                    />
+                  ))}
               </div>
-              <div className={styles.exp_btn_container}>
-                <Button title="See all experiences" dark={true} />
-              </div>
+              {/* <div className={styles.exp_btn_container}>
+                <Button title="More products" dark onClick={showMore} />
+              </div> */}
             </div>
 
             <div className={styles.about_shop_container}>
               <div className={styles.about_shop}>
                 <img className={styles.acc} src={Shop} alt="Shop" />
                 <p className={styles.heading}>A few words about the shop</p>
-                <p className={styles.about_text}>{aboutShop}</p>
+                <p className={styles.about_text}>{shop.description}</p>
                 <div className={styles.shop_autor}>
-                  <img src={Avatar} alt="Avatar" className={styles.avatar}/>
+                  <img src={fm.userPhoto} alt="Avatar" className={styles.avatar} />
                   <div className={styles.text_holder}>
                     <span className={styles.owner}>Shop owner</span>
-                    <strong className={styles.title}>Annette Pehrsson</strong>
-                    <p>I’m a nutritionist ,and baking cooking instructor. When I was younger I went to England for a year .The experience I had sharing a dormy... <a href="#">Read more</a></p>
+                    <strong className={styles.title}>{name}</strong>
+                    <p>{fm.about}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
       </div>
       <div className={styles.bottom_section_container}>
@@ -134,10 +148,16 @@ const ShopPage = (props) => {
 }
 
 ShopPage.propTypes = {
-  getFoodmakerInfoAC: T.func.isRequired,
+  location: T.shape(),
   fm: T.shape(),
+  shop: T.shape(),
+  getFoodmakerInfoAC: T.func.isRequired,
+  getProductInfoRequestAC: T.func.isRequired,
+  getShopByFoodmakerIdAC: T.func.isRequired,
 }
 
-export default connect(({ foodmaker, account }) => ({ fm: foodmaker, account }), {
+export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.shopData }), {
   getFoodmakerInfoAC,
+  getProductInfoRequestAC,
+  getShopByFoodmakerIdAC,
 })(ShopPage)

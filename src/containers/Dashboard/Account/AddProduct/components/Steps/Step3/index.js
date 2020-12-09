@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import Uploader from 'components/PhotoUploader'
-import { Button, Upload, Modal, Progress } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 import { getItem, setItem } from 'utils/localStorage'
 import styles from './step3.module.scss'
 import './step3.less'
@@ -32,18 +31,20 @@ const Step3 = (props) => {
       ...prevSteps,
       ...formData,
     })
-    setStep(3)
+    setStep()
   }
 
   return (
     <div className={styles.container}>
       <div className={cls(styles.content, 'main')}>
         <p className={styles.header}>Add cover & photos</p>
-        <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} />
-        <div className="photo_container"></div>
-        <Button type="primary" block disabled={fileList.length < 2} size="large" onClick={onNext}>
-          NEXT
-        </Button>
+        <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} min={0} />
+        <div className="photo_container" />
+        <div className={styles.btn_container}>
+          <Button type="primary" block disabled={fileList.length < 2} size="large" onClick={onNext}>
+            NEXT
+          </Button>
+        </div>
       </div>
     </div>
   )

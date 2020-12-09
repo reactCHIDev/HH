@@ -31,9 +31,7 @@ const Login = (props) => {
   const { register, handleSubmit, errors } = useForm()
   const { step } = useParams()
 
-  /*  const isСhangeMailRoute = step.substring(0, 12) === 'change_email'
-  console.log('%c   url   ', 'color: white; background: salmon;', url)
-  console.log('%c    isСhangeMailRoute  ', 'color: white; background: salmon;', isСhangeMailRoute) */
+  const isСonfirmMailRoute = step.substring(0, 12) === 'confirmemail'
 
   const steps = new Set(['forgotstep1', 'forgotstep2', 'forgotstep3', 'forgotstep4'])
   const isForgotRoute = steps.has(step.substring(0, 11))
@@ -73,13 +71,13 @@ const Login = (props) => {
   }
 
   // =================================================
-  /* if (isСhangeMailRoute) {
+  /* if (isСonfirmMailRoute) {
     token = step.substring(12)
 
-    console.log('%c   ChangeEmail process   ', 'color: darkgreen; background: palegreen;')
+    console.log('%c   ConfirmEmail process   ', 'color: darkgreen; background: palegreen;')
 
     const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
-    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
+    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 10000) : true
 
     console.log('%c   valid   ', 'color: white; background: salmon;', valid)
     console.log('%c   jwtData   ', 'color: white; background: salmon;', jwtData)
@@ -89,10 +87,10 @@ const Login = (props) => {
       forgotClose()
     }
 
-    if (valid && authorized) {
+    if (valid) {
       const payload = {
         updateEmailLink: PATHS.url + url,
-        newEmail: jwtData.newEmail,
+        newEmail: jwtData.email,
       }
       console.log('payload', payload)
       emailConfirm(payload)

@@ -4,11 +4,24 @@ import { removeKey } from '../utils/localStorage'
 
 import PATHS from 'api/paths'
 
-import { createProductReq, getProductInfoReq, toggleProductStatus } from 'api/requests/Product'
-import { createProductSuccess, createProductError } from 'actions/product'
+import {
+  createProductReq,
+  updateProductReq,
+  getProductInfoReq,
+  toggleProductStatus,
+} from 'api/requests/Product'
+import {
+  createProductSuccess,
+  createProductError,
+  updateProductSuccess,
+  updateProductError,
+} from 'actions/product'
 
 import {
   CREATE_PRODUCT_REQUESTING,
+  UPDATE_PRODUCT_REQUESTING,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_ERROR,
   GET_PRODUCT_INFO_REQUESTING,
   GET_PRODUCT_INFO_SUCCESS,
   GET_PRODUCT_INFO_ERROR,
@@ -22,10 +35,23 @@ function* createProductSaga({ payload }) {
     yield createProductReq(payload)
     yield put(createProductSuccess())
     removeKey('addProduct')
-    yield put(replace('/card'))
+    yield put(replace('/exp_dashboard/listings'))
   } catch (error) {
     if (error.response) {
       yield put(createProductError())
+    }
+  }
+}
+
+function* updateProductSaga({ payload }) {
+  try {
+    yield updateProductReq(payload)
+    yield put(updateProductSuccess())
+    removeKey('addProduct')
+    yield put(replace('/exp_dashboard/listings'))
+  } catch (error) {
+    if (error.response) {
+      yield put(updateProductError())
     }
   }
 }
@@ -54,6 +80,7 @@ function* toggleProductStatusSaga({ payload }) {
 
 function* accountWatcher() {
   yield takeEvery(CREATE_PRODUCT_REQUESTING, createProductSaga)
+  yield takeEvery(UPDATE_PRODUCT_REQUESTING, updateProductSaga)
   yield takeEvery(GET_PRODUCT_INFO_REQUESTING, getProductInfoSaga)
   yield takeEvery(TOGGLE_PRODUCT_STATUS_REQUESTING, toggleProductStatusSaga)
 }

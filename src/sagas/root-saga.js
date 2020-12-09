@@ -8,6 +8,7 @@ import product from './product'
 import foodmaker from './foodmaker'
 import system from './system'
 import shop from './shop'
+import pages from './pages'
 
 export default function* rootSaga() {
   yield all([
@@ -20,5 +21,6 @@ export default function* rootSaga() {
     foodmaker(),
     system(),
     shop(),
+    pages(),
   ])
 }

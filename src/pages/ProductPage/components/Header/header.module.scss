@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid 1px #DCDDE161;
+
+  @media (max-width: 1024px) {
+    padding: 0 20px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttons {
+      display: contents;
+
+      img {
+        cursor: pointer;
+      }
+
+      img:first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin:0 0 24px ; 
+
+    @media (max-width: 768px) {
+      font-size: 22px;
+    }
+
+    p{margin: 0;}
+  }
+}

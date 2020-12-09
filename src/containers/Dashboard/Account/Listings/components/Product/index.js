@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import T from 'prop-types'
+import { getItem, setItem } from 'utils/localStorage'
+import { Link } from 'react-router-dom'
+
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import ChkIcon from 'assets/icons/svg/chk-icon.svg'
 import DashIcon from 'assets/icons/svg/dash-icon.svg'
@@ -10,10 +13,10 @@ import styles from './product.module.scss'
 import './product.less'
 import cls from 'classnames'
 
-// const [status_hidden, setHidden] = useState(false)
-
-const Product = ({ product, onToggle }) => {
+const Product = ({ product, userProfile, onToggle }) => {
   const { id, coverPhoto, title, rating, status, quantity, available } = product
+
+  const onClick = () => setItem('addProduct', product)
 
   return (
     <div className={styles.tr}>
@@ -23,16 +26,22 @@ const Product = ({ product, onToggle }) => {
             <div className={styles.image_container}>
               <img src={coverPhoto} alt="product" />
             </div>
+
             <div className={styles.product_option}>
-              <span className={styles.product_name}>{title}</span>
+              <Link to={{ pathname: '/product_page', state: { ...product, userProfile } }}>
+                <span className={styles.product_name}>{title}</span>
+              </Link>
+
               <div className={styles.status_option_container}>
                 <Option checked={status === 'PUBLISHED'} onChange={onToggle} id={id} />
               </div>
             </div>
           </div>
 
-          <div className={styles.edit_btn_container}>
-            <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
+          <div className={styles.edit_btn_container} onClick={onClick}>
+            <Link to={{ pathname: '/addproduct', state: 'edit' }}>
+              <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />
+            </Link>
           </div>
         </div>
       </div>
@@ -62,6 +71,9 @@ const Product = ({ product, onToggle }) => {
   )
 }
 
-Product.propTypes = {}
+Product.propTypes = {
+  product: T.arrayOf(T.shape),
+  onToggle: T.func,
+}
 
 export default Product

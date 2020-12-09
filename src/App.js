@@ -36,13 +36,16 @@ const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
 const Account = lazy(() => import('containers/Dashboard/Account'))
 const AddProduct = lazy(() => import('containers/Dashboard/Account/AddProduct'))
-const ProductPage = lazy(() => import('containers/Dashboard/Account/ProductPage'))
+const EditProduct = lazy(() =>
+  import('containers/Dashboard/Account/Listings/components/EditProduct'),
+)
+const ProductPage = lazy(() => import('pages/ProductPage'))
 const ShopPage = lazy(() => import('pages/ShopPage'))
 const ExpDashboard = lazy(() => import('containers/Dashboard/ExperienceDashboard'))
 const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
 const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
-const FoodmakerPage = lazy(() => import('containers/Dashboard/Account/FoodmakerPage'))
+const FoodmakerPage = lazy(() => import('pages/FoodmakerPage'))
 const AccountInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo'))
 // const FoodmakerProfile = lazy(() =>
 //   import('containers/Dashboard/components/Account/FoodmakerProfile'),
@@ -54,12 +57,13 @@ const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
 const Sandbox = lazy(() => import('components/sandbox/wrapper'))
+const Cart = lazy(() => import('containers/Dashboard/ Cart'))
 
 function WaitingComponent(Component) {
   return (props) => (
     <Suspense
       fallback={
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
           <Space size="middle">
             <Spin size="large" />
           </Space>
@@ -82,7 +86,7 @@ function App({ authorized, pathname, getUserAccount }) {
 
   const hideHeader = ['/signupflow'].includes(pathname)
 
-  console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
+  // console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
   return (
     <div className={styles.app_container} id="app-container">
@@ -141,11 +145,17 @@ function App({ authorized, pathname, getUserAccount }) {
               component={WaitingComponent(CreateShopLanding)}
             />
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
+            <PublicRoute exact path="/cart" component={WaitingComponent(Cart)} />
             <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
-            <PrivateRoute exact path="/exp_dashboard" component={WaitingComponent(ExpDashboard)} />
+            <PrivateRoute
+              exact
+              path="/exp_dashboard/:activeTab?"
+              component={WaitingComponent(ExpDashboard)}
+            />
             <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
-            <PrivateRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
+            <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
+            <PublicRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
             <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
             {/* <PrivateRoute
               exact
@@ -153,11 +163,7 @@ function App({ authorized, pathname, getUserAccount }) {
               component={WaitingComponent(FoodmakerProfile)}
             />
             <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
-            <PrivateRoute
-              exact
-              path="/foodmaker_page"
-              component={WaitingComponent(FoodmakerPage)}
-            />
+            <PublicRoute exact path="/foodmaker_page" component={WaitingComponent(FoodmakerPage)} />
             <PrivateRoute
               exact
               path="/settings/:confirmation"

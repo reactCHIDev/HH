@@ -51,9 +51,6 @@
         letter-spacing: 0.5px;
         color: #31394d;
         opacity: 0.8;
-        @media (max-width: 420px) {
-          width: 343px;
-        }
       }
 
       .textarea {
@@ -168,10 +165,21 @@
       .discount_container {
         display: flex;
         align-items: center;
-        margin-bottom: 96px;
+        margin-bottom: 48px;
+        @media (max-width: 560px) {
+          flex-direction: column;
+        }
+        .discount_group {
+          display: flex;
+          align-items: center;
+          .discount_text {
+            margin: 11px 14px 0 0px;
+          }
+        }
 
-        .discount_text {
-          margin: 0 14px 0 0px;
+        .qty_group {
+          display: flex;
+          align-items: center;
         }
 
         .disc_input[type='text'] {
