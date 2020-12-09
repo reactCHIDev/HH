@@ -41,7 +41,7 @@ const ShopPage = (props) => {
 
   useEffect(() => {
     getFoodmakerInfoAC(id)
-    getProductInfoRequestAC(id)
+    // getProductInfoRequestAC(id)
     getShopByFoodmakerIdAC(id)
   }, [])
 
@@ -106,7 +106,7 @@ const ShopPage = (props) => {
                       pathname="/product_page"
                       state={{ ...e, userProfile: shop.userProfile }}
                       photo={e.coverPhoto}
-                      tags={['asdasd', 'asdasd', 'werwer']}
+                      tags={[]}
                       name={e.title}
                       price={e.price}
                       rating={e.rating}
