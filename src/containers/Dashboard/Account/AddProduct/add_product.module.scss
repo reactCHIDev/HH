@@ -63,8 +63,7 @@
       flex-grow: 2;
       width: 100%;
       max-width: 768px;
-      height: calc(100vh - 232px);
-      overflow-y: scroll;
+
       .section {
         padding: 20px 40px;
         @media (max-width: 768px) {
