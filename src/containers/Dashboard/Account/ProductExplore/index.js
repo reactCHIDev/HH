@@ -92,7 +92,6 @@ const ProductExplore = (props) => {
 
   const handleType = (data) => {
     setCategory(types.find((t) => t.id === data).productCategories)
-    console.log('%c   Select type data   ', 'color: white; background: salmon;', data)
   }
 
   const onChange = (data) =>
@@ -105,7 +104,7 @@ const ProductExplore = (props) => {
       <div className={styles.header_section}>
         <p className={styles.heading}>Products from our food makers</p>
         <div className={cls(styles.select_container, 'pe-selects')}>
-          <Select onChange={handleType}>
+          <Select disabled onChange={handleType}>
             {types &&
               types.map((type) => (
                 <Option key={type.id} value={type.id}>

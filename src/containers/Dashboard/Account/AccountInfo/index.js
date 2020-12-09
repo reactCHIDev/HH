@@ -16,8 +16,6 @@ const AccountInfo = (props) => {
   const { profileName } = props
   const { activeTab } = useParams()
 
-  console.log('%c   activeTab   ', 'color: darkgreen; background: palegreen;', activeTab)
-
   return (
     <div className={styles.container}>
       <p className={styles.heading}>{`${profileName} account info`}</p>

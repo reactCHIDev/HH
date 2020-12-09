@@ -19,7 +19,6 @@ const ExperienceDashboard = (props) => {
 
   const onChange = (key) => {
     replaceRoute(`/exp_dashboard/${key}`)
-    console.log('%c   key   ', 'color: darkgreen; background: palegreen;', replaceRoute)
   }
 
   return (

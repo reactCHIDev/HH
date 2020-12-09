@@ -28,6 +28,10 @@ const Requesting = ({
               acc.otherPhotos = step.props.value.otherPhotos
               return acc
             }
+            if (step.props.name === 'city') {
+              acc.cityId = step.props.value
+              return acc
+            }
             if (step.props.name === 'socialURL' && step.props.value.join('').length === 46)
               return acc
 

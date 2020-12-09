@@ -79,7 +79,6 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
 
   const onFinish = (vals) => {
     const values = { ...vals }
-    console.log('%c   vals   ', 'color: white; background: royalblue;', vals)
 
     // ================
 
@@ -235,7 +234,6 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
   }
 
   const onValuesChange = (field, all) => {
-    console.log('%c   all   ', 'color: darkgreen; background: palegreen;', all)
     onFieldChange(all)
   }
 

@@ -25,7 +25,6 @@ import UserAvatar from 'assets/images/user-avatar.jpg'
 import LogOut from 'assets/images/header/LogOut -gray.svg'
 import LogOutBlack from 'assets/images/header/LogOut.svg'
 
-
 import styles from './menucontainer.module.scss'
 
 const items = {
@@ -75,39 +74,39 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
       <div className={styles.content}>
         <div className={styles.top_mobile_wrapper}>
           <span className={styles.img_close} onClick={onClick}>
-            { dark ? (
-              <img src={Close} alt="close" width="16" height="16" />)
-               : ( 
-              <img src={CloseBlack} alt="close" width="16" height="16" /> ) 
-            }
+            {dark ? (
+              <img src={Close} alt="close" width="16" height="16" />
+            ) : (
+              <img src={CloseBlack} alt="close" width="16" height="16" />
+            )}
           </span>
 
           <ul className={styles.social_header_list}>
             <li>
               <a href="#">
-                { dark ? (
-                  <img src={Instagram} alt="Instagram" width="22" height="22" /> )
-                  : ( 
-                  <img src={InstagramBlack} alt="Instagram" width="22" height="22" /> ) 
-                }
+                {dark ? (
+                  <img src={Instagram} alt="Instagram" width="22" height="22" />
+                ) : (
+                  <img src={InstagramBlack} alt="Instagram" width="22" height="22" />
+                )}
               </a>
             </li>
             <li>
               <a href="#">
-                { dark ? (
-                  <img src={Facebook} alt="Facebook" width="12" /> )
-                  : ( 
-                  <img src={FacebookBlack} alt="Facebook" width="15" /> ) 
-                }
+                {dark ? (
+                  <img src={Facebook} alt="Facebook" width="12" />
+                ) : (
+                  <img src={FacebookBlack} alt="Facebook" width="15" />
+                )}
               </a>
             </li>
             <li>
               <a href="#">
-                { dark ? (
-                  <img src={Youtube} alt="Youtube" width="26" height="18" /> )
-                  : ( 
-                    <img src={YoutubeBlack} alt="Youtube" width="26" height="18" /> ) 
-                }
+                {dark ? (
+                  <img src={Youtube} alt="Youtube" width="26" height="18" />
+                ) : (
+                  <img src={YoutubeBlack} alt="Youtube" width="26" height="18" />
+                )}
               </a>
             </li>
           </ul>
@@ -153,11 +152,11 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
             <strong> Annette P. </strong>
           </a>
           <a href="#" className={styles.logout}>
-            { dark ? (
-              <img src={LogOut} alt="Log out" width="17" />)
-              : ( 
-              <img src={LogOutBlack} alt="Log out" width="17" /> ) 
-            }
+            {dark ? (
+              <img src={LogOut} alt="Log out" width="17" />
+            ) : (
+              <img src={LogOutBlack} alt="Log out" width="17" />
+            )}
             Log out
           </a>
         </div>

@@ -53,8 +53,6 @@ const EditProduct = (props) => {
 
   const onClick = (s) => setStep(s)
 
-  console.log('%c tagsCollection     ', 'color: white; background: salmon;', tagsCollection)
-
   if (!tagsCollection || tagsCollection.length === 0) return <p>NO TGS</p>
 
   return (

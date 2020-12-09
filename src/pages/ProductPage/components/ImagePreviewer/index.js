@@ -30,7 +30,6 @@ const ImagePreviewer = (props) => {
   )
 
   const handleImageClick = useCallback((e) => {
-    console.log('%c   image   ', 'color: white; background: royalblue;', e.currentTarget.id)
     setSelectedImage(e.currentTarget.id)
   })
 

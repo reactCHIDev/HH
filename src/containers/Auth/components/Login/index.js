@@ -32,8 +32,6 @@ const Login = (props) => {
   const { step } = useParams()
 
   const isСonfirmMailRoute = step.substring(0, 12) === 'confirmemail'
-  console.log('%c   url   ', 'color: white; background: salmon;', url)
-  console.log('%c    isСhangeMailRoute  ', 'color: white; background: salmon;', isСonfirmMailRoute)
 
   const steps = new Set(['forgotstep1', 'forgotstep2', 'forgotstep3', 'forgotstep4'])
   const isForgotRoute = steps.has(step.substring(0, 11))

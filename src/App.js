@@ -86,7 +86,7 @@ function App({ authorized, pathname, getUserAccount }) {
 
   const hideHeader = ['/signupflow'].includes(pathname)
 
-  console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
+  // console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
   return (
     <div className={styles.app_container} id="app-container">
@@ -155,7 +155,7 @@ function App({ authorized, pathname, getUserAccount }) {
             />
             <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
             <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
-            <PrivateRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
+            <PublicRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
             <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
             {/* <PrivateRoute
               exact
@@ -163,11 +163,7 @@ function App({ authorized, pathname, getUserAccount }) {
               component={WaitingComponent(FoodmakerProfile)}
             />
             <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
-            <PrivateRoute
-              exact
-              path="/foodmaker_page"
-              component={WaitingComponent(FoodmakerPage)}
-            />
+            <PublicRoute exact path="/foodmaker_page" component={WaitingComponent(FoodmakerPage)} />
             <PrivateRoute
               exact
               path="/settings/:confirmation"

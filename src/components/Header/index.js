@@ -48,7 +48,7 @@ const Header = (props) => {
     '/landing/create_shop',
   ]
 
-  const dark = !lightTheme.includes(pathname)
+  const dark = !lightTheme.some((e) => pathname.includes(e))
 
   useEffect(() => {
     if (id) {
@@ -313,7 +313,7 @@ const Header = (props) => {
           <div className={styles.settings_container} ref={settingsСontainer}>
             <ul className={styles.link_list}>
               <li onClick={onSettingsSelect}>
-                <Link className={styles.link} to={getPath()}>
+                <Link className={styles.link} to="/account_info">
                   <div>
                     <img src={Cup} alt="icon" />
                     <a href="#"> food lover dashboard</a>

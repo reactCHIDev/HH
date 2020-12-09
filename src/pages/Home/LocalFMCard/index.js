@@ -24,22 +24,30 @@ const FMCard = (props) => {
     tags,
   } = foodmaker
 
-  console.log('%c   foodmaker   ', 'color: black; background: gold;', foodmaker)
   return (
     <div className={styles.local_makers_col}>
       <div className={styles.local_makers_col_bg}>
         <ul className={styles.local_img_box}>
           <li>
-            <div className={styles.img_box_frame} style={{ backgroundImage: `url("${coverPhoto}")` }}>
-            </div>
+            <div
+              className={styles.img_box_frame}
+              style={{ backgroundImage: `url("${coverPhoto}")` }}
+            ></div>
           </li>
           <li>
-            <div className={styles.img_box_frame} style={{ backgroundImage: `url("${otherPhotos[0]}")` }}>
-            </div>
+            <div
+              className={styles.img_box_frame}
+              style={{ backgroundImage: `url("${otherPhotos[0]}")` }}
+            ></div>
           </li>
           <li>
-            <div className={styles.img_box_frame} style={{ backgroundImage: `url("${ otherPhotos[1] }")` }}> </div>
-            </li>
+            <div
+              className={styles.img_box_frame}
+              style={{ backgroundImage: `url("${otherPhotos[1]}")` }}
+            >
+              {' '}
+            </div>
+          </li>
         </ul>
         <div className={styles.local_bottom_box}>
           <Link to={{ pathname: '/foodmaker_page', state: id }}>
