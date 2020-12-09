@@ -20,7 +20,7 @@ const ProfileTab = (props) => {
               mark: 0,
               content: <ShopProfile />,
             },
-            Contacts: { mark: 0, content: <Soon /> },
+            Contacts: { mark: 0, disabled: true, content: <Soon /> },
           }}
         />
       </div>

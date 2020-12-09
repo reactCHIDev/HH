@@ -74,6 +74,7 @@ const Home = (props) => {
             <div className={styles.input_wrapper}>
               <label className={styles.label}>What are you looking for? *</label>
               <input
+                disabled
                 className={styles.input}
                 type="text"
                 placeholder="Global search (Placeholder text - cakes & bakes products, team building experiences, food makers)"
@@ -82,7 +83,7 @@ const Home = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>City *</label>
-              <input className={styles.input} type="text" placeholder="Select a city" />
+              <input disabled className={styles.input} type="text" placeholder="Select a city" />
               <span className={cls(styles.label, 'mobile_hidden')}>Hong-Kong, Sydney</span>
             </div>
             <div className={styles.input_wrapper}>

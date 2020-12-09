@@ -39,6 +39,7 @@ const TabsOpen = ({ tabs }) => {
               </div>
             }
             key={tab}
+            disabled={tabs[tab].disabled}
           >
             <div>{tabs[tab].content}</div>
           </TabPane>

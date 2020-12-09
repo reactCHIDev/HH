@@ -47,10 +47,13 @@ const FoodmakerPage = (props) => {
     if (fm) {
       setName(fm.firstName ? fm.firstName + ' ' + fm.lastName : '')
       setGallery([fm.coverPhoto].concat(fm.otherPhotos))
+      console.log('%c   fm   ', 'color: white; background: salmon;', fm)
     }
   }, [fm])
 
   const onReadMore = () => setReadMore(!readMore)
+
+  if (!fm?.about) return null
 
   return (
     <div className={styles.container}>
@@ -114,10 +117,9 @@ const FoodmakerPage = (props) => {
               <img className={styles.acc} src={acessorieFm} alt="acc" />
               <p className={styles.heading}>Let’s talk about me ;)</p>
               <p className={styles.about_text}>
-                {readMore ? cutted : cutted.substring(0, 350)}
-                {!readMore && (
+                {readMore ? fm.about : fm.about.substring(0, 350)}
+                {!readMore && fm.about.length > 350 && (
                   <span className={styles.readmore} onClick={onReadMore}>
-                    {' '}
                     Read more...
                   </span>
                 )}

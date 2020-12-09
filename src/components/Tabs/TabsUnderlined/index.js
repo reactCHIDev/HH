@@ -33,6 +33,7 @@ const TabsUnderlined = ({ tabs, activeTab, onChange }) => {
               </span>
             }
             key={tab}
+            disabled={tabs[tab].disabled}
           >
             <div>{tabs[tab].content}</div>
           </TabPane>

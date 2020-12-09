@@ -27,13 +27,13 @@ const ExperienceDashboard = (props) => {
       <p className={styles.heading}>Experience dashboard</p>
       <TabsUnderlined
         onChange={onChange}
-        activeTab={activeTab || 'overview'}
+        activeTab={activeTab || 'listings'}
         tabs={{
-          overview: { mark: false, content: <Soon /> },
+          overview: { mark: false, disabled: true, content: <Soon /> },
           listings: { mark: false, content: <Listings /> },
-          booking: { mark: false, content: <Soon /> },
-          reviews: { mark: false, content: <Soon /> },
-          performance: { mark: false, content: <Soon /> },
+          booking: { mark: false, disabled: true, content: <Soon /> },
+          reviews: { mark: false, disabled: true, content: <Soon /> },
+          performance: { mark: false, disabled: true, content: <Soon /> },
           profile: { mark: false, content: <ProfileTab profileName={profileName} /> },
           /*           orders: {
             mark: false,

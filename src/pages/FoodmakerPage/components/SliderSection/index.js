@@ -141,7 +141,7 @@ const SliderSection = (props) => {
             ))}
           </Slider>
         </div>
-        <div className={styles.product_book}>
+        {/* <div className={styles.product_book}>
           <div className={styles.descr_container}>
             <div className={styles.description}>
               Michelin-starred chef Rishi Nalindra Cultural Dinner: Art, Music and Fun
@@ -157,7 +157,7 @@ const SliderSection = (props) => {
           <div className={styles.btn}>
             <Button title="Book now" />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )
