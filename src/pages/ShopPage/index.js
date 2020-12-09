@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { getProductInfoRequestAC } from 'actions/product'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
@@ -23,7 +24,15 @@ import Shop from 'assets/images/landings/create_shop/shop.svg'
 import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
 
 const ShopPage = (props) => {
-  const { location, fm, shop, getFoodmakerInfoAC, getShopByFoodmakerIdAC } = props
+  const {
+    location,
+    fm,
+    product,
+    shop,
+    getFoodmakerInfoAC,
+    getProductInfoRequestAC,
+    getShopByFoodmakerIdAC,
+  } = props
   const id = location.state
 
   const [productCount, setProductCount] = useState(4)
@@ -32,6 +41,7 @@ const ShopPage = (props) => {
 
   useEffect(() => {
     getFoodmakerInfoAC(id)
+    getProductInfoRequestAC(id)
     getShopByFoodmakerIdAC(id)
   }, [])
 
@@ -142,10 +152,12 @@ ShopPage.propTypes = {
   fm: T.shape(),
   shop: T.shape(),
   getFoodmakerInfoAC: T.func.isRequired,
+  getProductInfoRequestAC: T.func.isRequired,
   getShopByFoodmakerIdAC: T.func.isRequired,
 }
 
 export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.shopData }), {
   getFoodmakerInfoAC,
+  getProductInfoRequestAC,
   getShopByFoodmakerIdAC,
 })(ShopPage)
