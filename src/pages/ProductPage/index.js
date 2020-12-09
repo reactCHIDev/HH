@@ -2,9 +2,7 @@ import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
-import { getShopByFoodmakerIdAC } from 'actions/shop'
 import cls from 'classnames'
-import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
 import Card from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -18,17 +16,16 @@ import './product_page.less'
 
 const ProductPage = (props) => {
   const {
-    shop,
-    getProductInfoRequestAC,
-    getShopByFoodmakerIdAC,
+    info,
+    getProductInfoRequest,
     location: { state: product },
   } = props
 
   const { userProfile } = product
 
   useEffect(() => {
-    getShopByFoodmakerIdAC(userProfile.id)
-  }, [])
+    getProductInfoRequest(product.id)
+  }, [product])
 
   return (
     <div className={cls('product-container', styles.container)}>
@@ -50,9 +47,9 @@ const ProductPage = (props) => {
       <div className={styles.related_products}>
         <h2>Related products</h2>
         <div className={styles.content}>
-          {shop &&
-            shop.products &&
-            shop.products.map((product) => (
+          {info &&
+            info?.relatedProducts &&
+            info.relatedProducts.map((product) => (
               <Card
                 key={product.id}
                 pathname="/product_page"
@@ -76,12 +73,11 @@ const ProductPage = (props) => {
 }
 
 ProductPage.propTypes = {
-  getProductInfoRequestAC: T.func.isRequired,
-  getShopByFoodmakerIdAC: T.func.isRequired,
-  product: T.shape,
+  info: T.shape,
+  location: T.shape,
+  getProductInfoRequest: T.func.isRequired,
 }
 
 export default connect(({ product, shop }) => ({ info: product.info, shop: shop.shopData }), {
-  getProductInfoRequestAC,
-  getShopByFoodmakerIdAC,
+  getProductInfoRequest: getProductInfoRequestAC,
 })(ProductPage)

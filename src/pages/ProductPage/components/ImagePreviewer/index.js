@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import T from 'prop-types'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -9,6 +9,10 @@ import './image_previewer.less'
 const ImagePreviewer = (props) => {
   const { images } = props
   const [selectedImage, setSelectedImage] = useState(images[0])
+
+  useEffect(() => {
+    setSelectedImage(images[0])
+  }, [images])
 
   const settings = useMemo(
     () => ({
