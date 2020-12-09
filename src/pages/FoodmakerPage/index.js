@@ -89,7 +89,7 @@ const FoodmakerPage = (props) => {
           </div>
           <div className={styles.photo_section}>
             <div className={styles.cover_photo_container}>
-              <img className={styles.cover_photo} src={coverPhoto} alt="envelope" />
+              <img className={styles.cover_photo} src={fm?.coverPhoto} alt="envelope" />
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ const FoodmakerPage = (props) => {
           <div className={styles.about_shop_container}>
             <div className={styles.about_shop}>
               <div className={styles.about_header}>
-                <img className={styles.shop_icon} src={coverPhoto} alt="icon" />
+                <img className={styles.shop_icon} src={fm?.coverPhoto} alt="icon" />
                 <p className={styles.shop_name}>{shop.title}</p>
               </div>
               <p className={styles.shop_descr}>{shop.description}</p>
