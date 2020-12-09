@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
 import cls from 'classnames'
+import { Link } from 'react-router-dom'
 import Card from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -25,6 +26,7 @@ const ProductPage = (props) => {
 
   useEffect(() => {
     getProductInfoRequest(product.id)
+    window.scrollTo(0, 0)
   }, [product])
 
   return (
@@ -36,11 +38,16 @@ const ProductPage = (props) => {
             <Header text={product.title} />
             <Toolbar params={product.parameters} isPreOrderOnly={false} />
             <Tabs product={product} />
-            <AboutMaker
-              name={userProfile.firstName}
-              text={userProfile.about}
-              photo={userProfile.coverPhoto}
-            />
+            <Link
+              className={styles.card_link}
+              to={{ pathname: '/foodmaker_page', state: userProfile.id }}
+            >
+              <AboutMaker
+                name={userProfile.firstName}
+                text={userProfile.about}
+                photo={userProfile.coverPhoto}
+              />
+            </Link>
           </div>
         </div>
       </div>

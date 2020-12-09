@@ -104,7 +104,7 @@ const ShopPage = (props) => {
                     <ExpCard
                       key={e.id}
                       pathname="/product_page"
-                      state={e}
+                      state={{ ...e, userProfile: shop.userProfile }}
                       photo={e.coverPhoto}
                       tags={['asdasd', 'asdasd', 'werwer']}
                       name={e.title}
@@ -115,7 +115,7 @@ const ShopPage = (props) => {
                   ))}
               </div>
               <div className={styles.exp_btn_container}>
-                <Button title="See all experiences" dark onClick={showMore} />
+                <Button title="More products" dark onClick={showMore} />
               </div>
             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { Select } from 'antd'
 import cls from 'classnames'
@@ -9,6 +9,8 @@ import './toolbar.less'
 const Toolbar = ({ params, isPreOrderOnly }) => {
   const [weightOption, setWeightOption] = useState(params[0].volume)
   const [count, setCount] = useState(1)
+
+  useEffect(() => setWeightOption(params[0].volume), [params])
 
   const handleWeightChange = (value) => setWeightOption(value)
   const handleCountDecrement = () =>
