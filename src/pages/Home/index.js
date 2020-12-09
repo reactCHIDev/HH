@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getPublicProductsAC, getPublicFoodmakersAC } from 'actions/pages'
-import ExpCard from 'components/ExperienceCard'
+import ProdCard from 'components/ProductCard'
 import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
@@ -142,7 +142,7 @@ const Home = (props) => {
           </div>
           {productCollection?.length &&
             productCollection.map((product) => (
-              <ExpCard
+              <ProdCard
                 key={product.id}
                 pathname="/product_page"
                 state={product}

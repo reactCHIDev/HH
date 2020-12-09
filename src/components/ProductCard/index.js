@@ -16,7 +16,10 @@ const ProdCard = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className={styles.img_container}  style={{ backgroundImage: `url("${photo ?? sec21}")` }}>
+        <div
+          className={styles.img_container}
+          style={{ backgroundImage: `url("${photo || sec21}")` }}
+        >
           <img className={styles.card_like} src={expLike} alt="explike" />
           {/* <img className={styles.card_img} src={photo ?? sec21} alt="cardimg" /> */}
           <div className={cls('tags', styles.tags_container)}>
@@ -37,7 +40,7 @@ const ProdCard = (props) => {
               )}
             </div>
             <div className={cls(styles.rating_container, 'rating')}>
-              <Rate style={{ color: '#31394C' }} disabled defaultValue={3} value={rating} />
+              <Rate style={{ color: '#31394C' }} disabled value={rating} />
               <p className={styles.qauntity}>{`(${rateCount})`}</p>
             </div>
           </div>

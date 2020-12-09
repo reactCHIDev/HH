@@ -197,12 +197,12 @@
               width: 64px;
               height: 64px;
               margin-right: 10px;
+              border-radius: 8px;
               @media (max-width: 768px) {
                 margin-bottom: 20px;
               }
             }
             .shop_name {
-              
               font-weight: bold;
               font-size: 20px;
               line-height: 26px;
@@ -215,7 +215,6 @@
             }
           }
           .shop_descr {
-            
             font-weight: normal;
             font-size: 14px;
             line-height: 160%;
@@ -263,7 +262,6 @@
             }
           }
           .heading {
-            
             font-weight: bold;
             font-size: 32px;
             line-height: 42px;
@@ -271,7 +269,6 @@
             color: #31394d;
           }
           .about_text {
-            
             font-weight: normal;
             font-size: 14px;
             line-height: 160%;
@@ -281,7 +278,6 @@
             overflow: hidden;
             width: 100%;
             .readmore {
-              
               font-weight: bold;
               font-size: 14px;
               line-height: 160%;
@@ -299,7 +295,6 @@
       margin: auto;
       margin-bottom: 60px;
       .exp_heading {
-        
         font-weight: bold;
         font-size: 48px;
         line-height: 64px;
@@ -334,7 +329,6 @@
         width: 118px;
       }
       .review_heading {
-        
         font-weight: bold;
         font-size: 48px;
         line-height: 64px;

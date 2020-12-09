@@ -46,7 +46,7 @@ const ProductPage = (props) => {
               <AboutMaker
                 name={userProfile.firstName}
                 text={userProfile.about}
-                photo={userProfile.coverPhoto}
+                photo={userProfile.userPhoto}
               />
             </Link>
           </div>
@@ -65,7 +65,6 @@ const ProductPage = (props) => {
                   state={product}
                   photo={product.coverPhoto}
                   tags={product.productTags.map((t) => t.tagName)}
-                  // tags={['Vegan']}
                   name={product.title}
                   price={product.price}
                   rating={product.rating}

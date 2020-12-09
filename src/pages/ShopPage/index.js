@@ -6,7 +6,7 @@ import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
 import Button from 'components/Button'
-import ExpCard from 'components/ExperienceCard'
+import ProdCard from 'components/ProductCard'
 import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -69,7 +69,7 @@ const ShopPage = (props) => {
                 <p className={styles.qauntity}>(0)</p>
               </div>
             </div>
-            <p className={styles.first_last_name}>{name}</p>
+            <p className={styles.first_last_name}>{shop.title}</p>
             <div className={styles.descr}>
               <p>Event hire, custom made, catering.</p>
               <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
@@ -101,7 +101,7 @@ const ShopPage = (props) => {
                 {shop.products &&
                   shop.products.length &&
                   shop.products.slice(0, productCount).map((e) => (
-                    <ExpCard
+                    <ProdCard
                       key={e.id}
                       pathname="/product_page"
                       state={{ ...e, userProfile: shop.userProfile }}

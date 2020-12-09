@@ -47,12 +47,12 @@ const Requesting = ({
 
             if (step.props.name === 'about' && step.props.value === '') return acc
 
-            if (index === 5 || index === 4) return acc
+            if (index === 5) return acc
             acc[step.props.name] = step.props.value
             return acc
           },
           {
-            cityId: 1,
+            // cityId: 1,
             role: 'FOODMAKER',
           },
         ),

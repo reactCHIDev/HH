@@ -10,7 +10,7 @@ const CityStep = (props) => {
     onSubmit,
   } = props
 
-  const [curValue, setValue] = useState(value)
+  const [curValue, setValue] = useState(cities.find((city) => city.id === value).cityName)
   const [suggestions, setSuggestions] = useState([])
   const [visible, setVisible] = useState(false)
 
@@ -41,7 +41,7 @@ const CityStep = (props) => {
   }
 
   const onNext = () => {
-    onSubmit({ city: curValue })
+    onSubmit({ city: cities.find((city) => city.cityName === curValue).id })
   }
 
   return (

@@ -161,7 +161,7 @@ const FoodmakerPage = (props) => {
           <SliderSection gallery={gallery} />
         </div>
 
-        <div className={styles.section_review}>
+        {/* <div className={styles.section_review}>
           <img className={styles.section_image} src={review} alt="review" />
           <p className={styles.review_heading}>{`Reviews of ${fm.firstName}'s experiences`}</p>
           <div className={styles.review_container}>
@@ -169,7 +169,7 @@ const FoodmakerPage = (props) => {
               <Review key={e} />
             ))}
           </div>
-        </div>
+        </div> */}
         <div className={styles.bottom_section_container}>
           <BottomSection />
         </div>

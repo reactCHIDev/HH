@@ -37,7 +37,7 @@ const ExpCard = (props) => {
               )}
             </div>
             <div className={cls(styles.rating_container, 'rating')}>
-              <Rate style={{ color: '#31394C' }} disabled defaultValue={3} value={rating} />
+              <Rate style={{ color: '#31394C' }} disabled value={rating} />
               <p className={styles.qauntity}>{`(${rateCount})`}</p>
             </div>
           </div>
