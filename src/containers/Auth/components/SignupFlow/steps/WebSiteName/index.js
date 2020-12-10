@@ -50,7 +50,7 @@ const WebSiteName = (props) => {
                     'www.hungryhugger.com',
                     process.env.REACT_APP_BASE_URL,
                   )
-                  const user = await getUserByHHLink(encodeURIComponent(url))
+                  const user = await getUserByHHLink(url)
 
                   return !user.data?.profileName
                 }

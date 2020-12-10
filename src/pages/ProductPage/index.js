@@ -23,7 +23,7 @@ const ProductPage = (props) => {
 
   const { productId } = useParams()
 
-  const openFoodmaker = () => pushRoute(`/${fm.profileName}`)
+  const openFoodmaker = () => pushRoute(`/${fm.hungryHuggerLink.split('/').pop()}`)
 
   useEffect(() => {
     getProductInfoRequest(productId)
