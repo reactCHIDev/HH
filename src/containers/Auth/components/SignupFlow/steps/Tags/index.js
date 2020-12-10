@@ -6,59 +6,26 @@ import Heading from '../../components/heading'
 import styles from './tags.module.scss'
 import './tags.less'
 
-const OPTIONS_MAIN = [
-  'Chef',
-  'Baker',
-  'Mixologist',
-  'Taste maker',
-  'Food maker',
-  'Craft maker',
-  'Urban Farmer',
-  'Chocolatier',
-  'Cheese maker',
-  'Food guide',
-  'Food & Beverage Brand',
-  'Festival/Event Host',
-  'Coffe',
-  'Beer & Cider',
-  'Wine',
-  'Whisky',
-  'Spirits',
-  'Tea',
-  'Health Drinks',
-  'Cakes & Bakes',
-  'Paste, Sauce & Spreads',
-  'Snacks',
-  'Kitchen & Dining',
-]
-const OPTIONS_ADD = [
-  'Event hire',
-  'Catering',
-  'Custom made',
-  'Cooking Class',
-  'Tour',
-  'Workshop',
-  'Dining',
-]
-
 const Tags = (props) => {
   const {
-    properties: { name, value },
+    properties: { name, value, specialityTags, serviceTags },
     onSubmit,
   } = props
-  const [serviceTagIds, setMainTags] = useState([])
-  const [specialityTagIds, setAddTags] = useState([])
+  const [specialityTagIds, setMainTags] = useState([])
+  const [serviceTagIds, setAddTags] = useState([])
 
   useEffect(() => {
     setMainTags(
-      OPTIONS_MAIN.reduce((acc, o, i) => {
-        if (value.serviceTagIds && value.serviceTagIds.includes(i)) return acc.concat([o])
+      specialityTags.reduce((acc, tag) => {
+        if (value.specialityTagIds && value.specialityTagIds.includes(tag.id))
+          return acc.concat([tag.tagName])
         return acc
       }, []),
     )
     setAddTags(
-      OPTIONS_ADD.reduce((acc, o, i) => {
-        if (value.specialityTagIds && value.specialityTagIds.includes(i)) return acc.concat([o])
+      serviceTags.reduce((acc, tag) => {
+        if (value.serviceTagIds && value.serviceTagIds.includes(tag.id))
+          return acc.concat([tag.tagName])
         return acc
       }, []),
     )
@@ -73,12 +40,12 @@ const Tags = (props) => {
 
   const submitData = {
     serviceTagIds: {
-      serviceTagIds: OPTIONS_MAIN.reduce((acc, o, i) => {
-        if (serviceTagIds.includes(o)) return acc.concat([i])
+      serviceTagIds: serviceTags.reduce((acc, tag) => {
+        if (serviceTagIds.includes(tag.tagName)) return acc.concat([tag.id])
         return acc
       }, []),
-      specialityTagIds: OPTIONS_ADD.reduce((acc, o, i) => {
-        if (specialityTagIds.includes(o)) return acc.concat([i])
+      specialityTagIds: specialityTags.reduce((acc, tag) => {
+        if (specialityTagIds.includes(tag.tagName)) return acc.concat([tag.id])
         return acc
       }, []),
     },
@@ -86,13 +53,12 @@ const Tags = (props) => {
 
   const submit = () => onSubmit(submitData)
 
-  const filteredOptions = OPTIONS_MAIN.filter((o) => !serviceTagIds.includes(o))
-  const filteredAddOptions = OPTIONS_ADD.filter((o) => !specialityTagIds.includes(o))
-
-  /* const filteredOptions = OPTIONS_MAIN.reduce((acc, o, i) => {
-    if (!mainTags.includes(o)) return acc.concat([i])
-    return acc
-  }, []) */
+  const filteredOptions = specialityTags
+    .map((e) => e.tagName)
+    .filter((o) => !specialityTagIds.includes(o))
+  const filteredAddOptions = serviceTags
+    .map((e) => e.tagName)
+    .filter((o) => !serviceTagIds.includes(o))
 
   return (
     <div className={styles.container}>
@@ -102,7 +68,7 @@ const Tags = (props) => {
         <Select
           mode="multiple"
           placeholder="Baker"
-          value={serviceTagIds}
+          value={specialityTagIds}
           showArrow
           onChange={handleChangeMain}
           style={{ width: '100%' }}
@@ -118,7 +84,7 @@ const Tags = (props) => {
         <Select
           mode="multiple"
           placeholder="Catering, Custom made"
-          value={specialityTagIds}
+          value={serviceTagIds}
           showArrow
           onChange={handleChangeAdd}
           style={{ width: '100%' }}
@@ -145,6 +111,8 @@ Tags.propTypes = {
   properties: T.shape({
     name: T.string,
     value: T.shape(),
+    specialityTags: T.arrayOf(T.shape()),
+    serviceTags: T.arrayOf(T.shape()),
   }),
   onSubmit: T.func,
 }
