@@ -31,6 +31,7 @@ export default {
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
+  getFoodmakerInfoByName: '/v1/foodmaker/info_by_profile_name/',
   updateFoodmakerAccount: '/v1/account/update_foodmaker',
 
   // System
@@ -45,6 +46,7 @@ export default {
   isShopExist: '/v1/shop/check_if_exist/',
   updateShop: '/v1/shop/update',
   getShopByFoodmakerId: '/v1/shop/foodmaker/',
+  getShopByUrl: '/v1/shop/shop_url/',
 
   // Home page
   getHomePageProducts: '/v1/product/list_all',

@@ -331,7 +331,11 @@ const Header = (props) => {
               </li>
               <li onClick={onSettingsSelect}>
                 <img src={Gallery_icon_1} alt="icon" />
-                <Link to="/addproduct">add product</Link>
+                {role === 'FOODMAKER' ? (
+                  <Link to="/addproduct">add product</Link>
+                ) : (
+                  <Link to="/signupflow">Foodmaker signup</Link>
+                )}
               </li>
             </ul>
 

@@ -2,6 +2,9 @@ import {
   GET_FOODMAKER_INFO_REQUESTING,
   GET_FOODMAKER_INFO_SUCCESS,
   GET_FOODMAKER_INFO_ERROR,
+  GET_FOODMAKER_INFO_BY_NAME_REQUESTING,
+  GET_FOODMAKER_INFO_BY_NAME_SUCCESS,
+  GET_FOODMAKER_INFO_BY_NAME_ERROR,
   UPDATE_FOODMAKER_ACCOUNT_REQUESTING,
   UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
   UPDATE_FOODMAKER_ACCOUNT_ERROR,
@@ -18,6 +21,20 @@ export const getFoodmakerInfoSuccess = () => ({
 
 export const getFoodmakerInfoError = (payload) => ({
   type: GET_FOODMAKER_INFO_ERROR,
+  payload,
+})
+
+export const getFoodmakerInfoByNameAC = (name) => ({
+  type: GET_FOODMAKER_INFO_BY_NAME_REQUESTING,
+  name,
+})
+
+export const getFoodmakerInfoByNameSuccess = () => ({
+  type: GET_FOODMAKER_INFO_BY_NAME_SUCCESS,
+})
+
+export const getFoodmakerInfoByNameError = (payload) => ({
+  type: GET_FOODMAKER_INFO_BY_NAME_ERROR,
   payload,
 })
 

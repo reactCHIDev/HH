@@ -19,7 +19,6 @@ import { history } from 'store'
 import { setBaseEndpoint } from 'utils/apiClient'
 import Create from 'containers/Auth/components/Forgot/components/Create'
 import Card from 'components/Card'
-import Test from 'components/Tabs/Test'
 import Home from 'pages/Home'
 import Soon from 'components/ComingSoon'
 import Header from 'components/Header'
@@ -94,7 +93,8 @@ function App({ authorized, pathname, getUserAccount }) {
         <ConnectionProvider>
           {!hideHeader && <Header />}
           <Switch>
-            <PublicRoute exact path={desktop.home} component={WaitingComponent(Home)} />
+            <PublicRoute exact path="/" component={WaitingComponent(Home)} />
+            <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
             <PublicRoute
               exact
               path="/login"
@@ -103,12 +103,11 @@ function App({ authorized, pathname, getUserAccount }) {
             <PublicRoute exact path="/sandbox" component={WaitingComponent(Sandbox)} />
             <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
-            <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
             <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
             <PublicRoute exact path="/coming_soon" component={WaitingComponent(Soon)} />
 
             {/* Pages */}
-            <PublicRoute exact path="/shop_page/:id" component={WaitingComponent(ShopPage)} />
+            <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
             <PublicRoute
               exact
               path="/explore_experiences"
@@ -146,7 +145,6 @@ function App({ authorized, pathname, getUserAccount }) {
             />
             <PublicRoute exact path="/forgotpassword/:user" component={Create} />
             <PublicRoute exact path="/cart" component={WaitingComponent(Cart)} />
-            <PrivateRoute exact path={desktop.card} component={WaitingComponent(Card)} />
             <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
             <PrivateRoute
               exact
@@ -157,7 +155,7 @@ function App({ authorized, pathname, getUserAccount }) {
             <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
             <PublicRoute
               exact
-              path="/product_page/:productId?"
+              path="/product/:productId?"
               component={WaitingComponent(ProductPage)}
             />
             <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
@@ -166,7 +164,7 @@ function App({ authorized, pathname, getUserAccount }) {
               path="/foodmaker_profile"
               component={WaitingComponent(FoodmakerProfile)}
             />
-            <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
+          <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
             <PublicRoute
               exact
               path="/foodmaker_page/:id"
@@ -177,7 +175,7 @@ function App({ authorized, pathname, getUserAccount }) {
               path="/settings/:confirmation"
               component={WaitingComponent(Settings)}
             />
-            <Route exact path={desktop.card} component={Card} />
+            <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
             <Route path="/*" component={WaitingComponent(PageNotFound)} />
           </Switch>
         </ConnectionProvider>

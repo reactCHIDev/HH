@@ -39,7 +39,7 @@
       width: 33.33%;
     }
 
-    .img_box_frame{
+    .img_box_frame {
       max-width: 104px;
       border-radius: 8px;
       overflow: hidden;
@@ -65,6 +65,7 @@
       justify-content: space-between;
       align-items: center;
       padding-right: 10px;
+      cursor: pointer;
 
       .local_avatar_box {
         margin-right: 15px;
@@ -83,7 +84,7 @@
         p {
           font-weight: normal;
           font-size: 12px;
-          color: #939D98;
+          color: #939d98;
         }
       }
 
@@ -96,12 +97,12 @@
       text-align: right;
       min-width: 110px;
 
-      ul{
+      ul {
         font-size: 11px;
         white-space: nowrap;
         margin: 0 0 10px;
 
-        li{
+        li {
           &:not(:last-child) {
             margin-right: 4px;
           }

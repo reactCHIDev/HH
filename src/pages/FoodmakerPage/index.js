@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
-import { Link, useParams } from 'react-router-dom'
-import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { Redirect, Link, useParams } from 'react-router-dom'
+import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
+import PageNotFound from 'components/PageNotFound'
 import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -24,29 +25,40 @@ import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
 
 const FoodmakerPage = (props) => {
-  const { fm, shop, getFoodmakerInfoAC, getShopByFoodmakerIdAC, pushRoute, account } = props
+  const {
+    fm,
+    shop,
+    getFoodmakerInfoAC,
+    getFoodmakerInfoByNameAC,
+    getShopByFoodmakerIdAC,
+    pushRoute,
+    account,
+  } = props
 
-  const { id } = useParams()
+  const { userName } = useParams()
 
   const [readMore, setReadMore] = useState(false)
   const [name, setName] = useState('')
   const [gallery, setGallery] = useState([])
 
   useEffect(() => {
-    getFoodmakerInfoAC(id)
-    getShopByFoodmakerIdAC(id)
+    getFoodmakerInfoByNameAC(userName)
+    window.scrollTo(0, 0)
   }, [])
 
   useEffect(() => {
     if (fm) {
-      setName(fm.firstName ? fm.firstName + ' ' + fm.lastName : '')
+      getShopByFoodmakerIdAC(fm.id)
+      setName(fm.firstName ? `${fm.firstName} ${fm.lastName}` : '')
       setGallery([fm.coverPhoto].concat(fm.otherPhotos))
     }
   }, [fm])
 
+  // if (fm?.userName) return <Redirect to={`/${fm.userName}`} />
+
   const onReadMore = () => setReadMore(!readMore)
 
-  const openShop = () => pushRoute(`/shop_page/${fm.id}`)
+  const openShop = () => pushRoute(`/shop/${shop.shopUrl.split('/').pop()}`)
 
   return (
     <div className={styles.container}>
@@ -100,7 +112,7 @@ const FoodmakerPage = (props) => {
               <p className={styles.shop_descr}>{shop.description}</p>
               <div className={styles.btn_container}>
                 {/* <Link to={{ pathname: '/shop_page', state: fm.id }}> */}
-                <Button title="Visit shop" onClick={openShop} />
+                <Button title="Visit shop" onClick={shop?.shopUrl ? openShop : null} />
                 {/* </Link> */}
               </div>
             </div>
@@ -176,6 +188,7 @@ const FoodmakerPage = (props) => {
 
 FoodmakerPage.propTypes = {
   getFoodmakerInfoAC: T.func.isRequired,
+  getFoodmakerInfoByNameAC: T.func.isRequired,
   getShopByFoodmakerIdAC: T.func.isRequired,
   pushRoute: T.func.isRequired,
   fm: T.shape(),
@@ -186,6 +199,7 @@ export default connect(
   ({ foodmaker, account, shop }) => ({ fm: foodmaker, account, shop: shop.shopData }),
   {
     getFoodmakerInfoAC,
+    getFoodmakerInfoByNameAC,
     getShopByFoodmakerIdAC,
     pushRoute: push,
   },

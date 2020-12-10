@@ -1,12 +1,19 @@
 import { put, takeEvery, delay } from 'redux-saga/effects'
 import PATHS from 'api/paths'
 
-import { getFoodmakerInfoReq, updateFoodmakerAccountReq } from 'api/requests/foodmaker'
+import {
+  getFoodmakerInfoReq,
+  getFoodmakerInfoByNameReq,
+  updateFoodmakerAccountReq,
+} from 'api/requests/foodmaker'
 
 import {
   GET_FOODMAKER_INFO_REQUESTING,
   GET_FOODMAKER_INFO_SUCCESS,
   GET_FOODMAKER_INFO_ERROR,
+  GET_FOODMAKER_INFO_BY_NAME_REQUESTING,
+  GET_FOODMAKER_INFO_BY_NAME_SUCCESS,
+  GET_FOODMAKER_INFO_BY_NAME_ERROR,
   UPDATE_FOODMAKER_ACCOUNT_REQUESTING,
   UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
   UPDATE_FOODMAKER_ACCOUNT_ERROR,
@@ -19,6 +26,17 @@ function* getFoodmakerInfoSaga({ id }) {
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_FOODMAKER_INFO_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getFoodmakerInfoByNameSaga({ name }) {
+  try {
+    const response = yield getFoodmakerInfoByNameReq(name)
+    yield put({ type: GET_FOODMAKER_INFO_BY_NAME_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_FOODMAKER_INFO_BY_NAME_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -38,6 +56,7 @@ function* changeFoodmakerAccount({ payload }) {
 
 function* accountWatcher() {
   yield takeEvery(GET_FOODMAKER_INFO_REQUESTING, getFoodmakerInfoSaga)
+  yield takeEvery(GET_FOODMAKER_INFO_BY_NAME_REQUESTING, getFoodmakerInfoByNameSaga)
   yield takeEvery(UPDATE_FOODMAKER_ACCOUNT_REQUESTING, changeFoodmakerAccount)
 }
 
