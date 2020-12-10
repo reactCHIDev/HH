@@ -4,7 +4,6 @@ export default {
   // Test
   userbyname: '/v1/user/profile_name/',
   userbyemail: '/v1/user/email/',
-  getUserByHHLink: '/v1/user/hh_link/',
 
   // Auth
   signUpUser: '/v1/user/register_foodlover',
@@ -17,6 +16,7 @@ export default {
 
   // Account
   getUserAccount: '/v1/account/info/',
+  getUserByHHLink: '/v1/user/hh_link/',
   updateSettings: '/v1/account/update_settings',
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',

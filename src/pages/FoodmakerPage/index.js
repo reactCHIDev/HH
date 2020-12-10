@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import { Redirect, Link, useParams } from 'react-router-dom'
 import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
+import { getUserByLinkAC } from 'actions/account'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
+import { resolveFoodmakerDataAC } from 'actions/pages'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
 import PageNotFound from 'components/PageNotFound'
@@ -28,11 +30,13 @@ const FoodmakerPage = (props) => {
   const {
     fm,
     shop,
+    resolveFoodmakerDataAC,
+    pushRoute,
+    /* getUserByLink,
     getFoodmakerInfoAC,
     getFoodmakerInfoByNameAC,
     getShopByFoodmakerIdAC,
-    pushRoute,
-    account,
+    account, */
   } = props
 
   const { userName } = useParams()
@@ -42,24 +46,22 @@ const FoodmakerPage = (props) => {
   const [gallery, setGallery] = useState([])
 
   useEffect(() => {
-    getFoodmakerInfoByNameAC(userName)
-    window.scrollTo(0, 0)
+    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
   }, [])
 
   useEffect(() => {
-    if (fm) {
-      getShopByFoodmakerIdAC(fm.id)
+    if (fm?.id) {
       setName(fm.firstName ? `${fm.firstName} ${fm.lastName}` : '')
       setGallery([fm.coverPhoto].concat(fm.otherPhotos))
+      window.scrollTo(0, 0)
     }
   }, [fm])
-
-  // if (fm?.userName) return <Redirect to={`/${fm.userName}`} />
 
   const onReadMore = () => setReadMore(!readMore)
 
   const openShop = () => pushRoute(`/shop/${shop.shopUrl.split('/').pop()}`)
 
+  if (!fm) return null
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -187,20 +189,21 @@ const FoodmakerPage = (props) => {
 }
 
 FoodmakerPage.propTypes = {
-  getFoodmakerInfoAC: T.func.isRequired,
-  getFoodmakerInfoByNameAC: T.func.isRequired,
-  getShopByFoodmakerIdAC: T.func.isRequired,
+  resolveFoodmakerDataAC: T.func.isRequired,
   pushRoute: T.func.isRequired,
   fm: T.shape(),
   shop: T.shape(),
+  /* getFoodmakerInfoAC: T.func.isRequired,
+  getFoodmakerInfoByNameAC: T.func.isRequired,
+  getUserByLink: T.func.isRequired,
+  getShopByFoodmakerIdAC: T.func.isRequired, */
 }
 
-export default connect(
-  ({ foodmaker, account, shop }) => ({ fm: foodmaker, account, shop: shop.shopData }),
-  {
-    getFoodmakerInfoAC,
-    getFoodmakerInfoByNameAC,
-    getShopByFoodmakerIdAC,
-    pushRoute: push,
-  },
-)(FoodmakerPage)
+export default connect(({ pages }) => ({ fm: pages.foodmakerData, shop: pages.shopData }), {
+  getFoodmakerInfoAC,
+  getFoodmakerInfoByNameAC,
+  getShopByFoodmakerIdAC,
+  pushRoute: push,
+  getUserByLink: getUserByLinkAC,
+  resolveFoodmakerDataAC,
+})(FoodmakerPage)

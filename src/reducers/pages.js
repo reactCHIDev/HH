@@ -5,11 +5,16 @@ import {
   GET_PUBLIC_FOODMAKERS,
   GET_PUBLIC_FOODMAKERS_SUCCESS,
   GET_PUBLIC_FOODMAKERS_ERROR,
+  GET_USER_BY_LINK_REQUESTING,
+  GET_USER_BY_LINK_SUCCESS,
+  GET_USER_BY_LINK_ERROR,
 } from '../actions/constants'
 
 const initialState = {
   products: [],
   foodmakers: [],
+  foodmakerData: null,
+  shopData: null,
 }
 
 const reducer = function loginReducer(state = initialState, action) {
@@ -49,6 +54,36 @@ const reducer = function loginReducer(state = initialState, action) {
     case GET_PUBLIC_FOODMAKERS_ERROR:
       return {
         ...state,
+        requesting: false,
+        error: action.error,
+      }
+
+    case GET_USER_BY_LINK_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
+    case GET_USER_BY_LINK_SUCCESS:
+      return {
+        ...state,
+        foodmaker: action.data,
+        requesting: false,
+        error: '',
+      }
+
+    case GET_USER_BY_LINK_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+
+    case 'FOODMAKER_PAGE_DATA':
+      return {
+        ...state,
+        ...action.data,
         requesting: false,
         error: action.error,
       }

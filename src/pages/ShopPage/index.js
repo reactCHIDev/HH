@@ -54,11 +54,9 @@ const ShopPage = (props) => {
 
   const showMore = () => setProductCount((c) => c + 4)
 
-  const openFoodmaker = () => pushRoute(`/${fm.profileName}`)
+  const openFoodmaker = () => pushRoute(`/${fm.hungryHuggerLink.split('/').pop()}`)
 
   if (shop === 'Shop does not exist') return <PageNotFound msg={`Shop "${shopName}" Not Found`} />
-
-  // if (!id) return <Redirect to="/" />
 
   return (
     <div>

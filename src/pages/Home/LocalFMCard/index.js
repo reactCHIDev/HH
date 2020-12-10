@@ -7,6 +7,7 @@ const FMCard = (props) => {
   const { foodmaker, pushRoute } = props
   const {
     profileName,
+    hungryHuggerLink,
     userPhoto,
     coverPhoto,
     otherPhotos,
@@ -17,7 +18,7 @@ const FMCard = (props) => {
     tags,
   } = foodmaker
 
-  const openFoodmaker = () => pushRoute(`/${profileName}`)
+  const openFoodmaker = () => pushRoute(`/${hungryHuggerLink.split('/').pop()}`)
 
   return (
     <div className={styles.local_makers_col}>
