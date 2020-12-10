@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import T, { shape, string } from 'prop-types'
+import T, { shape } from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 import cloneDeep from 'lodash/cloneDeep'
 import { Spin, Space } from 'antd'
 import ChkBox from 'components/ChkBox'
@@ -44,6 +45,7 @@ const Listings = (props) => {
     getProductTypes,
     getMyProductList,
     toggleProductStatusRequestAC,
+    pushRoute,
   } = props
 
   const [filters, setFilters] = useState(types)
@@ -230,6 +232,7 @@ const Listings = (props) => {
               {filteredProducts.map((product) => (
                 <Product
                   key={product.id}
+                  pushRoute={pushRoute}
                   product={product}
                   userProfile={userProfile}
                   onToggle={test}
@@ -262,6 +265,7 @@ Listings.propTypes = {
   getProductTypes: T.func,
   getMyProductList: T.func,
   toggleProductStatusRequestAC: T.func,
+  pushRoute: T.func,
 }
 
 export default connect(
@@ -275,5 +279,6 @@ export default connect(
     getProductTypes,
     getMyProductList,
     toggleProductStatusRequestAC,
+    pushRoute: push,
   },
 )(Listings)

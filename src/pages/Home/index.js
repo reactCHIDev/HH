@@ -1,38 +1,34 @@
 import React, { useState, useEffect } from 'react'
+import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getPublicProductsAC, getPublicFoodmakersAC } from 'actions/pages'
 import ProdCard from 'components/ProductCard'
-import { Link } from 'react-router-dom'
+import { push } from 'connected-react-router'
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
-import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
 import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import FMCard from './LocalFMCard'
-import T from 'prop-types'
-import styles from './home.module.scss'
-import './home.less'
 import Button from 'components/Button'
 import Pattern2 from 'assets/images/pattern 2.svg'
-import Rectangle from 'assets/images/landings/home_page/Rectangle.png'
-import Rectangle1 from 'assets/images/landings/home_page/Rectangle (1).png'
-import Rectangle2 from 'assets/images/landings/home_page/Rectangle (2).png'
-import Rectangle3 from 'assets/images/landings/home_page/Rectangle (3).png'
-import Rectangle4 from 'assets/images/landings/home_page/Rectangle (4).png'
-import Rectangle5 from 'assets/images/landings/home_page/Rectangle (5).png'
-import Rectangle6 from 'assets/images/landings/home_page/Rectangle (6).png'
-import Rectangle7 from 'assets/images/landings/home_page/Rectangle (7).png'
-import Rectangle8 from 'assets/images/landings/home_page/Rectangle (8).png'
-import avatar3 from 'assets/images/landings/home_page/Ellipse 6.png'
 import hands from 'assets/images/landings/home_page/Group 677.svg'
+import FMCard from './LocalFMCard'
+import styles from './home.module.scss'
+import './home.less'
 
 const Home = (props) => {
-  const { getPublicProductsAC, getPublicFoodmakersAC, productList, foodmakersList } = props
+  const {
+    getPublicProductsAC,
+    getPublicFoodmakersAC,
+    pushRoute,
+    productList,
+    foodmakersList,
+  } = props
   const { Panel } = Collapse
 
   const [productStartIndex, setProductStartIndex] = useState(0)
   const [productCollection, setProductCollection] = useState([])
+
   const [foodmakerStartIndex, setFoodmakerStartIndex] = useState(0)
   const [foodmakerCollection, setFoodmakerCollection] = useState([])
 
@@ -144,8 +140,9 @@ const Home = (props) => {
             productCollection.map((product) => (
               <ProdCard
                 key={product.id}
+                id={product.id}
                 pathname="/product_page"
-                state={product}
+                pushRoute={pushRoute}
                 photo={product.coverPhoto}
                 tags={product.productTags.map((t) => t.tagName)}
                 name={product.title}
@@ -156,7 +153,7 @@ const Home = (props) => {
               />
             ))}
           <div className={styles.btn_holder}>
-            <Button title="More products near you" dark={true} onClick={moreProducts} />
+            <Button title="More products near you" dark onClick={moreProducts} />
           </div>
         </section>
 
@@ -207,7 +204,7 @@ const Home = (props) => {
           <div className={styles.local_tree_columns}>
             {foodmakerCollection &&
               foodmakerCollection.length > 0 &&
-              foodmakerCollection.map((fm) => <FMCard foodmaker={fm} />)}
+              foodmakerCollection.map((fm) => <FMCard foodmaker={fm} pushRoute={pushRoute} />)}
           </div>
 
           <div className={styles.btn_holder}>
@@ -296,6 +293,7 @@ Home.propTypes = {
   foodmakersList: T.arrayOf(T.shape),
   getPublicProductsAC: T.func,
   getPublicFoodmakersAC: T.func,
+  pushRoute: T.func,
 }
 
 export default connect(
@@ -303,5 +301,6 @@ export default connect(
   {
     getPublicProductsAC,
     getPublicFoodmakersAC,
+    pushRoute: push,
   },
 )(Home)

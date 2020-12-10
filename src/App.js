@@ -108,7 +108,7 @@ function App({ authorized, pathname, getUserAccount }) {
             <PublicRoute exact path="/coming_soon" component={WaitingComponent(Soon)} />
 
             {/* Pages */}
-            <PublicRoute exact path="/shop_page" component={WaitingComponent(ShopPage)} />
+            <PublicRoute exact path="/shop_page/:id" component={WaitingComponent(ShopPage)} />
             <PublicRoute
               exact
               path="/explore_experiences"
@@ -155,7 +155,11 @@ function App({ authorized, pathname, getUserAccount }) {
             />
             <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
             <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
-            <PublicRoute exact path="/product_page" component={WaitingComponent(ProductPage)} />
+            <PublicRoute
+              exact
+              path="/product_page/:productId?"
+              component={WaitingComponent(ProductPage)}
+            />
             <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
             {/* <PrivateRoute
               exact
@@ -163,7 +167,11 @@ function App({ authorized, pathname, getUserAccount }) {
               component={WaitingComponent(FoodmakerProfile)}
             />
             <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
-            <PublicRoute exact path="/foodmaker_page" component={WaitingComponent(FoodmakerPage)} />
+            <PublicRoute
+              exact
+              path="/foodmaker_page/:id"
+              component={WaitingComponent(FoodmakerPage)}
+            />
             <PrivateRoute
               exact
               path="/settings/:confirmation"

@@ -1,9 +1,7 @@
 import React from 'react'
 import T from 'prop-types'
-import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import { Rate, Tag } from 'antd'
-
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
@@ -11,7 +9,9 @@ import styles from './prod_card.module.scss'
 import './prod_card.less'
 
 const ProdCard = (props) => {
-  const { photo, tags, name, price, rating, rateCount, isShowCart, pathname, state } = props
+  const { id, photo, tags, name, price, rating, rateCount, isShowCart, pushRoute, pathname } = props
+
+  const onClick = () => pushRoute(`${pathname}/${id}`)
 
   return (
     <div className={styles.container}>
@@ -29,9 +29,9 @@ const ProdCard = (props) => {
           </div>
         </div>
         <div className={styles.info_container}>
-          <Link className={styles.card_link} to={{ pathname, state }}>
-            <p className={styles.exp_title}>{name}</p>
-          </Link>
+          <p className={styles.exp_title} onClick={onClick}>
+            {name}
+          </p>
           <div className={styles.stats_container}>
             <div className={styles.exp_price_container}>
               <p className={styles.exp_price}>{`$${price}`}</p>
@@ -58,6 +58,9 @@ ProdCard.propTypes = {
   rating: T.number,
   rateCount: T.number,
   isShowCart: T.bool,
+  id: T.number.isRequired,
+  pathname: T.string.isRequired,
+  pushRoute: T.func.isRequired,
 }
 
 ProdCard.defaultProps = {

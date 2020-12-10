@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { push } from 'connected-react-router'
+import { Redirect, useParams, Link } from 'react-router-dom'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
@@ -25,15 +26,16 @@ import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
 
 const ShopPage = (props) => {
   const {
-    location,
     fm,
     product,
+    pushRoute,
     shop,
     getFoodmakerInfoAC,
     getProductInfoRequestAC,
     getShopByFoodmakerIdAC,
   } = props
-  const id = location.state
+
+  const { id } = useParams()
 
   const [productCount, setProductCount] = useState(4)
 
@@ -46,6 +48,8 @@ const ShopPage = (props) => {
   }, [])
 
   const showMore = () => setProductCount((c) => c + 4)
+
+  const openFoodmaker = () => pushRoute(`/foodmaker_page/${id}`)
 
   if (!id) return <Redirect to="/" />
 
@@ -103,8 +107,9 @@ const ShopPage = (props) => {
                   shop.products.slice(0, productCount).map((e) => (
                     <ProdCard
                       key={e.id}
+                      id={e.id}
+                      pushRoute={pushRoute}
                       pathname="/product_page"
-                      state={{ ...e, userProfile: shop.userProfile }}
                       photo={e.coverPhoto}
                       tags={[]}
                       name={e.title}
@@ -124,7 +129,7 @@ const ShopPage = (props) => {
                 <img className={styles.acc} src={Shop} alt="Shop" />
                 <p className={styles.heading}>A few words about the shop</p>
                 <p className={styles.about_text}>{shop.description}</p>
-                <div className={styles.shop_autor}>
+                <div className={styles.shop_autor} onClick={openFoodmaker}>
                   <img src={fm.userPhoto} alt="Avatar" className={styles.avatar} />
                   <div className={styles.text_holder}>
                     <span className={styles.owner}>Shop owner</span>
@@ -154,10 +159,12 @@ ShopPage.propTypes = {
   getFoodmakerInfoAC: T.func.isRequired,
   getProductInfoRequestAC: T.func.isRequired,
   getShopByFoodmakerIdAC: T.func.isRequired,
+  pushRoute: T.func.isRequired,
 }
 
 export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.shopData }), {
   getFoodmakerInfoAC,
   getProductInfoRequestAC,
   getShopByFoodmakerIdAC,
+  pushRoute: push,
 })(ShopPage)

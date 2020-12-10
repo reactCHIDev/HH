@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
+import { useParams } from 'react-router-dom'
+import { push } from 'connected-react-router'
 import cls from 'classnames'
-import { Link } from 'react-router-dom'
 import CardsContainer from 'components/CardsContainer'
-import Card from 'components/ProductCard'
+import ProdCard from 'components/ProductCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import styles from './product_page.module.scss'
@@ -17,38 +18,34 @@ import AboutMaker from './components/AboutMaker'
 import './product_page.less'
 
 const ProductPage = (props) => {
-  const {
-    info,
-    getProductInfoRequest,
-    location: { state: product },
-  } = props
+  const { info, getProductInfoRequest, pushRoute } = props
 
-  const { userProfile } = product
+  const { productId } = useParams()
+
+  const openFoodmaker = () => pushRoute(`/foodmaker_page/${info.userProfile.id}`)
 
   useEffect(() => {
-    getProductInfoRequest(product.id)
+    getProductInfoRequest(productId)
     window.scrollTo(0, 0)
-  }, [product])
+  }, [productId])
 
+  if (!info) return null
   return (
     <div className={cls('product-container', styles.container)}>
       <div className={styles.product}>
         <div className={styles.content}>
-          <ImagePreviewer images={[product.coverPhoto, ...product.otherPhotos]} />
+          <ImagePreviewer images={[info.coverPhoto, ...info.otherPhotos]} />
           <div className={styles.inner_content}>
-            <Header text={product.title} />
-            <Toolbar params={product.parameters} isPreOrderOnly={false} />
-            <Tabs product={product} />
-            <Link
-              className={styles.card_link}
-              to={{ pathname: '/foodmaker_page', state: userProfile.id }}
-            >
+            <Header text={info.title} />
+            <Toolbar params={info.parameters} isPreOrderOnly={false} />
+            <Tabs product={info} />
+            <div className={styles.card_link} onClick={openFoodmaker}>
               <AboutMaker
-                name={userProfile.firstName}
-                text={userProfile.about}
-                photo={userProfile.coverPhoto}
+                name={info.userProfile.firstName}
+                text={info.userProfile.about}
+                photo={info.userProfile.coverPhoto}
               />
-            </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -59,10 +56,11 @@ const ProductPage = (props) => {
             {info &&
               info?.relatedProducts &&
               info.relatedProducts.map((product) => (
-                <Card
+                <ProdCard
                   key={product.id}
+                  id={product.id}
+                  pushRoute={pushRoute}
                   pathname="/product_page"
-                  state={product}
                   photo={product.coverPhoto}
                   tags={product.productTags.map((t) => t.tagName)}
                   name={product.title}
@@ -83,10 +81,11 @@ const ProductPage = (props) => {
 
 ProductPage.propTypes = {
   info: T.shape,
-  location: T.shape,
   getProductInfoRequest: T.func.isRequired,
+  pushRoute: T.func.isRequired,
 }
 
-export default connect(({ product, shop }) => ({ info: product.info, shop: shop.shopData }), {
+export default connect(({ product }) => ({ info: product.info }), {
   getProductInfoRequest: getProductInfoRequestAC,
+  pushRoute: push,
 })(ProductPage)
