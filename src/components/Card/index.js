@@ -16,7 +16,7 @@ const Card = () => {
       <Link to="/foodmaker_page" style={{ color: 'grey' }}>
         Foodmaker Page
       </Link>
-      <Link to="/product_page" style={{ color: 'grey' }}>
+      <Link to="/product" style={{ color: 'grey' }}>
         Product Page
       </Link>
       <Link to="/addproduct" style={{ color: 'grey' }}>

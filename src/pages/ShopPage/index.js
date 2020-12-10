@@ -5,7 +5,8 @@ import { push } from 'connected-react-router'
 import { Redirect, useParams, Link } from 'react-router-dom'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
-import { getShopByFoodmakerIdAC } from 'actions/shop'
+import { getShopByFoodmakerIdAC, getShopByUrlAC } from 'actions/shop'
+import PageNotFound from 'components/PageNotFound'
 import Button from 'components/Button'
 import ProdCard from 'components/ProductCard'
 import { Rate } from 'antd'
@@ -33,25 +34,31 @@ const ShopPage = (props) => {
     getFoodmakerInfoAC,
     getProductInfoRequestAC,
     getShopByFoodmakerIdAC,
+    getShopByUrlAC,
   } = props
 
-  const { id } = useParams()
+  const { shopName } = useParams()
 
   const [productCount, setProductCount] = useState(4)
 
   const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
 
   useEffect(() => {
-    getFoodmakerInfoAC(id)
-    // getProductInfoRequestAC(id)
-    getShopByFoodmakerIdAC(id)
+    getShopByUrlAC(process.env.REACT_APP_BASE_URL + '/shop/' + shopName)
+    window.scrollTo(0, 0)
   }, [])
+
+  useEffect(() => {
+    if (shop?.userProfile) getFoodmakerInfoAC(shop.userProfile.id)
+  }, [shop])
 
   const showMore = () => setProductCount((c) => c + 4)
 
-  const openFoodmaker = () => pushRoute(`/foodmaker_page/${id}`)
+  const openFoodmaker = () => pushRoute(`/${fm.profileName}`)
 
-  if (!id) return <Redirect to="/" />
+  if (shop === 'Shop does not exist') return <PageNotFound msg={`Shop "${shopName}" Not Found`} />
+
+  // if (!id) return <Redirect to="/" />
 
   return (
     <div>
@@ -109,7 +116,7 @@ const ShopPage = (props) => {
                       key={e.id}
                       id={e.id}
                       pushRoute={pushRoute}
-                      pathname="/product_page"
+                      pathname="/product"
                       photo={e.coverPhoto}
                       tags={[]}
                       name={e.title}
@@ -159,6 +166,7 @@ ShopPage.propTypes = {
   getFoodmakerInfoAC: T.func.isRequired,
   getProductInfoRequestAC: T.func.isRequired,
   getShopByFoodmakerIdAC: T.func.isRequired,
+  getShopByUrlAC: T.func.isRequired,
   pushRoute: T.func.isRequired,
 }
 
@@ -166,5 +174,6 @@ export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.sho
   getFoodmakerInfoAC,
   getProductInfoRequestAC,
   getShopByFoodmakerIdAC,
+  getShopByUrlAC,
   pushRoute: push,
 })(ShopPage)

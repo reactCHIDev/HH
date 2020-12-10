@@ -9,6 +9,7 @@ import CardsContainer from 'components/CardsContainer'
 import ProdCard from 'components/ProductCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
+import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import styles from './product_page.module.scss'
 import ImagePreviewer from './components/ImagePreviewer'
 import Header from './components/Header'
@@ -18,16 +19,20 @@ import AboutMaker from './components/AboutMaker'
 import './product_page.less'
 
 const ProductPage = (props) => {
-  const { info, getProductInfoRequest, pushRoute } = props
+  const { info, fm, getProductInfoRequest, getFoodmakerInfo, pushRoute } = props
 
   const { productId } = useParams()
 
-  const openFoodmaker = () => pushRoute(`/foodmaker_page/${info.userProfile.id}`)
+  const openFoodmaker = () => pushRoute(`/${fm.profileName}`)
 
   useEffect(() => {
     getProductInfoRequest(productId)
     window.scrollTo(0, 0)
   }, [productId])
+
+  useEffect(() => {
+    if (info?.userProfile) getFoodmakerInfo(info.userProfile.id)
+  }, [info])
 
   if (!info) return null
   return (
@@ -60,7 +65,7 @@ const ProductPage = (props) => {
                   key={product.id}
                   id={product.id}
                   pushRoute={pushRoute}
-                  pathname="/product_page"
+                  pathname="/product"
                   photo={product.coverPhoto}
                   tags={product.productTags.map((t) => t.tagName)}
                   name={product.title}
@@ -81,11 +86,14 @@ const ProductPage = (props) => {
 
 ProductPage.propTypes = {
   info: T.shape,
+  fm: T.shape,
   getProductInfoRequest: T.func.isRequired,
+  getFoodmakerInfo: T.func.isRequired,
   pushRoute: T.func.isRequired,
 }
 
-export default connect(({ product }) => ({ info: product.info }), {
+export default connect(({ product, foodmaker }) => ({ info: product.info, fm: foodmaker }), {
   getProductInfoRequest: getProductInfoRequestAC,
+  getFoodmakerInfo: getFoodmakerInfoAC,
   pushRoute: push,
 })(ProductPage)

@@ -141,7 +141,7 @@ const Home = (props) => {
               <ProdCard
                 key={product.id}
                 id={product.id}
-                pathname="/product_page"
+                pathname="/product"
                 pushRoute={pushRoute}
                 photo={product.coverPhoto}
                 tags={product.productTags.map((t) => t.tagName)}

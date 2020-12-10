@@ -16,7 +16,7 @@ const Product = ({ product, pushRoute, onToggle }) => {
 
   const onClick = () => setItem('addProduct', product)
 
-  const openProduct = () => pushRoute(`/product_page/${product.id}`)
+  const openProduct = () => pushRoute(`/product/${product.id}`)
 
   return (
     <div className={styles.tr}>
