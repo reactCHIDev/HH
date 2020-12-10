@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
+import { Link, useParams } from 'react-router-dom'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
 import Button from 'components/Button'
-import { Link } from 'react-router-dom'
 import ExpCard from 'components/ExperienceCard'
 import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
@@ -22,17 +23,10 @@ import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
 
-const cutted = 'qweqwe'
-
 const FoodmakerPage = (props) => {
-  const {
-    fm,
-    shop,
-    getFoodmakerInfoAC,
-    getShopByFoodmakerIdAC,
-    account,
-    location: { state: id },
-  } = props
+  const { fm, shop, getFoodmakerInfoAC, getShopByFoodmakerIdAC, pushRoute, account } = props
+
+  const { id } = useParams()
 
   const [readMore, setReadMore] = useState(false)
   const [name, setName] = useState('')
@@ -51,6 +45,8 @@ const FoodmakerPage = (props) => {
   }, [fm])
 
   const onReadMore = () => setReadMore(!readMore)
+
+  const openShop = () => pushRoute(`/shop_page/${fm.id}`)
 
   return (
     <div className={styles.container}>
@@ -103,9 +99,9 @@ const FoodmakerPage = (props) => {
               </div>
               <p className={styles.shop_descr}>{shop.description}</p>
               <div className={styles.btn_container}>
-                <Link to={{ pathname: '/shop_page', state: id }}>
-                  <Button title="Visit shop" dark={true} />
-                </Link>
+                {/* <Link to={{ pathname: '/shop_page', state: fm.id }}> */}
+                <Button title="Visit shop" onClick={openShop} />
+                {/* </Link> */}
               </div>
             </div>
           </div>
@@ -181,6 +177,7 @@ const FoodmakerPage = (props) => {
 FoodmakerPage.propTypes = {
   getFoodmakerInfoAC: T.func.isRequired,
   getShopByFoodmakerIdAC: T.func.isRequired,
+  pushRoute: T.func.isRequired,
   fm: T.shape(),
   shop: T.shape(),
 }
@@ -190,5 +187,6 @@ export default connect(
   {
     getFoodmakerInfoAC,
     getShopByFoodmakerIdAC,
+    pushRoute: push,
   },
 )(FoodmakerPage)
