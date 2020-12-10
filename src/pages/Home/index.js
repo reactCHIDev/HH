@@ -61,7 +61,7 @@ const Home = (props) => {
       <section className={styles.page_header}>
         <div className={styles.header_content}>
           <h1>
-            Connecting curious <mark>Food Lovers</mark>{' '}
+            Connecting curious<mark>Food Lovers</mark>
           </h1>
           <p className={styles.slogan}>
             to a global marketplace of local and dedicated food makers

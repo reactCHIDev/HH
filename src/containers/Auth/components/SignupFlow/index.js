@@ -4,7 +4,7 @@ import { setItem, getItem, removeKey } from 'utils/localStorage'
 import { replace } from 'connected-react-router'
 import { signupFoodmakerAC, signupLoverAsMakerAC } from 'actions/signup'
 import { getUserAccount } from 'actions/account'
-import { getCitiesAC } from 'actions/system'
+import { getCitiesAC, getServiceTagsAC, getSpecialityTagsAC } from 'actions/system'
 import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Message from './components/Message'
@@ -73,6 +73,10 @@ const Signup = ({
   signupFoodmakerAC,
   signupLoverAsMakerAC,
   getUserAccount,
+  getServiceTagsAC,
+  getSpecialityTagsAC,
+  serviceTags,
+  specialityTags,
   role,
   replace,
   cities,
@@ -134,6 +138,8 @@ const Signup = ({
     getCitiesAC()
     const id = getItem('user-id')
     if (id) getUserAccount(id)
+    getServiceTagsAC()
+    getSpecialityTagsAC()
   }, [])
 
   useEffect(() => {
@@ -225,6 +231,8 @@ const Signup = ({
       profileName,
     } */
   if (steps[step].props.name === 'city') properties = { ...state[step].props, cities }
+  if (steps[step].props.name === 'serviceTagIds')
+    properties = { ...state[step].props, specialityTags, serviceTags }
 
   const closeModal = (e) => {
     setMsg(false)
@@ -269,6 +277,8 @@ Signup.propTypes = {
   replace: T.func,
   getCitiesAC: T.func,
   getUserAccount: T.func,
+  getServiceTagsAC: T.func,
+  getSpecialityTagsAC: T.func,
   requesting: T.bool,
   success: T.bool,
   error: T.bool,
@@ -279,7 +289,7 @@ Signup.propTypes = {
 export default connect(
   ({
     signup: { requesting, success, error },
-    system: { cities },
+    system: { cities, serviceTags, specialityTags },
     account: { role, profileName, email },
   }) => ({
     role,
@@ -289,6 +299,8 @@ export default connect(
     cities,
     profileName,
     email,
+    serviceTags,
+    specialityTags,
   }),
   {
     signupFoodmakerAC,
@@ -296,5 +308,7 @@ export default connect(
     getCitiesAC,
     getUserAccount,
     replace,
+    getServiceTagsAC,
+    getSpecialityTagsAC,
   },
 )(Signup)
