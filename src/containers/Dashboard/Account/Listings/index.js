@@ -42,6 +42,7 @@ const Listings = (props) => {
     types,
     myProducts = [],
     userProfile,
+    requesting,
     getProductTypes,
     getMyProductList,
     toggleProductStatusRequestAC,
@@ -218,7 +219,7 @@ const Listings = (props) => {
               </CollapsedBlock>
             ))}
         </div>
-        {filteredProducts.length > 0 ? (
+        {filteredProducts && !requesting ? (
           <div className={styles.listing}>
             <div className={styles.product_table}>
               <div className={styles.tr}>
@@ -262,6 +263,7 @@ Listings.propTypes = {
   types: T.arrayOf(shape()),
   myProducts: T.arrayOf(shape()),
   userProfile: T.shape(),
+  requesting: T.bool,
   getProductTypes: T.func,
   getMyProductList: T.func,
   toggleProductStatusRequestAC: T.func,
@@ -272,9 +274,10 @@ export default connect(
   ({
     listing: {
       myProducts: { products: myProducts, userProfile },
+      requesting,
     },
     system: { productTypes: types },
-  }) => ({ types, myProducts, userProfile }),
+  }) => ({ types, myProducts, userProfile, requesting }),
   {
     getProductTypes,
     getMyProductList,

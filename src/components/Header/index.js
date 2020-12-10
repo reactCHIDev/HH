@@ -36,12 +36,12 @@ const Header = (props) => {
 
   const lightTheme = [
     '/signupflow',
-    '/card',
     '/foodmaker_dashboard',
     '/exp_dashboard',
     '/account_info',
     '/addproduct',
     '/editproduct',
+    '/shop/',
     '/landing/create_experience',
     '/landing/foodmakers',
     '/landing/create_profile',
