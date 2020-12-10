@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import T, { shape, string } from 'prop-types'
+import T, { shape } from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 import cloneDeep from 'lodash/cloneDeep'
 import { Spin, Space } from 'antd'
 import ChkBox from 'components/ChkBox'
@@ -41,9 +42,11 @@ const Listings = (props) => {
     types,
     myProducts = [],
     userProfile,
+    requesting,
     getProductTypes,
     getMyProductList,
     toggleProductStatusRequestAC,
+    pushRoute,
   } = props
 
   const [filters, setFilters] = useState(types)
@@ -216,7 +219,7 @@ const Listings = (props) => {
               </CollapsedBlock>
             ))}
         </div>
-        {filteredProducts.length > 0 ? (
+        {filteredProducts && !requesting ? (
           <div className={styles.listing}>
             <div className={styles.product_table}>
               <div className={styles.tr}>
@@ -230,6 +233,7 @@ const Listings = (props) => {
               {filteredProducts.map((product) => (
                 <Product
                   key={product.id}
+                  pushRoute={pushRoute}
                   product={product}
                   userProfile={userProfile}
                   onToggle={test}
@@ -259,21 +263,25 @@ Listings.propTypes = {
   types: T.arrayOf(shape()),
   myProducts: T.arrayOf(shape()),
   userProfile: T.shape(),
+  requesting: T.bool,
   getProductTypes: T.func,
   getMyProductList: T.func,
   toggleProductStatusRequestAC: T.func,
+  pushRoute: T.func,
 }
 
 export default connect(
   ({
     listing: {
       myProducts: { products: myProducts, userProfile },
+      requesting,
     },
     system: { productTypes: types },
-  }) => ({ types, myProducts, userProfile }),
+  }) => ({ types, myProducts, userProfile, requesting }),
   {
     getProductTypes,
     getMyProductList,
     toggleProductStatusRequestAC,
+    pushRoute: push,
   },
 )(Listings)

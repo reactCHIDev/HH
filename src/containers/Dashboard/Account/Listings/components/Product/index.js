@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import T from 'prop-types'
-import { getItem, setItem } from 'utils/localStorage'
+import { setItem } from 'utils/localStorage'
 import { Link } from 'react-router-dom'
-
+import cls from 'classnames'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import ChkIcon from 'assets/icons/svg/chk-icon.svg'
 import DashIcon from 'assets/icons/svg/dash-icon.svg'
-import ProdPhoto from 'assets/images/landings/create_experience/sec24.jpg'
 import { Rate } from 'antd'
 import Option from '../Option'
 import styles from './product.module.scss'
 import './product.less'
-import cls from 'classnames'
 
-const Product = ({ product, userProfile, onToggle }) => {
+const Product = ({ product, pushRoute, onToggle }) => {
   const { id, coverPhoto, title, rating, status, quantity, available } = product
 
   const onClick = () => setItem('addProduct', product)
+
+  const openProduct = () => pushRoute(`/product/${product.id}`)
 
   return (
     <div className={styles.tr}>
@@ -27,11 +27,8 @@ const Product = ({ product, userProfile, onToggle }) => {
               <img src={coverPhoto} alt="product" />
             </div>
 
-            <div className={styles.product_option}>
-              <Link to={{ pathname: '/product_page', state: { ...product, userProfile } }}>
-                <span className={styles.product_name}>{title}</span>
-              </Link>
-
+            <div className={styles.product_option} onClick={openProduct}>
+              <span className={styles.product_name}>{title}</span>
               <div className={styles.status_option_container}>
                 <Option checked={status === 'PUBLISHED'} onChange={onToggle} id={id} />
               </div>
@@ -74,6 +71,7 @@ const Product = ({ product, userProfile, onToggle }) => {
 Product.propTypes = {
   product: T.arrayOf(T.shape),
   onToggle: T.func,
+  pushRoute: T.func,
 }
 
 export default Product

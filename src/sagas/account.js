@@ -6,6 +6,7 @@ import PATHS from 'api/paths'
 import {
   updateSettings,
   getUserAccount,
+  getUserByHHLink,
   confirmEmailUpdate,
   updatePhotoName,
 } from 'api/requests/Account'
@@ -15,6 +16,9 @@ import {
   GET_USER_ACCOUNT_REQUESTING,
   GET_USER_ACCOUNT_SUCCESS,
   GET_USER_ACCOUNT_ERROR,
+  GET_USER_BY_LINK_REQUESTING,
+  GET_USER_BY_LINK_SUCCESS,
+  GET_USER_BY_LINK_ERROR,
   UPDATE_ACCOUNT_REQUESTING,
   UPDATE_ACCOUNT_SUCCESS,
   UPDATE_ACCOUNT_ERROR,
@@ -35,6 +39,17 @@ function* getUserAccountSaga() {
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_USER_ACCOUNT_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getUserByLinkSaga({ url }) {
+  try {
+    const response = yield getUserByHHLink(url)
+    yield put({ type: GET_USER_BY_LINK_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_USER_BY_LINK_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -86,6 +101,7 @@ function* changeEmailConfirm({ payload }) {
 
 function* accountWatcher() {
   yield takeEvery(GET_USER_ACCOUNT_REQUESTING, getUserAccountSaga)
+  yield takeEvery(GET_USER_BY_LINK_REQUESTING, getUserByLinkSaga)
   yield takeEvery(CREATE_PRODUCT_SUCCESS, getUserAccountSaga)
   yield takeEvery(UPDATE_ACCOUNT_REQUESTING, updateUserAccount)
   yield takeEvery(EMAIL_CONFIRM, changeEmailConfirm)

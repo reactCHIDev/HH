@@ -1,10 +1,10 @@
 .container {
   .product {
-    background-color: #F4F7FA;
-  
+    background-color: #f4f7fa;
+
     .content {
       display: flex;
-      padding:20px 20px 160px;
+      padding: 20px 20px 160px;
       // max-width: 1240px;
       margin: auto;
       flex-wrap: wrap;
@@ -16,14 +16,17 @@
       @media (max-width: 768px) {
         padding-bottom: 40px;
       }
-    
+
       .inner_content {
         font-size: 72px;
         flex-grow: 1;
         width: 50%;
-  
+
         @media (max-width: 1024px) {
           width: 100%;
+        }
+        .card_link {
+          cursor: pointer;
         }
       }
     }
@@ -38,7 +41,7 @@
       font-size: 48px;
       line-height: 64px;
       letter-spacing: 0.5px;
-      color: #31394D;
+      color: #31394d;
       text-align: center;
 
       @media (max-width: 1024px) {
@@ -49,7 +52,7 @@
         font-size: 25px;
       }
     }
-  
+
     .content {
       display: flex;
       padding-top: 30px;

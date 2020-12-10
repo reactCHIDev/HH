@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { push } from 'connected-react-router'
+import { Redirect, useParams, Link } from 'react-router-dom'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
-import { getShopByFoodmakerIdAC } from 'actions/shop'
+import { getShopByFoodmakerIdAC, getShopByUrlAC } from 'actions/shop'
+import PageNotFound from 'components/PageNotFound'
 import Button from 'components/Button'
 import ProdCard from 'components/ProductCard'
 import { Rate } from 'antd'
@@ -25,29 +27,36 @@ import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
 
 const ShopPage = (props) => {
   const {
-    location,
     fm,
     product,
+    pushRoute,
     shop,
     getFoodmakerInfoAC,
     getProductInfoRequestAC,
     getShopByFoodmakerIdAC,
+    getShopByUrlAC,
   } = props
-  const id = location.state
+
+  const { shopName } = useParams()
 
   const [productCount, setProductCount] = useState(4)
 
   const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
 
   useEffect(() => {
-    getFoodmakerInfoAC(id)
-    // getProductInfoRequestAC(id)
-    getShopByFoodmakerIdAC(id)
+    getShopByUrlAC(process.env.REACT_APP_BASE_URL + '/shop/' + shopName)
+    window.scrollTo(0, 0)
   }, [])
+
+  useEffect(() => {
+    if (shop?.userProfile) getFoodmakerInfoAC(shop.userProfile.id)
+  }, [shop])
 
   const showMore = () => setProductCount((c) => c + 4)
 
-  if (!id) return <Redirect to="/" />
+  const openFoodmaker = () => pushRoute(`/${fm.hungryHuggerLink.split('/').pop()}`)
+
+  if (shop === 'Shop does not exist') return <PageNotFound msg={`Shop "${shopName}" Not Found`} />
 
   return (
     <div>
@@ -103,8 +112,9 @@ const ShopPage = (props) => {
                   shop.products.slice(0, productCount).map((e) => (
                     <ProdCard
                       key={e.id}
-                      pathname="/product_page"
-                      state={{ ...e, userProfile: shop.userProfile }}
+                      id={e.id}
+                      pushRoute={pushRoute}
+                      pathname="/product"
                       photo={e.coverPhoto}
                       tags={[]}
                       name={e.title}
@@ -124,7 +134,7 @@ const ShopPage = (props) => {
                 <img className={styles.acc} src={Shop} alt="Shop" />
                 <p className={styles.heading}>A few words about the shop</p>
                 <p className={styles.about_text}>{shop.description}</p>
-                <div className={styles.shop_autor}>
+                <div className={styles.shop_autor} onClick={openFoodmaker}>
                   <img src={fm.userPhoto} alt="Avatar" className={styles.avatar} />
                   <div className={styles.text_holder}>
                     <span className={styles.owner}>Shop owner</span>
@@ -154,10 +164,14 @@ ShopPage.propTypes = {
   getFoodmakerInfoAC: T.func.isRequired,
   getProductInfoRequestAC: T.func.isRequired,
   getShopByFoodmakerIdAC: T.func.isRequired,
+  getShopByUrlAC: T.func.isRequired,
+  pushRoute: T.func.isRequired,
 }
 
 export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.shopData }), {
   getFoodmakerInfoAC,
   getProductInfoRequestAC,
   getShopByFoodmakerIdAC,
+  getShopByUrlAC,
+  pushRoute: push,
 })(ShopPage)

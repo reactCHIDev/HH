@@ -11,12 +11,12 @@ import './tabs.less'
 
 const Tabs = (props) => {
   const {
-    product: { description, ingedients, deliveryRegion, refundPolicy, refundPolicyNote },
+    product: { description, ingredients, deliveryRegion, refundPolicy, refundPolicyNote },
   } = props
 
   const tabs = {
     INFORMATION: {
-      content: <InformationTab description={description} ingedients={ingedients} />,
+      content: <InformationTab description={description} ingredients={ingredients} />,
     },
     REVIEWS: {
       content: <ReviewTab />,

@@ -1,6 +1,6 @@
 import { put, takeEvery, delay } from 'redux-saga/effects'
 
-import { updateShop, getShopByFoodmakerIdReq } from 'api/requests/Shop'
+import { updateShop, getShopByFoodmakerIdReq, getShopByUrlReq } from 'api/requests/Shop'
 
 import {
   UPDATE_SHOP_REQUESTING,
@@ -9,6 +9,9 @@ import {
   GET_SHOP_BY_FM_ID_REQUESTING,
   GET_SHOP_BY_FM_ID_SUCCESS,
   GET_SHOP_BY_FM_ID_ERROR,
+  GET_SHOP_BY_URL_REQUESTING,
+  GET_SHOP_BY_URL_SUCCESS,
+  GET_SHOP_BY_URL_ERROR,
 } from '../actions/constants'
 
 function* updateShopSaga({ payload }) {
@@ -35,9 +38,21 @@ function* getShopByFoodmakerIdSaga({ payload }) {
   }
 }
 
+function* getShopByUrlSaga({ url }) {
+  try {
+    const response = yield getShopByUrlReq(url)
+    yield put({ type: GET_SHOP_BY_URL_SUCCESS, payload: { data: response.data } })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_SHOP_BY_URL_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(UPDATE_SHOP_REQUESTING, updateShopSaga)
   yield takeEvery(GET_SHOP_BY_FM_ID_REQUESTING, getShopByFoodmakerIdSaga)
+  yield takeEvery(GET_SHOP_BY_URL_REQUESTING, getShopByUrlSaga)
 }
 
 export default accountWatcher

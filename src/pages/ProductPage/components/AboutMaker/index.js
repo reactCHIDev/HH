@@ -7,22 +7,23 @@ import MailIcon from 'assets/icons/svg/mail-icon.svg'
 import styles from './about_maker.module.scss'
 import './about_maker.less'
 
-const AboutMaker = ({ name, photo, text }) => {
+const AboutMaker = ({ name, photo, text, ingredients }) => {
   return (
     <div className={cls('about-maker', styles.container)}>
       <div className={styles.avatar_container}>
         <div className={styles.avatar_holder}>
-           <Avatar icon={photo ? <img src={photo} alt="foodmaker" /> : <UserOutlined />} />
+          <Avatar icon={photo ? <img src={photo} alt="foodmaker" /> : <UserOutlined />} />
           <img className={styles.mail_icon} src={MailIcon} alt="email" />
         </div>
         <div>
-           <div className={styles.maker_name}>{name}</div>
+          <div className={styles.maker_name}>{name}</div>
           <div className={styles.maker_title}>Foodmaker</div>
         </div>
       </div>
       <div className={styles.description}>
         <div className={styles.description_title}>About maker</div>
         <div className={styles.description_text}>{text}</div>
+        <div className={styles.ingredients_text}>{ingredients}</div>
       </div>
     </div>
   )

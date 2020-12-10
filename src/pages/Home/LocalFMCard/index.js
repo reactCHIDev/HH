@@ -1,19 +1,13 @@
 import React from 'react'
 import T from 'prop-types'
-import { Link } from 'react-router-dom'
 import { Rate } from 'antd'
-import Rectangle from 'assets/images/landings/home_page/Rectangle.png'
-import Rectangle1 from 'assets/images/landings/home_page/Rectangle (1).png'
-import Rectangle2 from 'assets/images/landings/home_page/Rectangle (2).png'
-import avatar3 from 'assets/images/landings/home_page/Ellipse 6.png'
-
 import styles from './fmcard.module.scss'
-import Tags from 'containers/Auth/components/SignupFlow/steps/Tags/index'
 
 const FMCard = (props) => {
-  const { foodmaker } = props
+  const { foodmaker, pushRoute } = props
   const {
-    id,
+    profileName,
+    hungryHuggerLink,
     userPhoto,
     coverPhoto,
     otherPhotos,
@@ -23,6 +17,8 @@ const FMCard = (props) => {
     votes,
     tags,
   } = foodmaker
+
+  const openFoodmaker = () => pushRoute(`/${hungryHuggerLink.split('/').pop()}`)
 
   return (
     <div className={styles.local_makers_col}>
@@ -50,20 +46,18 @@ const FMCard = (props) => {
           </li>
         </ul>
         <div className={styles.local_bottom_box}>
-          <Link to={{ pathname: '/foodmaker_page', state: id }}>
-            <div className={styles.local_avatar_info}>
-              <div className={styles.local_avatar_box}>
-                <img src={userPhoto} alt="avatar" />
-              </div>
-              <p className={styles.local_name}>
-                {firstName}
-                <p>{tags.join(', ')}</p>
-              </p>
+          <div className={styles.local_avatar_info} onClick={openFoodmaker}>
+            <div className={styles.local_avatar_box}>
+              <img src={userPhoto} alt="avatar" />
             </div>
-          </Link>
+            <p className={styles.local_name}>
+              {firstName}
+              <p>{tags.join(', ')}</p>
+            </p>
+          </div>
           <div className={styles.local_raiting_holder}>
             <Rate style={{ color: '#31394C' }} disabled defaultValue={3} /* value={rating} */ />
-            <p>4,3 for 32 experiences</p>
+            {/* <p>4,3 for 32 experiences</p> */}
           </div>
         </div>
       </div>

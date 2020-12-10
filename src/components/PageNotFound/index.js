@@ -4,7 +4,7 @@ import darklogo from 'assets/images/notfound/logo.png'
 import desktop from 'routing/PATHS'
 import styles from './notfound.module.scss'
 
-const PageNotFound = () => {
+const PageNotFound = ({ msg }) => {
   const history = useHistory()
   return (
     <div className={styles.page_not_found}>
@@ -15,7 +15,7 @@ const PageNotFound = () => {
       </div>
       <div className={styles.page_not_found__text}>
         <span className={styles.page_not_found__error}>404</span>
-        Page Not found
+        {msg || 'Page Not Found'}
       </div>
     </div>
   )

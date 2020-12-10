@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { push } from 'connected-react-router'
+import { Redirect, Link, useParams } from 'react-router-dom'
+import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
+import { getUserByLinkAC } from 'actions/account'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
+import { resolveFoodmakerDataAC } from 'actions/pages'
 import Button from 'components/Button'
-import { Link } from 'react-router-dom'
 import ExpCard from 'components/ExperienceCard'
+import PageNotFound from 'components/PageNotFound'
 import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
@@ -22,36 +26,42 @@ import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
 
-const cutted = 'qweqwe'
-
 const FoodmakerPage = (props) => {
   const {
     fm,
     shop,
+    resolveFoodmakerDataAC,
+    pushRoute,
+    /* getUserByLink,
     getFoodmakerInfoAC,
+    getFoodmakerInfoByNameAC,
     getShopByFoodmakerIdAC,
-    account,
-    location: { state: id },
+    account, */
   } = props
+
+  const { userName } = useParams()
 
   const [readMore, setReadMore] = useState(false)
   const [name, setName] = useState('')
   const [gallery, setGallery] = useState([])
 
   useEffect(() => {
-    getFoodmakerInfoAC(id)
-    getShopByFoodmakerIdAC(id)
+    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
   }, [])
 
   useEffect(() => {
-    if (fm) {
-      setName(fm.firstName ? fm.firstName + ' ' + fm.lastName : '')
+    if (fm?.id) {
+      setName(fm.firstName ? `${fm.firstName} ${fm.lastName}` : '')
       setGallery([fm.coverPhoto].concat(fm.otherPhotos))
+      window.scrollTo(0, 0)
     }
   }, [fm])
 
   const onReadMore = () => setReadMore(!readMore)
 
+  const openShop = () => pushRoute(`/shop/${shop.shopUrl.split('/').pop()}`)
+
+  if (!fm) return null
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -103,9 +113,9 @@ const FoodmakerPage = (props) => {
               </div>
               <p className={styles.shop_descr}>{shop.description}</p>
               <div className={styles.btn_container}>
-                <Link to={{ pathname: '/shop_page', state: id }}>
-                  <Button title="Visit shop" dark={true} />
-                </Link>
+                {/* <Link to={{ pathname: '/shop_page', state: fm.id }}> */}
+                <Button title="Visit shop" onClick={shop?.shopUrl ? openShop : null} />
+                {/* </Link> */}
               </div>
             </div>
           </div>
@@ -179,16 +189,21 @@ const FoodmakerPage = (props) => {
 }
 
 FoodmakerPage.propTypes = {
-  getFoodmakerInfoAC: T.func.isRequired,
-  getShopByFoodmakerIdAC: T.func.isRequired,
+  resolveFoodmakerDataAC: T.func.isRequired,
+  pushRoute: T.func.isRequired,
   fm: T.shape(),
   shop: T.shape(),
+  /* getFoodmakerInfoAC: T.func.isRequired,
+  getFoodmakerInfoByNameAC: T.func.isRequired,
+  getUserByLink: T.func.isRequired,
+  getShopByFoodmakerIdAC: T.func.isRequired, */
 }
 
-export default connect(
-  ({ foodmaker, account, shop }) => ({ fm: foodmaker, account, shop: shop.shopData }),
-  {
-    getFoodmakerInfoAC,
-    getShopByFoodmakerIdAC,
-  },
-)(FoodmakerPage)
+export default connect(({ pages }) => ({ fm: pages.foodmakerData, shop: pages.shopData }), {
+  getFoodmakerInfoAC,
+  getFoodmakerInfoByNameAC,
+  getShopByFoodmakerIdAC,
+  pushRoute: push,
+  getUserByLink: getUserByLinkAC,
+  resolveFoodmakerDataAC,
+})(FoodmakerPage)

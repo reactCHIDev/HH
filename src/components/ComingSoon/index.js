@@ -2,7 +2,7 @@ import React from 'react'
 import comingsoon from 'assets/images/comingsoon.png'
 import styles from './soon.module.scss'
 
-const PageNotFound = () => {
+const ComingSoon = () => {
   return (
     <div className={styles.page_not_found}>
       <div className={styles.page_not_found__logo}>
@@ -12,4 +12,4 @@ const PageNotFound = () => {
   )
 }
 
-export default PageNotFound
+export default ComingSoon

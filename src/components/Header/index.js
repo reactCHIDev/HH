@@ -36,12 +36,12 @@ const Header = (props) => {
 
   const lightTheme = [
     '/signupflow',
-    '/card',
     '/foodmaker_dashboard',
     '/exp_dashboard',
     '/account_info',
     '/addproduct',
     '/editproduct',
+    '/shop/',
     '/landing/create_experience',
     '/landing/foodmakers',
     '/landing/create_profile',
@@ -331,7 +331,11 @@ const Header = (props) => {
               </li>
               <li onClick={onSettingsSelect}>
                 <img src={Gallery_icon_1} alt="icon" />
-                <Link to="/addproduct">add product</Link>
+                {role === 'FOODMAKER' ? (
+                  <Link to="/addproduct">add product</Link>
+                ) : (
+                  <Link to="/signupflow">Foodmaker signup</Link>
+                )}
               </li>
             </ul>
 

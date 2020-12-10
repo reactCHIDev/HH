@@ -5,6 +5,9 @@ import {
   GET_SHOP_BY_FM_ID_REQUESTING,
   GET_SHOP_BY_FM_ID_SUCCESS,
   GET_SHOP_BY_FM_ID_ERROR,
+  GET_SHOP_BY_URL_REQUESTING,
+  GET_SHOP_BY_URL_SUCCESS,
+  GET_SHOP_BY_URL_ERROR,
 } from '../actions/constants'
 
 const initialState = {
@@ -58,6 +61,27 @@ const reducer = function accountReducer(state = initialState, action) {
       }
 
     case GET_SHOP_BY_FM_ID_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+
+    case GET_SHOP_BY_URL_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case GET_SHOP_BY_URL_SUCCESS:
+      return {
+        ...state,
+        shopData: action.payload.data,
+        requesting: false,
+        error: '',
+      }
+
+    case GET_SHOP_BY_URL_ERROR:
       return {
         ...state,
         requesting: false,
