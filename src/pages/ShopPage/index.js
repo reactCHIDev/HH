@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
-import { Redirect, useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Spin, Space } from 'antd'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
 import { getShopByFoodmakerIdAC, getShopByUrlAC } from 'actions/shop'
@@ -44,7 +45,7 @@ const ShopPage = (props) => {
   const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
 
   useEffect(() => {
-    getShopByUrlAC(process.env.REACT_APP_BASE_URL + '/shop/' + shopName)
+    getShopByUrlAC(`${process.env.REACT_APP_BASE_URL}/shop/${shopName}`)
     window.scrollTo(0, 0)
   }, [])
 
@@ -57,6 +58,15 @@ const ShopPage = (props) => {
   const openFoodmaker = () => pushRoute(`/${fm.hungryHuggerLink.split('/').pop()}`)
 
   if (shop === 'Shop does not exist') return <PageNotFound msg={`Shop "${shopName}" Not Found`} />
+
+  if (!shop || shop.shopUrl !== `${process.env.REACT_APP_BASE_URL}/shop/${shopName}`)
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+        <Space size="middle">
+          <Spin size="large" />
+        </Space>
+      </div>
+    )
 
   return (
     <div>
@@ -116,7 +126,7 @@ const ShopPage = (props) => {
                       pushRoute={pushRoute}
                       pathname="/product"
                       photo={e.coverPhoto}
-                      tags={[]}
+                      tags={e.productTags.map((tag) => tag.tagName)}
                       name={e.title}
                       price={e.price}
                       rating={e.rating}

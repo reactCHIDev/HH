@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
+import { Spin, Space } from 'antd'
 import { useParams } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import cls from 'classnames'
@@ -17,6 +18,7 @@ import Toolbar from './components/Toolbar'
 import Tabs from './components/Tabs'
 import AboutMaker from './components/AboutMaker'
 import './product_page.less'
+import { indexOf } from 'lodash'
 
 const ProductPage = (props) => {
   const { info, fm, getProductInfoRequest, getFoodmakerInfo, pushRoute } = props
@@ -34,7 +36,14 @@ const ProductPage = (props) => {
     if (info?.userProfile) getFoodmakerInfo(info.userProfile.id)
   }, [info])
 
-  if (!info) return null
+  if (!info || info.id != productId)
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+        <Space size="middle">
+          <Spin size="large" />
+        </Space>
+      </div>
+    )
   return (
     <div className={cls('product-container', styles.container)}>
       <div className={styles.product}>
