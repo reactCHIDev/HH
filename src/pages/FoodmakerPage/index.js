@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import { Redirect, Link, useParams } from 'react-router-dom'
+import { Spin, Space } from 'antd'
 import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
 import { getUserByLinkAC } from 'actions/account'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
@@ -49,7 +50,7 @@ const FoodmakerPage = (props) => {
   const [gallery, setGallery] = useState([])
 
   useEffect(() => {
-    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
+    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName.toLowerCase()}`)
   }, [])
 
   useEffect(() => {
@@ -64,7 +65,14 @@ const FoodmakerPage = (props) => {
 
   const openShop = () => pushRoute(`/shop/${shop.shopUrl.split('/').pop()}`)
 
-  if (!fm) return null
+  if (!fm || fm.hungryHuggerLink !== `${process.env.REACT_APP_BASE_URL}/${userName.toLowerCase()}`)
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+        <Space size="middle">
+          <Spin size="large" />
+        </Space>
+      </div>
+    )
   return (
     <div className={styles.frame}>
 
