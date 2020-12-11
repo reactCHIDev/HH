@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import { Redirect, Link, useParams } from 'react-router-dom'
+import { Spin, Space } from 'antd'
 import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
 import { getUserByLinkAC } from 'actions/account'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
@@ -25,6 +26,7 @@ import Review from './components/Review'
 import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
+import cls from 'classnames'
 
 const FoodmakerPage = (props) => {
   const {
@@ -41,12 +43,14 @@ const FoodmakerPage = (props) => {
 
   const { userName } = useParams()
 
+  console.log('%c   userName   ', 'color: white; background: salmon;', userName)
+
   const [readMore, setReadMore] = useState(false)
   const [name, setName] = useState('')
   const [gallery, setGallery] = useState([])
 
   useEffect(() => {
-    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
+    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName.toLowerCase()}`)
   }, [])
 
   useEffect(() => {
@@ -61,49 +65,58 @@ const FoodmakerPage = (props) => {
 
   const openShop = () => pushRoute(`/shop/${shop.shopUrl.split('/').pop()}`)
 
-  if (!fm) return null
+  if (!fm || fm.hungryHuggerLink !== `${process.env.REACT_APP_BASE_URL}/${userName.toLowerCase()}`)
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+        <Space size="middle">
+          <Spin size="large" />
+        </Space>
+      </div>
+    )
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <div className={styles.info_section}>
-            <div className={styles.avatar_container}>
-              <img src={fm.userPhoto} alt="avatar" />
-            </div>
-            <div className={styles.location}>
-              <div className={styles.maker_location}>
-                <img className={styles.map_marker} src={mapMarker} alt="marker" />
-                <p className={styles.from}>
-                  Maker from <span className={styles.city}>{fm.city}</span>
-                </p>
+    <div className={styles.frame}>
+
+          <div className={styles.header}>
+            <div className={cls(styles.container,'container')}>
+              <div className={styles.info_section}>
+                <div className={styles.avatar_container}>
+                  <img src={fm.userPhoto} alt="avatar" />
+                </div>
+                <div className={styles.location}>
+                  <div className={styles.maker_location}>
+                    <img className={styles.map_marker} src={mapMarker} alt="marker" />
+                    <p className={styles.from}>
+                      Maker from <span className={styles.city}>{fm.city}</span>
+                    </p>
+                  </div>
+                  <div className={styles.rating_container}>
+                    <Rate style={{ color: '#EB5769' }} disabled value={fm.rating} />
+                    <p className={styles.qauntity}>(0)</p>
+                  </div>
+                </div>
+                <p className={styles.first_last_name}>{name}</p>
+                <div className={styles.descr}>
+                  <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
+                </div>
+                <div className={styles.btn_block}>
+                  <div className={styles.fav_button}>
+                    <img className={styles.heart} src={likeHeart} alt="heart" />
+                    <p className={styles.btn_text}>Favorite Maker</p>
+                    <p className={styles.likes}>(0)</p>
+                  </div>
+                  <div className={styles.send_msg}>
+                    <img className={styles.heart} src={envelope} alt="envelope" />
+                  </div>
+                </div>
               </div>
-              <div className={styles.rating_container}>
-                <Rate style={{ color: '#EB5769' }} disabled value={fm.rating} />
-                <p className={styles.qauntity}>(0)</p>
+              <div className={styles.photo_section}>
+              <div className={styles.cover_photo_container}>
+                <img className={styles.cover_photo} src={fm?.coverPhoto} alt="envelope" />
               </div>
-            </div>
-            <p className={styles.first_last_name}>{name}</p>
-            <div className={styles.descr}>
-              <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
-            </div>
-            <div className={styles.btn_block}>
-              <div className={styles.fav_button}>
-                <img className={styles.heart} src={likeHeart} alt="heart" />
-                <p className={styles.btn_text}>Favorite Maker</p>
-                <p className={styles.likes}>(0)</p>
-              </div>
-              <div className={styles.send_msg}>
-                <img className={styles.heart} src={envelope} alt="envelope" />
-              </div>
-            </div>
-          </div>
-          <div className={styles.photo_section}>
-            <div className={styles.cover_photo_container}>
-              <img className={styles.cover_photo} src={fm?.coverPhoto} alt="envelope" />
             </div>
           </div>
         </div>
-
+      <div className={styles.conteiner}>
         <div className={styles.section_about}>
           <div className={styles.about_shop_container}>
             <div className={styles.about_shop}>
@@ -177,13 +190,14 @@ const FoodmakerPage = (props) => {
             ))}
           </div>
         </div> */}
-        <div className={styles.bottom_section_container}>
+       
+      </div>
+      <div className={styles.bottom_section_container}>
           <BottomSection />
         </div>
         <div className={styles.footer_container}>
           <Footer />
         </div>
-      </div>
     </div>
   )
 }

@@ -2,11 +2,9 @@
 @import 'styles/core/_include-media.scss';
 
 
-:global(p) {
-}
 
 body {
-  font-family: $base-font-DM-Sans;
+  font-family: 'DM Sans', 'Arial', 'Helvetica', sans-serif;
   color: $black;
 }
 

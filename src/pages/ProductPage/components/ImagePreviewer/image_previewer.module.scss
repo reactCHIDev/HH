@@ -1,21 +1,23 @@
+@import 'styles/styles.scss';
+
 .container {
   width: 50%;
   padding-right: 11.4%;
 
-  @media (max-width: 1400px) {
+  @include media ('<hd-screen') {
     padding-right: 40px;
   }
 
-  @media (max-width: 1024px) {
+  @include media ('<desktop') {
     width: 100%;
     padding: 0 18vw;
   }
 
-  @media (max-width: 768px) {
+  @include media ('<tablet') {
     padding: 0 10vw;
   }
 
-  @media (max-width: 480px) {
+  @include media ('<phone') {
     padding: 0;
   }
 
@@ -38,7 +40,6 @@
 
       position: relative;
       text-align: center;
-      width: 124px;
       height: 124px;
 
       span {

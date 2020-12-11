@@ -521,7 +521,7 @@ p {
     }
 
     .hdr {
-      font-family: 'DM Sans Bold';
+      font-family: 'DM Sans';
       font-style: normal;
       font-weight: bold;
       font-size: 56px;
@@ -592,7 +592,7 @@ p {
     }
     .slider_container {
       width: 100%;
-      // margin-left: 24px;
+      
       @media (max-width: 768px) {
         margin: 0 -40px 30px;
         width: calc(100% + 80px);
@@ -648,8 +648,7 @@ p {
     }
 
     .hdr {
-      font-family: 'DM Sans Bold';
-      font-style: normal;
+      font-family: 'DM Sans';
       font-weight: bold;
       font-size: 32px;
       line-height: 42px;
@@ -672,11 +671,9 @@ p {
       }
     }
     p {
-      font-style: normal;
       font-weight: normal;
       font-size: 16px;
       line-height: 160%;
-      letter-spacing: 0.5px;
       color: #5a6070;
       margin-bottom: 24px;
     }
@@ -688,14 +685,11 @@ p {
       height: 56px;
       background: #31394d;
       border-radius: 8px;
-      font-style: normal;
       font-weight: bold;
       font-size: 18px;
-      line-height: 23px;
       align-items: center;
       text-align: center;
-      letter-spacing: 0.5px;
-      color: #ffffff;
+      color: #fff;
       border: none;
       cursor: pointer;
       @media (max-width: 1024px) {
