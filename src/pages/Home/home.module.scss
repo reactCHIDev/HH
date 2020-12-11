@@ -1,12 +1,13 @@
-.container {
-  overflow: hidden;
+@import 'styles/styles.scss';
+
+.frame {
 
   .btn_holder {
     text-align: center;
     padding: 40px 0;
     width: 100%;
 
-    @media (max-width: 376px) {
+    @include media ('<xs-phone') {
       padding: 20px 0;
     }
 
@@ -17,7 +18,7 @@
       width: auto;
       padding: 0 55px;
 
-      @media (max-width: 376px) {
+      @include media ('<xs-phone') {
         padding: 0 20px;
       }
     }
@@ -377,7 +378,7 @@
         font-size: 28px;
       }
 
-      @media (max-width: 376px) {
+      @include media ('<xs-phone') {
         font-size: 25px;
         margin: 0 0 26px;
       }
@@ -391,7 +392,7 @@
           max-width: 150px;
         }
 
-        @media (max-width: 376px) {
+        @include media ('<xs-phone') {
           max-width: 100px;
         }
       }
