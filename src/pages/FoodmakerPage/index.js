@@ -41,6 +41,8 @@ const FoodmakerPage = (props) => {
 
   const { userName } = useParams()
 
+  console.log('%c   userName   ', 'color: white; background: salmon;', userName)
+
   const [readMore, setReadMore] = useState(false)
   const [name, setName] = useState('')
   const [gallery, setGallery] = useState([])

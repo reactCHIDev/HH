@@ -90,10 +90,7 @@ const FoodmakerProfile = (props) => {
   }, [])
 
   useEffect(() => {
-    if (account.hungryHuggerLink)
-      setSiteValue(
-        account.hungryHuggerLink.replace(process.env.REACT_APP_BASE_URL, 'www.hungryhugger.com'),
-      )
+    if (account.hungryHuggerLink) setSiteValue(account.hungryHuggerLink)
     setAvatar(account?.userPhoto || '')
     if (account?.coverPhoto) setFilelist([account?.coverPhoto].concat(account?.otherPhotos || []))
     setSelectedItems(account?.tags || [])
@@ -116,10 +113,13 @@ const FoodmakerProfile = (props) => {
     }
   }, [success])
 
-  const fixedText = 'www.hungryhugger.com/'
+  const fixedText = process.env.REACT_APP_BASE_URL + '/'
 
   const onChangeHHLink = (e) => {
     const { value } = e.target
+    const reg = /^(?=.{2,100}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/
+
+    if (!'prefix'.concat(value.slice(fixedText.length)).match(reg)) return
     if (value.substring(0, fixedText.length) === fixedText) setSiteValue(value)
   }
 
