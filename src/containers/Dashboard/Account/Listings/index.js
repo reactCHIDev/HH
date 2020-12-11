@@ -219,7 +219,14 @@ const Listings = (props) => {
               </CollapsedBlock>
             ))}
         </div>
-        {filteredProducts && !requesting ? (
+        <div>types {types?.length}</div>
+        <div>myProducts {myProducts?.length}</div>
+        <div>ids {ids?.length}</div>
+        <div>sort {sort?.length}</div>
+        <div>filteredProducts {filteredProducts?.length}</div>
+        <div>searchSubstring {searchSubstring}</div>
+        <div>requesting {requesting}</div>
+        {/* {filteredProducts && !requesting ? (
           <div className={styles.listing}>
             <div className={styles.product_table}>
               <div className={styles.tr}>
@@ -248,7 +255,7 @@ const Listings = (props) => {
               <Spin size="large" />
             </Space>
           </div>
-        )}
+        )} */}
       </div>
       {edit && (
         <Modal closeFunc={closeEdit}>
