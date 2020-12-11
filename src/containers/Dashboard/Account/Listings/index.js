@@ -225,7 +225,7 @@ const Listings = (props) => {
         <div>sort {sort?.length}</div>
         <div>filteredProducts {filteredProducts?.length}</div>
         <div>searchSubstring {searchSubstring}</div>
-        <div>requesting {requesting}</div>
+        <div>requesting {requesting + ''}</div>
         {/* {filteredProducts && !requesting ? (
           <div className={styles.listing}>
             <div className={styles.product_table}>
