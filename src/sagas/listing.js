@@ -1,8 +1,7 @@
-import { put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { put, takeEvery } from 'redux-saga/effects'
 import PATHS from 'api/paths'
 
 import { getMyProductListReq } from 'api/requests/Listing'
-import { getMyProductListSuccess } from 'actions/listing'
 
 import {
   GET_MY_PRODUCT_LIST_REQUESTING,
@@ -14,7 +13,6 @@ function* getMyProductListSaga() {
   try {
     const response = yield getMyProductListReq()
     yield put({ type: GET_MY_PRODUCT_LIST_SUCCESS, data: response.data })
-    // yield put(getMyProductListSuccess({ data: response.data }))
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_MY_PRODUCT_LIST_ERROR, error: error.response.data.error })

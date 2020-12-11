@@ -40,7 +40,7 @@ const sorts = [
 const Listings = (props) => {
   const {
     types,
-    myProducts = [],
+    myProducts,
     userProfile,
     requesting,
     getProductTypes,
@@ -87,7 +87,7 @@ const Listings = (props) => {
 
   useEffect(() => {
     filterProducts(
-      myProducts
+      cloneDeep(myProducts)
         .filter((p) => (ids.length ? ids.includes(String(p.productCategoryId)) : true))
         .filter((p) => p.title.toLowerCase().includes(searchSubstring)),
     )
@@ -148,7 +148,7 @@ const Listings = (props) => {
       return
     }
 
-    const tmp = [...myProducts]
+    const tmp = cloneDeep(myProducts)
     setFilters(
       productTypes.map((type) => {
         type.productCategories = type.productCategories.map((category) => {
@@ -219,14 +219,7 @@ const Listings = (props) => {
               </CollapsedBlock>
             ))}
         </div>
-        <div>types {types?.length}</div>
-        <div>myProducts {myProducts?.length}</div>
-        <div>ids {ids?.length}</div>
-        <div>sort {sort?.length}</div>
-        <div>filteredProducts {filteredProducts?.length}</div>
-        <div>searchSubstring {searchSubstring}</div>
-        <div>requesting {requesting + ''}</div>
-        {/* {filteredProducts && !requesting ? (
+        {filteredProducts && !requesting ? (
           <div className={styles.listing}>
             <div className={styles.product_table}>
               <div className={styles.tr}>
@@ -255,7 +248,7 @@ const Listings = (props) => {
               <Spin size="large" />
             </Space>
           </div>
-        )} */}
+        )}
       </div>
       {edit && (
         <Modal closeFunc={closeEdit}>
@@ -275,6 +268,11 @@ Listings.propTypes = {
   getMyProductList: T.func,
   toggleProductStatusRequestAC: T.func,
   pushRoute: T.func,
+}
+
+Listings.defaultProps = {
+  types: [],
+  myProducts: [],
 }
 
 export default connect(
