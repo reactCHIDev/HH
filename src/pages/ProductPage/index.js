@@ -36,8 +36,10 @@ const ProductPage = (props) => {
 
   if (!info) return null
   return (
-    <div className={cls('product-container', styles.container)}>
-      <div className={styles.product}>
+    <div className={styles.frame}>
+        <div className={styles.product}>
+
+      <div className={cls('container')}>
         <div className={styles.content}>
           <ImagePreviewer images={[info.coverPhoto, ...info.otherPhotos]} />
           <div className={styles.inner_content}>
@@ -54,6 +56,8 @@ const ProductPage = (props) => {
           </div>
         </div>
       </div>
+      </div>
+      
       <div className={styles.related_products}>
         <h2>Related products</h2>
         <div className={styles.content}>

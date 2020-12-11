@@ -57,7 +57,7 @@ const Home = (props) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.frame}>
       <section className={styles.page_header}>
         <div className={styles.header_content}>
           <h1>
