@@ -40,7 +40,7 @@ const sorts = [
 const Listings = (props) => {
   const {
     types,
-    myProducts = [],
+    myProducts,
     userProfile,
     requesting,
     getProductTypes,
@@ -87,7 +87,7 @@ const Listings = (props) => {
 
   useEffect(() => {
     filterProducts(
-      myProducts
+      cloneDeep(myProducts)
         .filter((p) => (ids.length ? ids.includes(String(p.productCategoryId)) : true))
         .filter((p) => p.title.toLowerCase().includes(searchSubstring)),
     )
@@ -148,7 +148,7 @@ const Listings = (props) => {
       return
     }
 
-    const tmp = [...myProducts]
+    const tmp = cloneDeep(myProducts)
     setFilters(
       productTypes.map((type) => {
         type.productCategories = type.productCategories.map((category) => {
@@ -268,6 +268,11 @@ Listings.propTypes = {
   getMyProductList: T.func,
   toggleProductStatusRequestAC: T.func,
   pushRoute: T.func,
+}
+
+Listings.defaultProps = {
+  types: [],
+  myProducts: [],
 }
 
 export default connect(
