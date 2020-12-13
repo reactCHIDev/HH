@@ -1,4 +1,3 @@
-
 @import 'styles/styles.scss';
 
 .container {
@@ -9,7 +8,7 @@
   background: #f5f8fb;
   max-width: none;
 
-  @include media ('<tablet') {
+  @include media('<tablet') {
     padding-top: 180px;
   }
 
@@ -20,7 +19,7 @@
     padding: 32px;
     margin-bottom: 32px;
 
-    @include media ('<tablet') {
+    @include media('<tablet') {
       padding: 30px 0;
       margin: 0;
     }
@@ -28,7 +27,7 @@
       width: 48px;
       cursor: pointer;
 
-      @include media ('<tablet') {
+      @include media('<tablet') {
         width: 42px;
       }
     }
@@ -46,8 +45,15 @@
         padding: 3px 18px;
         cursor: pointer;
         margin: 0;
+        a {
+          display: block;
+          width: 30px;
+          height: 30px;
+        }
 
         img {
+          width: 30px;
+          height: 30xp;
         }
       }
     }

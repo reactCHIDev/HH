@@ -25,7 +25,17 @@ import Avatar from './components/Avatar'
 import styles from './header.module.scss'
 
 const Header = (props) => {
-  const { authorized, id, role, userPhoto, logOut, pathname, pushRoute, getUserAccount } = props
+  const {
+    authorized,
+    id,
+    role,
+    userPhoto,
+    shop,
+    logOut,
+    pathname,
+    pushRoute,
+    getUserAccount,
+  } = props
 
   const [menu, setMenu] = useState(false)
   const [settings, setSettings] = useState(false)
@@ -54,7 +64,7 @@ const Header = (props) => {
     if (id) {
       getUserAccount(id)
     }
-  }, [id])
+  }, [])
 
   const clickLogo = () => {
     if (menu) setMenu(!menu)
@@ -332,7 +342,11 @@ const Header = (props) => {
               <li onClick={onSettingsSelect}>
                 <img src={Gallery_icon_1} alt="icon" />
                 {role === 'FOODMAKER' ? (
-                  <Link to="/addproduct">add product</Link>
+                  shop?.title ? (
+                    <Link to="/exp_dashboard/listings">Product dashboard</Link>
+                  ) : (
+                    <Link to="/addproduct">add product</Link>
+                  )
                 ) : (
                   <Link to="/signupflow">Foodmaker signup</Link>
                 )}
@@ -375,8 +389,8 @@ export default connect(
     router: {
       location: { pathname },
     },
-    account: { userPhoto, id, role },
-  }) => ({ authorized, id, role, pathname, userPhoto }),
+    account: { userPhoto, id, role, shop },
+  }) => ({ authorized, id, role, pathname, userPhoto, shop }),
   {
     logOut: logout,
     pushRoute: push,

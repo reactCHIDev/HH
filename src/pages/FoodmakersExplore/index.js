@@ -21,7 +21,7 @@ const FoodmakersExplore = (props) => {
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Search hosts or brands</label>
-              <input disabled className={styles.input} type="text" placeholder="E.g. Mike" />
+              <input disabled className={styles.input} type="text" /* placeholder="E.g. Mike"  */ />
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Service type</label>

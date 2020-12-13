@@ -23,7 +23,7 @@ const ExperienceDashboard = (props) => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.heading}>Experience dashboard</p>
+      <p className={styles.heading}>Product dashboard</p>
       <TabsUnderlined
         onChange={onChange}
         activeTab={activeTab || 'listings'}

@@ -3,6 +3,8 @@ import cls from 'classnames'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { Link } from 'react-router-dom'
+import Scrollchor from 'react-scrollchor'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/create_shop/leading.jpg'
 import sec21 from 'assets/images/landings/create_shop/sec21.jpg'
@@ -40,9 +42,16 @@ const CreateExperience = () => {
               services and experiences in one place. Our platform provides a simple way to open your
               business to a community of curious food lovers hungry for authentic food and drink.
             </p>
-            <button type="button" className={styles.btn_leading}>
-              Let’s start!
-            </button>
+            <Scrollchor
+              type="button"
+              to="#more"
+              animate={{ offset: -100, duration: 300 }}
+              disableHistory
+            >
+              <button type="button" className={styles.btn_leading}>
+                Let’s start!
+              </button>
+            </Scrollchor>
           </div>
           <div className={styles.overflow_container}>
             <div className={styles.slider_container}>
@@ -61,7 +70,7 @@ const CreateExperience = () => {
           </div>
         </section>
 
-        <section className={cls(styles.body_section, styles.reverse)}>
+        <section id="more" className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <img className={styles.label} src={label} alt="label" />
 
@@ -120,9 +129,11 @@ const CreateExperience = () => {
             <img src={sec24} alt="" className={styles.img} />
           </div>
         </section>
-        <button type="button" className={styles.btn_alone}>
-          Let's start!
-        </button>
+        <Link to="/signupflow">
+          <button type="button" className={styles.btn_alone}>
+            Let's start!
+          </button>
+        </Link>
 
         <section className={styles.learn_more}>
           <img className={styles.parachute} src={parachute} alt="parachute" />
@@ -160,7 +171,9 @@ const CreateExperience = () => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <button type="button">Join now!</button>
+            <Link to="/signupflow">
+              <button type="button">Join now!</button>
+            </Link>
           </div>
         </section>
       </main>

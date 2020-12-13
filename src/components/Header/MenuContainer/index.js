@@ -38,8 +38,8 @@ const items = {
     { img: FoodExperience, heading: 'Food Experience', route: '/landing/create_experience' },
     { img: FoodMakers, heading: 'Food Makers', route: '/landing/foodmakers' },
     { img: Products, heading: 'Products', route: '/landing/foodmakers' },
-    { img: Blog, heading: 'Blog', route: '/landing/foodmakers' },
-    { img: FAQ, heading: 'FAQ', route: '/landing/foodmakers' },
+    { img: Blog, heading: 'Blog', route: 'https://medium.com/hungryhugger' },
+    { img: FAQ, heading: 'FAQ', route: '/landing/foodmakers/#faq' },
   ],
 }
 
@@ -116,11 +116,11 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
           <ul className={styles.menu_container}>
             {menuContent.map((menuItem, index) => (
               <li className={styles.item} id={index} onClick={onClick}>
-                <Link to={menuItem.route}>
+                <a href={menuItem.route} target={menuItem.heading === 'Blog' ? '_blank' : ''}>
                   <div className={styles.img_container}>
                     <img className={styles.item_img} src={menuItem.img} alt="hired" />
                   </div>
-                </Link>
+                </a>
                 <p className={styles.item_text}>{menuItem.heading}</p>
               </li>
             ))}
@@ -131,11 +131,11 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
               <ul className={styles.menu_container}>
                 {items.foodmakers.map((menuItem, index) => (
                   <li className={styles.item} id={index} onClick={onClick}>
-                    <Link to={menuItem.route}>
+                    <a href={menuItem.route} target={menuItem.heading === 'Blog' ? '_blank' : ''}>
                       <div className={styles.img_container}>
                         <img className={styles.item_img} src={menuItem.img} alt="hired" />
                       </div>
-                    </Link>
+                    </a>
 
                     <p className={styles.item_text}>{menuItem.heading}</p>
                   </li>

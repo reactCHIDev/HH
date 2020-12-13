@@ -2,6 +2,8 @@ import React from 'react'
 import cls from 'classnames'
 import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import Scrollchor from 'react-scrollchor'
+import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -44,9 +46,16 @@ const Foodmakers = () => {
               Join the online marketplace connecting passionate food and drink hosts to a global
               community of food lovers.
             </p>
-            <button type="button" className={styles.btn_leading}>
-              Tell me more
-            </button>
+            <Scrollchor
+              type="button"
+              to="#more"
+              animate={{ offset: -100, duration: 300 }}
+              disableHistory
+            >
+              <button href="#more" className={styles.btn_leading}>
+                Tell me more
+              </button>
+            </Scrollchor>
           </div>
           <div className={styles.overflow_container}>
             <div className={styles.slider_container}>
@@ -77,7 +86,7 @@ const Foodmakers = () => {
           <img className={styles.bag} src={bag} alt="bag" />
         </section>
 
-        <div className={styles.headings}>
+        <div id="more" className={styles.headings}>
           <h2 className={styles.sec2head}>
             We know how hard you have been working to build your online presence.
           </h2>
@@ -187,7 +196,9 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <p className={styles.faq_heading}>Frequently Asked Questions</p>
+        <p id="faq" className={styles.faq_heading}>
+          Frequently Asked Questions
+        </p>
         <section className={cls(styles.section_faq, 'faq')}>
           <Collapse
             bordered={false}
@@ -258,7 +269,9 @@ const Foodmakers = () => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <button type="button">Join now!</button>
+            <Link to="/signupflow">
+              <button type="button">Join now!</button>
+            </Link>
           </div>
         </section>
       </main>

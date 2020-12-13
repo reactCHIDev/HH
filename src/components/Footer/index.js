@@ -1,6 +1,7 @@
 import React from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
+import { Link } from 'react-router-dom'
 import Logo from 'assets/images/logo.png'
 import inst from 'assets/images/instagram.svg'
 import fb from 'assets/images/facebook.svg'
@@ -12,19 +13,29 @@ const Footer = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logos}>
-        <div className={styles.logo}>
-          <img className={styles.logoImg} src={Logo} alt="logo" />
-        </div>
+        <Link to="/">
+          <div className={styles.logo}>
+            <img className={styles.logoImg} src={Logo} alt="logo" />
+          </div>
+        </Link>
         <ul className={styles.socials}>
           <li>
-            <img src={inst} alt="inst" />
+            <a
+              href="https://www.instagram.com/hungry_hugger"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={inst} alt="inst" />
+            </a>
           </li>
           <li>
-            <img src={fb} alt="fb" />
+            <a href="https://www.fb.com/hungryhugger" target="_blank" rel="noopener noreferrer">
+              <img src={fb} alt="fb" />
+            </a>
           </li>
-          <li>
+          {/* <li>
             <img src={yt} alt="yt" />
-          </li>
+          </li> */}
         </ul>
       </div>
 
