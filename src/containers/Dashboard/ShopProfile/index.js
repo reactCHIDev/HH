@@ -209,7 +209,7 @@ const ShopProfile = (props) => {
                   ref={register({
                     required: true,
                     validate: async (value) => {
-                      const url = process.env.REACT_APP_BASE_URL + '/shop/' + value
+                      const url = process.env.REACT_APP_BASE_URL + '/shop/' + value.toLowerCase()
                       if (url === shop?.shopUrl) return true
                       const shopData = await getShopByUrlReq(url)
                       return !shopData.data?.title

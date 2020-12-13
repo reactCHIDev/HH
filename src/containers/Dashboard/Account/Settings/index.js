@@ -91,9 +91,10 @@ const Settings = ({
   }, [])
 
   useEffect(() => {
-    if (userData && userData.notifications)
-      chkBoxEl.current.checked = userData.notifications.includes('email') ? 'checked' : ''
-    if (userData.notifications.length === 1) chkBoxEl.current.disabled = 'disabled'
+    if (userData && userData?.notifications) {
+      chkBoxEl.current.checked = userData?.notifications.includes('email') ? 'checked' : ''
+      if (userData?.notifications.length === 1) chkBoxEl.current.disabled = 'disabled'
+    }
   }, [userData])
 
   useEffect(() => {
