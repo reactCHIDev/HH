@@ -115,7 +115,7 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
           <strong className={styles.content_title}>EXPLORE</strong>
           <ul className={styles.menu_container}>
             {menuContent.map((menuItem, index) => (
-              <li className={styles.item} id={index} onClick={onClick}>
+              <li key={menuItem.heading} className={styles.item} id={index} onClick={onClick}>
                 <a href={menuItem.route} target={menuItem.heading === 'Blog' ? '_blank' : ''}>
                   <div className={styles.img_container}>
                     <img className={styles.item_img} src={menuItem.img} alt="hired" />
@@ -130,7 +130,7 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
               <strong className={styles.content_title}>FOODMAKER</strong>
               <ul className={styles.menu_container}>
                 {items.foodmakers.map((menuItem, index) => (
-                  <li className={styles.item} id={index} onClick={onClick}>
+                  <li key={menuItem.heading} className={styles.item} id={index} onClick={onClick}>
                     <a href={menuItem.route} target={menuItem.heading === 'Blog' ? '_blank' : ''}>
                       <div className={styles.img_container}>
                         <img className={styles.item_img} src={menuItem.img} alt="hired" />

@@ -374,7 +374,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   authorized: T.bool.isRequired,
-  id: T.string,
+  id: T.oneOfType([T.number, T.string]),
   role: T.string,
   pathname: T.string.isRequired,
   logOut: T.func.isRequired,
