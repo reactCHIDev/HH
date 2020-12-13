@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-import { getUserAccount, updateAccount } from 'actions/account'
+import { getUserAccount } from 'actions/account'
 import { updateFoodmakerAccountAC } from 'actions/foodmaker'
 import { getSpecialityTagsAC } from 'actions/system'
+import { getUserByHHLink } from 'api/requests/Account'
+
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
 import Uploader from 'components/PhotoUploader'
-import { Input, Select, Button, Form } from 'antd'
+import { Select } from 'antd'
+import { useForm, Controller } from 'react-hook-form'
+import _ from 'lodash/fp'
+
 import { connect } from 'react-redux'
 import { getItem } from 'utils/localStorage'
 import styles from './foodmakerprofile.module.scss'
@@ -20,6 +25,7 @@ const FoodmakerProfile = (props) => {
     updateFoodmakerAccountAC,
     getSpecialityTagsAC,
   } = props
+
   const { id, userPhoto, success } = account
 
   const [avatar, setAvatar] = useState('')
@@ -35,6 +41,10 @@ const FoodmakerProfile = (props) => {
 
   const [hungryHuggerLink, setSiteValue] = useState('www.hungryhugger.com/')
 
+  const { register, handleSubmit, control, setValue, errors } = useForm({
+    mode: 'onBlur',
+  })
+
   const generateQR = async (text) => {
     try {
       const qr = await QR.toDataURL(text)
@@ -43,22 +53,6 @@ const FoodmakerProfile = (props) => {
       console.error(err)
     }
   }
-
-  const ttags = [
-    { id: 1, tagName: 'Drink' },
-    { id: 2, tagName: 'Salad' },
-    { id: 3, tagName: 'Bread' },
-    { id: 4, tagName: 'Soup' },
-    { id: 5, tagName: 'Pasta' },
-  ]
-
-  const langs = [
-    { id: 1, tagName: 'Japanese' },
-    { id: 2, tagName: 'English' },
-    { id: 3, tagName: 'French' },
-    { id: 4, tagName: 'Spanish' },
-    { id: 5, tagName: 'Chinese' },
-  ]
 
   const handleChangeTags = (selectedItms) => {
     setSelectedItems(selectedItms)
@@ -95,6 +89,13 @@ const FoodmakerProfile = (props) => {
     if (account?.coverPhoto) setFilelist([account?.coverPhoto].concat(account?.otherPhotos || []))
     setSelectedItems(account?.tags || [])
     setSelectedLangs(account?.languages || [])
+    if (account?.firstName) {
+      const { reffering, firstName, lastName, about } = account
+      setValue('reffering', reffering)
+      setValue('firstName', firstName)
+      setValue('lastName', lastName)
+      setValue('about', about)
+    }
   }, [account])
 
   useEffect(() => {
@@ -117,9 +118,9 @@ const FoodmakerProfile = (props) => {
 
   const onChangeHHLink = (e) => {
     const { value } = e.target
-    const reg = /^(?=.{2,100}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/
+    const reg = /^(?=.{2,50}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/
 
-    if (!'prefix'.concat(value.slice(fixedText.length)).match(reg)) return
+    if (!'pre'.concat(value.slice(fixedText.length)).match(reg)) return
     if (value.substring(0, fixedText.length) === fixedText) setSiteValue(value)
   }
 
@@ -147,7 +148,9 @@ const FoodmakerProfile = (props) => {
     updateFoodmakerAccountAC(payload)
   }
 
-  const { reffering, firstName, lastName, about } = account
+  const onNext = (data) => {
+    console.log('%c   formData   ', 'color: darkgreen; background: palegreen;', data)
+  }
 
   return (
     <div className={styles.container}>
@@ -155,64 +158,96 @@ const FoodmakerProfile = (props) => {
         <div className={styles.content}>
           <div className={styles.avatar_container}>
             <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
-            <div className={styles.loader_wrapper}>
-              {/* <p>Avatar *</p>
-              <Button type="primary" size="large" htmlType="submit">
-                UPLOAD PHOTO
-              </Button> */}
-            </div>
           </div>
 
-          <Form
-            layout="vertical"
-            name="fmProfile"
-            onFinish={onSubmit}
-            initialValues={{ reffering, firstName, lastName, about }}
-            scrollToFirstError
-          >
-            <div className={styles.data_section}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div id="form" className={styles.data_section}>
               <div className={styles.profile_section}>
                 <p className={styles.sec1}>Profile name</p>
 
                 <div className={styles.user_data}>
                   <div className={styles.refer}>
                     <label className={styles.label}>Ms/Mss/Mr</label>
-                    <Form.Item name="reffering">
-                      <Select onChange={() => {}}>
-                        {discnt.map((n) => (
-                          <Option key={n.value} value={n.value}>
-                            {n.title}
-                          </Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
+
+                    <Controller
+                      control={control}
+                      name="reffering"
+                      rules={{ required: false }}
+                      render={({ onChange, value, name }) => (
+                        <div>
+                          <Select onChange={onChange} name={name} value={value}>
+                            {discnt.map((n) => (
+                              <Option key={n.value} value={n.value}>
+                                {n.title}
+                              </Option>
+                            ))}
+                          </Select>
+                        </div>
+                      )}
+                    />
                   </div>
 
                   <div className={styles.first_name}>
                     <label className={styles.label}>First name</label>
-                    <Form.Item name="firstName">
-                      <Input />
-                    </Form.Item>
+                    <input
+                      className={styles.input}
+                      name="firstName"
+                      type="text"
+                      autoComplete="off"
+                      ref={register({
+                        required: true,
+                        maxLength: {
+                          value: 66,
+                        },
+                      })}
+                    />
+                    {_.get('firstName.type', errors) === 'required' && (
+                      <p className={styles.errmsg}>This field is required</p>
+                    )}
+                    {_.get('firstName.type', errors) === 'maxLength' && (
+                      <p className={styles.errmsg}>Max length 66 symbols</p>
+                    )}
                   </div>
 
                   <div className={styles.last_name}>
-                    <label className={styles.label}>Last name</label>
-                    <Form.Item name="lastName">
-                      <Input />
-                    </Form.Item>
+                    <label className={styles.label}>First name</label>
+                    <input
+                      className={styles.input}
+                      name="lastName"
+                      type="text"
+                      autoComplete="off"
+                      ref={register({
+                        required: true,
+                        maxLength: {
+                          value: 66,
+                        },
+                      })}
+                    />
+                    {_.get('lastName.type', errors) === 'required' && (
+                      <p className={styles.errmsg}>This field is required</p>
+                    )}
+                    {_.get('lastName.type', errors) === 'maxLength' && (
+                      <p className={styles.errmsg}>Max length 66 symbols</p>
+                    )}
                   </div>
                 </div>
 
-                <p className={styles.sec1}>About you</p>
                 <div className={styles.about}>
-                  <Form.Item name="about">
-                    <Input.TextArea rows={7} />
-                  </Form.Item>
+                  <p className={styles.sec1}>About you</p>
+                  <textarea
+                    className={styles.textarea}
+                    name="about"
+                    rows="7"
+                    ref={register({
+                      required: false,
+                    })}
+                  />
                 </div>
 
                 <p className={styles.sec1}>Tags (Up to 5 tags for your speciality and services)</p>
                 <div className={styles.service_tags}>
                   <Select
+                    name="tags"
                     mode="multiple"
                     value={selectedItems}
                     onChange={handleChangeTags}
@@ -227,7 +262,6 @@ const FoodmakerProfile = (props) => {
                   </Select>
                 </div>
               </div>
-
               <div className={styles.gallery_section}>
                 <p className={styles.sec2}>Profile url</p>
                 <div className={styles.profile_url}>
@@ -236,7 +270,28 @@ const FoodmakerProfile = (props) => {
                       <label className={styles.label}>
                         Try to make the link to your profile memorable
                       </label>
-                      <Input onChange={onChangeHHLink} value={hungryHuggerLink} />
+                      <input
+                        className={styles.input}
+                        name="hungryHuggerLink"
+                        type="text"
+                        autoComplete="off"
+                        onChange={onChangeHHLink}
+                        value={hungryHuggerLink}
+                        ref={register({
+                          required: true,
+                          validate: async (value) => {
+                            if (value === account.hungryHuggerLink) return true
+                            const user = await getUserByHHLink(value)
+                            return !user.data?.profileName
+                          },
+                          maxLength: {
+                            value: 100,
+                          },
+                        })}
+                      />
+                      {errors?.hungryHuggerLink?.type === 'validate' && (
+                        <p className={styles.errmsg}>A user with these parameters already exists</p>
+                      )}
                     </div>
 
                     {hungryHuggerLink && (
@@ -254,7 +309,6 @@ const FoodmakerProfile = (props) => {
                     )}
                   </div>
                 </div>
-
                 <div className={styles.gallery_container}>
                   <p className={styles.sec1}>Gallery</p>
                   <Uploader
@@ -265,6 +319,7 @@ const FoodmakerProfile = (props) => {
                     min={2}
                   />
                 </div>
+
                 <p className={styles.sec1}>Languages you speak</p>
 
                 <div className={styles.lang_tags}>
@@ -285,12 +340,10 @@ const FoodmakerProfile = (props) => {
               </div>
             </div>
             {success && <div className={styles.success}>Saved successfully</div>}
-            <Form.Item>
-              <Button type="primary" size="large" htmlType="submit">
-                APPLY
-              </Button>
-            </Form.Item>
-          </Form>
+            <button className={styles.submit} type="submit">
+              APPLY
+            </button>
+          </form>
         </div>
       )}
     </div>
