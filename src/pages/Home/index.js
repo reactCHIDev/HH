@@ -73,13 +73,17 @@ const Home = (props) => {
                 disabled
                 className={styles.input}
                 type="text"
-                placeholder="Global search (Placeholder text - cakes & bakes products, team building experiences, food makers)"
+                // placeholder="Global search (Placeholder text - cakes & bakes products, team building experiences, food makers)"
               />
               <span className={styles.label}>Celebration, Team Building, Family Day etc.</span>
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>City *</label>
-              <input disabled className={styles.input} type="text" placeholder="Select a city" />
+              <input
+                disabled
+                className={styles.input}
+                type="text" /* placeholder="Select a city" */
+              />
               <span className={cls(styles.label, 'mobile_hidden')}>Hong-Kong, Sydney</span>
             </div>
             <div className={styles.input_wrapper}>

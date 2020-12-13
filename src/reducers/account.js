@@ -37,14 +37,12 @@ const reducer = function accountReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER_ACCOUNT_REQUESTING:
       return {
-        ...state,
         requesting: true,
         error: '',
       }
 
     case GET_USER_ACCOUNT_SUCCESS:
       return {
-        ...state,
         ...action.data,
         requesting: false,
         error: '',
@@ -52,14 +50,12 @@ const reducer = function accountReducer(state = initialState, action) {
 
     case GET_USER_ACCOUNT_ERROR:
       return {
-        ...state,
         requesting: false,
         error: action.error,
       }
 
     case UPDATE_ACCOUNT_REQUESTING:
       return {
-        ...state,
         requesting: true,
         error: '',
       }
@@ -67,7 +63,6 @@ const reducer = function accountReducer(state = initialState, action) {
     case UPDATE_ACCOUNT_SUCCESS:
       const { data, newEmail } = action.payload
       return {
-        ...state,
         ...data,
         requesting: false,
         success: true,
@@ -76,7 +71,6 @@ const reducer = function accountReducer(state = initialState, action) {
 
     case UPDATE_PHOTO_NAME_REQUESTING:
       return {
-        ...state,
         requesting: true,
         error: '',
       }

@@ -3,6 +3,8 @@ import cls from 'classnames'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { Link } from 'react-router-dom'
+import Scrollchor from 'react-scrollchor'
 import Footer from 'components/Footer'
 import leading from 'assets/images/landings/create_profile/leading.jpg'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
@@ -40,9 +42,16 @@ const CreateProfile = () => {
           <div className={styles.description}>
             <p className={styles.hdr}>Let your brand shine</p>
             <p>Build a professional profile that showcases your talents and specialties.</p>
-            <button type="button" className={styles.btn_leading}>
-              Start today
-            </button>
+            <Scrollchor
+              type="button"
+              to="#more"
+              animate={{ offset: -100, duration: 300 }}
+              disableHistory
+            >
+              <button type="button" className={styles.btn_leading}>
+                Start today
+              </button>
+            </Scrollchor>
           </div>
           <div className={styles.overflow_container}>
             <div className={styles.slider_container}>
@@ -61,7 +70,7 @@ const CreateProfile = () => {
           </div>
         </section>
 
-        <section className={cls(styles.body_section, styles.reverse)}>
+        <section id="more" className={cls(styles.body_section, styles.reverse)}>
           <div className={styles.description}>
             <img className={styles.cake} src={cake} alt="cake" />
             <p className={styles.hdr}>Digital without the hassle</p>
@@ -137,9 +146,11 @@ const CreateProfile = () => {
               <p>3. Review requests, send quotes and get hired.</p>
             </div>
           </div>
-          <button type="button" className={styles.btn_svg_card}>
-            Let's start!
-          </button>
+          <Link to="/signupflow">
+            <button type="button" className={styles.btn_svg_card}>
+              Let's start!
+            </button>
+          </Link>
         </section>
 
         <section className={styles.learn_more}>
@@ -179,7 +190,9 @@ const CreateProfile = () => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <button type="button">Join now!</button>
+            <Link to="/signupflow">
+              <button type="button">Join now!</button>
+            </Link>
           </div>
         </section>
       </main>

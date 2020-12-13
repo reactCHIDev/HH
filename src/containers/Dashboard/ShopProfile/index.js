@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getUserAccount } from 'actions/account'
 import { updateShopAC } from 'actions/shop'
+import { useForm, Controller } from 'react-hook-form'
+
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
+import { getUserByHHLink } from 'api/requests/Account'
+import { getShopByUrlReq } from 'api/requests/Shop'
+
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
 import { Input, Select, Button, Form, Checkbox, InputNumber } from 'antd'
@@ -11,6 +16,7 @@ import { LockOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import styles from './shopprofile.module.scss'
 import './shopprofile.less'
+import { setItem } from 'utils/localStorage'
 
 const ShopProfile = (props) => {
   const {
@@ -33,9 +39,6 @@ const ShopProfile = (props) => {
   const [tags, setTags] = useState([])
   const [selectedItems, setSelectedItems] = useState([])
   const [qrImgSource, setQrImgSource] = useState(null)
-  const [hungryHuggerLink, setHungryHuggerLink] = useState(
-    `${process.env.REACT_APP_BASE_URL}/shop/`,
-  )
 
   const [standart, setStandart] = useState(false)
   const [freepick, setFreepick] = useState(false)
@@ -46,6 +49,10 @@ const ShopProfile = (props) => {
   const onChangeFreePickChkBox = (e) => setFreepick(e.target.checked)
   const onChangeExpressChkBox = (e) => setExpress(e.target.checked)
   const onChangeFreeChkBox = (e) => setFree(e.target.checked)
+
+  const { register, handleSubmit, control, setValue, errors } = useForm({
+    mode: 'onBlur',
+  })
 
   const generateQR = async (text) => {
     try {
@@ -62,6 +69,7 @@ const ShopProfile = (props) => {
 
       setAvatar(coverPhoto)
       setShopUrl(shopUrl)
+      setSelectedItems(tags)
       const delivery = deliveryMethods.reduce((acc, dm) => {
         Object.keys(dm).map((e) => {
           if (e !== 'type') {
@@ -85,15 +93,9 @@ const ShopProfile = (props) => {
     }
   }, [shop])
 
-  const handleChangeTags = (selectedItms) => {
-    setSelectedItems(selectedItms)
-  }
-
-  const normalizeTagsForSubmit = (value, allTags) =>
-    value.map((t) => allTags.find((e) => e.tagName === t).id)
-
-  const normalizeTagsForRender = (value, allTags) =>
-    value.map((t) => allTags.find((e) => e.id === t).tagName)
+  useEffect(() => {
+    Object.keys(defaults).forEach((e) => setValue(e, defaults[e]))
+  }, [defaults])
 
   const filteredTags = tags.length ? tags.filter((o) => !selectedItems.includes(o.tagName)) : []
 
@@ -105,19 +107,8 @@ const ShopProfile = (props) => {
   }, [])
 
   useEffect(() => {
-    /* if (account.hungryHuggerLink)
-      setSiteValue(
-        account.hungryHuggerLink.replace(
-          'https://hungryhugger.wildwebart.com',
-          'www.hungryhugger.com',
-        ),
-      ) */
-  }, [shop])
-
-  useEffect(() => {
     if (serviceTags?.length && specialityTags?.length && productTags?.length) {
       setTags([...specialityTags, ...productTags])
-      setSelectedItems(normalizeTagsForRender([1, 3, 5], [...specialityTags, ...productTags]))
     }
   }, [serviceTags, specialityTags, productTags])
 
@@ -189,28 +180,48 @@ const ShopProfile = (props) => {
     updateShopAC(payload)
   }
 
+  const handleTags = (onChange) => (e) => {
+    setSelectedItems(e)
+    onChange(e)
+  }
+
+  const handleNumber = (onChange) => (e) => {
+    onChange(Math.abs(e))
+  }
+
   if (!defaults.title) return <></>
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <Form
-          layout="vertical"
-          name="fmProfile"
-          onFinish={onSubmit}
-          initialValues={{
-            ...defaults,
-          }}
-          scrollToFirstError
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.name_section}>
             <div className={styles.name_item}>
               <p className={styles.title}>Shop name</p>
 
               <div className={styles.first_name}>
                 <label className={styles.label}>The shop name will be visible to everyone</label>
-                <Form.Item name="title">
-                  <Input />
-                </Form.Item>
+                <input
+                  className={styles.input}
+                  name="title"
+                  type="text"
+                  autoComplete="off"
+                  onChange={null}
+                  ref={register({
+                    required: true,
+                    validate: async (value) => {
+                      const url = process.env.REACT_APP_BASE_URL + '/shop/' + value.toLowerCase()
+                      if (url === shop?.shopUrl) return true
+                      const shopData = await getShopByUrlReq(url)
+                      return !shopData.data?.title
+                    },
+                    maxLength: {
+                      value: 100,
+                    },
+                  })}
+                />
+                {errors?.title?.type === 'validate' && (
+                  <p className={styles.errmsg}>This shop already exists</p>
+                )}
               </div>
             </div>
 
@@ -245,9 +256,14 @@ const ShopProfile = (props) => {
             <div className={styles.about_item}>
               <p className={styles.title}>About you</p>
               <div className={styles.about}>
-                <Form.Item name="description">
-                  <Input.TextArea rows={5} />
-                </Form.Item>
+                <textarea
+                  className={styles.textarea}
+                  name="description"
+                  rows="5"
+                  ref={register({
+                    required: false,
+                  })}
+                />
               </div>
             </div>
 
@@ -261,22 +277,29 @@ const ShopProfile = (props) => {
           <div className={styles.tags_wrapper}>
             <p className={styles.sec1}>Tags (Up to 5 tags for your speciality and services)</p>
             <div className={styles.service_tags}>
-              <Form.Item name="tags">
-                <Select
-                  mode="multiple"
-                  value={selectedItems}
-                  onChange={handleChangeTags}
-                  showArrow
-                  style={{ width: '100%' }}
-                  tokenSeparators={[',']}
-                >
-                  {filteredTags.map((item) => (
-                    <Select.Option key={item.id} value={item.tagName}>
-                      {item.tagName}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
+              <Controller
+                control={control}
+                name="tags"
+                rules={{ required: false }}
+                render={({ onChange, value, name }) => (
+                  <Select
+                    mode="multiple"
+                    name={name}
+                    onChange={handleTags(onChange)}
+                    value={selectedItems}
+                    disabled={!selectedItems.length}
+                    showArrow
+                    style={{ width: '100%' }}
+                    tokenSeparators={[',']}
+                  >
+                    {filteredTags.map((item) => (
+                      <Select.Option key={item.id} value={item.tagName}>
+                        {item.tagName}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                )}
+              />
             </div>
           </div>
 
@@ -290,37 +313,55 @@ const ShopProfile = (props) => {
                 <div className={styles.standart_block}>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Cost of delivery</label>
-                    <Form.Item name="standartprice" normalize={(value) => Math.abs(Number(value))}>
-                      <InputNumber
-                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                        disabled={!standart}
-                      />
-                    </Form.Item>
+                    <Controller
+                      control={control}
+                      name="standartprice"
+                      rules={{ required: false }}
+                      render={({ onChange, value, name }) => (
+                        <InputNumber
+                          name={name}
+                          value={value}
+                          onChange={handleNumber(onChange)}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          disabled={!standart}
+                        />
+                      )}
+                    />
                   </div>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Free for order over</label>
-                    <Form.Item
+
+                    <Controller
+                      control={control}
                       name="standartfreeDeliveryOver"
-                      normalize={(value) => Math.abs(Number(value))}
-                    >
-                      <InputNumber
-                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                        disabled={!standart}
-                      />
-                    </Form.Item>
+                      rules={{ required: false }}
+                      render={({ onChange, value, name }) => (
+                        <InputNumber
+                          name={name}
+                          value={value}
+                          onChange={handleNumber(onChange)}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          disabled={!standart}
+                        />
+                      )}
+                    />
                   </div>
                 </div>
                 <div className={styles.notes}>
                   <p className={styles.label_note}>Note</p>
-                  <Form.Item name="standartnote">
-                    <Input.TextArea
-                      placeholder="Standard delivery description"
-                      rows={5}
-                      disabled={!standart}
-                    />
-                  </Form.Item>
+
+                  <textarea
+                    className={styles.textarea}
+                    name="standartnote"
+                    placeholder="Standard delivery description"
+                    disabled={!standart}
+                    rows="5"
+                    ref={register({
+                      required: false,
+                    })}
+                  />
                 </div>
               </div>
             </div>
@@ -330,13 +371,16 @@ const ShopProfile = (props) => {
               </Checkbox>
               <div className={styles.notes}>
                 <p className={styles.label_note}>Note</p>
-                <Form.Item name="freepicknote">
-                  <Input.TextArea
-                    placeholder="Pick up description."
-                    rows={5}
-                    disabled={!freepick}
-                  />
-                </Form.Item>
+                <textarea
+                  className={styles.textarea}
+                  name="freepicknote"
+                  placeholder="Pick up description."
+                  disabled={!freepick}
+                  rows="5"
+                  ref={register({
+                    required: false,
+                  })}
+                />
               </div>
             </div>
             <div className={styles.delivery_container}>
@@ -347,37 +391,56 @@ const ShopProfile = (props) => {
                 <div className={styles.standart_block}>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Cost of delivery</label>
-                    <Form.Item name="expressprice" normalize={(value) => Math.abs(Number(value))}>
-                      <InputNumber
-                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                        disabled={!express}
-                      />
-                    </Form.Item>
+
+                    <Controller
+                      control={control}
+                      name="expressprice"
+                      rules={{ required: false }}
+                      render={({ onChange, value, name }) => (
+                        <InputNumber
+                          name={name}
+                          value={value}
+                          onChange={handleNumber(onChange)}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          disabled={!express}
+                        />
+                      )}
+                    />
                   </div>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <label className={styles.label}>Free for order over</label>
-                    <Form.Item
+
+                    <Controller
+                      control={control}
                       name="expressfreeDeliveryOver"
-                      normalize={(value) => Math.abs(Number(value))}
-                    >
-                      <InputNumber
-                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                        disabled={!express}
-                      />
-                    </Form.Item>
+                      rules={{ required: false }}
+                      render={({ onChange, value, name }) => (
+                        <InputNumber
+                          name={name}
+                          value={value}
+                          onChange={handleNumber(onChange)}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          disabled={!express}
+                        />
+                      )}
+                    />
                   </div>
                 </div>
                 <div className={styles.notes}>
                   <p className={styles.label_note}>Note</p>
-                  <Form.Item name="expressnote">
-                    <Input.TextArea
-                      placeholder="Express delivery description."
-                      rows={5}
-                      disabled={!express}
-                    />
-                  </Form.Item>
+
+                  <textarea
+                    className={styles.textarea}
+                    name="expressnote"
+                    placeholder="Express delivery description."
+                    disabled={!express}
+                    rows="5"
+                    ref={register({
+                      required: false,
+                    })}
+                  />
                 </div>
               </div>
             </div>
@@ -389,13 +452,22 @@ const ShopProfile = (props) => {
                 <div className={styles.standart_block}>
                   <div className={cls(styles.standart_cost, 'delivery-input_number')}>
                     <p className={styles.label_note}>Minimum spend to recieve</p>
-                    <Form.Item name="freeprice" normalize={(value) => Math.abs(Number(value))}>
-                      <InputNumber
-                        formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                        disabled={!free}
-                      />
-                    </Form.Item>
+
+                    <Controller
+                      control={control}
+                      name="freeprice"
+                      rules={{ required: false }}
+                      render={({ onChange, value, name }) => (
+                        <InputNumber
+                          name={name}
+                          value={value}
+                          onChange={handleNumber(onChange)}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          disabled={!free}
+                        />
+                      )}
+                    />
                   </div>
                 </div>
               </div>
@@ -409,7 +481,8 @@ const ShopProfile = (props) => {
               </Button>
             </Form.Item>
           </div>
-        </Form>
+        </form>
+        {/* </Form> */}
       </div>
     </div>
   )

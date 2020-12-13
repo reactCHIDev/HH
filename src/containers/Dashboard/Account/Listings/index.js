@@ -219,7 +219,7 @@ const Listings = (props) => {
               </CollapsedBlock>
             ))}
         </div>
-        {filteredProducts && !requesting ? (
+        {filteredProducts ? (
           <div className={styles.listing}>
             <div className={styles.product_table}>
               <div className={styles.tr}>
