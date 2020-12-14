@@ -48,7 +48,7 @@ const FoodmakerPage = (props) => {
   const [gallery, setGallery] = useState([])
 
   useEffect(() => {
-    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName.toLowerCase()}`)
+    resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
   }, [])
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const FoodmakerPage = (props) => {
 
   const openShop = () => pushRoute(`/shop/${shop.shopUrl.split('/').pop()}`)
 
-  if (!fm || fm.hungryHuggerLink !== `${process.env.REACT_APP_BASE_URL}/${userName.toLowerCase()}`)
+  if (!fm || fm.hungryHuggerLink !== `${process.env.REACT_APP_BASE_URL}/${userName}`)
     return (
       <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
         <Space size="middle">
