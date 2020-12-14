@@ -7,7 +7,7 @@ import { getUserByHHLink } from 'api/requests/Account'
 
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
-import Uploader from 'components/PhotoUploader'
+import Uploader from 'components/Uploader'
 import { Select } from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import _ from 'lodash/fp'
@@ -30,7 +30,7 @@ const FoodmakerProfile = (props) => {
 
   const [avatar, setAvatar] = useState('')
   const [cover, setCover] = useState(0)
-  const [fileList, setFilelist] = useState([])
+  const [fileList, setFilelist] = useState(null)
 
   const [tags, setTags] = useState([])
   const [languages, setLanguages] = useState([])
@@ -86,7 +86,18 @@ const FoodmakerProfile = (props) => {
   useEffect(() => {
     if (account.hungryHuggerLink) setSiteValue(account.hungryHuggerLink)
     setAvatar(account?.userPhoto || '')
-    if (account?.coverPhoto) setFilelist([account?.coverPhoto].concat(account?.otherPhotos || []))
+    if (account?.coverPhoto)
+      setFilelist(
+        [account?.coverPhoto].concat(account?.otherPhotos || []).map((e, i) => {
+          const ext = e.split('.').pop()
+          return {
+            uid: e.slice(-28, -(ext.length + 1)),
+            status: 'done',
+            url: e,
+            name: `image${i}.${ext}`,
+          }
+        }),
+      )
     setSelectedItems(account?.tags || [])
     setSelectedLangs(account?.languages || [])
     if (account?.firstName) {
@@ -126,8 +137,15 @@ const FoodmakerProfile = (props) => {
 
   const onSubmit = (formValues) => {
     const userPhoto = avatar
-    const coverPhoto = fileList.length ? fileList[cover] : ''
-    const otherPhotos = fileList.length > 1 ? fileList.filter((_, i) => i !== cover) : []
+    const coverPhoto = fileList.length ? fileList[0].url : ''
+    const otherPhotos =
+      fileList.length > 1
+        ? fileList
+            .slice(1)
+            .filter((e) => e.status !== 'error')
+            .map((e) => (e?.response ? e.response.url : e.url))
+        : []
+    // const otherPhotos = fileList.length > 1 ? fileList.filter((_, i) => i !== cover) : []
     const tags = selectedItems
     const languages = selectedLangs
 
@@ -311,13 +329,15 @@ const FoodmakerProfile = (props) => {
                 </div>
                 <div className={styles.gallery_container}>
                   <p className={styles.sec1}>Gallery</p>
-                  <Uploader
-                    list={fileList}
-                    listSet={setFilelist}
-                    cover={cover}
-                    setCover={setCover}
-                    min={2}
-                  />
+                  {fileList && (
+                    <Uploader
+                      list={fileList}
+                      listSet={setFilelist}
+                      cover={cover}
+                      setCover={setCover}
+                      min={2}
+                    />
+                  )}
                 </div>
 
                 <p className={styles.sec1}>Languages you speak</p>

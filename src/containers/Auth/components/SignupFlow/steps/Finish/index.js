@@ -9,7 +9,7 @@ const Finish = ({ hhLink }) => {
   const [qrImgSource, setQrImgSource] = useState(null)
 
   const onClick = () => {
-    history.push('/card')
+    history.push('/exp_dashboard/profile')
   }
 
   const generateQR = async (text) => {

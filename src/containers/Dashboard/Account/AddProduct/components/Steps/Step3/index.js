@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
-import Uploader from 'components/PhotoUploader'
+import Uploader from 'components/Uploader'
 import { Button } from 'antd'
 import { getItem, setItem } from 'utils/localStorage'
 import styles from './step3.module.scss'
@@ -16,7 +16,18 @@ const Step3 = (props) => {
   const [fileList, setFilelist] = useState([])
 
   useEffect(() => {
-    if (prevState?.coverPhoto) setFilelist([prevState.coverPhoto].concat(prevState.otherPhotos))
+    if (prevState?.coverPhoto)
+      setFilelist(
+        [prevState.coverPhoto].concat(prevState.otherPhotos).map((e, i) => {
+          const ext = e.split('.').pop()
+          return {
+            uid: e.slice(-28, -(ext.length + 1)),
+            status: 'done',
+            url: e,
+            name: `image${i}.${ext}`,
+          }
+        }),
+      )
   }, [])
 
   const onNext = () => {
@@ -24,8 +35,17 @@ const Step3 = (props) => {
 
     const formData = {}
 
-    formData.coverPhoto = fileList.length ? fileList[cover] : ''
-    formData.otherPhotos = fileList.length > 1 ? fileList.filter((_, i) => i !== cover) : []
+    // formData.coverPhoto = fileList.length ? fileList[cover] : ''
+    // formData.otherPhotos = fileList.length > 1 ? fileList.filter((_, i) => i !== cover) : []
+
+    formData.coverPhoto = fileList.length ? fileList[0].url : ''
+    formData.otherPhotos =
+      fileList.length > 1
+        ? fileList
+            .slice(1)
+            .filter((e) => e.status !== 'error')
+            .map((e) => (e?.response ? e.response.url : e.url))
+        : []
 
     setItem('addProduct', {
       ...prevSteps,
