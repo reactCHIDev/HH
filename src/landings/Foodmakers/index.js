@@ -109,7 +109,7 @@ const Foodmakers = () => {
           </div>
           <div className={styles.img_container}>
             <img src={sec21} alt="" className={styles.img} />
-            <img src={hearts} alt="" className={styles.hearts} />\
+            <img src={hearts} alt="" className={styles.hearts} />
           </div>
         </section>
 
