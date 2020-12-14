@@ -48,6 +48,39 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   )
+
+  const onRemove = (file) => {
+    if (file.status === 'error') return true
+    return fileList.filter((e) => e.status !== 'error').length > 2
+  }
+
+  const onRadio = (e) => {
+    const { value } = e.target
+    setCover(value)
+  }
+
+  const coverMark = (originNode, file) => (
+    <div style={{ position: 'relative', width: '100%', height: 130 }}>
+      <div style={{ width: '100%', height: 104 }}>{originNode}</div>
+
+      {file.status !== 'error' && (
+        <div style={{ position: 'absolute', zIndex: 99, bottom: 0, left: 20 }}>
+          <div className={styles.cover_selector}>
+            <input
+              className={styles.radio_item}
+              type="radio"
+              key={cover}
+              checked={file.uid === cover}
+              value={file.uid}
+              onChange={onRadio}
+            />
+            <div>Cover</div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -59,6 +92,8 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
             headers={{ 'x-api-key': process.env.REACT_APP_X_API_KEY }}
             onPreview={handlePreview}
             onChange={handleChange}
+            onRemove={onRemove}
+            itemRender={coverMark}
           >
             {fileList.length >= 10 ? null : uploadButton}
           </Upload>

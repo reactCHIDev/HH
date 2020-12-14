@@ -44,7 +44,7 @@ const Avatar = ({ avatarUrl, setAvatar }) => {
           }, */
         },
       )
-      setAvatar(res.data)
+      setAvatar(res.data.url)
       setLoading(false)
     } catch (error) {
       console.log('error', error)

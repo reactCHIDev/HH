@@ -29,7 +29,7 @@ const FoodmakerProfile = (props) => {
   const { id, userPhoto, success } = account
 
   const [avatar, setAvatar] = useState('')
-  const [cover, setCover] = useState(0)
+  const [cover, setCover] = useState('')
   const [fileList, setFilelist] = useState(null)
 
   const [tags, setTags] = useState([])
@@ -86,7 +86,7 @@ const FoodmakerProfile = (props) => {
   useEffect(() => {
     if (account.hungryHuggerLink) setSiteValue(account.hungryHuggerLink)
     setAvatar(account?.userPhoto || '')
-    if (account?.coverPhoto)
+    if (account?.coverPhoto) {
       setFilelist(
         [account?.coverPhoto].concat(account?.otherPhotos || []).map((e, i) => {
           const ext = e.split('.').pop()
@@ -98,6 +98,13 @@ const FoodmakerProfile = (props) => {
           }
         }),
       )
+      console.log(
+        '%c   account.coverPhoto   ',
+        'color: white; background: salmon;',
+        account.coverPhoto,
+      )
+      setCover(account.coverPhoto.slice(-28, -(account.coverPhoto.split('.').pop().length + 1)))
+    }
     setSelectedItems(account?.tags || [])
     setSelectedLangs(account?.languages || [])
     if (account?.firstName) {
@@ -108,6 +115,10 @@ const FoodmakerProfile = (props) => {
       setValue('about', about)
     }
   }, [account])
+
+  useEffect(() => {
+    if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
+  }, [fileList])
 
   useEffect(() => {
     if (specialityTags && specialityTags.length) {
@@ -137,11 +148,12 @@ const FoodmakerProfile = (props) => {
 
   const onSubmit = (formValues) => {
     const userPhoto = avatar
-    const coverPhoto = fileList.length ? fileList[0].url : ''
+    const coverItem = fileList.length ? fileList.find((e) => e.uid === cover) : { url: '' }
+    const coverPhoto = coverItem?.response ? coverItem.response.url : coverItem.url
     const otherPhotos =
       fileList.length > 1
         ? fileList
-            .slice(1)
+            .filter((e) => e.uid !== cover)
             .filter((e) => e.status !== 'error')
             .map((e) => (e?.response ? e.response.url : e.url))
         : []
@@ -329,7 +341,7 @@ const FoodmakerProfile = (props) => {
                 </div>
                 <div className={styles.gallery_container}>
                   <p className={styles.sec1}>Gallery</p>
-                  {fileList && (
+                  {cover && (
                     <Uploader
                       list={fileList}
                       listSet={setFilelist}

@@ -26,15 +26,26 @@ const Photo = (props) => {
           }
         }),
       )
+    setCover(value.coverPhoto.slice(-28, -(value.coverPhoto.split('.').pop().length + 1)))
   }, [])
+
+  useEffect(() => {
+    if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
+  }, [fileList])
 
   const submit = () => {
     const list = fileList?.length ? fileList.filter((e) => e.status !== 'error') : []
+    const coverItem = list.length ? list.find((e) => e.uid === cover) : { url: '' }
     const submitData = {
       otherPhotos: {
-        coverPhoto: list.length ? (list[0]?.response ? list[0].response.url : list[0].url) : '',
+        coverPhoto: coverItem?.response ? coverItem.response.url : coverItem.url,
         otherPhotos:
-          list.length > 1 ? list.slice(1).map((e) => (e?.response ? e.response.url : e.url)) : [],
+          fileList.length > 1
+            ? fileList
+                .filter((e) => e.uid !== cover)
+                .filter((e) => e.status !== 'error')
+                .map((e) => (e?.response ? e.response.url : e.url))
+            : [],
       },
     }
     onSubmit(submitData)

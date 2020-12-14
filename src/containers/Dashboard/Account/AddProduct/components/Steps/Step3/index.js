@@ -16,7 +16,7 @@ const Step3 = (props) => {
   const [fileList, setFilelist] = useState([])
 
   useEffect(() => {
-    if (prevState?.coverPhoto)
+    if (prevState?.coverPhoto) {
       setFilelist(
         [prevState.coverPhoto].concat(prevState.otherPhotos).map((e, i) => {
           const ext = e.split('.').pop()
@@ -28,21 +28,25 @@ const Step3 = (props) => {
           }
         }),
       )
+      setCover(prevState.coverPhoto.slice(-28, -(prevState.coverPhoto.split('.').pop().length + 1)))
+    }
   }, [])
+
+  useEffect(() => {
+    if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
+  }, [fileList])
 
   const onNext = () => {
     const prevSteps = getItem('addProduct')
 
     const formData = {}
 
-    // formData.coverPhoto = fileList.length ? fileList[cover] : ''
-    // formData.otherPhotos = fileList.length > 1 ? fileList.filter((_, i) => i !== cover) : []
-
-    formData.coverPhoto = fileList.length ? fileList[0].url : ''
+    const coverItem = fileList.length ? fileList.find((e) => e.uid === cover) : { url: '' }
+    formData.coverPhoto = coverItem?.response ? coverItem.response.url : coverItem.url
     formData.otherPhotos =
       fileList.length > 1
         ? fileList
-            .slice(1)
+            .filter((e) => e.uid !== cover)
             .filter((e) => e.status !== 'error')
             .map((e) => (e?.response ? e.response.url : e.url))
         : []
