@@ -287,7 +287,6 @@ const ShopProfile = (props) => {
                     name={name}
                     onChange={handleTags(onChange)}
                     value={selectedItems}
-                    disabled={!selectedItems.length}
                     showArrow
                     style={{ width: '100%' }}
                     tokenSeparators={[',']}
