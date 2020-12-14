@@ -27,6 +27,7 @@ import styles from './app.module.scss'
 import './App.less'
 import './App.css'
 import 'styles/styles.scss'
+import { Upload } from '../node_modules/antd/lib/index'
 
 const PageNotFound = lazy(() => import('components/PageNotFound'))
 const Login = lazy(() => import('containers/Auth/components/Login'))
@@ -39,6 +40,7 @@ const EditProduct = lazy(() =>
   import('containers/Dashboard/Account/Listings/components/EditProduct'),
 )
 const ProductPage = lazy(() => import('pages/ProductPage'))
+const Uploader = lazy(() => import('components/Uploader'))
 const ShopPage = lazy(() => import('pages/ShopPage'))
 const ExpDashboard = lazy(() => import('containers/Dashboard/ExperienceDashboard'))
 const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
@@ -105,6 +107,7 @@ function App({ authorized, pathname, getUserAccount }) {
             <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
             <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
             <PublicRoute exact path="/coming_soon" component={WaitingComponent(Soon)} />
+            <PublicRoute exact path="/uploader" component={WaitingComponent(Uploader)} />
 
             {/* Pages */}
             <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
