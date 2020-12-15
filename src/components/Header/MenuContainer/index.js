@@ -111,7 +111,7 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
             </li>
           </ul>
         </div>
-        <div className={styles.top_header_holder}>
+        <div className={styles.center_header_holder}>
           <strong className={styles.content_title}>EXPLORE</strong>
           <ul className={styles.menu_container}>
             {menuContent.map((menuItem, index) => (
