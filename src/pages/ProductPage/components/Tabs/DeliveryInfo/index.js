@@ -12,7 +12,7 @@ const DeliveryInfo = ({ region }) => {
       </div>
       <div className={styles.info_section}>
         <div className={styles.title}>Delivery type</div>
-        <div className={styles.sub_title}>Standart</div>
+        <div className={styles.sub_title}>Standard</div>
         <div className={styles.text}>
           Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.
         </div>

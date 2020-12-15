@@ -11,6 +11,7 @@ import { Spin, Space } from 'antd'
 /* CUSTOM MODULES */
 import { getUserAccount } from 'actions/account'
 import { getItem } from 'utils/localStorage'
+import ScrollToTop from 'components/ScrollToTop'
 
 import PublicRoute from 'components/Routing/PublicRoute'
 import PrivateRoute from 'components/Routing/PrivateRoute'
@@ -94,93 +95,99 @@ function App({ authorized, pathname, getUserAccount }) {
       <ConnectedRouter history={history}>
         <ConnectionProvider>
           {!hideHeader && <Header />}
-          <Switch>
-            <PublicRoute exact path="/" component={WaitingComponent(Home)} />
-            <PublicRoute exact path={desktop.signupflow} component={WaitingComponent(SignupFlow)} />
-            <PublicRoute
-              exact
-              path="/login"
-              component={() => <Redirect exact to="/login/regular" />}
-            />
-            <PublicRoute exact path="/sandbox" component={WaitingComponent(Sandbox)} />
-            <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
-            <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
-            <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
-            <PublicRoute exact path="/coming_soon" component={WaitingComponent(Soon)} />
-            <PublicRoute exact path="/uploader" component={WaitingComponent(Uploader)} />
+          <ScrollToTop>
+            <Switch>
+              <PublicRoute exact path="/" component={WaitingComponent(Home)} />
+              <PublicRoute
+                exact
+                path={desktop.signupflow}
+                component={WaitingComponent(SignupFlow)}
+              />
+              <PublicRoute
+                exact
+                path="/login"
+                component={() => <Redirect exact to="/login/regular" />}
+              />
+              <PublicRoute exact path="/sandbox" component={WaitingComponent(Sandbox)} />
+              <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
+              <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
+              <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
+              <PublicRoute exact path="/coming_soon" component={WaitingComponent(Soon)} />
+              <PublicRoute exact path="/uploader" component={WaitingComponent(Uploader)} />
 
-            {/* Pages */}
-            <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
-            <PublicRoute
-              exact
-              path="/explore_experiences"
-              component={WaitingComponent(ExploreExp)}
-            />
-            <PublicRoute
-              exact
-              path="/product_explore"
-              component={WaitingComponent(ProductExplore)}
-            />
-            <PublicRoute
-              exact
-              path="/foodmakers_explore"
-              component={WaitingComponent(FoodmakersExplore)}
-            />
-            <PublicRoute
-              exact
-              path="/landing/foodmakers"
-              component={WaitingComponent(FoodmakersLanding)}
-            />
-            <PublicRoute
-              exact
-              path="/landing/create_profile"
-              component={WaitingComponent(CreateProfileLanding)}
-            />
-            <PublicRoute
-              exact
-              path="/landing/create_experience"
-              component={WaitingComponent(CreateExperienceLanding)}
-            />
-            <PublicRoute
-              exact
-              path="/landing/create_shop"
-              component={WaitingComponent(CreateShopLanding)}
-            />
-            <PublicRoute exact path="/forgotpassword/:user" component={Create} />
-            <PublicRoute exact path="/cart" component={WaitingComponent(Cart)} />
-            <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
-            <PrivateRoute
-              exact
-              path="/exp_dashboard/:activeTab?"
-              component={WaitingComponent(ExpDashboard)}
-            />
-            <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
-            <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
-            <PublicRoute
-              exact
-              path="/product/:productId?"
-              component={WaitingComponent(ProductPage)}
-            />
-            <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
-            {/* <PrivateRoute
+              {/* Pages */}
+              <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
+              <PublicRoute
+                exact
+                path="/explore_experiences"
+                component={WaitingComponent(ExploreExp)}
+              />
+              <PublicRoute
+                exact
+                path="/product_explore"
+                component={WaitingComponent(ProductExplore)}
+              />
+              <PublicRoute
+                exact
+                path="/foodmakers_explore"
+                component={WaitingComponent(FoodmakersExplore)}
+              />
+              <PublicRoute
+                exact
+                path="/landing/foodmakers"
+                component={WaitingComponent(FoodmakersLanding)}
+              />
+              <PublicRoute
+                exact
+                path="/landing/create_profile"
+                component={WaitingComponent(CreateProfileLanding)}
+              />
+              <PublicRoute
+                exact
+                path="/landing/create_experience"
+                component={WaitingComponent(CreateExperienceLanding)}
+              />
+              <PublicRoute
+                exact
+                path="/landing/create_shop"
+                component={WaitingComponent(CreateShopLanding)}
+              />
+              <PublicRoute exact path="/forgotpassword/:user" component={Create} />
+              <PublicRoute exact path="/cart" component={WaitingComponent(Cart)} />
+              <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
+              <PrivateRoute
+                exact
+                path="/exp_dashboard/:activeTab?"
+                component={WaitingComponent(ExpDashboard)}
+              />
+              <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
+              <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
+              <PublicRoute
+                exact
+                path="/product/:productId?"
+                component={WaitingComponent(ProductPage)}
+              />
+              <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
+              {/* <PrivateRoute
               exact
               path="/foodmaker_profile"
               component={WaitingComponent(FoodmakerProfile)}
             />
           <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
-            <PublicRoute
-              exact
-              path="/foodmaker_page/:id"
-              component={WaitingComponent(FoodmakerPage)}
-            />
-            <PrivateRoute
-              exact
-              path="/settings/:confirmation"
-              component={WaitingComponent(Settings)}
-            />
-            <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
-            <Route path="/*" component={WaitingComponent(PageNotFound)} />
-          </Switch>
+              <PublicRoute
+                exact
+                path="/foodmaker_page/:id"
+                component={WaitingComponent(FoodmakerPage)}
+              />
+              <PrivateRoute
+                exact
+                path="/settings/:confirmation"
+                component={WaitingComponent(Settings)}
+              />
+              <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
+              <Route path="/*" component={WaitingComponent(PageNotFound)} />
+            </Switch>
+          </ScrollToTop>
         </ConnectionProvider>
       </ConnectedRouter>
     </div>

@@ -42,12 +42,7 @@ const CreateExperience = () => {
               services and experiences in one place. Our platform provides a simple way to open your
               business to a community of curious food lovers hungry for authentic food and drink.
             </p>
-            <Scrollchor
-              type="button"
-              to="#more"
-              animate={{ offset: -100, duration: 300 }}
-              disableHistory
-            >
+            <Scrollchor to="#more" animate={{ offset: -100, duration: 300 }} disableHistory>
               <button type="button" className={styles.btn_leading}>
                 Let’s start!
               </button>

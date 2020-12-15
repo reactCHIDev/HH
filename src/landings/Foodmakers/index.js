@@ -46,12 +46,7 @@ const Foodmakers = () => {
               Join the online marketplace connecting passionate food and drink hosts to a global
               community of food lovers.
             </p>
-            <Scrollchor
-              type="button"
-              to="#more"
-              animate={{ offset: -100, duration: 300 }}
-              disableHistory
-            >
+            <Scrollchor to="#more" animate={{ offset: -100, duration: 300 }} disableHistory>
               <button href="#more" className={styles.btn_leading}>
                 Tell me more
               </button>

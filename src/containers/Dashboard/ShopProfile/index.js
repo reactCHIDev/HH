@@ -306,7 +306,7 @@ const ShopProfile = (props) => {
           <div className={styles.delivery_layout}>
             <div className={styles.delivery_container}>
               <Checkbox id="standart" checked={standart} onChange={onChangeStandartChkBox}>
-                Standart
+                Standard
               </Checkbox>
               <div className={styles.standart_data}>
                 <div className={styles.standart_block}>
@@ -323,7 +323,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!standart}
                         />
                       )}
                     />
@@ -342,7 +341,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!standart}
                         />
                       )}
                     />
@@ -355,7 +353,6 @@ const ShopProfile = (props) => {
                     className={styles.textarea}
                     name="standartnote"
                     placeholder="Standard delivery description"
-                    disabled={!standart}
                     rows="5"
                     ref={register({
                       required: false,
@@ -374,7 +371,6 @@ const ShopProfile = (props) => {
                   className={styles.textarea}
                   name="freepicknote"
                   placeholder="Pick up description."
-                  disabled={!freepick}
                   rows="5"
                   ref={register({
                     required: false,
@@ -402,7 +398,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!express}
                         />
                       )}
                     />
@@ -421,7 +416,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!express}
                         />
                       )}
                     />
@@ -434,7 +428,6 @@ const ShopProfile = (props) => {
                     className={styles.textarea}
                     name="expressnote"
                     placeholder="Express delivery description."
-                    disabled={!express}
                     rows="5"
                     ref={register({
                       required: false,
@@ -463,7 +456,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!free}
                         />
                       )}
                     />
