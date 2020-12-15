@@ -4,6 +4,8 @@ import { getUserAccount } from 'actions/account'
 import { updateFoodmakerAccountAC } from 'actions/foodmaker'
 import { getSpecialityTagsAC } from 'actions/system'
 import { getUserByHHLink } from 'api/requests/Account'
+import { Spin, Space } from 'antd'
+import { Button } from 'antd'
 
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
@@ -98,11 +100,7 @@ const FoodmakerProfile = (props) => {
           }
         }),
       )
-      console.log(
-        '%c   account.coverPhoto   ',
-        'color: white; background: salmon;',
-        account.coverPhoto,
-      )
+
       setCover(account.coverPhoto.slice(-28, -(account.coverPhoto.split('.').pop().length + 1)))
     }
     setSelectedItems(account?.tags || [])
@@ -297,6 +295,9 @@ const FoodmakerProfile = (props) => {
                 <div className={styles.profile_url}>
                   <div className={styles.profile_data}>
                     <div className={styles.url_name}>
+                      {/* <a href={hungryHuggerLink} className={styles.url_btn}>
+                        Link
+                      </a> */}
                       <label className={styles.label}>
                         Try to make the link to your profile memorable
                       </label>
@@ -372,9 +373,17 @@ const FoodmakerProfile = (props) => {
               </div>
             </div>
             {success && <div className={styles.success}>Saved successfully</div>}
-            <button className={styles.submit} type="submit">
-              APPLY
-            </button>
+            <div className={styles.submit_wrapper}>
+              <Button
+                type="primary"
+                block
+                size="large"
+                loading={account?.requesting}
+                htmlType="submit"
+              >
+                SAVE
+              </Button>
+            </div>
           </form>
         </div>
       )}

@@ -48,7 +48,7 @@ const BusinessAdress = (props) => {
         <textarea
           className={styles.textarea}
           name="adress"
-          placeholder="adress"
+          placeholder="address"
           rows="3"
           cols="42"
           value={curTextValue}
@@ -60,6 +60,7 @@ const BusinessAdress = (props) => {
             name="mapURL"
             placeholder="url"
             value={curInputValue}
+            disabled={true}
             type="text"
             onChange={onChangeInput}
             ref={register({

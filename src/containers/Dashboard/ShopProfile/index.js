@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { getUserAccount } from 'actions/account'
 import { updateShopAC } from 'actions/shop'
 import { useForm, Controller } from 'react-hook-form'
+import { Spin, Space } from 'antd'
 
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
@@ -23,6 +24,7 @@ const ShopProfile = (props) => {
     id,
     shop,
     success,
+    requesting,
     serviceTags,
     specialityTags,
     productTags,
@@ -53,6 +55,8 @@ const ShopProfile = (props) => {
   const { register, handleSubmit, control, setValue, errors } = useForm({
     mode: 'onBlur',
   })
+
+  console.log('%c   shop   ', 'color: white; background: salmon;', requesting)
 
   const generateQR = async (text) => {
     try {
@@ -230,6 +234,9 @@ const ShopProfile = (props) => {
               <div className={styles.profile_url}>
                 <div className={styles.profile_data}>
                   <div className={styles.url_name}>
+                    {/* <a href={shopUrl} className={styles.url_btn}>
+                      Link
+                    </a> */}
                     <label className={styles.label}>Generated automatically</label>
                     <Input value={shopUrl} suffix={<LockOutlined />} />
                   </div>
@@ -306,7 +313,7 @@ const ShopProfile = (props) => {
           <div className={styles.delivery_layout}>
             <div className={styles.delivery_container}>
               <Checkbox id="standart" checked={standart} onChange={onChangeStandartChkBox}>
-                Standart
+                Standard
               </Checkbox>
               <div className={styles.standart_data}>
                 <div className={styles.standart_block}>
@@ -323,7 +330,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!standart}
                         />
                       )}
                     />
@@ -342,7 +348,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!standart}
                         />
                       )}
                     />
@@ -355,7 +360,6 @@ const ShopProfile = (props) => {
                     className={styles.textarea}
                     name="standartnote"
                     placeholder="Standard delivery description"
-                    disabled={!standart}
                     rows="5"
                     ref={register({
                       required: false,
@@ -374,7 +378,6 @@ const ShopProfile = (props) => {
                   className={styles.textarea}
                   name="freepicknote"
                   placeholder="Pick up description."
-                  disabled={!freepick}
                   rows="5"
                   ref={register({
                     required: false,
@@ -402,7 +405,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!express}
                         />
                       )}
                     />
@@ -421,7 +423,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!express}
                         />
                       )}
                     />
@@ -434,7 +435,6 @@ const ShopProfile = (props) => {
                     className={styles.textarea}
                     name="expressnote"
                     placeholder="Express delivery description."
-                    disabled={!express}
                     rows="5"
                     ref={register({
                       required: false,
@@ -463,7 +463,6 @@ const ShopProfile = (props) => {
                           onChange={handleNumber(onChange)}
                           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                          disabled={!free}
                         />
                       )}
                     />
@@ -475,7 +474,7 @@ const ShopProfile = (props) => {
           <div className={styles.apply_btn}>
             {success && <div className={styles.success}>Saved successfully</div>}
             <Form.Item>
-              <Button type="primary" block size="large" htmlType="submit">
+              <Button type="primary" block size="large" loading={requesting} htmlType="submit">
                 SAVE
               </Button>
             </Form.Item>
@@ -496,6 +495,7 @@ ShopProfile.propTypes = {
   id: T.number,
   shop: T.shape(),
   success: T.bool,
+  requesting: T.bool,
   serviceTags: T.arrayOf(T.shape()),
   specialityTags: T.arrayOf(T.shape()),
   productTags: T.arrayOf(T.shape()),
@@ -504,11 +504,12 @@ ShopProfile.propTypes = {
 export default connect(
   ({
     account: { shop },
-    shop: { success },
+    shop: { success, requesting },
     system: { serviceTags, specialityTags, productTags },
   }) => ({
     id: shop?.id,
     success,
+    requesting,
     shop,
     serviceTags,
     specialityTags,

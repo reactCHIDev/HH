@@ -241,6 +241,7 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
     <div className={styles.container}>
       <div className={cls(styles.content, 'add_form')}>
         <p className={styles.header}>Additional information</p>
+        <p className={styles.add_info}>Product options, price per item and stock inventory</p>
         <Form
           layout="vertical"
           name="register"
@@ -512,7 +513,7 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
 
           <Form.Item>
             <Button type="primary" block size="large" htmlType="submit">
-              {edit ? 'SAVE CHANGES' : 'PUBLISH'}
+              {edit ? 'SAVE' : 'PUBLISH'}
             </Button>
           </Form.Item>
         </Form>

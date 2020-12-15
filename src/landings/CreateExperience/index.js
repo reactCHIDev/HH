@@ -42,12 +42,7 @@ const CreateExperience = () => {
           <div className={styles.description}>
             <p className={styles.hdr}>Get discovered with the right community</p>
             <p>Reach a diverse global community of food lovers by running bespoke experiences. </p>
-            <Scrollchor
-              type="button"
-              to="#more"
-              animate={{ offset: -100, duration: 300 }}
-              disableHistory
-            >
+            <Scrollchor to="#more" animate={{ offset: -100, duration: 300 }} disableHistory>
               <button type="button" className={styles.btn_leading}>
                 Let’s start!
               </button>
