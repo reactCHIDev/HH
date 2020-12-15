@@ -290,7 +290,7 @@ const Settings = ({
           {_.get('confirm.type', errors) === 'required' && <p>This field is required</p>}
           {_.get('confirm.type', errors) === 'validate' && <p>Passwords don't match</p>}
 
-          <input type="submit" value="APPLY" />
+          <input type="submit" value="SAVE" />
         </form>
       </section>
       {requesting && <Tint />}

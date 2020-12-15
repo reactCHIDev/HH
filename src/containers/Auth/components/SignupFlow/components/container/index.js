@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import Logo from 'assets/images/logo_white.png'
+import Logo from 'assets/images/logo_beta.svg'
 import Meatball from 'assets/images/signup-flow/svg/meatball.svg'
 
 import T from 'prop-types'

@@ -98,11 +98,7 @@ const FoodmakerProfile = (props) => {
           }
         }),
       )
-      console.log(
-        '%c   account.coverPhoto   ',
-        'color: white; background: salmon;',
-        account.coverPhoto,
-      )
+
       setCover(account.coverPhoto.slice(-28, -(account.coverPhoto.split('.').pop().length + 1)))
     }
     setSelectedItems(account?.tags || [])
@@ -373,7 +369,7 @@ const FoodmakerProfile = (props) => {
             </div>
             {success && <div className={styles.success}>Saved successfully</div>}
             <button className={styles.submit} type="submit">
-              APPLY
+              SAVE
             </button>
           </form>
         </div>

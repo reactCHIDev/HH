@@ -42,12 +42,7 @@ const CreateProfile = () => {
           <div className={styles.description}>
             <p className={styles.hdr}>Let your brand shine</p>
             <p>Build a professional profile that showcases your talents and specialties.</p>
-            <Scrollchor
-              type="button"
-              to="#more"
-              animate={{ offset: -100, duration: 300 }}
-              disableHistory
-            >
+            <Scrollchor to="#more" animate={{ offset: -100, duration: 300 }} disableHistory>
               <button type="button" className={styles.btn_leading}>
                 Start today
               </button>
