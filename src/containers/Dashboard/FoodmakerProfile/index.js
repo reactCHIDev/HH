@@ -293,6 +293,9 @@ const FoodmakerProfile = (props) => {
                 <div className={styles.profile_url}>
                   <div className={styles.profile_data}>
                     <div className={styles.url_name}>
+                      {/* <a href={hungryHuggerLink} className={styles.url_btn}>
+                        Link
+                      </a> */}
                       <label className={styles.label}>
                         Try to make the link to your profile memorable
                       </label>

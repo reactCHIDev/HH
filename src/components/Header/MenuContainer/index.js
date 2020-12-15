@@ -4,6 +4,7 @@ import cls from 'classnames'
 import { Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
+import { HashLink } from 'react-router-hash-link'
 import ForMakers from 'assets/images/header/for_makers.jpg'
 import GetHired from 'assets/images/header/gethired.jpg'
 import Experience from 'assets/images/header/experience.jpg'
@@ -39,7 +40,7 @@ const items = {
     { img: FoodMakers, heading: 'Food Makers', route: '/landing/foodmakers' },
     { img: Products, heading: 'Products', route: '/landing/foodmakers' },
     { img: Blog, heading: 'Blog', route: 'https://medium.com/hungryhugger' },
-    { img: FAQ, heading: 'FAQ', route: '/landing/foodmakers/#faq' },
+    { img: FAQ, heading: 'FAQ', route: '/landing/foodmakers#faqanchor' },
   ],
 }
 
@@ -116,11 +117,19 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
           <ul className={styles.menu_container}>
             {menuContent.map((menuItem, index) => (
               <li key={menuItem.heading} className={styles.item} id={index} onClick={onClick}>
-                <a href={menuItem.route} target={menuItem.heading === 'Blog' ? '_blank' : ''}>
-                  <div className={styles.img_container}>
-                    <img className={styles.item_img} src={menuItem.img} alt="hired" />
-                  </div>
-                </a>
+                {menuItem.heading !== 'FAQ' ? (
+                  <a href={menuItem.route} target={menuItem.heading === 'Blog' ? '_blank' : ''}>
+                    <div className={styles.img_container}>
+                      <img className={styles.item_img} src={menuItem.img} alt="hired" />
+                    </div>
+                  </a>
+                ) : (
+                  <HashLink to={menuItem.route}>
+                    <div className={styles.img_container}>
+                      <img className={styles.item_img} src={menuItem.img} alt="hired" />
+                    </div>
+                  </HashLink>
+                )}
                 <p className={styles.item_text}>{menuItem.heading}</p>
               </li>
             ))}
@@ -136,7 +145,6 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
                         <img className={styles.item_img} src={menuItem.img} alt="hired" />
                       </div>
                     </a>
-
                     <p className={styles.item_text}>{menuItem.heading}</p>
                   </li>
                 ))}

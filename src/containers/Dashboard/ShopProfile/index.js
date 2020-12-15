@@ -230,6 +230,9 @@ const ShopProfile = (props) => {
               <div className={styles.profile_url}>
                 <div className={styles.profile_data}>
                   <div className={styles.url_name}>
+                    {/* <a href={shopUrl} className={styles.url_btn}>
+                      Link
+                    </a> */}
                     <label className={styles.label}>Generated automatically</label>
                     <Input value={shopUrl} suffix={<LockOutlined />} />
                   </div>
