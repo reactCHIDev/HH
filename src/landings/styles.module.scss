@@ -596,10 +596,8 @@ p {
       .img_container {
         padding: 0 10px;
         border-radius: 16px;
-        @media (max-width: 768px) {
-        }
 
-        .img {
+        img {
           width: 100%;
           border-radius: 16px;
           overflow: hidden;
