@@ -593,17 +593,13 @@ p {
     .slider_container {
       width: 100%;
 
-      @media (max-width: 768px) {
-        margin: 0 -40px 30px;
-        width: calc(100% + 80px);
-      }
       .img_container {
         padding: 0 10px;
         border-radius: 16px;
         @media (max-width: 768px) {
         }
 
-        .slider_img {
+        .img {
           width: 100%;
           border-radius: 16px;
           overflow: hidden;
