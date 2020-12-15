@@ -4,6 +4,8 @@ import { getUserAccount } from 'actions/account'
 import { updateFoodmakerAccountAC } from 'actions/foodmaker'
 import { getSpecialityTagsAC } from 'actions/system'
 import { getUserByHHLink } from 'api/requests/Account'
+import { Spin, Space } from 'antd'
+import { Button } from 'antd'
 
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
@@ -371,9 +373,17 @@ const FoodmakerProfile = (props) => {
               </div>
             </div>
             {success && <div className={styles.success}>Saved successfully</div>}
-            <button className={styles.submit} type="submit">
-              SAVE
-            </button>
+            <div className={styles.submit_wrapper}>
+              <Button
+                type="primary"
+                block
+                size="large"
+                loading={account?.requesting}
+                htmlType="submit"
+              >
+                SAVE
+              </Button>
+            </div>
           </form>
         </div>
       )}

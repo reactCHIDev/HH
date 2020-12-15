@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { getUserAccount } from 'actions/account'
 import { updateShopAC } from 'actions/shop'
 import { useForm, Controller } from 'react-hook-form'
+import { Spin, Space } from 'antd'
 
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
@@ -23,6 +24,7 @@ const ShopProfile = (props) => {
     id,
     shop,
     success,
+    requesting,
     serviceTags,
     specialityTags,
     productTags,
@@ -53,6 +55,8 @@ const ShopProfile = (props) => {
   const { register, handleSubmit, control, setValue, errors } = useForm({
     mode: 'onBlur',
   })
+
+  console.log('%c   shop   ', 'color: white; background: salmon;', requesting)
 
   const generateQR = async (text) => {
     try {
@@ -470,7 +474,7 @@ const ShopProfile = (props) => {
           <div className={styles.apply_btn}>
             {success && <div className={styles.success}>Saved successfully</div>}
             <Form.Item>
-              <Button type="primary" block size="large" htmlType="submit">
+              <Button type="primary" block size="large" loading={requesting} htmlType="submit">
                 SAVE
               </Button>
             </Form.Item>
@@ -491,6 +495,7 @@ ShopProfile.propTypes = {
   id: T.number,
   shop: T.shape(),
   success: T.bool,
+  requesting: T.bool,
   serviceTags: T.arrayOf(T.shape()),
   specialityTags: T.arrayOf(T.shape()),
   productTags: T.arrayOf(T.shape()),
@@ -499,11 +504,12 @@ ShopProfile.propTypes = {
 export default connect(
   ({
     account: { shop },
-    shop: { success },
+    shop: { success, requesting },
     system: { serviceTags, specialityTags, productTags },
   }) => ({
     id: shop?.id,
     success,
+    requesting,
     shop,
     serviceTags,
     specialityTags,

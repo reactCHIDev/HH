@@ -39,25 +39,8 @@
     content: '⚠ ';
   }
 
-  .submit {
+  .submit_wrapper {
     width: 160px;
-    height: 56px;
-    background: #31394d;
-    border-radius: 6px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 23px;
-    align-items: center;
-    text-align: center;
-    letter-spacing: 0.5px;
-    color: white;
-    border: none;
-  }
-
-  .submit:hover {
-    opacity: 1;
-    cursor: pointer;
   }
 
   .content {
