@@ -191,7 +191,7 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <p id="faq" className={styles.faq_heading}>
+        <p id="faqanchor" className={styles.faq_heading}>
           Frequently Asked Questions
         </p>
         <section className={cls(styles.section_faq, 'faq')}>

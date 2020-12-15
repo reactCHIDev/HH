@@ -11,7 +11,8 @@ import './tabs.less'
 
 const Tabs = (props) => {
   const {
-    product: { description, ingredients, deliveryRegion, refundPolicy, refundPolicyNote },
+    product: { description, ingredients, refundPolicy, deliveryRegion, refundPolicyNote },
+    deliveryMethods,
   } = props
 
   const tabs = {
@@ -22,7 +23,7 @@ const Tabs = (props) => {
       content: <ReviewTab />,
     },
     'DELIVERY INFO': {
-      content: <DeliveryInfoTab region={deliveryRegion} />,
+      content: <DeliveryInfoTab region={deliveryRegion} deliveryMethods={deliveryMethods} />,
     },
     'REFUND POLICY': {
       content: <RefundPolicyTab refund={refundPolicy} note={refundPolicyNote} />,
@@ -39,8 +40,8 @@ const Tabs = (props) => {
 Tabs.propTypes = {
   product: T.shape,
   description: T.string,
-  ingedients: T.string,
-  deliveryRegion: T.string,
+  ingredients: T.string,
+  deliveryMethods: T.shape,
   refundPolicy: T.string,
   refundPolicyNote: T.string,
 }
