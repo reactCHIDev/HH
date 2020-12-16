@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
 import { T } from 'lodash/fp'
+import { getItem, removeKey } from 'utils/localStorage'
 import { history } from 'store'
 import QR from 'qrcode'
 import Download from 'assets/images/signup-flow/svg/download.svg'
 import styles from './finish.module.scss'
 
-const Finish = ({ hhLink }) => {
+const Finish = () => {
   const [qrImgSource, setQrImgSource] = useState(null)
 
-  const onClick = () => {
+  const hhLink = getItem('link')
+
+  const onClickDashboard = () => {
+    removeKey('link')
     history.push('/exp_dashboard/profile')
+  }
+  const onClickListing = () => {
+    removeKey('link')
+    history.push('/exp_dashboard/listings')
   }
 
   const generateQR = async (text) => {
@@ -48,10 +56,10 @@ const Finish = ({ hhLink }) => {
       </div>
       <div className={styles.btn_container}>
         <p className={styles.heading}>What’s next?</p>
-        <button className={styles.btn1} onClick={onClick} type="button">
+        <button className={styles.btn1} onClick={onClickDashboard} type="button">
           To dashboard
         </button>
-        <button className={styles.btn2} onClick={onClick} type="button">
+        <button className={styles.btn2} onClick={onClickListing} type="button">
           Add first listing
         </button>
       </div>

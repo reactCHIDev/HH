@@ -1,4 +1,10 @@
 import {
+  CREATE_PRODUCT_REQUESTING,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR,
+  UPDATE_PRODUCT_REQUESTING,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_ERROR,
   GET_PRODUCT_INFO_REQUESTING,
   GET_PRODUCT_INFO_SUCCESS,
   GET_PRODUCT_INFO_ERROR,
@@ -25,6 +31,42 @@ const reducer = function accountReducer(state = initialState, action) {
         error: '',
       }
     case GET_PRODUCT_INFO_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+    case CREATE_PRODUCT_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case CREATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        error: '',
+      }
+    case CREATE_PRODUCT_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+    case UPDATE_PRODUCT_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        error: '',
+      }
+    case UPDATE_PRODUCT_ERROR:
       return {
         ...state,
         requesting: false,

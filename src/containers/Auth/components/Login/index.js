@@ -47,7 +47,7 @@ const Login = (props) => {
   }
 
   const onSubmit = (credentials) => {
-    loginRequest(credentials)
+    loginRequest({ ...credentials, redirect: true })
   }
 
   const forgotProcess = () => {

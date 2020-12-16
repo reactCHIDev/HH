@@ -22,11 +22,19 @@ import {
   signUpLoverAsFoodmaker,
 } from 'api/requests/Auth'
 
+import { loginRequest } from 'actions/login'
+
 function* signUpProcess({ credentials }) {
   try {
     yield signUpUser(credentials)
     yield put({ type: SIGNUP_SUCCESS })
-    yield put(push('/login'))
+    const loginCreds = {
+      email: credentials.email,
+      password: credentials.password,
+      redirect: 'true',
+    }
+    yield put(loginRequest(loginCreds))
+    yield put(push('/'))
   } catch (error) {
     yield put({ type: SIGNUP_ERROR })
   }
@@ -41,6 +49,8 @@ function* signUpFoodmakerSaga({ credentials }) {
   try {
     yield signUpFoodmaker(creds)
     yield put({ type: SIGNUP_FOODMAKER_SUCCESS })
+    const loginCreds = { email: credentials.email, password: credentials.password }
+    yield put(loginRequest(loginCreds))
   } catch (error) {
     yield put({ type: SIGNUP_FOODMAKER_ERROR, error: error.response.data })
   }
@@ -50,6 +60,8 @@ function* signUpLoverAsFoodmakerSaga({ credentials }) {
   try {
     yield signUpLoverAsFoodmaker(credentials)
     yield put({ type: SIGNUP_LOVER_AS_MAKER_SUCCESS })
+    const loginCreds = { email: credentials.email, password: credentials.password }
+    yield put(loginRequest(loginCreds))
   } catch (error) {
     yield put({ type: SIGNUP_LOVER_AS_MAKER_ERROR, error: error.response.data })
   }

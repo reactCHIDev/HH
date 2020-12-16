@@ -2,8 +2,21 @@
 
 .frame {
   .header {
+    position: relative;
     background: #31394d;
     padding: 50px 20px;
+    margin-bottom: 30px;
+    &:before {
+      content: ' ';
+      position: absolute;
+      bottom: -13px;
+      left: 0;
+      width: 100vw;
+      height: 13px;
+
+      background: url(../../assets/images/bg-head.png) 50% 100%;
+      background-size: 100% 100%;
+    }
 
     @include media('<tablet') {
       padding-bottom: 100px;

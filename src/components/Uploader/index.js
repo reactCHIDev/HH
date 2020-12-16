@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { Upload, Modal } from 'antd'
+import ImgCrop from 'antd-img-crop'
 import { PlusOutlined } from '@ant-design/icons'
 import Button from 'components/Button'
 import styles from './uploader.module.scss'
@@ -85,18 +86,20 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className="photo_container">
-          <Upload
-            action={`${process.env.REACT_APP_BASE_URL}/api/v1/file/upload/photo`}
-            listType="picture-card"
-            fileList={fileList}
-            headers={{ 'x-api-key': process.env.REACT_APP_X_API_KEY }}
-            onPreview={handlePreview}
-            onChange={handleChange}
-            onRemove={onRemove}
-            itemRender={coverMark}
-          >
-            {fileList.length >= 10 ? null : uploadButton}
-          </Upload>
+          <ImgCrop rotate>
+            <Upload
+              action={`${process.env.REACT_APP_BASE_URL}/api/v1/file/upload/photo`}
+              listType="picture-card"
+              fileList={fileList}
+              headers={{ 'x-api-key': process.env.REACT_APP_X_API_KEY }}
+              onPreview={handlePreview}
+              onChange={handleChange}
+              onRemove={onRemove}
+              itemRender={coverMark}
+            >
+              {fileList.length >= 10 ? null : uploadButton}
+            </Upload>
+          </ImgCrop>
           <Modal
             visible={previewVisible}
             title={previewTitle}
