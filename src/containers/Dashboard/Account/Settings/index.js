@@ -7,6 +7,7 @@ import { Redirect, useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import { useForm } from 'react-hook-form'
 import * as jwt from 'jsonwebtoken'
+import { Button } from 'antd'
 
 import { getUserByEmail } from 'api/requests/Auth'
 import { getUserAccount, updateAccount, resetConfirmation, emailConfirm } from 'actions/account'
@@ -290,10 +291,14 @@ const Settings = ({
           {_.get('confirm.type', errors) === 'required' && <p>This field is required</p>}
           {_.get('confirm.type', errors) === 'validate' && <p>Passwords don't match</p>}
 
-          <input type="submit" value="SAVE" />
+          <div className={styles.submit_wrapper}>
+            <Button type="primary" block size="large" loading={requesting} htmlType="submit">
+              SAVE
+            </Button>
+          </div>
         </form>
       </section>
-      {requesting && <Tint />}
+
       {awaitingConfirmation && (
         <Modal closeFunc={modalClose} mode="dark">
           <CheckMail close={modalClose} />

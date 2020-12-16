@@ -37,7 +37,7 @@ const BusinessAdress = (props) => {
   }
 
   const getMapPoint = () => {
-    setMap(true)
+    // setMap(true)
   }
 
   return (

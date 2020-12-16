@@ -21,6 +21,7 @@ const AddProduct = (props) => {
     countries,
     types,
     tags,
+    requesting,
     getCountriesAC,
     getProductTypes,
     createProductRequestAC,
@@ -91,7 +92,7 @@ const AddProduct = (props) => {
             <Step title="STEP 3" disabled={stepper} />
           </Steps>
           <div className={styles.btn_preview}>
-            <Button title="Preview" dark={false} onClick={prevStep} />
+            <Button title="Preview" dark={false} onClick={prevStep} disabled />
           </div>
         </div>
         <div className={styles.mobile_stepper}>
@@ -126,6 +127,7 @@ const AddProduct = (props) => {
                 tags={tagsCollection}
                 countries={countries}
                 edit={edit}
+                requesting={requesting}
               />
             )}
           </div>
@@ -140,6 +142,7 @@ AddProduct.propTypes = {
   types: T.arrayOf(shape()),
   tags: T.arrayOf(shape()),
   countries: T.arrayOf(shape()),
+  requesting: T.bool,
   getCountriesAC: T.func,
   getProductTypes: T.func,
   createProductRequestAC: T.func,
@@ -153,11 +156,16 @@ AddProduct.defaultProperties = {
 }
 
 export default connect(
-  ({ system: { productTags: tags, productTypes, countries }, account }) => ({
+  ({
+    system: { productTags: tags, productTypes, countries },
+    account,
+    product: { requesting },
+  }) => ({
     tags,
     types: productTypes,
     account,
     countries,
+    requesting,
   }),
   {
     getProductTypes,

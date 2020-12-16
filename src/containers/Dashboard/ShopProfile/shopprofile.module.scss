@@ -111,16 +111,9 @@
                 margin-bottom: 24px;
               }
               .url_btn {
-                display: block;
-                position: absolute;
-                z-index: 99;
-                bottom: 11px;
-                right: 48px;
-                padding: 2px 15px;
-                border: none;
-                color: white;
-                background-color: #31394d;
-                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                margin-right: 8px;
               }
             }
             .qr {
