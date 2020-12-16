@@ -302,7 +302,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                           </Form.Item>
                         </div>
 
-                        <div className="numeric_selector">
+                        <div className="price_selector">
                           <Form.Item
                             {...field}
                             key={[field.name, 'price']}
@@ -310,24 +310,24 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                             fieldKey={[field.fieldKey, 'price']}
                             rules={[{ required: true, message: 'Please input price!' }]}
                           >
-                            <InputNumber min={0} max={999999999999} />
+                            <InputNumber
+                              formatter={(value) =>
+                                `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                              }
+                              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                            />
                           </Form.Item>
+                        </div>
+                        <div className={cls(styles.quantity_container, 'quantity-container')}>
                           <Form.Item
                             {...field}
-                            key={[field.name, 'currency']}
-                            name={[field.name, 'currency']}
-                            fieldKey={[field.fieldKey, 'currency']}
-                            rules={[{ required: true, message: 'Please choose currency!' }]}
+                            key={[field.name, 'quantity']}
+                            name={[field.name, 'quantity']}
+                            fieldKey={[field.fieldKey, 'quantity']}
+                            rules={[{ required: false, message: 'Please enter quantity' }]}
+                            normalize={(value) => Math.abs(Number(value))}
                           >
-                            <Select
-                              style={{
-                                width: 70,
-                              }}
-                            >
-                              <Option value="$">$</Option>
-                              <Option value="E">E</Option>
-                              <Option value="Y">Y</Option>
-                            </Select>
+                            <InputNumber disabled={!isQuantity} min={0} />
                           </Form.Item>
                         </div>
                       </div>
