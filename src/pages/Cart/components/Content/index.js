@@ -1,13 +1,13 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styles from './content.module.scss'
 import Product from './components/Product'
-import data from './mocks'
 
-function Content() {
+function Content({ orders, shops }) {
   return (
     <div className={styles.container}>
-      {data.map((item) => (
-        <Product key={item.name} item={item} />
+      {shops.map((item) => (
+        <Product orders={orders[item][0]} />
       ))}
     </div>
   )

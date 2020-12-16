@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
@@ -5,13 +6,33 @@ import { Rate, Tag } from 'antd'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
+import { useDispatch } from 'react-redux'
+import { addProductToBasket } from 'actions/cart'
 import styles from './prod_card.module.scss'
 import './prod_card.less'
 
 const ProdCard = (props) => {
-  const { id, photo, tags, name, price, rating, rateCount, isShowCart, pushRoute, pathname } = props
+  const dispatch = useDispatch()
+
+  const {
+    id,
+    photo,
+    tags,
+    name,
+    price,
+    rating,
+    rateCount,
+    isShowCart,
+    pushRoute,
+    pathname,
+    product,
+  } = props
 
   const onClick = () => pushRoute(`${pathname}/${id}`)
+
+  const onProductClick = (productData) => {
+    dispatch(addProductToBasket(productData))
+  }
 
   return (
     <div className={styles.container}>
@@ -36,7 +57,14 @@ const ProdCard = (props) => {
             <div className={styles.exp_price_container}>
               <p className={styles.exp_price}>{`$${price}`}</p>
               {isShowCart && (
-                <img src={OutlinedCartIcon} className={styles.outlined_cat} alt="buy product" />
+                <img
+                  src={OutlinedCartIcon}
+                  className={styles.outlined_cat}
+                  alt="buy product"
+                  onClick={() => {
+                    onProductClick(product)
+                  }}
+                />
               )}
             </div>
             <div className={cls(styles.rating_container, 'rating')}>

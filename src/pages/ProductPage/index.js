@@ -19,7 +19,6 @@ import Toolbar from './components/Toolbar'
 import Tabs from './components/Tabs'
 import AboutMaker from './components/AboutMaker'
 import './product_page.less'
-import { indexOf } from 'lodash'
 
 const ProductPage = (props) => {
   const {
@@ -95,6 +94,7 @@ const ProductPage = (props) => {
                   rating={product.rating}
                   rateCount={product.reviews?.length}
                   isShowCart
+                  product={product}
                 />
               ))}
           </CardsContainer>
