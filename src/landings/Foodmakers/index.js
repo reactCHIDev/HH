@@ -46,12 +46,7 @@ const Foodmakers = () => {
               Join the online marketplace connecting passionate food and drink hosts to a global
               community of food lovers.
             </p>
-            <Scrollchor
-              type="button"
-              to="#more"
-              animate={{ offset: -100, duration: 300 }}
-              disableHistory
-            >
+            <Scrollchor to="#more" animate={{ offset: -100, duration: 300 }} disableHistory>
               <button href="#more" className={styles.btn_leading}>
                 Tell me more
               </button>
@@ -196,7 +191,7 @@ const Foodmakers = () => {
           </div>
         </section>
 
-        <p id="faq" className={styles.faq_heading}>
+        <p id="faqanchor" className={styles.faq_heading}>
           Frequently Asked Questions
         </p>
         <section className={cls(styles.section_faq, 'faq')}>

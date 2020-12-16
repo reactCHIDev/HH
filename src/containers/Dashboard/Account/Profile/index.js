@@ -78,7 +78,7 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
           </div>
         </div>
         <div className={styles.btn_container}>
-          <Button title="Apply" onClick={onSubmit} />
+          <Button title="SAVE" onClick={onSubmit} />
         </div>
       </div>
       <div className={styles.rewards}>

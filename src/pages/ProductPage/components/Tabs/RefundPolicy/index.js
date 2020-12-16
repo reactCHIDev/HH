@@ -6,8 +6,10 @@ import './refund_policy.less'
 const RefundPolicy = ({ refund, note }) => {
   return (
     <>
-      <div className={styles.container}>{refund}</div>
-      <div className={styles.container}>{note}</div>
+      <div className={styles.container}>
+        <p>{refund}</p>
+        <p>{note}</p>
+      </div>
     </>
   )
 }

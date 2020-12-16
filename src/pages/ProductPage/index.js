@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
+import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { getShopByFoodmakerIdAC } from 'actions/shop'
 import { Spin, Space } from 'antd'
 import { useParams } from 'react-router-dom'
 import { push } from 'connected-react-router'
@@ -10,7 +12,6 @@ import CardsContainer from 'components/CardsContainer'
 import ProdCard from 'components/ProductCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
-import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import styles from './product_page.module.scss'
 import ImagePreviewer from './components/ImagePreviewer'
 import Header from './components/Header'
@@ -21,7 +22,15 @@ import './product_page.less'
 import { indexOf } from 'lodash'
 
 const ProductPage = (props) => {
-  const { info, fm, getProductInfoRequest, getFoodmakerInfo, pushRoute } = props
+  const {
+    info,
+    fm,
+    deliveryMethods,
+    getProductInfoRequest,
+    getFoodmakerInfo,
+    getShopByFoodmakerId,
+    pushRoute,
+  } = props
 
   const { productId } = useParams()
 
@@ -34,6 +43,7 @@ const ProductPage = (props) => {
 
   useEffect(() => {
     if (info?.userProfile) getFoodmakerInfo(info.userProfile.id)
+    if (info?.userProfile) getShopByFoodmakerId(info.userProfile.id)
   }, [info])
 
   if (!info || info.id != productId)
@@ -46,27 +56,26 @@ const ProductPage = (props) => {
     )
   return (
     <div className={styles.frame}>
-        <div className={styles.product}>
-
-      <div className={cls('container')}>
-        <div className={styles.content}>
-          <ImagePreviewer images={[info.coverPhoto, ...info.otherPhotos]} />
-          <div className={styles.inner_content}>
-            <Header text={info.title} />
-            <Toolbar params={info.parameters} isPreOrderOnly={false} />
-            <Tabs product={info} />
-            <div className={styles.card_link} onClick={openFoodmaker}>
-              <AboutMaker
-                name={info.userProfile.firstName}
-                text={info.userProfile.about}
-                photo={info.userProfile.coverPhoto}
-              />
+      <div className={styles.product}>
+        <div className={cls('container')}>
+          <div className={styles.content}>
+            <ImagePreviewer images={[info.coverPhoto, ...info.otherPhotos]} />
+            <div className={styles.inner_content}>
+              <Header text={info.title} />
+              <Toolbar params={info.parameters} isPreOrderOnly={false} />
+              <Tabs product={info} deliveryMethods={deliveryMethods} />
+              <div className={styles.card_link} onClick={openFoodmaker}>
+                <AboutMaker
+                  name={info.userProfile.firstName}
+                  text={info.userProfile.about}
+                  photo={info.userProfile.coverPhoto}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-      
+
       <div className={styles.related_products}>
         <h2>Related products</h2>
         <div className={styles.content}>
@@ -100,13 +109,23 @@ const ProductPage = (props) => {
 ProductPage.propTypes = {
   info: T.shape,
   fm: T.shape,
+  deliveryMethods: T.shape,
   getProductInfoRequest: T.func.isRequired,
   getFoodmakerInfo: T.func.isRequired,
+  getShopByFoodmakerId: T.func.isRequired,
   pushRoute: T.func.isRequired,
 }
 
-export default connect(({ product, foodmaker }) => ({ info: product.info, fm: foodmaker }), {
-  getProductInfoRequest: getProductInfoRequestAC,
-  getFoodmakerInfo: getFoodmakerInfoAC,
-  pushRoute: push,
-})(ProductPage)
+export default connect(
+  ({ product, foodmaker, shop }) => ({
+    info: product.info,
+    fm: foodmaker,
+    deliveryMethods: shop?.shopData?.deliveryMethods,
+  }),
+  {
+    getProductInfoRequest: getProductInfoRequestAC,
+    getFoodmakerInfo: getFoodmakerInfoAC,
+    getShopByFoodmakerId: getShopByFoodmakerIdAC,
+    pushRoute: push,
+  },
+)(ProductPage)

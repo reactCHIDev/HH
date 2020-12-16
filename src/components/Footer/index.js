@@ -2,7 +2,8 @@ import React from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import { Link } from 'react-router-dom'
-import Logo from 'assets/images/logo.png'
+import { HashLink } from 'react-router-hash-link'
+import Logo from 'assets/images/logo_beta.svg'
 import inst from 'assets/images/instagram.svg'
 import fb from 'assets/images/facebook.svg'
 import yt from 'assets/images/youtube.svg'
@@ -52,18 +53,40 @@ const Footer = () => {
 
       <div className={cls(styles.section, styles.explore)}>
         <ul>
-          <li>Makers</li>
-          <li>Products</li>
-          <li>Experiences</li>
+          <li>
+            <a href="/landing/foodmakers" rel="noopener noreferrer">
+              Makers
+            </a>
+          </li>
+          <li>
+            <a href="/landing/foodmakers" rel="noopener noreferrer">
+              Products
+            </a>
+          </li>
+          <li>
+            <a href="/landing/create_experience" rel="noopener noreferrer">
+              Experiences
+            </a>
+          </li>
         </ul>
         <h5>Explore</h5>
       </div>
 
       <div className={styles.section}>
         <ul>
-          <li>Blog</li>
-          <li>FAQ</li>
-          <li>Get Hired</li>
+          <li>
+            <a href="https://medium.com/hungryhugger" target="_blank" rel="noopener noreferrer">
+              Blog
+            </a>
+          </li>
+          <li>
+            <HashLink to="/landing/foodmakers#faqanchor">FAQ</HashLink>
+          </li>
+          <li>
+            <a href="/landing/create_profile" rel="noopener noreferrer">
+              Get Hired
+            </a>
+          </li>
         </ul>
         <h5>Community</h5>
       </div>

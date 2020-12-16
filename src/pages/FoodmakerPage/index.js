@@ -119,7 +119,10 @@ const FoodmakerPage = (props) => {
             <div className={styles.about_shop}>
               <div className={styles.about_header}>
                 <img className={styles.shop_icon} src={fm?.coverPhoto} alt="icon" />
-                <p className={styles.shop_name}>{shop.title}</p>
+                <div>
+                  <p className={styles.shop_owner}>{`SHOP OF ${fm.firstName}`}</p>
+                  <p className={styles.shop_name}>{shop.title}</p>
+                </div>
               </div>
               <p className={styles.shop_descr}>{shop.description}</p>
               <div className={styles.btn_container}>

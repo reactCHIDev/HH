@@ -12,7 +12,7 @@ const Congrats = () => {
   return (
     <>
       <div className={styles.chk_container}>
-        <img className={delay ? styles.knife_on : styles.knife_off} src={Knife} alt="chk" />
+        {/* <img className={delay ? styles.knife_on : styles.knife_off} src={Knife} alt="chk" /> */}
         <img className={styles.chk1} src={Chk1} alt="chk" />
         {delay && <img className={styles.chk2} src={Chk2} alt="chk" />}
       </div>

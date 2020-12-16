@@ -37,7 +37,8 @@ const Requesting = ({
 
             if (
               step.props.name === 'businessAdress' &&
-              (step.props.value.adress === '' || step.props.value.location === '')
+              step.props.value.adress === '' &&
+              step.props.value.location === ''
             )
               return acc
 
@@ -80,7 +81,8 @@ const Requesting = ({
 
             if (
               step.props.name === 'businessAdress' &&
-              (step.props.value.adress === '' || step.props.value.location === '')
+              step.props.value.adress === '' &&
+              step.props.value.location === ''
             )
               return acc
 

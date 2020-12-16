@@ -7,6 +7,7 @@
 .mount {
   opacity: 1;
 }
+
 .container {
   position: absolute;
   top: 100%;
@@ -17,8 +18,6 @@
   box-shadow: 0 3px 3px rgba($white, 0.08);
 
   @include media('<desktop') {
-    height: calc(100vh - 103px);
-    overflow-y: auto;
     padding: 20px;
   }
 
@@ -69,6 +68,7 @@
     }
 
     .bottom_holder {
+      background: #f4f7fa;
       .account_info,
       .logout {
         color: #31394d !important;
@@ -123,9 +123,14 @@
     }
   }
 
+  .center_header_holder{
+    // @include media ('<tablet') {
+    //   height: 100%;
+    // }
+  }
+
   .bottom_holder {
     display: none;
-    background: #31394d;
 
     @include media('<tablet') {
       display: flex;
@@ -134,12 +139,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: #31394d;
 
       position: absolute;
       bottom: 0;
       left: 20px;
       right: 20px;
-      background: none;
     }
 
     @include media('<phone') {
@@ -212,6 +217,9 @@
 
     @include media('<tablet') {
       border: none;
+      height: calc(100vh - 182px);
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .menu_container {
@@ -260,10 +268,11 @@
           width: 100%;
           height: 0;
           border-radius: 16px;
-          // opacity: 0.8;
           overflow: hidden;
           padding-bottom: 56%;
-
+          &:hover {
+            opacity: 0.8;
+          }
           @include media('<desktop') {
             width: 150px;
             margin: 0;
