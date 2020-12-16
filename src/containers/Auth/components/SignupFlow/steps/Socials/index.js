@@ -30,7 +30,7 @@ const Socials = (props) => {
     setInstaValue(value[2])
   }, [value])
 
-  const fixedText = ['www.hungryhugger.com/', 'www.facebook.com/', 'www.instagram.com/']
+  const fixedText = ['www.', 'www.facebook.com/', 'www.instagram.com/']
   const setters = [setHHValue, setFBValue, setInstaValue]
 
   const onChange = (e) => {
@@ -55,10 +55,10 @@ const Socials = (props) => {
             type="text"
             onChange={onChange}
             ref={register({
-              pattern: {
+              /* pattern: {
                 value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
                 message: 'Invalid name symbols',
-              },
+              }, */
             })}
           />
           {errors?.hh?.type === 'required' && <p>This field is required</p>}

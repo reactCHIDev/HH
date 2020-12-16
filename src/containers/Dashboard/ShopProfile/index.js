@@ -9,6 +9,7 @@ import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from '
 import cls from 'classnames'
 import { getUserByHHLink } from 'api/requests/Account'
 import { getShopByUrlReq } from 'api/requests/Shop'
+import GotoLink from 'assets/icons/svg/goto_link.svg'
 
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
@@ -132,7 +133,7 @@ const ShopProfile = (props) => {
     const values = { ...formValues }
 
     const standartDelivery = {
-      type: 'standart',
+      type: 'standard',
       price: values.standartprice,
       freeDeliveryOver: values.standartfreeDeliveryOver,
       note: values.standartnote,
@@ -234,11 +235,18 @@ const ShopProfile = (props) => {
               <div className={styles.profile_url}>
                 <div className={styles.profile_data}>
                   <div className={styles.url_name}>
-                    {/* <a href={shopUrl} className={styles.url_btn}>
-                      Link
-                    </a> */}
                     <label className={styles.label}>Generated automatically</label>
-                    <Input value={shopUrl} suffix={<LockOutlined />} />
+                    <Input
+                      value={shopUrl}
+                      suffix={
+                        <>
+                          <a href={shopUrl} className={styles.url_btn}>
+                            <img src={GotoLink} alt="link" />
+                          </a>
+                          <LockOutlined />
+                        </>
+                      }
+                    />
                   </div>
 
                   {shopUrl && (

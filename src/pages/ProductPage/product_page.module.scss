@@ -1,21 +1,20 @@
 @import 'styles/styles.scss';
 
 .frame {
-
   .product {
     background: #f4f7fa;
 
     .content {
       display: flex;
-      padding: 20px 0 160px;
+      padding: 30px 0 160px;
       margin: auto;
       flex-wrap: wrap;
 
-      @include media ('<desktop') {
+      @include media('<desktop') {
         padding-bottom: 100px;
       }
 
-      @include media ('<tablet') {
+      @include media('<tablet') {
         padding-bottom: 40px;
       }
 
@@ -24,7 +23,7 @@
         flex-grow: 1;
         width: 50%;
 
-        @include media ('<desktop') {
+        @include media('<desktop') {
           width: 100%;
         }
         .card_link {
@@ -38,7 +37,7 @@
     padding-top: 20px;
     margin-bottom: 100px;
 
-    @include media ('<phone') {
+    @include media('<phone') {
       margin-bottom: 50px;
     }
 
@@ -50,11 +49,11 @@
       color: #31394d;
       text-align: center;
 
-      @include media ('<desktop') {
+      @include media('<desktop') {
         font-size: 38px;
       }
 
-      @include media ('<phone') {
+      @include media('<phone') {
         font-size: 25px;
       }
     }
@@ -67,7 +66,7 @@
       flex-wrap: wrap;
       justify-content: center;
 
-      @include media ('<desktop') {
+      @include media('<desktop') {
         padding: 0 10px;
       }
     }

@@ -286,9 +286,9 @@ const Header = (props) => {
           {!authorized && <Link to="/login/regular">SIGN IN</Link>}
           {authorized && (
             <div className={styles.avatar_container}>
-              <Link to={getPath()}>
-                <Avatar imgsrc={userPhoto} />
-              </Link>
+              {/* <Link to={getPath()}> */}
+              <Avatar imgsrc={userPhoto} />
+              {/* </Link> */}
               <img
                 className={cls(styles.arrow, settings ? styles.arrow_up : '')}
                 src={dark ? ArrowWhite : ArrowDark}
