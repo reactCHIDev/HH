@@ -16,9 +16,19 @@ const DeliveryInfo = ({ region, deliveryMethods }) => {
         return (
           <div className={styles.info_section}>
             {e?.type && <p className={styles.sub_title}>Delivery: {e.type}</p>}
-            {e?.price && <p className={styles.text}>Price: {e.price}</p>}
-            {e?.freeDeliveryOver && <p className={styles.text}>Free over {e.freeDeliveryOver}</p>}
-            {e?.note && <p className={styles.text}>Note: {e.note}</p>}
+            {e?.price && <p className={styles.text}>Cost of delivery: ${e.price}</p>}
+            {e?.freeDeliveryOver && (
+              <p className={styles.text}>Free for order over ${e.freeDeliveryOver}</p>
+            )}
+            {e?.note ? (
+              <p className={styles.text}>Note: {e.note}</p>
+            ) : (
+              e.type !== 'free' && (
+                <p className={styles.text}>{`Note: Contact maker for ${
+                  e.type === 'freepick' ? 'pick-up' : 'delivery'
+                } details`}</p>
+              )
+            )}
           </div>
         )
       })}

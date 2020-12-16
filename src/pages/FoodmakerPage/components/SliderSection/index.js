@@ -120,7 +120,7 @@ const SliderSection = (props) => {
                   className={styles.img_container}
                   style={{
                     width: '100%',
-                    height: 760,
+                    height: 600,
                     backgroundImage: `url("${e}")`,
                     backgroundSize: 'cover',
                     backgrounPosition: '50% 0',

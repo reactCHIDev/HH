@@ -18,6 +18,7 @@ import './header.less'
 import Cup from 'assets/images/header/cup.svg'
 import Gallery_icon from 'assets/images/header/Component 150.svg'
 import Gallery_icon_1 from 'assets/images/header/Component 148.svg'
+import Person from 'assets/icons/svg//person.svg'
 import Setting from 'assets/images/header/Setting.svg'
 import LogOut from 'assets/images/header/LogOut.svg'
 import textLogoBlue from 'assets/images/header/logo_text_beta_blue.svg'
@@ -286,9 +287,9 @@ const Header = (props) => {
           {!authorized && <Link to="/login/regular">SIGN IN</Link>}
           {authorized && (
             <div className={styles.avatar_container}>
-              <Link to={getPath()}>
-                <Avatar imgsrc={userPhoto} />
-              </Link>
+              {/* <Link to={getPath()}> */}
+              <Avatar imgsrc={userPhoto} />
+              {/* </Link> */}
               <img
                 className={cls(styles.arrow, settings ? styles.arrow_up : '')}
                 src={dark ? ArrowWhite : ArrowDark}
@@ -337,7 +338,7 @@ const Header = (props) => {
             <ul className={styles.link_list}>
               {role === 'FOODMAKER' && (
                 <li onClick={onSettingsSelect}>
-                  <img src={Gallery_icon_1} alt="icon" />
+                  <img src={Person} width="16px" alt="icon" />
                   <Link to="/exp_dashboard/profile">Foodmaker Profile</Link>
                 </li>
               )}

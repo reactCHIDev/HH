@@ -24,7 +24,7 @@ import './step4.less'
 const { Option } = Select
 const { RangePicker } = DatePicker
 
-const Step4 = ({ create, countries, tags, edit = false }) => {
+const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
   const prevState = getItem('addProduct')
 
   const normalizeTagsDefaults = (value) => value.map((t) => tags.find((e) => e.id === t).tagName)
@@ -512,7 +512,7 @@ const Step4 = ({ create, countries, tags, edit = false }) => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" block size="large" htmlType="submit">
+            <Button type="primary" block size="large" loading={requesting} htmlType="submit">
               {edit ? 'SAVE' : 'PUBLISH'}
             </Button>
           </Form.Item>
@@ -526,6 +526,7 @@ Step4.propTypes = {
   create: T.func.isRequired,
   tags: T.arrayOf(shape()).isRequired,
   countries: T.arrayOf(shape()).isRequired,
+  requesting: T.bool,
 }
 
 export default Step4
