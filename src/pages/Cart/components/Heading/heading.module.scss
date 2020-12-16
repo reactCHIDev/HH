@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .routeTextContainer {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    margin-left: -50px;
+
+    .mainText {
+      color: #31394d;
+    }
+
+    .secondaryText {
+      color: #838894;
+    }
+
+    .arrow {
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+  }
+
+  .heading {
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 64px;
+    letter-spacing: 0.5px;
+    color: #31394d;
+    margin: 0;
+  }
+}

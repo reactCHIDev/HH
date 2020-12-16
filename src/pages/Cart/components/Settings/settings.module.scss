@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .backTextWrapper {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    p {
+      margin-right: 10px;
+      margin: 0;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 19px;
+      color: #5375cb;
+    }
+  }
+
+  .orderWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .orderTextWrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin: 0;
+      color: #31394d;
+
+      .totalText {
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        color: #5a6070;
+        margin-right: 10px;
+      }
+
+      .currencyText {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 21px;
+        letter-spacing: 0.3px;
+      }
+
+      .mainPriceText {
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 21px;
+        letter-spacing: 0.3px;
+        margin-bottom: 3px;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .orderButton {
+      margin-left: 20px;
+      background: #31394d;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 19px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
