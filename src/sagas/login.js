@@ -17,6 +17,8 @@ export function* logout() {
 }
 
 function* loginFlow({ creds }) {
+  const { redirect } = creds
+  delete creds.redirect
   try {
     const { data, headers } = yield loginRequest(creds)
 
@@ -32,7 +34,7 @@ function* loginFlow({ creds }) {
     })
     yield put({ type: GET_USER_ACCOUNT_REQUESTING })
 
-    yield put(replace('/'))
+    if (redirect) yield put(replace('/'))
   } catch (error) {
     if (error.response) {
       yield put({ type: LOGIN_ERROR, error: error.response.data.error })

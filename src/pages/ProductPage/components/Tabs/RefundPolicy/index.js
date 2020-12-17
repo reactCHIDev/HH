@@ -7,8 +7,12 @@ const RefundPolicy = ({ refund, note }) => {
   return (
     <>
       <div className={styles.container}>
-        <p>{refund}</p>
-        <p>{note}</p>
+        <p>{refund.replace('_', ' ')}</p>
+        {note ? (
+          <p>{note}</p>
+        ) : (
+          <p>{refund === 'NO_REFUND' ? 'Non-refundable :(' : 'Contact maker for refund details'}</p>
+        )}
       </div>
     </>
   )

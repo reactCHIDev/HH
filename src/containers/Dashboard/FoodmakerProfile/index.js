@@ -13,7 +13,7 @@ import Uploader from 'components/Uploader'
 import { Select } from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import _ from 'lodash/fp'
-
+import GotoLink from 'assets/icons/svg/goto_link.svg'
 import { connect } from 'react-redux'
 import { getItem } from 'utils/localStorage'
 import styles from './foodmakerprofile.module.scss'
@@ -295,9 +295,9 @@ const FoodmakerProfile = (props) => {
                 <div className={styles.profile_url}>
                   <div className={styles.profile_data}>
                     <div className={styles.url_name}>
-                      {/* <a href={hungryHuggerLink} className={styles.url_btn}>
-                        Link
-                      </a> */}
+                      <a href={hungryHuggerLink} className={styles.url_btn}>
+                        <img src={GotoLink} alt="link" />
+                      </a>
                       <label className={styles.label}>
                         Try to make the link to your profile memorable
                       </label>

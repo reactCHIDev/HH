@@ -45,7 +45,7 @@ const steps = [
     screen: SocialsStep,
     props: {
       name: 'socialURL',
-      value: ['www.hungryhugger.com/', 'www.facebook.com/', 'www.instagram.com/'],
+      value: ['www.', 'www.facebook.com/', 'www.instagram.com/'],
     },
   },
   {
@@ -107,7 +107,8 @@ const Signup = ({
         )
       case 'SUBMIT':
         const { submitData, step } = action.data
-        if (steps[step].props.name === 'hungryHuggerLink') setHHLink(submitData.hungryHuggerLink)
+        if (steps[step].props.name === 'hungryHuggerLink')
+          setItem('link', submitData.hungryHuggerLink)
         return state.map((s, i) =>
           i === step ? { ...s, props: { ...s.props, value: submitData[s.props.name] } } : s,
         )
@@ -143,11 +144,13 @@ const Signup = ({
   }, [])
 
   useEffect(() => {
-    if (isProcess) setMsg(true)
+    const registering = getItem('registering')
+    if (!registering && isProcess) setMsg(true)
   }, [isProcess])
 
   useEffect(() => {
-    if (isFM) setMsgFM(true)
+    const registering = getItem('registering')
+    if (!registering && isFM) setMsgFM(true)
   }, [isFM])
 
   useEffect(() => setItem('signup_data', state), [state])
@@ -177,6 +180,7 @@ const Signup = ({
     if (steps[step].props.name === 'finish') {
       removeKey('signup_data')
       removeKey('step')
+      removeKey('registering')
     }
   }, [step])
 
@@ -235,6 +239,7 @@ const Signup = ({
     properties = { ...state[step].props, specialityTags, serviceTags }
 
   const closeModal = (e) => {
+    setStep(0)
     setMsg(false)
   }
 
@@ -254,7 +259,7 @@ const Signup = ({
   return (
     <>
       <SignupContainer footer stepBack={stepBack} step={step}>
-        <Screen onSubmit={onSubmit} properties={properties} hhLink={hhLink} />
+        <Screen onSubmit={onSubmit} properties={properties} />
       </SignupContainer>
       {msg && (
         <Modal closeFunc={closeModal} option>

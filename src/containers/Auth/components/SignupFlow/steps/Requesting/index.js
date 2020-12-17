@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { setItem, getItem, removeKey } from 'utils/localStorage'
+
 import styles from './requesting.module.scss'
 
 const Requesting = ({
@@ -13,6 +15,8 @@ const Requesting = ({
     error,
   },
 }) => {
+  setItem('registering', 'true')
+
   useEffect(() => {
     if (!foodlover)
       signupFoodmakerAC(
@@ -76,6 +80,10 @@ const Requesting = ({
               acc.otherPhotos = step.props.value.otherPhotos
               return acc
             }
+            if (step.props.name === 'city') {
+              acc.cityId = step.props.value
+              return acc
+            }
             if (step.props.name === 'socialURL' && step.props.value.join('').length === 46)
               return acc
 
@@ -96,12 +104,17 @@ const Requesting = ({
 
             if (step.props.name === 'about' && step.props.value === '') return acc
 
-            if (
-              step.props.name === 'email' ||
-              step.props.name === 'password' ||
-              step.props.name === 'profileName'
-            )
+            if (step.props.name === 'email') {
+              acc.login.email = step.props.value
               return acc
+            }
+
+            if (step.props.name === 'password') {
+              acc.login.password = step.props.value
+              return acc
+            }
+
+            if (step.props.name === 'profileName') return acc
 
             if (index === 5 || index === 4) return acc
 
@@ -109,12 +122,18 @@ const Requesting = ({
             return acc
           },
           {
-            cityId: 1,
+            // cityId: 1,
             role: 'FOODMAKER',
+            login: { email: '', password: '' },
           },
         ),
       )
   }, [])
+
+  const onError = () => {
+    removeKey('registering')
+    setStep(0)
+  }
 
   return (
     <>
@@ -124,7 +143,7 @@ const Requesting = ({
         <input
           className={styles.next}
           disabled={!error}
-          onClick={() => setStep(0)}
+          onClick={onError}
           type="button"
           value="Review info"
         />
