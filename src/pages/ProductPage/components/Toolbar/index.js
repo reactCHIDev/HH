@@ -31,7 +31,11 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
               .map((p) => p.volume)
               .map((weight) => (
                 <Option key={weight} value={weight}>
-                  {`${weight}g`}
+                  {`${weight}${
+                    params.find((p) => p.volume === weight).measure === 'none'
+                      ? ''
+                      : params.find((p) => p.volume === weight).measure
+                  }`}
                 </Option>
               ))}
         </Select>
