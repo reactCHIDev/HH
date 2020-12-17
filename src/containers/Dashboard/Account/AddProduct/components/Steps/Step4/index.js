@@ -50,10 +50,17 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
     prevState?.deliveryRegionException && prevState.deliveryRegionException.length ? 5 : 4,
   )
   const [selectedCountries, setSelectedCountries] = useState(
-    selectedRegionRadio === 3
-      ? selectedCountryRadio === 4
-        ? prevState?.deliveryRegion && prevState.deliveryRegion.split(' ')
-        : prevState?.deliveryRegionException && prevState.deliveryRegionException.split(' ')
+    selectedRegionRadio === 3 && selectedCountryRadio === 4
+      ? prevState?.deliveryRegion &&
+          prevState?.deliveryRegion.length &&
+          prevState.deliveryRegion.split(' ')
+      : [],
+  )
+  const [exceptionCountries, setExceptionCountries] = useState(
+    selectedRegionRadio === 3 && selectedCountryRadio === 5
+      ? prevState?.deliveryRegionException &&
+          prevState?.deliveryRegionException.length &&
+          prevState.deliveryRegionException.split(' ')
       : [],
   )
   const [availabilityStartDate, setStartDate] = useState(prevState?.availabilityStartDate)
@@ -68,6 +75,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
     selectedRegionRadio,
     selectedCountryRadio,
     selectedCountries,
+    exceptionCountries,
     availabilityStartDate,
     availabilityEndDate,
     isAdult,
@@ -88,8 +96,10 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
       const deliveryRegionData = { '1': 'Local', '2': 'Worldwide' }
       deliveryRegion = deliveryRegionData[selectedRegionRadio]
     } else {
-      if (selectedCountryRadio == 4) deliveryRegion = selectedCountries.join(' ')
-      if (selectedCountryRadio == 5) deliveryRegionException = selectedCountries.join(' ')
+      if (selectedCountryRadio == 4)
+        deliveryRegion = selectedCountries?.length ? selectedCountries.join(' ') : []
+      if (selectedCountryRadio == 5)
+        deliveryRegionException = exceptionCountries?.length ? exceptionCountries.join(' ') : []
     }
 
     // =================
@@ -126,6 +136,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
 
     const prevStep = getItem('addProduct')
     delete prevStep.ingredients
+    delete prevStep.deliveryRegionException
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
     delete productData.countries
@@ -145,8 +156,10 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
       const deliveryRegionData = { '1': 'Local', '2': 'Worldwide' }
       deliveryRegion = deliveryRegionData[selectedRegionRadio]
     } else {
-      if (selectedCountryRadio == 4) deliveryRegion = selectedCountries.join(' ')
-      if (selectedCountryRadio == 5) deliveryRegionException = selectedCountries.join(' ')
+      if (selectedCountryRadio == 4)
+        deliveryRegion = selectedCountries?.length ? selectedCountries.join(' ') : ''
+      if (selectedCountryRadio == 5)
+        deliveryRegionException = exceptionCountries?.length ? exceptionCountries.join(' ') : ''
     }
 
     // =================
@@ -183,6 +196,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
 
     const prevStep = getItem('addProduct')
     delete prevStep.ingredients
+    delete values.deliveryRegionException
     const productData = { ...prevStep, ...formData }
     setItem('addProduct', productData)
   }
@@ -208,12 +222,20 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
     setSelectedCountries(selectedItms)
   }
 
+  const handleChangeExceptionCountryTags = (selectedItms) => {
+    setExceptionCountries(selectedItms)
+  }
+
   const filteredTags = tags.filter((o) => !selectedItems.includes(o.tagName))
 
   const COUNTRIES = countries.map((e) => e.countryName)
   let filteredCountries = COUNTRIES
   if (selectedCountries && selectedCountries.length) {
     filteredCountries = COUNTRIES.filter((o) => !selectedCountries.includes(o))
+  }
+  let filteredExceptionCountries = COUNTRIES
+  if (exceptionCountries && exceptionCountries.length) {
+    filteredExceptionCountries = COUNTRIES.filter((o) => !exceptionCountries.includes(o))
   }
 
   const radioStyle = {
@@ -256,6 +278,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
             available: prevState?.available,
             refundPolicy: prevState?.refundPolicy,
             refundPolicyNote: prevState?.refundPolicyNote,
+            deliveryRegionException: exceptionCountries,
           }}
           scrollToFirstError
         >
@@ -275,7 +298,13 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                             fieldKey={[field.fieldKey, 'volume']}
                             rules={[{ required: true, message: 'Please input volume!' }]}
                           >
-                            <InputNumber min={0} max={99999} />
+                            <InputNumber
+                              style={{
+                                width: 80,
+                              }}
+                              min={0}
+                              max={99999}
+                            />
                           </Form.Item>
 
                           <Form.Item
@@ -287,7 +316,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                           >
                             <Select
                               style={{
-                                width: 70,
+                                width: 80,
                               }}
                             >
                               <Option value="g">g</Option>
@@ -297,12 +326,13 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                               <Option value="S">S</Option>
                               <Option value="M">M</Option>
                               <Option value="L">L</Option>
-                              <Option value="L">none</Option>
+                              <Option value="pcs">pcs</Option>
+                              <Option value="none">none</Option>
                             </Select>
                           </Form.Item>
                         </div>
 
-                        <div className="numeric_selector">
+                        <div className="price_selector">
                           <Form.Item
                             {...field}
                             key={[field.name, 'price']}
@@ -310,24 +340,24 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                             fieldKey={[field.fieldKey, 'price']}
                             rules={[{ required: true, message: 'Please input price!' }]}
                           >
-                            <InputNumber min={0} max={999999999999} />
+                            <InputNumber
+                              formatter={(value) =>
+                                `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                              }
+                              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                            />
                           </Form.Item>
+                        </div>
+                        <div className={cls(styles.quantity_container, 'quantity-container')}>
                           <Form.Item
                             {...field}
-                            key={[field.name, 'currency']}
-                            name={[field.name, 'currency']}
-                            fieldKey={[field.fieldKey, 'currency']}
-                            rules={[{ required: true, message: 'Please choose currency!' }]}
+                            key={[field.name, 'quantity']}
+                            name={[field.name, 'quantity']}
+                            fieldKey={[field.fieldKey, 'quantity']}
+                            rules={[{ required: false, message: 'Please enter quantity' }]}
+                            normalize={(value) => Math.abs(Number(value))}
                           >
-                            <Select
-                              style={{
-                                width: 70,
-                              }}
-                            >
-                              <Option value="$">$</Option>
-                              <Option value="E">E</Option>
-                              <Option value="Y">Y</Option>
-                            </Select>
+                            <InputNumber disabled={!isQuantity} min={0} />
                           </Form.Item>
                         </div>
                       </div>
@@ -407,16 +437,19 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
               <Form.Item
                 name="countries"
                 rules={[
-                  { required: selectedRegionRadio === 3, message: 'Please select countries!' },
+                  {
+                    required: selectedRegionRadio === 3 && selectedCountryRadio === 4,
+                    message: 'Please select countries!',
+                  },
                 ]}
               >
                 <Select
                   mode="multiple"
-                  placeholder="Inserted are removed"
-                  value={selectedCountries}
+                  placeholder=" "
+                  value={selectedCountries || []}
                   onChange={handleChangeCountryTags}
                   showArrow
-                  disabled={selectedCountryRadio < 3}
+                  disabled={selectedRegionRadio < 3 || selectedCountryRadio === 5}
                   style={{ width: '100%' }}
                 >
                   {filteredCountries.map((item) => (
@@ -429,6 +462,31 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
               <Radio style={radioStyle} value={5}>
                 Worldwide, except
               </Radio>
+              <Form.Item
+                name="deliveryRegionException"
+                rules={[
+                  {
+                    required: selectedRegionRadio === 3 && selectedCountryRadio === 5,
+                    message: 'Please select countries!',
+                  },
+                ]}
+              >
+                <Select
+                  mode="multiple"
+                  placeholder=""
+                  value={exceptionCountries || []}
+                  onChange={handleChangeExceptionCountryTags}
+                  showArrow
+                  disabled={selectedRegionRadio < 3 || selectedCountryRadio === 4}
+                  style={{ width: '100%' }}
+                >
+                  {filteredExceptionCountries.map((item) => (
+                    <Select.Option key={item} value={item}>
+                      {item}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
             </Radio.Group>
           </div>
 
@@ -468,7 +526,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
             </div>
           </div>
 
-          <div style={{ marginTop: 20 }}>
+          {/* <div style={{ marginTop: 20 }}>
             <Checkbox checked={isQuantity} onChange={isQuantityChk}>
               Quantity (optional)
             </Checkbox>
@@ -481,7 +539,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                 <InputNumber disabled={!isQuantity} min={0} />
               </Form.Item>
             </div>
-          </div>
+          </div> */}
 
           <div>
             <Checkbox checked={isAdult} onChange={isAdultChk}>

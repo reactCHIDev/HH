@@ -197,6 +197,7 @@ const Step2 = (props) => {
                   <p className={styles.errmsg}>Should be > 0</p>
                 )}
               </div>
+              <div className={styles.discount_text}>items</div>
             </div>
           </div>
           <input type="submit" value="Next" />
