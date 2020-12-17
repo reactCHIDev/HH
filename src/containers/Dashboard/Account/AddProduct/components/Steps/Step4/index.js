@@ -298,7 +298,13 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                             fieldKey={[field.fieldKey, 'volume']}
                             rules={[{ required: true, message: 'Please input volume!' }]}
                           >
-                            <InputNumber min={0} max={99999} />
+                            <InputNumber
+                              style={{
+                                width: 80,
+                              }}
+                              min={0}
+                              max={99999}
+                            />
                           </Form.Item>
 
                           <Form.Item
@@ -310,7 +316,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                           >
                             <Select
                               style={{
-                                width: 70,
+                                width: 80,
                               }}
                             >
                               <Option value="g">g</Option>
@@ -320,6 +326,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                               <Option value="S">S</Option>
                               <Option value="M">M</Option>
                               <Option value="L">L</Option>
+                              <Option value="pcs">pcs</Option>
                               <Option value="none">none</Option>
                             </Select>
                           </Form.Item>
