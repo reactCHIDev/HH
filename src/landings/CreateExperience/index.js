@@ -22,7 +22,7 @@ import calendar from 'assets/images/landings/create_experience/calendar.svg'
 import mixer from 'assets/images/landings/create_experience/mixer.svg'
 import styles from '../styles.module.scss'
 
-const CreateExperience = () => {
+const CreateExperience = ({ role }) => {
   const settings = {
     draggable: true,
     touchThreshold: 30,
@@ -136,7 +136,7 @@ const CreateExperience = () => {
             <img src={sparks} alt="" className={styles.sparks} />
           </div>
         </section>
-        <Link to="/signupflow">
+        <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
           <button type="button" className={styles.btn_alone}>
             Let's start!
           </button>
@@ -180,7 +180,7 @@ const CreateExperience = () => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <Link to="/signupflow">
+            <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
               <button type="button">Join now!</button>
             </Link>
           </div>

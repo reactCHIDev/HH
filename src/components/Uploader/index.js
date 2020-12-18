@@ -61,8 +61,8 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
   }
 
   const coverMark = (originNode, file) => (
-    <div style={{ position: 'relative', width: '100%', height: 130 }}>
-      <div style={{ width: '100%', height: 104 }}>{originNode}</div>
+    <div style={{ position: 'relative', width: '100%', height: 150 }}>
+      <div style={{ width: '100%', height: 120 }}>{originNode}</div>
 
       {file.status !== 'error' && (
         <div style={{ position: 'absolute', zIndex: 99, bottom: 0, left: 20 }}>
