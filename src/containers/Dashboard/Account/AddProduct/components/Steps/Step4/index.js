@@ -269,6 +269,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
           name="register"
           onFinish={onFinish}
           onValuesChange={onValuesChange}
+          validateTrigger={false}
           initialValues={{
             parameters: prevState?.parameters || [{ measure: 'ml', currency: '$' }],
             ingredients: prevState?.ingredients || ' ',
@@ -466,7 +467,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                 name="deliveryRegionException"
                 rules={[
                   {
-                    required: selectedRegionRadio === 3 && selectedCountryRadio === 5,
+                    required: selectedRegionRadio == 3 && selectedCountryRadio == 5,
                     message: 'Please select countries!',
                   },
                 ]}

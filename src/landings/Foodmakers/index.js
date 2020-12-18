@@ -20,9 +20,8 @@ import bag from 'assets/images/landings/foodmakers/bag.svg'
 import styles from '../styles.module.scss'
 import './foodmakers.less'
 
-const Foodmakers = () => {
+const Foodmakers = ({ role }) => {
   const { Panel } = Collapse
-
   const settings = {
     draggable: true,
     touchThreshold: 30,
@@ -264,7 +263,7 @@ const Foodmakers = () => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <Link to="/signupflow">
+            <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
               <button type="button">Join now!</button>
             </Link>
           </div>

@@ -77,7 +77,7 @@ function WaitingComponent(Component) {
   )
 }
 
-function App({ authorized, pathname, getUserAccount }) {
+function App({ authorized, role, pathname, getUserAccount }) {
   useEffect(() => {
     const id = getItem('user-id')
     if (authorized && id) getUserAccount(id)
@@ -135,22 +135,30 @@ function App({ authorized, pathname, getUserAccount }) {
               <PublicRoute
                 exact
                 path="/landing/foodmakers"
-                component={WaitingComponent(FoodmakersLanding)}
+                component={WaitingComponent(() => (
+                  <FoodmakersLanding role={role} />
+                ))}
               />
               <PublicRoute
                 exact
                 path="/landing/create_profile"
-                component={WaitingComponent(CreateProfileLanding)}
+                component={WaitingComponent(() => (
+                  <CreateProfileLanding role={role} />
+                ))}
               />
               <PublicRoute
                 exact
                 path="/landing/create_experience"
-                component={WaitingComponent(CreateExperienceLanding)}
+                component={WaitingComponent(() => (
+                  <CreateExperienceLanding role={role} />
+                ))}
               />
               <PublicRoute
                 exact
                 path="/landing/create_shop"
-                component={WaitingComponent(CreateShopLanding)}
+                component={WaitingComponent(() => (
+                  <CreateShopLanding role={role} />
+                ))}
               />
               <PublicRoute exact path="/forgotpassword/:user" component={Create} />
               <PublicRoute exact path="/cart" component={WaitingComponent(Cart)} />
@@ -206,9 +214,11 @@ export default connect(
       location: { pathname },
     },
     login: { authorized },
+    account: { role },
   }) => ({
     pathname,
     authorized,
+    role,
   }),
   { getUserAccount },
 )(App)

@@ -166,7 +166,7 @@ const Step2 = (props) => {
               />
               <div className={styles.discount_wrapper}>
                 <input
-                  className={styles.disc_input}
+                  className={cls(styles.num_input, styles.discount_input)}
                   name="discountVal"
                   type="text"
                   disabled={!discnt}
@@ -176,15 +176,16 @@ const Step2 = (props) => {
                   })}
                 />
                 {_.get('discountVal.type', errors) === 'validate' && (
-                  <p className={styles.errmsg}>Range is 0 - 100</p>
+                  <p className={styles.errmsg}>0-100%</p>
                 )}
+                <span className={styles.percent}>%</span>
               </div>
             </div>
             <div className={styles.qty_group}>
               <div className={styles.discount_text}>when order from</div>
               <div className={styles.discount_wrapper}>
                 <input
-                  className={styles.disc_input}
+                  className={cls(styles.num_input, styles.qty_input)}
                   name="qtyVal"
                   type="text"
                   disabled={!discnt}
@@ -194,7 +195,7 @@ const Step2 = (props) => {
                   })}
                 />
                 {_.get('qtyVal.type', errors) === 'validate' && (
-                  <p className={styles.errmsg}>Should be > 0</p>
+                  <p className={styles.errmsg}>Number >= 0</p>
                 )}
               </div>
               <div className={styles.discount_text}>items</div>
