@@ -15,7 +15,7 @@
   transform: translateX(-50%);
   width: 100vw;
   padding: 0 0 10px;
-  box-shadow: 0 3px 3px rgba($white, 0.08);
+  box-shadow: 0 3px 5px -3px rgba($white, 0.08);
 
   @include media('<desktop') {
     padding: 20px;
@@ -123,7 +123,7 @@
     }
   }
 
-  .center_header_holder{
+  .center_header_holder {
     // @include media ('<tablet') {
     //   height: 100%;
     // }
@@ -204,7 +204,7 @@
   .content {
     margin: 0 auto;
     max-width: 1340px;
-    padding: 40px 70px 0;
+    padding: 40px 35px 0;
     border-top: 1px solid #5a6070;
 
     @include media('<hd-screen') {

@@ -15,7 +15,11 @@ const DeliveryInfo = ({ region, deliveryMethods }) => {
       {deliveryMethods.map((e) => {
         return (
           <div className={styles.info_section}>
-            {e?.type && <p className={styles.sub_title}>Delivery: {e.type}</p>}
+            {e?.type && (
+              <p className={styles.sub_title}>
+                Delivery: {e.type !== 'freepick' ? e.type : 'free pick-up'}
+              </p>
+            )}
             {e?.price && <p className={styles.text}>Cost of delivery: ${e.price}</p>}
             {e?.freeDeliveryOver && (
               <p className={styles.text}>Free for order over ${e.freeDeliveryOver}</p>
@@ -24,9 +28,11 @@ const DeliveryInfo = ({ region, deliveryMethods }) => {
               <p className={styles.text}>Note: {e.note}</p>
             ) : (
               e.type !== 'free' && (
-                <p className={styles.text}>{`Note: Contact maker for ${
-                  e.type === 'freepick' ? 'pick-up' : 'delivery'
-                } details`}</p>
+                <p className={styles.text}>
+                  {`Note: Contact maker for ${
+                    e.type === 'freepick' ? 'pick-up' : 'delivery'
+                  } details`}
+                </p>
               )
             )}
           </div>
