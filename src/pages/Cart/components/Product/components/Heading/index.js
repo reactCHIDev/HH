@@ -1,6 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
-import styles from './product.module.scss'
+import styles from '../../product.module.scss'
 
 function Heading({ title }) {
   return (

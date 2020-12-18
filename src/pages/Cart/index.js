@@ -8,14 +8,15 @@ import styles from './cart.module.scss'
 
 function CartPage() {
   const orders = useSelector((state) => state.cart.orders)
-  const shops = useSelector((state) => state.cart.shops)
+  const shops = useSelector((state) => state.cart.shopsData)
+  const totalPrice = useSelector((state) => state.cart.totalPrice)
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <Heading />
         <Content orders={orders} shops={shops} />
-        <Settings />
+        <Settings price={totalPrice} />
       </div>
     </div>
   )

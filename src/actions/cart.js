@@ -2,8 +2,10 @@ import {
   ADD_PRODUCT_TO_BASKET,
   SET_ITEM_TO_PRODUCTS,
   DELETE_ITEM_FROM_PRODUCTS,
-  SET_SHOP_TO_SHOPS,
   SET_ITEM_IN_ORDERS,
+  SET_SHOP_DATA,
+  INC_PRODUCT_AMOUNT,
+  DEC_PRODUCT_AMOUNT,
 } from './constants'
 
 export const addProductToBasket = (data) => {
@@ -27,16 +29,29 @@ export const deleteItemFromProducts = (data) => {
   }
 }
 
-export const setShopToShops = (data) => {
+export const setItemInOrder = (data) => {
   return {
-    type: SET_SHOP_TO_SHOPS,
+    type: SET_ITEM_IN_ORDERS,
+    data,
+  }
+}
+export const setShopData = (data) => {
+  return {
+    type: SET_SHOP_DATA,
     data,
   }
 }
 
-export const setItemInOrder = (data) => {
+export const incProductAmount = (data) => {
   return {
-    type: SET_ITEM_IN_ORDERS,
+    type: INC_PRODUCT_AMOUNT,
+    data,
+  }
+}
+
+export const decProductAmount = (data) => {
+  return {
+    type: DEC_PRODUCT_AMOUNT,
     data,
   }
 }

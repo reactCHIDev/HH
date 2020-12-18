@@ -1,13 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import styles from './product.module.scss'
+import styles from '../../product.module.scss'
 
-function ProductSummary() {
+function ProductSummary({ shop }) {
+  const { price } = shop
   return (
     <div className={styles.informationWrapper}>
       <div className={styles.orderDetails}>
         <div className={styles.textWrapper}>
           <p className={styles.regularText}>
-            Subtotal with delivery: <span className={styles.mainAmount}>$ 120.</span>
+            Subtotal with delivery: <span className={styles.mainAmount}>{`$ ${price}.`}</span>
             <span className={styles.secondaryAmount}>00</span>
           </p>
         </div>

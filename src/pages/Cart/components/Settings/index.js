@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styles from './settings.module.scss'
 
-function Settings() {
+function Settings({ price }) {
   return (
     <div className={styles.container}>
       <div className={styles.backTextWrapper}>
@@ -12,8 +13,8 @@ function Settings() {
         <div className={styles.orderTextWrapper}>
           <p className={styles.totalText}>Total: </p>
           <p className={styles.currencyText}>$</p>
-          <p className={styles.mainPriceText}>173</p>
-          <p>.30</p>
+          <p className={styles.mainPriceText}>{price || 0}</p>
+          {/* <p>.30</p> */}
         </div>
         <div>
           <button className={styles.orderButton} type="button">
