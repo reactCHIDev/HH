@@ -6,13 +6,14 @@ import { Rate, Tag } from 'antd'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addProductToBasket } from 'actions/cart'
 import styles from './prod_card.module.scss'
 import './prod_card.less'
 
 const ProdCard = (props) => {
   const dispatch = useDispatch()
+  const products = useSelector((state) => state.cart.products)
 
   const {
     id,
@@ -28,6 +29,8 @@ const ProdCard = (props) => {
     product,
   } = props
 
+  console.log(products, product.title)
+  console.log(products.includes(product.title))
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
   const onProductClick = (productData) => {
@@ -60,6 +63,11 @@ const ProdCard = (props) => {
                 <img
                   src={OutlinedCartIcon}
                   className={styles.outlined_cat}
+                  style={
+                    products.includes(product.title)
+                      ? { background: '#b4f8b4', borderRadius: '8px' }
+                      : {}
+                  }
                   alt="buy product"
                   onClick={() => {
                     onProductClick(product)

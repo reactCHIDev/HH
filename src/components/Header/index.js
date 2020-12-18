@@ -41,6 +41,7 @@ const Header = (props) => {
     pathname,
     pushRoute,
     getUserAccount,
+    products,
   } = props
 
   const [menu, setMenu] = useState(false)
@@ -254,9 +255,20 @@ const Header = (props) => {
             </div>
           </li>
           {authorized && (
-            <li style={{ opacity: 0.5 }}>
+            <li>
               <Link to="/cart">
-                <div>
+                <div style={{ position: 'relative' }}>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      fontSize: '15px',
+                      color: 'white',
+                      top: '10px',
+                      right: '-10px',
+                    }}
+                  >
+                    <div>{products.length || null}</div>
+                  </div>
                   <svg
                     width="19"
                     height="19"
@@ -404,7 +416,8 @@ export default connect(
       location: { pathname },
     },
     account: { userPhoto, id, role, shop },
-  }) => ({ authorized, id, role, pathname, userPhoto, shop }),
+    cart: { products },
+  }) => ({ authorized, id, role, pathname, userPhoto, shop, products }),
   {
     logOut: logout,
     pushRoute: push,
