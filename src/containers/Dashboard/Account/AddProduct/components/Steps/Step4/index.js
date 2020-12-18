@@ -358,7 +358,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                             rules={[{ required: false, message: 'Please enter quantity' }]}
                             normalize={(value) => Math.abs(Number(value))}
                           >
-                            <InputNumber disabled={!isQuantity} min={0} />
+                            <InputNumber min={0} />
                           </Form.Item>
                         </div>
                       </div>
