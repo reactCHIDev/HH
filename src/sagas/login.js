@@ -13,6 +13,7 @@ import {
 export function* logout() {
   logoutRequest()
   removeItems(['authorization-token', 'user-id'])
+  yield put({ type: 'CLEAR_ON_LOGOUT' })
   yield put(push('/login/regular'))
 }
 
