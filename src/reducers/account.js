@@ -136,6 +136,10 @@ const reducer = function accountReducer(state = initialState, action) {
         error: action.error,
       }
 
+    case 'CLEAR_ON_LOGOUT':
+      return {
+        ...initialState,
+      }
     default:
       return state
   }

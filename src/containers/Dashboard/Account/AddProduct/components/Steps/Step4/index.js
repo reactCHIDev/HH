@@ -327,7 +327,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                               <Option value="S">S</Option>
                               <Option value="M">M</Option>
                               <Option value="L">L</Option>
-                              <Option value="pcs">pcs</Option>
+                              {/* <Option value="pcs">pcs</Option> */}
                               <Option value="none">none</Option>
                             </Select>
                           </Form.Item>
@@ -371,7 +371,9 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                   </Row>
                 ))}
                 <div className={cls(styles.add_btn_wrapper, 'add_btn')}>
-                  <Button onClick={() => add()}>ADD</Button>
+                  <Button disabled onClick={() => add()}>
+                    ADD
+                  </Button>
                 </div>
               </>
             )}

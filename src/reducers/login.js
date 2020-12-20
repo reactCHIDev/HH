@@ -115,6 +115,11 @@ const reducer = function loginReducer(state = initialState, action) {
         isTokenValid: true,
       }
 
+    case 'CLEAR_ON_LOGOUT':
+      return {
+        ...initialState,
+      }
+
     default:
       return state
   }

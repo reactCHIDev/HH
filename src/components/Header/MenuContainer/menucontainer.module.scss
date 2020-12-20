@@ -14,6 +14,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
+  max-width: unset;
   padding: 0 0 10px;
   box-shadow: 0 3px 5px -3px rgba($white, 0.08);
 
