@@ -29,8 +29,6 @@ const ProdCard = (props) => {
     product,
   } = props
 
-  console.log(products, product.title)
-  console.log(products.includes(product.title))
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
   const onProductClick = (productData) => {

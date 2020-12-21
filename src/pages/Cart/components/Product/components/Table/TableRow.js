@@ -49,6 +49,7 @@ function TableRow({ item }) {
           <div
             className={styles.sign}
             onClick={() => {
+              if (item.total === item.quantity) return
               incAmount()
             }}
           >

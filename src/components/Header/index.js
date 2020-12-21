@@ -361,7 +361,10 @@ const Header = (props) => {
                   <Link to="/exp_dashboard/profile">Foodmaker Profile</Link>
                 </li>
               )}
-              <li /* onClick={onSettingsSelect} */ style={{ opacity: 0.5 }}>
+              <li
+                /* onClick={onSettingsSelect} */
+                style={{ opacity: 0.5 }}
+              >
                 <img src={Gallery_icon} alt="icon" />
                 <a href="#"> create Experience</a>
               </li>
