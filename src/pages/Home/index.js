@@ -27,6 +27,7 @@ const Home = (props) => {
     productList,
     foodmakersList,
   } = props
+
   const { Panel } = Collapse
 
   const [productStartIndex, setProductStartIndex] = useState(0)

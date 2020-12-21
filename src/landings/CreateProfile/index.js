@@ -22,7 +22,7 @@ import cake from 'assets/images/landings/create_profile/cake.svg'
 import glass from 'assets/images/landings/create_profile/glass.svg'
 import styles from '../styles.module.scss'
 
-const CreateProfile = () => {
+const CreateProfile = ({ role }) => {
   const settings = {
     draggable: true,
     touchThreshold: 30,
@@ -141,7 +141,7 @@ const CreateProfile = () => {
               <p>3. Review requests, send quotes and get hired.</p>
             </div>
           </div>
-          <Link to="/signupflow">
+          <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
             <button type="button" className={styles.btn_svg_card}>
               Let's start!
             </button>
@@ -185,7 +185,7 @@ const CreateProfile = () => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <Link to="/signupflow">
+            <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
               <button type="button">Join now!</button>
             </Link>
           </div>

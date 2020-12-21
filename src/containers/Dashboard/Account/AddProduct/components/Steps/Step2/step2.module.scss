@@ -168,10 +168,20 @@
         margin-bottom: 48px;
         @media (max-width: 560px) {
           flex-direction: column;
+          align-items: flex-start;
         }
         .discount_group {
           display: flex;
           align-items: center;
+          .discount_wrapper {
+            position: relative;
+            .percent {
+              position: absolute;
+              display: block;
+              right: 40px;
+              top: 41px;
+            }
+          }
           .discount_text {
             margin: 11px 14px 0 0px;
           }
@@ -182,13 +192,18 @@
           align-items: center;
         }
 
-        .disc_input[type='text'] {
+        .discount_input {
+          padding: 16px 40px 16px 16px;
+        }
+        .qty_input {
+          padding: 16px;
+        }
+        .num_input[type='text'] {
           display: block;
           margin: 22px 14px;
           position: relative;
           width: 88px;
           height: 56px;
-          padding: 16px;
           border: 1px solid #adb0b8;
           box-sizing: border-box;
           backdrop-filter: blur(6px);

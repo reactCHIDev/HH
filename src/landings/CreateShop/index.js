@@ -18,7 +18,7 @@ import label from 'assets/images/landings/create_shop/label.svg'
 import parachute from 'assets/images/landings/create_shop/parachute.svg'
 import styles from '../styles.module.scss'
 
-const CreateExperience = () => {
+const CreateExperience = ({ role }) => {
   const settings = {
     draggable: true,
     touchThreshold: 30,
@@ -124,7 +124,7 @@ const CreateExperience = () => {
             <img src={sec24} alt="" className={styles.img} />
           </div>
         </section>
-        <Link to="/signupflow">
+        <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
           <button type="button" className={styles.btn_alone}>
             Let's start!
           </button>
@@ -166,7 +166,7 @@ const CreateExperience = () => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <Link to="/signupflow">
+            <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
               <button type="button">Join now!</button>
             </Link>
           </div>
