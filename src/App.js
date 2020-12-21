@@ -177,7 +177,11 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 path="/product/:productId?"
                 component={WaitingComponent(ProductPage)}
               />
-              <PrivateRoute exact path="/account_info" component={WaitingComponent(AccountInfo)} />
+              <PrivateRoute
+                exact
+                path="/account_info/:activeTab?"
+                component={WaitingComponent(AccountInfo)}
+              />
               {/* <PrivateRoute
               exact
               path="/foodmaker_profile"

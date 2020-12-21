@@ -2,6 +2,7 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { replace } from 'connected-react-router'
 import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
@@ -14,13 +15,18 @@ import styles from './accinfo.module.scss'
 import './accinfo.less'
 
 const AccountInfo = (props) => {
-  const { profileName } = props
+  const { profileName, replaceRoute } = props
   const { activeTab } = useParams()
+
+  const onChange = (key) => {
+    replaceRoute(`/account_info/${key}`)
+  }
 
   return (
     <div className={styles.container}>
       <p className={styles.heading}>{`${profileName} account info`}</p>
       <TabsUnderlined
+        onChange={onChange}
         activeTab={activeTab || 'profile'}
         tabs={{
           bookmarks: { mark: false, disabled: true, content: <Soon /> },
@@ -42,6 +48,9 @@ const AccountInfo = (props) => {
 
 AccountInfo.propTypes = {
   profileName: T.string.isRequired,
+  replaceRoute: T.func,
 }
 
-export default connect(({ account: { profileName } }) => ({ profileName }), null)(AccountInfo)
+export default connect(({ account: { profileName } }) => ({ profileName }), {
+  replaceRoute: replace,
+})(AccountInfo)
