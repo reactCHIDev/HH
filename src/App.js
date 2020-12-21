@@ -60,6 +60,7 @@ const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
+const OrderInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo/OrderInfo'))
 const Sandbox = lazy(() => import('components/sandbox/wrapper'))
 const Cart = lazy(() => import('containers/Dashboard/ Cart'))
 
@@ -181,6 +182,11 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 exact
                 path="/account_info/:activeTab?"
                 component={WaitingComponent(AccountInfo)}
+              />
+              <PrivateRoute
+                exact
+                path="/order_info/:orderHash?"
+                component={WaitingComponent(OrderInfo)}
               />
               {/* <PrivateRoute
               exact
