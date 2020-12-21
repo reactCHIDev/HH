@@ -14,6 +14,7 @@ const desktop = {
   blog: '/blog',
   help: '/help',
   test: '/test',
+  cart: '/cart',
 }
 
 export default desktop

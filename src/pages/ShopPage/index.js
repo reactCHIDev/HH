@@ -1,16 +1,20 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
+/* eslint-disable prefer-template */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import { useParams } from 'react-router-dom'
-import { Spin, Space } from 'antd'
+import { Spin, Space, Rate } from 'antd'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
 import { getShopByFoodmakerIdAC, getShopByUrlAC } from 'actions/shop'
 import PageNotFound from 'components/PageNotFound'
 import Button from 'components/Button'
 import ProdCard from 'components/ProductCard'
-import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import avatar from 'assets/TMP-AVATAR.jpg'
@@ -20,11 +24,11 @@ import likeHeart from 'assets/icons/svg/like_heart_red.svg'
 import envelope from 'assets/icons/svg/envelope white.svg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import acessorieFm from 'assets/icons/svg/FM_page_acessorie.svg'
-import styles from './shop_page.module.scss'
 import './shop_page.less'
 import Pattern2 from 'assets/images/pattern 2.svg'
 import Shop from 'assets/images/landings/create_shop/shop.svg'
 import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
+import styles from './shop_page.module.scss'
 
 const ShopPage = (props) => {
   const {
@@ -130,6 +134,7 @@ const ShopPage = (props) => {
                       name={e.title}
                       price={e.price}
                       rating={e.rating}
+                      product={e}
                       // rateCount={32}
                     />
                   ))}
