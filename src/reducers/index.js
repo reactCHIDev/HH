@@ -11,6 +11,7 @@ import product from './product'
 import system from './system'
 import shop from './shop'
 import pages from './pages'
+import cart from './cart'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -25,6 +26,7 @@ const createRootReducer = (history) =>
     system,
     shop,
     pages,
+    cart,
   })
 
 export default createRootReducer

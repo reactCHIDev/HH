@@ -89,6 +89,10 @@
           display: flex;
           align-items: center;
 
+          .outlined_cat {
+            cursor: pointer !important;
+          }
+
           p {
             margin-right: 10px;
           }

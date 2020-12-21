@@ -12,7 +12,7 @@ import styles from './product.module.scss'
 import './product.less'
 
 const Product = ({ product, pushRoute, onToggle }) => {
-  const { id, coverPhoto, title, rating, status, quantity, available } = product
+  const { id, coverPhoto, title, rating, status, parameters, available } = product
 
   const onClick = () => setItem('addProduct', product)
 
@@ -23,8 +23,11 @@ const Product = ({ product, pushRoute, onToggle }) => {
       <div className={styles.td}>
         <div className={styles.description}>
           <div className={styles.description_content}>
-            <div className={styles.image_container}>
-              <img src={coverPhoto} alt="product" />
+            <div
+              className={styles.image_container}
+              style={{ backgroundImage: `url("${coverPhoto}")` }}
+            >
+              {/*  <img src={coverPhoto} alt="product" /> */}
             </div>
 
             <div className={styles.product_option} onClick={openProduct}>
@@ -55,7 +58,7 @@ const Product = ({ product, pushRoute, onToggle }) => {
       <div className={styles.td}>
         <span className={styles.stock}>
           <span className={styles.mobile_hidden_text}>Stock:</span>
-          {quantity}
+          {product?.quantity || parameters[0].quantity || 0}
         </span>
       </div>
       <div className={styles.td}>

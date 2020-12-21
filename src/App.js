@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* REACT */
 import React, { useEffect, Suspense, lazy } from 'react'
 import T from 'prop-types'
@@ -28,7 +29,7 @@ import styles from './app.module.scss'
 import './App.less'
 import './App.css'
 import 'styles/styles.scss'
-import { Upload } from '../node_modules/antd/lib/index'
+// import { Upload } from '../node_modules/antd/lib/index'
 
 const PageNotFound = lazy(() => import('components/PageNotFound'))
 const Login = lazy(() => import('containers/Auth/components/Login'))
@@ -49,6 +50,7 @@ const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
 const FoodmakerPage = lazy(() => import('pages/FoodmakerPage'))
 const AccountInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo'))
+// const CartPage = lazy(() => import('pages/Cart'))
 // const FoodmakerProfile = lazy(() =>
 //   import('containers/Dashboard/components/Account/FoodmakerProfile'),
 // )
@@ -161,7 +163,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 ))}
               />
               <PublicRoute exact path="/forgotpassword/:user" component={Create} />
-              <PublicRoute exact path="/cart" component={WaitingComponent(Cart)} />
+              {/* <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} /> */}
               <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
               <PrivateRoute
                 exact

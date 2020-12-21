@@ -1,3 +1,8 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react/prop-types */
+/* eslint-disable camelcase */
+/* eslint-disable no-shadow */
+/* eslint-disable max-len */
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Link } from 'react-router-dom'
@@ -36,6 +41,7 @@ const Header = (props) => {
     pathname,
     pushRoute,
     getUserAccount,
+    products,
   } = props
 
   const [menu, setMenu] = useState(false)
@@ -249,8 +255,20 @@ const Header = (props) => {
             </div>
           </li>
           {authorized && (
-            <li style={{ opacity: 0.5 }}>
-              <div>
+            <li>
+              {/* <Link to="/cart"> */}
+              <div style={{ position: 'relative', opacity: 0.5 }}>
+                {/* <div
+                  style={{
+                    position: 'absolute',
+                    fontSize: '15px',
+                    color: 'white',
+                    top: '10px',
+                    right: '-10px',
+                  }}
+                >
+                  <div>{products.length || null}</div>
+                </div> */}
                 <svg
                   width="19"
                   height="19"
@@ -280,6 +298,7 @@ const Header = (props) => {
                   </g>
                 </svg>
               </div>
+              {/* </Link> */}
             </li>
           )}
         </ul>
@@ -342,7 +361,10 @@ const Header = (props) => {
                   <Link to="/exp_dashboard/profile">Foodmaker Profile</Link>
                 </li>
               )}
-              <li /* onClick={onSettingsSelect} */ style={{ opacity: 0.5 }}>
+              <li
+                /* onClick={onSettingsSelect} */
+                style={{ opacity: 0.5 }}
+              >
                 <img src={Gallery_icon} alt="icon" />
                 <a href="#"> create Experience</a>
               </li>
@@ -397,7 +419,8 @@ export default connect(
       location: { pathname },
     },
     account: { userPhoto, id, role, shop },
-  }) => ({ authorized, id, role, pathname, userPhoto, shop }),
+    cart: { products },
+  }) => ({ authorized, id, role, pathname, userPhoto, shop, products }),
   {
     logOut: logout,
     pushRoute: push,

@@ -91,9 +91,9 @@ const FoodmakerPage = (props) => {
                 <p className={styles.qauntity}>(0)</p>
               </div>
             </div>
-            <p className={styles.first_last_name}>{name}</p>
+            <p className={styles.first_last_name}>{fm.profileName}</p>
             <div className={styles.descr}>
-              <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
+              <div className={styles.tags}>{fm.tags?.length && fm.tags.join(', ')}</div>
             </div>
             <div className={styles.btn_block}>
               <div className={styles.fav_button}>
