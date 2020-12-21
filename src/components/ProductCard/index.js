@@ -7,7 +7,7 @@ import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProductToBasket } from 'actions/cart'
+// import { addProductToBasket } from 'actions/cart'
 import styles from './prod_card.module.scss'
 import './prod_card.less'
 
@@ -32,7 +32,8 @@ const ProdCard = (props) => {
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
   const onProductClick = (productData) => {
-    dispatch(addProductToBasket(productData))
+    console.log(productData)
+    // dispatch(addProductToBasket(productData))
   }
 
   return (
