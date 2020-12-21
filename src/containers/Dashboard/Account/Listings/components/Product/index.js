@@ -23,8 +23,11 @@ const Product = ({ product, pushRoute, onToggle }) => {
       <div className={styles.td}>
         <div className={styles.description}>
           <div className={styles.description_content}>
-            <div className={styles.image_container}>
-              <img src={coverPhoto} alt="product" />
+            <div
+              className={styles.image_container}
+              style={{ backgroundImage: `url("${coverPhoto}")` }}
+            >
+              {/*  <img src={coverPhoto} alt="product" /> */}
             </div>
 
             <div className={styles.product_option} onClick={openProduct}>
