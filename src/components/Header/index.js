@@ -1,3 +1,8 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react/prop-types */
+/* eslint-disable camelcase */
+/* eslint-disable no-shadow */
+/* eslint-disable max-len */
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Link } from 'react-router-dom'
@@ -36,6 +41,7 @@ const Header = (props) => {
     pathname,
     pushRoute,
     getUserAccount,
+    products,
   } = props
 
   const [menu, setMenu] = useState(false)
@@ -249,37 +255,50 @@ const Header = (props) => {
             </div>
           </li>
           {authorized && (
-            <li style={{ opacity: 0.5 }}>
-              <div>
-                <svg
-                  width="19"
-                  height="19"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g opacity="1">
-                    <path
-                      d="M1 3L2.11047 3C3.52508 3 4.74747 3.9882 5.04387 5.37141L6.21531 10.8381C6.61051 12.6824 8.24037 14 10.1265 14H17.2862C19.0468 14 20.6003 12.8489 21.1129 11.1646L23 4.96429"
-                      stroke={dark ? 'white' : '#31394D'}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M11.25 19.5C11.25 20.4665 10.4665 21.25 9.5 21.25C8.5335 21.25 7.75 20.4665 7.75 19.5C7.75 18.5335 8.5335 17.75 9.5 17.75C10.4665 17.75 11.25 18.5335 11.25 19.5Z"
-                      stroke={dark ? 'white' : '#31394D'}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M20.25 19.5C20.25 20.4665 19.4665 21.25 18.5 21.25C17.5335 21.25 16.75 20.4665 16.75 19.5C16.75 18.5335 17.5335 17.75 18.5 17.75C19.4665 17.75 20.25 18.5335 20.25 19.5Z"
-                      stroke={dark ? 'white' : '#31394D'}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </g>
-                </svg>
-              </div>
+            <li>
+              <Link to="/cart">
+                <div style={{ position: 'relative' }}>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      fontSize: '15px',
+                      color: 'white',
+                      top: '10px',
+                      right: '-10px',
+                    }}
+                  >
+                    <div>{products.length || null}</div>
+                  </div>
+                  <svg
+                    width="19"
+                    height="19"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g opacity="1">
+                      <path
+                        d="M1 3L2.11047 3C3.52508 3 4.74747 3.9882 5.04387 5.37141L6.21531 10.8381C6.61051 12.6824 8.24037 14 10.1265 14H17.2862C19.0468 14 20.6003 12.8489 21.1129 11.1646L23 4.96429"
+                        stroke={dark ? 'white' : '#31394D'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M11.25 19.5C11.25 20.4665 10.4665 21.25 9.5 21.25C8.5335 21.25 7.75 20.4665 7.75 19.5C7.75 18.5335 8.5335 17.75 9.5 17.75C10.4665 17.75 11.25 18.5335 11.25 19.5Z"
+                        stroke={dark ? 'white' : '#31394D'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M20.25 19.5C20.25 20.4665 19.4665 21.25 18.5 21.25C17.5335 21.25 16.75 20.4665 16.75 19.5C16.75 18.5335 17.5335 17.75 18.5 17.75C19.4665 17.75 20.25 18.5335 20.25 19.5Z"
+                        stroke={dark ? 'white' : '#31394D'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </Link>
             </li>
           )}
         </ul>
@@ -342,7 +361,10 @@ const Header = (props) => {
                   <Link to="/exp_dashboard/profile">Foodmaker Profile</Link>
                 </li>
               )}
-              <li /* onClick={onSettingsSelect} */ style={{ opacity: 0.5 }}>
+              <li
+                /* onClick={onSettingsSelect} */
+                style={{ opacity: 0.5 }}
+              >
                 <img src={Gallery_icon} alt="icon" />
                 <a href="#"> create Experience</a>
               </li>
@@ -397,7 +419,8 @@ export default connect(
       location: { pathname },
     },
     account: { userPhoto, id, role, shop },
-  }) => ({ authorized, id, role, pathname, userPhoto, shop }),
+    cart: { products },
+  }) => ({ authorized, id, role, pathname, userPhoto, shop, products }),
   {
     logOut: logout,
     pushRoute: push,

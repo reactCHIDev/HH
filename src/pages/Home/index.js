@@ -1,3 +1,6 @@
+/* eslint-disable no-shadow */
+/* eslint-disable max-len */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
@@ -96,8 +99,8 @@ const Home = (props) => {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
-                  <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
+                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" strokeWidth="1.5" />
+                  <path d="M18 18L22 22" stroke="#000000" strokeWidth="1.5" />
                 </svg>
               </button>
             </div>
@@ -155,6 +158,7 @@ const Home = (props) => {
                 rating={product.rating}
                 rateCount={product.reviews?.length}
                 isShowCart
+                product={product}
               />
             ))}
           <div className={styles.btn_holder}>

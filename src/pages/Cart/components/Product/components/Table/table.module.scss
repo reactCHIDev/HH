@@ -1,0 +1,126 @@
+.tableWrapper {
+  width: 100%;
+
+  .tableHead {
+    border-bottom: 1px solid #eaebed;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #838894;
+
+    .firstColumn {
+      width: 40%;
+
+      p {
+        margin: 0;
+        margin-left: 35px;
+      }
+    }
+
+    .headingWrapper {
+      display: flex;
+      flex-direction: row;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  .tableRow {
+    border-bottom: 1px solid #eaebed;
+
+    .firstColumn {
+      margin-left: 35px;
+      display: flex;
+      align-items: center;
+
+      .productImage {
+        width: 66px;
+        height: 66px;
+        background: yellow;
+        margin: 20px 10px 20px 0;
+        border-radius: 12px;
+        position: relative;
+      }
+
+      .hitProduct {
+        position: absolute;
+        background: #7ad398;
+        color: white;
+        top: 10px;
+        left: -10px;
+        padding: 3px 10px;
+        font-size: 12px;
+        border-radius: 6px;
+      }
+    }
+
+    .deleteIcon {
+      margin-right: 35px;
+      padding: 5px 0px;
+      border: 1px solid black;
+      text-align: center;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  }
+
+  .img_wrapper {
+    width: 10px;
+    margin-left: 5px;
+
+    img {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .iconasc1 {
+      opacity: 1;
+      margin-bottom: 6px;
+    }
+    .iconasc2 {
+      opacity: 0.3;
+      margin-bottom: 0px;
+    }
+    .icondesc1 {
+      opacity: 0.3;
+      margin-bottom: 6px;
+    }
+    .icondesc2 {
+      opacity: 1;
+      margin-bottom: 0px;
+    }
+  }
+
+  .productName {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #31394d;
+  }
+
+  .productCode {
+    font-size: 14px;
+    font-weight: bold;
+    color: #5375cb;
+  }
+
+  .quanityWrapper {
+    display: flex;
+    border: 1px solid rgba(49, 57, 77, 0.2);
+    width: 60%;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 6px;
+    user-select: none;
+
+    .quantity {
+      width: 34%;
+      text-align: center;
+      border-left: 1px solid rgba(49, 57, 77, 0.2);
+      border-right: 1px solid rgba(49, 57, 77, 0.2);
+    }
+
+    .sign {
+      width: 33%;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+}
