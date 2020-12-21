@@ -23,7 +23,10 @@ function TableRow({ item }) {
       <td>
         <div className={styles.firstColumn}>
           <div>
-            <div style={{ background: item.img }} className={styles.productImage}>
+            <div
+              style={{ backgroundImage: `url('${item.coverPhoto}')` }}
+              className={styles.productImage}
+            >
               {item.isHit ? <div className={styles.hitProduct}>HIT</div> : null}
             </div>
           </div>
