@@ -15,8 +15,8 @@ const OrdersTab = (props) => {
       <div className={styles.content}>
         <TabsOpen
           tabs={{
-            Experiences: { mark: 0, content: <Soon /> },
             Products: { mark: 0, content: <OrdersFL /> },
+            Experiences: { mark: 0, content: <Soon /> },
           }}
         />
       </div>

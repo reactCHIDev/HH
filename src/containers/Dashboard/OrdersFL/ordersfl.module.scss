@@ -1,0 +1,32 @@
+.container {
+  padding: 20px 20% 0 20%;
+
+  @media (max-width: 1440px) {
+    padding: 20px 4% 0 4%;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 20px 5% 0 5%;
+  }
+}
+
+.pastOrders {
+  border-bottom: 1px solid #dcdde1;
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px 0 75px 0;
+  text-transform: uppercase;
+  color: #31394d;
+  font-size: 12px;
+  line-height: 19px;
+  font-weight: bold;
+
+  div {
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
