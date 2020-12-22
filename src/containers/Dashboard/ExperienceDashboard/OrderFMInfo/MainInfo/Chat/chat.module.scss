@@ -1,0 +1,21 @@
+.msgWrapper {
+  width: 50%;
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.received {
+  margin-right: auto;
+  background: pink;
+}
+
+.sented {
+  margin-left: auto;
+  background: #aac6eb;
+  display: flex;
+  flex-direction: row-reverse;
+}

@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  padding: 35px 0;
+  border-bottom: 1px solid #dcdde1;
+
+  .columnsWrapper {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+
+    .time {
+      width: 10%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .id {
+      width: 10%;
+      color: #5375cb;
+    }
+
+    .client {
+      width: 15%;
+    }
+
+    .items {
+      width: 10%;
+    }
+
+    .amount {
+      width: 10%;
+    }
+
+    .delivery {
+      width: 10%;
+    }
+
+    .status {
+      width: 10%;
+    }
+  }
+
+  .lastSection {
+    display: flex;
+    justify-content: flex-end;
+    width: 25%;
+
+    button {
+      text-decoration: none;
+      width: 60px;
+      border: 2px solid #dcdde1;
+      background: white;
+      border-radius: 5px;
+      font-size: 17px;
+      color: #31394d;
+
+      &:hover {
+        border-color: #31394d;
+      }
+    }
+  }
+}

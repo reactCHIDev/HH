@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import MainInfo from './MainInfo'
 import styles from './orderinfo.module.scss'
-import './orderinfo.less'
 
 const OrderFMInfo = (props) => {
   const { orders, replaceRoute } = props
