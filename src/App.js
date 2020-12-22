@@ -62,7 +62,6 @@ const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
 const OrderInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo/OrderInfo'))
 const Sandbox = lazy(() => import('components/sandbox/wrapper'))
-const Cart = lazy(() => import('containers/Dashboard/ Cart'))
 
 function WaitingComponent(Component) {
   return (props) => (

@@ -187,7 +187,6 @@ const FoodmakerProfile = (props) => {
           <div className={styles.avatar_container}>
             <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
           </div>
-
           <form onSubmit={handleSubmit(onSubmit)}>
             <div id="form" className={styles.data_section}>
               <div className={styles.profile_section}>
