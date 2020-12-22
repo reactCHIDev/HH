@@ -358,7 +358,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                             rules={[{ required: false, message: 'Please enter quantity' }]}
                             normalize={(value) => Math.abs(Number(value))}
                           >
-                            <InputNumber min={0} />
+                            <InputNumber placeholder="Qty" min={0} />
                           </Form.Item>
                         </div>
                       </div>
@@ -370,11 +370,11 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                     </div>
                   </Row>
                 ))}
-                <div className={cls(styles.add_btn_wrapper, 'add_btn')}>
+                {/* <div className={cls(styles.add_btn_wrapper, 'add_btn')}>
                   <Button disabled onClick={() => add()}>
                     ADD
                   </Button>
-                </div>
+                </div> */}
               </>
             )}
           </Form.List>

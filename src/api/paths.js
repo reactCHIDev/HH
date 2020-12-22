@@ -52,6 +52,9 @@ export default {
   getHomePageProducts: '/v1/product/list_all',
   listFoodmakersForHome: '/v1/foodmaker/list_all',
 
+  // Stripe
+  stripe: '/v1/stripe/create_payment',
+
   //
   //
   //

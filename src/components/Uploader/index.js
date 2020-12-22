@@ -86,7 +86,7 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className="photo_container">
-          <ImgCrop rotate>
+          <ImgCrop rotate aspect={1.4}>
             <Upload
               action={`${process.env.REACT_APP_BASE_URL}/api/v1/file/upload/photo`}
               listType="picture-card"
