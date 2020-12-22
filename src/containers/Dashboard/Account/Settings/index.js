@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Security from './Security'
+import Balance from './Balance'
 import Exp from 'components/Tabs/Test/Exp'
 
 import styles from './settings.module.scss'
@@ -40,7 +41,7 @@ const Settings = (props) => {
               content: <Exp />,
             },
             'billing history': { disabled: true, mark: true, content: <Exp /> },
-            balance: { mark: false, content: <Exp /> },
+            balance: { mark: false, content: <Balance /> },
           }}
         />
       </div>

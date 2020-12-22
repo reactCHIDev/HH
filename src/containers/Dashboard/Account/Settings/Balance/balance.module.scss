@@ -1,0 +1,90 @@
+.container {
+  padding: 32px;
+  .content {
+    display: flex;
+    .form {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 640px;
+      .description {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        color: #5a6070;
+        margin-bottom: 32px;
+      }
+      .form_item {
+        margin-right: 24px;
+        .label {
+          font-size: 12px;
+          letter-spacing: 0.5px;
+          color: #838894;
+          margin-top: 10px;
+          margin-bottom: 7px;
+        }
+        .input {
+          border: 1px solid rgba(49, 57, 77, 0.2);
+          border-radius: 6px;
+          width: 284px;
+          height: 56px;
+          padding: 0 12px;
+          margin-bottom: 22px;
+        }
+        .errmsg {
+          margin: -22px 15px 0;
+          color: #bf1650;
+        }
+
+        .errmsg::before {
+          display: inline;
+          content: '⚠ ';
+        }
+      }
+      .btn_container {
+        width: 300px;
+        padding-right: 140px;
+        margin-top: 32px;
+      }
+    }
+    .balance_container {
+      max-width: 532px;
+      min-width: 300px;
+      height: 208px;
+      background: rgba(255, 241, 226, 0.8);
+      border-radius: 16px;
+      padding: 48px;
+      .sub_content {
+        .balance {
+          font-weight: bold;
+          font-size: 20px;
+          letter-spacing: 0.5px;
+          color: #31394d;
+        }
+        .sum {
+          font-weight: bold;
+          font-size: 44px;
+          line-height: 64px;
+          color: #eb5769;
+        }
+      }
+      .withdraw {
+        width: 112px;
+        height: 48px;
+        border: 2px solid rgba(49, 57, 77, 0.2);
+        box-sizing: border-box;
+        border-radius: 6px;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #31394d;
+      }
+    }
+  }
+}

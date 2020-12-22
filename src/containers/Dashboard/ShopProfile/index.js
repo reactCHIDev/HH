@@ -57,8 +57,6 @@ const ShopProfile = (props) => {
     mode: 'onBlur',
   })
 
-  console.log('%c   shop   ', 'color: white; background: salmon;', requesting)
-
   const generateQR = async (text) => {
     try {
       const qr = await QR.toDataURL(text)
