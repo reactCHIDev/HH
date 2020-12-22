@@ -61,6 +61,9 @@ const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
 const OrderInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo/OrderInfo'))
+const OrderFMInfo = lazy(() =>
+  import('containers/Dashboard/ExperienceDashboard/OrdersFMTab/OrderFMInfo'),
+)
 const Sandbox = lazy(() => import('components/sandbox/wrapper'))
 const Cart = lazy(() => import('containers/Dashboard/ Cart'))
 
@@ -187,6 +190,11 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 exact
                 path="/order_info/:orderHash?"
                 component={WaitingComponent(OrderInfo)}
+              />
+              <PrivateRoute
+                exact
+                path="/fm_order_info/:orderHash?"
+                component={WaitingComponent(OrderFMInfo)}
               />
               {/* <PrivateRoute
               exact
