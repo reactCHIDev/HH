@@ -20,7 +20,6 @@ import ConnectionProvider from 'components/ConnectionProvider'
 import { history } from 'store'
 import { setBaseEndpoint } from 'utils/apiClient'
 import Create from 'containers/Auth/components/Forgot/components/Create'
-import Card from 'components/Card'
 import Home from 'pages/Home'
 import Soon from 'components/ComingSoon'
 import Header from 'components/Header'
@@ -190,7 +189,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
               />
               <PrivateRoute
                 exact
-                path="/settings/:confirmation"
+                path="/settings/:activeTab?/:confirmation?"
                 component={WaitingComponent(Settings)}
               />
               <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
