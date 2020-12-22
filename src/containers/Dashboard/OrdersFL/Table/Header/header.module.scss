@@ -12,6 +12,12 @@
     color: #838894;
     letter-spacing: 0.5px;
 
+    .heading {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
     .time {
       width: 20%;
     }

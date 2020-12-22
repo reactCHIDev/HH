@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './row.module.scss'
 
-function index({ item, setOrderIdToShow }) {
+function index({ item }) {
   return (
     <>
       <div className={styles.container}>
@@ -18,15 +19,9 @@ function index({ item, setOrderIdToShow }) {
           <div className={styles.status}>{item.status}</div>
         </div>
         <div className={styles.lastSection}>
-          <button
-            onClick={() => {
-              setOrderIdToShow(item.id)
-            }}
-            type="button"
-          >
-            {' '}
-            {'>'}{' '}
-          </button>
+          <Link to={`/order_info/${item.id}`}>
+            <button type="button">{'>'}</button>
+          </Link>
         </div>
       </div>
     </>

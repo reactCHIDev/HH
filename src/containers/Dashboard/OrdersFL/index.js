@@ -4,7 +4,6 @@ import useSortableData from 'hooks/useSortable'
 
 import Header from './Table/Header'
 import Row from './Table/Row'
-import Details from '../Details'
 import styles from './ordersfl.module.scss'
 
 const orders = [
@@ -39,12 +38,9 @@ const orders = [
 
 const OrdersFL = () => {
   const [data, setData] = React.useState()
-  const [orderIdToShow, setOrderIdToShow] = React.useState(null)
-
-  console.log(orderIdToShow)
 
   const { items, requestSort } = useSortableData(orders, {
-    key: 'name',
+    key: 'time',
     direction: 'ascending',
   })
 
@@ -58,23 +54,19 @@ const OrdersFL = () => {
 
   return (
     <>
-      {orderIdToShow ? (
-        <Details />
-      ) : (
-        <div>
-          {data ? (
-            <div className={styles.container}>
-              <Header requestSort={requestSort} />
-              {data.map((item) => (
-                <Row item={item} key={item.id} setOrderIdToShow={setOrderIdToShow} />
-              ))}
-              <div className={styles.pastOrders}>
-                <div onClick={loadMoreHandler}>&#8634; past orders</div>
-              </div>
+      <div>
+        {data ? (
+          <div className={styles.container}>
+            <Header requestSort={requestSort} />
+            {data.map((item) => (
+              <Row item={item} key={item.id} />
+            ))}
+            <div className={styles.pastOrders}>
+              <div onClick={loadMoreHandler}>&#8634; past orders</div>
             </div>
-          ) : null}
-        </div>
-      )}
+          </div>
+        ) : null}
+      </div>
     </>
   )
 }

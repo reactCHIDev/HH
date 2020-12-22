@@ -47,11 +47,7 @@ function TableHeader({ requestSort }) {
         {headers.map((item) => (
           <div className={styles[item.sortType]} key={item.id}>
             <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                cursor: 'pointer',
-              }}
+              className={styles.heading}
               onClick={() => {
                 setSortedColumn(item.sortType)
                 setSorterOrder(!sorterOrder)
