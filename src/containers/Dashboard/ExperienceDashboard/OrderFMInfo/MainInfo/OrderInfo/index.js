@@ -1,42 +1,44 @@
-import { stubFalse } from 'lodash'
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styles from './orderInfo.module.scss'
 
-function OrderInfo() {
+function OrderInfo({ order }) {
   return (
     <div className={styles.container}>
-      {/* SMTH */}
+      {/* Header */}
       <div className={styles.statusWrapper}>
         <div className={styles.status}>Status: </div>
-        <div className={styles.statusType}>Shipped</div>
+        <div className={styles.statusType}>{order.status}</div>
       </div>
-      {/* SMTH */}
+      {/* Order */}
       <div className={styles.orderWrapper}>
-        <div className={styles.orderImage} />
+        <div className={styles.orderImageWrapper}>
+          <div className={styles.img} />
+        </div>
         <div className={styles.orderInfoWrapper}>
-          <div className={styles.header}>Pie with carrots, apple and cinnamon</div>
+          <div className={styles.header}>{order.productName}</div>
           <div className={styles.orderSummaryWrapper}>
             <div className={styles.item}>
               <div>Value</div>
-              <div className={styles.value}>400 G.</div>
+              <p className={styles.value}>{order.amount} G.</p>
             </div>
             <div className={styles.item}>
               <div>Qty</div>
-              <div className={styles.value}>4</div>
+              <p className={styles.value}>{order.items}</p>
             </div>
             <div className={styles.item}>
               <div>Price</div>
-              <div className={styles.value}>$ 24.20</div>
+              <p className={styles.value}>{order.price}</p>
             </div>
           </div>
         </div>
       </div>
-      {/* SMTH */}
+      {/* Payment */}
       <div className={styles.paymentWrapper}>
         <div className={styles.paymentInfo}>
           <div className={styles.item}>
             <div>Payment method:</div>
-            <div className={styles.value}>VISA – Credit card</div>
+            <div className={styles.value}>{order.paymentMethod}</div>
           </div>
           <div className={styles.item}>
             <div>Discounts: </div>
@@ -44,11 +46,11 @@ function OrderInfo() {
           </div>
         </div>
         <div className={styles.total}>
-          Total: $412.60
-          <span className={styles.value}>Refund</span>
+          Total: {order.total}
+          <span className={styles.value}>{order.priceOption}</span>
         </div>
       </div>
-      {/* SMTH */}
+      {/* Client */}
       <div className={styles.clientWrapper}>
         <div className={styles.imgWrapper}>
           <div className={styles.img} />
@@ -57,39 +59,39 @@ function OrderInfo() {
           <div className={styles.mainInfo}>
             <div className={styles.item}>
               <div>Client</div>
-              <div className={styles.value}>Heilley H.</div>
+              <div className={styles.value}>{order.client}</div>
             </div>
             <div className={styles.item}>
               <div>Contact number</div>
-              <div className={styles.number}>+1 435 435-43-53</div>
+              <div className={styles.number}>{order.clientNumber}</div>
             </div>
           </div>
           <div className={styles.secondaryInfo}>
             <div>Address</div>
-            <div className={styles.value}>36 Sin Ming Industrial Est Sector A</div>
+            <div className={styles.value}>{order.clientAddress}</div>
           </div>
         </div>
       </div>
-      {/* SMTH */}
+      {/* Summary */}
       <div className={styles.summaryWrapper}>
         <div className={styles.column}>
           <div className={styles.item}>
             <div>Order ID</div>
-            <div className={styles.value}>#4243243</div>
+            <div className={styles.value}>#${order.id}</div>
           </div>
           <div className={styles.item}>
             <div>Delivery type</div>
-            <div className={styles.value}>Express</div>
+            <div className={styles.value}>{order.delivery}</div>
           </div>
         </div>
         <div className={styles.column}>
           <div className={styles.item}>
             <div>Date/time</div>
-            <div className={styles.value}>JUL, 25 10:25</div>
+            <div className={styles.value}>{`${order.date} ${order.time}`}</div>
           </div>
           <div className={styles.item}>
             <div>Payment</div>
-            <div className={styles.value}>VISA *4383 JUL, 25 10:25</div>
+            <div className={styles.value}>{order.payment}</div>
           </div>
         </div>
       </div>

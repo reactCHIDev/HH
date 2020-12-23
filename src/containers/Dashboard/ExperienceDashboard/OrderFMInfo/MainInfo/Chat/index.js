@@ -56,15 +56,22 @@ const data = [
 
 function Chat() {
   return (
-    <div style={{ width: '100%', height: '500px', background: 'skyblue' }}>
-      {data.map((item) => (
-        <div
-          key={item.id}
-          className={cls(styles.msgWrapper, item.user !== 'me' ? styles.received : styles.sented)}
-        >
-          {item.msg}
-        </div>
-      ))}
+    <div className={styles.container}>
+      <div>
+        {data.map((item) => (
+          <div
+            key={item.id}
+            className={cls(styles.msgWrapper, item.user !== 'me' ? styles.received : styles.sented)}
+          >
+            {item.msg}
+          </div>
+        ))}
+      </div>
+      <div className={styles.bottomSection}>
+        <div className={styles.addWrapper}>&#9761;</div>
+        <textarea className={styles.input} placeholder="Enter your message" rows={1} />
+        <button type="button">{'>'}</button>
+      </div>
     </div>
   )
 }

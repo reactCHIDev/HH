@@ -1,21 +1,63 @@
+.container {
+  width: 100%;
+  height: 500px;
+  padding-top: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+}
 .msgWrapper {
   width: 50%;
   display: flex;
   margin-bottom: 20px;
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 10px;
-  align-items: center;
   justify-content: space-between;
 }
 
 .received {
   margin-right: auto;
-  background: pink;
+  background: #f5f8fb;
+  margin-left: 20px;
 }
 
 .sented {
   margin-left: auto;
-  background: #aac6eb;
+  background: #f5f8fb;
   display: flex;
   flex-direction: row-reverse;
+  margin-right: 20px;
+}
+
+.bottomSection {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  padding: 10px 20px 10px 20px;
+  justify-content: space-between;
+  border-top: 1px solid #e5e5e5;
+  align-items: center;
+
+  .input {
+    resize: none;
+    height: 40px;
+    width: 80%;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+  }
+
+  .addWrapper {
+    color: #31394d;
+  }
+
+  button {
+    background: #31394d;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #e5e5e5;
+    text-decoration: none;
+    border: none;
+    padding: 5px 30px;
+  }
 }

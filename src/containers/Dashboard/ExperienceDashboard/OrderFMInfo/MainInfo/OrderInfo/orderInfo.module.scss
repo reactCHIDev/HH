@@ -1,7 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 0 40px 20px 0;
+  width: 40%;
+  margin-right: 30px;
 
   //smth
   .statusWrapper {
@@ -26,12 +27,15 @@
     margin-bottom: 20px;
     align-items: center;
 
-    .orderImage {
-      background: darkcyan;
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
+    .orderImageWrapper {
       margin-right: 10px;
+
+      .img {
+        background: darkcyan;
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+      }
     }
 
     .orderInfoWrapper {
@@ -52,7 +56,7 @@
         .item {
           display: flex;
           flex-direction: column;
-          margin-right: 40px;
+          margin-right: 20px;
           font-size: 12px;
           line-height: 160%;
           letter-spacing: 0.5px;
@@ -65,6 +69,10 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #3c3e43;
+
+            @media (max-width: 1200px) {
+              font-size: 10px;
+            }
           }
         }
       }
@@ -148,11 +156,17 @@
         flex-direction: row;
         margin-bottom: 10px;
 
+        @media (max-width: 1200px) {
+          flex-direction: column;
+          margin-bottom: 0px;
+        }
+
         .item {
           font-size: 12px;
           line-height: 160%;
           letter-spacing: 0.5px;
           color: #939d98;
+          margin-bottom: 20px;
 
           .value {
             font-weight: 500;

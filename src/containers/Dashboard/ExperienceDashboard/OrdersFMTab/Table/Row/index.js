@@ -10,11 +10,11 @@ function index({ item }) {
       <div className={styles.container}>
         <div className={styles.columnsWrapper}>
           <div className={styles.time}>
-            <div>{item.date}</div>
+            <div className={styles.date}>{item.date}</div>
             <div>{item.time}</div>
           </div>
           <div className={styles.id}>#{item.id}</div>
-          <div className={styles.client}>{item.clientName}</div>
+          <div className={styles.client}>{item.client}</div>
           <div className={styles.items}>{item.items}</div>
           <div className={styles.amount}>$ {item.amount}</div>
           <div className={styles.delivery}>{item.delivery}</div>

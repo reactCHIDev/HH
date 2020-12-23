@@ -8,7 +8,7 @@ import MainInfo from './MainInfo'
 import styles from './orderinfo.module.scss'
 
 const OrderFMInfo = (props) => {
-  const { orders, replaceRoute } = props
+  const { replaceRoute } = props
   const { orderHash } = useParams()
 
   const goBack = () => {
@@ -30,6 +30,6 @@ OrderFMInfo.propTypes = {
   replaceRoute: T.func,
 }
 
-export default connect(({ orders }) => ({ orders }), {
+export default connect(null, {
   replaceRoute: replace,
 })(OrderFMInfo)
