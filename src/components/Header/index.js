@@ -385,7 +385,7 @@ const Header = (props) => {
             <ul className={styles.link_list}>
               <li onClick={onSettingsSelect}>
                 <img src={Setting} alt="icon" />
-                <Link to="/settings/account"> Setting</Link>
+                <Link to="/settings/security"> Setting</Link>
               </li>
               <li onClick={logout}>
                 <img src={LogOut} alt="icon" />

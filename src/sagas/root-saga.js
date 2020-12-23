@@ -11,6 +11,7 @@ import shop from './shop'
 import pages from './pages'
 import cart from './cart'
 import foodmakerOrders from './foodmaker_orders'
+import stripe from './stripe'
 
 export default function* rootSaga() {
   yield all([
@@ -26,5 +27,6 @@ export default function* rootSaga() {
     pages(),
     cart(),
     foodmakerOrders(),
+    stripe(),
   ])
 }

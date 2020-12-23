@@ -60,7 +60,7 @@ function* updateUserAccount({ payload }) {
   if (newEmail) {
     const token = jwt.sign({ newEmail }, process.env.REACT_APP_JWT_SECRET_KEY, { expiresIn: 1200 })
     const { url } = PATHS
-    submittedData.updateEmailLink = `${url}/settings/change_email${token}`
+    submittedData.updateEmailLink = `${url}/settings/security/change_email${token}`
   }
   try {
     const response = yield updateSettings(submittedData)
@@ -91,7 +91,7 @@ function* changeEmailConfirm({ payload }) {
   try {
     const response = yield confirmEmailUpdate(payload)
     yield put({ type: EMAIL_CONFIRM_SUCCESS, data: response.data })
-    yield put(replace('/settings/account'))
+    yield put(replace('/settings/security'))
   } catch (error) {
     if (error.response) {
       yield put({ type: EMAIL_CONFIRM_ERROR, error: error.response.data.error })
