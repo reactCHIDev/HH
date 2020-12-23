@@ -59,6 +59,7 @@ const Header = (props) => {
     '/addproduct',
     '/editproduct',
     '/shop/',
+    '/settings/',
     '/landing/create_experience',
     '/landing/foodmakers',
     '/landing/create_profile',
