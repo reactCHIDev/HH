@@ -10,6 +10,7 @@ import system from './system'
 import shop from './shop'
 import pages from './pages'
 import cart from './cart'
+import foodmakerOrders from './foodmaker_orders'
 import stripe from './stripe'
 
 export default function* rootSaga() {
@@ -25,6 +26,7 @@ export default function* rootSaga() {
     shop(),
     pages(),
     cart(),
+    foodmakerOrders(),
     stripe(),
   ])
 }
