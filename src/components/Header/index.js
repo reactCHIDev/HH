@@ -62,6 +62,7 @@ const Header = (props) => {
     '/shop/',
     '/product/',
     '/settings/',
+    '/cart',
     '/landing/create_experience',
     '/landing/foodmakers',
     '/landing/create_profile',
@@ -69,7 +70,7 @@ const Header = (props) => {
   ]
 
   const dark = !lightTheme.some((e) => pathname.includes(e))
-  const isTextLogo = ['/landing/', '/shop/', '/product/'].some((e) => pathname.includes(e))
+  const isTextLogo = ['/shop/', '/product/'].some((e) => pathname.includes(e))
 
   useEffect(() => {
     if (id) {
@@ -147,9 +148,9 @@ const Header = (props) => {
           <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
           {dark ? (
             <img className={styles.logo_text} src={textLogo} alt="hh" />
-          ) : isTextLogo ? null : (
+          ) : isTextLogo ? (
             <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
-          )}
+          ) : null}
         </div>
         <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
           <li
