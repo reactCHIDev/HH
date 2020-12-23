@@ -1,11 +1,31 @@
 .container {
   padding: 32px;
+  @media (max-width: 1024px) {
+    padding: 10px;
+  }
   .content {
+    position: relative;
     display: flex;
+    align-items: flex-start;
+    padding-top: 36px;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+    }
     .form {
       display: flex;
+      justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
+      align-items: center;
       max-width: 640px;
+      margin-bottom: 36px;
+      @media (max-width: 768px) {
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+      }
       .description {
         font-style: normal;
         font-weight: normal;
@@ -13,9 +33,18 @@
         letter-spacing: 0.5px;
         color: #5a6070;
         margin-bottom: 32px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 8px;
+        }
       }
       .form_item {
         margin-right: 24px;
+        @media (max-width: 768px) {
+          margin-right: 0px;
+        }
         .label {
           font-size: 12px;
           letter-spacing: 0.5px;
@@ -42,35 +71,115 @@
         }
       }
       .btn_container {
-        width: 300px;
-        padding-right: 140px;
+        width: 308px;
+        padding: 0 70px 0 60px;
         margin-top: 32px;
       }
     }
     .balance_container {
-      max-width: 532px;
-      min-width: 300px;
-      height: 208px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 400px;
+      min-height: 208px;
       background: rgba(255, 241, 226, 0.8);
       border-radius: 16px;
       padding: 48px;
+      margin: 10px;
+      @media (max-width: 1024px) {
+        min-width: 288px;
+        padding: 24px;
+      }
       .sub_content {
+        min-width: 240px;
+        margin-right: 32px;
+        @media (max-width: 1024px) {
+          margin-right: 0px;
+          min-width: 200px;
+        }
         .balance {
-          font-weight: bold;
+          font-weight: normal;
           font-size: 20px;
           letter-spacing: 0.5px;
           color: #31394d;
         }
         .sum {
           font-weight: bold;
-          font-size: 44px;
+          font-size: 36px;
           line-height: 64px;
           color: #eb5769;
+          margin-top: 2px;
+          @media (max-width: 1024px) {
+            font-size: 24px;
+          }
         }
+        .dollar {
+          font-weight: bold;
+          font-size: 36px;
+          line-height: 64px;
+          color: #eb5769;
+          margin-top: 2px;
+          @media (max-width: 1024px) {
+            font-size: 24px;
+          }
+        }
+        .qty {
+          width: 198px;
+          display: inline-block;
+          @media (max-width: 1024px) {
+            width: 140px;
+          }
+        }
+
+        .hkd {
+          font-weight: bold;
+          color: #eb5769;
+          font-size: 24px;
+          @media (max-width: 1024px) {
+            margin-right: 8px;
+          }
+        }
+        .input_withdraw {
+          border: 1px solid rgba(49, 57, 77, 0.2);
+          border-radius: 6px;
+          margin-right: 8px;
+          width: 190px;
+          height: 68px;
+          padding: 0 12px;
+          font-weight: bold;
+          font-size: 36px;
+          line-height: 64px;
+          color: #eb5769;
+          @media (max-width: 1024px) {
+            font-size: 24px;
+            width: 140px;
+          }
+        }
+      }
+      .req_withdraw {
+        width: 112px;
+        height: 48px;
+        cursor: pointer;
+        box-sizing: border-box;
+        border-radius: 6px;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background-color: #31394d;
+        color: white;
+        margin-top: 24px;
       }
       .withdraw {
         width: 112px;
         height: 48px;
+        cursor: pointer;
         border: 2px solid rgba(49, 57, 77, 0.2);
         box-sizing: border-box;
         border-radius: 6px;
@@ -84,7 +193,25 @@
         letter-spacing: 1px;
         text-transform: uppercase;
         color: #31394d;
+        margin-top: 24px;
       }
+    }
+    .success {
+      position: fixed;
+      left: 50%;
+      top: 45%;
+      transform: translate(-50%, 0);
+      background: rgba(122, 211, 152, 0.1);
+      border-radius: 6px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 160%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      letter-spacing: 0.5px;
+      color: #7ad398;
     }
   }
 }
