@@ -30,9 +30,10 @@ const Settings = (props) => {
           tabs={{
             security: {
               mark: false,
-              content: (
+              /*   content: (
                 <PrivateRoute path="/settings/security/:confirmation?" component={Security} />
-              ),
+              ), */
+              content: <Security />,
             },
             'payment settings': { disabled: true, mark: false, content: <Exp /> },
             account: {
