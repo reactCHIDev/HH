@@ -25,7 +25,7 @@ function Product({ orders, title, shop }) {
       <Heading title={title} />
       <Table data={data} requestSort={requestSort} />
 
-      <ProductSummary shop={shop} />
+      <ProductSummary shop={shop} title={title} />
     </div>
   )
 }

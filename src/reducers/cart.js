@@ -7,6 +7,7 @@ import {
   SET_SHOP_DATA,
   INC_PRODUCT_AMOUNT,
   DEC_PRODUCT_AMOUNT,
+  CHANGE_DELIVERY_TYPE,
 } from '../actions/constants'
 
 const initialState = {
@@ -19,7 +20,10 @@ const initialState = {
 const gc = (state) => {
   const shopToDelete = Object.keys(state.orders).find((key) => state.orders[key].length === 0)
   const newState = cloneDeep(state)
-  newState.totalPrice -= newState.shopsData[shopToDelete].price
+  newState.totalPrice =
+    newState.totalPrice -
+    newState.shopsData[shopToDelete].price -
+    newState.shopsData[shopToDelete].delivery.price
   delete newState.orders[shopToDelete]
   delete newState.shopsData[shopToDelete]
   return newState
@@ -64,9 +68,13 @@ const reducer = function cartReducer(state = initialState, action) {
           [action.data.shopTitle]: {
             methods: action.data.deliveryMethods,
             price: action.data.price,
+            delivery: {
+              type: action.data.delivery.type,
+              price: action.data.delivery.price,
+            },
           },
         },
-        totalPrice: state.totalPrice + action.data.price,
+        totalPrice: state.totalPrice + action.data.price + action.data.delivery.price,
       }
 
     case INC_PRODUCT_AMOUNT:
@@ -105,6 +113,23 @@ const reducer = function cartReducer(state = initialState, action) {
           },
         },
         totalPrice: state.totalPrice - action.data.price,
+      }
+
+    case CHANGE_DELIVERY_TYPE:
+      return {
+        ...state,
+        shopsData: {
+          ...state.shopsData,
+          [action.data.shop]: {
+            ...state.shopsData[action.data.shop],
+            delivery: {
+              type: action.data.type,
+              price: action.data.price,
+            },
+          },
+        },
+        totalPrice:
+          state.totalPrice - state.shopsData[action.data.shop].delivery.price + action.data.price,
       }
 
     default:

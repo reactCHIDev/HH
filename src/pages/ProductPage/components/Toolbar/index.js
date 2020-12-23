@@ -23,7 +23,8 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
   const handleCountIncrement = () => setCount((oldCount) => oldCount + 1)
 
   const onProductClick = () => {
-    dispatch(addProductToBasket(product))
+    const data = { ...product, ...{ amount: count } }
+    dispatch(addProductToBasket(data))
   }
 
   const { Option } = Select

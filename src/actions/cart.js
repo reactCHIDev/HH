@@ -6,6 +6,7 @@ import {
   SET_SHOP_DATA,
   INC_PRODUCT_AMOUNT,
   DEC_PRODUCT_AMOUNT,
+  CHANGE_DELIVERY_TYPE,
 } from './constants'
 
 export const addProductToBasket = (data) => {
@@ -52,6 +53,13 @@ export const incProductAmount = (data) => {
 export const decProductAmount = (data) => {
   return {
     type: DEC_PRODUCT_AMOUNT,
+    data,
+  }
+}
+
+export const changeDeliveryType = (data) => {
+  return {
+    type: CHANGE_DELIVERY_TYPE,
     data,
   }
 }

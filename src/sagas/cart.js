@@ -10,7 +10,7 @@ import {
 } from '../actions/constants'
 
 function* basketFlow({ data }) {
-  const { title, shop, price } = data
+  const { title, shop, price, amount = 1 } = data
   const getOrdersData = (store) => store.cart
   const { products, orders, shopsData } = yield select(getOrdersData)
 
@@ -26,7 +26,15 @@ function* basketFlow({ data }) {
     const {
       data: { deliveryMethods, title: shopTitle },
     } = yield getShopByUrlReq(shop.shopUrl)
-    yield put({ type: SET_SHOP_DATA, data: { deliveryMethods, price, shopTitle } })
+    const delivery = {
+      type: 'standart',
+      price: 20,
+    }
+    const newPrice = price * amount
+    yield put({
+      type: SET_SHOP_DATA,
+      data: { deliveryMethods, price: newPrice, shopTitle, delivery },
+    })
   }
 
   if (shop.title in orders) {
@@ -35,7 +43,7 @@ function* basketFlow({ data }) {
     yield put({ type: SET_ITEM_IN_ORDERS, newState })
   } else {
     const newState = { ...orders }
-    newState[shop.title] = [{ ...data, ...{ total: 1 } }]
+    newState[shop.title] = [{ ...data, ...{ total: amount } }]
     yield put({ type: SET_ITEM_IN_ORDERS, newState })
   }
 }
