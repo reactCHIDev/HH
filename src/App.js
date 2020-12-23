@@ -49,7 +49,7 @@ const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
 const FoodmakerPage = lazy(() => import('pages/FoodmakerPage'))
 const AccountInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo'))
-// const CartPage = lazy(() => import('pages/Cart'))
+const CartPage = lazy(() => import('pages/Cart'))
 // const FoodmakerProfile = lazy(() =>
 //   import('containers/Dashboard/components/Account/FoodmakerProfile'),
 // )
@@ -163,7 +163,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 ))}
               />
               <PublicRoute exact path="/forgotpassword/:user" component={Create} />
-              {/* <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} /> */}
+              <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} />
               <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
               <PrivateRoute
                 exact
