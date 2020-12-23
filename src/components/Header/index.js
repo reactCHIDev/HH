@@ -343,7 +343,7 @@ const Header = (props) => {
           <div className={styles.settings_container} ref={settingsСontainer}>
             <ul className={styles.link_list}>
               <li onClick={onSettingsSelect}>
-                <Link className={styles.link} to="/account_info">
+                <Link className={styles.link} to="/account_info/profile">
                   <div>
                     <img src={Cup} alt="icon" />
                     <a href="#"> food lover dashboard</a>
