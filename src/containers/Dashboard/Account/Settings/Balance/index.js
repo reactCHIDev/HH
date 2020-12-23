@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { Button } from 'antd'
+import Info from 'assets/icons/svg/info-green.svg'
 import _ from 'lodash/fp'
 
 import styles from './balance.module.scss'
 import './balance.less'
 
 const Balance = (props) => {
-  const { x } = props
+  const [withdraw, setWithdraw] = useState(false)
 
   const { register, handleSubmit, control, setValue, errors } = useForm({
     mode: 'onBlur',
   })
+
+  const onWithdraw = () => {
+    setWithdraw((w) => !w)
+  }
 
   const onSubmit = (data) => {
     console.log('%c   data   ', 'color: white; background: salmon;', data)
@@ -23,6 +28,7 @@ const Balance = (props) => {
       <div className={styles.content}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.description}>
+            <img src={Info} alt="icon" />
             Payment is process every Monday after each booking occurred. It may take 3-5 business
             days to reach days to reach your nominated account.
           </div>
@@ -109,10 +115,33 @@ const Balance = (props) => {
         <div className={styles.balance_container}>
           <div className={styles.sub_content}>
             <div className={styles.balance}>Balance</div>
-            <div className={styles.sum}>$ 2500.50 HKD</div>
+            {!withdraw ? (
+              <div className={styles.sum}>
+                <span className={styles.dollar}>$</span>
+                <span className={styles.qty}>2500.56</span>
+                <span className={styles.hkd}>HKD</span>
+              </div>
+            ) : (
+              <>
+                <span className={styles.sum}>$</span>
+                <input
+                  className={styles.input_withdraw}
+                  name="withdraw"
+                  type="number"
+                  placeholder={2500.56}
+                  autoComplete="off"
+                />
+                <span className={styles.hkd}>HKD</span>
+              </>
+            )}
           </div>
-          <div className={styles.withdraw}>WITHDRAW</div>
+          <div className={withdraw ? styles.req_withdraw : styles.withdraw} onClick={onWithdraw}>
+            {withdraw ? 'REQUEST WITHDRAW' : 'WITHDRAW'}
+          </div>
         </div>
+        {false && (
+          <div className={styles.success}>Wait a few seconds, your request is being processed</div>
+        )}
       </div>
     </div>
   )
