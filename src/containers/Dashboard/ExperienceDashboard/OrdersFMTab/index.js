@@ -8,13 +8,13 @@ import styles from './maininfo.module.scss'
 
 const MainOrderInfo = () => {
   const orders = useSelector((state) => state.fmOrders.orders)
-  const [smth, setSmth] = React.useState('')
+  const [searchValue, setSearchValue] = React.useState('')
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <Header onSearch={setSmth} />
-        <Table orders={orders} smth={smth} />
+        <Header onSearch={setSearchValue} />
+        <Table orders={orders} searchValue={searchValue} />
       </div>
     </div>
   )

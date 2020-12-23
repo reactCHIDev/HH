@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import Header from './Header'
 import Row from './Row'
 
-function Table({ orders, smth }) {
+function Table({ orders, searchValue }) {
   const [data, setData] = React.useState()
 
   const { items, requestSort } = useSortableData(orders, {
@@ -19,16 +19,20 @@ function Table({ orders, smth }) {
   }, [items])
 
   React.useEffect(() => {
-    if (smth) {
-      const lsmth = smth.toLowerCase()
-      const newState = cloneDeep(data).filter(
-        (p) => p.client.toLowerCase().includes(lsmth) || p.status.toLowerCase().includes(lsmth),
+    if (searchValue) {
+      const lowerSearchValue = searchValue.toLowerCase()
+      const newState = cloneDeep(data).filter((e) =>
+        Object.keys(e).some((n) =>
+          String(e[n])
+            .toLowerCase()
+            .includes(lowerSearchValue),
+        ),
       )
       setData(newState)
     } else {
       setData(items)
     }
-  }, [smth])
+  }, [searchValue])
 
   return (
     <div>
