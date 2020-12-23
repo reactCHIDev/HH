@@ -15,7 +15,8 @@ import { getUserAccount } from 'actions/account'
 import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
 import LogoDark from 'assets/images/header/logo_dark.svg'
-import LogoWhite from 'assets/images/header/logo-white.svg'
+import LogoWhite from 'assets/images/logo_nobeta.svg'
+// import LogoWhite from 'assets/images/header/logo-white.svg'
 import textLogo from 'assets/images/header/logo_text_beta.svg'
 import ArrowWhite from 'assets/icons/svg/down-arrow-white.svg'
 import ArrowDark from 'assets/icons/svg/down-arrow.svg'
@@ -59,6 +60,7 @@ const Header = (props) => {
     '/addproduct',
     '/editproduct',
     '/shop/',
+    '/product/',
     '/settings/',
     '/landing/create_experience',
     '/landing/foodmakers',
@@ -67,6 +69,7 @@ const Header = (props) => {
   ]
 
   const dark = !lightTheme.some((e) => pathname.includes(e))
+  const isTextLogo = ['/landing/', '/shop/', '/product/'].some((e) => pathname.includes(e))
 
   useEffect(() => {
     if (id) {
@@ -144,7 +147,7 @@ const Header = (props) => {
           <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
           {dark ? (
             <img className={styles.logo_text} src={textLogo} alt="hh" />
-          ) : (
+          ) : isTextLogo ? null : (
             <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
           )}
         </div>
