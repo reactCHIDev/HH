@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeDeliveryType } from 'actions/cart'
 import styles from '../../product.module.scss'
 
 const data = [
@@ -8,12 +10,20 @@ const data = [
   { type: 'SUPER', price: 60, amountToFree: 500 },
 ]
 
-function ProductSummary({ shop }) {
+function ProductSummary({ shop, title }) {
+  const dispatch = useDispatch()
   const { price } = shop
+  const delType = useSelector((state) => state.cart.shopsData[title].delivery.type)
 
-  const [curVal, setCurValue] = React.useState(data[0])
+  const [curVal, setCurValue] = React.useState(
+    data.filter((e) => e.type === delType.toUpperCase())[0],
+  )
   const [dataToShow, setDataToShow] = React.useState()
   const [isDataShown, setIsDataShown] = React.useState(false)
+
+  const changeType = (type, delPrice) => {
+    dispatch(changeDeliveryType({ type, price: delPrice, shop: title }))
+  }
 
   React.useEffect(() => {
     setDataToShow(data.filter((e) => e.type !== curVal.type))
@@ -60,6 +70,7 @@ function ProductSummary({ shop }) {
                   onClick={() => {
                     setCurValue(item)
                     setIsDataShown(false)
+                    changeType(item.type, item.price)
                   }}
                   key={item.type}
                   style={{
