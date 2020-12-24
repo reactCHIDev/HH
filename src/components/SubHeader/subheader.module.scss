@@ -1,61 +1,69 @@
-.container {
-  display: flex;
-  padding: 0px 50px 14px;
-  margin-bottom: 60px;
+.wrapper {
   background: #f5f8fb;
-  @media (max-width: 768px) {
-    padding: 0px 10px 14px;
-    margin-bottom: 14px;
-  }
-  .content {
-    width: 100%;
+  .container {
     display: flex;
-    justify-content: space-between;
+    // padding: 0px 50px 14px;
+    margin-bottom: 60px;
+    background: #f5f8fb;
     align-items: center;
-
-    .title {
+    width: 100%;
+    max-width: 1260px;
+    padding: 20px 0px;
+    margin: 0 auto;
+    @media (max-width: 768px) {
+      padding: 0px 10px 14px;
+      margin-bottom: 14px;
+    }
+    .content {
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 32px;
-      line-height: 42px;
-      letter-spacing: 0.3px;
-      color: #31394d;
-      margin: 0;
-      // margin: 0 8px 0 0;
-      .back_arrow {
-        margin: 0;
-        padding: 0 20px;
-        border-right: 1px solid lightgrey;
-        @media (max-width: 768px) {
-          padding: 0 10px;
-          font-size: 18px;
-        }
-      }
-      .back_title {
-        // padding: 0 20px;
-        margin: 0 20px;
+
+      .title {
+        display: flex;
+        align-items: center;
         font-style: normal;
-        font-weight: bold;
+        font-weight: normal;
         font-size: 32px;
         line-height: 42px;
         letter-spacing: 0.3px;
         color: #31394d;
-        @media (max-width: 768px) {
-          margin-left: 10px;
-          font-size: 18px;
+        margin: 0;
+        // margin: 0 8px 0 0;
+        .back_arrow {
+          margin: 0;
+          padding: 0 20px;
+          border-right: 1px solid lightgrey;
+          @media (max-width: 768px) {
+            padding: 0 10px;
+            font-size: 18px;
+          }
+        }
+        .back_title {
+          // padding: 0 20px;
+          margin: 0 20px;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 32px;
+          line-height: 42px;
+          letter-spacing: 0.3px;
+          color: #31394d;
+          @media (max-width: 768px) {
+            margin-left: 10px;
+            font-size: 18px;
+          }
         }
       }
-    }
-    .saved {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 160%;
-      letter-spacing: 0.5px;
-      color: #31394d;
-      margin: 0;
+      .saved {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 160%;
+        letter-spacing: 0.5px;
+        color: #31394d;
+        margin: 0;
+      }
     }
   }
 }

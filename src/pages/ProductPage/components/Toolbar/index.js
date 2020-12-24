@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { Select } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { addProductToBasket } from 'actions/cart'
 import cls from 'classnames'
 import Button from 'components/Button/index'
 import styles from './toolbar.module.scss'
@@ -9,6 +11,9 @@ import './toolbar.less'
 const Toolbar = ({ params, isPreOrderOnly }) => {
   const [weightOption, setWeightOption] = useState(params[0].volume)
   const [count, setCount] = useState(1)
+  const product = useSelector((state) => state.product.info)
+
+  const dispatch = useDispatch()
 
   useEffect(() => setWeightOption(params[0].volume), [params])
 
@@ -16,6 +21,11 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
   const handleCountDecrement = () =>
     setCount((oldCount) => (oldCount > 1 ? oldCount - 1 : oldCount))
   const handleCountIncrement = () => setCount((oldCount) => oldCount + 1)
+
+  const onProductClick = () => {
+    const data = { ...product, ...{ amount: count } }
+    dispatch(addProductToBasket(data))
+  }
 
   const { Option } = Select
 
@@ -61,7 +71,7 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
           <Button
             title="ADD TO CARD"
             onClick={() => {
-              console.log('submit')
+              onProductClick()
             }}
           />
         )}

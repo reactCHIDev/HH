@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { Upload, Modal } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { PlusOutlined } from '@ant-design/icons'
+import { getItem } from 'utils/localStorage'
 import Button from 'components/Button'
 import styles from './uploader.module.scss'
 import './uploader.less'
@@ -82,6 +83,14 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
     </div>
   )
 
+  const getToken = () => {
+    const accessToken = getItem('authorization-token')
+    if (accessToken) {
+      return { Authorization: accessToken }
+    }
+    return null
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -91,7 +100,7 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
               action={`${process.env.REACT_APP_BASE_URL}/api/v1/file/upload/photo`}
               listType="picture-card"
               fileList={fileList}
-              headers={{ 'x-api-key': process.env.REACT_APP_X_API_KEY }}
+              headers={{ 'x-api-key': process.env.REACT_APP_X_API_KEY, ...getToken() }}
               onPreview={handlePreview}
               onChange={handleChange}
               onRemove={onRemove}

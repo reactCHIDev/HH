@@ -6,10 +6,9 @@ import { replace } from 'connected-react-router'
 import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
-import Exp from 'components/Tabs/Test/Exp'
-import Comp from 'components/Tabs/Test/Comp'
 import Listings from 'containers/Dashboard/Account/Listings'
 import ProfileTab from 'containers/Dashboard/ExperienceDashboard/ProfileTab'
+import OrdersFM from 'containers/Dashboard/ExperienceDashboard/OrdersFMTab'
 import styles from './expdb.module.scss'
 import './expdb.less'
 
@@ -30,7 +29,7 @@ const ExperienceDashboard = (props) => {
         tabs={{
           overview: { mark: false, disabled: true, content: <Soon /> },
           listings: { mark: false, content: <Listings /> },
-          booking: { mark: false, disabled: true, content: <Soon /> },
+          orders: { mark: false, disabled: true, content: <OrdersFM /> },
           reviews: { mark: false, disabled: true, content: <Soon /> },
           performance: { mark: false, disabled: true, content: <Soon /> },
           profile: { mark: false, content: <ProfileTab profileName={profileName} /> },

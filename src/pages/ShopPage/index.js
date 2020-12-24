@@ -44,7 +44,7 @@ const ShopPage = (props) => {
 
   const { shopName } = useParams()
 
-  const [productCount, setProductCount] = useState(4)
+  const [productCount, setProductCount] = useState(6)
 
   const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
 
@@ -57,7 +57,7 @@ const ShopPage = (props) => {
     if (shop?.userProfile) getFoodmakerInfoAC(shop.userProfile.id)
   }, [shop])
 
-  const showMore = () => setProductCount((c) => c + 4)
+  const showMore = () => setProductCount((c) => c + 6)
 
   const openFoodmaker = () => pushRoute(`/${fm.hungryHuggerLink.split('/').pop()}`)
 

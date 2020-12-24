@@ -6,3 +6,6 @@ export const getFoodmakerInfoByNameReq = (name) =>
   apiClient.get(PATHS.getFoodmakerInfoByName + name)
 export const updateFoodmakerAccountReq = (data) =>
   apiClient.patch(PATHS.updateFoodmakerAccount, { data })
+
+// foodmaker orders
+export const getFoodmakerOrdersReq = (id) => apiClient.get(PATHS.getFoodmakerInfo + id)

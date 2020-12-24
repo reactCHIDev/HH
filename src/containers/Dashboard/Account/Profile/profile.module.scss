@@ -1,7 +1,14 @@
 .info_container {
   display: flex;
   align-items: center;
-  padding: 20px 50px;
+  padding: 20px 30px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1260px;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
   @media (max-width: 900px) {
     flex-direction: column;
   }

@@ -15,7 +15,8 @@ import { getUserAccount } from 'actions/account'
 import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
 import LogoDark from 'assets/images/header/logo_dark.svg'
-import LogoWhite from 'assets/images/header/logo-white.svg'
+import LogoWhite from 'assets/images/logo_nobeta.svg'
+// import LogoWhite from 'assets/images/header/logo-white.svg'
 import textLogo from 'assets/images/header/logo_text_beta.svg'
 import ArrowWhite from 'assets/icons/svg/down-arrow-white.svg'
 import ArrowDark from 'assets/icons/svg/down-arrow.svg'
@@ -59,6 +60,9 @@ const Header = (props) => {
     '/addproduct',
     '/editproduct',
     '/shop/',
+    '/product/',
+    '/settings/',
+    '/cart',
     '/landing/create_experience',
     '/landing/foodmakers',
     '/landing/create_profile',
@@ -66,6 +70,7 @@ const Header = (props) => {
   ]
 
   const dark = !lightTheme.some((e) => pathname.includes(e))
+  const isTextLogo = ['/shop/', '/product/'].some((e) => pathname.includes(e))
 
   useEffect(() => {
     if (id) {
@@ -143,9 +148,9 @@ const Header = (props) => {
           <img className={styles.logo_img} src={dark ? LogoDark : LogoWhite} alt="logo" />
           {dark ? (
             <img className={styles.logo_text} src={textLogo} alt="hh" />
-          ) : (
+          ) : isTextLogo ? (
             <img className={styles.logo_text} src={textLogoBlue} alt="hh" />
-          )}
+          ) : null}
         </div>
         <ul className={cls(styles.menu, menu ? styles.on : styles.off)}>
           <li
@@ -256,49 +261,43 @@ const Header = (props) => {
           </li>
           {authorized && (
             <li>
-              {/* <Link to="/cart"> */}
-              <div style={{ position: 'relative', opacity: 0.5 }}>
-                {/* <div
-                  style={{
-                    position: 'absolute',
-                    fontSize: '15px',
-                    color: 'white',
-                    top: '10px',
-                    right: '-10px',
-                  }}
-                >
-                  <div>{products.length || null}</div>
-                </div> */}
-                <svg
-                  width="19"
-                  height="19"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g opacity="1">
-                    <path
-                      d="M1 3L2.11047 3C3.52508 3 4.74747 3.9882 5.04387 5.37141L6.21531 10.8381C6.61051 12.6824 8.24037 14 10.1265 14H17.2862C19.0468 14 20.6003 12.8489 21.1129 11.1646L23 4.96429"
-                      stroke={dark ? 'white' : '#31394D'}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M11.25 19.5C11.25 20.4665 10.4665 21.25 9.5 21.25C8.5335 21.25 7.75 20.4665 7.75 19.5C7.75 18.5335 8.5335 17.75 9.5 17.75C10.4665 17.75 11.25 18.5335 11.25 19.5Z"
-                      stroke={dark ? 'white' : '#31394D'}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M20.25 19.5C20.25 20.4665 19.4665 21.25 18.5 21.25C17.5335 21.25 16.75 20.4665 16.75 19.5C16.75 18.5335 17.5335 17.75 18.5 17.75C19.4665 17.75 20.25 18.5335 20.25 19.5Z"
-                      stroke={dark ? 'white' : '#31394D'}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </g>
-                </svg>
-              </div>
-              {/* </Link> */}
+              <Link to="/cart">
+                <div style={{ position: 'relative' }}>
+                  {products.length ? (
+                    <div className={styles.basketAmount}>
+                      <div>{products.length}</div>
+                    </div>
+                  ) : null}
+                  <svg
+                    width="19"
+                    height="19"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g opacity="1">
+                      <path
+                        d="M1 3L2.11047 3C3.52508 3 4.74747 3.9882 5.04387 5.37141L6.21531 10.8381C6.61051 12.6824 8.24037 14 10.1265 14H17.2862C19.0468 14 20.6003 12.8489 21.1129 11.1646L23 4.96429"
+                        stroke={dark ? 'white' : '#31394D'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M11.25 19.5C11.25 20.4665 10.4665 21.25 9.5 21.25C8.5335 21.25 7.75 20.4665 7.75 19.5C7.75 18.5335 8.5335 17.75 9.5 17.75C10.4665 17.75 11.25 18.5335 11.25 19.5Z"
+                        stroke={dark ? 'white' : '#31394D'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M20.25 19.5C20.25 20.4665 19.4665 21.25 18.5 21.25C17.5335 21.25 16.75 20.4665 16.75 19.5C16.75 18.5335 17.5335 17.75 18.5 17.75C19.4665 17.75 20.25 18.5335 20.25 19.5Z"
+                        stroke={dark ? 'white' : '#31394D'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </Link>
             </li>
           )}
         </ul>
@@ -343,7 +342,7 @@ const Header = (props) => {
           <div className={styles.settings_container} ref={settingsСontainer}>
             <ul className={styles.link_list}>
               <li onClick={onSettingsSelect}>
-                <Link className={styles.link} to="/account_info">
+                <Link className={styles.link} to="/account_info/profile">
                   <div>
                     <img src={Cup} alt="icon" />
                     <a href="#"> food lover dashboard</a>
@@ -385,7 +384,7 @@ const Header = (props) => {
             <ul className={styles.link_list}>
               <li onClick={onSettingsSelect}>
                 <img src={Setting} alt="icon" />
-                <Link to="/settings/account"> Setting</Link>
+                <Link to="/settings/security"> Setting</Link>
               </li>
               <li onClick={logout}>
                 <img src={LogOut} alt="icon" />
