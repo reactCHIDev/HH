@@ -13,9 +13,7 @@ import {
   Button,
 } from 'antd'
 import moment from 'moment'
-
 import { getItem, setItem } from 'utils/localStorage'
-
 import cls from 'classnames'
 import { MinusCircleOutlined } from '@ant-design/icons'
 import styles from './step4.module.scss'
