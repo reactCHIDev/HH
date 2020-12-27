@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styles from './header.module.scss'
 
-function Header() {
+function Header({ shopName }) {
   return (
     <div className={styles.header}>
-      <div className={styles.shopTitle}>Annett’s fairytale shop</div>
+      <div className={styles.shopTitle}>{shopName}</div>
       <button type="button">VIEW SHOP</button>
     </div>
   )

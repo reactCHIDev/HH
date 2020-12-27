@@ -1,14 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import Header from './Header'
 import Row from './Row'
 
-function Table() {
+function Table({ orderInfo }) {
   return (
     <>
       <Header />
-      <Row />
-      <Row />
-      <Row />
+      {orderInfo.map((item) => (
+        <Row item={item} key={item.id} />
+      ))}
     </>
   )
 }

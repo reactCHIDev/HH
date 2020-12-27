@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from './options.module.scss'
 
-function Options({ setIsCancelModalShowm }) {
+function Options({ setIsCancelModalShowm, total }) {
   return (
     <>
       <div className={styles.container}>
@@ -10,7 +10,7 @@ function Options({ setIsCancelModalShowm }) {
           <div>Delivery</div>
           <div className={styles.deliveryType}>Standart</div>
         </div>
-        <div>$ 20.00</div>
+        <div className={styles.price}>$ 20.00</div>
       </div>
       <div className={styles.cancelWrapper}>
         <div className={styles.content}>
@@ -24,7 +24,9 @@ function Options({ setIsCancelModalShowm }) {
           </div>
           <div>Cancellation policy</div>
         </div>
-        <div>Total: $ 109.00</div>
+        <div>
+          Total: <span className={styles.total}>${total}</span>.00
+        </div>
       </div>
     </>
   )
