@@ -17,9 +17,7 @@ const OrderFMInfo = (props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.subheader_container}>
-        <SubHeader linkTo="/exp_dashboard/orders" onBack={goBack} title={`order ${orderHash}`} />
-      </div>
+      <SubHeader linkTo="/exp_dashboard/orders" onBack={goBack} title={`order ${orderHash}`} />
       <MainInfo orderHash={orderHash} />
       <div className={styles.content} />
     </div>

@@ -56,6 +56,7 @@ const Header = (props) => {
     '/signupflow',
     '/foodmaker_dashboard',
     '/exp_dashboard',
+    '/fm_order_info',
     '/account_info',
     '/addproduct',
     '/editproduct',
@@ -68,6 +69,8 @@ const Header = (props) => {
     '/landing/create_profile',
     '/landing/create_shop',
   ]
+
+  const darkTheme = ['']
 
   const dark = !lightTheme.some((e) => pathname.includes(e))
   const isTextLogo = ['/shop/', '/product/'].some((e) => pathname.includes(e))

@@ -6,6 +6,8 @@ import cloneDeep from 'lodash/cloneDeep'
 import Header from './Header'
 import Row from './Row'
 
+import styles from './table_wrapper.module.scss'
+
 function Table({ orders, searchValue }) {
   const [data, setData] = React.useState()
 
@@ -35,7 +37,7 @@ function Table({ orders, searchValue }) {
   }, [searchValue])
 
   return (
-    <div>
+    <div className={styles.table_wrapper}>
       {data ? (
         <>
           <Header requestSort={requestSort} />

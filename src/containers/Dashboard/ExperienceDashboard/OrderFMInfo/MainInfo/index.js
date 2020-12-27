@@ -14,7 +14,7 @@ const MainOrderInfo = (props) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <OrderInfo order={order} />
-        {/* <Chat /> */}
+        <Chat />
       </div>
     </div>
   )
