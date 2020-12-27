@@ -42,7 +42,7 @@ const Settings = (props) => {
               mark: false,
               content: <Exp />,
             },
-            'billing history': { disabled: false, mark: true, content: <BillingHistory /> },
+            'billing history': { disabled: true, mark: true, content: <BillingHistory /> },
             balance: { disabled: true, mark: false, content: <Balance /> },
           }}
         />
