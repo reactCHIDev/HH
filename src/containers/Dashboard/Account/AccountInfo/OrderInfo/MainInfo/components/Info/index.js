@@ -5,12 +5,12 @@ import Header from './Header'
 import Table from './Table'
 import Options from './Options'
 
-function Info({ setIsCancelModalShowm }) {
+function Info({ setIsCancelModalShowm, orderInfo, total, shopName }) {
   return (
     <div className={styles.container}>
-      <Header />
-      <Table />
-      <Options setIsCancelModalShowm={setIsCancelModalShowm} />
+      <Header shopName={shopName} />
+      <Table orderInfo={orderInfo} />
+      <Options setIsCancelModalShowm={setIsCancelModalShowm} total={total} />
     </div>
   )
 }

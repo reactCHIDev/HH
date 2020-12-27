@@ -1,0 +1,161 @@
+.container {
+  padding: 20px 10% 0 10%;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #dcdde1;
+
+    .detailsWrapper {
+      display: flex;
+      flex-direction: column;
+      margin-right: 10px;
+      width: 40%;
+
+      .heading {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 26px;
+        letter-spacing: 0.5px;
+        color: #31394d;
+        margin-bottom: 30px;
+      }
+
+      .infoWrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .item {
+          display: flex;
+          flex-direction: column;
+          margin-right: 30px;
+
+          .text {
+            font-size: 12px;
+            line-height: 160%;
+            letter-spacing: 0.5px;
+            color: #838894;
+          }
+
+          .value {
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 19px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #31394d;
+          }
+        }
+      }
+    }
+
+    .invoiceWrapper {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      background: #f5f8fb;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 50px;
+
+      .heading {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .text {
+          font-weight: bold;
+          font-size: 20px;
+          line-height: 26px;
+          letter-spacing: 0.5px;
+          color: #31394d;
+        }
+
+        .data {
+          font-size: 12px;
+          line-height: 160%;
+          letter-spacing: 0.5px;
+          color: #838894;
+        }
+      }
+
+      .mainInfo {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+
+        .column {
+          width: 50%;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 180%;
+          letter-spacing: 0.5px;
+          text-transform: capitalize;
+          color: #31394d;
+
+          .header {
+            font-size: 12px;
+            line-height: 160%;
+            letter-spacing: 0.5px;
+            color: #838894;
+            margin-bottom: 5px;
+          }
+        }
+      }
+
+      .foodMakerWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .foodMakerInfo {
+          display: flex;
+          flex-direction: row;
+
+          .foodMakerName {
+            margin-right: 50px;
+
+            .text {
+              font-size: 12px;
+              line-height: 160%;
+              letter-spacing: 0.5px;
+              color: #838894;
+            }
+
+            .data {
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 180%;
+              letter-spacing: 0.5px;
+              text-transform: capitalize;
+              color: #31394d;
+            }
+          }
+
+          .foodMakerPhone {
+            display: flex;
+            flex-direction: column-reverse;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 180%;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+            color: #5375cb;
+          }
+        }
+
+        .printButton {
+          button {
+            padding: 5px 20px 5px 20px;
+            background: none;
+            text-decoration: none;
+            border: 2px solid #838894;
+            border-radius: 6px;
+          }
+        }
+      }
+    }
+  }
+}

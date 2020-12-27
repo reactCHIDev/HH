@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #e9eaed;
 
   .qty {
     width: 10%;
@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: row;
   padding: 10px 0 10px 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #e9eaed;
   align-items: center;
 
   .mainInfo {
@@ -41,16 +41,51 @@
 
   .qty {
     width: 10%;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    color: #31394d;
   }
 
   .price {
     width: 10%;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    color: #31394d;
+  }
+
+  .name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    color: #31394d;
+  }
+
+  .id {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    color: #5375cb;
   }
 
   .total {
     width: 10%;
     display: flex;
     justify-content: flex-end;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    color: #31394d;
   }
 
   .productImage {

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import MainInfo from './MainInfo'
-import Soon from 'components/ComingSoon'
+import PaymentInfo from './PaymentInfo'
 import styles from './orderinfo.module.scss'
 import './orderinfo.less'
 
@@ -26,7 +26,7 @@ const OrderInfo = (props) => {
       <TabsUnderlined
         tabs={{
           'Main Info': { mark: false, content: <MainInfo orderHash={orderHash} /> },
-          'Payment Info': { mark: false, content: <Soon /> },
+          'Payment Info': { mark: false, content: <PaymentInfo orderHash={orderHash} /> },
         }}
       />
       <div className={styles.content} />
