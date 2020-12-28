@@ -8,7 +8,9 @@ function BillingHistory() {
 
   return (
     <div className={styles.container}>
-      <Table billings={billings} />
+      <div className={styles.table_scroller}>
+        <Table billings={billings} />
+      </div>
     </div>
   )
 }
