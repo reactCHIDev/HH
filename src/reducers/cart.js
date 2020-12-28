@@ -8,6 +8,7 @@ import {
   INC_PRODUCT_AMOUNT,
   DEC_PRODUCT_AMOUNT,
   CHANGE_DELIVERY_TYPE,
+  ADD_ITEM_TO_ORDER,
 } from '../actions/constants'
 
 const initialState = {
@@ -20,12 +21,14 @@ const initialState = {
 const gc = (state) => {
   const shopToDelete = Object.keys(state.orders).find((key) => state.orders[key].length === 0)
   const newState = cloneDeep(state)
-  newState.totalPrice =
-    newState.totalPrice -
-    newState.shopsData[shopToDelete].price -
-    newState.shopsData[shopToDelete].delivery.price
-  delete newState.orders[shopToDelete]
-  delete newState.shopsData[shopToDelete]
+  if (shopToDelete) {
+    newState.totalPrice =
+      newState.totalPrice -
+      newState.shopsData[shopToDelete].price -
+      newState.shopsData[shopToDelete].delivery.price
+    delete newState.orders[shopToDelete]
+    delete newState.shopsData[shopToDelete]
+  }
   return newState
 }
 
@@ -51,6 +54,14 @@ const reducer = function cartReducer(state = initialState, action) {
             (e) => e.title !== action.data.title,
           ),
         },
+        shopsData: {
+          ...state.shopsData,
+          [action.data.shopTitle]: {
+            ...state.shopsData[action.data.shopTitle],
+            price: state.shopsData[action.data.shopTitle].price - action.data.price,
+          },
+        },
+        totalPrice: state.totalPrice - action.data.price,
       }
       return gc(newState)
 
@@ -130,6 +141,19 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice:
           state.totalPrice - state.shopsData[action.data.shop].delivery.price + action.data.price,
+      }
+
+    case ADD_ITEM_TO_ORDER:
+      return {
+        ...state,
+        shopsData: {
+          ...state.shopsData,
+          [action.data.shop]: {
+            ...state.shopsData[action.data.shop],
+            price: state.shopsData[action.data.shop].price + action.data.price,
+          },
+        },
+        totalPrice: state.totalPrice + action.data.price,
       }
 
     default:

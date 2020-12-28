@@ -22,9 +22,8 @@ function Product({ orders, title, shop }) {
 
   return (
     <div className={styles.container}>
-      <Heading title={title} />
+      <Heading shop={orders[0].shop} />
       <Table data={data} requestSort={requestSort} />
-
       <ProductSummary shop={shop} title={title} />
     </div>
   )

@@ -1,22 +1,23 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
+import { Link } from 'react-router-dom'
+
 import styles from '../../product.module.scss'
 
-function Heading({ title }) {
+function Heading({ shop }) {
+  const { shopUrl, title } = shop
   return (
     <div className={styles.headingWrapper}>
       <div className={styles.shopName}>
         <p>{title}</p>
       </div>
-      <button type="button" className={styles.shopButton}>
-        VIEW SHOP
-      </button>
+      <Link to={`shop/${shopUrl.split('/').pop()}`}>
+        <button type="button" className={styles.shopButton}>
+          VIEW SHOP
+        </button>
+      </Link>
     </div>
   )
-}
-
-Heading.propTypes = {
-  title: T.string.isRequired,
 }
 
 export default Heading
