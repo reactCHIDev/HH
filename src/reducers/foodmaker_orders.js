@@ -67,7 +67,7 @@ const initialState = {
   orders: mockdata,
 }
 
-const reducer = function accountReducer(state = initialState, action) {
+const reducer = function foodmakerReducer(state = initialState, action) {
   switch (action.type) {
     case GET_FOODMAKER_ORDERS_REQUESTING:
       return {

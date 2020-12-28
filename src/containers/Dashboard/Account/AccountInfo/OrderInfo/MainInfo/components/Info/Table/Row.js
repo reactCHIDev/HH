@@ -1,19 +1,20 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styles from './table.module.scss'
 
-function Row() {
+function Row({ item }) {
   return (
     <div className={styles.rowWrapper}>
       <div className={styles.mainInfo}>
         <div className={styles.productImage} style={{ backgroundImage: `url('${''})` }} />
         <div>
-          <div>Pie with carrots, apple and cinnamon</div>
-          <div>#343243</div>
+          <div className={styles.name}>{item.productName}</div>
+          <div className={styles.id}>#{item.id}</div>
         </div>
       </div>
-      <div className={styles.qty}>6</div>
-      <div className={styles.price}>$ 8.00</div>
-      <div className={styles.total}>$ 48.00</div>
+      <div className={styles.qty}>{item.quantity}</div>
+      <div className={styles.price}>$ {item.price}</div>
+      <div className={styles.total}>$ {item.total}</div>
     </div>
   )
 }
