@@ -1,11 +1,10 @@
 .container {
   width: 100%;
   display: flex;
-  margin-bottom: 10px;
   border-bottom: 1px solid #dcdde1;
 
   .headingsWrapper {
-    width: 50%;
+    width: 75%;
     display: flex;
     justify-content: space-between;
     font-size: 12px;
@@ -19,33 +18,39 @@
     }
 
     .time {
-      width: 20%;
+      width: 10%;
+      min-width: 75px;
     }
 
     .id {
-      width: 17%;
+      width: 10%;
+      min-width: 70px;
     }
 
     .items {
-      width: 13%;
+      width: 10%;
+      min-width: 60px;
     }
 
     .amount {
-      width: 15%;
+      width: 10%;
+      min-width: 65px;
     }
 
     .delivery {
-      width: 15%;
+      width: 10%;
+      min-width: 70px;
     }
 
     .status {
-      width: 15%;
+      width: 10%;
+      min-width: 60px;
     }
   }
 
   .lastSection {
     display: flex;
     justify-content: flex-end;
-    width: 50%;
+    width: 25%;
   }
 }

@@ -58,6 +58,7 @@ const Header = (props) => {
     '/exp_dashboard',
     '/fm_order_info',
     '/account_info',
+    '/order_info',
     '/addproduct',
     '/editproduct',
     '/shop/',

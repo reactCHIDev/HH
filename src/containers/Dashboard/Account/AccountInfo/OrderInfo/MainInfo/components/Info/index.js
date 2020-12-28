@@ -9,7 +9,9 @@ function Info({ setIsCancelModalShowm, orderInfo, total, shopName }) {
   return (
     <div className={styles.container}>
       <Header shopName={shopName} />
-      <Table orderInfo={orderInfo} />
+      <div className={styles.table_scroller}>
+        <Table orderInfo={orderInfo} />
+      </div>
       <Options setIsCancelModalShowm={setIsCancelModalShowm} total={total} />
     </div>
   )

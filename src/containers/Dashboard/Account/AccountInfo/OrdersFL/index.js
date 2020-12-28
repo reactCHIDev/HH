@@ -27,18 +27,20 @@ const OrdersFL = () => {
 
   return (
     <>
-      <div>
-        {data ? (
-          <div className={styles.container}>
-            <Header requestSort={requestSort} />
-            {data.map((item) => (
-              <Row item={item} key={item.id} />
-            ))}
-            <div className={styles.pastOrders}>
-              <div onClick={loadMoreHandler}>&#8634; past orders</div>
+      <div className={styles.main_wrapper}>
+        <div className={styles.container}>
+          {data ? (
+            <div className={styles.table_wrapper}>
+              <Header requestSort={requestSort} />
+              {data.map((item) => (
+                <Row item={item} key={item.id} />
+              ))}
+              <div className={styles.pastOrders}>
+                <div onClick={loadMoreHandler}>&#8634; past orders</div>
+              </div>
             </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
     </>
   )
