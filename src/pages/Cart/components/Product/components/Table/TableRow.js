@@ -16,7 +16,13 @@ function TableRow({ item }) {
   }
 
   const deleteProduct = () => {
-    dispatch(deleteItemFromProducts({ title: item.title, shopTitle: item.shop.title }))
+    dispatch(
+      deleteItemFromProducts({
+        title: item.title,
+        shopTitle: item.shop.title,
+        price: item.price * item.total,
+      }),
+    )
   }
   return (
     <tr key={item.id} className={styles.tableRow}>
