@@ -37,9 +37,7 @@ const MainOrderInfo = (props) => {
         deliveryStatus={orderInfo.status}
       />
       <div className={styles.content}>
-        <div className={styles.makerInfoWrapper}>
-          <Maker info={orderInfo.foodmakerInfo} />
-        </div>
+        <Maker info={orderInfo.foodmakerInfo} />
         <Info
           setIsCancelModalShowm={setIsCancelModalShowm}
           orderInfo={orderInfo.orderInfo}

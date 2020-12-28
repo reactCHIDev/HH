@@ -1,16 +1,26 @@
 .container {
-  padding: 20px 10% 0 10%;
+  padding: 20px 30px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1260px;
+  @media (max-width: 768px) {
+    padding: 20px 20px;
+  }
 
   .content {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     border-bottom: 1px solid #dcdde1;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
 
     .detailsWrapper {
       display: flex;
       flex-direction: column;
       margin-right: 10px;
-      width: 40%;
+      margin-bottom: 32px;
 
       .heading {
         font-weight: bold;
@@ -25,6 +35,9 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        @media (max-width: 1024px) {
+          justify-content: flex-start;
+        }
 
         .item {
           display: flex;
@@ -52,12 +65,15 @@
 
     .invoiceWrapper {
       display: flex;
+      width: 60%;
       flex-direction: column;
-      width: 70%;
       background: #f5f8fb;
       border-radius: 16px;
       padding: 30px;
       margin-bottom: 50px;
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
 
       .heading {
         display: flex;
@@ -84,6 +100,9 @@
         display: flex;
         flex-direction: row;
         margin-bottom: 20px;
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
 
         .column {
           width: 50%;
@@ -94,6 +113,7 @@
           letter-spacing: 0.5px;
           text-transform: capitalize;
           color: #31394d;
+          margin-bottom: 20px;
 
           .header {
             font-size: 12px;
@@ -109,10 +129,19 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        @media (max-width: 768px) {
+          flex-direction: column;
+          align-items: flex-start;
+        }
 
         .foodMakerInfo {
           display: flex;
           flex-direction: row;
+          @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+          }
 
           .foodMakerName {
             margin-right: 50px;
