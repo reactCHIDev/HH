@@ -12,7 +12,6 @@
 
       p {
         margin: 0;
-        margin-left: 35px;
       }
     }
 
@@ -26,43 +25,177 @@
 
   .tableRow {
     border-bottom: 1px solid #eaebed;
-
-    .firstColumn {
-      margin-left: 35px;
-      display: flex;
-      align-items: center;
-
-      .productImage {
-        width: 66px;
-        height: 66px;
-        background: yellow;
-        margin: 20px 10px 20px 0;
-        border-radius: 12px;
-        position: relative;
-        overflow: hidden;
-        background-size: cover;
-        background-position: 50% 0;
-      }
-
-      .hitProduct {
-        position: absolute;
-        background: #7ad398;
-        color: white;
-        top: 10px;
-        left: -10px;
-        padding: 3px 10px;
-        font-size: 12px;
-        border-radius: 6px;
-      }
+    display: flex;
+    @media (max-width: 1024px) {
+      flex-direction: column;
     }
 
-    .deleteIcon {
-      margin-right: 35px;
-      padding: 5px 0px;
-      border: 1px solid black;
-      text-align: center;
-      border-radius: 7px;
-      cursor: pointer;
+    .upperrow {
+      width: 70%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      border: 1px solid green;
+
+      .firstColumn {
+        display: flex;
+        align-items: center;
+
+        .productImage {
+          width: 66px;
+          height: 66px;
+          background: yellow;
+          margin: 20px 10px 20px 0;
+          border-radius: 12px;
+          position: relative;
+          overflow: hidden;
+          background-size: cover;
+          background-position: 50% 0;
+        }
+
+        .hitProduct {
+          position: absolute;
+          background: #7ad398;
+          color: white;
+          top: 10px;
+          left: -10px;
+          padding: 3px 10px;
+          font-size: 12px;
+          border-radius: 6px;
+        }
+
+        .upper_subrow {
+          display: flex;
+          align-items: center;
+          min-width: 430px;
+          border: 1px solid red;
+
+          .productName {
+            width: 30%;
+            min-width: 330px;
+            font-size: 16px;
+            text-transform: capitalize;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 26px;
+            letter-spacing: 0.5px;
+            color: #31394d;
+          }
+
+          .productCode {
+            font-size: 14px;
+            font-weight: bold;
+            color: #5375cb;
+          }
+          .order_qty {
+            width: 10%;
+            min-width: 60px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+            color: #31394d;
+          }
+        }
+      }
+      .quanityContainer {
+        width: 30%;
+        min-width: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .quanityWrapper {
+          display: flex;
+          align-items: stretch;
+          width: 120px;
+          height: 40px;
+          border: 1px solid rgba(49, 57, 77, 0.2);
+          align-items: center;
+          justify-content: space-around;
+          border-radius: 6px;
+          user-select: none;
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          color: #31394d;
+
+          .quantity {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 34%;
+            height: 100%;
+            text-align: center;
+            border-left: 1px solid rgba(49, 57, 77, 0.2);
+            border-right: 1px solid rgba(49, 57, 77, 0.2);
+          }
+
+          .sign {
+            width: 33%;
+            text-align: center;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .lowerrow {
+      width: 30%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border: 1px solid green;
+      .gray_wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        background: #f8f8f8;
+        border-radius: 7px;
+        padding: 7px;
+
+        .price {
+          width: 50%;
+          min-width: 50px;
+          font-weight: bold;
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          text-transform: capitalize;
+          text-align: center;
+          color: #31394d;
+        }
+        .total {
+          width: 50%;
+          min-width: 50px;
+          font-weight: bold;
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          text-transform: capitalize;
+          text-align: center;
+          color: #31394d;
+        }
+      }
+      .delete_container {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        min-width: 50px;
+        .deleteIcon {
+          margin: auto;
+          width: 34px;
+          height: 34px;
+          padding: 5px;
+          border: 2px solid rgba(49, 57, 77, 0.2);
+          text-align: center;
+          border-radius: 7px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
     }
   }
 
@@ -89,41 +222,6 @@
     .icondesc2 {
       opacity: 1;
       margin-bottom: 0px;
-    }
-  }
-
-  .productName {
-    font-size: 16px;
-    text-transform: capitalize;
-    color: #31394d;
-  }
-
-  .productCode {
-    font-size: 14px;
-    font-weight: bold;
-    color: #5375cb;
-  }
-
-  .quanityWrapper {
-    display: flex;
-    border: 1px solid rgba(49, 57, 77, 0.2);
-    width: 60%;
-    align-items: center;
-    justify-content: space-around;
-    border-radius: 6px;
-    user-select: none;
-
-    .quantity {
-      width: 34%;
-      text-align: center;
-      border-left: 1px solid rgba(49, 57, 77, 0.2);
-      border-right: 1px solid rgba(49, 57, 77, 0.2);
-    }
-
-    .sign {
-      width: 33%;
-      text-align: center;
-      cursor: pointer;
     }
   }
 }
