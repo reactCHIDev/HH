@@ -29,7 +29,7 @@ const ExperienceDashboard = (props) => {
         tabs={{
           overview: { mark: false, disabled: true, content: <Soon /> },
           listings: { mark: false, content: <Listings /> },
-          orders: { mark: false, disabled: true, content: <OrdersFM /> },
+          orders: { mark: false, disabled: false, content: <OrdersFM /> },
           reviews: { mark: false, disabled: true, content: <Soon /> },
           performance: { mark: false, disabled: true, content: <Soon /> },
           profile: { mark: false, content: <ProfileTab profileName={profileName} /> },
