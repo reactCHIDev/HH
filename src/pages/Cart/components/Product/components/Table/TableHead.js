@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import cls from 'classnames'
 import styles from './table.module.scss'
 import SortingElement from './SortingElement'
 
@@ -31,9 +32,9 @@ function TableHead({ requestSort }) {
   const [sorterOrder, setSorterOrder] = React.useState(false)
 
   return (
-    <thead className={styles.tableHead}>
-      <tr>
-        <th className={styles.firstColumn}>
+    <div className={styles.tableHead}>
+      <div className={styles.firstColumn}>
+        <div className={styles.nameWrapper}>
           <div
             className={styles.headingWrapper}
             onClick={() => {
@@ -45,23 +46,55 @@ function TableHead({ requestSort }) {
             <p>Name</p>
             <SortingElement type={sorterOrder} isSort={sortedColumn === 'Name'} />
           </div>
-        </th>
-        {headings.map((item) => (
-          <th key={item.id}>
-            <div
-              className={styles.headingWrapper}
-              onClick={() => {
-                setSortedColumn(item.name)
-                setSorterOrder(!sorterOrder)
-                requestSort(item.sort)
-              }}
-            >
-              {item.name} <SortingElement isSort={sortedColumn === item.name} type={sorterOrder} />
-            </div>
-          </th>
-        ))}
-      </tr>
-    </thead>
+
+          <div
+            className={cls(styles.headingWrapper, styles.quantity)}
+            onClick={() => {
+              setSortedColumn('Selected value')
+              setSorterOrder(!sorterOrder)
+              requestSort('selectedValue')
+            }}
+          >
+            Selected value{' '}
+            <SortingElement isSort={sortedColumn === 'Selected value'} type={sorterOrder} />
+          </div>
+        </div>
+        <div
+          className={cls(styles.headingWrapper, styles.quantity)}
+          onClick={() => {
+            setSortedColumn('Quantity')
+            setSorterOrder(!sorterOrder)
+            requestSort('quantity')
+          }}
+        >
+          Quantity <SortingElement isSort={sortedColumn === 'Quantity'} type={sorterOrder} />
+        </div>
+      </div>
+      <div className={styles.priceWrapper}>
+        <div
+          className={cls(styles.headingWrapper, styles.price)}
+          onClick={() => {
+            setSortedColumn('Price')
+            setSorterOrder(!sorterOrder)
+            requestSort('price')
+          }}
+        >
+          Price <SortingElement isSort={sortedColumn === 'Price'} type={sorterOrder} />
+        </div>
+
+        <div
+          className={cls(styles.headingWrapper, styles.total)}
+          onClick={() => {
+            setSortedColumn('Total')
+            setSorterOrder(!sorterOrder)
+            requestSort('total')
+          }}
+        >
+          'Total' <SortingElement isSort={sortedColumn === 'Total'} type={sorterOrder} />
+        </div>
+      </div>
+      <div className={cls(styles.headingWrapper, styles.placeholder)} />
+    </div>
   )
 }
 
