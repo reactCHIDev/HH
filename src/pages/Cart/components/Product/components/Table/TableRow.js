@@ -42,9 +42,12 @@ function TableRow({ item }) {
               <div className={styles.productName}>{item.title}</div>
               <div className={styles.productCode}>#{item.id}</div>
             </div>
-            <div
-              className={styles.order_qty}
-            >{`${item.parameters[0].volume}  ${item.parameters[0].measure}`}</div>
+            <div className={styles.qty_wrapper}>
+              <div className={styles.selected_value}>Selected value:</div>
+              <div
+                className={styles.order_qty}
+              >{`${item.parameters[0].volume}  ${item.parameters[0].measure}`}</div>
+            </div>
           </div>
         </div>
 
@@ -74,7 +77,9 @@ function TableRow({ item }) {
       </div>
       <div className={styles.lowerrow}>
         <div className={styles.gray_wrapper}>
+          <div className={styles.price_title}>Price:</div>
           <div className={styles.price}>${item.price}</div>
+          <div className={styles.total_title}>Total:</div>
           <div className={styles.total}>${item.price * item.total}</div>
         </div>
         <div className={styles.delete_container}>

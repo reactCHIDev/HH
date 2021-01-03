@@ -7,13 +7,11 @@ import TableHead from './TableHead'
 
 function Table({ data, requestSort }) {
   return data ? (
-    <div>
-      <div className={styles.tableWrapper}>
-        <TableHead requestSort={requestSort} />
-        {data.map((item) => (
-          <TableRow key={item.id} item={item} />
-        ))}
-      </div>
+    <div className={styles.tableWrapper}>
+      <TableHead requestSort={requestSort} />
+      {data.map((item) => (
+        <TableRow key={item.id} item={item} />
+      ))}
     </div>
   ) : null
 }

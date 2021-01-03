@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import cls from 'classnames'
 import { changeDeliveryType } from 'actions/cart'
 import styles from '../../product.module.scss'
 
@@ -87,7 +88,7 @@ function ProductSummary({ shop, title }) {
             </div>
           </div>
         ) : null}
-        <div className={styles.textWrapper}>
+        <div className={cls(styles.textWrapper, styles.progress)}>
           <p className={styles.regularText}>
             {curVal.amountToFree - price > 0 ? (
               <>

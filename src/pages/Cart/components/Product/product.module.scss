@@ -12,6 +12,10 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  order: 0;
+  @media (max-width: 1024px) {
+    order: 0;
+  }
 
   .shopName {
     font-size: 32px;
@@ -42,11 +46,21 @@
   }
 }
 
+.progress {
+  display: block;
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
 .informationWrapper {
   display: flex;
   flex-direction: row;
   padding: 30px;
   justify-content: space-between;
+  order: 2;
+  @media (max-width: 1024px) {
+    order: 1;
+  }
 
   .orderDetails {
     display: flex;
@@ -75,6 +89,7 @@
       .deliveryType {
         font-weight: bold;
         color: #5375cb;
+        cursor: pointer;
       }
 
       .freeShipping {
@@ -101,5 +116,8 @@
     font-size: 14px;
     letter-spacing: 0.5px;
     color: #838894;
+    @media (max-width: 1024px) {
+      display: none;
+    }
   }
 }
