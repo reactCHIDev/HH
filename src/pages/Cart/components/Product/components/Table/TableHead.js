@@ -90,7 +90,7 @@ function TableHead({ requestSort }) {
             requestSort('total')
           }}
         >
-          'Total' <SortingElement isSort={sortedColumn === 'Total'} type={sorterOrder} />
+          Total <SortingElement isSort={sortedColumn === 'Total'} type={sorterOrder} />
         </div>
       </div>
       <div className={cls(styles.headingWrapper, styles.placeholder)} />
