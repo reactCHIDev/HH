@@ -5,7 +5,7 @@
   border-bottom: 1px solid #dcdde1;
 
   .headingsWrapper {
-    width: 40%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
     font-size: 12px;
@@ -15,28 +15,28 @@
 
     .date {
       width: 10%;
-      min-width: 75px;
+      min-width: 90px;
     }
 
     .amount {
       width: 10%;
-      min-width: 65px;
+      min-width: 90px;
     }
 
     .method {
       width: 20%;
-      min-width: 70px;
+      min-width: 100px;
     }
 
     .status {
       width: 20%;
-      min-width: 60px;
+      min-width: 100px;
     }
   }
 
   .lastSection {
     display: flex;
     justify-content: flex-end;
-    width: 60%;
+    width: 40%;
   }
 }
