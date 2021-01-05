@@ -55,6 +55,10 @@ export default {
   // Stripe
   stripe: '/v1/stripe/create_payment',
 
+  // Order
+  order: '/v1/order/create',
+  charge: '/v1/stripe/charge',
+
   //
   //
   //
