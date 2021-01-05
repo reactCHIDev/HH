@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { createOrderRequestrinAc } from 'actions/order'
+import AdressForm from 'pages/Cart/components/AdressForm'
+import Modal from 'components/UniversalModal'
 import styles from './settings.module.scss'
 
 function Settings({ price }) {
-  const dispatch = useDispatch()
+  const [modal, setModal] = React.useState(false)
 
   const handler = () => {
-    dispatch(createOrderRequestrinAc())
+    setModal(true)
   }
+
+  const closeModal = () => {
+    setModal(false)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.backTextWrapper}>
@@ -29,6 +34,11 @@ function Settings({ price }) {
           </button>
         </div>
       </div>
+      {modal && (
+        <Modal closeFunc={closeModal} option>
+          <AdressForm closeFunc={closeModal} />
+        </Modal>
+      )}
     </div>
   )
 }
