@@ -9,6 +9,7 @@ import {
   DEC_PRODUCT_AMOUNT,
   CHANGE_DELIVERY_TYPE,
   ADD_ITEM_TO_ORDER,
+  CREATE_ORDER_SUCCESS,
 } from '../actions/constants'
 
 const initialState = {
@@ -154,6 +155,15 @@ const reducer = function cartReducer(state = initialState, action) {
           },
         },
         totalPrice: state.totalPrice + action.data.price,
+      }
+
+    case CREATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        products: [],
+        shopsData: {},
+        orders: {},
+        totalPrice: 0,
       }
 
     default:

@@ -33,6 +33,7 @@ function* basketFlow({ data }) {
       type: 'standart',
       price: 20,
     }
+    console.log(deliveryMethods, 'DM')
     const newPrice = price * (amount || 1)
     yield put({
       type: SET_SHOP_DATA,
