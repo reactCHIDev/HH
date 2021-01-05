@@ -1,6 +1,7 @@
 import React from 'react'
 import T from 'prop-types'
 import { Rate } from 'antd'
+import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import styles from './fmcard.module.scss'
 
 const FMCard = (props) => {
@@ -28,13 +29,13 @@ const FMCard = (props) => {
             <div
               className={styles.img_box_frame}
               style={{ backgroundImage: `url("${coverPhoto}")` }}
-            ></div>
+            />
           </li>
           <li>
             <div
               className={styles.img_box_frame}
               style={{ backgroundImage: `url("${otherPhotos[0]}")` }}
-            ></div>
+            />
           </li>
           <li>
             <div
@@ -48,7 +49,7 @@ const FMCard = (props) => {
         <div className={styles.local_bottom_box}>
           <div className={styles.local_avatar_info} onClick={openFoodmaker}>
             <div className={styles.local_avatar_box}>
-              <img src={userPhoto} alt="avatar" />
+              {userPhoto ? <img src={userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
             </div>
             <p className={styles.local_name}>
               {firstName}
