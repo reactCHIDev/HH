@@ -8,7 +8,7 @@ function OrderInfo({ order }) {
       {/* Header */}
       <div className={styles.statusWrapper}>
         <div className={styles.status}>Status: </div>
-        <div className={styles.statusType}>{order.status}</div>
+        <div className={styles.statusType}>{`status`}</div>
       </div>
       {/* Order */}
       <div className={styles.orderWrapper}>

@@ -8,8 +8,9 @@ import {
 } from '../actions/constants'
 
 function* getFoodmakerOrdersSaga() {
+  console.log('%c   saga   ', 'color: white; background: salmon;')
   try {
-    const response = yield getFoodmakerOrdersReq()
+    const response = yield getFoodmakerOrdersReq({ startD: '2021-01-01', endD: '2021-12-31' })
     yield put({ type: GET_FOODMAKER_ORDERS_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {

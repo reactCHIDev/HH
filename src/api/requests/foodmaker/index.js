@@ -8,4 +8,13 @@ export const updateFoodmakerAccountReq = (data) =>
   apiClient.patch(PATHS.updateFoodmakerAccount, { data })
 
 // foodmaker orders
-export const getFoodmakerOrdersReq = (id) => apiClient.get(PATHS.getFoodmakerInfo + id)
+export const getFoodmakerOrdersReq = ({ startD = '2021-01-01', endD = '2021-12-31' }) => {
+  const startDate = `startDate=${startD}`
+  const endDate = `endDate=${endD}`
+
+  const params = `?${startDate}&${endDate}`
+
+  return apiClient.get(PATHS.fm_orders + params)
+}
+
+export const getFoodmakerOrderInfoReq = (id) => apiClient.get(PATHS.fmOrderInfo + id)

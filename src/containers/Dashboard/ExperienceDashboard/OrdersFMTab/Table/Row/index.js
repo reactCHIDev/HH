@@ -21,7 +21,7 @@ function index({ item }) {
           <div className={styles.status}>{item.status}</div>
         </div>
         <div className={styles.lastSection}>
-          <Link to={`/fm_order_info/${item.id}`}>
+          <Link to={{ pathname: '/fm_order_info', state: item }}>
             <button type="button"> {'>'} </button>
           </Link>
         </div>

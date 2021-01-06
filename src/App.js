@@ -182,16 +182,8 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 path="/account_info/:activeTab?"
                 component={WaitingComponent(AccountInfo)}
               />
-              <PrivateRoute
-                exact
-                path="/order_info/:orderHash?"
-                component={WaitingComponent(OrderInfo)}
-              />
-              <PrivateRoute
-                exact
-                path="/fm_order_info/:orderHash?"
-                component={WaitingComponent(OrderFMInfo)}
-              />
+              <PrivateRoute exact path="/order_info" component={WaitingComponent(OrderInfo)} />
+              <PrivateRoute exact path="/fm_order_info" component={WaitingComponent(OrderFMInfo)} />
               {/* <PrivateRoute
               exact
               path="/foodmaker_profile"

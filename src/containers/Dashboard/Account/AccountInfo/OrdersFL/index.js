@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import React from 'react'
+import React, { useEffect } from 'react'
 import useSortableData from 'hooks/useSortable'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getFoodloverOrdersAC } from 'actions/foodlover-orders'
 
 import Header from './Table/Header'
 import Row from './Table/Row'
@@ -9,8 +10,12 @@ import styles from './ordersfl.module.scss'
 
 const OrdersFL = () => {
   const orders = useSelector((state) => state.flOrders.orders)
-
   const [data, setData] = React.useState()
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getFoodloverOrdersAC())
+  }, [])
 
   const { items, requestSort } = useSortableData(orders, {
     key: 'time',

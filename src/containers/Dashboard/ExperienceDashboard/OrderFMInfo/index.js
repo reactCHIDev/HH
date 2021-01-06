@@ -8,7 +8,10 @@ import MainInfo from './MainInfo'
 import styles from './orderinfo.module.scss'
 
 const OrderFMInfo = (props) => {
-  const { replaceRoute } = props
+  const {
+    replaceRoute,
+    location: { state: order },
+  } = props
   const { orderHash } = useParams()
 
   const goBack = () => {
@@ -18,7 +21,7 @@ const OrderFMInfo = (props) => {
   return (
     <div className={styles.container}>
       <SubHeader linkTo="/exp_dashboard/orders" onBack={goBack} title={`order ${orderHash}`} />
-      <MainInfo orderHash={orderHash} />
+      <MainInfo order={order} />
       <div className={styles.content} />
     </div>
   )

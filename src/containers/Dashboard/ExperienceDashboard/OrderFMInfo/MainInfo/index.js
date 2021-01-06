@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import T from 'prop-types'
-import { useSelector } from 'react-redux'
-
+import { getFoodmakerOrderInfoReq } from 'api/requests/foodmaker'
 import styles from './maininfo.module.scss'
 import OrderInfo from './OrderInfo'
 import Chat from './Chat'
 
-const MainOrderInfo = (props) => {
-  const { orderHash } = props
-  const order = useSelector((state) => state.fmOrders.orders).find((e) => e.id === orderHash)
+const MainOrderInfo = ({ order }) => {
+  useEffect(() => {
+    getFoodmakerOrderInfoReq(order.id)
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -21,7 +21,7 @@ const MainOrderInfo = (props) => {
 }
 
 MainOrderInfo.propTypes = {
-  orderHash: T.string,
+  order: T.shape(),
 }
 
 export default MainOrderInfo
