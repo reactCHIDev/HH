@@ -29,15 +29,22 @@ function* basketFlow({ data }) {
     const {
       data: { deliveryMethods, title: shopTitle },
     } = yield getShopByUrlReq(shop.shopUrl)
-    const delivery = {
-      type: 'standart',
-      price: 20,
-    }
-    console.log(deliveryMethods, 'DM')
     const newPrice = price * (amount || 1)
+
+    const methods = deliveryMethods.map(({ freeDeliveryOver, note, price: delPrice, type }) => ({
+      freeDeliveryOver: freeDeliveryOver || 0,
+      note: note || '',
+      delPrice: delPrice || 0,
+      type: type || '',
+    }))
+
+    const delivery = {
+      type: methods[0].type,
+      price: methods[0].delPrice,
+    }
     yield put({
       type: SET_SHOP_DATA,
-      data: { deliveryMethods, price: newPrice, shopTitle, delivery },
+      data: { deliveryMethods: methods, price: newPrice, shopTitle, delivery },
     })
   } else {
     yield put({ type: ADD_ITEM_TO_ORDER, data: { shop: shop.title, price } })
@@ -45,11 +52,16 @@ function* basketFlow({ data }) {
 
   if (shop.title in orders) {
     const newState = cloneDeep(orders)
-    newState[shop.title].push({ ...data, ...{ total: amount || 1 } })
+    newState[shop.title].push({
+      ...data,
+      ...{ total: amount || 1, totalPrice: (amount || 1) * price },
+    })
     yield put({ type: SET_ITEM_IN_ORDERS, newState })
   } else {
     const newState = cloneDeep(orders)
-    newState[shop.title] = [{ ...data, ...{ total: amount || 1 } }]
+    newState[shop.title] = [
+      { ...data, ...{ total: amount || 1 }, totalPrice: (amount || 1) * price },
+    ]
     yield put({ type: SET_ITEM_IN_ORDERS, newState })
   }
 }
