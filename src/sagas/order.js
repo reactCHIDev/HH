@@ -27,11 +27,7 @@ const superCard = {
   country: 'HK',
 }
 
-<<<<<<< HEAD
-function* createOrderRequest() {
-=======
-function* createOrderReqeust({ data }) {
->>>>>>> develop
+function* createOrderRequest({ data }) {
   const getOrdersData = (store) => store.cart
   const getAccountData = (store) => store.account
   console.log(data)
