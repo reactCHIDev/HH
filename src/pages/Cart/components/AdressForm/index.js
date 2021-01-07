@@ -12,8 +12,7 @@ const AdressForm = ({ closeFunc }) => {
   const dispatch = useDispatch()
 
   const onSubmit = (adressData) => {
-    console.log(adressData)
-    dispatch(createOrderRequestrinAc())
+    dispatch(createOrderRequestrinAc(adressData))
     closeFunc()
   }
 

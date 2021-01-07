@@ -5,20 +5,18 @@ import cls from 'classnames'
 import { changeDeliveryType } from 'actions/cart'
 import styles from '../../product.module.scss'
 
-const data = [
-  { type: 'STANDART', price: 20, amountToFree: 200 },
-  { type: 'EXPRESS', price: 40, amountToFree: 400 },
-  { type: 'SUPER', price: 60, amountToFree: 500 },
-]
-
 function ProductSummary({ shop, title }) {
   const dispatch = useDispatch()
   const { price } = shop
-  const delType = useSelector((state) => state.cart.shopsData[title].delivery.type)
+  const deliveryPrice = useSelector((state) => state.cart.shopsData[title].delivery.price)
+
+  const delTypes = useSelector((state) => state.cart.shopsData[title].methods)
+  const curDelType = useSelector((state) => state.cart.shopsData[title].delivery)
 
   const [curVal, setCurValue] = React.useState(
-    data.filter((e) => e.type === delType.toUpperCase())[0],
+    delTypes.filter((e) => e.type === curDelType.type)[0],
   )
+
   const [dataToShow, setDataToShow] = React.useState()
   const [isDataShown, setIsDataShown] = React.useState(false)
 
@@ -27,7 +25,7 @@ function ProductSummary({ shop, title }) {
   }
 
   React.useEffect(() => {
-    setDataToShow(data.filter((e) => e.type !== curVal.type))
+    setDataToShow(delTypes.filter((e) => e.type !== curVal.type))
   }, [curVal])
 
   return (
@@ -37,7 +35,7 @@ function ProductSummary({ shop, title }) {
           <p className={styles.regularText} style={{ marginBottom: '10px' }}>
             Subtotal with delivery:{' '}
             <span className={styles.mainAmount}>
-              {`$ ${curVal.amountToFree >= price ? price + curVal.price : price}.`}
+              {`$ ${curVal.freeDeliveryOver >= price ? price + curVal.delPrice : price}.`}
             </span>
             <span className={styles.secondaryAmount}>00</span>
           </p>
@@ -50,8 +48,18 @@ function ProductSummary({ shop, title }) {
           >
             <p className={styles.regularText}>
               Delivery:{' '}
-              <span className={styles.deliveryType}>{`${curVal.type} $${curVal.price}`}</span>
-              <span>{'>'}</span>
+              {curVal.delPrice ? (
+                <>
+                  <span className={styles.deliveryType}>
+                    {`${curVal.type} $${curVal.delPrice}`}
+                  </span>
+                  <span>{'>'}</span>
+                </>
+              ) : (
+                <>
+                  <span className={styles.deliveryType}>{`${curVal.type}`}</span>
+                </>
+              )}
             </p>
             <div
               style={
@@ -71,7 +79,7 @@ function ProductSummary({ shop, title }) {
                   onClick={() => {
                     setCurValue(item)
                     setIsDataShown(false)
-                    changeType(item.type, item.price)
+                    changeType(item.type, item.delPrice)
                   }}
                   key={item.type}
                   style={{
@@ -80,41 +88,53 @@ function ProductSummary({ shop, title }) {
                 >
                   <p className={styles.regularText}>
                     Delivery:{' '}
-                    <span className={styles.deliveryType}>{`${item.type} ${item.price}`}</span>
-                    <span>{'>'}</span>
+                    {item.delPrice ? (
+                      <>
+                        <span className={styles.deliveryType}>
+                          {`${item.type} $${item.delPrice}`}
+                        </span>
+                        <span>{'>'}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className={styles.deliveryType}>{`${item.type}`}</span>
+                      </>
+                    )}
                   </p>
                 </div>
               ))}
             </div>
           </div>
         ) : null}
-        <div className={cls(styles.textWrapper, styles.progress)}>
-          <p className={styles.regularText}>
-            {curVal.amountToFree - price > 0 ? (
-              <>
-                <span className={styles.freeShipping}>
-                  {`$${curVal.amountToFree - price} more `}
-                </span>
-                <span>for free shipping</span>
-              </>
-            ) : (
-              <p>You get a free shipping</p>
-            )}
-          </p>
-          <div className={styles.amountLoader}>
-            <div
-              className={styles.amountLoaderWidth}
-              style={{
-                width: `${
-                  (price * 100) / curVal.amountToFree > 100
-                    ? 100
-                    : (price * 100) / curVal.amountToFree
-                }%`,
-                transition: 'width linear 0.2s',
-              }}
-            />
+        {deliveryPrice ? (
+          <div className={cls(styles.textWrapper, styles.progress)}>
+            <p className={styles.regularText}>
+              {curVal.freeDeliveryOver - price > 0 ? (
+                <>
+                  <span className={styles.freeShipping}>
+                    {`$${curVal.freeDeliveryOver - price} more `}
+                  </span>
+                  <span>for free shipping</span>
+                </>
+              ) : (
+                <p>You get a free shipping</p>
+              )}
+            </p>
+            <div className={styles.amountLoader}>
+              <div
+                className={styles.amountLoaderWidth}
+                style={{
+                  width: `${
+                    (price * 100) / curVal.freeDeliveryOver > 100
+                      ? 100
+                      : (price * 100) / curVal.freeDeliveryOver
+                  }%`,
+                  transition: 'width linear 0.2s',
+                }}
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
       <div>
         <p className={styles.policyText}>
