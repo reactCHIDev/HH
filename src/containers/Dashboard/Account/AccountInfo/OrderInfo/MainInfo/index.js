@@ -7,11 +7,10 @@ import Modal from './components/Modal'
 import Info from './components/Info'
 import Maker from './components/Maker'
 
-const MainOrderInfo = (props) => {
-  const { orderHash } = props
-  const orderInfo = useSelector((state) => state.flOrders.orders).find((e) => e.id === orderHash)
-
+const MainOrderInfo = ({ order: orderInfo }) => {
   const [isCancelModalShown, setIsCancelModalShowm] = React.useState(false)
+
+  console.log('orderInfo', orderInfo)
 
   const escFunction = React.useCallback((event) => {
     if (event.keyCode === 27) {
@@ -37,7 +36,7 @@ const MainOrderInfo = (props) => {
         deliveryStatus={orderInfo.status}
       />
       <div className={styles.content}>
-        <Maker info={orderInfo.foodmakerInfo} />
+        <Maker info={orderInfo.id} />
         <Info
           setIsCancelModalShowm={setIsCancelModalShowm}
           orderInfo={orderInfo.orderInfo}

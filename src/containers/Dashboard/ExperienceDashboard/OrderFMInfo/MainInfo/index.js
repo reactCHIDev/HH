@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react'
 import T from 'prop-types'
+
 import { getFoodmakerOrderInfoReq } from 'api/requests/foodmaker'
 import styles from './maininfo.module.scss'
 import OrderInfo from './OrderInfo'
 import Chat from './Chat'
 
 const MainOrderInfo = ({ order }) => {
-  useEffect(() => {
-    getFoodmakerOrderInfoReq(order.id)
-  }, [])
-
   return (
     <div className={styles.container}>
       <div className={styles.content}>
