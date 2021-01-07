@@ -12,7 +12,7 @@ function Product({ orders, title, shop }) {
   const [data, setData] = React.useState()
 
   const { items, requestSort } = useSortableData(orders, {
-    key: 'name',
+    key: 'title',
     direction: 'ascending',
   })
 
