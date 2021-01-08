@@ -1,28 +1,38 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import styles from './row.module.scss'
 
 function index({ item }) {
+  const date = new Date(item.createdAt).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  })
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.columnsWrapper}>
-          <div className={styles.date}>{item.date}</div>
-          <div className={styles.amount}>{item.amount}</div>
-          <div className={styles.method}>{item.method}</div>
+          <div className={styles.date}>{date}</div>
+          <div className={styles.amount}>${item.amount}</div>
+          <div className={styles.method}>{`${item.brand} *${item.last4}`}</div>
           <div
             className={styles.status}
-            style={item.status === 'Successful' ? { color: '#7AD398' } : {}}
+            style={item.status === 'Successfull' ? { color: '#7AD398' } : {}}
           >
             {item.status}
           </div>
         </div>
         <div className={styles.lastSection}>
-          <Link>
-            <button type="button"> GET INVOICE </button>
-          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              window.open(item.receiptUrl, '_blank')
+            }}
+          >
+            GET INVOICE
+          </button>
         </div>
       </div>
     </>

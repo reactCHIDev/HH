@@ -7,7 +7,7 @@ import SortingElement from '../SortingElement'
 const headers = [
   {
     title: 'Date',
-    sortType: 'date',
+    sortType: 'createdAt',
     id: 0,
   },
 
@@ -18,7 +18,7 @@ const headers = [
   },
   {
     title: 'Method',
-    sortType: 'method',
+    sortType: 'brand',
     id: 4,
   },
   {
