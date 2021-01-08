@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import T from 'prop-types'
+import { getFLOrderAC } from 'actions/foodlover-orders'
 import { useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import styles from './maininfo.module.scss'
 import Header from './components/Header'
 import Modal from './components/Modal'
 import Info from './components/Info'
 import Maker from './components/Maker'
 
-const MainOrderInfo = ({ order: orderInfo }) => {
+const MainOrderInfo = ({ order, getFLOrderAC }) => {
   const [isCancelModalShown, setIsCancelModalShowm] = React.useState(false)
+  const orderInfo = order
 
-  console.log('orderInfo', orderInfo)
+  useEffect(() => {
+    getFLOrderAC(order?.id)
+  }, [order])
 
   const escFunction = React.useCallback((event) => {
     if (event.keyCode === 27) {
@@ -49,7 +54,10 @@ const MainOrderInfo = ({ order: orderInfo }) => {
 }
 
 MainOrderInfo.propTypes = {
-  orderHash: T.string,
+  order: T.shape(),
+  getFLOrderAC: T.func,
 }
 
-export default MainOrderInfo
+export default connect(null, {
+  getFLOrderAC,
+})(MainOrderInfo)

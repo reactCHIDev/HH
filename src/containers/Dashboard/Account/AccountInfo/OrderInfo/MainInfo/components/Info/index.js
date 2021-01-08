@@ -10,7 +10,7 @@ function Info({ setIsCancelModalShowm, orderInfo, total, shopName }) {
     <div className={styles.container}>
       <Header shopName={shopName} />
       <div className={styles.table_scroller}>
-        <Table orderInfo={orderInfo} />
+        <Table orderInfo={[]} />
       </div>
       <Options setIsCancelModalShowm={setIsCancelModalShowm} total={total} />
     </div>
