@@ -5,6 +5,7 @@ import {
 } from 'actions/constants'
 
 const initialState = {
+  ordersList: [],
   requesting: false,
   success: false,
   error: false,

@@ -27,7 +27,7 @@ const superCard = {
   country: 'HK',
 }
 
-function* createOrderReqeust({ data }) {
+function* createOrderRequest({ data }) {
   const getOrdersData = (store) => store.cart
   const getAccountData = (store) => store.account
   console.log(data)
@@ -96,7 +96,7 @@ function* createOrderReqeust({ data }) {
 }
 
 function* createOrderWatcher() {
-  yield takeEvery(CREATE_ORDER_REQUESTING, createOrderReqeust)
+  yield takeEvery(CREATE_ORDER_REQUESTING, createOrderRequest)
 }
 
 export default createOrderWatcher

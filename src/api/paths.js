@@ -58,6 +58,10 @@ export default {
   // Order
   order: '/v1/order/create',
   charge: '/v1/stripe/charge',
+  fm_orders: '/v1/order/list_foodmaker_orders',
+  fl_orders: '/v1/order/list_customer_orders',
+  fmOrderInfo: '/v1/order/foodmaker_order/',
+  flOrderInfo: '/v1/order/customer_order/',
 
   //
   //

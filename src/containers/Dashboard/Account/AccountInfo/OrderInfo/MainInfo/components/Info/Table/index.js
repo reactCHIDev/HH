@@ -8,9 +8,7 @@ function Table({ orderInfo }) {
   return (
     <div className={styles.table_container}>
       <Header />
-      {orderInfo.map((item) => (
-        <Row item={item} key={item.id} />
-      ))}
+      {orderInfo && orderInfo.map((item) => <Row item={item} key={item.id} />)}
     </div>
   )
 }

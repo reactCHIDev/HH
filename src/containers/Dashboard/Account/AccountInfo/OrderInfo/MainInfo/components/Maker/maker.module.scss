@@ -34,8 +34,10 @@
         display: flex;
         width: 96px;
         height: 96px;
-        background: blueviolet;
-        border-radius: 50%;
+
+        img {
+          border-radius: 50%;
+        }
       }
 
       .icon {

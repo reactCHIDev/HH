@@ -13,7 +13,7 @@
     letter-spacing: 0.5px;
     margin-bottom: 10px;
 
-    .time {
+    .createdAt {
       width: 10%;
       min-width: 75px;
     }
@@ -33,17 +33,17 @@
       min-width: 60px;
     }
 
-    .amount {
+    .orderTotal {
       width: 10%;
       min-width: 65px;
     }
 
-    .delivery {
+    .deliveryMethod {
       width: 10%;
       min-width: 70px;
     }
 
-    .status {
+    .deliveryStatus {
       width: 10%;
       min-width: 60px;
     }

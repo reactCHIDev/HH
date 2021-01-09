@@ -11,7 +11,10 @@ import styles from './orderinfo.module.scss'
 import './orderinfo.less'
 
 const OrderInfo = (props) => {
-  const { orders, replaceRoute } = props
+  const {
+    location: { state: order },
+    replaceRoute,
+  } = props
   const { orderHash } = useParams()
 
   const goBack = () => {
@@ -23,7 +26,7 @@ const OrderInfo = (props) => {
       <SubHeader linkTo="/account_info/orders" onBack={goBack} title={`order ${orderHash}`} />
       <TabsUnderlined
         tabs={{
-          'Main Info': { mark: false, content: <MainInfo orderHash={orderHash} /> },
+          'Main Info': { mark: false, content: <MainInfo order={order} /> },
           'Payment Info': { mark: false, content: <PaymentInfo orderHash={orderHash} /> },
         }}
       />

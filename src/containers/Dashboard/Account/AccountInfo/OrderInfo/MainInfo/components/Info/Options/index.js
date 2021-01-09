@@ -2,15 +2,15 @@
 import React from 'react'
 import styles from './options.module.scss'
 
-function Options({ setIsCancelModalShowm, total }) {
+function Options({ setIsCancelModalShowm, total, orderInfo }) {
   return (
     <>
       <div className={styles.container}>
         <div>
           <div>Delivery</div>
-          <div className={styles.deliveryType}>Standart</div>
+          <div className={styles.deliveryType}>{orderInfo?.deliveryMethod}</div>
         </div>
-        <div className={styles.price}>$ 20.00</div>
+        <div className={styles.price}>$ {orderInfo?.deliveryPrice}</div>
       </div>
       <div className={styles.cancelWrapper}>
         <div className={styles.content}>
