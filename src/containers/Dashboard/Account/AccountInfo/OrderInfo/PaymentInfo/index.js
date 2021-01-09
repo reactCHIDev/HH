@@ -1,10 +1,9 @@
 import React from 'react'
 import T from 'prop-types'
+import { connect } from 'react-redux'
 import styles from './paymentinfo.module.scss'
 
-const PaymentOrderInfo = (props) => {
-  const { orderHash } = props
-
+const PaymentOrderInfo = ({ orderInfo }) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -81,4 +80,4 @@ PaymentOrderInfo.propTypes = {
   orderHash: T.string,
 }
 
-export default PaymentOrderInfo
+export default connect(({ flOrders }) => ({ orderInfo: flOrders.order }), null)(PaymentOrderInfo)

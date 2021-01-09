@@ -5,14 +5,19 @@ import Header from './Header'
 import Table from './Table'
 import Options from './Options'
 
-function Info({ setIsCancelModalShowm, orderInfo, total, shopName }) {
+function Info({ setIsCancelModalShowm, orderInfo }) {
   return (
     <div className={styles.container}>
-      <Header shopName={shopName} />
+      <Header shopName={orderInfo?.shop?.title} />
       <div className={styles.table_scroller}>
-        <Table orderInfo={[]} />
+        <Table orderInfo={orderInfo?.orderProducts} />
       </div>
-      <Options setIsCancelModalShowm={setIsCancelModalShowm} total={total} />
+
+      <Options
+        setIsCancelModalShowm={setIsCancelModalShowm}
+        total={orderInfo?.orderTotal}
+        orderInfo={orderInfo}
+      />
     </div>
   )
 }

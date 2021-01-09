@@ -7,7 +7,7 @@ import SortingElement from '../SortingElement'
 const headers = [
   {
     title: 'Date/time',
-    sortType: 'time',
+    sortType: 'createdAt',
     id: 0,
   },
   {
@@ -22,22 +22,23 @@ const headers = [
   },
   {
     title: 'Items',
-    sortType: 'items',
+    style: 'items',
+    sortType: 'orderProducts.length',
     id: 2,
   },
   {
     title: 'Amount',
-    sortType: 'amount',
+    sortType: 'orderTotal',
     id: 3,
   },
   {
     title: 'Delivery',
-    sortType: 'delivery',
+    sortType: 'deliveryMethod',
     id: 4,
   },
   {
     title: 'Status',
-    sortType: 'status',
+    sortType: 'deliveryStatus',
     id: 5,
   },
 ]
@@ -50,7 +51,7 @@ function TableHeader({ requestSort }) {
     <div className={styles.container}>
       <div className={styles.headingsWrapper}>
         {headers.map((item) => (
-          <div className={styles[item.sortType]} key={item.id}>
+          <div className={styles[item.style || item.sortType]} key={item.id}>
             <div
               style={{
                 display: 'flex',
