@@ -4,13 +4,11 @@ import Table from './Table'
 import styles from './billing.module.scss'
 
 function BillingHistory() {
-  const billings = useSelector((state) => state.billingHistory.orders)
+  const billings = useSelector((state) => state.account.billingData)
 
   return (
     <div className={styles.container}>
-      <div className={styles.table_scroller}>
-        <Table billings={billings} />
-      </div>
+      <div className={styles.table_scroller}>{billings ? <Table billings={billings} /> : null}</div>
     </div>
   )
 }
