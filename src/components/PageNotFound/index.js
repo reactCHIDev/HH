@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import darklogo from 'assets/images/notfound/logo.png'
-import desktop from 'routing/PATHS'
 import styles from './notfound.module.scss'
 
 const PageNotFound = ({ msg }) => {
@@ -9,7 +8,7 @@ const PageNotFound = ({ msg }) => {
   return (
     <div className={styles.page_not_found}>
       <div className={styles.page_not_found__logo}>
-        <Link to={desktop.home}>
+        <Link to="/">
           <img src={darklogo} alt="HH" width="50" />
         </Link>
       </div>

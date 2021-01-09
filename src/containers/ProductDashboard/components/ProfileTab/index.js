@@ -1,9 +1,9 @@
 import React from 'react'
 import T from 'prop-types'
 import TabsOpen from 'components/Tabs/TabsOpen'
-import FoodmakerProfile from 'containers/Dashboard/FoodmakerProfile'
 import Soon from 'components/ComingSoon'
-import ShopProfile from 'containers/Dashboard/ShopProfile'
+import FoodmakerProfile from '../FoodmakerProfile'
+import ShopProfile from '../ShopProfile'
 import styles from './profiletab.module.scss'
 // import './profiletab.less'
 

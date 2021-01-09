@@ -1,0 +1,26 @@
+@import 'styles/styles.scss';
+
+.faq_heading {
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 64px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #31394d;
+  margin-bottom: 40px;
+  @include media('<tablet') {
+    font-size: 24px;
+    line-height: 31px;
+    text-align: center;
+    letter-spacing: 0.3px;
+    margin: 0 20px 32px;
+  }
+}
+.section_faq {
+  width: 100%;
+  max-width: 1008px;
+  background: #ffffff;
+  border-radius: 16px;
+  margin: 0 auto 150px;
+  padding: 10px 32px 32px;
+}

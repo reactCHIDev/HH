@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import cls from 'classnames'
 import Slider from 'react-slick'
@@ -136,7 +137,7 @@ const CreateExperience = ({ role }) => {
             <img src={sparks} alt="" className={styles.sparks} />
           </div>
         </section>
-        <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
+        <Link to={role == 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
           <button type="button" className={styles.btn_alone}>
             Let's start!
           </button>
@@ -180,7 +181,7 @@ const CreateExperience = ({ role }) => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
+            <Link to={role == 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
               <button type="button">Join now!</button>
             </Link>
           </div>

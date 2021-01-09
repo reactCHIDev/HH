@@ -1,9 +1,9 @@
 import React from 'react'
 import T from 'prop-types'
 import TabsOpen from 'components/Tabs/TabsOpen'
-import OrdersFL from 'containers/Dashboard/Account/AccountInfo/OrdersFL'
 import Soon from 'components/ComingSoon'
-import ShopProfile from 'containers/Dashboard/ShopProfile'
+import ShopProfile from 'containers/ProductDashboard/components/ShopProfile'
+import OrdersFL from '../OrdersFL'
 import styles from './orderstab.module.scss'
 // import './orderstab.less'
 
