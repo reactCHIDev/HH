@@ -79,7 +79,7 @@ const AddProduct = (props) => {
   return (
     <div className={styles.container}>
       <SubHeader
-        linkTo="/exp_dashboard/listings"
+        linkTo="/product_dashboard/listings"
         onBack={goBack}
         title={edit ? 'Edit Product' : 'Add Product'}
       />

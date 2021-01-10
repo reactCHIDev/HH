@@ -1,9 +1,13 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import { Redirect, Link, useParams } from 'react-router-dom'
-import { Spin, Space } from 'antd'
+import cls from 'classnames'
+import { Spin, Space, Rate } from 'antd'
 import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
 import { getUserByLinkAC } from 'actions/account'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
@@ -11,7 +15,6 @@ import { resolveFoodmakerDataAC } from 'actions/pages'
 import Button from 'components/Button'
 import ExpCard from 'components/ExperienceCard'
 import PageNotFound from 'components/PageNotFound'
-import { Rate } from 'antd'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import avatar from 'assets/TMP-AVATAR.jpg'
@@ -26,7 +29,6 @@ import Review from './components/Review'
 import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
-import cls from 'classnames'
 
 const FoodmakerPage = (props) => {
   const {
@@ -135,7 +137,7 @@ const FoodmakerPage = (props) => {
           <div className={styles.about_me_container}>
             <div className={styles.about_me} onClick={onReadMore}>
               <img className={styles.acc} src={acessorieFm} alt="acc" />
-              <p className={styles.heading}>Let’s talk about me ;)</p>
+              <p className={styles.heading}>Let’s talk about me {';)'} </p>
               <p className={styles.about_text}>
                 {readMore && fm?.about ? fm.about : fm?.about?.substring(0, 350) || ''}
                 {!readMore && fm?.about?.length > 350 && (
@@ -148,48 +150,9 @@ const FoodmakerPage = (props) => {
           </div>
         </div>
 
-        {/* <div className={styles.section_experiences}>
-          <p className={styles.exp_heading}>Upcoming experiences</p>
-          <div className={styles.exp_container}>
-            {[1, 2, 3, 4, 5, 6].map((e) => (
-              <ExpCard
-                key={e}
-                photo={sec21}
-                tags={[
-                  'Chef',
-                  'Backer',
-                  'Mixologist',
-                  'Taste maker',
-                  'Food maker',
-                  'Craft maker',
-                  'Urban Farmer',
-                  'Chocolatier',
-                ]}
-                name="Singapore Cooking Lesson: Charity Project"
-                price={650}
-                rating={3}
-                rateCount={32}
-              />
-            ))}
-          </div>
-          <div className={styles.exp_btn_container}>
-            <Button title="See all experiences" dark={true} />
-          </div>
-        </div> */}
-
         <div className={styles.slider_section}>
           <SliderSection gallery={gallery} />
         </div>
-
-        {/* <div className={styles.section_review}>
-          <img className={styles.section_image} src={review} alt="review" />
-          <p className={styles.review_heading}>{`Reviews of ${fm.firstName}'s experiences`}</p>
-          <div className={styles.review_container}>
-            {[1, 2, 3].map((e) => (
-              <Review key={e} />
-            ))}
-          </div>
-        </div> */}
       </div>
       <div className={styles.bottom_section_container}>
         <BottomSection />

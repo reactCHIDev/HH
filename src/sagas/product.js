@@ -33,7 +33,7 @@ function* createProductSaga({ payload }) {
     yield createProductReq(payload)
     yield put(createProductSuccess())
     removeKey('addProduct')
-    yield put(replace('/exp_dashboard/listings'))
+    yield put(replace('/product_dashboard/listings'))
   } catch (error) {
     if (error.response) {
       yield put(createProductError())
@@ -46,7 +46,7 @@ function* updateProductSaga({ payload }) {
     yield updateProductReq(payload)
     yield put(updateProductSuccess())
     removeKey('addProduct')
-    yield put(replace('/exp_dashboard/listings'))
+    yield put(replace('/product_dashboard/listings'))
   } catch (error) {
     if (error.response) {
       yield put(updateProductError())

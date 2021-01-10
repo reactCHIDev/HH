@@ -6,18 +6,17 @@ import { replace } from 'connected-react-router'
 import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
-import Listings from 'containers/Dashboard/Account/Listings'
-import ProfileTab from 'containers/Dashboard/ExperienceDashboard/ProfileTab'
-import OrdersFM from 'containers/Dashboard/ExperienceDashboard/OrdersFMTab'
+import Listings from './components/Listings'
+import ProfileTab from './components//ProfileTab'
+import OrdersFM from './components/OrdersFMTab'
 import styles from './expdb.module.scss'
-import './expdb.less'
 
-const ExperienceDashboard = (props) => {
+const ProductDashboard = (props) => {
   const { profileName, replaceRoute } = props
   const { activeTab } = useParams()
 
   const onChange = (key) => {
-    replaceRoute(`/exp_dashboard/${key}`)
+    replaceRoute(`/product_dashboard/${key}`)
   }
 
   return (
@@ -45,11 +44,11 @@ const ExperienceDashboard = (props) => {
   )
 }
 
-ExperienceDashboard.propTypes = {
+ProductDashboard.propTypes = {
   profileName: T.string.isRequired,
   replaceRoute: T.func,
 }
 
 export default connect(({ login: { profileName } }) => ({ profileName }), {
   replaceRoute: replace,
-})(ExperienceDashboard)
+})(ProductDashboard)

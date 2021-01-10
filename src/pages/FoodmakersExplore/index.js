@@ -1,11 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { connect } from 'react-redux'
-import FMCard from './components/FMCard'
 import cls from 'classnames'
+import T from 'prop-types'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
-import T from 'prop-types'
+import FMCard from './components/FMCard'
 import styles from './fmexp.module.scss'
 
 const FoodmakersExplore = (props) => {
@@ -40,8 +42,8 @@ const FoodmakersExplore = (props) => {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
-                  <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
+                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" />
+                  <path d="M18 18L22 22" stroke="#000000" />
                 </svg>
               </button>
             </div>
@@ -58,7 +60,7 @@ const FoodmakersExplore = (props) => {
       </div>
 
       <div className={styles.btn_holder}>
-        <button>More</button>
+        <button type="button">More</button>
       </div>
 
       <BottomSection />

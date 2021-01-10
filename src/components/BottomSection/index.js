@@ -9,7 +9,7 @@ const BottomSection = ({ role }) => {
     <section className={styles.bottom_sec}>
       <div className={styles.joincard}>
         <p>Join a global community of food lovers and food makers</p>
-        <Link to={role == 'FOODMAKER' ? '/exp_dashboard/listings' : '/signupflow'}>
+        <Link to={role == 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
           <button type="button">Join now!</button>
         </Link>
       </div>

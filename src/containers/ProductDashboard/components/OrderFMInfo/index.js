@@ -21,12 +21,12 @@ const OrderFMInfo = (props) => {
   }, [order])
 
   const goBack = () => {
-    replaceRoute(`/exp_dashboard/orders`)
+    replaceRoute(`/product_dashboard/orders`)
   }
 
   return (
     <div className={styles.container}>
-      <SubHeader linkTo="/exp_dashboard/orders" onBack={goBack} title={`order ${orderHash}`} />
+      <SubHeader linkTo="/product_dashboard/orders" onBack={goBack} title={`order ${orderHash}`} />
       <MainInfo order={order} />
       <div className={styles.content} />
     </div>
