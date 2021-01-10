@@ -33,6 +33,11 @@ const reducer = (state = initialState, action) => {
         requesting: false,
         error: true,
       }
+    case 'RESET_CREATE_ORDER_ERROR':
+      return {
+        ...state,
+        error: false,
+      }
 
     default:
       return state
