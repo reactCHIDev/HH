@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import AdressForm from 'pages/Cart/components/AdressForm'
 import Modal from 'components/UniversalModal'
+import AdressForm from '../AdressForm'
 import styles from './settings.module.scss'
 
 function Settings({ price }) {
