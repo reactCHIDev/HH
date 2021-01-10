@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
+import Exp from 'components/Tabs/Test/Exp'
 import Security from './Security'
+
 import Balance from './Balance'
 import BillingHistory from './Billing'
-import Exp from 'components/Tabs/Test/Exp'
-
 import styles from './settings.module.scss'
 import './settings.less'
 

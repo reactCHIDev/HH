@@ -1,14 +1,14 @@
 import React from 'react'
 import T from 'prop-types'
 import TabsOpen from 'components/Tabs/TabsOpen'
-import Profile from 'containers/Dashboard/Account/Profile'
 import Soon from 'components/ComingSoon'
 import ShopProfile from 'containers/ProductDashboard/components/ShopProfile'
+import Profile from '../Profile'
 import styles from './profiletab.module.scss'
 // import './profiletab.less'
 
 const ProfileTab = (props) => {
-  const { x } = props
+  // const { x } = props
 
   return (
     <div className={styles.container}>

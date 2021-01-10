@@ -7,7 +7,7 @@ import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
 import Listings from './components/Listings'
-import ProfileTab from './components//ProfileTab'
+import ProfileTab from './components/ProfileTab'
 import OrdersFM from './components/OrdersFMTab'
 import styles from './expdb.module.scss'
 
