@@ -4,7 +4,7 @@ import Modal from 'components/UniversalModal'
 import AdressForm from '../AdressForm'
 import styles from './settings.module.scss'
 
-function Settings({ price }) {
+function Settings({ price, active }) {
   const [modal, setModal] = React.useState(false)
 
   const handler = () => {
@@ -15,13 +15,15 @@ function Settings({ price }) {
     setModal(false)
   }
 
+  console.log('%c   active   ', 'color: darkgreen; background: palegreen;', active)
+
   return (
     <div className={styles.container}>
       <div className={styles.backTextWrapper}>
         <p>{'<'}</p>
         <p>CONTINUE SHOPPING</p>
       </div>
-      <div className={styles.orderWrapper}>
+      <div className={styles.orderWrapper} style={{ opacity: active ? 1 : 0.4 }}>
         <div className={styles.orderTextWrapper}>
           <p className={styles.totalText}>Total: </p>
           <p className={styles.currencyText}>$</p>
@@ -29,7 +31,7 @@ function Settings({ price }) {
           {/* <p>.30</p> */}
         </div>
         <div>
-          <button className={styles.orderButton} type="button" onClick={handler}>
+          <button className={styles.orderButton} type="button" disabled={!active} onClick={handler}>
             PROCEED TO CHECKOUT
           </button>
         </div>

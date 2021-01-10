@@ -25,7 +25,7 @@ function CartPage() {
       <div className={styles.container}>
         <Heading />
         <Content orders={orders} shops={shops} />
-        <Settings price={totalPrice} />
+        <Settings price={totalPrice} active={!!Object.keys(orders).length} />
       </div>
       {requesting && <Tint />}
       {error && <Error close={modalClose} />}
