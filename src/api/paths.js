@@ -34,6 +34,7 @@ export default {
   getFoodmakerInfo: '/v1/account/foodmaker/',
   getFoodmakerInfoByName: '/v1/foodmaker/info_by_profile_name/',
   updateFoodmakerAccount: '/v1/account/update_foodmaker',
+  createWithdraw: '/v1/foodmaker/create_withdraw_request',
 
   // System
   getProductTypes: '/v1/product/list_types',

@@ -269,7 +269,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
           onValuesChange={onValuesChange}
           validateTrigger={false}
           initialValues={{
-            parameters: prevState?.parameters || [{ measure: 'ml', currency: '$' }],
+            parameters: prevState?.parameters || [{ measure: 'ml', currency: 'HKD' }],
             ingredients: prevState?.ingredients || ' ',
             productTagIds: selectedItems,
             countries: selectedCountries,
