@@ -16,7 +16,7 @@ function index({ item }) {
         <div className={styles.columnsWrapper}>
           <div className={styles.date}>{date}</div>
           <div className={styles.amount}>${item.amount}</div>
-          <div className={styles.method}>{`${item.brand} *${item.last4}`}</div>
+          <div className={styles.method}>{`${item.card.brand} *${item.card.number}`}</div>
           <div
             className={styles.status}
             style={item.status === 'Successfull' ? { color: '#7AD398' } : {}}

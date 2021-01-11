@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep'
+import { setItem, getItem } from 'utils/localStorage'
 import {
   ADD_PRODUCT_TO_BASKET,
   SET_ITEM_TO_PRODUCTS,
@@ -13,15 +14,17 @@ import {
 } from '../actions/constants'
 
 const initialState = {
-  products: [],
-  shopsData: {},
-  orders: {},
-  totalPrice: 0,
+  products: getItem('cart')?.products || [],
+  shopsData: getItem('cart')?.shopsData || {},
+  orders: getItem('cart')?.orders || {},
+  totalPrice: getItem('cart')?.totalPrice || 0,
 }
+
+let newState = {}
 
 const gc = (state) => {
   const shopToDelete = Object.keys(state.orders).find((key) => state.orders[key].length === 0)
-  const newState = cloneDeep(state)
+  newState = cloneDeep(state)
   if (shopToDelete) {
     newState.totalPrice =
       newState.totalPrice -
@@ -30,23 +33,29 @@ const gc = (state) => {
     delete newState.orders[shopToDelete]
     delete newState.shopsData[shopToDelete]
   }
+  setItem('cart', newState)
   return newState
 }
 
 const reducer = function cartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT_TO_BASKET:
-      return {
+      newState = {
         ...state,
       }
+      setItem('cart', newState)
+      return newState
 
     case SET_ITEM_TO_PRODUCTS:
-      return {
+      newState = {
         ...state,
         products: state.products.concat(action.title),
       }
+      setItem('cart', newState)
+      return newState
+
     case DELETE_ITEM_FROM_PRODUCTS:
-      const newState = {
+      newState = {
         ...state,
         products: state.products.filter((element) => element !== action.data.title),
         orders: {
@@ -67,13 +76,15 @@ const reducer = function cartReducer(state = initialState, action) {
       return gc(newState)
 
     case SET_ITEM_IN_ORDERS:
-      return {
+      newState = {
         ...state,
         orders: action.newState,
       }
+      setItem('cart', newState)
+      return newState
 
     case SET_SHOP_DATA:
-      return {
+      newState = {
         ...state,
         shopsData: {
           ...state.shopsData,
@@ -88,9 +99,11 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice: state.totalPrice + action.data.price + action.data.delivery.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case INC_PRODUCT_AMOUNT:
-      return {
+      newState = {
         ...state,
         orders: {
           ...state.orders,
@@ -109,9 +122,11 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice: state.totalPrice + action.data.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case DEC_PRODUCT_AMOUNT:
-      return {
+      newState = {
         ...state,
         orders: {
           ...state.orders,
@@ -130,9 +145,11 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice: state.totalPrice - action.data.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case CHANGE_DELIVERY_TYPE:
-      return {
+      newState = {
         ...state,
         shopsData: {
           ...state.shopsData,
@@ -147,9 +164,11 @@ const reducer = function cartReducer(state = initialState, action) {
         totalPrice:
           state.totalPrice - state.shopsData[action.data.shop].delivery.price + action.data.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case ADD_ITEM_TO_ORDER:
-      return {
+      newState = {
         ...state,
         shopsData: {
           ...state.shopsData,
@@ -160,17 +179,22 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice: state.totalPrice + action.data.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case CREATE_ORDER_SUCCESS:
-      return {
+      newState = {
         ...state,
         products: [],
         shopsData: {},
         orders: {},
         totalPrice: 0,
       }
+      setItem('cart', newState)
+      return newState
 
     default:
+      setItem('cart', state)
       return state
   }
 }

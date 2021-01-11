@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { getFoodmakerOrdersReq } from 'api/requests/foodmaker'
+import { getBillingHistory } from 'api/requests/Account'
 
 import {
   GET_BILLING_HISTORY_REQUESTING,
@@ -9,7 +9,7 @@ import {
 
 function* getBillingHistorySaga() {
   try {
-    const response = yield getFoodmakerOrdersReq()
+    const response = yield getBillingHistory()
     yield put({ type: GET_BILLING_HISTORY_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {

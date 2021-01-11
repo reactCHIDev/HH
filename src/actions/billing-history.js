@@ -4,15 +4,15 @@ import {
   GET_BILLING_HISTORY_ERROR,
 } from './constants'
 
-export const getFoodmakerOrdersAC = () => ({
+export const getBillingHistoryAC = () => ({
   type: GET_BILLING_HISTORY_REQUESTING,
 })
 
-export const getFoodmakerOrdersSuccess = () => ({
+export const getBillingHistorySuccess = () => ({
   type: GET_BILLING_HISTORY_SUCCESS,
 })
 
-export const getFoodmakerOrdersError = (payload) => ({
+export const getBillingHistoryError = (payload) => ({
   type: GET_BILLING_HISTORY_ERROR,
   payload,
 })

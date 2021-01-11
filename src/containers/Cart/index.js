@@ -1,10 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Tint from 'components/Tint'
+import Error from 'components/Error'
 import Heading from './components/Heading'
 import Content from './components/Content'
 import Settings from './components/Settings'
-import Tint from 'components/Tint'
-import Error from 'components/Error'
 
 import styles from './cart.module.scss'
 
