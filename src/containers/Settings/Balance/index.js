@@ -2,21 +2,33 @@ import React, { useState } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { Button } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { createWithdrawAC } from 'actions/foodmaker'
 import Info from 'assets/icons/svg/info-green.svg'
 import _ from 'lodash/fp'
 
 import styles from './balance.module.scss'
 import './balance.less'
 
-const Balance = (props) => {
+const Balance = () => {
   const [withdraw, setWithdraw] = useState(false)
+  const dispatch = useDispatch()
+  const balance = useSelector((state) => state.account.balance)
 
-  const { register, handleSubmit, control, setValue, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
   })
 
   const onWithdraw = () => {
     setWithdraw((w) => !w)
+    if (withdraw)
+      dispatch(
+        createWithdrawAC({
+          amount: 5,
+          currency: 'HKD',
+        }),
+      )
   }
 
   const onSubmit = (data) => {
@@ -118,7 +130,7 @@ const Balance = (props) => {
             {!withdraw ? (
               <div className={styles.sum}>
                 <span className={styles.dollar}>$</span>
-                <span className={styles.qty}>2500.56</span>
+                <span className={styles.qty}>{balance?.hkd}</span>
                 <span className={styles.hkd}>HKD</span>
               </div>
             ) : (
@@ -128,15 +140,18 @@ const Balance = (props) => {
                   className={styles.input_withdraw}
                   name="withdraw"
                   type="number"
-                  placeholder={2500.56}
+                  placeholder={0.0}
                   autoComplete="off"
                 />
                 <span className={styles.hkd}>HKD</span>
               </>
             )}
           </div>
-          <div className={withdraw ? styles.req_withdraw : styles.withdraw} onClick={onWithdraw}>
-            {withdraw ? 'REQUEST WITHDRAW' : 'WITHDRAW'}
+          <div
+            className={withdraw ? styles.req_withdraw : styles.withdraw}
+            onClick={!balance?.pending ? onWithdraw : null}
+          >
+            {!balance?.pending ? (withdraw ? 'REQUEST WITHDRAW' : 'WITHDRAW') : 'Pending'}
           </div>
         </div>
         {false && (

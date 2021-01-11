@@ -334,8 +334,10 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          formatter={(value) =>
+                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                          }
+                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -352,8 +354,10 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          formatter={(value) =>
+                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                          }
+                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -409,8 +413,10 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          formatter={(value) =>
+                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                          }
+                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -427,8 +433,10 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          formatter={(value) =>
+                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                          }
+                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -467,8 +475,10 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                          formatter={(value) =>
+                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                          }
+                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
                         />
                       )}
                     />

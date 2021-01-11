@@ -20,9 +20,9 @@ const DeliveryInfo = ({ region, deliveryMethods }) => {
                 Delivery: {e.type !== 'freepick' ? e.type : 'free pick-up'}
               </p>
             )}
-            {e?.price && <p className={styles.text}>Cost of delivery: ${e.price}</p>}
+            {e?.price && <p className={styles.text}>Cost of delivery: HKD {e.price}</p>}
             {e?.freeDeliveryOver && (
-              <p className={styles.text}>Free for order over ${e.freeDeliveryOver}</p>
+              <p className={styles.text}>Free for order over HKD {e.freeDeliveryOver}</p>
             )}
             {e?.note ? (
               <p className={styles.text}>Note: {e.note}</p>
