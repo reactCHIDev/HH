@@ -13,11 +13,11 @@ const Finish = () => {
 
   const onClickDashboard = () => {
     removeKey('link')
-    history.push('/exp_dashboard/profile')
+    history.push('/product_dashboard/profile')
   }
   const onClickListing = () => {
     removeKey('link')
-    history.push('/exp_dashboard/listings')
+    history.push('/product_dashboard/listings')
   }
 
   const generateQR = async (text) => {

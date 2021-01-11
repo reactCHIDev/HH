@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep'
+import { setItem, getItem } from 'utils/localStorage'
 import {
   ADD_PRODUCT_TO_BASKET,
   SET_ITEM_TO_PRODUCTS,
@@ -8,41 +9,53 @@ import {
   INC_PRODUCT_AMOUNT,
   DEC_PRODUCT_AMOUNT,
   CHANGE_DELIVERY_TYPE,
+  ADD_ITEM_TO_ORDER,
+  CREATE_ORDER_SUCCESS,
 } from '../actions/constants'
 
 const initialState = {
-  products: [],
-  shopsData: {},
-  orders: {},
-  totalPrice: 0,
+  products: getItem('cart')?.products || [],
+  shopsData: getItem('cart')?.shopsData || {},
+  orders: getItem('cart')?.orders || {},
+  totalPrice: getItem('cart')?.totalPrice || 0,
 }
+
+let newState = {}
 
 const gc = (state) => {
   const shopToDelete = Object.keys(state.orders).find((key) => state.orders[key].length === 0)
-  const newState = cloneDeep(state)
-  newState.totalPrice =
-    newState.totalPrice -
-    newState.shopsData[shopToDelete].price -
-    newState.shopsData[shopToDelete].delivery.price
-  delete newState.orders[shopToDelete]
-  delete newState.shopsData[shopToDelete]
+  newState = cloneDeep(state)
+  if (shopToDelete) {
+    newState.totalPrice =
+      newState.totalPrice -
+      newState.shopsData[shopToDelete].price -
+      newState.shopsData[shopToDelete].delivery.price
+    delete newState.orders[shopToDelete]
+    delete newState.shopsData[shopToDelete]
+  }
+  setItem('cart', newState)
   return newState
 }
 
 const reducer = function cartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT_TO_BASKET:
-      return {
+      newState = {
         ...state,
       }
+      setItem('cart', newState)
+      return newState
 
     case SET_ITEM_TO_PRODUCTS:
-      return {
+      newState = {
         ...state,
         products: state.products.concat(action.title),
       }
+      setItem('cart', newState)
+      return newState
+
     case DELETE_ITEM_FROM_PRODUCTS:
-      const newState = {
+      newState = {
         ...state,
         products: state.products.filter((element) => element !== action.data.title),
         orders: {
@@ -51,17 +64,27 @@ const reducer = function cartReducer(state = initialState, action) {
             (e) => e.title !== action.data.title,
           ),
         },
+        shopsData: {
+          ...state.shopsData,
+          [action.data.shopTitle]: {
+            ...state.shopsData[action.data.shopTitle],
+            price: state.shopsData[action.data.shopTitle].price - action.data.price,
+          },
+        },
+        totalPrice: state.totalPrice - action.data.price,
       }
       return gc(newState)
 
     case SET_ITEM_IN_ORDERS:
-      return {
+      newState = {
         ...state,
         orders: action.newState,
       }
+      setItem('cart', newState)
+      return newState
 
     case SET_SHOP_DATA:
-      return {
+      newState = {
         ...state,
         shopsData: {
           ...state.shopsData,
@@ -76,14 +99,18 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice: state.totalPrice + action.data.price + action.data.delivery.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case INC_PRODUCT_AMOUNT:
-      return {
+      newState = {
         ...state,
         orders: {
           ...state.orders,
           [action.data.shop]: state.orders[action.data.shop].map((item) =>
-            item.id === action.data.id ? { ...item, total: item.total + 1 } : item,
+            item.id === action.data.id
+              ? { ...item, total: item.total + 1, totalPrice: item.totalPrice + action.data.price }
+              : item,
           ),
         },
         shopsData: {
@@ -95,14 +122,18 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice: state.totalPrice + action.data.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case DEC_PRODUCT_AMOUNT:
-      return {
+      newState = {
         ...state,
         orders: {
           ...state.orders,
           [action.data.shop]: state.orders[action.data.shop].map((item) =>
-            item.id === action.data.id ? { ...item, total: item.total - 1 } : item,
+            item.id === action.data.id
+              ? { ...item, total: item.total - 1, totalPrice: item.totalPrice - action.data.price }
+              : item,
           ),
         },
         shopsData: {
@@ -114,9 +145,11 @@ const reducer = function cartReducer(state = initialState, action) {
         },
         totalPrice: state.totalPrice - action.data.price,
       }
+      setItem('cart', newState)
+      return newState
 
     case CHANGE_DELIVERY_TYPE:
-      return {
+      newState = {
         ...state,
         shopsData: {
           ...state.shopsData,
@@ -131,8 +164,37 @@ const reducer = function cartReducer(state = initialState, action) {
         totalPrice:
           state.totalPrice - state.shopsData[action.data.shop].delivery.price + action.data.price,
       }
+      setItem('cart', newState)
+      return newState
+
+    case ADD_ITEM_TO_ORDER:
+      newState = {
+        ...state,
+        shopsData: {
+          ...state.shopsData,
+          [action.data.shop]: {
+            ...state.shopsData[action.data.shop],
+            price: state.shopsData[action.data.shop].price + action.data.price,
+          },
+        },
+        totalPrice: state.totalPrice + action.data.price,
+      }
+      setItem('cart', newState)
+      return newState
+
+    case CREATE_ORDER_SUCCESS:
+      newState = {
+        ...state,
+        products: [],
+        shopsData: {},
+        orders: {},
+        totalPrice: 0,
+      }
+      setItem('cart', newState)
+      return newState
 
     default:
+      setItem('cart', state)
       return state
   }
 }

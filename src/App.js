@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* REACT */
 import React, { useEffect, Suspense, lazy } from 'react'
@@ -12,56 +13,59 @@ import { Spin, Space } from 'antd'
 /* CUSTOM MODULES */
 import { getUserAccount } from 'actions/account'
 import { getItem } from 'utils/localStorage'
-import ScrollToTop from 'components/ScrollToTop'
+import { setBaseEndpoint } from 'utils/apiClient'
+import { history } from 'store'
 
+/* COMPONENTS */
+import ScrollToTop from 'components/ScrollToTop'
 import PublicRoute from 'components/Routing/PublicRoute'
 import PrivateRoute from 'components/Routing/PrivateRoute'
 import ConnectionProvider from 'components/ConnectionProvider'
-import { history } from 'store'
-import { setBaseEndpoint } from 'utils/apiClient'
-import Create from 'containers/Auth/components/Forgot/components/Create'
-import Home from 'pages/Home'
-import Soon from 'components/ComingSoon'
 import Header from 'components/Header'
-import desktop from 'routing/PATHS'
-import styles from './app.module.scss'
+
+/* PAGES */
+import Home from 'pages/HomePage'
+import Create from 'containers/Auth/components/Forgot/components/Create'
+
 import './App.less'
 import './App.css'
 import 'styles/styles.scss'
-// import { Upload } from '../node_modules/antd/lib/index'
+import styles from './app.module.scss'
 
-const PageNotFound = lazy(() => import('components/PageNotFound'))
+/* CONTAINERS */
+// Auth
 const Login = lazy(() => import('containers/Auth/components/Login'))
 const Signup = lazy(() => import('containers/Auth/components/Signup'))
 const SignupFlow = lazy(() => import('containers/Auth/components/SignupFlow'))
 const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
-const Account = lazy(() => import('containers/Dashboard/Account'))
-const AddProduct = lazy(() => import('containers/Dashboard/Account/AddProduct'))
-const EditProduct = lazy(() =>
-  import('containers/Dashboard/Account/Listings/components/EditProduct'),
-)
+
+// Foodlover dashboard
+const AccountInfo = lazy(() => import('containers/AccountInfo'))
+const OrderInfo = lazy(() => import('containers/AccountInfo/OrderInfo'))
+
+// Public pages
 const ProductPage = lazy(() => import('pages/ProductPage'))
-const Uploader = lazy(() => import('components/Uploader'))
 const ShopPage = lazy(() => import('pages/ShopPage'))
-const ExpDashboard = lazy(() => import('containers/Dashboard/ExperienceDashboard'))
-const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
 const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
 const FoodmakerPage = lazy(() => import('pages/FoodmakerPage'))
-const AccountInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo'))
-const CartPage = lazy(() => import('pages/Cart'))
-// const FoodmakerProfile = lazy(() =>
-//   import('containers/Dashboard/components/Account/FoodmakerProfile'),
-// )
-// const ShopProfile = lazy(() => import('containers/Dashboard/components/Account/ShopProfile'))
-const Settings = lazy(() => import('containers/Dashboard/Account/Settings'))
+const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
+
+// Landing
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
 const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
-const OrderInfo = lazy(() => import('containers/Dashboard/Account/AccountInfo/OrderInfo'))
-const OrderFMInfo = lazy(() => import('containers/Dashboard/ExperienceDashboard/OrderFMInfo'))
-const Sandbox = lazy(() => import('components/sandbox/wrapper'))
+
+// Product dashboard
+const PrdocutDashboard = lazy(() => import('containers/ProductDashboard'))
+const AddProduct = lazy(() => import('containers/ProductDashboard/components/AddProduct'))
+const OrderFMInfo = lazy(() => import('containers/ProductDashboard/components/OrderFMInfo'))
+
+// Other
+const CartPage = lazy(() => import('containers/Cart'))
+const Settings = lazy(() => import('containers/Settings'))
+const PageNotFound = lazy(() => import('components/PageNotFound'))
 
 function WaitingComponent(Component) {
   return (props) => (
@@ -99,47 +103,31 @@ function App({ authorized, role, pathname, getUserAccount }) {
           {!hideHeader && <Header />}
           <ScrollToTop>
             <Switch>
-              <PublicRoute exact path="/" component={WaitingComponent(Home)} />
-              <PublicRoute
-                exact
-                path={desktop.signupflow}
-                component={WaitingComponent(SignupFlow)}
-              />
+              {/* Login */}
+              <PublicRoute exact path="/" component={Home} />
+              <PublicRoute exact path="/signupflow" component={WaitingComponent(SignupFlow)} />
               <PublicRoute
                 exact
                 path="/login"
                 component={() => <Redirect exact to="/login/regular" />}
               />
-              <PublicRoute exact path="/sandbox" component={WaitingComponent(Sandbox)} />
-              <PublicRoute exact path={desktop.login} component={WaitingComponent(Login)} />
-              <PublicRoute exact path={desktop.signup} component={WaitingComponent(Signup)} />
-              <PublicRoute exact path={desktop.forgot} component={WaitingComponent(Forgot)} />
-              <PublicRoute exact path="/coming_soon" component={WaitingComponent(Soon)} />
-              <PublicRoute exact path="/uploader" component={WaitingComponent(Uploader)} />
+              <PublicRoute exact path="/login/:step" component={WaitingComponent(Login)} />
+              <PublicRoute exact path="/signup" component={WaitingComponent(Signup)} />
+              <PublicRoute exact path="/forgot" component={WaitingComponent(Forgot)} />
+              <PublicRoute exact path="/forgotpassword/:user" component={Create} />
 
-              {/* Pages */}
-              <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
-              <PublicRoute
-                exact
-                path="/explore_experiences"
-                component={WaitingComponent(ExploreExp)}
-              />
-              <PublicRoute
-                exact
-                path="/product_explore"
-                component={WaitingComponent(ProductExplore)}
-              />
-              <PublicRoute
-                exact
-                path="/foodmakers_explore"
-                component={WaitingComponent(FoodmakersExplore)}
-              />
+              {/* Landings */}
               <PublicRoute
                 exact
                 path="/landing/foodmakers"
                 component={WaitingComponent(() => (
                   <FoodmakersLanding role={role} />
                 ))}
+              />
+              <PublicRoute
+                exact
+                path="/product_dashboard/:activeTab?"
+                component={WaitingComponent(PrdocutDashboard)}
               />
               <PublicRoute
                 exact
@@ -162,16 +150,26 @@ function App({ authorized, role, pathname, getUserAccount }) {
                   <CreateShopLanding role={role} />
                 ))}
               />
-              <PublicRoute exact path="/forgotpassword/:user" component={Create} />
-              <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} />
-              <PrivateRoute exact path={desktop.profile} component={WaitingComponent(Account)} />
-              <PrivateRoute
+
+              {/* Pages */}
+              <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
+              <PublicRoute
                 exact
-                path="/exp_dashboard/:activeTab?"
-                component={WaitingComponent(ExpDashboard)}
+                path="/explore_experiences"
+                component={WaitingComponent(ExploreExp)}
               />
+              <PublicRoute
+                exact
+                path="/product_explore"
+                component={WaitingComponent(ProductExplore)}
+              />
+              <PublicRoute
+                exact
+                path="/foodmakers_explore"
+                component={WaitingComponent(FoodmakersExplore)}
+              />
+              <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} />
               <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
-              <PrivateRoute exact path="/editproduct" component={WaitingComponent(EditProduct)} />
               <PublicRoute
                 exact
                 path="/product/:productId?"
@@ -182,22 +180,8 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 path="/account_info/:activeTab?"
                 component={WaitingComponent(AccountInfo)}
               />
-              <PrivateRoute
-                exact
-                path="/order_info/:orderHash?"
-                component={WaitingComponent(OrderInfo)}
-              />
-              <PrivateRoute
-                exact
-                path="/fm_order_info/:orderHash?"
-                component={WaitingComponent(OrderFMInfo)}
-              />
-              {/* <PrivateRoute
-              exact
-              path="/foodmaker_profile"
-              component={WaitingComponent(FoodmakerProfile)}
-            />
-          <PrivateRoute exact path="/shop_profile" component={WaitingComponent(ShopProfile)} /> */}
+              <PrivateRoute exact path="/order_info" component={WaitingComponent(OrderInfo)} />
+              <PrivateRoute exact path="/fm_order_info" component={WaitingComponent(OrderFMInfo)} />
               <PublicRoute
                 exact
                 path="/foodmaker_page/:id"

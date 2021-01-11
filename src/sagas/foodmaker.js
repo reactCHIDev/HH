@@ -5,6 +5,7 @@ import {
   getFoodmakerInfoReq,
   getFoodmakerInfoByNameReq,
   updateFoodmakerAccountReq,
+  createWithdrawReq,
 } from 'api/requests/foodmaker'
 
 import {
@@ -17,6 +18,9 @@ import {
   UPDATE_FOODMAKER_ACCOUNT_REQUESTING,
   UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
   UPDATE_FOODMAKER_ACCOUNT_ERROR,
+  CREATE_WITHDRAW_REQUESTING,
+  CREATE_WITHDRAW_SUCCESS,
+  CREATE_WITHDRAW_ERROR,
 } from '../actions/constants'
 
 function* getFoodmakerInfoSaga({ id }) {
@@ -54,10 +58,24 @@ function* changeFoodmakerAccount({ payload }) {
   }
 }
 
+function* createWithdrawSaga({ payload }) {
+  try {
+    const response = yield createWithdrawReq(payload)
+    yield put({ type: CREATE_WITHDRAW_SUCCESS, payload: { data: response.data } })
+    yield delay(3000)
+    yield put({ type: 'RESET_ACCOUNT_SUCCESS' })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: CREATE_WITHDRAW_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(GET_FOODMAKER_INFO_REQUESTING, getFoodmakerInfoSaga)
   yield takeEvery(GET_FOODMAKER_INFO_BY_NAME_REQUESTING, getFoodmakerInfoByNameSaga)
   yield takeEvery(UPDATE_FOODMAKER_ACCOUNT_REQUESTING, changeFoodmakerAccount)
+  yield takeEvery(CREATE_WITHDRAW_REQUESTING, createWithdrawSaga)
 }
 
 export default accountWatcher

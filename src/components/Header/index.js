@@ -55,8 +55,10 @@ const Header = (props) => {
   const lightTheme = [
     '/signupflow',
     '/foodmaker_dashboard',
-    '/exp_dashboard',
+    '/product_dashboard',
+    '/fm_order_info',
     '/account_info',
+    '/order_info',
     '/addproduct',
     '/editproduct',
     '/shop/',
@@ -68,6 +70,8 @@ const Header = (props) => {
     '/landing/create_profile',
     '/landing/create_shop',
   ]
+
+  const darkTheme = ['']
 
   const dark = !lightTheme.some((e) => pathname.includes(e))
   const isTextLogo = ['/shop/', '/product/'].some((e) => pathname.includes(e))
@@ -134,7 +138,7 @@ const Header = (props) => {
   }
 
   const getPath = () => {
-    if (role === 'FOODMAKER') return '/exp_dashboard/profile'
+    if (role === 'FOODMAKER') return '/product_dashboard/profile'
     if (role === 'FOODLOVER') return '/account_info'
   }
 
@@ -357,7 +361,7 @@ const Header = (props) => {
               {role === 'FOODMAKER' && (
                 <li onClick={onSettingsSelect}>
                   <img src={Person} width="16px" alt="icon" />
-                  <Link to="/exp_dashboard/profile">Foodmaker Profile</Link>
+                  <Link to="/product_dashboard/profile">Foodmaker Profile</Link>
                 </li>
               )}
               <li
@@ -371,7 +375,7 @@ const Header = (props) => {
                 <img src={Gallery_icon_1} alt="icon" />
                 {role === 'FOODMAKER' ? (
                   shop?.title ? (
-                    <Link to="/exp_dashboard/listings">Product dashboard</Link>
+                    <Link to="/product_dashboard/listings">Product dashboard</Link>
                   ) : (
                     <Link to="/addproduct">add product</Link>
                   )

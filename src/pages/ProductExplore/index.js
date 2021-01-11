@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { connect } from 'react-redux'
 import ExpCard from 'components/ExperienceCard'
@@ -36,8 +38,8 @@ const ProductExplore = (props) => {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" stroke-width="1.5"></circle>
-                  <path d="M18 18L22 22" stroke="#000000" stroke-width="1.5"></path>
+                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" />
+                  <path d="M18 18L22 22" stroke="#000000" />
                 </svg>
               </button>
             </div>
@@ -70,7 +72,7 @@ const ProductExplore = (props) => {
               />
             ))}
           <div className={styles.btn_holder}>
-            <button>More</button>
+            <button type="button">More</button>
           </div>
         </div>
       </div>

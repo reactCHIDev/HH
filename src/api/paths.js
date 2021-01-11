@@ -13,6 +13,7 @@ export default {
   logout: '/v1/user/logout',
   forgotStep1: '/v1/user/forgot_password/step_one',
   forgotStep3: '/v1/user/forgot_password/step_two',
+  billingHistory: '/v1/account/billing',
 
   // Account
   getUserAccount: '/v1/account/info/',
@@ -33,6 +34,7 @@ export default {
   getFoodmakerInfo: '/v1/account/foodmaker/',
   getFoodmakerInfoByName: '/v1/foodmaker/info_by_profile_name/',
   updateFoodmakerAccount: '/v1/account/update_foodmaker',
+  createWithdraw: '/v1/foodmaker/create_withdraw_request',
 
   // System
   getProductTypes: '/v1/product/list_types',
@@ -54,6 +56,14 @@ export default {
 
   // Stripe
   stripe: '/v1/stripe/create_payment',
+
+  // Order
+  order: '/v1/order/create',
+  charge: '/v1/stripe/charge',
+  fm_orders: '/v1/order/list_foodmaker_orders',
+  fl_orders: '/v1/order/list_customer_orders',
+  fmOrderInfo: '/v1/order/foodmaker_order/',
+  flOrderInfo: '/v1/order/customer_order/',
 
   //
   //

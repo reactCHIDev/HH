@@ -1,6 +1,5 @@
 @import 'styles/styles.scss';
 
-
 .header {
   background: #f4f7fa;
   position: relative;
@@ -8,11 +7,11 @@
   padding: 80px 0 120px;
   margin: 0 0 40px;
 
-  @include media ('<desktop') {
-    padding:20px 0;
+  @include media('<desktop') {
+    padding: 20px 0;
   }
 
-  @include media ('<phone') {
+  @include media('<phone') {
     padding: 0;
   }
 
@@ -53,11 +52,11 @@
   .info_section {
     display: flex;
     flex-direction: column;
-    width: 47%;
+    width: 50%;
     max-width: 436px;
 
     @media (max-width: 1024px) {
-      width: 60%;
+      width: 50%;
     }
     @media (max-width: 768px) {
       width: 100%;
@@ -188,8 +187,11 @@
   }
   .photo_section {
     width: 50%;
+    height: 422px;
+    max-width: 592px;
+    max-height: 422px;
     @media (max-width: 1024px) {
-      width: 40%;
+      width: 50%;
     }
     @media (max-width: 768px) {
       display: none;
@@ -210,7 +212,7 @@
   padding: 40px 36px;
   margin: auto;
 
-  @include media ('<phone') {
+  @include media('<phone') {
     padding: 40px 0;
   }
 
@@ -219,20 +221,20 @@
       display: flex;
       flex-wrap: wrap;
 
-      @include media ('<desktop') {
+      @include media('<desktop') {
         justify-content: center;
       }
 
-      @include media ('<phone') {
-         padding: 0 10px;
+      @include media('<phone') {
+        padding: 0 10px;
       }
 
       .section_experiences {
         margin-bottom: 60px;
         flex-grow: 1;
 
-        @include media ('<phone') {
-        margin-bottom: 30px;
+        @include media('<phone') {
+          margin-bottom: 30px;
         }
 
         .exp_heading {
@@ -249,11 +251,11 @@
           align-items: center;
           margin: 0 -20px;
 
-          @include media ('<desktop') {
+          @include media('<desktop') {
             justify-content: center;
           }
 
-          @include media ('<phone') {
+          @include media('<phone') {
             margin: 0;
           }
         }
@@ -268,11 +270,11 @@
         flex-shrink: 0;
         margin: 20px 0 0 42px;
 
-        @include media ('<desktop') {
+        @include media('<desktop') {
           margin: 25px 0 30px 10px;
         }
 
-        @include media ('<tablet') {
+        @include media('<tablet') {
           margin: 0;
           flex-shrink: 1;
           width: 378px;
@@ -296,7 +298,7 @@
             color: #3c3e43;
             margin: 0 30px 10px 0;
 
-            @include media ('<phone') {
+            @include media('<phone') {
               font-size: 25px;
               line-height: 1.2;
             }

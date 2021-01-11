@@ -3,7 +3,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
-import desktop from 'routing/PATHS'
 import { getItem } from 'utils/localStorage'
 
 class PublicRoute extends React.Component {

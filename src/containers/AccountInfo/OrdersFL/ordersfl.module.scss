@@ -1,0 +1,38 @@
+.main_wrapper {
+  padding: 20px 30px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1260px;
+  @media (max-width: 768px) {
+    padding: 20px 20px;
+  }
+  .container {
+    width: 100%;
+    overflow-x: scroll;
+
+    .table_wrapper {
+      min-width: 768px;
+    }
+  }
+}
+
+.pastOrders {
+  border-bottom: 1px solid #dcdde1;
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px 0 75px 0;
+  text-transform: uppercase;
+  color: #31394d;
+  font-size: 12px;
+  line-height: 19px;
+  font-weight: bold;
+
+  div {
+    cursor: pointer;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

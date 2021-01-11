@@ -1,0 +1,56 @@
+.container {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #dcdde1;
+
+  .headingsWrapper {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #838894;
+    letter-spacing: 0.5px;
+
+    .heading {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .createdAt {
+      width: 10%;
+      min-width: 75px;
+    }
+
+    .id {
+      width: 10%;
+      min-width: 70px;
+    }
+
+    .items {
+      width: 10%;
+      min-width: 60px;
+    }
+
+    .orderTotal {
+      width: 10%;
+      min-width: 65px;
+    }
+
+    .deliveryMethod {
+      width: 10%;
+      min-width: 70px;
+    }
+
+    .deliveryStatus {
+      width: 10%;
+      min-width: 60px;
+    }
+  }
+
+  .lastSection {
+    display: flex;
+    justify-content: flex-end;
+    width: 25%;
+  }
+}

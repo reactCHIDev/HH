@@ -7,6 +7,7 @@ export const getUserByHHLink = (link) =>
 export const updateSettings = (data) => apiClient.patch(PATHS.updateSettings, { data })
 export const confirmEmailUpdate = (data) => apiClient.patch(PATHS.confirmEmailUpdate, { data })
 export const updatePhotoName = (data) => apiClient.patch(PATHS.updatePhotoName, { data })
+export const getBillingHistory = () => apiClient.get(PATHS.billingHistory)
 
 //
 //

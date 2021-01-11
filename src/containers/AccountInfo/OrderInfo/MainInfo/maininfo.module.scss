@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1260px;
+
+  @media (max-width: 1440px) {
+    padding: 20px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    @media (max-width: 1024px) {
+      flex-direction: column-reverse;
+    }
+
+    .makerInfoWrapper {
+      margin-right: 20px;
+
+      .makerInfo {
+        width: 100%;
+        height: 200px;
+        background: #fbe4e4;
+      }
+    }
+  }
+}

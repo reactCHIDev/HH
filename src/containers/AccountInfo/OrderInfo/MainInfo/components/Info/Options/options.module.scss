@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9eaed;
+  padding: 20px 0 20px 0;
+
+  .deliveryType {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #5375cb;
+  }
+
+  .price {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    color: #31394d;
+  }
+}
+
+.cancelWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0 0 0;
+  margin-bottom: 100px;
+
+  .content {
+    display: flex;
+
+    .modalHandler {
+      margin-right: 20px;
+      color: #eb5769;
+    }
+  }
+
+  .total {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 19px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    color: #31394d;
+  }
+}
