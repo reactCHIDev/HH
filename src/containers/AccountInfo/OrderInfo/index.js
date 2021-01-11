@@ -23,7 +23,7 @@ const OrderInfo = (props) => {
 
   return (
     <div className={styles.container}>
-      <SubHeader linkTo="/account_info/orders" onBack={goBack} title={`order ${orderHash}`} />
+      <SubHeader linkTo="/account_info/orders" onBack={goBack} title={`order ${order.id}`} />
       <TabsUnderlined
         tabs={{
           'Main Info': { mark: false, content: <MainInfo order={order} /> },

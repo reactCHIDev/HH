@@ -13,6 +13,7 @@ export default {
   logout: '/v1/user/logout',
   forgotStep1: '/v1/user/forgot_password/step_one',
   forgotStep3: '/v1/user/forgot_password/step_two',
+  billingHistory: '/v1/account/billing',
 
   // Account
   getUserAccount: '/v1/account/info/',

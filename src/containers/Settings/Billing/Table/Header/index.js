@@ -18,7 +18,8 @@ const headers = [
   },
   {
     title: 'Method',
-    sortType: 'brand',
+    sortType: 'card.brand',
+    style: 'brand',
     id: 4,
   },
   {
@@ -36,7 +37,7 @@ function TableHeader({ requestSort }) {
     <div className={styles.container}>
       <div className={styles.headingsWrapper}>
         {headers.map((item) => (
-          <div className={styles[item.sortType]} key={item.id}>
+          <div className={styles[item.style || item.sortType]} key={item.id}>
             <div
               style={{
                 display: 'flex',

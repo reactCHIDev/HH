@@ -28,8 +28,7 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
   }
 
   const { Option } = Select
-
-  return (
+  return product.quantity !== 0 ? (
     <div className={styles.container}>
       <div className={styles.price}>
         {params.find((p) => p.volume === weightOption)?.price.toFixed(2)}
@@ -77,7 +76,7 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
         )}
       </div>
     </div>
-  )
+  ) : null
 }
 
 Toolbar.propTypes = {

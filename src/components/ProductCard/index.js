@@ -32,7 +32,6 @@ const ProdCard = (props) => {
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
   const onProductClick = (productData) => {
-    // console.log(productData)
     dispatch(addProductToBasket(productData))
   }
 
@@ -61,7 +60,9 @@ const ProdCard = (props) => {
               {isShowCart && (
                 <img
                   src={OutlinedCartIcon}
-                  className={styles.outlined_cat}
+                  className={
+                    product.quantity === 0 ? styles.outlined_cat_empty : styles.outlined_cat
+                  }
                   style={
                     products.includes(product.title)
                       ? { background: '#b4f8b4', borderRadius: '8px' }
@@ -69,6 +70,9 @@ const ProdCard = (props) => {
                   }
                   alt="buy product"
                   onClick={() => {
+                    if (product.quantity === 0) {
+                      return
+                    }
                     onProductClick(product)
                   }}
                 />

@@ -4,34 +4,10 @@ import {
   GET_BILLING_HISTORY_ERROR,
 } from '../actions/constants'
 
-const mockdata = [
-  {
-    id: '113212',
-    date: 'Jul, 23',
-    status: 'Successful',
-    amount: '$112.6',
-    method: 'VISA *4383',
-  },
-  {
-    id: '113212',
-    date: 'Jul, 25',
-    status: 'Successful',
-    amount: '$212.6',
-    method: 'VISA *4733',
-  },
-  {
-    id: '113212',
-    date: 'Jul, 27',
-    status: 'In Progress',
-    amount: '$312.6',
-    method: 'VISA *8756',
-  },
-]
-
 const initialState = {
   requesting: false,
   eroror: '',
-  orders: mockdata,
+  orders: [],
 }
 
 const reducer = function accountReducer(state = initialState, action) {
