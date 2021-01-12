@@ -92,7 +92,7 @@ function* basketFlow({ data }) {
 }
 
 function* cartWatcher() {
-  yield takeLatest(ADD_PRODUCT_TO_BASKET, basketFlow)
+  // yield takeLatest(ADD_PRODUCT_TO_BASKET, basketFlow)
 }
 
 export default cartWatcher
