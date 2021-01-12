@@ -5,6 +5,7 @@ import {
   GET_FM_ORDER_REQUESTING,
   GET_FM_ORDER_SUCCESS,
   GET_FM_ORDER_ERROR,
+  REMOVE_FM_ORDER,
 } from '../actions/constants'
 
 const initialState = {
@@ -43,7 +44,7 @@ const reducer = function foodmakerReducer(state = initialState, action) {
     case GET_FM_ORDER_SUCCESS:
       return {
         ...state,
-        orders: action.data,
+        order: action.data,
         requesting: false,
       }
     case GET_FM_ORDER_ERROR:
@@ -51,6 +52,12 @@ const reducer = function foodmakerReducer(state = initialState, action) {
         ...state,
         requesting: false,
         error: action.error,
+      }
+
+    case REMOVE_FM_ORDER:
+      return {
+        ...state,
+        order: {},
       }
 
     default:

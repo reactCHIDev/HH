@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
+import { removeFLOrder } from 'actions/foodlover-orders'
+
 import SubHeader from 'components/SubHeader'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import { connect } from 'react-redux'
@@ -14,11 +16,13 @@ const OrderInfo = (props) => {
   const {
     location: { state: order },
     replaceRoute,
+    removeOrder,
   } = props
   const { orderHash } = useParams()
 
   const goBack = () => {
     replaceRoute(`/account_info/orders`)
+    removeOrder()
   }
 
   return (
@@ -37,8 +41,10 @@ const OrderInfo = (props) => {
 
 OrderInfo.propTypes = {
   replaceRoute: T.func,
+  removeOrder: T.func,
 }
 
 export default connect(({ orders }) => ({ orders }), {
   replaceRoute: replace,
+  removeOrder: removeFLOrder,
 })(OrderInfo)
