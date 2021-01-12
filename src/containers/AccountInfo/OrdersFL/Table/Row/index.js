@@ -17,26 +17,28 @@ function index({ item }) {
   })
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.columnsWrapper}>
-          <div className={styles.time}>
-            <div>
-              {day}, {month}
+      <Link to={{ pathname: '/order_info', state: item }}>
+        <div className={styles.container}>
+          <div className={styles.columnsWrapper}>
+            <div className={styles.time}>
+              <div>
+                {day}, {month}
+              </div>
+              <div>{time}</div>
             </div>
-            <div>{time}</div>
+            <div className={styles.id}>#{item.id}</div>
+            <div className={styles.items}>{item.orderProducts.length}</div>
+            <div className={styles.amount}>$ {item.orderTotal}</div>
+            <div className={styles.delivery}>{item.deliveryMethod}</div>
+            <div className={styles.status}>{item.deliveryStatus}</div>
           </div>
-          <div className={styles.id}>#{item.id}</div>
-          <div className={styles.items}>{item.orderProducts.length}</div>
-          <div className={styles.amount}>$ {item.orderTotal}</div>
-          <div className={styles.delivery}>{item.deliveryMethod}</div>
-          <div className={styles.status}>{item.deliveryStatus}</div>
+          <div className={styles.lastSection}>
+            <Link to={{ pathname: '/order_info', state: item }}>
+              <button type="button">{'>'}</button>
+            </Link>
+          </div>
         </div>
-        <div className={styles.lastSection}>
-          <Link to={{ pathname: '/order_info', state: item }}>
-            <button type="button">{'>'}</button>
-          </Link>
-        </div>
-      </div>
+      </Link>
     </>
   )
 }

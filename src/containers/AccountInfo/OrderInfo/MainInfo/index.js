@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { getFLOrderAC } from 'actions/foodlover-orders'
-// import { useSelector } from 'react-redux'
 import { connect } from 'react-redux'
 import styles from './maininfo.module.scss'
 import Header from './components/Header'

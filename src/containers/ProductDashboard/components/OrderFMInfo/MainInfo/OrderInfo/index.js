@@ -1,44 +1,70 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { useSelector } from 'react-redux'
+import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import styles from './orderInfo.module.scss'
 
-function OrderInfo({ order }) {
-  return (
+function OrderInfo() {
+  const order = useSelector((state) => state.fmOrders.order)
+
+  const date = new Date(order.createdAt).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  })
+
+  const time = new Date(order.createdAt).toLocaleTimeString('en-US', {
+    hour12: false,
+    hour: 'numeric',
+    minute: '2-digit',
+  })
+
+  const paymentDetails = `${order.paymentDetails?.brand}  *${order.paymentDetails?.last4}  ${date} ${time}`
+
+  return order?.orderProducts ? (
     <div className={styles.container}>
       {/* Header */}
       <div className={styles.statusWrapper}>
         <div className={styles.status}>Status: </div>
-        <div className={styles.statusType}>{`status`}</div>
+        <div className={styles.statusType}>{order.deliveryStatus}</div>
       </div>
       {/* Order */}
-      <div className={styles.orderWrapper}>
-        <div className={styles.orderImageWrapper}>
-          <div className={styles.img} />
-        </div>
-        <div className={styles.orderInfoWrapper}>
-          <div className={styles.header}>{order.productName}</div>
-          <div className={styles.orderSummaryWrapper}>
-            <div className={styles.item}>
-              <div>Value</div>
-              <p className={styles.value}>{order.amount} G.</p>
+      {order.orderProducts.map((item) => (
+        <div key={item.id}>
+          <div className={styles.orderWrapper}>
+            <div className={styles.orderImageWrapper}>
+              <div
+                style={{ backgroundImage: `url("${item.coverPhoto}")` }}
+                className={styles.img}
+              />
             </div>
-            <div className={styles.item}>
-              <div>Qty</div>
-              <p className={styles.value}>{order.items}</p>
-            </div>
-            <div className={styles.item}>
-              <div>Price</div>
-              <p className={styles.value}>{order.price}</p>
+            <div className={styles.orderInfoWrapper}>
+              <div className={styles.header}>{item.title}</div>
+              <div className={styles.orderSummaryWrapper}>
+                <div className={styles.item}>
+                  <div>Value</div>
+                  <p className={styles.value}>
+                    {item.volume} {item.measure}
+                  </p>
+                </div>
+                <div className={styles.item}>
+                  <div>Qty</div>
+                  <p className={styles.value}>{item.quantity}</p>
+                </div>
+                <div className={styles.item}>
+                  <div>Price</div>
+                  <p className={styles.value}>{item.price}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ))}
       {/* Payment */}
       <div className={styles.paymentWrapper}>
         <div className={styles.paymentInfo}>
           <div className={styles.item}>
             <div>Payment method:</div>
-            <div className={styles.value}>{order.paymentMethod}</div>
+            <div className={styles.value}>{order.paymentDetails.brand} - credit card</div>
           </div>
           <div className={styles.item}>
             <div>Discounts: </div>
@@ -46,29 +72,35 @@ function OrderInfo({ order }) {
           </div>
         </div>
         <div className={styles.total}>
-          Total: {order.total}
-          <span className={styles.value}>{order.priceOption}</span>
+          Total: {order.orderTotal}$<span className={styles.value}>Refund</span>
         </div>
       </div>
       {/* Client */}
       <div className={styles.clientWrapper}>
         <div className={styles.imgWrapper}>
-          <div className={styles.img} />
+          {order.customer.userPhoto ? (
+            <div
+              style={{ backgroundImage: `url("${order.customer?.userPhoto}")` }}
+              className={styles.img}
+            />
+          ) : (
+            <AvatarPlaceholder width={96} />
+          )}
         </div>
         <div className={styles.clientInfo}>
           <div className={styles.mainInfo}>
             <div className={styles.item}>
               <div>Client</div>
-              <div className={styles.value}>{order.client}</div>
+              <div className={styles.value}>{order.customer?.profileName}</div>
             </div>
             <div className={styles.item}>
               <div>Contact number</div>
-              <div className={styles.number}>{order.clientNumber}</div>
+              <div className={styles.number}>{order.deliveryPhone}</div>
             </div>
           </div>
           <div className={styles.secondaryInfo}>
             <div>Address</div>
-            <div className={styles.value}>{order.clientAddress}</div>
+            <div className={styles.value}>{order.deliveryAddress}</div>
           </div>
         </div>
       </div>
@@ -77,26 +109,28 @@ function OrderInfo({ order }) {
         <div className={styles.column}>
           <div className={styles.item}>
             <div>Order ID</div>
-            <div className={styles.value}>#${order.id}</div>
+            <div className={styles.value}>#{order.id}</div>
           </div>
           <div className={styles.item}>
             <div>Delivery type</div>
-            <div className={styles.value}>{order.delivery}</div>
+            <div className={styles.value}>{order.deliveryMethod}</div>
           </div>
         </div>
         <div className={styles.column}>
           <div className={styles.item}>
             <div>Date/time</div>
-            <div className={styles.value}>{`${order.date} ${order.time}`}</div>
+            <div className={styles.value}>
+              {date} {time}
+            </div>
           </div>
           <div className={styles.item}>
             <div>Payment</div>
-            <div className={styles.value}>{order.payment}</div>
+            <div className={styles.value}>{paymentDetails}</div>
           </div>
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default OrderInfo

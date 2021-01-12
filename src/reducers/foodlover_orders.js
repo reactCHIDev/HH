@@ -5,6 +5,7 @@ import {
   GET_FL_ORDER_REQUESTING,
   GET_FL_ORDER_SUCCESS,
   GET_FL_ORDER_ERROR,
+  REMOVE_FL_ORDER,
 } from '../actions/constants'
 
 const initialState = {
@@ -51,6 +52,12 @@ const reducer = function foodloverReducer(state = initialState, action) {
         ...state,
         requesting: false,
         error: action.error,
+      }
+
+    case REMOVE_FL_ORDER:
+      return {
+        ...state,
+        order: {},
       }
 
     default:

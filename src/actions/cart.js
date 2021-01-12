@@ -8,6 +8,8 @@ import {
   DEC_PRODUCT_AMOUNT,
   CHANGE_DELIVERY_TYPE,
   ADD_ITEM_TO_ORDER,
+  DELETE_PRODUCT_AND_SHOP_FROM_LIST,
+  DELETE_PRODUCT_FROM_LIST,
 } from './constants'
 
 export const addProductToBasket = (data) => {
@@ -68,6 +70,20 @@ export const changeDeliveryType = (data) => {
 export const addItemToProduct = (data) => {
   return {
     type: ADD_ITEM_TO_ORDER,
+    data,
+  }
+}
+
+export const deleteProductFromList = (data) => {
+  return {
+    type: DELETE_PRODUCT_FROM_LIST,
+    data,
+  }
+}
+
+export const deleteProductAndShopFromList = (data) => {
+  return {
+    type: DELETE_PRODUCT_AND_SHOP_FROM_LIST,
     data,
   }
 }
