@@ -10,6 +10,8 @@ import {
   SET_ITEM_IN_ORDERS,
   SET_SHOP_DATA,
   ADD_ITEM_TO_ORDER,
+  DELETE_PRODUCT_FROM_LIST,
+  DELETE_PRODUCT_AND_SHOP_FROM_LIST,
 } from '../actions/constants'
 
 function* basketFlow({ data }) {
@@ -26,48 +28,71 @@ function* basketFlow({ data }) {
   yield put({ type: SET_ITEM_TO_PRODUCTS, title })
 
   if (!(shop.title in shopsData)) {
-    const {
-      data: { deliveryMethods, title: shopTitle },
-    } = yield getShopByUrlReq(shop.shopUrl)
-    const newPrice = price * (amount || 1)
+    try {
+      const {
+        data: { deliveryMethods, title: shopTitle },
+      } = yield getShopByUrlReq(shop.shopUrl)
+      const newPrice = price * (amount || 1)
 
-    const methods = deliveryMethods.map(({ freeDeliveryOver, note, price: delPrice, type }) => ({
-      freeDeliveryOver: freeDeliveryOver || 0,
-      note: note || '',
-      delPrice: delPrice || 0,
-      type: type || '',
-    }))
+      const methods = deliveryMethods.map(({ freeDeliveryOver, note, price: delPrice, type }) => ({
+        freeDeliveryOver: freeDeliveryOver || 0,
+        note: note || '',
+        delPrice: delPrice || 0,
+        type: type || '',
+      }))
 
-    const delivery = {
-      type: methods[0].type,
-      price: methods[0].delPrice,
+      const delivery = {
+        type: methods[0].type,
+        price: methods[0].delPrice,
+      }
+      yield put({
+        type: SET_SHOP_DATA,
+        data: { deliveryMethods: methods, price: newPrice, shopTitle, delivery },
+      })
+    } catch {
+      console.log('error in saga when add new shop to shops list')
+      yield put({
+        type: DELETE_PRODUCT_FROM_LIST,
+        title,
+      })
+      return
     }
-    yield put({
-      type: SET_SHOP_DATA,
-      data: { deliveryMethods: methods, price: newPrice, shopTitle, delivery },
-    })
   } else {
     yield put({ type: ADD_ITEM_TO_ORDER, data: { shop: shop.title, price } })
   }
 
   if (shop.title in orders) {
-    const newState = cloneDeep(orders)
-    newState[shop.title].push({
-      ...data,
-      ...{ total: amount || 1, totalPrice: (amount || 1) * price },
-    })
-    yield put({ type: SET_ITEM_IN_ORDERS, newState })
+    try {
+      const newState = cloneDeep(orders)
+      newState[shop.title].push({
+        ...data,
+        ...{ total: amount || 1, totalPrice: (amount || 1) * price },
+      })
+      yield put({ type: SET_ITEM_IN_ORDERS, newState })
+    } catch {
+      console.log('error in saga when add new product to exact shop')
+      yield put({
+        type: DELETE_PRODUCT_FROM_LIST,
+        title,
+      })
+    }
   } else {
-    const newState = cloneDeep(orders)
-    newState[shop.title] = [
-      { ...data, ...{ total: amount || 1 }, totalPrice: (amount || 1) * price },
-    ]
-    yield put({ type: SET_ITEM_IN_ORDERS, newState })
+    try {
+      const newState = cloneDeep(orders)
+      newState[shop.title] = [
+        { ...data, ...{ total: amount || 1 }, totalPrice: (amount || 1) * price },
+      ]
+      yield put({ type: SET_ITEM_IN_ORDERS, newState })
+    } catch {
+      console.log('error in saga when add new product to new shop')
+      const { title: shopTitle } = shop
+      yield put({ type: DELETE_PRODUCT_AND_SHOP_FROM_LIST, data: { title, shopTitle, price } })
+    }
   }
 }
 
 function* cartWatcher() {
-  yield takeLatest(ADD_PRODUCT_TO_BASKET, basketFlow)
+  // yield takeLatest(ADD_PRODUCT_TO_BASKET, basketFlow)
 }
 
 export default cartWatcher

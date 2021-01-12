@@ -5,6 +5,7 @@ import {
   GET_FM_ORDER_REQUESTING,
   GET_FM_ORDER_SUCCESS,
   GET_FM_ORDER_ERROR,
+  REMOVE_FM_ORDER,
 } from './constants'
 
 export const getFoodmakerOrdersAC = () => ({
@@ -23,4 +24,8 @@ export const getFoodmakerOrdersError = (payload) => ({
 export const getFMOrderAC = (id) => ({
   type: GET_FM_ORDER_REQUESTING,
   payload: id,
+})
+
+export const removeFMOrder = () => ({
+  type: REMOVE_FM_ORDER,
 })

@@ -11,6 +11,8 @@ import {
   CHANGE_DELIVERY_TYPE,
   ADD_ITEM_TO_ORDER,
   CREATE_ORDER_SUCCESS,
+  DELETE_PRODUCT_FROM_LIST,
+  DELETE_PRODUCT_AND_SHOP_FROM_LIST,
 } from '../actions/constants'
 
 const initialState = {
@@ -37,6 +39,17 @@ const gc = (state) => {
   return newState
 }
 
+const deleteDataAfterError = (state, elementToDelete) => {
+  const stateAfterDelete = cloneDeep(state)
+  stateAfterDelete.products.pop()
+  stateAfterDelete.totalPrice =
+    stateAfterDelete.totalPrice -
+    stateAfterDelete.shopsData[elementToDelete].price -
+    stateAfterDelete.shopsData[elementToDelete].delivery.price
+  delete stateAfterDelete.shopsData[elementToDelete]
+  setItem('cart', stateAfterDelete)
+  return stateAfterDelete
+}
 const reducer = function cartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT_TO_BASKET:
@@ -192,6 +205,17 @@ const reducer = function cartReducer(state = initialState, action) {
       }
       setItem('cart', newState)
       return newState
+
+    case DELETE_PRODUCT_FROM_LIST:
+      newState = {
+        ...state,
+        products: state.products.filter((element) => element !== action.title),
+      }
+      setItem('cart', newState)
+      return newState
+
+    case DELETE_PRODUCT_AND_SHOP_FROM_LIST:
+      return deleteDataAfterError(state, action.data.shopTitle)
 
     default:
       setItem('cart', state)

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Modal from 'components/UniversalModal'
 import AdressForm from '../AdressForm'
 import styles from './settings.module.scss'
@@ -19,10 +20,12 @@ function Settings({ price, active }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.backTextWrapper}>
-        <p>{'<'}</p>
-        <p>CONTINUE SHOPPING</p>
-      </div>
+      <Link to="/">
+        <div className={styles.backTextWrapper}>
+          <p>{'<'}</p>
+          <p>CONTINUE SHOPPING</p>
+        </div>
+      </Link>
       <div className={styles.orderWrapper} style={{ opacity: active ? 1 : 0.4 }}>
         <div className={styles.orderTextWrapper}>
           <p className={styles.totalText}>Total: </p>

@@ -5,6 +5,7 @@ import {
   GET_FL_ORDER_REQUESTING,
   GET_FL_ORDER_SUCCESS,
   GET_FL_ORDER_ERROR,
+  REMOVE_FL_ORDER,
 } from './constants'
 
 export const getFoodloverOrdersAC = () => ({
@@ -23,4 +24,8 @@ export const getFoodloverOrdersError = (payload) => ({
 export const getFLOrderAC = (id) => ({
   type: GET_FL_ORDER_REQUESTING,
   payload: id,
+})
+
+export const removeFLOrder = () => ({
+  type: REMOVE_FL_ORDER,
 })

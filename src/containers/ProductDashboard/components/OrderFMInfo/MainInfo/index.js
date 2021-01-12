@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import T from 'prop-types'
 
-import { getFoodmakerOrderInfoReq } from 'api/requests/foodmaker'
 import styles from './maininfo.module.scss'
 import OrderInfo from './OrderInfo'
 import Chat from './Chat'
@@ -11,7 +10,7 @@ const MainOrderInfo = ({ order }) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <OrderInfo order={order} />
-        <Chat />
+        {/* <Chat /> */}
       </div>
     </div>
   )
