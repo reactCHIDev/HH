@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import { getDataForAdminAC } from 'actions/admin'
 import { Layout } from 'antd'
+import AdminTable from 'components/AdminTable'
 import Sidebar from './components/Sidebar'
 import HeaderWrapper from './components/Header'
 import './admin_page.less'
@@ -23,7 +24,9 @@ function Admin() {
       <Content>
         <Layout>
           <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-          <Content>{activeTab}</Content>
+          <Content>
+            <AdminTable />
+          </Content>
         </Layout>
       </Content>
     </Layout>
