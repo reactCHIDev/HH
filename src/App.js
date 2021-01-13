@@ -67,6 +67,9 @@ const CartPage = lazy(() => import('containers/Cart'))
 const Settings = lazy(() => import('containers/Settings'))
 const PageNotFound = lazy(() => import('components/PageNotFound'))
 
+// Admin
+const AdminPage = lazy(() => import('pages/Admin'))
+
 function WaitingComponent(Component) {
   return (props) => (
     <Suspense
@@ -92,7 +95,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
   const url = `${process.env.REACT_APP_BASE_URL}/api`
   setBaseEndpoint(url)
 
-  const hideHeader = ['/signupflow'].includes(pathname)
+  const hideHeader = ['/signupflow', '/admin'].includes(pathname)
 
   // console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
@@ -192,6 +195,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 path="/settings/:activeTab?/:confirmation?"
                 component={WaitingComponent(Settings)}
               />
+              <PrivateRoute exact path="/admin" component={WaitingComponent(AdminPage)} />
               <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
               <Route path="/*" component={WaitingComponent(PageNotFound)} />
             </Switch>
