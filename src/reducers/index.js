@@ -17,6 +17,7 @@ import fmOrders from './foodmaker_orders'
 import flOrders from './foodlover_orders'
 import stripe from './stripe'
 import billingHistory from './billing_history'
+import admin from './admin'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -37,6 +38,7 @@ const createRootReducer = (history) =>
     flOrders,
     stripe,
     billingHistory,
+    admin,
   })
 
 export default createRootReducer

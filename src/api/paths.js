@@ -65,7 +65,9 @@ export default {
   fmOrderInfo: '/v1/order/foodmaker_order/',
   flOrderInfo: '/v1/order/customer_order/',
 
-  //
+  // Admin
+  getUsersList: '/v1/admin/user/list_all',
+
   //
   //
   //
