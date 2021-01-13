@@ -1,50 +1,130 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
-import { Table, Button, Space } from 'antd'
+import { Table, Input, Button, Space } from 'antd'
+import Highlighter from 'react-highlight-words'
+import { SearchOutlined } from '@ant-design/icons'
 import { getUsersListAC } from 'actions/admin'
+import Avatar from 'components/AvatarPlaceholder'
 import { connect } from 'react-redux'
 
 const AdminTable = ({ usersList, getUsersListAC }) => {
-  const [filteredInf, setFilter] = useState(null)
   const [sortedInf, setSort] = useState(null)
+  const [searchText, setSearchText] = useState('')
+  const [searchedColumn, setSearchedColumn] = useState('')
+
+  const searchInput = useRef(null)
 
   useEffect(() => {
     getUsersListAC()
   }, [])
 
   const handleChange = (pagination, filters, sorter) => {
-    setFilter(filters)
     setSort(sorter)
   }
 
-  const clearFilters = () => {
-    setFilter(null)
+  const clearAll = () => {
+    setSort(null)
+    setSearchText('')
+    setSearchedColumn('')
   }
 
-  const clearAll = () => {
-    setFilter(null)
-    setSort(null)
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm()
+    setSearchText(selectedKeys[0])
+    setSearchedColumn(dataIndex)
   }
+
+  const handleReset = (clearFilters) => {
+    clearFilters()
+    console.log('%c   clearFilters   ', 'color: darkgreen; background: palegreen;', clearFilters)
+    setSearchText('')
+  }
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ width: 188, marginBottom: 8, display: 'block' }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : '',
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current.select(), 100)
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ''}
+        />
+      ) : (
+        text
+      ),
+  })
 
   const sortedInfo = sortedInf || {}
-  const filteredInfo = filteredInf || {}
   const columns = [
     {
       title: 'profileName',
       dataIndex: 'profileName',
       key: 'profileName',
-
-      sorter: (a, b) => a.profileName.length - b.profileName.length,
+      fixed: 'left',
+      width: '150px',
+      sorter: (a, b) => {
+        if (a.profileName.toLowerCase() > b.profileName.toLowerCase()) return 1
+        if (a.profileName.toLowerCase() < b.profileName.toLowerCase()) return -1
+        return 0
+      },
       sortOrder: sortedInfo.columnKey === 'profileName' && sortedInfo.order,
       ellipsis: true,
+      ...getColumnSearchProps('profileName'),
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      sorter: (a, b) => a.email - b.email,
+      sorter: (a, b) => {
+        if (a.email.toLowerCase() > b.email.toLowerCase()) return 1
+        if (a.email.toLowerCase() < b.email.toLowerCase()) return -1
+        return 0
+      },
       sortOrder: sortedInfo.columnKey === 'email' && sortedInfo.order,
       ellipsis: true,
+      ...getColumnSearchProps('email'),
+      width: '200px',
     },
     {
       title: 'Role',
@@ -55,11 +135,27 @@ const AdminTable = ({ usersList, getUsersListAC }) => {
         { text: 'Foodmaker', value: 'FOODMAKER' },
         { text: 'Admin', value: 'ADMIN' },
       ],
-      filteredValue: filteredInfo.role || null,
-      onFilter: (value, record) => record.role.includes(value),
-      sorter: (a, b) => a.role.length - b.role.length,
+      sorter: (a, b) => {
+        if (a.role.toLowerCase() > b.role.toLowerCase()) return 1
+        if (a.role.toLowerCase() < b.role.toLowerCase()) return -1
+        return 0
+      },
       sortOrder: sortedInfo.columnKey === 'role' && sortedInfo.order,
       ellipsis: true,
+      width: '140px',
+      ...getColumnSearchProps('role'),
+    },
+    {
+      title: 'userPhoto',
+      dataIndex: 'userPhoto',
+      key: 'userPhoto',
+      width: '100px',
+      render: (url) =>
+        url ? (
+          <img src={url} width={48} height={48} style={{ borderRadius: 8 }} alt="photo" />
+        ) : (
+          <Avatar />
+        ),
     },
     {
       title: 'ID',
@@ -68,16 +164,19 @@ const AdminTable = ({ usersList, getUsersListAC }) => {
       sorter: (a, b) => Number(a.id) - Number(b.id),
       sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
       ellipsis: true,
+      ...getColumnSearchProps('id'),
     },
   ]
 
   return (
     <>
-      <Space style={{ marginBottom: 16 }}>
-        <Button onClick={clearFilters}>Clear filters</Button>
-        <Button onClick={clearAll}>Clear filters and sorters</Button>
-      </Space>
-      <Table columns={columns} dataSource={usersList} onChange={handleChange} />
+      <Table
+        columns={columns}
+        dataSource={usersList}
+        scroll={{ x: 1024 }}
+        sticky
+        onChange={handleChange}
+      />
     </>
   )
 }
