@@ -3,40 +3,16 @@ import T from 'prop-types'
 import { Table, Button, Space } from 'antd'
 import { getUsersListAC } from 'actions/admin'
 import { connect } from 'react-redux'
-import styles from './admin.module.scss'
-import './admin.less'
-
-const data = [
-  {
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-  },
-  {
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
-  },
-]
 
 const AdminTable = ({ usersList, getUsersListAC }) => {
   const [filteredInf, setFilter] = useState(null)
   const [sortedInf, setSort] = useState(null)
 
-  useEffect(() => getUsersListAC(), [])
+  useEffect(() => {
+    getUsersListAC()
+  }, [])
 
   const handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter)
     setFilter(filters)
     setSort(sorter)
   }
@@ -111,6 +87,6 @@ AdminTable.propTypes = {
   getUsersListAC: T.func,
 }
 
-export default connect(({ admin: { usersList } }) => ({ usersList }), { getUsersListAC })(
-  AdminTable,
-)
+export default connect(({ admin: { usersList } }) => ({ usersList }), {
+  getUsersListAC,
+})(AdminTable)
