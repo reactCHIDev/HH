@@ -25,6 +25,7 @@ import Header from 'components/Header'
 
 /* PAGES */
 import Home from 'pages/HomePage'
+import AdminPage from 'pages/Admin'
 import Create from 'containers/Auth/components/Forgot/components/Create'
 
 import './App.less'
@@ -66,9 +67,6 @@ const OrderFMInfo = lazy(() => import('containers/ProductDashboard/components/Or
 const CartPage = lazy(() => import('containers/Cart'))
 const Settings = lazy(() => import('containers/Settings'))
 const PageNotFound = lazy(() => import('components/PageNotFound'))
-
-// Admin
-const AdminPage = lazy(() => import('pages/Admin'))
 
 function WaitingComponent(Component) {
   return (props) => (
@@ -195,7 +193,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 path="/settings/:activeTab?/:confirmation?"
                 component={WaitingComponent(Settings)}
               />
-              <PrivateRoute exact path="/admin" component={WaitingComponent(AdminPage)} />
+              <PrivateRoute exact path="/admin" component={AdminPage} />
               <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
               <Route path="/*" component={WaitingComponent(PageNotFound)} />
             </Switch>
