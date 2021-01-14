@@ -25,6 +25,7 @@ import Header from 'components/Header'
 
 /* PAGES */
 import Home from 'pages/HomePage'
+import AdminPage from 'pages/Admin'
 import Create from 'containers/Auth/components/Forgot/components/Create'
 
 import './App.less'
@@ -92,7 +93,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
   const url = `${process.env.REACT_APP_BASE_URL}/api`
   setBaseEndpoint(url)
 
-  const hideHeader = ['/signupflow'].includes(pathname)
+  const hideHeader = ['/signupflow', '/admin'].includes(pathname)
 
   // console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
@@ -192,6 +193,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
                 path="/settings/:activeTab?/:confirmation?"
                 component={WaitingComponent(Settings)}
               />
+              <PrivateRoute exact path="/admin" component={AdminPage} />
               <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
               <Route path="/*" component={WaitingComponent(PageNotFound)} />
             </Switch>

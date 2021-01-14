@@ -13,6 +13,7 @@ import './balance.less'
 
 const Balance = () => {
   const [withdraw, setWithdraw] = useState(false)
+  const [moneyValue, setMoney] = useState(0)
   const dispatch = useDispatch()
   const balance = useSelector((state) => state.account.balance)
 
@@ -20,15 +21,18 @@ const Balance = () => {
     mode: 'onBlur',
   })
 
+  const onMoneyChange = (e) => setMoney(e.target.value)
+
   const onWithdraw = () => {
     setWithdraw((w) => !w)
     if (withdraw)
       dispatch(
         createWithdrawAC({
-          amount: 5,
+          amount: Number(moneyValue),
           currency: 'HKD',
         }),
       )
+    setMoney(0)
   }
 
   const onSubmit = (data) => {
@@ -140,6 +144,8 @@ const Balance = () => {
                   className={styles.input_withdraw}
                   name="withdraw"
                   type="number"
+                  onChange={onMoneyChange}
+                  value={moneyValue}
                   placeholder={0.0}
                   autoComplete="off"
                 />
