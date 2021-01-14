@@ -17,6 +17,13 @@ function Sidebar({ activeTab, setActiveTab }) {
         <Menu.Item key="shops" icon={<FileOutlined />} onClick={() => setActiveTab('shops')}>
           Shops
         </Menu.Item>
+        <Menu.Item
+          key="withdraws"
+          icon={<FileOutlined />}
+          onClick={() => setActiveTab('withdraws')}
+        >
+          Withdraws
+        </Menu.Item>
       </Menu>
     </Sider>
   )

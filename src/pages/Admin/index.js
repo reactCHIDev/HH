@@ -4,6 +4,7 @@ import { Layout } from 'antd'
 import HeaderWrapper from './components/Header'
 import Sidebar from './components/Sidebar'
 import Users from './components/Tables/Users'
+import Withdraws from './components/Tables/Withdraws'
 import Shops from './components/Tables/Shops'
 
 import './admin_page.less'
@@ -21,6 +22,7 @@ function Admin() {
         <Content>
           {activeTab === 'users' && <Users />}
           {activeTab === 'shops' && <Shops />}
+          {activeTab === 'withdraws' && <Withdraws />}
         </Content>
       </Layout>
     </Layout>

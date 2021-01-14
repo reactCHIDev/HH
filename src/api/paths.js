@@ -68,6 +68,7 @@ export default {
   // Admin
   getUsersList: '/v1/admin/user/list_all',
   getShopsList: '/v1/admin/shop/list_all',
+  getWithdrawList: '/v1/admin/foodmaker/withdraw',
 
   //
   //
