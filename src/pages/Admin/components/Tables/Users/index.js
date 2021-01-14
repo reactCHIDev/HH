@@ -7,7 +7,7 @@ import { getUsersListAC } from 'actions/admin'
 import Avatar from 'components/AvatarPlaceholder'
 import { connect } from 'react-redux'
 
-const AdminTable = ({ usersList, getUsersListAC }) => {
+const AdminTable = ({ usersList, requesting, getUsersListAC }) => {
   const [sortedInf, setSort] = useState(null)
   const [searchText, setSearchText] = useState('')
   const [searchedColumn, setSearchedColumn] = useState('')
@@ -174,6 +174,7 @@ const AdminTable = ({ usersList, getUsersListAC }) => {
         columns={columns}
         dataSource={usersList}
         scroll={{ x: 1024 }}
+        loading={requesting}
         sticky
         onChange={handleChange}
       />
@@ -183,9 +184,10 @@ const AdminTable = ({ usersList, getUsersListAC }) => {
 
 AdminTable.propTypes = {
   usersList: T.shape(),
+  requesting: T.bool,
   getUsersListAC: T.func,
 }
 
-export default connect(({ admin: { usersList } }) => ({ usersList }), {
+export default connect(({ admin: { usersList, requesting } }) => ({ usersList, requesting }), {
   getUsersListAC,
 })(AdminTable)

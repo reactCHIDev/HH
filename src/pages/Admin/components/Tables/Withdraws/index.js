@@ -3,11 +3,11 @@ import T from 'prop-types'
 import { Table, Input, Button, Space } from 'antd'
 import Highlighter from 'react-highlight-words'
 import { SearchOutlined } from '@ant-design/icons'
-import { getWithdrawListAC } from 'actions/admin'
+import { getWithdrawListAC, approveWithdrawAC } from 'actions/admin'
 import Avatar from 'components/AvatarPlaceholder'
 import { connect } from 'react-redux'
 
-const Withdraws = ({ withdrawList, getWithdrawListAC }) => {
+const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdrawAC }) => {
   const [sortedInf, setSort] = useState(null)
   const [searchText, setSearchText] = useState('')
   const [searchedColumn, setSearchedColumn] = useState('')
@@ -17,6 +17,10 @@ const Withdraws = ({ withdrawList, getWithdrawListAC }) => {
   useEffect(() => {
     getWithdrawListAC()
   }, [])
+
+  const approveHandler = (id) => approveWithdrawAC(id)
+
+  const refreshData = () => getWithdrawListAC()
 
   const handleChange = (pagination, filters, sorter) => {
     setSort(sorter)
@@ -162,17 +166,27 @@ const Withdraws = ({ withdrawList, getWithdrawListAC }) => {
       fixed: 'right',
       width: '50px',
       render: (text, record) =>
-        record.status === 'Pending' ? <button type="button">Approve</button> : <div> - </div>,
+        record.status === 'Pending' ? (
+          <button type="button" onClick={() => approveHandler(record.id)}>
+            Approve
+          </button>
+        ) : (
+          <div> - </div>
+        ),
     },
   ]
 
   return (
     <>
+      <Space style={{ marginBottom: 16 }}>
+        <Button onClick={refreshData}>Refresh Data</Button>
+      </Space>
       <Table
         columns={columns}
         dataSource={withdrawList}
         scroll={{ x: 1024 }}
         sticky
+        loading={requesting}
         onChange={handleChange}
       />
     </>
@@ -181,9 +195,15 @@ const Withdraws = ({ withdrawList, getWithdrawListAC }) => {
 
 Withdraws.propTypes = {
   withdrawList: T.shape(),
+  requesting: T.bool,
   getWithdrawListAC: T.func,
+  approveWithdrawAC: T.func,
 }
 
-export default connect(({ admin: { withdrawList } }) => ({ withdrawList }), {
-  getWithdrawListAC,
-})(Withdraws)
+export default connect(
+  ({ admin: { withdrawList, requesting } }) => ({ withdrawList, requesting }),
+  {
+    getWithdrawListAC,
+    approveWithdrawAC,
+  },
+)(Withdraws)

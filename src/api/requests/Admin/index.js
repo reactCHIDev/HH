@@ -10,3 +10,4 @@ export const getWithdrawListReq = (options) => {
   const type = status ? `&status=${status}` : ''
   return apiClient.get(PATHS.getWithdrawList + qty + type)
 } // ?startIndex=0&limit=100&status=Pending
+export const approveWithdrawReq = (data) => apiClient.patch(PATHS.approveWithdraw, { data })
