@@ -35,6 +35,9 @@ const gc = (state) => {
     delete newState.orders[shopToDelete]
     delete newState.shopsData[shopToDelete]
   }
+  if (newState.products.length === 0) {
+    newState.totalPrice = 0
+  }
   setItem('cart', newState)
   return newState
 }

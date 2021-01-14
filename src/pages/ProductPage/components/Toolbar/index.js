@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { Select } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductToBasket } from 'actions/cart'
+import isProductAvailable from 'utils/isProductAvailable'
 import cls from 'classnames'
 import Button from 'components/Button/index'
 import styles from './toolbar.module.scss'
@@ -28,7 +29,7 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
   }
 
   const { Option } = Select
-  return product.quantity !== 0 ? (
+  return isProductAvailable(product) ? (
     <div className={styles.container}>
       <div className={styles.price}>
         {params.find((p) => p.volume === weightOption)?.price.toFixed(2)}
