@@ -3,6 +3,7 @@ import React from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import { Rate, Tag } from 'antd'
+import isProductAvailable from 'utils/isProductAvailable'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
@@ -61,7 +62,7 @@ const ProdCard = (props) => {
                 <img
                   src={OutlinedCartIcon}
                   className={
-                    product.quantity === 0 ? styles.outlined_cat_empty : styles.outlined_cat
+                    isProductAvailable(product) ? styles.outlined_cat : styles.outlined_cat_empty
                   }
                   style={
                     products.includes(product.title)
@@ -70,10 +71,7 @@ const ProdCard = (props) => {
                   }
                   alt="buy product"
                   onClick={() => {
-                    if (product.quantity === 0) {
-                      return
-                    }
-                    onProductClick(product)
+                    if (isProductAvailable(product)) onProductClick(product)
                   }}
                 />
               )}
