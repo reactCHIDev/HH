@@ -13,8 +13,9 @@ export const getShopsListAc = () => ({
   type: GET_SHOPS_LIST_REQUESTING,
 })
 
-export const getWithdrawListAC = () => ({
+export const getWithdrawListAC = (params) => ({
   type: GET_WITHDRAW_LIST_REQUESTING,
+  payload: params,
 })
 
 export const approveWithdrawAC = (id) => ({

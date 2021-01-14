@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, select } from 'redux-saga/effects'
 import {
   getUsersListReq,
   getShopsListReq,
@@ -43,10 +43,10 @@ function* getShopsListSaga() {
   }
 }
 
-function* getWithdrawListSaga() {
+function* getWithdrawListSaga({ payload }) {
   try {
-    const response = yield getWithdrawListReq({ startIndex: 0, limit: 100, status: null })
-    yield put({ type: GET_WITHDRAW_LIST_SUCCESS, data: response.data })
+    const response = yield getWithdrawListReq(payload)
+    yield put({ type: GET_WITHDRAW_LIST_SUCCESS, data: response.data, params: payload })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_WITHDRAW_LIST_ERROR, error: error.response.data.error })
@@ -57,7 +57,11 @@ function* getWithdrawListSaga() {
 function* approveWithdrawSaga({ payload }) {
   try {
     yield approveWithdrawReq({ withdrawRequestId: payload })
-    yield put({ type: GET_WITHDRAW_LIST_REQUESTING })
+    const {
+      admin: { params },
+    } = yield select()
+    console.log('%c   params   ', 'color: darkgreen; background: palegreen;', params)
+    yield put({ type: GET_WITHDRAW_LIST_REQUESTING, payload: params })
   } catch (error) {
     if (error.response) {
       yield put({ type: APPROVE_WITHDRAW_ERROR, error: error.response.data.error })

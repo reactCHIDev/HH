@@ -13,6 +13,8 @@ import {
 const initialState = {
   usersList: [],
   shopsList: [],
+  withdrawList: [],
+  params: {},
   requesting: false,
   error: '',
 }
@@ -67,6 +69,7 @@ const reducer = function accountReducer(state = initialState, action) {
       return {
         ...state,
         withdrawList: action.data,
+        params: action.params,
         requesting: false,
         error: '',
       }

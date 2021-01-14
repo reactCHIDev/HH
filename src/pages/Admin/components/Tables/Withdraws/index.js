@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
+import { format } from 'date-fns'
 import { Table, Input, Button, Space } from 'antd'
 import Highlighter from 'react-highlight-words'
 import { SearchOutlined } from '@ant-design/icons'
@@ -15,12 +16,14 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
   const searchInput = useRef(null)
 
   useEffect(() => {
-    getWithdrawListAC()
+    getWithdrawListAC({ startIndex: 0, limit: 100, status: null })
   }, [])
 
   const approveHandler = (id) => approveWithdrawAC(id)
 
-  const refreshData = () => getWithdrawListAC()
+  const refreshData = () => getWithdrawListAC({ startIndex: 0, limit: 100, status: null })
+
+  const getPending = () => getWithdrawListAC({ startIndex: 0, limit: 10000, status: 'Pending' })
 
   const handleChange = (pagination, filters, sorter) => {
     setSort(sorter)
@@ -102,6 +105,19 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
   const sortedInfo = sortedInf || {}
   const columns = [
     {
+      title: 'Date',
+      dataIndex: 'updateAt',
+      key: 'updateAt',
+      sorter: (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
+      sortOrder: sortedInfo.columnKey === 'updateAt' && sortedInfo.order,
+      ellipsis: true,
+      fixed: 'left',
+      width: '60px',
+      render: (text, record) => (
+        <div>{format(new Date(record.updatedAt), 'dd MMM YYY, hh:mm a')}</div>
+      ),
+    },
+    {
       title: 'id',
       dataIndex: 'id',
       key: 'id',
@@ -180,6 +196,7 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
     <>
       <Space style={{ marginBottom: 16 }}>
         <Button onClick={refreshData}>Refresh Data</Button>
+        <Button onClick={getPending}>Get Only Pending</Button>
       </Space>
       <Table
         columns={columns}
