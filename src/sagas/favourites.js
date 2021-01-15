@@ -1,15 +1,17 @@
 import { takeEvery } from 'redux-saga/effects'
 import {
-  toggleFavouriteProduct,
-  toggleFavouriteFoodmaker,
-  toggleFavouriteShop,
-} from 'api/requests/Account'
+  toggleFavouriteProductReq,
+  toggleFavouriteFoodmakerReq,
+  toggleFavouriteShopReq,
+} from 'api/requests/Foodlover'
 
 import { TOGGLE_FAVOURITE } from '../actions/constants'
 
-function* toggleFavouriteSaga(data) {
+function* toggleFavouriteSaga({ data }) {
   const { type, id } = data
-  yield console.log(type, id)
+  if (type === 'product') yield toggleFavouriteProductReq({ productId: id })
+  if (type === 'foodmaker') yield toggleFavouriteFoodmakerReq({ foodmakerId: id })
+  if (type === 'shop') yield toggleFavouriteShopReq({ shopId: id })
 }
 
 function* toggleFavouriteWatcher() {

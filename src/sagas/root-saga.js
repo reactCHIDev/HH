@@ -16,6 +16,7 @@ import stripe from './stripe'
 import billingHistory from './billing_history'
 import order from './order'
 import admin from './admin'
+import toggleFavourite from './favourites'
 
 export default function* rootSaga() {
   yield all([
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     billingHistory(),
     order(),
     admin(),
+    toggleFavourite(),
   ])
 }

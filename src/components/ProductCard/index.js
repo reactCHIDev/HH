@@ -6,9 +6,13 @@ import { Rate, Tag } from 'antd'
 import isProductAvailable from 'utils/isProductAvailable'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
+import expLikeRed from 'assets/icons/svg/exp_like_red.svg'
+
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductToBasket } from 'actions/cart'
+import toggleFavouriteAc from 'actions/favourites'
+
 import styles from './prod_card.module.scss'
 import './prod_card.less'
 
@@ -16,24 +20,19 @@ const ProdCard = (props) => {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.cart.products)
 
-  const {
-    id,
-    photo,
-    tags,
-    name,
-    price,
-    rating,
-    rateCount,
-    isShowCart,
-    pushRoute,
-    pathname,
-    product,
-  } = props
+  const { id, photo, tags, name, price, rating, isShowCart, pushRoute, pathname, product } = props
+
+  const [isFavourite, setIsFavourite] = React.useState(product.isFavorite)
 
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
   const onProductClick = (productData) => {
     dispatch(addProductToBasket(productData))
+  }
+
+  const onLikeCLick = () => {
+    setIsFavourite((f) => !f)
+    dispatch(toggleFavouriteAc({ id, type: 'product' }))
   }
 
   return (
@@ -43,8 +42,12 @@ const ProdCard = (props) => {
           className={styles.img_container}
           style={{ backgroundImage: `url("${photo || sec21}")` }}
         >
-          <img className={styles.card_like} src={expLike} alt="explike" />
-          {/* <img className={styles.card_img} src={photo ?? sec21} alt="cardimg" /> */}
+          <img
+            onClick={() => onLikeCLick()}
+            className={styles.card_like}
+            src={isFavourite ? expLikeRed : expLike}
+            alt="explike"
+          />
           <div className={cls('tags', styles.tags_container)}>
             {tags.map((tag) => (
               <Tag key={tag}>{tag}</Tag>
@@ -78,7 +81,7 @@ const ProdCard = (props) => {
             </div>
             <div className={cls(styles.rating_container, 'rating')}>
               <Rate style={{ color: '#31394C' }} disabled value={rating} />
-              <p className={styles.qauntity}>{`(${rateCount})`}</p>
+              <p className={styles.qauntity}>{`(${product.votes})`}</p>
             </div>
           </div>
         </div>
@@ -93,7 +96,6 @@ ProdCard.propTypes = {
   name: T.string,
   price: T.number,
   rating: T.number,
-  rateCount: T.number,
   isShowCart: T.bool,
   id: T.number.isRequired,
   pathname: T.string.isRequired,
