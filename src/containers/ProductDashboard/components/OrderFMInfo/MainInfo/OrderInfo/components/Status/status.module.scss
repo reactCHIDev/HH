@@ -1,0 +1,47 @@
+.statusWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  position: relative;
+
+  .status {
+    margin-right: 10px;
+    color: #838894;
+  }
+  .statusType {
+    color: #31394d;
+  }
+
+  .button {
+    cursor: pointer;
+
+    .arrow {
+      width: 26px;
+      height: 22px;
+      padding: 7px;
+      transition: transform 200ms ease-out;
+    }
+    .arrow_up {
+      transform: rotate(-180deg);
+    }
+  }
+
+  .typesWrapper {
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    background: #c7daec;
+    padding: 0px 40px;
+    border-radius: 10px;
+
+    div {
+      margin-bottom: 5px;
+      cursor: pointer;
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
+}
