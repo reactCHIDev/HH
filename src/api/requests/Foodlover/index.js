@@ -12,3 +12,10 @@ export const getFoodloverOrdersReq = ({ startD = '2021-01-01', endD = '2021-12-3
 }
 
 export const getFoodloverOrderInfoReq = (id) => apiClient.get(PATHS.flOrderInfo + id)
+
+export const toggleFavouriteProductReq = (id) => apiClient.post(PATHS.toggleFavouriteProduct + id)
+
+export const toggleFavouriteFoodmakerReq = (id) =>
+  apiClient.post(PATHS.toggleFavouriteFoodmaker + id)
+
+export const toggleFavouriteShopReq = (id) => apiClient.post(PATHS.toggleFavouriteShop + id)
