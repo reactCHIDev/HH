@@ -2,6 +2,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
+import StatusWrapper from './components/Status'
 import styles from './orderInfo.module.scss'
 
 function OrderInfo() {
@@ -23,10 +24,7 @@ function OrderInfo() {
   return order?.orderProducts ? (
     <div className={styles.container}>
       {/* Header */}
-      <div className={styles.statusWrapper}>
-        <div className={styles.status}>Status: </div>
-        <div className={styles.statusType}>{order.deliveryStatus}</div>
-      </div>
+      <StatusWrapper deliveryStatus={order.deliveryStatus} id={order.id} />
       {/* Order */}
       {order.orderProducts.map((item) => (
         <div key={item.id}>

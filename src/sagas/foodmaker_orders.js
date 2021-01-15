@@ -1,5 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { getFoodmakerOrdersReq, getFoodmakerOrderInfoReq } from 'api/requests/foodmaker'
+import {
+  getFoodmakerOrdersReq,
+  getFoodmakerOrderInfoReq,
+  changeDeliveryStatusReq,
+} from 'api/requests/foodmaker'
 
 import {
   GET_FOODMAKER_ORDERS_REQUESTING,
@@ -8,6 +12,7 @@ import {
   GET_FM_ORDER_REQUESTING,
   GET_FM_ORDER_SUCCESS,
   GET_FM_ORDER_ERROR,
+  CHANGE_DELIVERY_STATUS,
 } from '../actions/constants'
 
 function* getFoodmakerOrdersSaga() {
@@ -32,9 +37,15 @@ function* getFoodmakerOrderSaga({ payload }) {
   }
 }
 
+function* changeDeliveryStatusSaga({ data }) {
+  const { id: orderId, delStatus: deliveryStatus } = data
+  yield changeDeliveryStatusReq({ orderId, deliveryStatus })
+}
+
 function* foodmakerOrdersWatcher() {
   yield takeEvery(GET_FOODMAKER_ORDERS_REQUESTING, getFoodmakerOrdersSaga)
   yield takeEvery(GET_FM_ORDER_REQUESTING, getFoodmakerOrderSaga)
+  yield takeEvery(CHANGE_DELIVERY_STATUS, changeDeliveryStatusSaga)
 }
 
 export default foodmakerOrdersWatcher

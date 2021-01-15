@@ -3,9 +3,8 @@ import {
   GET_FOODMAKER_ORDERS_SUCCESS,
   GET_FOODMAKER_ORDERS_ERROR,
   GET_FM_ORDER_REQUESTING,
-  GET_FM_ORDER_SUCCESS,
-  GET_FM_ORDER_ERROR,
   REMOVE_FM_ORDER,
+  CHANGE_DELIVERY_STATUS,
 } from './constants'
 
 export const getFoodmakerOrdersAC = () => ({
@@ -28,4 +27,9 @@ export const getFMOrderAC = (id) => ({
 
 export const removeFMOrder = () => ({
   type: REMOVE_FM_ORDER,
+})
+
+export const changeDeliveryStatusAc = (data) => ({
+  type: CHANGE_DELIVERY_STATUS,
+  data,
 })
