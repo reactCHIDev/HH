@@ -46,11 +46,15 @@ const Home = (props) => {
   }, [foodmakerStartIndex])
 
   useEffect(() => {
-    setProductCollection((p) => p.concat(productList))
+    setProductCollection((p) =>
+      p.concat(productList.filter((e) => !p.find((el) => el.id === e.id))),
+    )
   }, [productList])
 
   useEffect(() => {
-    setFoodmakerCollection((p) => p.concat(foodmakersList))
+    setFoodmakerCollection((p) =>
+      p.concat(foodmakersList.filter((e) => !p.find((el) => el.id === e.id))),
+    )
   }, [foodmakersList])
 
   const moreFoodmakers = () => {

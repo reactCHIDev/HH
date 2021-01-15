@@ -64,6 +64,7 @@ export default {
   fl_orders: '/v1/order/list_customer_orders',
   fmOrderInfo: '/v1/order/foodmaker_order/',
   flOrderInfo: '/v1/order/customer_order/',
+  changeDelStatus: '/v1/order/update_status',
 
   // Admin
   getUsersList: '/v1/admin/user/list_all',
