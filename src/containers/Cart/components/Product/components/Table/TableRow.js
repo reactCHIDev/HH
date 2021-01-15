@@ -25,6 +25,7 @@ function TableRow({ item }) {
       }),
     )
   }
+
   return (
     <div key={item.id} className={styles.tableRow}>
       <div className={styles.upperrow}>
@@ -34,7 +35,7 @@ function TableRow({ item }) {
               style={{ backgroundImage: `url('${item.coverPhoto}')` }}
               className={styles.productImage}
             >
-              {item.isHit ? <div className={styles.hitProduct}>HIT</div> : null}
+              {item.hitmark === 'Hit' ? <div className={styles.hitProduct}>HIT</div> : null}
             </div>
           </div>
           <div className={styles.upper_subrow}>
