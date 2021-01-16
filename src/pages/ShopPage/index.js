@@ -12,6 +12,8 @@ import { Spin, Space, Rate } from 'antd'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
 import { getShopByFoodmakerIdAC, getShopByUrlAC } from 'actions/shop'
+import toggleFavouriteAc from 'actions/favourites'
+
 import PageNotFound from 'components/PageNotFound'
 import Button from 'components/Button'
 import ProdCard from 'components/ProductCard'
@@ -20,7 +22,9 @@ import Footer from 'components/Footer'
 import avatar from 'assets/TMP-AVATAR.jpg'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import mapMarker from 'assets/icons/svg/map_marker gray.svg'
-import likeHeart from 'assets/icons/svg/like_heart_red.svg'
+import redLikeHeart from 'assets/icons/svg/red.svg'
+import likeHeart from 'assets/icons/svg/like_heart.svg'
+
 import envelope from 'assets/icons/svg/envelope white.svg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import acessorieFm from 'assets/icons/svg/FM_page_acessorie.svg'
@@ -40,13 +44,27 @@ const ShopPage = (props) => {
     getProductInfoRequestAC,
     getShopByFoodmakerIdAC,
     getShopByUrlAC,
+    toggleFavouriteAc,
   } = props
 
   const { shopName } = useParams()
 
   const [productCount, setProductCount] = useState(6)
+  const [isFavorite, setIsFavorite] = React.useState('')
+  const [inFavorite, setInFavoite] = React.useState(0)
+  console.log(shop)
 
   const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
+
+  const onLikeCLick = () => {
+    if (isFavorite) {
+      setInFavoite((c) => c - 1)
+    } else {
+      setInFavoite((c) => c + 1)
+    }
+    setIsFavorite((f) => !f)
+    toggleFavouriteAc({ id: shop.id, type: 'shop' })
+  }
 
   useEffect(() => {
     getShopByUrlAC(`${process.env.REACT_APP_BASE_URL}/shop/${shopName}`)
@@ -55,6 +73,8 @@ const ShopPage = (props) => {
 
   useEffect(() => {
     if (shop?.userProfile) getFoodmakerInfoAC(shop.userProfile.id)
+    setInFavoite(shop.inFavorite)
+    setIsFavorite(shop.isFavorite)
   }, [shop])
 
   const showMore = () => setProductCount((c) => c + 6)
@@ -98,10 +118,14 @@ const ShopPage = (props) => {
               <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
             </div>
             <div className={styles.btn_block}>
-              <div className={styles.fav_button}>
-                <img className={styles.heart} src={likeHeart} alt="heart" />
+              <div className={styles.fav_button} onClick={() => onLikeCLick()}>
+                <img
+                  className={styles.heart}
+                  src={isFavorite ? redLikeHeart : likeHeart}
+                  alt="heart"
+                />
                 <p className={styles.btn_text}>Favorite Maker</p>
-                <span className={styles.likes}>(0)</span>
+                <span className={styles.likes}>{`(${inFavorite})`}</span>
               </div>
               <div className={styles.send_msg}>
                 <img className={styles.heart} src={envelope} alt="envelope" />
@@ -189,4 +213,5 @@ export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.sho
   getShopByFoodmakerIdAC,
   getShopByUrlAC,
   pushRoute: push,
+  toggleFavouriteAc,
 })(ShopPage)
