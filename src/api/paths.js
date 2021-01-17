@@ -71,6 +71,12 @@ export default {
   getShopsList: '/v1/admin/shop/list_all',
   getWithdrawList: '/v1/admin/foodmaker/withdraw',
   approveWithdraw: '/v1/admin/foodmaker/withdraw',
+
+  // Favourites
+  toggleFavouriteProduct: '/v1/product/toggle_favorite',
+  toggleFavouriteFoodmaker: '/v1/foodmaker/toggle_favorite',
+  toggleFavouriteShop: '/v1/shop/toggle_favorite',
+
   //
   //
   //
