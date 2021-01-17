@@ -3,7 +3,9 @@
   justify-content: space-between;
   margin-bottom: 50px;
   width: 100%;
-  overflow-x: scroll;
+  @media (max-width: 768px) {
+    overflow-x: scroll;
+  }
 
   .mainOrderInfo {
     display: flex;

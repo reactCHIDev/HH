@@ -15,7 +15,9 @@
 
     .table_scroller {
       width: 100%;
-      overflow-x: scroll;
+      @media (max-width: 768px) {
+        overflow-x: scroll;
+      }
     }
   }
 }
