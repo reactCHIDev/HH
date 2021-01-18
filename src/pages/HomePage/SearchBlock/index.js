@@ -78,7 +78,7 @@ function SearchBlock() {
     <div className={styles.search_block}>
       <div className={styles.input_wrapper}>
         <label className={styles.label}>What are you looking for? *</label>
-        <div style={{ display: 'flex', borderRadius: '8px', overflow: 'hidden' }}>
+        <div className={styles.inputs_container}>
           <div className={styles.selectWrapper}>
             <div className={styles.select} onClick={() => setIsSearchTypesVisible((v) => !v)}>
               {searchType}
@@ -140,7 +140,7 @@ function SearchBlock() {
         <label className={styles.label}>City *</label>
         <input
           style={{ borderRadius: '8px' }}
-          className={styles.input}
+          className={styles.city_input}
           type="text"
           placeholder="Select a city"
           onChange={(e) => setSearchCityValue(e.target.value)}
