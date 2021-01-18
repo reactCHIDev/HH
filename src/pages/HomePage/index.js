@@ -159,7 +159,9 @@ const Home = (props) => {
           <div className={styles.local_tree_columns}>
             {foodmakerCollection &&
               foodmakerCollection.length > 0 &&
-              foodmakerCollection.map((fm) => <FMCard foodmaker={fm} pushRoute={pushRoute} />)}
+              foodmakerCollection.map((fm) => (
+                <FMCard key={fm.id} foodmaker={fm} pushRoute={pushRoute} />
+              ))}
           </div>
 
           <div className={styles.btn_holder}>

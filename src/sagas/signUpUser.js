@@ -1,5 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
+import { setItem } from '../utils/localStorage'
 import * as jwt from 'jsonwebtoken'
 import PATHS from 'api/paths'
 
@@ -58,10 +59,9 @@ function* signUpFoodmakerSaga({ credentials }) {
 
 function* signUpLoverAsFoodmakerSaga({ credentials }) {
   try {
-    yield signUpLoverAsFoodmaker(credentials)
+    const { headers } = yield signUpLoverAsFoodmaker(credentials)
     yield put({ type: SIGNUP_LOVER_AS_MAKER_SUCCESS })
-    const loginCreds = { email: credentials.email, password: credentials.password }
-    yield put(loginRequest(loginCreds))
+    yield setItem('authorization-token', headers.authorization)
   } catch (error) {
     yield put({ type: SIGNUP_LOVER_AS_MAKER_ERROR, error: error.response.data })
   }
