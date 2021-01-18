@@ -28,7 +28,7 @@ const FoodmakerProfile = (props) => {
     getSpecialityTagsAC,
   } = props
 
-  const { id, userPhoto, success } = account
+  const { id, userPhoto, success, requesting } = account
 
   const [avatar, setAvatar] = useState('')
   const [cover, setCover] = useState('')
@@ -375,9 +375,9 @@ const FoodmakerProfile = (props) => {
             <div className={styles.submit_wrapper}>
               <Button
                 type="primary"
+                loading={requesting || success}
                 block
                 size="large"
-                loading={account?.requesting}
                 htmlType="submit"
               >
                 SAVE
