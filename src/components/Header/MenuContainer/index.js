@@ -44,7 +44,16 @@ const items = {
   ],
 }
 
-const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, setMenu }) => {
+const MenuContainer = ({
+  item,
+  dark,
+  userPhoto,
+  profileName,
+  useOutsideClick,
+  resetItem,
+  setSubmenu,
+  setMenu,
+}) => {
   const [mounted, setMounted] = useState(false)
 
   const wrapperRef = useRef(null)
@@ -155,9 +164,9 @@ const MenuContainer = ({ item, dark, useOutsideClick, resetItem, setSubmenu, set
         <div className={styles.bottom_holder}>
           <a href="#" className={styles.account_info}>
             <span className={styles.img_holder}>
-              <img src={UserAvatar} alt="UserAvatar" />
+              <img src={userPhoto} alt="UserAvatar" />
             </span>
-            <strong> Annette P. </strong>
+            <strong>{profileName}</strong>
           </a>
           <a href="#" className={styles.logout}>
             {dark ? (

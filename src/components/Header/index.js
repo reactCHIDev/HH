@@ -37,6 +37,7 @@ const Header = (props) => {
     id,
     role,
     userPhoto,
+    profileName,
     shop,
     logOut,
     pathname,
@@ -335,6 +336,8 @@ const Header = (props) => {
         {menu && item === 'all' && (
           <MenuContainer
             useOutsideClick={useOutsideClick}
+            userPhoto={userPhoto}
+            profileName={profileName}
             dark={dark}
             item="all"
             setSubmenu={setSubmenu}
@@ -408,6 +411,7 @@ Header.propTypes = {
   authorized: T.bool.isRequired,
   id: T.oneOfType([T.number, T.string]),
   role: T.string,
+  profileName: T.string,
   pathname: T.string.isRequired,
   logOut: T.func.isRequired,
   pushRoute: T.func.isRequired,
@@ -421,9 +425,9 @@ export default connect(
     router: {
       location: { pathname },
     },
-    account: { userPhoto, id, role, shop },
+    account: { userPhoto, profileName, id, role, shop },
     cart: { products },
-  }) => ({ authorized, id, role, pathname, userPhoto, shop, products }),
+  }) => ({ authorized, id, role, profileName, pathname, userPhoto, shop, products }),
   {
     logOut: logout,
     pushRoute: push,
