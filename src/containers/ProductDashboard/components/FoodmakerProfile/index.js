@@ -33,6 +33,7 @@ const FoodmakerProfile = (props) => {
   const [avatar, setAvatar] = useState('')
   const [cover, setCover] = useState('')
   const [fileList, setFilelist] = useState(null)
+  const [isActive, setActiveNext] = useState(true)
 
   const [tags, setTags] = useState([])
   const [languages, setLanguages] = useState([])
@@ -348,6 +349,7 @@ const FoodmakerProfile = (props) => {
                       cover={cover}
                       setCover={setCover}
                       min={2}
+                      setActiveNext={setActiveNext}
                     />
                   )}
                 </div>
@@ -378,6 +380,7 @@ const FoodmakerProfile = (props) => {
                 loading={requesting || success}
                 block
                 size="large"
+                disabled={!isActive}
                 htmlType="submit"
               >
                 SAVE

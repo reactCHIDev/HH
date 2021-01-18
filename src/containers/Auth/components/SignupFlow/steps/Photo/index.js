@@ -12,6 +12,7 @@ const Photo = (props) => {
 
   const [cover, setCover] = useState(0)
   const [fileList, setFilelist] = useState([])
+  const [isActive, setActiveNext] = useState(true)
 
   useEffect(() => {
     if (value?.coverPhoto)
@@ -54,13 +55,23 @@ const Photo = (props) => {
   return (
     <div className={styles.photo_container}>
       <Heading category="About" name="2 - 8 photos of your work" />
-      <Uploader list={fileList} listSet={setFilelist} cover={cover} setCover={setCover} min={2} />
+      <Uploader
+        list={fileList}
+        listSet={setFilelist}
+        cover={cover}
+        setCover={setCover}
+        min={2}
+        setActiveNext={setActiveNext}
+      />
       <p className={styles.description}>
         Show your work at its best! This directly affects the number of orders.
       </p>
       <input
         className={styles.next}
-        disabled={fileList?.length ? fileList.filter((e) => e.status !== 'error').length < 2 : true}
+        disabled={
+          (fileList?.length ? fileList.filter((e) => e.status !== 'error').length < 2 : true) ||
+          !isActive
+        }
         onClick={submit}
         type="button"
         value="Next  >"
