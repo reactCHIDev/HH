@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import cls from 'classnames'
 import T from 'prop-types'
 import BottomSection from 'components/BottomSection'
@@ -11,6 +11,7 @@ import FMCard from './components/FMCard'
 import styles from './fmexp.module.scss'
 
 const FoodmakersExplore = (props) => {
+  const fmData = useSelector((state) => state.search.data)
   return (
     <div className={styles.container}>
       <section className={styles.page_header}>
@@ -53,8 +54,8 @@ const FoodmakersExplore = (props) => {
 
       <div className={cls(styles.content, 'class')}>
         <div className={styles.exp_section}>
-          {[1, 2, 3, 4, 5].fill(1).map((e, i) => (
-            <FMCard key={e} />
+          {fmData.map((item) => (
+            <FMCard item={item} />
           ))}
         </div>
       </div>
@@ -71,4 +72,4 @@ const FoodmakersExplore = (props) => {
 
 FoodmakersExplore.propTypes = {}
 
-export default connect(null, null)(FoodmakersExplore)
+export default FoodmakersExplore

@@ -1,0 +1,141 @@
+.search_block {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 -16px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    align-items: center;
+  }
+  .input_wrapper {
+    padding: 0 16px;
+
+    @media (max-width: 480px) {
+      padding: 0 8px;
+    }
+
+    &:first-child {
+      width: 100%;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    &:last-child {
+      display: flex;
+      align-items: center;
+    }
+
+    .label {
+      font-weight: normal;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.07em;
+      color: #dcdde1;
+      margin: 5px 0;
+
+      @media (max-width: 1024px) {
+        font-size: 12px;
+      }
+    }
+    .selectWrapper {
+      width: 20%;
+      min-width: 80px;
+      background: white;
+      height: 56px;
+      padding: 5px;
+      @media (max-width: 480px) {
+        min-width: 80px;
+      }
+      .select {
+        display: flex;
+        position: relative;
+        padding: 11px;
+        font-weight: normal;
+        font-size: 16px;
+        color: #31394d;
+        border-right: 1px solid;
+        cursor: pointer;
+
+        div {
+          .arrow {
+            width: 26px;
+            height: 22px;
+            padding: 7px;
+            transition: transform 200ms ease-out;
+          }
+          .arrow_up {
+            transform: rotate(-180deg);
+          }
+        }
+      }
+    }
+
+    .typesWrapper {
+      position: absolute;
+      bottom: -70px;
+      left: 15px;
+      background: white;
+      color: #31394d;
+      border-radius: 10px;
+      padding: 5px 50px 5px 0px;
+      div {
+        margin: 0px 5px 5px 10px;
+        cursor: pointer;
+        opacity: 0.8;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .input[type='text'] {
+      display: block;
+      position: relative;
+      height: 56px;
+      padding: 16px 8px;
+      font-weight: normal;
+      font-size: 16px;
+      color: #31394d;
+      border: none;
+      width: 80%;
+      min-width: 240px;
+
+      @media (max-width: 480px) {
+        min-width: 160px;
+      }
+    }
+
+    .searchedData {
+      position: absolute;
+      left: 14%;
+      top: 93%;
+      width: 54%;
+      color: black;
+      padding: 5px 0px 0px 15px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+
+      div {
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+    }
+
+    button {
+      width: 72px;
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      border: none;
+      background: #fbe4e4;
+      border-radius: 8px;
+    }
+  }
+}

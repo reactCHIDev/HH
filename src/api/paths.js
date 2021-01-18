@@ -77,8 +77,7 @@ export default {
   toggleFavouriteFoodmaker: '/v1/foodmaker/toggle_favorite',
   toggleFavouriteShop: '/v1/shop/toggle_favorite',
 
-  //
-  //
-  //
-  // ========================================================
+  // Search
+  searchInProducts: '/v1/search/product/predictive',
+  searchInFoodMakers: '/v1/search/foodmaker/predictive',
 }

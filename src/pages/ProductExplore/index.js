@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import ExpCard from 'components/ExperienceCard'
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
@@ -11,6 +11,8 @@ import T from 'prop-types'
 import styles from './prodexp.module.scss'
 
 const ProductExplore = (props) => {
+  const productsData = useSelector((state) => state.search.data)
+
   return (
     <div className={styles.container}>
       <div className={styles.page_header}>
@@ -49,28 +51,21 @@ const ProductExplore = (props) => {
 
       <div className={styles.content}>
         <div className={styles.exp_section}>
-          {Array(18)
-            .fill(1)
-            .map((e) => (
-              <ExpCard
-                photo={stub2}
-                tags={[
-                  'desserts',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                  'cupcake',
-                ]}
-                name="Donut Set 1 (x12)"
-                price={15.59}
-                rating={3}
-                rateCount={63}
-              />
-            ))}
+          {productsData.map(
+            (item) =>
+              item.coverPhoto && (
+                <ExpCard
+                  key={item.id}
+                  photo={item.coverPhoto}
+                  tags={item.productTags.map((a) => a.tagName)}
+                  name={item.title}
+                  price={item.price}
+                  rating={item.rating}
+                  rateCount={Number(item.votes)}
+                  pathname={`product/${item.id}`}
+                />
+              ),
+          )}
           <div className={styles.btn_holder}>
             <button type="button">More</button>
           </div>
@@ -85,4 +80,4 @@ const ProductExplore = (props) => {
 
 ProductExplore.propTypes = {}
 
-export default connect(null, null)(ProductExplore)
+export default ProductExplore

@@ -1,37 +1,62 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import avatar from 'assets/TMP-AVATAR.jpg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
-import people from 'assets/icons/svg/people.svg'
+import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import { Rate } from 'antd'
 import cls from 'classnames'
 import styles from './fmcard.module.scss'
 import './fmcard.less'
 
-const FMCard = (props) => {
-  const { x } = props
-
+const FMCard = ({ item }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} key={item.id}>
       <div className={styles.content}>
         <div className={styles.reviewer}>
           <div className={styles.avatar_container}>
-            <img src={avatar} alt="avatar" />
+            {item.userPhoto ? (
+              <img src={item.userPhoto || avatar} alt="avatar" />
+            ) : (
+              <AvatarPlaceholder width={96} />
+            )}
           </div>
           <div className={styles.reviewer_info}>
-            <p className={styles.reviewer_name}>Gustavs R.
+            <p className={styles.reviewer_name}>
+              {item.firstName} {item.lastName.charAt(0)}.
               <div className={cls(styles.review_stats, 'rating')}>
-                <Rate style={{ color: '#31394C' }} disabled defaultValue={3} />
-                <span>(32)</span>
+                <Rate style={{ color: '#31394C' }} disabled defaultValue={item.rating} />
+                <span>({`${item.votes || 0}`})</span>
               </div>
             </p>
-            
-            <p className={styles.timestamp}>I was born and raised in Latvia. My family has been growing coffee for more than 25 years.</p>
-            <p className={styles.autor}>Chief, Chocolatier</p>
-            <button className={styles.message_btn}>
-              <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="16" height="12.5714" rx="3" stroke="#31394D" stroke-width="2" stroke-linecap="round"/>
-                <path d="M2 3L7.83752 7.16966C8.53292 7.66637 9.46708 7.66637 10.1625 7.16966L16 3" stroke="#31394D" stroke-width="2" stroke-linecap="round"/>
+
+            <p className={styles.timestamp}>{item.about}</p>
+            <p className={styles.autor}>
+              {item.tags && item.tags.map((el, i) => <span key={el}>{(i ? ', ' : '') + el}</span>)}
+            </p>
+            <button type="button" className={styles.message_btn}>
+              <svg
+                width="18"
+                height="15"
+                viewBox="0 0 18 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1"
+                  y="1"
+                  width="16"
+                  height="12.5714"
+                  rx="3"
+                  stroke="#31394D"
+                  // stroke-width="2"
+                  // stroke-linecap="round"
+                />
+                <path
+                  d="M2 3L7.83752 7.16966C8.53292 7.66637 9.46708 7.66637 10.1625 7.16966L16 3"
+                  stroke="#31394D"
+                  // stroke-width="2"
+                  // stroke-linecap="round"
+                />
               </svg>
             </button>
           </div>

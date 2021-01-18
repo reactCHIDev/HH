@@ -16,6 +16,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import Button from 'components/Button'
 import Pattern2 from 'assets/images/pattern 2.svg'
 import hands from 'assets/images/landings/home_page/Group 677.svg'
+import SearchBlock from './SearchBlock'
 import FMCard from './LocalFMCard'
 import styles from './home.module.scss'
 import './home.less'
@@ -75,41 +76,7 @@ const Home = (props) => {
           <p className={styles.slogan}>
             to a global marketplace of local and dedicated food makers
           </p>
-          <div className={styles.search_block}>
-            <div className={styles.input_wrapper}>
-              <label className={styles.label}>What are you looking for? *</label>
-              <input
-                disabled
-                className={styles.input}
-                type="text"
-                // placeholder="Global search (Placeholder text - cakes & bakes products, team building experiences, food makers)"
-              />
-              <span className={styles.label}>Celebration, Team Building, Family Day etc.</span>
-            </div>
-            <div className={styles.input_wrapper}>
-              <label className={styles.label}>City *</label>
-              <input
-                disabled
-                className={styles.input}
-                type="text" /* placeholder="Select a city" */
-              />
-              <span className={cls(styles.label, 'mobile_hidden')}>Hong-Kong, Sydney</span>
-            </div>
-            <div className={styles.input_wrapper}>
-              <button type="button">
-                <svg
-                  width="19"
-                  height="19"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" strokeWidth="1.5" />
-                  <path d="M18 18L22 22" stroke="#000000" strokeWidth="1.5" />
-                </svg>
-              </button>
-            </div>
-          </div>
+          <SearchBlock />
         </div>
       </section>
 
