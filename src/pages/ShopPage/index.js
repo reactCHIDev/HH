@@ -124,7 +124,7 @@ const ShopPage = (props) => {
                   src={isFavorite ? redLikeHeart : likeHeart}
                   alt="heart"
                 />
-                <p className={styles.btn_text}>Favorite Maker</p>
+                <p className={styles.btn_text}>Favorite Shop</p>
                 <span className={styles.likes}>{`(${inFavorite})`}</span>
               </div>
               <div className={styles.send_msg}>
