@@ -51,10 +51,10 @@ const FMCard = (props) => {
             <div className={styles.local_avatar_box}>
               {userPhoto ? <img src={userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
             </div>
-            <p className={styles.local_name}>
+            <div className={styles.local_name}>
               {firstName}
               <p>{tags.join(', ')}</p>
-            </p>
+            </div>
           </div>
           <div className={styles.local_raiting_holder}>
             <Rate style={{ color: '#31394C' }} disabled defaultValue={3} /* value={rating} */ />
@@ -66,17 +66,6 @@ const FMCard = (props) => {
   )
 }
 
-FMCard.propTypes = {
-  a: T.number.isRequired,
-  b: T.string.isRequired,
-  c: T.bool.isRequired,
-  f: T.func.isRequired,
-  tabs: T.shape({
-    name: T.shape({
-      mark: T.bool,
-      content: T.node,
-    }).isRequired,
-  }).isRequired,
-}
+FMCard.propTypes = {}
 
 export default FMCard
