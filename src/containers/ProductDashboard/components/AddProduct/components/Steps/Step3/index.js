@@ -14,6 +14,7 @@ const Step3 = (props) => {
 
   const [cover, setCover] = useState(0)
   const [fileList, setFilelist] = useState([])
+  const [isActive, setActiveNext] = useState(true)
 
   useEffect(() => {
     if (prevState?.coverPhoto) {
@@ -69,10 +70,17 @@ const Step3 = (props) => {
             cover={cover}
             setCover={setCover}
             min={0}
+            setActiveNext={setActiveNext}
           />
         </div>
         <div className={styles.btn_container}>
-          <Button type="primary" block disabled={fileList.length < 2} size="large" onClick={onNext}>
+          <Button
+            type="primary"
+            block
+            disabled={fileList.length < 2 || !isActive}
+            size="large"
+            onClick={onNext}
+          >
             NEXT
           </Button>
         </div>
