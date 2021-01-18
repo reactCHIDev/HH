@@ -8,7 +8,7 @@ import { Spin, Space } from 'antd'
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
 import { getUserByHHLink } from 'api/requests/Account'
-import { getShopByUrlReq } from 'api/requests/Shop'
+import { getShopByUrlReq, isShopExist } from 'api/requests/Shop'
 import GotoLink from 'assets/icons/svg/goto_link.svg'
 
 import QR from 'qrcode'
@@ -131,7 +131,7 @@ const ShopProfile = (props) => {
     const values = { ...formValues }
 
     const standartDelivery = {
-      type: 'standard',
+      type: 'standart',
       price: values.standartprice,
       freeDeliveryOver: values.standartfreeDeliveryOver,
       note: values.standartnote,
@@ -214,7 +214,7 @@ const ShopProfile = (props) => {
                     validate: async (value) => {
                       const url = process.env.REACT_APP_BASE_URL + '/shop/' + value.toLowerCase()
                       if (url === shop?.shopUrl) return true
-                      const shopData = await getShopByUrlReq(url)
+                      const shopData = await isShopExist(value)
                       return !shopData.data?.title
                     },
                     maxLength: {
@@ -334,10 +334,8 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -354,10 +352,8 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -413,10 +409,8 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -433,10 +427,8 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -475,10 +467,8 @@ const ShopProfile = (props) => {
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
