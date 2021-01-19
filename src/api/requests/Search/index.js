@@ -15,7 +15,7 @@ export const searchByProductsReq = ({
   const cityId = city ? `&cityId=${city}` : ''
   const explore = isExplore ? '&explore=true' : ''
   const productTypeId = prodTypeId ? `&productTypeId=${prodTypeId}` : ''
-  const productCategoryId = prodCategoryId ? `productCategoryId=${prodCategoryId}` : ''
+  const productCategoryId = prodCategoryId ? `&productCategoryId=${prodCategoryId}` : ''
   const price = prodPrice ? `&price=${prodPrice}` : ''
   const startIndex = startIdx >= 0 ? `startIndex=${startIdx}` : ''
   const limit = lim >= 0 ? `&limit=${lim}` : ''

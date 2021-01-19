@@ -103,7 +103,47 @@
             width: 100%;
             min-width: 176px;
           }
+          .typesWrapper {
+            position: absolute;
+            top: 110%;
+            // left: 0%;
+            /* width: 43%; */
+            /* min-width: 140px; */
+            background: white;
+            color: #31394d;
+            border-radius: 10px;
+            padding: 5px 90px 5px 0px;
+            div {
+              margin: 0px 5px 5px 10px;
+              cursor: pointer;
+              opacity: 0.8;
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
 
+          .categoriesWrapper {
+            position: absolute;
+            top: 110%;
+            // left: 0%;
+            /* width: 43%; */
+            /* min-width: 140px; */
+            background: white;
+            color: #31394d;
+            border-radius: 10px;
+            border: 1px solid black;
+            padding: 5px 0px 5px 0px;
+
+            div {
+              margin: 0px 5px 5px 10px;
+              cursor: pointer;
+              opacity: 0.8;
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
           button {
             width: 72px;
             height: 56px;

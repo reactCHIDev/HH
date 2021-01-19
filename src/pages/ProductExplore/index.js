@@ -12,7 +12,6 @@ import Footer from 'components/Footer'
 import { getProductTypes } from 'actions/system'
 import { searchRequestingnAc } from 'actions/search'
 import { getItem } from 'utils/localStorage'
-import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
 import styles from './prodexp.module.scss'
 
 const ProductExplore = (props) => {
@@ -21,9 +20,13 @@ const ProductExplore = (props) => {
 
   const [productTypeToShow, setProductTypeToShow] = React.useState('')
   const [productTypesToChoose, setProductTypesToChoose] = React.useState([])
-  const [isProdictTypesToChooseShown, setIsProductTypesToChooseShown] = React.useState(false)
+  const [isProductTypesToChooseShown, setIsProductTypesToChooseShown] = React.useState(false)
 
-  const [productCategoriesToShow, setProductCategoriesToShow] = React.useState([])
+  const [productCategoriesToShow, setProductCategoriesToShow] = React.useState()
+  const [selectedCategories, updateSelectedCategories] = React.useState([])
+  const [isProductCategoriesToChooseShown, setIsProductCategoriesToChooseShown] = React.useState(
+    false,
+  )
 
   const dispatch = useDispatch()
   const { searchTitle } = getItem('search_data')
@@ -40,11 +43,39 @@ const ProductExplore = (props) => {
 
   React.useEffect(() => {
     if (productTypes.length) {
-      setProductTypeToShow(productTypes[0].title)
-      setProductTypesToChoose(productTypes.slice(1).map((el) => el.title))
-      setProductCategoriesToShow(productTypes[0].productCategories)
+      setProductTypeToShow(productTypes[0])
     }
   }, [productTypes])
+
+  React.useEffect(() => {
+    setProductTypesToChoose(productTypes.filter((el) => el.title !== productTypeToShow.title))
+    setProductCategoriesToShow(
+      productTypes.filter((el) => el.title === productTypeToShow.title)[0]?.productCategories,
+    )
+    updateSelectedCategories([])
+  }, [productTypeToShow])
+
+  const onCategoriesClickHandler = (el) => {
+    const { id } = el
+    if (selectedCategories.some((e) => e.id === id)) {
+      updateSelectedCategories(selectedCategories.filter((e) => e.id !== id))
+    } else {
+      updateSelectedCategories([...selectedCategories, el])
+    }
+  }
+
+  const onSearchCLick = () => {
+    dispatch(
+      searchRequestingnAc({
+        searchType: 'Products',
+        dataForSearch: {
+          prodTypeId: productTypeToShow.id,
+          prodCategoryId: selectedCategories.map((el) => el.id).toString(),
+          isExplore: true,
+        },
+      }),
+    )
+  }
 
   return (
     <div className={styles.container}>
@@ -59,24 +90,59 @@ const ProductExplore = (props) => {
                 type="text"
                 onClick={() => setIsProductTypesToChooseShown((b) => !b)}
               >
-                {productTypeToShow}
+                {productTypeToShow.title}
               </div>
-              {isProdictTypesToChooseShown
-                ? productTypesToChoose.map((el) => (
-                    <div onClick={() => setProductTypeToShow(el)}>{el}</div>
-                  ))
-                : null}
+              {isProductTypesToChooseShown ? (
+                <div className={styles.typesWrapper}>
+                  {productTypesToChoose.map((el) => (
+                    <div
+                      key={el.id}
+                      onClick={() => {
+                        setProductTypeToShow(el)
+                        setIsProductTypesToChooseShown(false)
+                      }}
+                    >
+                      {el.title}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
+
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Category</label>
-              <div className={styles.input} type="text" placeholder="Beer, wine" />
+              <div
+                className={styles.input}
+                type="text"
+                onClick={() => setIsProductCategoriesToChooseShown((b) => !b)}
+              >
+                {selectedCategories.map((el, index) => (
+                  <span>{(index ? ', ' : '') + el.title}</span>
+                ))}
+              </div>
+              {isProductCategoriesToChooseShown ? (
+                <div className={styles.categoriesWrapper}>
+                  {productCategoriesToShow.map((el) => (
+                    <div
+                      style={{ display: 'flex', alignItems: 'center' }}
+                      onClick={() => onCategoriesClickHandler(el)}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedCategories.some((e) => e.id === el.id)}
+                      />
+                      <div key={el.id}>{el.title}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Price</label>
               <div className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
-              <button type="button">
+              <button type="button" onClick={() => onSearchCLick()}>
                 <svg
                   width="19"
                   height="19"
