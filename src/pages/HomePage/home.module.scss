@@ -1,13 +1,12 @@
 @import 'styles/styles.scss';
 
 .frame {
-
   .btn_holder {
     text-align: center;
     padding: 40px 0;
     width: 100%;
 
-    @include media ('<xs-phone') {
+    @include media('<xs-phone') {
       padding: 20px 0;
     }
 
@@ -18,7 +17,7 @@
       width: auto;
       padding: 0 55px;
 
-      @include media ('<xs-phone') {
+      @include media('<xs-phone') {
         padding: 0 20px;
       }
     }
@@ -117,82 +116,6 @@
 
         @media (max-width: 768px) {
           font-size: 18px;
-        }
-      }
-
-      .search_block {
-        display: flex;
-        justify-content: space-between;
-        margin: 0 -16px;
-
-        @media (max-width: 768px) {
-          justify-content: center;
-          align-items: center;
-        }
-
-        .input_wrapper {
-          padding: 0 16px;
-
-          @media (max-width: 480px) {
-            padding: 0 8px;
-          }
-
-          &:first-child {
-            width: 100%;
-
-            @media (max-width: 768px) {
-              display: none;
-            }
-          }
-
-          &:last-child {
-            display: flex;
-            align-items: center;
-          }
-
-          .label {
-            font-weight: normal;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            letter-spacing: 0.07em;
-            color: #dcdde1;
-            margin: 5px 0;
-
-            @media (max-width: 1024px) {
-              font-size: 12px;
-            }
-          }
-
-          .input[type='text'] {
-            display: block;
-            position: relative;
-            height: 56px;
-            padding: 16px;
-            font-weight: normal;
-            font-size: 16px;
-            color: #31394d;
-            border-radius: 8px;
-            border: none;
-            width: 100%;
-            min-width: 280px;
-
-            @media (max-width: 480px) {
-              min-width: 200px;
-            }
-          }
-
-          button {
-            width: 72px;
-            height: 56px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            border: none;
-            background: #fbe4e4;
-            border-radius: 8px;
-          }
         }
       }
     }
@@ -378,7 +301,7 @@
         font-size: 28px;
       }
 
-      @include media ('<xs-phone') {
+      @include media('<xs-phone') {
         font-size: 25px;
         margin: 0 0 26px;
       }
@@ -392,7 +315,7 @@
           max-width: 150px;
         }
 
-        @include media ('<xs-phone') {
+        @include media('<xs-phone') {
           max-width: 100px;
         }
       }

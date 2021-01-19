@@ -1,16 +1,46 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import cls from 'classnames'
 import T from 'prop-types'
+
+import { searchRequestingnAc } from 'actions/search'
+import { getServiceTagsAC, getSpecialityTagsAC } from 'actions/system'
+
+import { getItem } from 'utils/localStorage'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
-import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
 import FMCard from './components/FMCard'
+
 import styles from './fmexp.module.scss'
 
 const FoodmakersExplore = (props) => {
+  const fmData = useSelector((state) => state.search.data)
+  const specialityTags = useSelector((state) => state.system.specialityTags)
+  const serviceTags = useSelector((state) => state.system.serviceTags)
+  const { searchTitle } = getItem('search_data')
+  const dispatch = useDispatch()
+
+  const [specialityTagsToShow, setSpecialityTagsToShow] = React.useState([])
+
+  React.useEffect(() => {
+    dispatch(
+      searchRequestingnAc({
+        searchType: 'Foodmakers',
+        dataForSearch: { searchedValue: searchTitle, isExplore: true },
+      }),
+    )
+    dispatch(getSpecialityTagsAC())
+    dispatch(getServiceTagsAC())
+  }, [])
+
+  React.useEffect(() => {
+    if (specialityTags.length) {
+      setSpecialityTagsToShow(specialityTags)
+    }
+  }, [specialityTags])
+
   return (
     <div className={styles.container}>
       <section className={styles.page_header}>
@@ -53,8 +83,8 @@ const FoodmakersExplore = (props) => {
 
       <div className={cls(styles.content, 'class')}>
         <div className={styles.exp_section}>
-          {[1, 2, 3, 4, 5].fill(1).map((e, i) => (
-            <FMCard key={e} />
+          {fmData.map((item) => (
+            <FMCard item={item} />
           ))}
         </div>
       </div>
@@ -71,4 +101,4 @@ const FoodmakersExplore = (props) => {
 
 FoodmakersExplore.propTypes = {}
 
-export default connect(null, null)(FoodmakersExplore)
+export default FoodmakersExplore
