@@ -17,10 +17,12 @@ import styles from './fmexp.module.scss'
 
 const FoodmakersExplore = (props) => {
   const fmData = useSelector((state) => state.search.data)
-  const serviceTags = useSelector((state) => state.system.serviceTags)
   const specialityTags = useSelector((state) => state.system.specialityTags)
+  const serviceTags = useSelector((state) => state.system.serviceTags)
   const { searchTitle } = getItem('search_data')
   const dispatch = useDispatch()
+
+  const [specialityTagsToShow, setSpecialityTagsToShow] = React.useState([])
 
   React.useEffect(() => {
     dispatch(
@@ -29,9 +31,15 @@ const FoodmakersExplore = (props) => {
         dataForSearch: { searchedValue: searchTitle, isExplore: true },
       }),
     )
-    dispatch(getServiceTagsAC())
     dispatch(getSpecialityTagsAC())
+    dispatch(getServiceTagsAC())
   }, [])
+
+  React.useEffect(() => {
+    if (specialityTags.length) {
+      setSpecialityTagsToShow(specialityTags)
+    }
+  }, [specialityTags])
 
   return (
     <div className={styles.container}>

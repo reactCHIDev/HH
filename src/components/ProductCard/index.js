@@ -19,6 +19,7 @@ import './prod_card.less'
 const ProdCard = (props) => {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.cart.products)
+  const isRequesting = useSelector((state) => state.cart.isRequesting)
 
   const { id, photo, tags, name, price, rating, isShowCart, pushRoute, pathname, product } = props
 
@@ -27,6 +28,9 @@ const ProdCard = (props) => {
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
   const onProductClick = (productData) => {
+    if (isRequesting) {
+      return
+    }
     dispatch(addProductToBasket(productData))
   }
 

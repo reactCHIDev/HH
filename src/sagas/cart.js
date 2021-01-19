@@ -21,7 +21,7 @@ function* basketFlow({ data }) {
 
   if (products.includes(title)) {
     const { title: shopTitle } = shop
-    yield put({ type: DELETE_ITEM_FROM_PRODUCTS, data: { title, shopTitle } })
+    yield put({ type: DELETE_ITEM_FROM_PRODUCTS, data: { title, shopTitle, price } })
     return
   }
 

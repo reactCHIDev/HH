@@ -20,6 +20,7 @@ const initialState = {
   shopsData: getItem('cart')?.shopsData || {},
   orders: getItem('cart')?.orders || {},
   totalPrice: getItem('cart')?.totalPrice || 0,
+  isRequesting: false,
 }
 
 let newState = {}
@@ -44,6 +45,7 @@ const gc = (state) => {
 
 const deleteDataAfterError = (state, elementToDelete) => {
   const stateAfterDelete = cloneDeep(state)
+  stateAfterDelete.isRequesting = false
   stateAfterDelete.products.pop()
   stateAfterDelete.totalPrice =
     stateAfterDelete.totalPrice -
@@ -58,6 +60,7 @@ const reducer = function cartReducer(state = initialState, action) {
     case ADD_PRODUCT_TO_BASKET:
       newState = {
         ...state,
+        isRequesting: true,
       }
       setItem('cart', newState)
       return newState
@@ -88,6 +91,7 @@ const reducer = function cartReducer(state = initialState, action) {
           },
         },
         totalPrice: state.totalPrice - action.data.price,
+        isRequesting: false,
       }
       return gc(newState)
 
@@ -95,6 +99,7 @@ const reducer = function cartReducer(state = initialState, action) {
       newState = {
         ...state,
         orders: action.newState,
+        isRequesting: false,
       }
       setItem('cart', newState)
       return newState
@@ -194,6 +199,7 @@ const reducer = function cartReducer(state = initialState, action) {
           },
         },
         totalPrice: state.totalPrice + action.data.price,
+        isRequesting: false,
       }
       setItem('cart', newState)
       return newState
@@ -213,6 +219,7 @@ const reducer = function cartReducer(state = initialState, action) {
       newState = {
         ...state,
         products: state.products.filter((element) => element !== action.title),
+        isRequesting: false,
       }
       setItem('cart', newState)
       return newState
