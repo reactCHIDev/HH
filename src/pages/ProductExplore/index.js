@@ -1,17 +1,35 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
-import { useSelector } from 'react-redux'
-import ExpCard from 'components/ExperienceCard'
+import { useSelector, useDispatch } from 'react-redux'
 import cls from 'classnames'
+import T from 'prop-types'
+
+import ExpCard from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
+import { getProductTypes } from 'actions/system'
+import { searchRequestingnAc } from 'actions/search'
+import { getItem } from 'utils/localStorage'
 import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
-import T from 'prop-types'
 import styles from './prodexp.module.scss'
 
 const ProductExplore = (props) => {
   const productsData = useSelector((state) => state.search.data)
+  const productTypes = useSelector((state) => state.system.productTypes)
+
+  const dispatch = useDispatch()
+  const { searchTitle } = getItem('search_data')
+
+  React.useEffect(() => {
+    dispatch(
+      searchRequestingnAc({
+        searchType: 'Products',
+        dataForSearch: { searchedValue: searchTitle, isExplore: true },
+      }),
+    )
+    dispatch(getProductTypes())
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -71,7 +89,6 @@ const ProductExplore = (props) => {
           </div>
         </div>
       </div>
-
       <BottomSection />
       <Footer />
     </div>

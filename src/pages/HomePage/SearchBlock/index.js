@@ -3,13 +3,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { Link } from 'react-router-dom'
-
 import { useDispatch, useSelector } from 'react-redux'
 import cls from 'classnames'
-import { searchRequestingnAc, clearSearchDataAc } from 'actions/search'
-import ArrowDark from 'assets/icons/svg/down-arrow.svg'
-import useDebounce from 'hooks/useDebounce'
 
+import { searchRequestingnAc, clearSearchDataAc } from 'actions/search'
+import useDebounce from 'hooks/useDebounce'
+import { setItem } from 'utils/localStorage'
+import ArrowDark from 'assets/icons/svg/down-arrow.svg'
 import styles from './search.module.scss'
 
 const searchData = [
@@ -51,6 +51,9 @@ function SearchBlock() {
     if (debouncedSearchTerm) {
       dispatch(
         searchRequestingnAc({ searchType, dataForSearch: { searchedValue: debouncedSearchTerm } }),
+        setItem('search_data', {
+          searchTitle: debouncedSearchTerm,
+        }),
       )
     } else {
       dispatch(clearSearchDataAc())
@@ -64,15 +67,6 @@ function SearchBlock() {
       dispatch(clearSearchDataAc())
     }
   }, [debouncedCitySearch, searchType])
-
-  const goToExplorePageHandler = () => {
-    dispatch(
-      searchRequestingnAc({
-        searchType,
-        dataForSearch: { searchedValue: debouncedSearchTerm, isExplore: true },
-      }),
-    )
-  }
 
   return (
     <div className={styles.search_block}>
@@ -149,11 +143,7 @@ function SearchBlock() {
       </div>
       <div className={styles.input_wrapper}>
         <Link to={searchType === 'Products' ? '/product_explore' : '/foodmakers_explore'}>
-          <button
-            type="button"
-            disabled={!searchedDataResults.length}
-            onClick={() => goToExplorePageHandler()}
-          >
+          <button type="button" disabled={!searchedDataResults.length}>
             <svg
               width="19"
               height="19"

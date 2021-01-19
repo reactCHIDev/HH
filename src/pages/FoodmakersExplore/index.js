@@ -1,17 +1,38 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import cls from 'classnames'
 import T from 'prop-types'
+
+import { searchRequestingnAc } from 'actions/search'
+import { getServiceTagsAC, getSpecialityTagsAC } from 'actions/system'
+
+import { getItem } from 'utils/localStorage'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
-import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
 import FMCard from './components/FMCard'
+
 import styles from './fmexp.module.scss'
 
 const FoodmakersExplore = (props) => {
   const fmData = useSelector((state) => state.search.data)
+  const serviceTags = useSelector((state) => state.system.serviceTags)
+  const specialityTags = useSelector((state) => state.system.specialityTags)
+  const { searchTitle } = getItem('search_data')
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    dispatch(
+      searchRequestingnAc({
+        searchType: 'Foodmakers',
+        dataForSearch: { searchedValue: searchTitle, isExplore: true },
+      }),
+    )
+    dispatch(getServiceTagsAC())
+    dispatch(getSpecialityTagsAC())
+  }, [])
+
   return (
     <div className={styles.container}>
       <section className={styles.page_header}>
