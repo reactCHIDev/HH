@@ -2,6 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useForm, Controller } from 'react-hook-form'
+import { Input, Select, Button, Form, Checkbox, InputNumber } from 'antd'
+
 import cls from 'classnames'
 import T from 'prop-types'
 
@@ -14,6 +17,7 @@ import Footer from 'components/Footer'
 import FMCard from './components/FMCard'
 
 import styles from './fmexp.module.scss'
+import './fm.less'
 
 const FoodmakersExplore = (props) => {
   const fmData = useSelector((state) => state.search.data)
@@ -23,6 +27,20 @@ const FoodmakersExplore = (props) => {
   const dispatch = useDispatch()
 
   const [specialityTagsToShow, setSpecialityTagsToShow] = React.useState([])
+  const [selectedItems, setSelectedItems] = React.useState([])
+  const [searchTitleValue, setSearchTitleValue] = React.useState('')
+
+  const [serviceTagToShow, setServiceTagToShow] = React.useState()
+  const [serviceTagsToChoose, setServiceTagsToChoose] = React.useState([])
+  const [isServiceTagsToChooseShown, setIsServiceTagsToChooseShown] = React.useState(false)
+
+  const { control } = useForm({
+    mode: 'onBlur',
+  })
+
+  const filteredTags = specialityTagsToShow.length
+    ? specialityTagsToShow.filter((o) => !selectedItems.includes(o.tagName))
+    : []
 
   React.useEffect(() => {
     dispatch(
@@ -41,6 +59,33 @@ const FoodmakersExplore = (props) => {
     }
   }, [specialityTags])
 
+  React.useEffect(() => {
+    if (serviceTags && serviceTags.length) {
+      setServiceTagToShow(serviceTags[0])
+    }
+  }, [serviceTags])
+
+  React.useEffect(() => {
+    setServiceTagsToChoose(serviceTags.filter((el) => el.tagName !== serviceTagToShow.tagName))
+  }, [serviceTagToShow])
+
+  const handleTags = (onChange) => (e) => {
+    setSelectedItems(e)
+    onChange(e)
+  }
+
+  const onSearchClickHandler = () => {
+    dispatch(
+      searchRequestingnAc({
+        searchType: 'Foodmakers',
+        dataForSearch: {
+          searchedValue: searchTitleValue,
+          isExplore: true,
+          fmTags: [...selectedItems, serviceTagToShow.tagName].toString(),
+        },
+      }),
+    )
+  }
   return (
     <div className={styles.container}>
       <section className={styles.page_header}>
@@ -49,22 +94,71 @@ const FoodmakersExplore = (props) => {
           <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Type of Food Maker</label>
-              <input disabled className={styles.input} type="text" />
+              <div>
+                <Controller
+                  style={{ width: '100%', position: 'absolute', left: 0, top: '0px' }}
+                  control={control}
+                  name="tags"
+                  rules={{ required: false }}
+                  render={({ onChange, value, name }) => (
+                    <Select
+                      mode="multiple"
+                      name={name}
+                      onChange={handleTags(onChange)}
+                      value={selectedItems}
+                      showArrow
+                      style={{ width: '100%' }}
+                      tokenSeparators={[',']}
+                    >
+                      {filteredTags.map((item) => (
+                        <Select.Option key={item.id} value={item.tagName}>
+                          {item.tagName}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  )}
+                />
+              </div>
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Search hosts or brands</label>
-              <input disabled className={styles.input} type="text" /* placeholder="E.g. Mike"  */ />
+              <input
+                className={styles.input}
+                onChange={(e) => setSearchTitleValue(e.target.value)}
+                type="text"
+                placeholder="E.g. Mike"
+              />
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Service type</label>
-              <input disabled className={styles.input} type="text" />
+              <div
+                onClick={() => setIsServiceTagsToChooseShown((b) => !b)}
+                className={styles.serviceTagsType}
+              >
+                {serviceTagToShow?.tagName}
+              </div>
+              {isServiceTagsToChooseShown ? (
+                <div className={styles.typesWrapper}>
+                  {serviceTagsToChoose.map((el) => (
+                    <div
+                      key={el.id}
+                      onClick={() => {
+                        setServiceTagToShow(el)
+                        setIsServiceTagsToChooseShown(false)
+                      }}
+                    >
+                      {el.tagName}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Host speciality</label>
               <input disabled className={styles.input} type="text" />
             </div>
             <div className={styles.input_wrapper}>
-              <button type="button">
+              <button type="button" onClick={() => onSearchClickHandler()}>
                 <svg
                   width="19"
                   height="19"

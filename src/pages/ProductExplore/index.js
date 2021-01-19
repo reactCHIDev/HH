@@ -20,7 +20,7 @@ const ProductExplore = (props) => {
   const productsData = useSelector((state) => state.search.data)
   const productTypes = useSelector((state) => state.system.productTypes)
 
-  const [productTypeToShow, setProductTypeToShow] = React.useState('')
+  const [productTypeToShow, setProductTypeToShow] = React.useState()
   const [productTypesToChoose, setProductTypesToChoose] = React.useState([])
   const [isProductTypesToChooseShown, setIsProductTypesToChooseShown] = React.useState(false)
 
