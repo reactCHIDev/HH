@@ -8,7 +8,7 @@ import { Spin, Space } from 'antd'
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
 import { getUserByHHLink } from 'api/requests/Account'
-import { getShopByUrlReq, isShopExist } from 'api/requests/Shop'
+import { isShopExist } from 'api/requests/Shop'
 import GotoLink from 'assets/icons/svg/goto_link.svg'
 
 import QR from 'qrcode'
@@ -103,7 +103,6 @@ const ShopProfile = (props) => {
   const filteredTags = tags.length ? tags.filter((o) => !selectedItems.includes(o.tagName)) : []
 
   useEffect(() => {
-    // if (id) getUserAccount(id)
     getServiceTagsAC()
     getSpecialityTagsAC()
     getProductTagsRequestAC()
@@ -192,7 +191,7 @@ const ShopProfile = (props) => {
     onChange(Math.abs(e))
   }
 
-  if (!defaults.title) return <></>
+  // if (!defaults.title) return <></>
   return (
     <div className={styles.container}>
       <div className={styles.content}>
