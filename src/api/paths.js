@@ -47,6 +47,7 @@ export default {
   // Shop
   isShopExist: '/v1/shop/check_if_exist/',
   updateShop: '/v1/shop/update',
+  createShop: '/v1/shop/create',
   getShopByFoodmakerId: '/v1/shop/foodmaker/',
   getShopByUrl: '/v1/shop/shop_url/',
 

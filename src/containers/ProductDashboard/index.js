@@ -12,7 +12,7 @@ import OrdersFM from './components/OrdersFMTab'
 import styles from './expdb.module.scss'
 
 const ProductDashboard = (props) => {
-  const { profileName, replaceRoute } = props
+  const { profileName, shop, replaceRoute } = props
   const { activeTab } = useParams()
 
   const onChange = (key) => {
@@ -31,7 +31,7 @@ const ProductDashboard = (props) => {
           orders: { mark: false, disabled: false, content: <OrdersFM /> },
           reviews: { mark: false, disabled: true, content: <Soon /> },
           performance: { mark: false, disabled: true, content: <Soon /> },
-          profile: { mark: false, content: <ProfileTab profileName={profileName} /> },
+          profile: { mark: false, content: <ProfileTab profileName={profileName} shop={shop} /> },
           /*           orders: {
             mark: false,
             content: <Exp />,
@@ -49,6 +49,6 @@ ProductDashboard.propTypes = {
   replaceRoute: T.func,
 }
 
-export default connect(({ login: { profileName } }) => ({ profileName }), {
+export default connect(({ login: { profileName }, account: { shop } }) => ({ profileName, shop }), {
   replaceRoute: replace,
 })(ProductDashboard)

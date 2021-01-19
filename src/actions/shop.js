@@ -2,6 +2,9 @@ import {
   UPDATE_SHOP_REQUESTING,
   UPDATE_SHOP_SUCCESS,
   UPDATE_SHOP_ERROR,
+  CREATE_SHOP_REQUESTING,
+  CREATE_SHOP_SUCCESS,
+  CREATE_SHOP_ERROR,
   GET_SHOP_BY_FM_ID_REQUESTING,
   GET_SHOP_BY_FM_ID_SUCCESS,
   GET_SHOP_BY_FM_ID_ERROR,
@@ -33,4 +36,9 @@ export const getShopByFoodmakerIdAC = (data) => ({
 export const getShopByUrlAC = (url) => ({
   type: GET_SHOP_BY_URL_REQUESTING,
   url,
+})
+
+export const createShopAC = (data) => ({
+  type: CREATE_SHOP_REQUESTING,
+  payload: data,
 })
