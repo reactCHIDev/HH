@@ -3,10 +3,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import ProdCard from 'components/ProductCard'
+import { push } from 'connected-react-router'
+
 import cls from 'classnames'
 import T from 'prop-types'
 
-import ExpCard from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import { getProductTypes } from 'actions/system'
@@ -29,6 +31,7 @@ const ProductExplore = (props) => {
   )
 
   const dispatch = useDispatch()
+  const dispatchPush = useDispatch(push)
   const { searchTitle } = getItem('search_data')
 
   React.useEffect(() => {
@@ -75,6 +78,10 @@ const ProductExplore = (props) => {
         },
       }),
     )
+  }
+
+  const pushRoute = (url) => {
+    dispatch(push(url))
   }
 
   return (
@@ -164,15 +171,29 @@ const ProductExplore = (props) => {
           {productsData.map(
             (item) =>
               item.coverPhoto && (
-                <ExpCard
+                // <ExpCard
+                //   key={item.id}
+                //   photo={item.coverPhoto}
+                //   tags={item.productTags.map((a) => a.tagName)}
+                //   name={item.title}
+                //   price={item.price}
+                //   rating={item.rating}
+                //   rateCount={Number(item.votes)}
+                //   pathname={`product/${item.id}`}
+                // />
+                <ProdCard
                   key={item.id}
+                  id={item.id}
+                  pathname="/product"
+                  pushRoute={pushRoute}
                   photo={item.coverPhoto}
-                  tags={item.productTags.map((a) => a.tagName)}
+                  tags={item.productTags.map((t) => t.tagName)}
                   name={item.title}
                   price={item.price}
                   rating={item.rating}
                   rateCount={Number(item.votes)}
-                  pathname={`product/${item.id}`}
+                  isShowCart
+                  product={item}
                 />
               ),
           )}
