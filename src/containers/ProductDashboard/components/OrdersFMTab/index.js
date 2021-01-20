@@ -21,8 +21,8 @@ const MainOrderInfo = () => {
   }, [])
 
   const { items, requestSort } = useSortableData(orders, {
-    key: 'time',
-    direction: 'ascending',
+    key: 'createdAt',
+    direction: 'descending',
   })
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ const MainOrderInfo = () => {
   React.useEffect(() => {
     if (searchValue) {
       const lowerSearchValue = searchValue.toLowerCase()
-      const newState = cloneDeep(data).filter((e) =>
+      const newState = cloneDeep(items).filter((e) =>
         Object.keys(e).some((n) =>
           String(e[n])
             .toLowerCase()
@@ -46,7 +46,22 @@ const MainOrderInfo = () => {
   }, [searchValue])
 
   const onDataChange = (date) => {
-    console.log('%c   date   ', 'color: darkgreen; background: palegreen;', date)
+    if (date) {
+      const newState = cloneDeep(items).filter(
+        (e) =>
+          new Date(e.createdAt).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+          }) ===
+          new Date(date).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+          }),
+      )
+      setData(newState)
+    } else {
+      setData(items)
+    }
   }
 
   return (

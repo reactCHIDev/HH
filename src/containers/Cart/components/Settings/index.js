@@ -1,15 +1,23 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { push } from 'connected-react-router'
+
+import { useDispatch } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import AdressForm from '../AdressForm'
 import styles from './settings.module.scss'
 
-function Settings({ price, active }) {
+function Settings({ price, active, isAuthorized }) {
   const [modal, setModal] = React.useState(false)
+  const dispatch = useDispatch()
 
   const handler = () => {
-    setModal(true)
+    if (isAuthorized) {
+      setModal(true)
+    } else {
+      dispatch(push('/login/regular'))
+    }
   }
 
   const closeModal = () => {

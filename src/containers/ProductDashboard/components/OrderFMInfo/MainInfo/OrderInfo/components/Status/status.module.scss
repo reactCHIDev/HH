@@ -27,20 +27,23 @@
       transform: rotate(-180deg);
     }
   }
-
   .typesWrapper {
     position: absolute;
-    top: 25px;
+    top: 110%;
     left: 0px;
-    background: #c7daec;
-    padding: 0px 40px;
+    width: 20%;
+    min-width: 140px;
+    background: white;
+    color: #31394d;
     border-radius: 10px;
-
+    padding: 5px 0px 5px 5px;
+    border: 1px solid #31394d;
     div {
-      margin-bottom: 5px;
+      // margin: 0px 5px 5px 10px;
       cursor: pointer;
+      opacity: 0.8;
       &:hover {
-        font-weight: bold;
+        opacity: 1;
       }
     }
   }

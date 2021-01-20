@@ -18,8 +18,8 @@ const OrdersFL = () => {
   }, [])
 
   const { items, requestSort } = useSortableData(orders, {
-    key: 'time',
-    direction: 'ascending',
+    key: 'createdAt',
+    direction: 'descending',
   })
 
   React.useEffect(() => {

@@ -15,6 +15,8 @@ function index({ item }) {
     hour12: false,
     minute: '2-digit',
   })
+
+  const sumOfProducts = item.orderProducts.reduce((a, b) => a + (b.quantity || 0), 0)
   return (
     <>
       <Link to={{ pathname: '/order_info', state: item }}>
@@ -27,7 +29,7 @@ function index({ item }) {
               <div>{time}</div>
             </div>
             <div className={styles.id}>#{item.id}</div>
-            <div className={styles.items}>{item.orderProducts.length}</div>
+            <div className={styles.items}>{sumOfProducts}</div>
             <div className={styles.amount}>$ {item.orderTotal}</div>
             <div className={styles.delivery}>{item.deliveryMethod}</div>
             <div className={styles.status}>{item.deliveryStatus}</div>

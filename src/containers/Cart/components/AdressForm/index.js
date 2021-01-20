@@ -21,25 +21,28 @@ const AdressForm = ({ closeFunc }) => {
       <div className={styles.content}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <h1>Delivery adress</h1>
-          <input
-            name="firstName"
-            placeholder="First Name"
-            type="text"
-            ref={register({
-              required: true,
-            })}
-          />
-          {_.get('firstName.type', errors) === 'required' && <p>This field is required</p>}
+          <div className={styles.inputWrapper}>
+            <input
+              name="firstName"
+              placeholder="First Name"
+              type="text"
+              ref={register({
+                required: true,
+              })}
+              style={{ marginRight: '8px' }}
+            />
+            {_.get('firstName.type', errors) === 'required' && <p>This field is required</p>}
 
-          <input
-            name="lastName"
-            placeholder="Last Name"
-            type="text"
-            ref={register({
-              required: true,
-            })}
-          />
-          {_.get('lastName.type', errors) === 'required' && <p>This field is required</p>}
+            <input
+              name="lastName"
+              placeholder="Last Name"
+              type="text"
+              ref={register({
+                required: true,
+              })}
+            />
+            {_.get('lastName.type', errors) === 'required' && <p>This field is required</p>}
+          </div>
 
           <textarea
             name="adress"
@@ -52,6 +55,15 @@ const AdressForm = ({ closeFunc }) => {
           {_.get('adress.type', errors) === 'required' && <p>This field is required</p>}
 
           <input
+            name="company"
+            placeholder="Company (optional)"
+            type="text"
+            ref={register({
+              required: false,
+            })}
+          />
+
+          <input
             name="phone"
             placeholder="Phone"
             type="text"
@@ -60,9 +72,10 @@ const AdressForm = ({ closeFunc }) => {
             })}
           />
           {_.get('phone.type', errors) === 'required' && <p>This field is required</p>}
-
-          <input type="submit" value="CONFIRM" />
-          <input type="button" value="CANCEL" onClick={closeFunc} />
+          <div className={styles.inputWrapper}>
+            <input type="submit" value="CONFIRM" style={{ marginRight: '8px' }} />
+            <input type="button" value="CANCEL" onClick={closeFunc} />
+          </div>
         </form>
       </div>
     </div>

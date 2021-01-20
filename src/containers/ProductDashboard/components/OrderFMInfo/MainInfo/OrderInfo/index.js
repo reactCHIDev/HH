@@ -29,12 +29,9 @@ function OrderInfo() {
       {order.orderProducts.map((item) => (
         <div key={item.id}>
           <div className={styles.orderWrapper}>
-            <div className={styles.orderImageWrapper}>
-              <div
-                style={{ backgroundImage: `url("${item.coverPhoto}")` }}
-                className={styles.img}
-              />
-            </div>
+            {/* <div className={styles.orderImageWrapper}> */}
+            <div style={{ backgroundImage: `url("${item.coverPhoto}")` }} className={styles.img} />
+            {/* </div> */}
             <div className={styles.orderInfoWrapper}>
               <div className={styles.header}>{item.title}</div>
               <div className={styles.orderSummaryWrapper}>
