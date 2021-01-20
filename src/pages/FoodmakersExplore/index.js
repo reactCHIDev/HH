@@ -23,7 +23,8 @@ const FoodmakersExplore = (props) => {
   const fmData = useSelector((state) => state.search.data)
   const specialityTags = useSelector((state) => state.system.specialityTags)
   const serviceTags = useSelector((state) => state.system.serviceTags)
-  const { searchTitle } = getItem('search_data')
+  const searchData = getItem('search_data')
+  const searchTitle = searchData?.searchTitle || ''
   const dispatch = useDispatch()
 
   const [specialityTagsToShow, setSpecialityTagsToShow] = React.useState([])
