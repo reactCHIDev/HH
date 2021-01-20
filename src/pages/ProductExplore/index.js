@@ -8,7 +8,7 @@ import { push } from 'connected-react-router'
 
 import cls from 'classnames'
 import T from 'prop-types'
-
+import PriceSelector from './PriceSelector'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import { getProductTypes } from 'actions/system'
@@ -29,6 +29,10 @@ const ProductExplore = (props) => {
   const [isProductCategoriesToChooseShown, setIsProductCategoriesToChooseShown] = React.useState(
     false,
   )
+
+  const [isVisiblePriceSelector, setVisibilityPriceSelector] = React.useState(false)
+  const [minPrice, setMinPrice] = React.useState(0)
+  const [maxPrice, setMaxPrice] = React.useState(100)
 
   const dispatch = useDispatch()
   const dispatchPush = useDispatch(push)
@@ -82,6 +86,16 @@ const ProductExplore = (props) => {
     )
   }
 
+  const onPriceClick = () => setVisibilityPriceSelector((v) => !v)
+
+  const onApply = () => {
+    console.log('%c   min, max   ', 'color: darkgreen; background: palegreen;', [
+      minPrice,
+      maxPrice,
+    ])
+    setVisibilityPriceSelector(false)
+  }
+
   const pushRoute = (url) => {
     dispatch(push(url))
   }
@@ -120,11 +134,7 @@ const ProductExplore = (props) => {
 
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Category</label>
-              <div
-                className={styles.input}
-                type="text"
-                onClick={() => setIsProductCategoriesToChooseShown((b) => !b)}
-              >
+              <div className={styles.input} type="text" onClick={onPriceClick}>
                 {selectedCategories.map((el, index) => (
                   <span>{(index ? ', ' : '') + el.title}</span>
                 ))}
@@ -146,12 +156,23 @@ const ProductExplore = (props) => {
                 </div>
               ) : null}
             </div>
-            <div className={styles.input_wrapper}>
+            <div
+              className={styles.input_wrapper}
+              onClick={() => setVisibilityPriceSelector((v) => !v)}
+            >
               <label className={styles.label}>Price</label>
-              <div className={styles.input} type="text" />
+              <div className={styles.input} type="text">{`$${minPrice} - $${maxPrice}`}</div>
+              <PriceSelector
+                min={minPrice}
+                max={maxPrice}
+                setMin={setMinPrice}
+                setMax={setMaxPrice}
+                onApply={onApply}
+                visible={isVisiblePriceSelector}
+              />
             </div>
             <div className={styles.input_wrapper}>
-              <button type="button" onClick={() => onSearchCLick()}>
+              <button className={styles.btn_button} type="button" onClick={() => onSearchCLick()}>
                 <svg
                   width="19"
                   height="19"
