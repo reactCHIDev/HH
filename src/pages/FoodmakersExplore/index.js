@@ -94,7 +94,7 @@ const FoodmakersExplore = (props) => {
           <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Type of Food Maker</label>
-              <div>
+              <div className="fmSelectWrapper">
                 <Controller
                   style={{ width: '100%', position: 'absolute', left: 0, top: '0px' }}
                   control={control}
