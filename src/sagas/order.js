@@ -76,7 +76,7 @@ function* createOrderRequest({ data }) {
         customerId: userId,
         firstName,
         lastName,
-        deliveryMethod: 'Free',
+        deliveryMethod: shopsData[shop].delivery.type,
         deliveryAddress: adress,
         phone,
         deliveryPrice: shopsData[shop].delivery.price,
