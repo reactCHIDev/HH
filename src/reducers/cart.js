@@ -230,6 +230,7 @@ const reducer = function cartReducer(state = initialState, action) {
 
     case CLEAR_CART:
       return {
+        ...state,
         ...initialState,
       }
 
