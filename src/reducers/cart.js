@@ -13,6 +13,7 @@ import {
   CREATE_ORDER_SUCCESS,
   DELETE_PRODUCT_FROM_LIST,
   DELETE_PRODUCT_AND_SHOP_FROM_LIST,
+  CLEAR_CART,
 } from '../actions/constants'
 
 const initialState = {
@@ -227,8 +228,12 @@ const reducer = function cartReducer(state = initialState, action) {
     case DELETE_PRODUCT_AND_SHOP_FROM_LIST:
       return deleteDataAfterError(state, action.data.shopTitle)
 
+    case CLEAR_CART:
+      return {
+        ...initialState,
+      }
+
     default:
-      setItem('cart', state)
       return state
   }
 }
