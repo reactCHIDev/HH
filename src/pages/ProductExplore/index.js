@@ -20,7 +20,7 @@ const ProductExplore = (props) => {
   const productsData = useSelector((state) => state.search.data)
   const productTypes = useSelector((state) => state.system.productTypes)
 
-  const [productTypeToShow, setProductTypeToShow] = React.useState('')
+  const [productTypeToShow, setProductTypeToShow] = React.useState()
   const [productTypesToChoose, setProductTypesToChoose] = React.useState([])
   const [isProductTypesToChooseShown, setIsProductTypesToChooseShown] = React.useState(false)
 
@@ -51,11 +51,13 @@ const ProductExplore = (props) => {
   }, [productTypes])
 
   React.useEffect(() => {
-    setProductTypesToChoose(productTypes.filter((el) => el.title !== productTypeToShow.title))
-    setProductCategoriesToShow(
-      productTypes.filter((el) => el.title === productTypeToShow.title)[0]?.productCategories,
-    )
-    updateSelectedCategories([])
+    if (productTypeToShow) {
+      setProductTypesToChoose(productTypes.filter((el) => el.title !== productTypeToShow.title))
+      setProductCategoriesToShow(
+        productTypes.filter((el) => el.title === productTypeToShow.title)[0]?.productCategories,
+      )
+      updateSelectedCategories([])
+    }
   }, [productTypeToShow])
 
   const onCategoriesClickHandler = (el) => {
@@ -97,7 +99,7 @@ const ProductExplore = (props) => {
                 type="text"
                 onClick={() => setIsProductTypesToChooseShown((b) => !b)}
               >
-                {productTypeToShow.title}
+                {productTypeToShow?.title}
               </div>
               {isProductTypesToChooseShown ? (
                 <div className={styles.typesWrapper}>
