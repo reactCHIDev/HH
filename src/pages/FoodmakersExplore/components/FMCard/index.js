@@ -1,18 +1,62 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useMemo } from 'react'
 import avatar from 'assets/TMP-AVATAR.jpg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import { Rate } from 'antd'
 import cls from 'classnames'
 import styles from './fmcard.module.scss'
 import './fmcard.less'
 
 const FMCard = ({ item }) => {
+  const settings = useMemo(
+    () => ({
+      draggable: true,
+      touchThreshold: 30,
+      useCSS: true,
+      swipeToSlide: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4.2,
+      slidesToScroll: 1,
+      arrows: true,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 4.2,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3.2,
+          },
+        },
+        {
+          breakpoint: 500,
+          settings: {
+            slidesToShow: 2.2,
+          },
+        },
+        {
+          breakpoint: 375,
+          settings: {
+            slidesToShow: 2.2,
+          },
+        },
+      ],
+    }),
+    [],
+  )
+
   return (
     <div className={styles.container} key={item.id}>
       <div className={styles.content}>
-        <div className={styles.reviewer}>
+        <div className={styles.fm_card}>
           <div className={styles.avatar_container}>
             {item.userPhoto ? (
               <img src={item.userPhoto || avatar} alt="avatar" />
@@ -20,10 +64,10 @@ const FMCard = ({ item }) => {
               <AvatarPlaceholder width={96} />
             )}
           </div>
-          <div className={styles.reviewer_info}>
-            <p className={styles.reviewer_name}>
+          <div className={styles.fm_card_info}>
+            <p className={styles.fm_card_name}>
               {item.firstName} {item.lastName.charAt(0)}.
-              <div className={cls(styles.review_stats, 'rating')}>
+              <div className={cls(styles.fm_card_stats, 'rating')}>
                 <Rate style={{ color: '#31394C' }} disabled defaultValue={item.rating} />
                 <span>({`${item.votes || 0}`})</span>
               </div>
@@ -61,6 +105,62 @@ const FMCard = ({ item }) => {
             </button>
           </div>
         </div>
+        <div className={styles.slider_container}>
+          <Slider {...settings}>
+            <div className={styles.preview_container}>
+              <span
+                style={{ backgroundImage: `url("${coverPhoto}")` }}
+                className={styles.preview_img_clear}
+              ></span>
+            </div>
+            <div className={styles.preview_container}>
+              <span
+                style={{ backgroundImage: `url("${coverPhoto}")` }}
+                className={styles.preview_img_clear}
+              ></span>
+            </div>
+            <div className={styles.preview_container}>
+              <span
+                style={{ backgroundImage: `url("${coverPhoto}")` }}
+                className={styles.preview_img_clear}
+              ></span>
+            </div>
+            <div className={styles.preview_container}>
+              <span
+                style={{ backgroundImage: `url("${coverPhoto}")` }}
+                className={styles.preview_img_clear}
+              ></span>
+            </div>
+            <div className={styles.preview_container}>
+              <span
+                style={{ backgroundImage: `url("${coverPhoto}")` }}
+                className={styles.preview_img_clear}
+              ></span>
+            </div>
+            <div className={styles.preview_container}>
+              <span
+                style={{ backgroundImage: `url("${coverPhoto}")` }}
+                className={styles.preview_img_clear}
+              ></span>
+            </div>
+            <div className={styles.preview_container}>
+              <span
+                style={{ backgroundImage: `url("${coverPhoto}")` }}
+                className={styles.preview_img_clear}
+              ></span>
+            </div>
+
+            {/* {images.map((image) => (
+              <div className={styles.preview_container} id={image} onClick={handleImageClick}>
+                <span
+                  style={{ backgroundImage: `url("${image}")` }}
+                  className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}
+                ></span>
+              </div>
+            ))} */}
+          </Slider>
+        </div>
+        {/* </div>
         <div className={styles.review}>
           <div className={styles.review_photo}>
             <img className={styles.photo} src={coverPhoto} alt="avatar" />
@@ -75,6 +175,7 @@ const FMCard = ({ item }) => {
             <img className={styles.photo} src={coverPhoto} alt="avatar" />
           </div>
         </div>
+      </div> */}
       </div>
     </div>
   )
