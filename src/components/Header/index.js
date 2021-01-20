@@ -58,6 +58,7 @@ const Header = (props) => {
     '/foodmaker_dashboard',
     '/product_dashboard',
     '/fm_order_info',
+    '/messages',
     '/account_info',
     '/order_info',
     '/addproduct',

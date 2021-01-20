@@ -51,6 +51,7 @@ const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
 const FoodmakerPage = lazy(() => import('pages/FoodmakerPage'))
 const ExploreExp = lazy(() => import('pages/ExploreExperiences'))
+const Messages = lazy(() => import('pages/Messages'))
 
 // Landing
 const FoodmakersLanding = lazy(() => import('landings/Foodmakers'))
@@ -154,6 +155,7 @@ function App({ authorized, role, pathname, getUserAccount }) {
 
               {/* Pages */}
               <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
+              <PublicRoute exact path="/messages" component={WaitingComponent(Messages)} />
               <PublicRoute
                 exact
                 path="/explore_experiences"

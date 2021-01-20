@@ -1,0 +1,71 @@
+.container {
+  width: 30%;
+  padding-top: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+.msgWrapper {
+  width: 50%;
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.received {
+  margin-right: auto;
+  background: #f5f8fb;
+  margin-left: 20px;
+}
+
+.sented {
+  margin-left: auto;
+  background: #f5f8fb;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 20px;
+}
+
+.bottomSection {
+  display: flex;
+  width: 100%;
+  padding: 10px 20px;
+  justify-content: space-between;
+  border-top: 1px solid #e5e5e5;
+  align-items: center;
+  @media screen and (max-width: 480px) {
+    padding: 10px;
+  }
+
+  .input {
+    resize: none;
+    width: 80%;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    margin-right: 8px;
+  }
+
+  .addWrapper {
+    margin: 0 5px;
+    color: #31394d;
+  }
+
+  button {
+    background: #31394d;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #e5e5e5;
+    text-decoration: none;
+    border: none;
+    padding: 5px 30px;
+    @media screen and (max-width: 768px) {
+      padding: 5px 15px;
+    }
+  }
+}
