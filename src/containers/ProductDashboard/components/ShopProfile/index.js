@@ -84,6 +84,7 @@ const ShopProfile = (props) => {
             if (dm[e] === 'FreeDelivery') setFree(true)
           }
         })
+        console.log('%c   acc   ', 'color: darkgreen; background: palegreen;', acc)
         return acc
       }, {})
 
@@ -157,9 +158,9 @@ const ShopProfile = (props) => {
 
     const freeDelivery = {
       type: 'FreeDelivery',
-      price: values.FreeDeliveryprice,
+      freeDeliveryOver: values.FreeDeliveryfreeDeliveryOver,
     }
-    delete values.FreeDeliveryprice
+    delete values.FreeDeliveryfreeDeliveryOver
 
     const delivery = []
 
@@ -459,7 +460,7 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="FreeDeliveryprice"
+                      name="FreeDeliveryfreeDeliveryOver"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
