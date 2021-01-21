@@ -84,7 +84,6 @@ const ShopProfile = (props) => {
             if (dm[e] === 'FreeDelivery') setFree(true)
           }
         })
-        console.log('%c   acc   ', 'color: darkgreen; background: palegreen;', acc)
         return acc
       }, {})
 
