@@ -17,7 +17,7 @@ const DeliveryInfo = ({ region, deliveryMethods }) => {
           <div className={styles.info_section}>
             {e?.type && (
               <p className={styles.sub_title}>
-                Delivery: {e.type !== 'freepick' ? e.type : 'free pick-up'}
+                Delivery: {e.type !== 'FreePickUp' ? e.type : 'Free pick-up'}
               </p>
             )}
             {e?.price && <p className={styles.text}>Cost of delivery: HKD {e.price}</p>}
@@ -27,10 +27,10 @@ const DeliveryInfo = ({ region, deliveryMethods }) => {
             {e?.note ? (
               <p className={styles.text}>Note: {e.note}</p>
             ) : (
-              e.type !== 'free' && (
+              e.type !== 'FreeDelivery' && (
                 <p className={styles.text}>
                   {`Note: Contact maker for ${
-                    e.type === 'freepick' ? 'pick-up' : 'delivery'
+                    e.type === 'FreePickUp' ? 'pick-up' : 'delivery'
                   } details`}
                 </p>
               )

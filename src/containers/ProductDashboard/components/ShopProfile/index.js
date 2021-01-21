@@ -78,10 +78,10 @@ const ShopProfile = (props) => {
           if (e !== 'type') {
             acc[dm.type + e] = dm[e]
           } else {
-            if (dm[e] === 'standart') setStandart(true)
-            if (dm[e] === 'freepick') setFreepick(true)
-            if (dm[e] === 'express') setExpress(true)
-            if (dm[e] === 'free') setFree(true)
+            if (dm[e] === 'Standard') setStandart(true)
+            if (dm[e] === 'FreePickUp') setFreepick(true)
+            if (dm[e] === 'Express') setExpress(true)
+            if (dm[e] === 'FreeDelivery') setFree(true)
           }
         })
         return acc
@@ -130,36 +130,36 @@ const ShopProfile = (props) => {
     const values = { ...formValues }
 
     const standartDelivery = {
-      type: 'standart',
-      price: values.standartprice,
-      freeDeliveryOver: values.standartfreeDeliveryOver,
-      note: values.standartnote,
+      type: 'Standard',
+      price: values.Standardprice,
+      freeDeliveryOver: values.StandardfreeDeliveryOver,
+      note: values.Standardnote,
     }
-    delete values.standartprice
-    delete values.standartfreeDeliveryOver
-    delete values.standartnote
+    delete values.Standardprice
+    delete values.StandardfreeDeliveryOver
+    delete values.Standardnote
 
     const freepickDelivery = {
-      type: 'freepick',
-      note: values.freepicknote,
+      type: 'FreePickUp',
+      note: values.FreePickUpnote,
     }
-    delete values.freepicknote
+    delete values.FreePickUpnote
 
     const expressDelivery = {
-      type: 'express',
-      price: values.expressprice,
-      freeDeliveryOver: values.expressfreeDeliveryOver,
-      note: values.expressnote,
+      type: 'Express',
+      price: values.Expressprice,
+      freeDeliveryOver: values.ExpressfreeDeliveryOver,
+      note: values.Expressnote,
     }
-    delete values.expressprice
-    delete values.expressfreeDeliveryOver
-    delete values.expressnote
+    delete values.Expressprice
+    delete values.ExpressfreeDeliveryOver
+    delete values.Expressnote
 
     const freeDelivery = {
-      type: 'free',
-      price: values.freeprice,
+      type: 'FreeDelivery',
+      price: values.FreeDeliveryprice,
     }
-    delete values.freeprice
+    delete values.FreeDeliveryprice
 
     const delivery = []
 
@@ -326,7 +326,7 @@ const ShopProfile = (props) => {
                     <label className={styles.label}>Cost of delivery</label>
                     <Controller
                       control={control}
-                      name="standartprice"
+                      name="Standardprice"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
@@ -344,7 +344,7 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="standartfreeDeliveryOver"
+                      name="StandardfreeDeliveryOver"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
@@ -363,7 +363,7 @@ const ShopProfile = (props) => {
 
                   <textarea
                     className={styles.textarea}
-                    name="standartnote"
+                    name="Standardnote"
                     placeholder="Standard delivery description"
                     rows="5"
                     ref={register({
@@ -381,7 +381,7 @@ const ShopProfile = (props) => {
                 <p className={styles.label_note}>Note</p>
                 <textarea
                   className={styles.textarea}
-                  name="freepicknote"
+                  name="FreePickUpnote"
                   placeholder="Pick up description."
                   rows="5"
                   ref={register({
@@ -401,7 +401,7 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="expressprice"
+                      name="Expressprice"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
@@ -419,7 +419,7 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="expressfreeDeliveryOver"
+                      name="ExpressfreeDeliveryOver"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
@@ -438,7 +438,7 @@ const ShopProfile = (props) => {
 
                   <textarea
                     className={styles.textarea}
-                    name="expressnote"
+                    name="Expressnote"
                     placeholder="Express delivery description."
                     rows="5"
                     ref={register({
@@ -459,7 +459,7 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="freeprice"
+                      name="FreeDeliveryprice"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
