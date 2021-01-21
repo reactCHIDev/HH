@@ -13,6 +13,7 @@ import { Spin, Space } from 'antd'
 /* CUSTOM MODULES */
 import { getUserAccount } from 'actions/account'
 import { getItem } from 'utils/localStorage'
+import { getSocket, sendMessage } from 'utils/openWS'
 import { setBaseEndpoint } from 'utils/apiClient'
 import { history } from 'store'
 
@@ -98,6 +99,8 @@ function App({ authorized, role, pathname, getUserAccount }) {
 
   // console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
+  const socket = getSocket()
+
   return (
     <div className={styles.app_container} id="app-container">
       <ConnectedRouter history={history}>
@@ -155,7 +158,13 @@ function App({ authorized, role, pathname, getUserAccount }) {
 
               {/* Pages */}
               <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
-              <PublicRoute exact path="/messages" component={WaitingComponent(Messages)} />
+              <PublicRoute
+                exact
+                path="/messages"
+                component={WaitingComponent(() => (
+                  <Messages socket={socket} />
+                ))}
+              />
               <PublicRoute
                 exact
                 path="/explore_experiences"

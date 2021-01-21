@@ -1,81 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Message from '../Message'
 import MyMessage from '../MyMessage'
+import { getDialogAC } from 'actions/chat'
+import { useSelector, useDispatch } from 'react-redux'
+import { sendMessage } from 'utils/openWS'
 import attachment from 'assets/icons/svg/attachment.svg'
 import cls from 'classnames'
 import styles from './chat.module.scss'
 
-const data = [
-  {
-    id: 0,
-    user: 'me',
-    msg: 'hi, hello',
-    date: '23/02/20',
-    time: '12:37',
-  },
-  {
-    id: 1,
-    user: 'you',
-    msg: 'hi, hello',
-    date: '23/02/20',
-    time: '12:38',
-  },
-  {
-    id: 2,
-    user: 'me',
-    msg: 'hi, hello',
-    date: '23/02/20',
-    time: '12:39',
-  },
-  {
-    id: 3,
-    user: 'me',
-    msg: 'hi, hello',
-    date: '23/02/20',
-    time: '12:40',
-  },
-  {
-    id: 4,
-    user: 'me',
-    msg: 'hi, hello',
-    date: '23/02/20',
-    time: '12:41',
-  },
-  {
-    id: 5,
-    user: 'you',
-    msg: 'hi, hello',
-    date: '23/02/20',
-    time: '12:42',
-  },
-  {
-    id: 6,
-    user: 'me',
-    msg: 'hi, hello',
-    date: '23/02/20',
-    time: '12:43',
-  },
-]
+function Chat({ socket, dialog }) {
+  const [message, setMessage] = useState('')
+  // const dispatch = useDispatch()
+  // useEffect(() => dispatch(getDialogAC(671)), [])
 
-function Chat() {
+  const onSend = () => {
+    sendMessage(socket, message)
+    setMessage('')
+  }
+
+  const onChangeMessage = (e) => setMessage(e.target.value)
+
   return (
     <div className={styles.container}>
       <div className={styles.msg_container}>
-        <Message />
-        <MyMessage />
-        <Message />
-        <MyMessage />
-        <Message />
-        <MyMessage />
-        <Message />
-        <MyMessage />
+        {dialog.map((e, i) => (i % 2 ? <Message text={e.text} /> : <MyMessage text={e.text} />))}
       </div>
       <div className={styles.bottomSection}>
         <div className={styles.addWrapper}>
           <img src={attachment} alt="pic" />
         </div>
-        <textarea className={styles.input} placeholder="Enter your message" rows={1} />
-        <button type="button">
+        <textarea
+          className={styles.input}
+          placeholder="Enter your message"
+          rows={1}
+          onChange={onChangeMessage}
+          value={message}
+        />
+        <button type="button" onClick={onSend}>
           <svg
             width="16"
             height="16"

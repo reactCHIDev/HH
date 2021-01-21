@@ -18,6 +18,7 @@ import order from './order'
 import admin from './admin'
 import toggleFavourite from './favourites'
 import search from './search'
+import chat from './chat'
 
 export default function* rootSaga() {
   yield all([
@@ -40,5 +41,6 @@ export default function* rootSaga() {
     admin(),
     toggleFavourite(),
     search(),
+    chat(),
   ])
 }
