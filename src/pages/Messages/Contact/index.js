@@ -8,14 +8,20 @@ const Contact = ({
   url = 'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1610962040437.jpg',
   name = 'AlexFM',
   unreaded = 2,
+  id,
+  activeChat,
+  setActiveChat,
 }) => {
-  const openDialog = (id) => {
-    console.log('%c   id   ', 'color: darkgreen; background: palegreen;', id)
+  const openDialog = (e) => {
+    const { id } = e.currentTarget
+    setActiveChat(id)
   }
 
   return (
-    <div className={cls(styles.container, false ? styles.selected : '')}>
-      <div className={styles.local_avatar_info} onClick={openDialog}>
+    <div
+      className={cls(styles.container, Number(activeChat) === Number(id) ? styles.selected : '')}
+    >
+      <div className={styles.local_avatar_info} id={id} onClick={openDialog}>
         <div className={styles.local_avatar_box}>
           {url ? <img src={url} alt="avatar" /> : <AvatarPlaceholder />}
         </div>
@@ -38,6 +44,10 @@ const Contact = ({
 Contact.propTypes = {
   url: T.string.isRequired,
   name: T.string.isRequired,
+  unreaded: T.number.isRequired,
+  id: T.number.isRequired,
+  activeChat: T.string.isRequired,
+  setActiveChat: T.func.isRequired,
 }
 
 export default Contact
