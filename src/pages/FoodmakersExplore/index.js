@@ -39,9 +39,9 @@ const FoodmakersExplore = (props) => {
     mode: 'onBlur',
   })
 
-  const filteredTags = specialityTagsToShow.length
-    ? specialityTagsToShow.filter((o) => !selectedItems.includes(o.tagName))
-    : []
+  // const filteredTags = specialityTagsToShow.length
+  //   ? specialityTagsToShow.filter((o) => !selectedItems.includes(o.tagName))
+  //   : []
 
   React.useEffect(() => {
     dispatch(
@@ -67,7 +67,7 @@ const FoodmakersExplore = (props) => {
   }, [serviceTags])
 
   React.useEffect(() => {
-    setServiceTagsToChoose(serviceTags.filter((el) => el.tagName !== serviceTagToShow.tagName))
+    setServiceTagsToChoose(serviceTags.filter((el) => el.tagName !== serviceTagToShow?.tagName))
   }, [serviceTagToShow])
 
   const handleTags = (onChange) => (e) => {
@@ -110,8 +110,9 @@ const FoodmakersExplore = (props) => {
                       showArrow
                       style={{ width: '100%' }}
                       tokenSeparators={[',']}
+                      maxTagCount={3}
                     >
-                      {filteredTags.map((item) => (
+                      {specialityTagsToShow.map((item) => (
                         <Select.Option key={item.id} value={item.tagName}>
                           {item.tagName}
                         </Select.Option>

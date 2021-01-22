@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import cls from 'classnames'
 
 import { searchRequestingnAc, clearSearchDataAc } from 'actions/search'
+import { getCitiesAC } from 'actions/system'
 import useDebounce from 'hooks/useDebounce'
 import { setItem } from 'utils/localStorage'
 import ArrowDark from 'assets/icons/svg/down-arrow.svg'
@@ -33,32 +34,51 @@ const searchData = [
 function SearchBlock() {
   const dispatch = useDispatch()
   const searchedDataResults = useSelector((state) => state.search.data)
+  const cities = useSelector((state) => state.system.cities)
   const [searchType, setSearchType] = React.useState('Products')
   const [searchValue, setSearchValue] = React.useState('')
   const [searchCityValue, setSearchCityValue] = React.useState('')
   const [isSearchTypesVisible, setIsSearchTypesVisible] = React.useState(false)
   const [cityResult, setCityResults] = React.useState([])
+  const [cityVisibility, setCityVisibility] = React.useState(false)
+  const [selectedCity, setSelectedCity] = React.useState('')
 
   const clickHandler = (type) => {
     setSearchType(type)
     setIsSearchTypesVisible(false)
   }
 
+  const selectCity = (city) => {
+    setSearchCityValue(city.cityName)
+    setSelectedCity(city.id)
+  }
+
   const debouncedSearchTerm = useDebounce(searchValue, 500)
   const debouncedCitySearch = useDebounce(searchCityValue, 500)
 
   React.useEffect(() => {
-    if (debouncedSearchTerm) {
+    dispatch(getCitiesAC())
+  }, [])
+
+  React.useEffect(() => {
+    if (debouncedSearchTerm || selectedCity) {
       dispatch(
-        searchRequestingnAc({ searchType, dataForSearch: { searchedValue: debouncedSearchTerm } }),
+        searchRequestingnAc({
+          searchType,
+          dataForSearch: {
+            searchedValue: debouncedSearchTerm || null,
+            city: selectedCity || null,
+          },
+        }),
         setItem('search_data', {
-          searchTitle: debouncedSearchTerm,
+          searchTitle: debouncedSearchTerm || null,
+          city: selectedCity || null,
         }),
       )
     } else {
       dispatch(clearSearchDataAc())
     }
-  }, [debouncedSearchTerm, searchType])
+  }, [debouncedSearchTerm, searchType, selectedCity])
 
   React.useEffect(() => {
     if (debouncedCitySearch) {
@@ -67,6 +87,22 @@ function SearchBlock() {
       dispatch(clearSearchDataAc())
     }
   }, [debouncedCitySearch, searchType])
+
+  React.useEffect(() => {
+    if (searchCityValue) {
+      setCityResults(cities.filter((el) => el.cityName.startsWith(searchCityValue)))
+    } else {
+      setCityResults([])
+    }
+  }, [searchCityValue])
+
+  React.useEffect(() => {
+    if (cityResult.length && !selectedCity) {
+      setCityVisibility(true)
+    } else {
+      setCityVisibility(false)
+    }
+  }, [cityResult])
 
   return (
     <div className={styles.search_block}>
@@ -122,7 +158,7 @@ function SearchBlock() {
                       : `/${item.hungryHuggerLink.split('/').pop()}`
                   }
                 >
-                  <div>{item.title || `${item.firstName}${item.lastName}`}</div>
+                  <div>{item.title || item.user?.profileName}</div>
                 </Link>
               ))}
             </div>
@@ -137,8 +173,24 @@ function SearchBlock() {
           className={styles.city_input}
           type="text"
           placeholder="Select a city"
-          onChange={(e) => setSearchCityValue(e.target.value)}
+          onChange={(e) => {
+            setSearchCityValue(e.target.value)
+            setSelectedCity('')
+          }}
+          autoComplete="off"
+          value={searchCityValue}
         />
+        {cityVisibility && (
+          <div className={styles.sugg_container}>
+            {cityResult.map((s) => (
+              <div className={styles.sugg}>
+                <div className={styles.sugg_text} onClick={() => selectCity(s)}>
+                  {s.cityName}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         <span className={cls(styles.label, 'mobile_hidden')}>Hong-Kong, Sydney</span>
       </div>
       <div className={styles.input_wrapper}>

@@ -6,14 +6,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import ProdCard from 'components/ProductCard'
 import { push } from 'connected-react-router'
 
-import cls from 'classnames'
-import T from 'prop-types'
-import PriceSelector from './PriceSelector'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import { getProductTypes } from 'actions/system'
 import { searchRequestingnAc } from 'actions/search'
 import { getItem } from 'utils/localStorage'
+import PriceSelector from './PriceSelector'
 import styles from './prodexp.module.scss'
 
 const ProductExplore = (props) => {
@@ -35,7 +33,6 @@ const ProductExplore = (props) => {
   const [maxPrice, setMaxPrice] = React.useState(100)
 
   const dispatch = useDispatch()
-  const dispatchPush = useDispatch(push)
   const { searchTitle } = getItem('search_data')
 
   React.useEffect(() => {
@@ -78,21 +75,17 @@ const ProductExplore = (props) => {
       searchRequestingnAc({
         searchType: 'Products',
         dataForSearch: {
+          searchedValue: searchTitle,
           prodTypeId: productTypeToShow.id,
           prodCategoryId: selectedCategories.map((el) => el.id).toString(),
           isExplore: true,
+          prodPrice: `${minPrice},${maxPrice}`,
         },
       }),
     )
   }
 
-  const onPriceClick = () => setVisibilityPriceSelector((v) => !v)
-
   const onApply = () => {
-    console.log('%c   min, max   ', 'color: darkgreen; background: palegreen;', [
-      minPrice,
-      maxPrice,
-    ])
     setVisibilityPriceSelector(false)
   }
 
@@ -105,8 +98,8 @@ const ProductExplore = (props) => {
       <div className={styles.page_header}>
         <div className={styles.header_content}>
           <h1>Products from our food makers </h1>
-          <div className={styles.search_block}>
-            <div className={styles.input_wrapper}>
+          <div style={{ width: '100%' }} className={styles.search_block}>
+            <div style={{ width: '20%' }} className={styles.input_wrapper}>
               <label className={styles.label}>Type of products</label>
               <div
                 className={styles.input}
@@ -132,9 +125,13 @@ const ProductExplore = (props) => {
               ) : null}
             </div>
 
-            <div className={styles.input_wrapper}>
+            <div style={{ width: '50%' }} className={styles.input_wrapper}>
               <label className={styles.label}>Category</label>
-              <div className={styles.input} type="text" onClick={onPriceClick}>
+              <div
+                className={styles.input}
+                type="text"
+                onClick={() => setIsProductCategoriesToChooseShown((b) => !b)}
+              >
                 {selectedCategories.map((el, index) => (
                   <span>{(index ? ', ' : '') + el.title}</span>
                 ))}
@@ -194,16 +191,6 @@ const ProductExplore = (props) => {
           {productsData.map(
             (item) =>
               item.coverPhoto && (
-                // <ExpCard
-                //   key={item.id}
-                //   photo={item.coverPhoto}
-                //   tags={item.productTags.map((a) => a.tagName)}
-                //   name={item.title}
-                //   price={item.price}
-                //   rating={item.rating}
-                //   rateCount={Number(item.votes)}
-                //   pathname={`product/${item.id}`}
-                // />
                 <ProdCard
                   key={item.id}
                   id={item.id}

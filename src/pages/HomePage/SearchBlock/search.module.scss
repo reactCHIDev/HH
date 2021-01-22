@@ -91,6 +91,32 @@
       }
     }
 
+    .sugg_container {
+      position: absolute;
+      overflow-y: scroll;
+      padding: 10px 0px;
+      top: 220px;
+      background-color: #ffffff;
+      border: 1px solid black;
+      width: 21%;
+      max-width: 512px;
+      min-height: 50px;
+      max-height: 200px;
+      border-radius: 0 0 8px 8px;
+      cursor: pointer;
+      .sugg {
+        margin-bottom: 5px;
+        padding: 0 20px;
+        &:hover {
+          background-color: #e2e2e2;
+        }
+        .sugg_text {
+          font-size: 14px;
+          color: black;
+        }
+      }
+    }
+
     .input[type='text'] {
       display: block;
       position: relative;
@@ -117,6 +143,8 @@
       font-weight: normal;
       font-size: 16px;
       color: #31394d;
+      background-color: #ffffff;
+
       border: none;
       border-radius: 0 8px 8px 0;
 

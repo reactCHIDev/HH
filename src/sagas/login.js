@@ -36,7 +36,6 @@ function* loginFlow({ creds }) {
       payload: { name: data.profileName, id: data.id, role: data.role },
     })
     yield put({ type: GET_USER_ACCOUNT_REQUESTING })
-
     if (redirect) yield put(replace('/'))
   } catch (error) {
     if (error.response) {

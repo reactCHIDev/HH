@@ -71,9 +71,9 @@
           position: relative;
           padding: 0 16px;
 
-          &:first-child {
-            width: 100%;
-          }
+          // &:first-child {
+          //   width: 50%;
+          // }
 
           &:last-child {
             display: flex;
@@ -105,17 +105,19 @@
             min-width: 176px;
             line-height: 28px;
             cursor: pointer;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
           }
+
           .typesWrapper {
             position: absolute;
             top: 110%;
-            // left: 0%;
-            /* width: 43%; */
-            /* min-width: 140px; */
             background: white;
             color: #31394d;
+            width: 87%;
             border-radius: 10px;
-            padding: 5px 90px 5px 0px;
+            padding: 7px 45px 5px 0px;
             div {
               margin: 0px 5px 5px 10px;
               cursor: pointer;
@@ -129,14 +131,12 @@
           .categoriesWrapper {
             position: absolute;
             top: 110%;
-            // left: 0%;
-            /* width: 43%; */
-            /* min-width: 140px; */
             background: white;
             color: #31394d;
             border-radius: 10px;
             border: 1px solid black;
             padding: 5px 0px 5px 0px;
+            width: 94%;
 
             div {
               margin: 0px 5px 5px 10px;
@@ -147,6 +147,7 @@
               }
             }
           }
+
           .btn_button {
             width: 72px;
             height: 56px;
