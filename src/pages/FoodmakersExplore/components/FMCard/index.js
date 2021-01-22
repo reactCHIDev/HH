@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react'
 import avatar from 'assets/TMP-AVATAR.jpg'
-import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -52,6 +51,7 @@ const FMCard = ({ item }) => {
     }),
     [],
   )
+  const photos = item.otherPhotos ? [...item.otherPhotos, item.coverPhoto] : [item.coverPhoto]
 
   return (
     <div className={styles.container} key={item.id}>
@@ -72,7 +72,6 @@ const FMCard = ({ item }) => {
                 <span>({`${item.votes || 0}`})</span>
               </div>
             </p>
-
             <p className={styles.timestamp}>{item.about}</p>
             <p className={styles.autor}>
               {item.tags && item.tags.map((el, i) => <span key={el}>{(i ? ', ' : '') + el}</span>)}
@@ -85,21 +84,10 @@ const FMCard = ({ item }) => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect
-                  x="1"
-                  y="1"
-                  width="16"
-                  height="12.5714"
-                  rx="3"
-                  stroke="#31394D"
-                  // stroke-width="2"
-                  // stroke-linecap="round"
-                />
+                <rect x="1" y="1" width="16" height="12.5714" rx="3" stroke="#31394D" />
                 <path
                   d="M2 3L7.83752 7.16966C8.53292 7.66637 9.46708 7.66637 10.1625 7.16966L16 3"
                   stroke="#31394D"
-                  // stroke-width="2"
-                  // stroke-linecap="round"
                 />
               </svg>
             </button>
@@ -107,75 +95,16 @@ const FMCard = ({ item }) => {
         </div>
         <div className={styles.slider_container}>
           <Slider {...settings}>
-            <div className={styles.preview_container}>
-              <span
-                style={{ backgroundImage: `url("${coverPhoto}")` }}
-                className={styles.preview_img_clear}
-              ></span>
-            </div>
-            <div className={styles.preview_container}>
-              <span
-                style={{ backgroundImage: `url("${coverPhoto}")` }}
-                className={styles.preview_img_clear}
-              ></span>
-            </div>
-            <div className={styles.preview_container}>
-              <span
-                style={{ backgroundImage: `url("${coverPhoto}")` }}
-                className={styles.preview_img_clear}
-              ></span>
-            </div>
-            <div className={styles.preview_container}>
-              <span
-                style={{ backgroundImage: `url("${coverPhoto}")` }}
-                className={styles.preview_img_clear}
-              ></span>
-            </div>
-            <div className={styles.preview_container}>
-              <span
-                style={{ backgroundImage: `url("${coverPhoto}")` }}
-                className={styles.preview_img_clear}
-              ></span>
-            </div>
-            <div className={styles.preview_container}>
-              <span
-                style={{ backgroundImage: `url("${coverPhoto}")` }}
-                className={styles.preview_img_clear}
-              ></span>
-            </div>
-            <div className={styles.preview_container}>
-              <span
-                style={{ backgroundImage: `url("${coverPhoto}")` }}
-                className={styles.preview_img_clear}
-              ></span>
-            </div>
-
-            {/* {images.map((image) => (
-              <div className={styles.preview_container} id={image} onClick={handleImageClick}>
+            {photos.map((el) => (
+              <div className={styles.preview_container} key={el}>
                 <span
-                  style={{ backgroundImage: `url("${image}")` }}
-                  className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}
-                ></span>
+                  style={{ backgroundImage: `url("${el}")` }}
+                  className={styles.preview_img_clear}
+                />
               </div>
-            ))} */}
+            ))}
           </Slider>
         </div>
-        {/* </div>
-        <div className={styles.review}>
-          <div className={styles.review_photo}>
-            <img className={styles.photo} src={coverPhoto} alt="avatar" />
-          </div>
-          <div className={styles.review_photo}>
-            <img className={styles.photo} src={coverPhoto} alt="avatar" />
-          </div>
-          <div className={styles.review_photo}>
-            <img className={styles.photo} src={coverPhoto} alt="avatar" />
-          </div>
-          <div className={styles.review_photo}>
-            <img className={styles.photo} src={coverPhoto} alt="avatar" />
-          </div>
-        </div>
-      </div> */}
       </div>
     </div>
   )
