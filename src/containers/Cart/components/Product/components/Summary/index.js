@@ -19,6 +19,7 @@ function ProductSummary({ shop, title }) {
 
   const [dataToShow, setDataToShow] = React.useState()
   const [isDataShown, setIsDataShown] = React.useState(false)
+  const [isDiscount, setIsDiscount] = React.useState(false)
 
   const changeType = (type, delPrice) => {
     dispatch(changeDeliveryType({ type, price: delPrice, shop: title }))
@@ -28,6 +29,25 @@ function ProductSummary({ shop, title }) {
     setDataToShow(delTypes.filter((e) => e.type !== curVal.type))
   }, [curVal])
 
+  const typePrettier = (type) => {
+    if (type === 'Express') return 'Express'
+    if (type === 'Standard') return 'Standard'
+    if (type === 'FreePickUp') return 'Free'
+    if (type === 'FreeDelivery') return 'Pick up'
+    return null
+  }
+
+  React.useEffect(() => {
+    if (price >= curVal.freeDeliveryOver && !isDiscount) {
+      setIsDiscount(true)
+      dispatch(changeDeliveryType({ type: curVal.type, price: 0, shop: title }))
+    }
+    if (price < curVal.freeDeliveryOver && isDiscount) {
+      setIsDiscount(false)
+      dispatch(changeDeliveryType({ type: curVal.type, price: curVal.delPrice, shop: title }))
+    }
+  }, [price])
+
   return (
     <div className={styles.informationWrapper}>
       <div className={styles.orderDetails}>
@@ -35,7 +55,7 @@ function ProductSummary({ shop, title }) {
           <p className={styles.regularText} style={{ marginBottom: '10px' }}>
             Subtotal with delivery:{' '}
             <span className={styles.mainAmount}>
-              {`$ ${curVal.freeDeliveryOver >= price ? price + curVal.delPrice : price}.`}
+              {`$ ${curVal.freeDeliveryOver > price ? price + curVal.delPrice : price}.`}
             </span>
             <span className={styles.secondaryAmount}>00</span>
           </p>
@@ -51,13 +71,13 @@ function ProductSummary({ shop, title }) {
               {curVal.delPrice ? (
                 <>
                   <span className={styles.deliveryType}>
-                    {`${curVal.type} $${curVal.delPrice}`}
+                    {`${typePrettier(curVal.type)} $${curVal.delPrice}`}
                   </span>
                   <span>{'>'}</span>
                 </>
               ) : (
                 <>
-                  <span className={styles.deliveryType}>{`${curVal.type}`}</span>
+                  <span className={styles.deliveryType}>{typePrettier(curVal.type)}</span>
                 </>
               )}
             </p>
@@ -91,13 +111,13 @@ function ProductSummary({ shop, title }) {
                     {item.delPrice ? (
                       <>
                         <span className={styles.deliveryType}>
-                          {`${item.type} $${item.delPrice}`}
+                          {`${typePrettier(item.type)} $${item.delPrice}`}
                         </span>
                         <span>{'>'}</span>
                       </>
                     ) : (
                       <>
-                        <span className={styles.deliveryType}>{`${item.type}`}</span>
+                        <span className={styles.deliveryType}>{`${typePrettier(item.type)}`}</span>
                       </>
                     )}
                   </p>
@@ -106,7 +126,7 @@ function ProductSummary({ shop, title }) {
             </div>
           </div>
         ) : null}
-        {deliveryPrice ? (
+        {deliveryPrice || isDiscount ? (
           <div className={cls(styles.textWrapper, styles.progress)}>
             <p className={styles.regularText}>
               {curVal.freeDeliveryOver - price > 0 ? (
