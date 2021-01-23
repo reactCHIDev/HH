@@ -1,32 +1,43 @@
-import { SET_DIALOG_REQUESTING, SET_DIALOGS_REQUESTING } from 'actions/constants'
+import {
+  SET_DIALOG,
+  SET_DIALOGS,
+  ADD_NEW_DIALOG,
+  SET_ACTIVE_CHAT,
+  SET_SOCKET,
+} from 'actions/constants'
 
 const initialState = {
   dialog: [],
   dialogs: [],
   newMessages: [],
-  requesting: false,
-  success: false,
-  error: false,
+  activeChat: null,
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_DIALOG_REQUESTING:
+    case SET_DIALOG:
       return {
         ...state,
-        dialog: JSON.parse(action.payload),
-        requesting: true,
-        success: false,
-        error: false,
+        dialog: action.payload,
       }
 
-    case SET_DIALOGS_REQUESTING:
+    case SET_DIALOGS:
       return {
         ...state,
-        dialogs: JSON.parse(action.payload),
-        requesting: true,
-        success: false,
-        error: false,
+        dialogs: action.payload,
+      }
+
+    case ADD_NEW_DIALOG:
+      const newDialogs = state.dialogs.concat(action.payload)
+      return {
+        ...state,
+        dialogs: newDialogs,
+      }
+
+    case SET_ACTIVE_CHAT:
+      return {
+        ...state,
+        activeChat: action.payload,
       }
 
     default:

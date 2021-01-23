@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* REACT */
-import React, { useEffect, Suspense, lazy } from 'react'
+import React, { useState, useEffect, createContext, Suspense, lazy } from 'react'
 import T from 'prop-types'
 
 /* MODULES */
@@ -14,6 +14,7 @@ import { Spin, Space } from 'antd'
 import { getUserAccount } from 'actions/account'
 import { getItem } from 'utils/localStorage'
 import { getSocket, sendMessage } from 'utils/openWS'
+import { dispatchMsg } from 'actions/chat'
 import { setBaseEndpoint } from 'utils/apiClient'
 import { history } from 'store'
 
@@ -86,7 +87,34 @@ function WaitingComponent(Component) {
   )
 }
 
-function App({ authorized, role, pathname, getUserAccount }) {
+export const WebSocketContext = createContext(null)
+
+function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
+  const [socket, setWs] = useState(null)
+
+  useEffect(() => {
+    const token = getItem('authorization-token')
+    const [, accessToken] = token.split('Bearer ')
+    const socket = new WebSocket(
+      `wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`,
+    )
+    socket.onopen = () => {
+      socket.onmessage = (data) => {
+        dispatchMsg(socket, data.data)
+      }
+      socket.send(
+        JSON.stringify({
+          event: 'getNewMessages',
+          data: {
+            accessToken,
+          },
+        }),
+      )
+    }
+    setWs(socket)
+    console.log('%c   APP RERENDER   ', 'color: black; background: gold;')
+  }, [])
+
   useEffect(() => {
     const id = getItem('user-id')
     if (authorized && id) getUserAccount(id)
@@ -99,116 +127,114 @@ function App({ authorized, role, pathname, getUserAccount }) {
 
   // console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
-  const socket = getSocket()
-
   return (
     <div className={styles.app_container} id="app-container">
       <ConnectedRouter history={history}>
         <ConnectionProvider>
-          {!hideHeader && <Header />}
-          <ScrollToTop>
-            <Switch>
-              {/* Login */}
-              <PublicRoute exact path="/" component={Home} />
-              <PublicRoute exact path="/signupflow" component={WaitingComponent(SignupFlow)} />
-              <PublicRoute
-                exact
-                path="/login"
-                component={() => <Redirect exact to="/login/regular" />}
-              />
-              <PublicRoute exact path="/login/:step" component={WaitingComponent(Login)} />
-              <PublicRoute exact path="/signup" component={WaitingComponent(Signup)} />
-              <PublicRoute exact path="/forgot" component={WaitingComponent(Forgot)} />
-              <PublicRoute exact path="/forgotpassword/:user" component={Create} />
+          <WebSocketContext.Provider value={socket}>
+            {!hideHeader && <Header />}
+            <ScrollToTop>
+              <Switch>
+                {/* Login */}
+                <PublicRoute exact path="/" component={Home} />
+                <PublicRoute exact path="/signupflow" component={WaitingComponent(SignupFlow)} />
+                <PublicRoute
+                  exact
+                  path="/login"
+                  component={() => <Redirect exact to="/login/regular" />}
+                />
+                <PublicRoute exact path="/login/:step" component={WaitingComponent(Login)} />
+                <PublicRoute exact path="/signup" component={WaitingComponent(Signup)} />
+                <PublicRoute exact path="/forgot" component={WaitingComponent(Forgot)} />
+                <PublicRoute exact path="/forgotpassword/:user" component={Create} />
 
-              {/* Landings */}
-              <PublicRoute
-                exact
-                path="/landing/foodmakers"
-                component={WaitingComponent(() => (
-                  <FoodmakersLanding role={role} />
-                ))}
-              />
-              <PublicRoute
-                exact
-                path="/product_dashboard/:activeTab?"
-                component={WaitingComponent(PrdocutDashboard)}
-              />
-              <PublicRoute
-                exact
-                path="/landing/create_profile"
-                component={WaitingComponent(() => (
-                  <CreateProfileLanding role={role} />
-                ))}
-              />
-              <PublicRoute
-                exact
-                path="/landing/create_experience"
-                component={WaitingComponent(() => (
-                  <CreateExperienceLanding role={role} />
-                ))}
-              />
-              <PublicRoute
-                exact
-                path="/landing/create_shop"
-                component={WaitingComponent(() => (
-                  <CreateShopLanding role={role} />
-                ))}
-              />
+                {/* Landings */}
+                <PublicRoute
+                  exact
+                  path="/landing/foodmakers"
+                  component={WaitingComponent(() => (
+                    <FoodmakersLanding role={role} />
+                  ))}
+                />
+                <PublicRoute
+                  exact
+                  path="/product_dashboard/:activeTab?"
+                  component={WaitingComponent(PrdocutDashboard)}
+                />
+                <PublicRoute
+                  exact
+                  path="/landing/create_profile"
+                  component={WaitingComponent(() => (
+                    <CreateProfileLanding role={role} />
+                  ))}
+                />
+                <PublicRoute
+                  exact
+                  path="/landing/create_experience"
+                  component={WaitingComponent(() => (
+                    <CreateExperienceLanding role={role} />
+                  ))}
+                />
+                <PublicRoute
+                  exact
+                  path="/landing/create_shop"
+                  component={WaitingComponent(() => (
+                    <CreateShopLanding role={role} />
+                  ))}
+                />
 
-              {/* Pages */}
-              <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
-              <PublicRoute
-                exact
-                path="/messages"
-                component={WaitingComponent(() => (
-                  <Messages socket={socket} />
-                ))}
-              />
-              <PublicRoute
-                exact
-                path="/explore_experiences"
-                component={WaitingComponent(ExploreExp)}
-              />
-              <PublicRoute
-                exact
-                path="/product_explore"
-                component={WaitingComponent(ProductExplore)}
-              />
-              <PublicRoute
-                exact
-                path="/foodmakers_explore"
-                component={WaitingComponent(FoodmakersExplore)}
-              />
-              <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} />
-              <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
-              <PublicRoute
-                exact
-                path="/product/:productId?"
-                component={WaitingComponent(ProductPage)}
-              />
-              <PrivateRoute
-                exact
-                path="/account_info/:activeTab?"
-                component={WaitingComponent(AccountInfo)}
-              />
-              <PrivateRoute exact path="/order_info" component={WaitingComponent(OrderInfo)} />
-              <PrivateRoute exact path="/fm_order_info" component={WaitingComponent(OrderFMInfo)} />
-              <PublicRoute
-                exact
-                path="/foodmaker_page/:id"
-                component={WaitingComponent(FoodmakerPage)}
-              />
-              <PrivateRoute
-                exact
-                path="/settings/:activeTab?/:confirmation?"
-                component={WaitingComponent(Settings)}
-              />
-              <PrivateRoute exact path="/admin" component={AdminPage} />
-              <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
-              <Route path="/*" component={WaitingComponent(PageNotFound)} />
-            </Switch>
-          </ScrollToTop>
+                {/* Pages */}
+                <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
+                <PublicRoute exact path="/messages" component={WaitingComponent(Messages)} />
+                <PublicRoute
+                  exact
+                  path="/explore_experiences"
+                  component={WaitingComponent(ExploreExp)}
+                />
+                <PublicRoute
+                  exact
+                  path="/product_explore"
+                  component={WaitingComponent(ProductExplore)}
+                />
+                <PublicRoute
+                  exact
+                  path="/foodmakers_explore"
+                  component={WaitingComponent(FoodmakersExplore)}
+                />
+                <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} />
+                <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
+                <PublicRoute
+                  exact
+                  path="/product/:productId?"
+                  component={WaitingComponent(ProductPage)}
+                />
+                <PrivateRoute
+                  exact
+                  path="/account_info/:activeTab?"
+                  component={WaitingComponent(AccountInfo)}
+                />
+                <PrivateRoute exact path="/order_info" component={WaitingComponent(OrderInfo)} />
+                <PrivateRoute
+                  exact
+                  path="/fm_order_info"
+                  component={WaitingComponent(OrderFMInfo)}
+                />
+                <PublicRoute
+                  exact
+                  path="/foodmaker_page/:id"
+                  component={WaitingComponent(FoodmakerPage)}
+                />
+                <PrivateRoute
+                  exact
+                  path="/settings/:activeTab?/:confirmation?"
+                  component={WaitingComponent(Settings)}
+                />
+                <PrivateRoute exact path="/admin" component={AdminPage} />
+                <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
+                <Route path="/*" component={WaitingComponent(PageNotFound)} />
+              </Switch>
+            </ScrollToTop>
+          </WebSocketContext.Provider>
         </ConnectionProvider>
       </ConnectedRouter>
     </div>
@@ -233,5 +259,5 @@ export default connect(
     authorized,
     role,
   }),
-  { getUserAccount },
+  { getUserAccount, dispatchMsg },
 )(App)

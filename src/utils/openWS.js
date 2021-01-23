@@ -9,7 +9,7 @@ const getToken = () => {
 export const getSocket = () => {
   const accessToken = getToken()
   const socket = new WebSocket(`wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`)
-  socket.onopen = () =>
+  socket.onopen = () => {
     socket.send(
       JSON.stringify({
         event: 'getNewMessages',
@@ -18,6 +18,7 @@ export const getSocket = () => {
         },
       }),
     )
+  }
   return socket
 }
 
@@ -56,7 +57,8 @@ export const getDialog = (socket, id) => {
   )
 }
 
-export const getDialogs = (socket) => {
+export const getDialogs = (socket, id) => {
+  console.log('%c   id   ', 'color: white; background: salmon;', id)
   const accessToken = getToken()
   socket.send(
     JSON.stringify({
@@ -70,7 +72,7 @@ export const getDialogs = (socket) => {
   )
 }
 
-export const sendMessage = (socket, message) => {
+export const sendMessage = (socket, message, id) => {
   console.log('%c   socket   ', 'color: white; background: royalblue;', socket)
   const accessToken = getToken()
   socket.send(
@@ -78,7 +80,7 @@ export const sendMessage = (socket, message) => {
       event: 'sendMessage',
       data: {
         accessToken,
-        recipientId: 671,
+        recipientId: id,
         text: message,
         files: [],
       },

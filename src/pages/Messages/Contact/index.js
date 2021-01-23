@@ -4,17 +4,11 @@ import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import cls from 'classnames'
 import styles from './contact.module.scss'
 
-const Contact = ({
-  url = 'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1610962040437.jpg',
-  name = 'AlexFM',
-  unreaded = 2,
-  id,
-  activeChat,
-  setActiveChat,
-}) => {
+const Contact = ({ id, url, name, unreaded = 2, activeChat, setActiveChat }) => {
   const openDialog = (e) => {
     const { id } = e.currentTarget
-    setActiveChat(id)
+    const recipient = { id, name, url }
+    setActiveChat(id, recipient)
   }
 
   return (

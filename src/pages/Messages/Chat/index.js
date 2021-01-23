@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { WebSocketContext } from 'App'
 import Message from '../Message'
 import MyMessage from '../MyMessage'
+import cloneDeep from 'lodash/cloneDeep'
 import { getDialogAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
 import { sendMessage } from 'utils/openWS'
@@ -8,22 +10,47 @@ import attachment from 'assets/icons/svg/attachment.svg'
 import cls from 'classnames'
 import styles from './chat.module.scss'
 
-function Chat({ socket, dialog }) {
+function Chat({ dialog, activeChat, myId, recipient }) {
   const [message, setMessage] = useState('')
+  const [user, setUser] = useState(null)
+
   // const dispatch = useDispatch()
   // useEffect(() => dispatch(getDialogAC(671)), [])
+  const socket = useContext(WebSocketContext)
+
+  const chatWindow = useRef()
+
+  useEffect(() => {
+    if (chatWindow.current) {
+      chatWindow.current.scrollTo(0, 3000)
+    }
+  })
+
+  useEffect(() => {
+    setUser(recipient)
+  }, [dialog])
 
   const onSend = () => {
-    sendMessage(socket, message)
+    sendMessage(socket, message, activeChat)
     setMessage('')
   }
 
   const onChangeMessage = (e) => setMessage(e.target.value)
 
+  const chatDialog = cloneDeep(dialog)
+
   return (
     <div className={styles.container}>
-      <div className={styles.msg_container}>
-        {dialog.map((e, i) => (i % 2 ? <Message text={e.text} /> : <MyMessage text={e.text} />))}
+      <div className={styles.msg_container} ref={chatWindow}>
+        {chatDialog
+          .reverse()
+          .map((e, i) =>
+            e.recipient.id === myId ? (
+              <Message text={e.message.text} user={user} />
+            ) : (
+              <MyMessage text={e.message.text} />
+            ),
+          )}
       </div>
       <div className={styles.bottomSection}>
         <div className={styles.addWrapper}>
