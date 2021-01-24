@@ -1,56 +1,80 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { WebSocketContext } from 'App'
+import cloneDeep from 'lodash/cloneDeep'
+import { getDialog, sendMessage } from 'utils/openWS'
+import { useSelector, useDispatch } from 'react-redux'
+import cls from 'classnames'
+import { setPageAC } from 'actions/chat'
+import attachment from 'assets/icons/svg/attachment.svg'
 import Message from '../Message'
 import MyMessage from '../MyMessage'
-import cloneDeep from 'lodash/cloneDeep'
-import { getDialogAC } from 'actions/chat'
-import { useSelector, useDispatch } from 'react-redux'
-import { sendMessage } from 'utils/openWS'
-import attachment from 'assets/icons/svg/attachment.svg'
-import cls from 'classnames'
 import styles from './chat.module.scss'
 
-function Chat({ dialog, activeChat, myId, recipient }) {
+function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
+  // const [page, setPage] = useState(0)
+  const scroll = useSelector((state) => state.chat.scroll)
+  const page = useSelector((state) => state.chat.page)
 
-  // const dispatch = useDispatch()
-  // useEffect(() => dispatch(getDialogAC(671)), [])
+  const dispatch = useDispatch()
   const socket = useContext(WebSocketContext)
 
   const chatWindow = useRef()
 
   useEffect(() => {
     if (chatWindow.current) {
-      chatWindow.current.scrollTo(0, 3000)
+      chatWindow.current.scrollTo(0, scroll)
     }
-  })
-
-  useEffect(() => {
     setUser(recipient)
   }, [dialog])
+
+  useEffect(() => {
+    if (socket?.readyState === 1 && activeChat && rdy) {
+      console.log('%c   ac   ', 'color: darkgreen; background: palegreen;')
+      dispatch(setPageAC(0))
+      getDialog(socket, activeChat)
+    }
+  }, [activeChat, rdy])
+
+  useEffect(() => {
+    if (socket?.readyState === 1 && activeChat && rdy && page !== 0) {
+      console.log('%c   page   ', 'color: white; background: salmon;', page)
+      getDialog(socket, activeChat, page * 25)
+    }
+  }, [page])
 
   const onSend = () => {
     sendMessage(socket, message, activeChat)
     setMessage('')
+  }
+  const getOldMessages = () => {
+    console.log('%c   getNew   ', 'color: darkgreen; background: palegreen;', { page })
   }
 
   const onChangeMessage = (e) => setMessage(e.target.value)
 
   const chatDialog = cloneDeep(dialog)
 
+  const onScroll = (e) => {
+    if (scroll === 0) return
+    if (e.target.scrollTop === 0) dispatch(setPageAC(page + 1))
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.msg_container} ref={chatWindow}>
-        {chatDialog
-          .reverse()
-          .map((e, i) =>
-            e.recipient.id === myId ? (
-              <Message text={e.message.text} user={user} />
-            ) : (
-              <MyMessage text={e.message.text} />
-            ),
-          )}
+      <div className={styles.msg_container} ref={chatWindow} onScroll={onScroll}>
+        <div>
+          {chatDialog
+            .reverse()
+            .map((e, i) =>
+              e.recipient.id === myId ? (
+                <Message text={e.message.text} user={user} />
+              ) : (
+                <MyMessage text={e.message.text} />
+              ),
+            )}
+        </div>
       </div>
       <div className={styles.bottomSection}>
         <div className={styles.addWrapper}>

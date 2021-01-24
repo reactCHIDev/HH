@@ -3,7 +3,7 @@ import {
   SET_DIALOGS,
   ADD_NEW_DIALOG,
   SET_ACTIVE_CHAT,
-  SET_SOCKET,
+  SET_PAGE,
 } from 'actions/constants'
 
 const initialState = {
@@ -11,6 +11,8 @@ const initialState = {
   dialogs: [],
   newMessages: [],
   activeChat: null,
+  page: 0,
+  scroll: 0,
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +21,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         dialog: action.payload,
+        scroll: action.scroll,
+        newMsg: false,
+        page: state.newMsg ? 0 : state.page,
       }
 
     case SET_DIALOGS:
@@ -37,7 +42,20 @@ const reducer = (state = initialState, action) => {
     case SET_ACTIVE_CHAT:
       return {
         ...state,
+        dialog: [],
         activeChat: action.payload,
+      }
+
+    case SET_PAGE:
+      return {
+        ...state,
+        page: action.payload,
+      }
+
+    case 'NEW_MSG':
+      return {
+        ...state,
+        newMsg: true,
       }
 
     default:

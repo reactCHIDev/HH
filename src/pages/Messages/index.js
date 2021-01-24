@@ -38,11 +38,11 @@ const Messages = (props) => {
     }
   }, [socket?.readyState, rdy])
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (socket?.readyState === 1 && activeChat && rdy) {
       getDialog(socket, activeChat)
     }
-  }, [activeChat, rdy])
+  }, [activeChat, rdy]) */
 
   const goBack = () => {
     // replaceRoute(`/`)
@@ -63,6 +63,7 @@ const Messages = (props) => {
           socket={socket}
           recipient={recipient}
           activeChat={activeChat}
+          rdy={rdy}
           dialog={dialog || []}
         />
       </div>

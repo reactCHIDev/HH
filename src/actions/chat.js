@@ -4,7 +4,7 @@ import {
   SET_DIALOGS,
   NEW_DIALOG,
   SET_ACTIVE_CHAT,
-  SET_SOCKET,
+  SET_PAGE,
 } from './constants'
 
 export const dispatchMsg = (socket, payload) => ({
@@ -13,9 +13,10 @@ export const dispatchMsg = (socket, payload) => ({
   payload,
 })
 
-export const setDialogAC = (payload) => ({
+export const setDialogAC = (payload, scroll) => ({
   type: SET_DIALOG,
   payload,
+  scroll,
 })
 
 export const setDialogsAC = (payload) => ({
@@ -33,7 +34,7 @@ export const setActiveChatAC = (payload) => ({
   payload,
 })
 
-export const setSocketAC = (payload) => ({
-  type: SET_SOCKET,
+export const setPageAC = (payload) => ({
+  type: SET_PAGE,
   payload,
 })

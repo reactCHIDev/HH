@@ -7,6 +7,7 @@ import styles from './contact.module.scss'
 const Contact = ({ id, url, name, unreaded = 2, activeChat, setActiveChat }) => {
   const openDialog = (e) => {
     const { id } = e.currentTarget
+    if (id === activeChat) return
     const recipient = { id, name, url }
     setActiveChat(id, recipient)
   }

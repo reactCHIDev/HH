@@ -41,7 +41,7 @@ export const getNewMessages = (socket) => {
   )
 }
 
-export const getDialog = (socket, id) => {
+export const getDialog = (socket, id, startIndex = 0, limit = 25) => {
   console.log('%c   id   ', 'color: white; background: salmon;', id)
   const accessToken = getToken()
   socket.send(
@@ -50,8 +50,8 @@ export const getDialog = (socket, id) => {
       data: {
         accessToken,
         recipientId: id,
-        startIndex: 0,
-        limit: 25,
+        startIndex,
+        limit,
       },
     }),
   )
