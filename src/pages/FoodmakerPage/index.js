@@ -11,6 +11,7 @@ import { Spin, Space, Rate } from 'antd'
 import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
 import { getUserByLinkAC } from 'actions/account'
 import toggleFavouriteAc from 'actions/favourites'
+import AvatarPlaceholder from 'components/AvatarPlaceholder'
 
 import { getShopByFoodmakerIdAC } from 'actions/shop'
 import { resolveFoodmakerDataAC } from 'actions/pages'
@@ -99,7 +100,11 @@ const FoodmakerPage = (props) => {
         <div className={cls(styles.container, 'container')}>
           <div className={styles.info_section}>
             <div className={styles.avatar_container}>
-              <img src={fm.userPhoto} alt="avatar" />
+              {fm.userPhoto ? (
+                <img src={fm.userPhoto} alt="avatar" />
+              ) : (
+                <AvatarPlaceholder width={85} />
+              )}
             </div>
             <div className={styles.location}>
               <div className={styles.maker_location}>
