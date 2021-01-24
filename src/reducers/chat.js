@@ -44,6 +44,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         dialog: [],
         activeChat: action.payload,
+        page: 0,
       }
 
     case SET_PAGE:

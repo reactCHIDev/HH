@@ -27,27 +27,31 @@
     overflow: scroll;
     display: flex;
     flex-direction: column;
-    .msgWrapper {
-      width: 50%;
+    .msg_wrapper {
       display: flex;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      padding: 10px;
-      justify-content: space-between;
-    }
+      flex-direction: column;
+      .msgWrapper {
+        width: 50%;
+        display: flex;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        padding: 10px;
+        justify-content: space-between;
+      }
 
-    .received {
-      margin-right: auto;
-      background: #f5f8fb;
-      margin-left: 20px;
-    }
+      .received {
+        margin-right: auto;
+        background: #f5f8fb;
+        margin-left: 20px;
+      }
 
-    .sented {
-      margin-left: auto;
-      background: #f5f8fb;
-      display: flex;
-      flex-direction: row-reverse;
-      margin-right: 20px;
+      .sented {
+        margin-left: auto;
+        background: #f5f8fb;
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 20px;
+      }
     }
   }
 

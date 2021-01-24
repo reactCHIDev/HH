@@ -32,7 +32,6 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
 
   useEffect(() => {
     if (socket?.readyState === 1 && activeChat && rdy) {
-      dispatch(setPageAC(0))
       getDialog(socket, activeChat)
     }
   }, [activeChat, rdy])
@@ -74,7 +73,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   return (
     <div className={styles.container}>
       <div className={styles.msg_container} ref={chatWindow} onScroll={onScroll}>
-        <div>
+        <div className={styles.msg_wrapper}>
           {chatDialog.reverse().map((e, i, arr) => {
             const date = new Date(e.message.createdAt)
             const prevDate = i > 0 ? new Date(arr[i - 1].message.createdAt) : date
