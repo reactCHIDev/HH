@@ -6,6 +6,21 @@
   @media screen and (max-width: 768px) {
     width: 100%;
   }
+  .divider {
+    position: relative;
+    margin: 23px 12px;
+    border-top: 1px solid #eee;
+    .date {
+      position: absolute;
+      padding: 0 16px;
+      font-size: 12px;
+      color: #aaa;
+      background: white;
+      z-index: 2;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 
   .msg_container {
     max-height: 500px;

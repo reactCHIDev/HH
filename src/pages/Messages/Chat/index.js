@@ -3,6 +3,7 @@ import { WebSocketContext } from 'App'
 import cloneDeep from 'lodash/cloneDeep'
 import { getDialog, sendMessage } from 'utils/openWS'
 import { useSelector, useDispatch } from 'react-redux'
+import { isSameDay } from 'date-fns'
 import cls from 'classnames'
 import { setPageAC } from 'actions/chat'
 import attachment from 'assets/icons/svg/attachment.svg'
@@ -31,7 +32,6 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
 
   useEffect(() => {
     if (socket?.readyState === 1 && activeChat && rdy) {
-      console.log('%c   ac   ', 'color: darkgreen; background: palegreen;')
       dispatch(setPageAC(0))
       getDialog(socket, activeChat)
     }
@@ -48,9 +48,6 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
     sendMessage(socket, message, activeChat)
     setMessage('')
   }
-  const getOldMessages = () => {
-    console.log('%c   getNew   ', 'color: darkgreen; background: palegreen;', { page })
-  }
 
   const onChangeMessage = (e) => setMessage(e.target.value)
 
@@ -61,19 +58,42 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
     if (e.target.scrollTop === 0) dispatch(setPageAC(page + 1))
   }
 
+  const divider = (date) => {
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: '2-digit',
+    })
+    return (
+      <div className={styles.divider}>
+        <div className={styles.date}>{formattedDate}</div>
+      </div>
+    )
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.msg_container} ref={chatWindow} onScroll={onScroll}>
         <div>
-          {chatDialog
-            .reverse()
-            .map((e, i) =>
-              e.recipient.id === myId ? (
-                <Message text={e.message.text} user={user} />
-              ) : (
-                <MyMessage text={e.message.text} />
-              ),
-            )}
+          {chatDialog.reverse().map((e, i, arr) => {
+            const date = new Date(e.message.createdAt)
+            const prevDate = i > 0 ? new Date(arr[i - 1].message.createdAt) : date
+            const time = new Date(e.message.createdAt).toLocaleTimeString('en-US', {
+              hour12: false,
+              hour: 'numeric',
+              minute: '2-digit',
+            })
+            return (
+              <>
+                {!isSameDay(prevDate, date) && divider(date)}
+                {e.recipient.id === myId ? (
+                  <Message text={e.message.text} user={user} date={time} />
+                ) : (
+                  <MyMessage text={e.message.text} date={time} />
+                )}
+              </>
+            )
+          })}
         </div>
       </div>
       <div className={styles.bottomSection}>

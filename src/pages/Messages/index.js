@@ -3,8 +3,8 @@ import T from 'prop-types'
 import { WebSocketContext } from 'App'
 
 import SubHeader from 'components/SubHeader'
-import { getDialog, getDialogs } from 'utils/openWS'
-import { setNewDialogAC, setActiveChatAC } from 'actions/chat'
+import { getDialogs } from 'utils/openWS'
+import { setActiveChatAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
 import { getItem } from 'utils/localStorage'
 import ChatList from './ChatList'
@@ -15,34 +15,21 @@ import './messages.less'
 const id = getItem('user-id')
 
 const Messages = (props) => {
-  const {
-    location: { state },
-  } = props
   const [recipient, setRecipient] = useState(null)
   const myId = useSelector((state) => state.account.id)
   const dialog = useSelector((state) => state.chat.dialog)
   const dialogs = useSelector((state) => state.chat.dialogs)
   const activeChat = useSelector((state) => state.chat.activeChat)
+  const newMessages = useSelector((state) => state.chat.newMessages)
   const socket = useContext(WebSocketContext)
-  const [rdy, setRdy] = useState(false)
 
   const dispatch = useDispatch()
 
-  /* useEffect(() => {
-    if (state?.id) dispatch(setNewDialogAC(state))
-  }, [state]) */
-
   useEffect(() => {
-    if (socket?.readyState === 1 && rdy) {
+    if (socket?.readyState === 1 && newMessages !== null) {
       getDialogs(socket, id)
     }
-  }, [socket?.readyState, rdy])
-
-  /*   useEffect(() => {
-    if (socket?.readyState === 1 && activeChat && rdy) {
-      getDialog(socket, activeChat)
-    }
-  }, [activeChat, rdy]) */
+  }, [socket?.readyState, newMessages])
 
   const goBack = () => {
     // replaceRoute(`/`)
@@ -56,14 +43,14 @@ const Messages = (props) => {
   return (
     <>
       <SubHeader linkTo="/" onBack={goBack} title="Messages" />
-      <div className={styles.content} onClick={() => setRdy(true)}>
+      <div className={styles.content}>
         <ChatList chatList={dialogs} activeChat={activeChat} setActiveChat={setActiveChat} />
         <Chat
           myId={myId}
           socket={socket}
           recipient={recipient}
           activeChat={activeChat}
-          rdy={rdy}
+          rdy={newMessages !== null}
           dialog={dialog || []}
         />
       </div>

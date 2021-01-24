@@ -9,10 +9,10 @@ import {
 const initialState = {
   dialog: [],
   dialogs: [],
-  newMessages: [],
   activeChat: null,
   page: 0,
   scroll: 0,
+  newMessages: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -50,6 +50,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         page: action.payload,
+      }
+
+    case 'SET_NEW_MESSAGES':
+      return {
+        ...state,
+        newMessages: action.payload,
       }
 
     case 'NEW_MSG':

@@ -1,5 +1,6 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import { getDialog } from 'utils/openWS'
+import { getItem } from 'utils/localStorage'
 
 import {
   DISPATCH_MSG,
@@ -7,10 +8,7 @@ import {
   SET_DIALOGS,
   NEW_DIALOG,
   ADD_NEW_DIALOG,
-  SET_PAGE,
 } from '../actions/constants'
-
-import { getItem } from 'utils/localStorage'
 
 const id = getItem('user-id')
 
@@ -23,17 +21,8 @@ function* msgHandlerSaga({ socket, payload }) {
     const messages = newMsg ? msg.messages : dialog.concat(msg.messages)
     const scroll = msg.messages.length * 72
     yield put({ type: SET_DIALOG, payload: messages, scroll })
-
-    /* const oldMsgs = msg.messages[0]?.dialogId === dialog[0]?.dialogId
-
-    if (oldMsgs) {
-      const messages = msg.messages.concat(dialog)
-      yield put({ type: SET_DIALOG, payload: messages })
-    } else {
-      yield put({ type: SET_DIALOG, payload: msg.messages })
-    } */
   }
-  if (msg.event === 'getDialogs') yield put({ type: SET_DIALOGS, payload: msg.dialogs })
+
   if (
     msg.event === 'sendMessage' &&
     (msg.message.recipientId === id || msg.message.senderId === id)
@@ -44,6 +33,10 @@ function* msgHandlerSaga({ socket, payload }) {
     yield put({ type: 'NEW_MSG' })
     getDialog(socket, dialogWithId)
   }
+
+  if (msg.event === 'getDialogs') yield put({ type: SET_DIALOGS, payload: msg.dialogs })
+
+  if (msg.event === 'getNewMessages') yield put({ type: 'SET_NEW_MESSAGES', payload: msg.messages })
 }
 
 function* newDialogSaga({ payload }) {

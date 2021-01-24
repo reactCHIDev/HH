@@ -4,7 +4,7 @@ import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import cls from 'classnames'
 import styles from './contact.module.scss'
 
-const Contact = ({ id, url, name, unreaded = 2, activeChat, setActiveChat }) => {
+const Contact = ({ id, url, date, name, unreaded = 2, activeChat, setActiveChat }) => {
   const openDialog = (e) => {
     const { id } = e.currentTarget
     if (id === activeChat) return
@@ -22,7 +22,7 @@ const Contact = ({ id, url, name, unreaded = 2, activeChat, setActiveChat }) => 
         </div>
         <div className={styles.info_container}>
           <div className={styles.local_name}>{name}</div>
-          <div className={styles.last_date}>12 May, 12:42</div>
+          <div className={styles.last_date}>{date}</div>
         </div>
       </div>
       {Number(unreaded) > 0 ? (

@@ -3,20 +3,31 @@ import T from 'prop-types'
 import cls from 'classnames'
 import Contact from '../Contact'
 import styles from './chatlist.module.scss'
-import { useEffect } from 'react'
 
 function ChatList({ chatList, activeChat, setActiveChat }) {
   return (
     <div className={styles.container}>
-      {chatList.map((e, i) => (
-        <Contact
-          id={e.recipient.id}
-          url={e.recipient.userPhoto}
-          name={e.recipient.profileName}
-          activeChat={activeChat}
-          setActiveChat={setActiveChat}
-        />
-      ))}
+      {chatList.map((e, i) => {
+        const date = new Date(e.lastMessageSent).toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+        })
+        const time = new Date(e.lastMessageSent).toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: 'numeric',
+          minute: '2-digit',
+        })
+        return (
+          <Contact
+            id={e.recipient.id}
+            url={e.recipient.userPhoto}
+            date={`${date}, ${time}`}
+            name={e.recipient.profileName}
+            activeChat={activeChat}
+            setActiveChat={setActiveChat}
+          />
+        )
+      })}
     </div>
   )
 }
