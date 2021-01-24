@@ -134,7 +134,11 @@ const ShopPage = (props) => {
           </div>
           <div className={styles.photo_section}>
             <div className={styles.cover_photo_container}>
-              <img className={styles.cover_photo} src={shop.coverPhoto} alt="envelope" />
+              {shop.coverPhoto ? (
+                <img className={styles.cover_photo} src={shop.coverPhoto} alt="envelope" />
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
