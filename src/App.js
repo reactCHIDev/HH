@@ -114,7 +114,7 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
       }
       setWs(socket)
     }
-    console.log('%c   APP RERENDER   ', 'color: black; background: gold;')
+    if (!authorized && socket) socket.close()
   }, [authorized])
 
   useEffect(() => {
@@ -187,7 +187,7 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
 
                 {/* Pages */}
                 <PublicRoute exact path="/shop/:shopName" component={WaitingComponent(ShopPage)} />
-                <PublicRoute exact path="/messages" component={WaitingComponent(Messages)} />
+                <PrivateRoute exact path="/messages" component={WaitingComponent(Messages)} />
                 <PublicRoute
                   exact
                   path="/explore_experiences"

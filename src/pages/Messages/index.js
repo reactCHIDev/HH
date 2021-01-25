@@ -51,14 +51,21 @@ const Messages = ({ location: { state } }) => {
     }
   }, [])
 
-  console.log('location.state', state)
-  console.log('newChat', newChat)
-
   useEffect(() => {
     if (socket?.readyState === 1 && newMessages !== null) {
       getDialogs(socket, id)
     }
   }, [socket?.readyState, newMessages])
+
+  useEffect(() => {
+    if (newChat) {
+      setNewChat(newChat)
+      setActiveChat(newChat.id, state)
+      history.replace('/messages', undefined)
+      return
+    }
+    if (!activeChat && dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
+  }, [dialogs])
 
   const goBack = () => {
     // replaceRoute(`/`)
@@ -73,14 +80,16 @@ const Messages = ({ location: { state } }) => {
           activeChat={activeChat}
           setActiveChat={setActiveChat}
         />
-        <Chat
-          myId={myId}
-          socket={socket}
-          recipient={recipient}
-          activeChat={activeChat}
-          rdy={newMessages !== null}
-          dialog={dialog || []}
-        />
+        {activeChat && (
+          <Chat
+            myId={myId}
+            socket={socket}
+            recipient={recipient}
+            activeChat={activeChat}
+            rdy={newMessages !== null}
+            dialog={dialog || []}
+          />
+        )}
       </div>
     </>
   )

@@ -26,8 +26,6 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const msgContainer = useRef()
   const msgInput = useRef()
 
-  useEffect(() => msgInput.current.focus(), [])
-
   useEffect(() => {
     if (chatWindow.current && msgContainer.current) {
       chatWindow.current.scrollTo(0, msgContainer.current.scrollHeight - height)
@@ -40,6 +38,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
     if (socket?.readyState === 1 && activeChat && rdy) {
       getDialog(socket, activeChat)
     }
+    msgInput.current.focus()
   }, [activeChat, rdy])
 
   useEffect(() => {
@@ -51,6 +50,10 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const onSend = () => {
     sendMessage(socket, message, activeChat)
     setMessage('')
+  }
+
+  const handleKeyDown = (e) => {
+    // if (e.key === 'Enter') onSend()
   }
 
   const onChangeMessage = (e) => setMessage(e.target.value)
@@ -110,6 +113,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
           placeholder="Enter your message"
           rows={1}
           onChange={onChangeMessage}
+          onKeyDown={handleKeyDown}
           value={message}
         />
         <button type="button" onClick={onSend}>

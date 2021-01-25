@@ -4,7 +4,7 @@ import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import cls from 'classnames'
 import styles from './contact.module.scss'
 
-const Contact = ({ id, url, date, name, unreaded = 2, activeChat, setActiveChat }) => {
+const Contact = ({ id, url, date, name, unreaded, activeChat, setActiveChat }) => {
   const openDialog = (e) => {
     const id = Number(e.currentTarget.id)
     if (id === activeChat) return

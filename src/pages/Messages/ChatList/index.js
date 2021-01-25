@@ -22,6 +22,7 @@ function ChatList({ chatList, activeChat, setActiveChat }) {
             id={e.recipient.id}
             url={e.recipient.userPhoto}
             date={`${date}, ${time}`}
+            unreaded={e.newMessages}
             name={e.recipient.profileName}
             activeChat={activeChat}
             setActiveChat={setActiveChat}
