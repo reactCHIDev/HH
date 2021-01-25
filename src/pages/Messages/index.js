@@ -2,9 +2,10 @@ import React, { useEffect, useState, useContext } from 'react'
 import T from 'prop-types'
 import { WebSocketContext } from 'App'
 import { useHistory } from 'react-router-dom'
+import cloneDeep from 'lodash/cloneDeep'
 
 import SubHeader from 'components/SubHeader'
-import { getDialogs } from 'utils/openWS'
+import { getDialogs, setAsReviewed } from 'utils/openWS'
 import { setActiveChatAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
 import { getItem } from 'utils/localStorage'
@@ -50,6 +51,15 @@ const Messages = ({ location: { state } }) => {
       history.replace('/messages', undefined)
     }
   }, [])
+
+  useEffect(() => {
+    if (dialog?.length) {
+      const newMessages = cloneDeep(dialog)
+        .map((e) => (e.message.status === 'New' ? e.message.id : null))
+        .filter((e) => e)
+      if (newMessages?.length) setAsReviewed(socket, newMessages)
+    }
+  }, [dialog])
 
   useEffect(() => {
     if (socket?.readyState === 1 && newMessages !== null) {

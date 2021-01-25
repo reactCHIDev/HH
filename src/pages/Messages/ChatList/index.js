@@ -5,9 +5,14 @@ import Contact from '../Contact'
 import styles from './chatlist.module.scss'
 
 function ChatList({ chatList, activeChat, setActiveChat }) {
+  console.log('%c   chatList   ', 'color: darkgreen; background: palegreen;', chatList)
+  const sortedChatList = chatList.sort(
+    (a, b) => new Date(b.lastMessageSent).getTime() - new Date(a.lastMessageSent).getTime(),
+  )
+
   return (
     <div className={styles.container}>
-      {chatList.map((e, i) => {
+      {sortedChatList.map((e, i) => {
         const date = new Date(e.lastMessageSent).toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric',

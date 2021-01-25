@@ -85,14 +85,14 @@ export const sendMessage = (socket, message, id) => {
   )
 }
 
-export const setAsReviewed = (socket, messagesIds) => {
+export const setAsReviewed = (socket, messageIds) => {
   const accessToken = getToken()
   socket.send(
     JSON.stringify({
       event: 'setAsReviewed',
       data: {
         accessToken,
-        messagesIds,
+        messageIds,
       },
     }),
   )

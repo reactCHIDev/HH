@@ -1,5 +1,5 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { getDialog } from 'utils/openWS'
+import { getDialog, getNewMessages } from 'utils/openWS'
 import { getItem } from 'utils/localStorage'
 
 import {
@@ -36,6 +36,8 @@ function* msgHandlerSaga({ socket, payload }) {
   if (msg.event === 'getDialogs') yield put({ type: SET_DIALOGS, payload: msg.dialogs })
 
   if (msg.event === 'getNewMessages') yield put({ type: 'SET_NEW_MESSAGES', payload: msg.messages })
+
+  if (msg.event === 'setAsReviewed' && msg.affected > 0) getNewMessages(socket)
 }
 
 function* newDialogSaga({ payload }) {
