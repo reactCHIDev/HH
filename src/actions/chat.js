@@ -5,6 +5,7 @@ import {
   NEW_DIALOG,
   SET_ACTIVE_CHAT,
   SET_PAGE,
+  SET_CHAT_HEIGHT,
 } from './constants'
 
 export const dispatchMsg = (socket, payload) => ({
@@ -37,5 +38,10 @@ export const setActiveChatAC = (id, recipient) => ({
 
 export const setPageAC = (payload) => ({
   type: SET_PAGE,
+  payload,
+})
+
+export const setChatHeightAC = (payload) => ({
+  type: SET_CHAT_HEIGHT,
   payload,
 })

@@ -4,6 +4,7 @@ import {
   ADD_NEW_DIALOG,
   SET_ACTIVE_CHAT,
   SET_PAGE,
+  SET_CHAT_HEIGHT,
 } from 'actions/constants'
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   scroll: 0,
   newMessages: null,
   recipient: null,
+  height: 0,
 }
 
 const reducer = (state = initialState, action) => {
@@ -24,6 +26,7 @@ const reducer = (state = initialState, action) => {
         dialog: action.payload,
         scroll: action.scroll,
         newMsg: false,
+        height: state.newMsg ? 0 : state.height,
         page: state.newMsg ? 0 : state.page,
       }
 
@@ -47,13 +50,19 @@ const reducer = (state = initialState, action) => {
         activeChat: action.id,
         recipient: action.recipient,
         page: 0,
-        scroll: 1,
+        scroll: 0,
       }
 
     case SET_PAGE:
       return {
         ...state,
         page: action.payload,
+      }
+
+    case SET_CHAT_HEIGHT:
+      return {
+        ...state,
+        height: action.payload,
       }
 
     case 'SET_NEW_MESSAGES':

@@ -13,14 +13,13 @@ import {
 const id = getItem('user-id')
 
 function* msgHandlerSaga({ socket, payload }) {
-  console.log('%c   payload   ', 'color: darkgreen; background: palegreen;', payload)
   const msg = JSON.parse(payload)
   if (msg.event === 'getDialog') {
     const {
       chat: { dialog, newMsg },
     } = yield select()
     const messages = newMsg ? msg.messages : dialog.concat(msg.messages)
-    const scroll = msg.messages.length * 72
+    const scroll = msg.messages.length
     yield put({ type: SET_DIALOG, payload: messages, scroll })
   }
 

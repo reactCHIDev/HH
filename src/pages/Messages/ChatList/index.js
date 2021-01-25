@@ -33,8 +33,8 @@ function ChatList({ chatList, activeChat, setActiveChat }) {
 }
 
 ChatList.propTypes = {
-  chatList: T.arrayOf(T.string).isRequired,
-  activeChat: T.string.isRequired,
+  chatList: T.arrayOf(T.string),
+  activeChat: T.string,
   setActiveChat: T.func.isRequired,
 }
 

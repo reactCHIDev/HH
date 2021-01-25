@@ -42,7 +42,6 @@ export const getNewMessages = (socket) => {
 }
 
 export const getDialog = (socket, id, startIndex = 0, limit = 25) => {
-  console.log('%c   id   ', 'color: white; background: salmon;', id)
   const accessToken = getToken()
   socket.send(
     JSON.stringify({
@@ -58,7 +57,6 @@ export const getDialog = (socket, id, startIndex = 0, limit = 25) => {
 }
 
 export const getDialogs = (socket, id) => {
-  console.log('%c   id   ', 'color: white; background: salmon;', id)
   const accessToken = getToken()
   socket.send(
     JSON.stringify({
@@ -73,7 +71,6 @@ export const getDialogs = (socket, id) => {
 }
 
 export const sendMessage = (socket, message, id) => {
-  console.log('%c   socket   ', 'color: white; background: royalblue;', typeof id)
   const accessToken = getToken()
   socket.send(
     JSON.stringify({
@@ -88,14 +85,14 @@ export const sendMessage = (socket, message, id) => {
   )
 }
 
-export const setAsReviewed = (socket) => {
+export const setAsReviewed = (socket, messagesIds) => {
   const accessToken = getToken()
   socket.send(
     JSON.stringify({
       event: 'setAsReviewed',
       data: {
         accessToken,
-        messageIds: [1, 2, 3, 4, 5],
+        messagesIds,
       },
     }),
   )

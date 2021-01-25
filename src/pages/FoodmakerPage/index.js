@@ -51,7 +51,6 @@ const FoodmakerPage = (props) => {
   const { userName } = useParams()
 
   const [readMore, setReadMore] = useState(false)
-  const [name, setName] = useState('')
   const [gallery, setGallery] = useState([])
   const [isFavorite, setIsFavorite] = React.useState('')
   const [inFavorite, setInFavoite] = React.useState()
@@ -63,7 +62,6 @@ const FoodmakerPage = (props) => {
 
   useEffect(() => {
     if (fm?.id) {
-      setName(fm.firstName ? `${fm.firstName} ${fm.lastName}` : '')
       setGallery([fm.coverPhoto].concat(fm.otherPhotos))
       setIsFavorite(fm.isFavorite)
       setInFavoite(fm.inFavorite)
@@ -130,7 +128,7 @@ const FoodmakerPage = (props) => {
               <Link
                 to={{
                   pathname: '/messages',
-                  state: { id: fm.id, profileName: fm.profileName, userPhoto: fm.userPhoto },
+                  state: { id: fm.userId, profileName: fm.profileName, userPhoto: fm.userPhoto },
                 }}
               >
                 <div className={styles.send_msg}>
