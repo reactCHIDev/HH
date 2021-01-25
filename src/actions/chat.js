@@ -29,9 +29,10 @@ export const setNewDialogAC = (payload) => ({
   payload,
 })
 
-export const setActiveChatAC = (payload) => ({
+export const setActiveChatAC = (id, recipient) => ({
   type: SET_ACTIVE_CHAT,
-  payload,
+  id,
+  recipient,
 })
 
 export const setPageAC = (payload) => ({

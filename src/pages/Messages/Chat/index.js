@@ -54,6 +54,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
 
   const onScroll = (e) => {
     if (scroll === 0) return
+    console.log('%c   page   ', 'color: darkgreen; background: palegreen;', page)
     if (e.target.scrollTop === 0) dispatch(setPageAC(page + 1))
   }
 

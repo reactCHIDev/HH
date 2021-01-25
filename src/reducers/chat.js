@@ -13,6 +13,7 @@ const initialState = {
   page: 0,
   scroll: 0,
   newMessages: null,
+  recipient: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -43,8 +44,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         dialog: [],
-        activeChat: action.payload,
+        activeChat: action.id,
+        recipient: action.recipient,
         page: 0,
+        scroll: 1,
       }
 
     case SET_PAGE:

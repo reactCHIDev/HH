@@ -15,11 +15,11 @@ import './messages.less'
 const id = getItem('user-id')
 
 const Messages = (props) => {
-  const [recipient, setRecipient] = useState(null)
   const myId = useSelector((state) => state.account.id)
   const dialog = useSelector((state) => state.chat.dialog)
   const dialogs = useSelector((state) => state.chat.dialogs)
   const activeChat = useSelector((state) => state.chat.activeChat)
+  const recipient = useSelector((state) => state.chat.recipient)
   const newMessages = useSelector((state) => state.chat.newMessages)
   const socket = useContext(WebSocketContext)
 
@@ -36,8 +36,7 @@ const Messages = (props) => {
   }
 
   const setActiveChat = (id, recipient) => {
-    dispatch(setActiveChatAC(id))
-    setRecipient(recipient)
+    dispatch(setActiveChatAC(id, recipient))
   }
 
   return (
