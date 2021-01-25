@@ -36,7 +36,7 @@ const PriceSelector = ({ min, max, setMin, setMax, onApply, visible }) => {
               value={min}
               onChange={setMin}
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+              parser={(value) => value.replace(/\$\s?|(,*)/g, '') || 0}
             />
           </div>
           <div className="input_container">
@@ -45,7 +45,7 @@ const PriceSelector = ({ min, max, setMin, setMax, onApply, visible }) => {
               value={max}
               onChange={setMax}
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+              parser={(value) => value.replace(/\$\s?|(,*)/g, '') || 0}
             />
           </div>
         </div>
