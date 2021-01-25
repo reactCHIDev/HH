@@ -73,7 +73,7 @@ export const getDialogs = (socket, id) => {
 }
 
 export const sendMessage = (socket, message, id) => {
-  console.log('%c   socket   ', 'color: white; background: royalblue;', socket)
+  console.log('%c   socket   ', 'color: white; background: royalblue;', typeof id)
   const accessToken = getToken()
   socket.send(
     JSON.stringify({

@@ -13,6 +13,7 @@ import {
 const id = getItem('user-id')
 
 function* msgHandlerSaga({ socket, payload }) {
+  console.log('%c   payload   ', 'color: darkgreen; background: palegreen;', payload)
   const msg = JSON.parse(payload)
   if (msg.event === 'getDialog') {
     const {
@@ -29,7 +30,6 @@ function* msgHandlerSaga({ socket, payload }) {
   ) {
     const dialogWithId =
       msg.message.recipientId === id ? msg.message.senderId : msg.message.recipientId
-    console.log('%c   newMsg  ', 'color: darkgreen; background: palegreen;', msg.message)
     yield put({ type: 'NEW_MSG' })
     getDialog(socket, dialogWithId)
   }
