@@ -45,19 +45,18 @@ const MainOrderInfo = () => {
     }
   }, [searchValue])
 
+  const isDateValid = (curTime, startTime, endTime) => {
+    const c = new Date(curTime).setUTCHours(0, 0, 0, 0)
+    const s = new Date(startTime).setUTCHours(0, 0, 0, 0)
+    const e = new Date(endTime).setUTCHours(0, 0, 0, 0)
+    return s <= c && c <= e
+  }
+
   const onDataChange = (date) => {
+    const { 0: start, 1: end } = date
+
     if (date) {
-      const newState = cloneDeep(items).filter(
-        (e) =>
-          new Date(e.createdAt).toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-          }) ===
-          new Date(date).toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-          }),
-      )
+      const newState = cloneDeep(items).filter((e) => isDateValid(e.createdAt, start, end))
       setData(newState)
     } else {
       setData(items)

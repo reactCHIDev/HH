@@ -48,6 +48,14 @@ function ProductSummary({ shop, title }) {
     }
   }, [price])
 
+  const priceToShow = (isFirstPart, sum = 0) => {
+    const curPrice = sum.toFixed(2)
+    if (isFirstPart) {
+      return curPrice.substring(0, curPrice.indexOf('.'))
+    }
+    return curPrice.substring(curPrice.lastIndexOf('.') + 1)
+  }
+
   return (
     <div className={styles.informationWrapper}>
       <div className={styles.orderDetails}>
@@ -55,9 +63,17 @@ function ProductSummary({ shop, title }) {
           <p className={styles.regularText} style={{ marginBottom: '10px' }}>
             Subtotal with delivery:{' '}
             <span className={styles.mainAmount}>
-              {`$ ${curVal.freeDeliveryOver > price ? price + curVal.delPrice : price}.`}
+              {`$ ${
+                curVal.freeDeliveryOver > price
+                  ? priceToShow(true, price + curVal.delPrice)
+                  : priceToShow(true, price)
+              }.`}
             </span>
-            <span className={styles.secondaryAmount}>00</span>
+            <span className={styles.secondaryAmount}>
+              {curVal.freeDeliveryOver > price
+                ? priceToShow(false, price + curVal.delPrice)
+                : priceToShow(false, price)}
+            </span>
           </p>
         </div>
         {dataToShow ? (
@@ -132,7 +148,7 @@ function ProductSummary({ shop, title }) {
               {curVal.freeDeliveryOver - price > 0 ? (
                 <>
                   <span className={styles.freeShipping}>
-                    {`$${curVal.freeDeliveryOver - price} more `}
+                    {`$${(curVal.freeDeliveryOver - price).toFixed(2)} more `}
                   </span>
                   <span>for free shipping</span>
                 </>

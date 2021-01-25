@@ -1,7 +1,11 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
+import InvoiceIcon from 'assets/icons/svg/invoice-icon.svg'
+import PhoneIcon from 'assets/icons/svg/phone-icon.svg'
+
 import styles from './paymentinfo.module.scss'
 
 const PaymentOrderInfo = ({ orderInfo }) => {
@@ -85,6 +89,7 @@ const PaymentOrderInfo = ({ orderInfo }) => {
                 </div>
               </div>
               <div className={styles.foodMakerPhone}>
+                <img src={PhoneIcon} alt="phone-icon" />
                 <div>{orderInfo.foodmaker.phone}</div>
               </div>
             </div>
@@ -95,7 +100,7 @@ const PaymentOrderInfo = ({ orderInfo }) => {
                   window.open(orderInfo.paymentDetails.receipt_url, '_blank')
                 }}
               >
-                x
+                <img src={InvoiceIcon} alt="invoice_icon" />
               </button>
             </div>
           </div>

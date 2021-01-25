@@ -11,6 +11,7 @@ import styles from './ordersfl.module.scss'
 const OrdersFL = () => {
   const orders = useSelector((state) => state.flOrders.orders)
   const [data, setData] = React.useState()
+  const [isPastOrdersShown, setIsPastOrdersShown] = React.useState(false)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -23,11 +24,15 @@ const OrdersFL = () => {
   })
 
   React.useEffect(() => {
-    setData(items)
-  }, [items])
+    if (!isPastOrdersShown) {
+      setData(items.filter((el) => el.deliveryStatus !== 'Delivered'))
+    } else {
+      setData(items.filter((el) => el.deliveryStatus === 'Delivered'))
+    }
+  }, [items, isPastOrdersShown])
 
   const loadMoreHandler = () => {
-    console.log('load more')
+    setIsPastOrdersShown((v) => !v)
   }
 
   return (
@@ -41,7 +46,9 @@ const OrdersFL = () => {
                 <Row item={item} key={item.id} />
               ))}
               <div className={styles.pastOrders}>
-                <div onClick={loadMoreHandler}>&#8634; past orders</div>
+                <div onClick={loadMoreHandler}>
+                  &#8634; {isPastOrdersShown ? 'new' : 'past'} orders
+                </div>
               </div>
             </div>
           ) : null}

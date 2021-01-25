@@ -12,8 +12,12 @@ function Options({ setIsCancelModalShowm, total, orderInfo }) {
         </div>
         <div className={styles.price}>$ {orderInfo?.deliveryPrice}</div>
       </div>
-      <div className={styles.cancelWrapper}>
-        <div className={styles.content}>
+      <div
+        className={styles.cancelWrapper}
+        // remove next line after uncomment `content` div
+        style={{ justifyContent: 'flex-end' }}
+      >
+        {/* <div className={styles.content}>
           <div
             className={styles.modalHandler}
             onClick={() => {
@@ -23,7 +27,7 @@ function Options({ setIsCancelModalShowm, total, orderInfo }) {
             Cancel order
           </div>
           <div>Cancellation policy</div>
-        </div>
+        </div> */}
         <div>
           Total: <span className={styles.total}>${total}</span>.00
         </div>

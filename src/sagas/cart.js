@@ -15,17 +15,18 @@ import {
 } from '../actions/constants'
 
 function* basketFlow({ data }) {
-  const { title, shop, price, amount } = data
+  const { title, shop, price, amount, id } = data
+
   const getOrdersData = (store) => store.cart
   const { products, orders, shopsData } = yield select(getOrdersData)
 
-  if (products.includes(title)) {
+  if (products.includes(id)) {
     const { title: shopTitle } = shop
-    yield put({ type: DELETE_ITEM_FROM_PRODUCTS, data: { title, shopTitle, price } })
+    yield put({ type: DELETE_ITEM_FROM_PRODUCTS, data: { id, title, shopTitle, price } })
     return
   }
 
-  yield put({ type: SET_ITEM_TO_PRODUCTS, title })
+  yield put({ type: SET_ITEM_TO_PRODUCTS, id })
 
   if (!(shop.title in shopsData)) {
     try {

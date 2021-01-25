@@ -90,7 +90,9 @@ function SearchBlock() {
 
   React.useEffect(() => {
     if (searchCityValue) {
-      setCityResults(cities.filter((el) => el.cityName.startsWith(searchCityValue)))
+      setCityResults(
+        cities.filter((el) => el.cityName.toLowerCase().startsWith(searchCityValue.toLowerCase())),
+      )
     } else {
       setCityResults([])
     }
@@ -158,7 +160,7 @@ function SearchBlock() {
                       : `/${item.hungryHuggerLink.split('/').pop()}`
                   }
                 >
-                  <div>{item.title || item.user?.profileName}</div>
+                  <div>{item.title || `${item.firstName} ${item.lastName}`}</div>
                 </Link>
               ))}
             </div>

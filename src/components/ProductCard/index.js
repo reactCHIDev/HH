@@ -9,6 +9,8 @@ import expLike from 'assets/icons/svg/exp_like.svg'
 import expLikeRed from 'assets/icons/svg/exp_like_red.svg'
 
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
+import CheckedWhite from 'assets/icons/svg/check_white.svg'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductToBasket } from 'actions/cart'
 import toggleFavouriteAc from 'actions/favourites'
@@ -67,13 +69,19 @@ const ProdCard = (props) => {
               <p className={styles.exp_price}>{`$${price}`}</p>
               {isShowCart && (
                 <img
-                  src={OutlinedCartIcon}
+                  src={products.includes(id) ? CheckedWhite : OutlinedCartIcon}
                   className={
                     isProductAvailable(product) ? styles.outlined_cat : styles.outlined_cat_empty
                   }
                   style={
-                    products.includes(product.title)
-                      ? { background: '#b4f8b4', borderRadius: '8px' }
+                    products.includes(id)
+                      ? {
+                          width: '40px',
+                          height: '40px',
+                          padding: '10px',
+                          background: '#7AD398',
+                          borderRadius: '8px',
+                        }
                       : {}
                   }
                   alt="buy product"

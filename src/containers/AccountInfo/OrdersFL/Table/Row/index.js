@@ -28,9 +28,9 @@ function index({ item }) {
               </div>
               <div>{time}</div>
             </div>
-            <div className={styles.id}>#{item.id}</div>
+            <div className={styles.id}># {item.id}</div>
             <div className={styles.items}>{sumOfProducts}</div>
-            <div className={styles.amount}>$ {item.orderTotal}</div>
+            <div className={styles.amount}>$ {item.orderTotal.toFixed(2)}</div>
             <div className={styles.delivery}>{item.deliveryMethod}</div>
             <div className={styles.status}>{item.deliveryStatus}</div>
           </div>

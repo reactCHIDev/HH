@@ -6,6 +6,7 @@ import styles from './header.module.scss'
 
 const Header = (props) => {
   const { onSearch, onDataChange, mark = '' } = props
+  const { RangePicker } = DatePicker
 
   const extraMark = (num) => <div className={styles.extra_mark}>{num}</div>
 
@@ -21,7 +22,7 @@ const Header = (props) => {
             <Search onSearch={onSearch} />
           </div>
           <div className={styles.date_picker}>
-            <DatePicker
+            <RangePicker
               // defaultValue={new Date()}
               disabled={false}
               id="1"
