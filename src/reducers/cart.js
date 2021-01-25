@@ -69,7 +69,7 @@ const reducer = function cartReducer(state = initialState, action) {
     case SET_ITEM_TO_PRODUCTS:
       newState = {
         ...state,
-        products: state.products.concat(action.title),
+        products: state.products.concat(action.id),
       }
       setItem('cart', newState)
       return newState
@@ -77,7 +77,7 @@ const reducer = function cartReducer(state = initialState, action) {
     case DELETE_ITEM_FROM_PRODUCTS:
       newState = {
         ...state,
-        products: state.products.filter((element) => element !== action.data.title),
+        products: state.products.filter((element) => element !== action.data.id),
         orders: {
           ...state.orders,
           [action.data.shopTitle]: state.orders[action.data.shopTitle].filter(
@@ -219,7 +219,7 @@ const reducer = function cartReducer(state = initialState, action) {
     case DELETE_PRODUCT_FROM_LIST:
       newState = {
         ...state,
-        products: state.products.filter((element) => element !== action.title),
+        products: state.products.filter((element) => element !== action.id),
         isRequesting: false,
       }
       setItem('cart', newState)

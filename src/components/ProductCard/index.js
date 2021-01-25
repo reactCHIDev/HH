@@ -69,12 +69,12 @@ const ProdCard = (props) => {
               <p className={styles.exp_price}>{`$${price}`}</p>
               {isShowCart && (
                 <img
-                  src={products.includes(product.title) ? CheckedWhite : OutlinedCartIcon}
+                  src={products.includes(id) ? CheckedWhite : OutlinedCartIcon}
                   className={
                     isProductAvailable(product) ? styles.outlined_cat : styles.outlined_cat_empty
                   }
                   style={
-                    products.includes(product.title)
+                    products.includes(id)
                       ? {
                           width: '40px',
                           height: '40px',
