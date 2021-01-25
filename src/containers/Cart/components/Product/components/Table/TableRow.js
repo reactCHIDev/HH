@@ -22,6 +22,7 @@ function TableRow({ item }) {
         title: item.title,
         shopTitle: item.shop.title,
         price: item.price * item.total,
+        id: item.id,
       }),
     )
   }

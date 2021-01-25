@@ -48,7 +48,7 @@ function ProductSummary({ shop, title }) {
     }
   }, [price])
 
-  const priceToShow = (isFirstPart, sum) => {
+  const priceToShow = (isFirstPart, sum = 0) => {
     const curPrice = sum.toFixed(2)
     if (isFirstPart) {
       return curPrice.substring(0, curPrice.indexOf('.'))
@@ -66,7 +66,7 @@ function ProductSummary({ shop, title }) {
               {`$ ${
                 curVal.freeDeliveryOver > price
                   ? priceToShow(true, price + curVal.delPrice)
-                  : priceToShow(price)
+                  : priceToShow(true, price)
               }.`}
             </span>
             <span className={styles.secondaryAmount}>
