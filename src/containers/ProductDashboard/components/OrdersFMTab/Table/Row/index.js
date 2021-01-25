@@ -33,7 +33,7 @@ function index({ item }) {
             <div className={styles.id}>#{item.id}</div>
             <div className={styles.client}>{item.customer.profileName || 'anonim'}</div>
             <div className={styles.items}>{sumOfProducts}</div>
-            <div className={styles.amount}>$ {item.orderTotal}</div>
+            <div className={styles.amount}>$ {item.orderTotal.toFixed(2)}</div>
             <div className={styles.delivery}>{item.deliveryMethod}</div>
             <div
               style={item.deliveryStatus === 'New Order' ? { color: '#7ad398' } : {}}

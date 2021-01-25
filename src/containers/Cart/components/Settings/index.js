@@ -38,8 +38,7 @@ function Settings({ price, active, isAuthorized }) {
         <div className={styles.orderTextWrapper}>
           <p className={styles.totalText}>Total: </p>
           <p className={styles.currencyText}>$</p>
-          <p className={styles.mainPriceText}>{price || 0}</p>
-          {/* <p>.30</p> */}
+          <p className={styles.mainPriceText}>{price.toFixed(2) || 0}</p>
         </div>
         <div>
           <button className={styles.orderButton} type="button" disabled={!active} onClick={handler}>
