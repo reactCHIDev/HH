@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import shareInvoiceIcon from 'assets/icons/svg/share-invoice-icon.svg'
 import styles from './header.module.scss'
 
 function Header({ id, date, time, deliveryType, deliveryStatus }) {
@@ -26,7 +27,10 @@ function Header({ id, date, time, deliveryType, deliveryStatus }) {
         </div>
       </div>
       <div>
-        <div className={styles.invoice}>Share Invoice</div>
+        <div className={styles.invoice}>
+          <img alt="share-invoice-icon" src={shareInvoiceIcon} />
+          <div>Share Invoice</div>
+        </div>
       </div>
     </div>
   )

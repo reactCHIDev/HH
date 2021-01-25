@@ -5,9 +5,11 @@ function Heading() {
   return (
     <div className={styles.container}>
       <div className={styles.routeTextContainer}>
-        <p className={styles.mainText}>Home</p>
-        <span className={styles.arrow}>›</span>
-        <p className={styles.secondaryText}>My cart</p>
+        {/* 
+          <p className={styles.mainText}>Home</p>
+          <span className={styles.arrow}>›</span>
+          <p className={styles.secondaryText}>My cart</p>
+        */}
       </div>
       <div>
         <h1 className={styles.heading}>My cart</h1>
