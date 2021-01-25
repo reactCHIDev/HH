@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 import avatar from 'assets/TMP-AVATAR.jpg'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
+import { push } from 'connected-react-router'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -53,10 +55,16 @@ const FMCard = ({ item }) => {
   )
   const photos = item.otherPhotos ? [...item.otherPhotos, item.coverPhoto] : [item.coverPhoto]
 
+  const dispatch = useDispatch()
+
+  const pushRoute = () => {
+    dispatch(push(`/${item.hungryHuggerLink?.split('/').pop()}`))
+  }
+
   return (
     <div className={styles.container} key={item.id}>
       <div className={styles.content}>
-        <div className={styles.fm_card}>
+        <div className={styles.fm_card} onClick={() => pushRoute()}>
           <div className={styles.avatar_container}>
             {item.userPhoto ? (
               <img src={item.userPhoto || avatar} alt="avatar" />
