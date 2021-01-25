@@ -90,7 +90,9 @@ function SearchBlock() {
 
   React.useEffect(() => {
     if (searchCityValue) {
-      setCityResults(cities.filter((el) => el.cityName.startsWith(searchCityValue)))
+      setCityResults(
+        cities.filter((el) => el.cityName.toLowerCase().startsWith(searchCityValue.toLowerCase())),
+      )
     } else {
       setCityResults([])
     }
