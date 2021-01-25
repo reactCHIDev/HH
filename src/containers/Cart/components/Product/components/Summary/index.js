@@ -48,10 +48,8 @@ function ProductSummary({ shop, title }) {
     }
   }, [price])
 
-  // const priceToShow = price.toFixed(2)
   const priceToShow = (isFirstPart, sum) => {
     const curPrice = sum.toFixed(2)
-    console.log(curPrice)
     if (isFirstPart) {
       return curPrice.substring(0, curPrice.indexOf('.'))
     }

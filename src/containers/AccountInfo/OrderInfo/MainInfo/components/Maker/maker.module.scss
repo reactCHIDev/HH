@@ -45,6 +45,10 @@
         background: whitesmoke;
         width: 30px;
         height: 30px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 50%;
         top: 65px;
         right: 0;
