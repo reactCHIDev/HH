@@ -93,27 +93,29 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
   const [socket, setWs] = useState(null)
 
   useEffect(() => {
-    const token = getItem('authorization-token')
-    const [, accessToken] = token.split('Bearer ')
-    const socket = new WebSocket(
-      `wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`,
-    )
-    socket.onopen = () => {
-      socket.onmessage = (data) => {
-        dispatchMsg(socket, data.data)
-      }
-      socket.send(
-        JSON.stringify({
-          event: 'getNewMessages',
-          data: {
-            accessToken,
-          },
-        }),
+    if (authorized) {
+      const token = getItem('authorization-token')
+      const [, accessToken] = token.split('Bearer ')
+      const socket = new WebSocket(
+        `wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`,
       )
+      socket.onopen = () => {
+        socket.onmessage = (data) => {
+          dispatchMsg(socket, data.data)
+        }
+        socket.send(
+          JSON.stringify({
+            event: 'getNewMessages',
+            data: {
+              accessToken,
+            },
+          }),
+        )
+      }
+      setWs(socket)
     }
-    setWs(socket)
     console.log('%c   APP RERENDER   ', 'color: black; background: gold;')
-  }, [])
+  }, [authorized])
 
   useEffect(() => {
     const id = getItem('user-id')
