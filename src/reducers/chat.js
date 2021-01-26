@@ -43,6 +43,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         dialogs: chatList,
         newContact: null,
+        dialog: newChat ? [] : state.dialog,
+        activeChat: newChat ? newChat.id : state.activeChat,
+        recipient: newChat ? newChat.recipient : state.recipient,
+        page: newChat ? 0 : state.page,
+        scroll: newChat ? 0 : state.scroll,
       }
 
     case ADD_NEW_DIALOG:

@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from 'react'
 import T from 'prop-types'
 import { WebSocketContext } from 'App'
-import { useHistory } from 'react-router-dom'
 import cloneDeep from 'lodash/cloneDeep'
 import SubHeader from 'components/SubHeader'
 import { getDialogs, setAsReviewed } from 'utils/openWS'
+import { useHistory } from 'react-router-dom'
 import { setActiveChatAC, setNewContactAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
 import { getItem } from 'utils/localStorage'
@@ -15,7 +15,7 @@ import './messages.less'
 
 const id = getItem('user-id')
 
-const Messages = ({ location: { user } }) => {
+const Messages = ({ location: { state } }) => {
   const myId = useSelector((state) => state.account.id)
   const dialog = useSelector((state) => state.chat.dialog)
   const dialogs = useSelector((state) => state.chat.dialogs)
@@ -33,24 +33,25 @@ const Messages = ({ location: { user } }) => {
   }
 
   useEffect(() => {
-    const chatData = user
+    const chatData = state
       ? {
-          id: user.id,
+          id: state.id,
           dialogCreated: new Date(),
           lastMessageSent: new Date(),
-          recipient: { ...user, email: '' },
+          recipient: { ...state, email: '' },
           newMessages: 0,
         }
       : null
-
+    console.log('%c    state  ', 'color: darkgreen; background: palegreen;', state)
     if (chatData) {
+      console.log('%c    chatData  ', 'color: darkgreen; background: palegreen;', chatData)
       dispatch(setNewContactAC(chatData))
       history.replace('/messages', undefined)
     }
-  }, [user])
+  }, [])
 
   useEffect(() => {
-    if (dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
+    if (!activeChat && dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
   }, [dialogs])
 
   useEffect(() => {

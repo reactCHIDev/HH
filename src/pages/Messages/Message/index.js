@@ -8,7 +8,7 @@ const Message = ({ user, date, text }) => {
     <div className={styles.container}>
       <div className={styles.local_avatar_info}>
         <div className={styles.local_avatar_box}>
-          {user?.userPhoto ? <img src={user?.userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
+          {user?.url ? <img src={user?.url} alt="avatar" /> : <AvatarPlaceholder />}
         </div>
       </div>
       <div className={styles.text_container}>

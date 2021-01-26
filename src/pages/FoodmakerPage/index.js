@@ -128,7 +128,7 @@ const FoodmakerPage = (props) => {
               <Link
                 to={{
                   pathname: '/messages',
-                  user: { id: fm.userId, profileName: fm.profileName, userPhoto: fm.userPhoto },
+                  state: { id: fm.userId, profileName: fm.profileName, userPhoto: fm.userPhoto },
                 }}
               >
                 <div className={styles.send_msg}>
