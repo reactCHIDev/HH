@@ -18,6 +18,8 @@ const id = getItem('user-id')
 
 const Messages = ({ location: { state } }) => {
   const [newChat, setNewChat] = useState(null)
+  const [chatList, setChatList] = useState([])
+
   const myId = useSelector((state) => state.account.id)
   const dialog = useSelector((state) => state.chat.dialog)
   const dialogs = useSelector((state) => state.chat.dialogs)
@@ -47,10 +49,21 @@ const Messages = ({ location: { state } }) => {
 
     if (chatData) {
       setNewChat(chatData)
-      setActiveChat(chatData.id, state)
+      // setActiveChat(chatData.id, state)
       history.replace('/messages', undefined)
     }
   }, [])
+
+  useEffect(() => {
+    const dlogs = cloneDeep(dialogs)
+    const chatList =
+      dlogs?.length && newChat && !dlogs.find((e) => e?.recipient?.id === newChat?.id)
+        ? [newChat].concat(dlogs)
+        : dlogs
+    setChatList(chatList)
+    console.log('%c    chatList  ', 'color: darkgreen; background: palegreen;', chatList)
+    // if (newChat && chatList?.length) setActiveChat(chatList[0].recipient.id, chatList[0].recipient)
+  }, [dialogs, newChat])
 
   useEffect(() => {
     if (dialog?.length) {
@@ -67,16 +80,6 @@ const Messages = ({ location: { state } }) => {
     }
   }, [socket?.readyState, newMessages])
 
-  useEffect(() => {
-    if (newChat) {
-      setNewChat(newChat)
-      setActiveChat(newChat.id, state)
-      history.replace('/messages', undefined)
-      return
-    }
-    if (!activeChat && dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
-  }, [dialogs])
-
   const goBack = () => {
     // replaceRoute(`/`)
   }
@@ -85,11 +88,7 @@ const Messages = ({ location: { state } }) => {
     <>
       <SubHeader linkTo="/" onBack={goBack} title="Messages" />
       <div className={styles.content}>
-        <ChatList
-          chatList={newChat ? [newChat].concat(dialogs) : dialogs}
-          activeChat={activeChat}
-          setActiveChat={setActiveChat}
-        />
+        <ChatList chatList={chatList} activeChat={activeChat} setActiveChat={setActiveChat} />
         {activeChat && (
           <Chat
             myId={myId}

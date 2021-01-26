@@ -14,6 +14,7 @@ const id = getItem('user-id')
 
 function* msgHandlerSaga({ socket, payload }) {
   const msg = JSON.parse(payload)
+
   if (msg.event === 'getDialog') {
     const {
       chat: { dialog, newMsg },
@@ -27,10 +28,17 @@ function* msgHandlerSaga({ socket, payload }) {
     msg.event === 'sendMessage' &&
     (msg.message.recipientId === id || msg.message.senderId === id)
   ) {
+    const {
+      chat: { activeChat },
+    } = yield select()
     const dialogWithId =
       msg.message.recipientId === id ? msg.message.senderId : msg.message.recipientId
-    yield put({ type: 'NEW_MSG' })
-    getDialog(socket, dialogWithId)
+    if (dialogWithId === activeChat) {
+      yield put({ type: 'NEW_MSG' })
+      getDialog(socket, dialogWithId)
+    } else {
+      getNewMessages(socket)
+    }
   }
 
   if (msg.event === 'getDialogs') yield put({ type: SET_DIALOGS, payload: msg.dialogs })
