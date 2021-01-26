@@ -5,6 +5,7 @@ import {
   SET_ACTIVE_CHAT,
   SET_PAGE,
   SET_CHAT_HEIGHT,
+  SET_NEW_CONTACT,
 } from 'actions/constants'
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   newMessages: null,
   recipient: null,
   height: 0,
+  newContact: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,9 +33,16 @@ const reducer = (state = initialState, action) => {
       }
 
     case SET_DIALOGS:
+      const dialogs = action.payload
+      const newChat = state.newContact
+      const chatList =
+        dialogs?.length && newChat && !dialogs.find((e) => e?.recipient?.id === newChat?.id)
+          ? [newChat].concat(dialogs)
+          : dialogs
       return {
         ...state,
-        dialogs: action.payload,
+        dialogs: chatList,
+        newContact: null,
       }
 
     case ADD_NEW_DIALOG:
@@ -63,6 +72,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         height: action.payload,
+      }
+
+    case SET_NEW_CONTACT:
+      return {
+        ...state,
+        newContact: action.payload,
       }
 
     case 'SET_NEW_MESSAGES':

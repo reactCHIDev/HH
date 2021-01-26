@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep'
 
 import SubHeader from 'components/SubHeader'
 import { getDialogs, setAsReviewed } from 'utils/openWS'
-import { setActiveChatAC } from 'actions/chat'
+import { setActiveChatAC, setNewContactAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
 import { getItem } from 'utils/localStorage'
 import ChatList from './ChatList'
@@ -48,22 +48,16 @@ const Messages = ({ location: { state } }) => {
       : null
 
     if (chatData) {
-      setNewChat(chatData)
+      dispatch(setNewContactAC(chatData))
+      // setNewChat(chatData)
       // setActiveChat(chatData.id, state)
       history.replace('/messages', undefined)
     }
   }, [])
 
   useEffect(() => {
-    const dlogs = cloneDeep(dialogs)
-    const chatList =
-      dlogs?.length && newChat && !dlogs.find((e) => e?.recipient?.id === newChat?.id)
-        ? [newChat].concat(dlogs)
-        : dlogs
-    setChatList(chatList)
-    console.log('%c    chatList  ', 'color: darkgreen; background: palegreen;', chatList)
-    // if (newChat && chatList?.length) setActiveChat(chatList[0].recipient.id, chatList[0].recipient)
-  }, [dialogs, newChat])
+    if (dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
+  }, [dialogs])
 
   useEffect(() => {
     if (dialog?.length) {
@@ -88,7 +82,7 @@ const Messages = ({ location: { state } }) => {
     <>
       <SubHeader linkTo="/" onBack={goBack} title="Messages" />
       <div className={styles.content}>
-        <ChatList chatList={chatList} activeChat={activeChat} setActiveChat={setActiveChat} />
+        <ChatList chatList={dialogs} activeChat={activeChat} setActiveChat={setActiveChat} />
         {activeChat && (
           <Chat
             myId={myId}
