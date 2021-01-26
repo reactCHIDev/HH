@@ -58,14 +58,14 @@ const Messages = ({ location: { state } }) => {
     if (dialogs?.length && !activeChat) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
   }, [dialogs])
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (dialog?.length) {
       const newMessages = cloneDeep(dialog)
         .map((e) => (e.message.status === 'New' ? e.message.id : null))
         .filter((e) => e)
-       if (newMessages?.length) setAsReviewed(socket, newMessages)
+      if (newMessages?.length) setAsReviewed(socket, newMessages)
     }
-  }, [dialog]) */
+  }, [dialog])
 
   const goBack = () => {
     // replaceRoute(`/`)
