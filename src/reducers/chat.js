@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
       const dialogs = action.payload
       const newChat = state.newContact
       const chatList =
-        dialogs?.length && newChat && !dialogs.find((e) => e?.recipient?.id === newChat?.id)
+        newChat && !dialogs.find((e) => e?.recipient?.id === newChat?.id)
           ? [newChat].concat(dialogs)
           : dialogs
       return {
