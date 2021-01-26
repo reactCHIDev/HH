@@ -71,6 +71,7 @@ const Messages = ({ location: { state } }) => {
     // replaceRoute(`/`)
   }
 
+  console.log('%c   dialog   ', 'color: white; background: salmon;', dialog)
   return (
     <>
       <SubHeader linkTo="/" onBack={goBack} title="Messages" />
@@ -83,7 +84,7 @@ const Messages = ({ location: { state } }) => {
             recipient={recipient}
             activeChat={activeChat}
             rdy={newMessages !== null}
-            dialog={dialog || []}
+            dialog={dialog}
           />
         )}
       </div>

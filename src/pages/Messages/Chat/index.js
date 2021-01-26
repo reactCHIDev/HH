@@ -14,8 +14,6 @@ import styles from './chat.module.scss'
 function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
-  // const [page, setPage] = useState(0)
-  const dialogs = useSelector((state) => state.chat.dialogs)
   const scroll = useSelector((state) => state.chat.scroll)
   const height = useSelector((state) => state.chat.height)
   const page = useSelector((state) => state.chat.page)
