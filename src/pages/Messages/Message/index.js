@@ -1,15 +1,14 @@
 import React from 'react'
 import T from 'prop-types'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
-import cls from 'classnames'
 import styles from './message.module.scss'
 
-const Message = ({ user, date = '12 May, 12:42', text }) => {
+const Message = ({ user, date, text }) => {
   return (
     <div className={styles.container}>
       <div className={styles.local_avatar_info}>
         <div className={styles.local_avatar_box}>
-          {user?.url ? <img src={user?.url} alt="avatar" /> : <AvatarPlaceholder />}
+          {user?.userPhoto ? <img src={user?.userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
         </div>
       </div>
       <div className={styles.text_container}>
@@ -24,8 +23,7 @@ const Message = ({ user, date = '12 May, 12:42', text }) => {
 }
 
 Message.propTypes = {
-  url: T.string.isRequired,
-  name: T.string.isRequired,
+  user: T.string.isRequired,
   date: T.string.isRequired,
   text: T.string.isRequired,
 }

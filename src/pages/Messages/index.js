@@ -56,6 +56,7 @@ const Messages = ({ location: { state } }) => {
   }, [])
 
   useEffect(() => {
+    console.log('%c   dialogs   ', 'color: darkgreen; background: palegreen;', dialogs)
     if (dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
   }, [dialogs])
 
