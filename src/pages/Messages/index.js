@@ -3,7 +3,7 @@ import T from 'prop-types'
 import { WebSocketContext } from 'App'
 import cloneDeep from 'lodash/cloneDeep'
 import SubHeader from 'components/SubHeader'
-import { getDialogs, setAsReviewed } from 'utils/openWS'
+import { getDialog, getDialogs, setAsReviewed } from 'utils/openWS'
 import { useHistory } from 'react-router-dom'
 import { setActiveChatAC, setNewContactAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
@@ -52,6 +52,7 @@ const Messages = ({ location: { state } }) => {
 
   useEffect(() => {
     if (!activeChat && dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
+    if (activeChat) getDialog(socket, activeChat)
   }, [dialogs])
 
   useEffect(() => {

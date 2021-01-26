@@ -35,6 +35,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   }, [dialog])
 
   useEffect(() => {
+    console.log('%c   ac ch   ', 'color: darkgreen; background: palegreen;')
     if (socket?.readyState === 1 && activeChat && rdy) {
       getDialog(socket, activeChat)
     }
