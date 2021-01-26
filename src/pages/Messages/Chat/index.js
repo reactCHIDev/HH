@@ -15,6 +15,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
   // const [page, setPage] = useState(0)
+  const dialogs = useSelector((state) => state.chat.dialogs)
   const scroll = useSelector((state) => state.chat.scroll)
   const height = useSelector((state) => state.chat.height)
   const page = useSelector((state) => state.chat.page)
@@ -27,20 +28,19 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const msgInput = useRef()
 
   useEffect(() => {
+    if (socket?.readyState === 1 && activeChat && rdy) {
+      getDialog(socket, activeChat)
+    }
+    msgInput.current.focus()
+  }, [activeChat])
+
+  useEffect(() => {
     if (chatWindow.current && msgContainer.current) {
       chatWindow.current.scrollTo(0, msgContainer.current.scrollHeight - height)
       dispatch(setChatHeightAC(msgContainer.current.scrollHeight))
     }
     setUser(recipient)
   }, [dialog])
-
-  useEffect(() => {
-    console.log('%c   ac ch   ', 'color: darkgreen; background: palegreen;')
-    if (socket?.readyState === 1 && activeChat && rdy) {
-      getDialog(socket, activeChat)
-    }
-    msgInput.current.focus()
-  }, [activeChat, rdy])
 
   useEffect(() => {
     if (socket?.readyState === 1 && activeChat && rdy && page !== 0) {

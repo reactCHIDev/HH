@@ -36,6 +36,7 @@ function* msgHandlerSaga({ socket, payload }) {
     if (dialogWithId === activeChat) {
       yield put({ type: 'NEW_MSG' })
       getDialog(socket, dialogWithId)
+      getNewMessages(socket)
     } else {
       getNewMessages(socket)
     }
@@ -48,16 +49,8 @@ function* msgHandlerSaga({ socket, payload }) {
   if (msg.event === 'setAsReviewed' && msg.affected > 0) getNewMessages(socket)
 }
 
-function* newDialogSaga({ payload }) {
-  const dialog = {
-    recipient: { id: payload.id, url: payload.userPhoto, name: payload.profileName },
-  }
-  yield put({ type: ADD_NEW_DIALOG, payload: dialog })
-}
-
 function* chatWatcher() {
   yield takeEvery(DISPATCH_MSG, msgHandlerSaga)
-  yield takeEvery(NEW_DIALOG, newDialogSaga)
 }
 
 export default chatWatcher

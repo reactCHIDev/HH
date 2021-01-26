@@ -42,33 +42,30 @@ const Messages = ({ location: { state } }) => {
           newMessages: 0,
         }
       : null
-    console.log('%c    state  ', 'color: darkgreen; background: palegreen;', state)
     if (chatData) {
-      console.log('%c    chatData  ', 'color: darkgreen; background: palegreen;', chatData)
       dispatch(setNewContactAC(chatData))
       history.replace('/messages', undefined)
     }
   }, [])
 
   useEffect(() => {
-    if (!activeChat && dialogs?.length) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
-    if (activeChat) getDialog(socket, activeChat)
-  }, [dialogs])
-
-  useEffect(() => {
-    if (dialog?.length) {
-      const newMessages = cloneDeep(dialog)
-        .map((e) => (e.message.status === 'New' ? e.message.id : null))
-        .filter((e) => e)
-      if (newMessages?.length) setAsReviewed(socket, newMessages)
-    }
-  }, [dialog])
-
-  useEffect(() => {
     if (socket?.readyState === 1 && newMessages !== null) {
       getDialogs(socket, id)
     }
   }, [socket?.readyState, newMessages])
+
+  useEffect(() => {
+    if (dialogs?.length && !activeChat) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
+  }, [dialogs])
+
+  /* useEffect(() => {
+    if (dialog?.length) {
+      const newMessages = cloneDeep(dialog)
+        .map((e) => (e.message.status === 'New' ? e.message.id : null))
+        .filter((e) => e)
+       if (newMessages?.length) setAsReviewed(socket, newMessages)
+    }
+  }, [dialog]) */
 
   const goBack = () => {
     // replaceRoute(`/`)

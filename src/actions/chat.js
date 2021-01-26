@@ -7,6 +7,7 @@ import {
   SET_PAGE,
   SET_CHAT_HEIGHT,
   SET_NEW_CONTACT,
+  CLEAR_CHAT,
 } from './constants'
 
 export const dispatchMsg = (socket, payload) => ({
@@ -49,5 +50,10 @@ export const setChatHeightAC = (payload) => ({
 
 export const setNewContactAC = (payload) => ({
   type: SET_NEW_CONTACT,
+  payload,
+})
+
+export const clearChat = (payload) => ({
+  type: CLEAR_CHAT,
   payload,
 })

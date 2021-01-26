@@ -6,6 +6,7 @@ import {
   SET_PAGE,
   SET_CHAT_HEIGHT,
   SET_NEW_CONTACT,
+  CLEAR_CHAT,
 } from 'actions/constants'
 
 const initialState = {
@@ -95,6 +96,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         newMsg: true,
+      }
+
+    case CLEAR_CHAT:
+      return {
+        ...initialState,
+        newMessages: state.newMessages,
       }
 
     default:
