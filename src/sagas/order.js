@@ -37,7 +37,7 @@ function* createOrderRequest({ data }) {
   // phone: "312321312"
   const { orders, totalPrice, shopsData } = yield select(getOrdersData)
   const { id: userId } = yield select(getAccountData)
-  const { adress, firstName, lastName, phone } = data
+  const { adress, firstName, lastName, phone, company } = data
 
   try {
     const token = yield getStripe({ card })
@@ -79,6 +79,7 @@ function* createOrderRequest({ data }) {
         deliveryMethod: shopsData[shop].delivery.type,
         deliveryAddress: adress,
         phone,
+        company: company || null,
         deliveryPrice: shopsData[shop].delivery.price,
         orderTotal: shopsData[shop].price + shopsData[shop].delivery.price,
         paymentDetails: charge.data.receiptData,

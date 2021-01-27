@@ -46,7 +46,7 @@ const Balance = () => {
           <div className={styles.description}>
             <img src={Info} alt="icon" />
             Payment is process every Monday after each booking occurred. It may take 3-5 business
-            days to reach days to reach your nominated account.
+            days to reach days your nominated account.
           </div>
           <div className={styles.form_item}>
             <div className={styles.label}>Bank name</div>
@@ -108,7 +108,7 @@ const Balance = () => {
               className={styles.input}
               name="phone"
               type="text"
-              placeholder="Enter payme phone number"
+              placeholder="Enter payment phone number"
               autoComplete="off"
               ref={register({
                 required: false,
@@ -134,7 +134,7 @@ const Balance = () => {
             {!withdraw ? (
               <div className={styles.sum}>
                 <span className={styles.dollar}>$</span>
-                <span className={styles.qty}>{balance?.hkd}</span>
+                <span className={styles.qty}>{balance?.hkd.toFixed(2)}</span>
                 <span className={styles.hkd}>HKD</span>
               </div>
             ) : (
