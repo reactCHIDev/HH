@@ -35,7 +35,7 @@ function StatusWrapper({ deliveryStatus, id }) {
     <div className={styles.statusWrapper}>
       <div className={styles.status}>Status: </div>
       <div className={styles.statusType}>{currentType}</div>
-      <div className={styles.button} type="button" onClick={() => setIsVisible((v) => !v)}>
+      <div className={styles.button} onClick={() => setIsVisible((v) => !v)}>
         <img
           className={cls(styles.arrow, isVisible ? styles.arrow_up : '')}
           src={ArrowDark}
