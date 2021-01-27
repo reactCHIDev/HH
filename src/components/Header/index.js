@@ -422,7 +422,7 @@ Header.propTypes = {
   role: T.string,
   profileName: T.string,
   pathname: T.string.isRequired,
-  newMessages: T.number.isRequired,
+  newMessages: T.number,
   logOut: T.func.isRequired,
   pushRoute: T.func.isRequired,
   userPhoto: T.string,

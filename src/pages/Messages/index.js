@@ -46,7 +46,6 @@ const Messages = ({ location: { state } }) => {
       dispatch(setNewContactAC(chatData))
       history.replace('/messages', undefined)
     }
-    console.log('%c  CHAT MOUNTED   ', 'color: black; background: gold;')
   }, [])
 
   useEffect(() => {
@@ -72,7 +71,6 @@ const Messages = ({ location: { state } }) => {
     // replaceRoute(`/`)
   }
 
-  console.log('%c   dialog   ', 'color: white; background: salmon;', dialog)
   return (
     <>
       <SubHeader linkTo="/" onBack={goBack} title="Messages" />

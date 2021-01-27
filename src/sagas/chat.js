@@ -34,7 +34,7 @@ function* msgHandlerSaga({ socket, payload }) {
     const dialogWithId =
       msg.message.recipientId === id ? msg.message.senderId : msg.message.recipientId
     if (dialogWithId === activeChat) {
-      yield put({ type: 'NEW_MSG' })
+      yield put({ type: 'NEW_MSG', incoming: msg.message.recipientId === id ? 1 : 2 })
       getDialog(socket, dialogWithId)
     } else {
       getNewMessages(socket)

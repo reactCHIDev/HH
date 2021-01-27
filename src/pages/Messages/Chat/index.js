@@ -4,6 +4,8 @@ import cloneDeep from 'lodash/cloneDeep'
 import { getDialog, sendMessage } from 'utils/openWS'
 import { useSelector, useDispatch } from 'react-redux'
 import { isSameDay } from 'date-fns'
+import useSound from 'use-sound'
+import tick from 'assets/sound/tick.mp3'
 import cls from 'classnames'
 import { setPageAC, setChatHeightAC } from 'actions/chat'
 import attachment from 'assets/icons/svg/attachment.svg'
@@ -17,13 +19,20 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const scroll = useSelector((state) => state.chat.scroll)
   const height = useSelector((state) => state.chat.height)
   const page = useSelector((state) => state.chat.page)
+  const newMsg = useSelector((state) => state.chat.newMsg)
+  const newMessages = useSelector((state) => state.chat.newMessages)
 
   const dispatch = useDispatch()
   const socket = useContext(WebSocketContext)
+  const [play] = useSound(tick)
 
   const chatWindow = useRef()
   const msgContainer = useRef()
   const msgInput = useRef()
+
+  useEffect(() => {
+    if (newMsg === 1 || newMessages) play()
+  }, [newMsg])
 
   useEffect(() => {
     if (socket?.readyState === 1 && activeChat && rdy) {
@@ -47,12 +56,18 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   }, [page])
 
   const onSend = () => {
-    sendMessage(socket, message, activeChat)
-    setMessage('')
+    if (message !== '') {
+      sendMessage(socket, message, activeChat)
+      setMessage('')
+    }
   }
 
   const handleKeyDown = (e) => {
-    // if (e.key === 'Enter') onSend()
+    /* if (e.key === 'Enter' && e.shiftKey) {
+      // setMessage((m) => m + '\n')
+      return
+    }
+    if (e.key === 'Enter') onSend() */
   }
 
   const onChangeMessage = (e) => setMessage(e.target.value)
@@ -90,14 +105,14 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
               minute: '2-digit',
             })
             return (
-              <>
+              <React.Fragment key={e.message.createdAt}>
                 {!isSameDay(prevDate, date) && divider(date)}
                 {e.recipient.id === myId ? (
                   <Message text={e.message.text} user={user} date={time} />
                 ) : (
                   <MyMessage text={e.message.text} date={time} />
                 )}
-              </>
+              </React.Fragment>
             )
           })}
         </div>

@@ -95,7 +95,7 @@ const reducer = (state = initialState, action) => {
     case 'NEW_MSG':
       return {
         ...state,
-        newMsg: true,
+        newMsg: action.incoming,
       }
 
     case CLEAR_CHAT:
