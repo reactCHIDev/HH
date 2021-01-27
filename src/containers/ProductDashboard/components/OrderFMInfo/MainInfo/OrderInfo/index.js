@@ -86,7 +86,15 @@ function OrderInfo() {
           <div className={styles.mainInfo}>
             <div className={styles.item}>
               <div>Client</div>
-              <div className={styles.value}>{order.customer?.profileName}</div>
+              <div className={styles.value}>
+                {order.customer?.firstName} {order.customer?.lastName}
+              </div>
+              {order.deliveryCompany && (
+                <div>
+                  <div>Company</div>
+                  <div className={styles.value}>{order.deliveryCompany}</div>
+                </div>
+              )}
             </div>
             <div className={styles.item}>
               <div>Contact number</div>
