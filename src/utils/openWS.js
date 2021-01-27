@@ -19,6 +19,12 @@ export const getSocket = () => {
       }),
     )
   }
+  socket.onclose = () => {
+    console.log('%c   SOCKET CLOSED !!!   ', 'color: white; background: salmon;')
+  }
+  socket.onerror = () => {
+    console.log('%c   SOCKET ERROR !!!   ', 'color: white; background: salmon;')
+  }
   return socket
 }
 

@@ -36,7 +36,6 @@ function* msgHandlerSaga({ socket, payload }) {
     if (dialogWithId === activeChat) {
       yield put({ type: 'NEW_MSG' })
       getDialog(socket, dialogWithId)
-      getNewMessages(socket)
     } else {
       getNewMessages(socket)
     }

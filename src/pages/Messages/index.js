@@ -46,6 +46,7 @@ const Messages = ({ location: { state } }) => {
       dispatch(setNewContactAC(chatData))
       history.replace('/messages', undefined)
     }
+    console.log('%c  CHAT MOUNTED   ', 'color: black; background: gold;')
   }, [])
 
   useEffect(() => {

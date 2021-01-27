@@ -100,6 +100,7 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
         `wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`,
       )
       socket.onopen = () => {
+        console.log('%c   SOCKET OPENED !!!   ', 'color: darkgreen; background: palegreen;')
         socket.onmessage = (data) => {
           dispatchMsg(socket, data.data)
         }
