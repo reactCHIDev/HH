@@ -134,7 +134,7 @@ const Balance = () => {
             {!withdraw ? (
               <div className={styles.sum}>
                 <span className={styles.dollar}>$</span>
-                <span className={styles.qty}>{balance?.hkd}</span>
+                <span className={styles.qty}>{balance?.hkd.toFixed(2)}</span>
                 <span className={styles.hkd}>HKD</span>
               </div>
             ) : (
