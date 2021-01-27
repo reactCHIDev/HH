@@ -24,10 +24,10 @@ function ChatList({ chatList, activeChat, setActiveChat }) {
         return (
           <Contact
             id={e.recipient.id}
-            url={e.recipient.userPhoto}
+            userPhoto={e.recipient.userPhoto}
             date={`${date}, ${time}`}
             unreaded={e.newMessages}
-            name={e.recipient.profileName}
+            profileName={e.recipient.profileName}
             activeChat={activeChat}
             setActiveChat={setActiveChat}
           />

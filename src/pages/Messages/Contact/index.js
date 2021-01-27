@@ -4,11 +4,11 @@ import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import cls from 'classnames'
 import styles from './contact.module.scss'
 
-const Contact = ({ id, url, date, name, unreaded, activeChat, setActiveChat }) => {
+const Contact = ({ id, userPhoto, date, profileName, unreaded, activeChat, setActiveChat }) => {
   const openDialog = (e) => {
     const id = Number(e.currentTarget.id)
     if (id === activeChat) return
-    const recipient = { id, name, url }
+    const recipient = { id, profileName, userPhoto }
     setActiveChat(id, recipient)
   }
 
@@ -18,10 +18,10 @@ const Contact = ({ id, url, date, name, unreaded, activeChat, setActiveChat }) =
     >
       <div className={styles.local_avatar_info} id={id} onClick={openDialog}>
         <div className={styles.local_avatar_box}>
-          {url ? <img src={url} alt="avatar" /> : <AvatarPlaceholder />}
+          {userPhoto ? <img src={userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
         </div>
         <div className={styles.info_container}>
-          <div className={styles.local_name}>{name}</div>
+          <div className={styles.local_name}>{profileName}</div>
           <div className={styles.last_date}>{date}</div>
         </div>
       </div>

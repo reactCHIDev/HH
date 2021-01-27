@@ -8,12 +8,12 @@ const Message = ({ user, date, text }) => {
     <div className={styles.container}>
       <div className={styles.local_avatar_info}>
         <div className={styles.local_avatar_box}>
-          {user?.url ? <img src={user?.url} alt="avatar" /> : <AvatarPlaceholder />}
+          {user?.userPhoto ? <img src={user?.userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
         </div>
       </div>
       <div className={styles.text_container}>
         <div className={styles.info_container}>
-          <div className={styles.local_name}>{user?.name}</div>
+          <div className={styles.local_name}>{user?.profileName}</div>
           <div className={styles.last_date}>{date}</div>
         </div>
         <div className={styles.text_msg}>{text}</div>
