@@ -32,7 +32,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
 
   useEffect(() => {
     if (newMsg === 1 || newMessages) play()
-  }, [newMsg])
+  }, [newMsg, newMessages])
 
   useEffect(() => {
     if (socket?.readyState === 1 && activeChat && rdy) {

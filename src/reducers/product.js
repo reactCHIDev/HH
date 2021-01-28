@@ -11,6 +11,9 @@ import {
   TOGGLE_PRODUCT_STATUS_REQUESTING,
   TOGGLE_PRODUCT_STATUS_SUCCESS,
   TOGGLE_PRODUCT_STATUS_ERROR,
+  DUPLICATE_PRODUCT_REQUESTING,
+  DUPLICATE_PRODUCT_SUCCESS,
+  DUPLICATE_PRODUCT_ERROR,
 } from '../actions/constants'
 
 const initialState = {}
@@ -71,6 +74,19 @@ const reducer = function accountReducer(state = initialState, action) {
         ...state,
         requesting: false,
         error: action.error,
+      }
+
+    case DUPLICATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        error: '',
+        success: true,
+      }
+    case 'RESET_DUPLICATE_SUCCESS':
+      return {
+        ...state,
+        success: false,
       }
 
     default:
