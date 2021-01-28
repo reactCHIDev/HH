@@ -5,3 +5,4 @@ export const createProductReq = (data) => apiClient.post(PATHS.createProduct, { 
 export const updateProductReq = (data) => apiClient.patch(PATHS.updateProduct, { data })
 export const getProductInfoReq = (id) => apiClient.get(PATHS.getProductInfo + id)
 export const toggleProductStatus = (data) => apiClient.patch(PATHS.toggleStatus, { data })
+export const duplicate = (id) => apiClient.post(PATHS.duplicate + id)

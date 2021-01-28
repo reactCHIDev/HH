@@ -1,0 +1,30 @@
+.msg_container {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  background: white;
+  min-width: 300px;
+  padding: 50px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .msg_text {
+    font-size: 24px;
+    color: #31394d;
+    text-align: center;
+  }
+  .btn_block {
+    .msg_btn {
+      font-size: 20px;
+      text-transform: uppercase;
+      color: white;
+      background: #31394d;
+      display: block;
+      width: 100%;
+      margin: 15px auto;
+      padding: 15px;
+      border: none;
+      border-radius: 6px;
+    }
+  }
+}

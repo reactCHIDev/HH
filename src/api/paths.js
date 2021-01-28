@@ -29,6 +29,7 @@ export default {
   updateProduct: '/v1/product/update',
   getProductInfo: '/v1/product/info/',
   toggleStatus: '/v1/product/toggle_status',
+  duplicate: '/v1/product/duplicate/',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
