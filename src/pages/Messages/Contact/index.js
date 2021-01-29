@@ -37,11 +37,11 @@ const Contact = ({ id, userPhoto, date, profileName, unreaded, activeChat, setAc
 }
 
 Contact.propTypes = {
-  url: T.string.isRequired,
-  name: T.string.isRequired,
+  userPhoto: T.string,
+  profileName: T.string.isRequired,
   unreaded: T.number.isRequired,
   id: T.number.isRequired,
-  activeChat: T.string.isRequired,
+  activeChat: T.number,
   setActiveChat: T.func.isRequired,
 }
 

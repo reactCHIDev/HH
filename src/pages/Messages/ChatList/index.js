@@ -23,6 +23,7 @@ function ChatList({ chatList, activeChat, setActiveChat }) {
         })
         return (
           <Contact
+            key={e.recipient.id}
             id={e.recipient.id}
             userPhoto={e.recipient.userPhoto}
             date={`${date}, ${time}`}
@@ -38,8 +39,8 @@ function ChatList({ chatList, activeChat, setActiveChat }) {
 }
 
 ChatList.propTypes = {
-  chatList: T.arrayOf(T.string),
-  activeChat: T.string,
+  chatList: T.arrayOf(T.shape()),
+  activeChat: T.number,
   setActiveChat: T.func.isRequired,
 }
 

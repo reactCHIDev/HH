@@ -9,6 +9,7 @@ import tick from 'assets/sound/tick.mp3'
 import cls from 'classnames'
 import { setPageAC, setChatHeightAC } from 'actions/chat'
 import attachment from 'assets/icons/svg/attachment.svg'
+import UploaderFile from 'components/UploaderFile'
 import Message from '../Message'
 import MyMessage from '../MyMessage'
 import styles from './chat.module.scss'
@@ -16,6 +17,7 @@ import styles from './chat.module.scss'
 function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
+  const [fileList, setFileList] = useState([])
   const scroll = useSelector((state) => state.chat.scroll)
   const height = useSelector((state) => state.chat.height)
   const page = useSelector((state) => state.chat.page)
@@ -29,6 +31,10 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const chatWindow = useRef()
   const msgContainer = useRef()
   const msgInput = useRef()
+
+  useEffect(() => {
+    console.log('%c   fileList   ', 'color: white; background: royalblue;', fileList)
+  }, [fileList])
 
   useEffect(() => {
     if (newMsg === 1 || newMessages) play()
@@ -57,7 +63,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
 
   const onSend = () => {
     if (message !== '') {
-      sendMessage(socket, message, activeChat)
+      sendMessage(socket, message, fileList, activeChat)
       setMessage('')
     }
   }
@@ -108,19 +114,20 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
               <React.Fragment key={e.message.createdAt}>
                 {!isSameDay(prevDate, date) && divider(date)}
                 {e.recipient.id === myId ? (
-                  <Message text={e.message.text} user={user} date={time} />
+                  <Message message={e.message} user={user} date={time} />
                 ) : (
-                  <MyMessage text={e.message.text} date={time} />
+                  <MyMessage message={e.message} date={time} />
                 )}
               </React.Fragment>
             )
           })}
         </div>
       </div>
+      <UploaderFile setFileList={setFileList} />
       <div className={styles.bottomSection}>
-        <div className={styles.addWrapper}>
+        {/*   <div className={styles.addWrapper}>
           <img src={attachment} alt="pic" />
-        </div>
+        </div> */}
         <textarea
           ref={msgInput}
           className={styles.input}
