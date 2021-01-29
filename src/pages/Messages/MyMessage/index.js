@@ -2,7 +2,7 @@ import React from 'react'
 import T from 'prop-types'
 import styles from './message.module.scss'
 
-const Message = ({ date, text }) => {
+const Message = ({ date, message }) => {
   return (
     <div className={styles.container}>
       <div className={styles.text_container}>
@@ -10,7 +10,7 @@ const Message = ({ date, text }) => {
           <div className={styles.local_name}>You</div>
           <div className={styles.last_date}>{date}</div>
         </div>
-        <div className={styles.text_msg}>{text}</div>
+        <div className={styles.text_msg}>{message.text}</div>
       </div>
     </div>
   )
@@ -18,7 +18,7 @@ const Message = ({ date, text }) => {
 
 Message.propTypes = {
   date: T.string.isRequired,
-  text: T.string.isRequired,
+  message: T.shape().isRequired,
 }
 
 export default Message

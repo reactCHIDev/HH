@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep'
+
 import {
   SET_DIALOG,
   SET_DIALOGS,
@@ -38,7 +40,7 @@ const reducer = (state = initialState, action) => {
       const newChat = state.newContact
       const chatList =
         newChat && !dialogs.find((e) => e?.recipient?.id === newChat?.id)
-          ? [newChat].concat(dialogs)
+          ? [newChat].concat(cloneDeep(dialogs))
           : dialogs
       return {
         ...state,

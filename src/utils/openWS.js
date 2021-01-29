@@ -76,7 +76,7 @@ export const getDialogs = (socket, id) => {
   )
 }
 
-export const sendMessage = (socket, message, id) => {
+export const sendMessage = (socket, message, files, id) => {
   const accessToken = getToken()
   socket.send(
     JSON.stringify({
@@ -85,7 +85,7 @@ export const sendMessage = (socket, message, id) => {
         accessToken,
         recipientId: id,
         text: message,
-        files: [],
+        files,
       },
     }),
   )

@@ -6,8 +6,8 @@
   background: #f5f8fb;
   border-radius: 8px;
   margin: 16px;
+  width: 90%;
   @media screen and (max-width: 768px) {
-    width: 90%;
   }
   .local_avatar_info {
     display: flex;
@@ -48,6 +48,22 @@
       font-size: 14px;
       letter-spacing: 0.5px;
       color: #838894;
+      margin-bottom: 12px;
+    }
+    .file_link_wrapper {
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: #838894;
+      padding: 6px;
+      cursor: pointer;
+      .dl_icon {
+        width: 12px;
+        height: 12px;
+        margin-right: 7px;
+      }
     }
   }
 }

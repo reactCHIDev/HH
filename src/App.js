@@ -96,14 +96,10 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
     if (authorized) {
       const token = getItem('authorization-token')
       const [, accessToken] = token.split('Bearer ')
-      const socket = new WebSocket(
-        `wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`,
-      )
-      socket.onopen = () => {
-        console.log('%c   SOCKET OPENED !!!   ', 'color: darkgreen; background: palegreen;')
-        socket.onmessage = (data) => {
-          dispatchMsg(socket, data.data)
-        }
+
+      let socket
+
+      const socketOpenListener = () => {
         socket.send(
           JSON.stringify({
             event: 'getNewMessages',
@@ -113,6 +109,25 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
           }),
         )
       }
+
+      const socketMessageListener = (data) => {
+        dispatchMsg(socket, data.data)
+      }
+
+      const socketCloseListener = () => {
+        console.log('%c   closeListener   ', 'color: darkgreen; background: palegreen;')
+        if (socket) {
+          console.error('Disconnected.')
+        }
+        socket = new WebSocket(`wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`)
+
+        socket.addEventListener('open', socketOpenListener)
+        socket.addEventListener('message', socketMessageListener)
+        socket.addEventListener('close', socketCloseListener)
+      }
+
+      socketCloseListener()
+
       setWs(socket)
     }
     if (!authorized && socket) socket.close()
