@@ -80,7 +80,8 @@ function OrderInfo() {
           </div>
         </div>
         <div className={styles.total}>
-          Total: {order.orderTotal}$<span className={styles.value}>Refund</span>
+          Total: $ {order.orderTotal.toFixed(2)}
+          <span className={styles.value}>Refund</span>
         </div>
       </div>
       {/* Client */}
