@@ -33,13 +33,13 @@ const ProductExplore = (props) => {
   const [maxPrice, setMaxPrice] = React.useState(100)
 
   const dispatch = useDispatch()
-  const { searchTitle } = getItem('search_data')
+  const { searchTitle, city } = getItem('search_data')
 
   React.useEffect(() => {
     dispatch(
       searchRequestingnAc({
         searchType: 'Products',
-        dataForSearch: { searchedValue: searchTitle, isExplore: true },
+        dataForSearch: { searchedValue: searchTitle, city, isExplore: true },
       }),
     )
     dispatch(getProductTypes())

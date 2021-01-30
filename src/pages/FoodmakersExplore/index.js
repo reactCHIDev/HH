@@ -25,6 +25,7 @@ const FoodmakersExplore = (props) => {
   const serviceTags = useSelector((state) => state.system.serviceTags)
   const searchData = getItem('search_data')
   const searchTitle = searchData?.searchTitle || ''
+  const city = searchData?.city || ''
   const dispatch = useDispatch()
 
   const [specialityTagsToShow, setSpecialityTagsToShow] = React.useState([])
@@ -47,7 +48,7 @@ const FoodmakersExplore = (props) => {
     dispatch(
       searchRequestingnAc({
         searchType: 'Foodmakers',
-        dataForSearch: { searchedValue: searchTitle, isExplore: true },
+        dataForSearch: { searchedValue: searchTitle, city, isExplore: true },
       }),
     )
     dispatch(getSpecialityTagsAC())
