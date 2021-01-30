@@ -9,6 +9,16 @@
     width: 100%;
   }
 
+  .printButton {
+    button {
+      padding: 10px 20px;
+      background: none;
+      text-decoration: none;
+      border: 2px solid #cecece;
+      border-radius: 6px;
+    }
+  }
+
   //smth
   .statusWrapper {
     display: flex;
