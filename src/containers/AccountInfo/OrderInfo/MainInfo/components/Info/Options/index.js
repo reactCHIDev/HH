@@ -3,6 +3,13 @@ import React from 'react'
 import styles from './options.module.scss'
 
 function Options({ setIsCancelModalShowm, total, orderInfo }) {
+  const priceToShow = (isFirstPart, sum = 0) => {
+    const curPrice = sum.toFixed(2)
+    if (isFirstPart) {
+      return curPrice.substring(0, curPrice.indexOf('.'))
+    }
+    return curPrice.substring(curPrice.lastIndexOf('.') + 1)
+  }
   return (
     <>
       <div className={styles.container}>
@@ -29,7 +36,8 @@ function Options({ setIsCancelModalShowm, total, orderInfo }) {
           <div>Cancellation policy</div>
         </div> */}
         <div>
-          Total: <span className={styles.total}>${total}</span>.00
+          Total: <span className={styles.total}>${priceToShow(true, total)}.</span>
+          {priceToShow(false, total)}
         </div>
       </div>
     </>
