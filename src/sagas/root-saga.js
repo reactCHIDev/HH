@@ -19,6 +19,7 @@ import admin from './admin'
 import toggleFavourite from './favourites'
 import search from './search'
 import chat from './chat'
+import files from './files'
 
 export default function* rootSaga() {
   yield all([
@@ -42,5 +43,6 @@ export default function* rootSaga() {
     toggleFavourite(),
     search(),
     chat(),
+    files(),
   ])
 }
