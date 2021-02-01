@@ -9,7 +9,7 @@ import tick from 'assets/sound/tick.mp3'
 import cls from 'classnames'
 import { setPageAC, setChatHeightAC } from 'actions/chat'
 import attachment from 'assets/icons/svg/attachment.svg'
-import UploaderFile from 'components/UploaderFile'
+import UploaderFile from 'components/ChatUploaderFile'
 import Message from '../Message'
 import MyMessage from '../MyMessage'
 import styles from './chat.module.scss'
@@ -62,7 +62,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   }, [page])
 
   const onSend = () => {
-    if (message !== '') {
+    if (message !== '' || fileList.length) {
       sendMessage(socket, message, fileList, activeChat)
       setMessage('')
     }
@@ -123,11 +123,8 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
           })}
         </div>
       </div>
-      <UploaderFile setFileList={setFileList} />
+      {!newMsg ? <UploaderFile setFileList={setFileList} /> : <div style={{ height: 20 }} />}
       <div className={styles.bottomSection}>
-        {/*   <div className={styles.addWrapper}>
-          <img src={attachment} alt="pic" />
-        </div> */}
         <textarea
           ref={msgInput}
           className={styles.input}

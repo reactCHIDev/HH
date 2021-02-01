@@ -23,7 +23,7 @@ const UploaderFile = ({ setFileList }) => {
     headers: { 'x-api-key': process.env.REACT_APP_X_API_KEY, ...getToken(), From: 'message' },
     onChange(info) {
       if (info.file.status === 'removed') {
-        setFileList(info.fileList.map((e) => e.response.url))
+        setFileList(info.fileList.map((e) => e?.response?.url))
       }
       if (info.file.status === 'done') {
         setFileList(info.fileList.map((e) => e.response.url))
@@ -35,12 +35,10 @@ const UploaderFile = ({ setFileList }) => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <Upload {...props}>
-          <Button icon={<PaperClipOutlined />} size="large" ref={uploadBtn} />
-        </Upload>
-      </div>
+    <div className="chat-uploader">
+      <Upload {...props}>
+        <Button icon={<PaperClipOutlined />} size="large" ref={uploadBtn} />
+      </Upload>
     </div>
   )
 }
