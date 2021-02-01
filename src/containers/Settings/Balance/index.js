@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { Button } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
+import CurrencyInput from 'react-currency-input'
 
 import { createWithdrawAC } from 'actions/foodmaker'
 import Info from 'assets/icons/svg/info-green.svg'
@@ -24,6 +25,8 @@ const Balance = () => {
   const onMoneyChange = (e) => setMoney(e.target.value)
 
   const onWithdraw = () => {
+    console.log(errors)
+    handleSubmit()
     setWithdraw((w) => !w)
     if (withdraw)
       dispatch(
@@ -42,7 +45,7 @@ const Balance = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)} id="hook-form">
           <div className={styles.description}>
             <img src={Info} alt="icon" />
             Payment is process every Monday after each booking occurred. It may take 3-5 business
@@ -57,9 +60,12 @@ const Balance = () => {
               placeholder="Enter bank name"
               autoComplete="off"
               ref={register({
-                required: false,
+                required: true,
               })}
             />
+            {_.get('title.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
           </div>
 
           <div className={styles.form_item}>
@@ -71,12 +77,15 @@ const Balance = () => {
               placeholder="Enter account number"
               autoComplete="off"
               ref={register({
-                required: false,
+                required: true,
                 pattern: {
                   value: /^(?=.*\d).{12,12}$/,
                 },
               })}
             />
+            {_.get('accnumber.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
             {_.get('accnumber.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>12 digits</p>
             )}
@@ -91,12 +100,15 @@ const Balance = () => {
               placeholder="Code"
               autoComplete="off"
               ref={register({
-                required: false,
+                required: true,
                 pattern: {
                   value: /^(?=.*\d).{8,12}$/,
                 },
               })}
             />
+            {_.get('code.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
             {_.get('code.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>8-12 digits</p>
             )}
@@ -111,21 +123,24 @@ const Balance = () => {
               placeholder="Enter payment phone number"
               autoComplete="off"
               ref={register({
-                required: false,
+                required: true,
                 pattern: {
                   value: /^(?=.*\d).{8,12}$/,
                 },
               })}
             />
+            {_.get('phone.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
             {_.get('phone.type', errors) === 'pattern' && (
               <p className={styles.errmsg}>Should be phone number</p>
             )}
           </div>
 
           <div className={styles.btn_container}>
-            <Button type="primary" block size="large" loading={false} htmlType="submit">
+            <button type="submit" form="hook-form">
               SAVE CHANGES
-            </Button>
+            </button>
           </div>
         </form>
         <div className={styles.balance_container}>
@@ -139,26 +154,25 @@ const Balance = () => {
               </div>
             ) : (
               <>
-                <span className={styles.sum}>$</span>
-                <input
-                  className={styles.input_withdraw}
-                  name="withdraw"
-                  type="number"
-                  onChange={onMoneyChange}
+                <CurrencyInput
+                  onChangeEvent={onMoneyChange}
                   value={moneyValue}
-                  placeholder={0.0}
-                  autoComplete="off"
+                  className={styles.amountInput}
+                  prefix="$ "
+                  suffix=" HKD"
+                  spellCheck="false"
                 />
-                <span className={styles.hkd}>HKD</span>
               </>
             )}
           </div>
-          <div
+          <button
             className={withdraw ? styles.req_withdraw : styles.withdraw}
             onClick={!balance?.pending ? onWithdraw : null}
+            type="submit"
+            form="hook-form"
           >
             {!balance?.pending ? (withdraw ? 'REQUEST WITHDRAW' : 'WITHDRAW') : 'Pending'}
-          </div>
+          </button>
         </div>
         {false && (
           <div className={styles.success}>Wait a few seconds, your request is being processed</div>
