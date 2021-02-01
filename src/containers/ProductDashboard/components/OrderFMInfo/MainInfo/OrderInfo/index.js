@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useSelector } from 'react-redux'
+import InvoiceIcon from 'assets/icons/svg/invoice-icon.svg'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import StatusWrapper from './components/Status'
 import styles from './orderInfo.module.scss'
@@ -24,7 +25,19 @@ function OrderInfo() {
   return order?.orderProducts ? (
     <div className={styles.container}>
       {/* Header */}
-      <StatusWrapper deliveryStatus={order.deliveryStatus} id={order.id} />
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
+        <StatusWrapper deliveryStatus={order.deliveryStatus} id={order.id} />
+        <div className={styles.printButton}>
+          <button
+            type="button"
+            onClick={() => {
+              // window.open(orderInfo.paymentDetails.receipt_url, '_blank')
+            }}
+          >
+            <img src={InvoiceIcon} alt="invoice_icon" />
+          </button>
+        </div>
+      </div>
       {/* Order */}
       {order.orderProducts.map((item) => (
         <div key={item.id}>
@@ -67,7 +80,8 @@ function OrderInfo() {
           </div>
         </div>
         <div className={styles.total}>
-          Total: {order.orderTotal}$<span className={styles.value}>Refund</span>
+          Total: $ {order.orderTotal.toFixed(2)}
+          <span className={styles.value}>Refund</span>
         </div>
       </div>
       {/* Client */}

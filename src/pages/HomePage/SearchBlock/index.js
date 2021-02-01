@@ -146,7 +146,11 @@ function SearchBlock() {
           <input
             className={styles.input}
             type="text"
-            placeholder="Cakes & bakes products"
+            placeholder={
+              searchType === 'Products'
+                ? 'food & drink, catering, gift hampers...'
+                : 'chef, food maker, tastemaker...'
+            }
             onChange={(e) => setSearchValue(e.target.value)}
           />
           {searchedDataResults.length ? (
@@ -166,7 +170,9 @@ function SearchBlock() {
             </div>
           ) : null}
         </div>
-        <span className={styles.label}>Celebration, Team Building, Family Day etc.</span>
+        <span style={{ opacity: '0' }} className={styles.label}>
+          Celebration, Team Building, Family Day etc.
+        </span>
       </div>
       <div className={styles.input_wrapper}>
         <label className={styles.label}>City *</label>
