@@ -65,6 +65,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
     if (message !== '' || fileList.length) {
       sendMessage(socket, message, fileList, activeChat)
       setMessage('')
+      setFileList([])
     }
   }
 

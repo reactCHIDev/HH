@@ -82,4 +82,7 @@ export default {
   // Search
   searchInProducts: '/v1/search/product/predictive',
   searchInFoodMakers: '/v1/search/foodmaker/predictive',
+
+  // Files
+  deleteFile: '/v1/file/delete/photo/',
 }
