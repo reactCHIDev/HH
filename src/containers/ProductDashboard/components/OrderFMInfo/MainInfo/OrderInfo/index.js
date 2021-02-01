@@ -31,7 +31,7 @@ function OrderInfo() {
           <button
             type="button"
             onClick={() => {
-              // window.open(orderInfo.paymentDetails.receipt_url, '_blank')
+              window.open(order.paymentDetails.receipt, '_blank')
             }}
           >
             <img src={InvoiceIcon} alt="invoice_icon" />
