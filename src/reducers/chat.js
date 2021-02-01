@@ -36,11 +36,11 @@ const reducer = (state = initialState, action) => {
       }
 
     case SET_DIALOGS:
-      const dialogs = action.payload
+      const dialogs = cloneDeep(action.payload)
       const newChat = state.newContact
       const chatList =
         newChat && !dialogs.find((e) => e?.recipient?.id === newChat?.id)
-          ? [newChat].concat(cloneDeep(dialogs))
+          ? [newChat].concat(dialogs)
           : dialogs
       return {
         ...state,
@@ -54,7 +54,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case ADD_NEW_DIALOG:
-      const newDialogs = state.dialogs.concat(action.payload)
+      const newDialogs = cloneDeep(state.dialogs).concat(action.payload)
       return {
         ...state,
         dialogs: newDialogs,
