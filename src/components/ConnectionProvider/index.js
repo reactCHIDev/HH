@@ -8,9 +8,16 @@ import { connect } from 'react-redux'
 
 /* CUSTOM MODULES */
 import setConnectionState from 'actions/connection'
+import { clearChat } from 'actions/chat'
 import OfflinePage from './OfflinePage'
 
-function ConnectionProvider({ location, children, setConnectionState: setState, isConnected }) {
+function ConnectionProvider({
+  location,
+  children,
+  setConnectionState: setState,
+  isConnected,
+  clearChat,
+}) {
   const handleConnectionChange = () => {
     setState(navigator.onLine)
   }
@@ -29,6 +36,7 @@ function ConnectionProvider({ location, children, setConnectionState: setState, 
     if (!navigator.onLine) {
       setState(false)
     }
+    if (location.pathname !== '/messages') clearChat()
   }, [location.pathname])
 
   return isConnected ? children : <OfflinePage />
@@ -48,5 +56,5 @@ export default connect(
   ({ connection }) => ({
     isConnected: connection.isConnected,
   }),
-  { setConnectionState },
+  { setConnectionState, clearChat },
 )(withRouter(ConnectionProvider))

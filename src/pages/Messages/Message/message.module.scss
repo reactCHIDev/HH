@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  align-self: flex-start;
+  padding: 12px 18px;
+  background: #f5f8fb;
+  border-radius: 8px;
+  margin: 16px;
+  width: 90%;
+  @media screen and (max-width: 768px) {
+  }
+  .local_avatar_info {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    cursor: pointer;
+
+    .local_avatar_box {
+      margin-right: 15px;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+  .text_container {
+    flex-grow: 2;
+    .info_container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3px;
+      .local_name {
+        max-height: 40px;
+        overflow: hidden;
+        font-weight: bold;
+        font-size: 14px;
+        color: #3c3e43;
+        margin-right: 5px;
+      }
+      .last_date {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: #838894;
+      }
+    }
+    .text_msg {
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: #838894;
+      margin-bottom: 12px;
+    }
+    .file_link_wrapper {
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: #838894;
+      padding: 6px;
+      cursor: pointer;
+      .dl_icon {
+        width: 12px;
+        height: 12px;
+        margin-right: 7px;
+      }
+    }
+  }
+}

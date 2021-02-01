@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { Spin, Space, Rate } from 'antd'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
 import { getProductInfoRequestAC } from 'actions/product'
@@ -91,7 +91,7 @@ const ShopPage = (props) => {
         </Space>
       </div>
     )
-
+  console.log('%c   fm   ', 'color: darkgreen; background: palegreen;', fm)
   return (
     <div>
       <div className={styles.header}>
@@ -127,9 +127,16 @@ const ShopPage = (props) => {
                 <p className={styles.btn_text}>Favorite Shop</p>
                 <span className={styles.likes}>{`(${inFavorite})`}</span>
               </div>
-              <div className={styles.send_msg}>
-                <img className={styles.heart} src={envelope} alt="envelope" />
-              </div>
+              <Link
+              /* to={{
+                  pathname: '/messages',
+                  state: { id: fm.userId, profileName: fm.profileName, userPhoto: fm.userPhoto },
+                }} */
+              >
+                <div className={styles.send_msg}>
+                  <img className={styles.heart} src={envelope} alt="envelope" />
+                </div>
+              </Link>
             </div>
           </div>
           <div className={styles.photo_section}>

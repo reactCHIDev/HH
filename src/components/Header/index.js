@@ -39,6 +39,7 @@ const Header = (props) => {
     userPhoto,
     profileName,
     shop,
+    newMessages,
     logOut,
     pathname,
     pushRoute,
@@ -58,6 +59,7 @@ const Header = (props) => {
     '/foodmaker_dashboard',
     '/product_dashboard',
     '/fm_order_info',
+    '/messages',
     '/account_info',
     '/order_info',
     '/addproduct',
@@ -234,35 +236,42 @@ const Header = (props) => {
               </div>
             </li>
           )}
-          <li className={styles.hide} style={{ opacity: 0.5 }}>
-            <div>
-              <svg
-                width="19"
-                height="19"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="1">
-                  <rect
-                    x="1.33301"
-                    y="4"
-                    width="21.3333"
-                    height="16"
-                    rx="3"
-                    stroke={dark ? 'white' : '#31394D'}
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M2.66699 6.66699L10.8378 12.5033C11.5332 13 12.4674 13 13.1628 12.5033L21.3337 6.66699"
-                    stroke={dark ? 'white' : '#31394D'}
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </g>
-              </svg>
-            </div>
+          <li className={styles.hide}>
+            <Link to="/messages">
+              <div style={{ position: 'relative' }}>
+                {newMessages > 0 ? (
+                  <div className={styles.basketAmount}>
+                    <div>{newMessages}</div>
+                  </div>
+                ) : null}
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g opacity="1">
+                    <rect
+                      x="1.33301"
+                      y="4"
+                      width="21.3333"
+                      height="16"
+                      rx="3"
+                      stroke={dark ? 'white' : '#31394D'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M2.66699 6.66699L10.8378 12.5033C11.5332 13 12.4674 13 13.1628 12.5033L21.3337 6.66699"
+                      stroke={dark ? 'white' : '#31394D'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </Link>
           </li>
           {/* {authorized && ( */}
           <li>
@@ -413,6 +422,7 @@ Header.propTypes = {
   role: T.string,
   profileName: T.string,
   pathname: T.string.isRequired,
+  newMessages: T.number,
   logOut: T.func.isRequired,
   pushRoute: T.func.isRequired,
   userPhoto: T.string,
@@ -427,7 +437,8 @@ export default connect(
     },
     account: { userPhoto, profileName, id, role, shop },
     cart: { products },
-  }) => ({ authorized, id, role, profileName, pathname, userPhoto, shop, products }),
+    chat: { newMessages },
+  }) => ({ authorized, id, role, profileName, pathname, userPhoto, shop, products, newMessages }),
   {
     logOut: logout,
     pushRoute: push,
