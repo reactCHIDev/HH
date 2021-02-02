@@ -9,6 +9,7 @@ import {
   UPDATE_FOODMAKER_ACCOUNT_SUCCESS,
   UPDATE_FOODMAKER_ACCOUNT_ERROR,
   CREATE_WITHDRAW_REQUESTING,
+  UPDATE_BANK_DATA_REQUESTING,
 } from './constants'
 
 export const getFoodmakerInfoAC = (id) => ({
@@ -56,5 +57,10 @@ export const updateFoodmakerAccountErrorAC = (payload) => ({
 
 export const createWithdrawAC = (payload) => ({
   type: CREATE_WITHDRAW_REQUESTING,
+  payload,
+})
+
+export const updateBankDataAc = (payload) => ({
+  type: UPDATE_BANK_DATA_REQUESTING,
   payload,
 })

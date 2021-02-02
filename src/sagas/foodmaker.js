@@ -1,4 +1,4 @@
-import { put, takeEvery, delay } from 'redux-saga/effects'
+import { put, takeEvery, delay, takeLatest } from 'redux-saga/effects'
 import PATHS from 'api/paths'
 
 import {
@@ -6,6 +6,7 @@ import {
   getFoodmakerInfoByNameReq,
   updateFoodmakerAccountReq,
   createWithdrawReq,
+  updateBankDataReq,
 } from 'api/requests/foodmaker'
 
 import {
@@ -21,6 +22,9 @@ import {
   CREATE_WITHDRAW_REQUESTING,
   CREATE_WITHDRAW_SUCCESS,
   CREATE_WITHDRAW_ERROR,
+  UPDATE_BANK_DATA_REQUESTING,
+  UPDATE_BANK_DATA_SUCCESS,
+  UPDATE_BANK_DATA_ERROR,
 } from '../actions/constants'
 
 function* getFoodmakerInfoSaga({ id }) {
@@ -71,11 +75,23 @@ function* createWithdrawSaga({ payload }) {
   }
 }
 
+function* updateBankDataSaga({ payload }) {
+  try {
+    yield updateBankDataReq(payload)
+    yield put({ type: UPDATE_BANK_DATA_SUCCESS })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: UPDATE_BANK_DATA_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(GET_FOODMAKER_INFO_REQUESTING, getFoodmakerInfoSaga)
   yield takeEvery(GET_FOODMAKER_INFO_BY_NAME_REQUESTING, getFoodmakerInfoByNameSaga)
   yield takeEvery(UPDATE_FOODMAKER_ACCOUNT_REQUESTING, changeFoodmakerAccount)
   yield takeEvery(CREATE_WITHDRAW_REQUESTING, createWithdrawSaga)
+  yield takeEvery(UPDATE_BANK_DATA_REQUESTING, updateBankDataSaga)
 }
 
 export default accountWatcher
