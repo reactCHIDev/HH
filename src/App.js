@@ -92,18 +92,6 @@ export const WebSocketContext = createContext(null)
 function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
   const [socket, setWs] = useState(null)
 
-  console.log(
-    '%c   xhr   ',
-    'color: darkgreen; background: palegreen;',
-    process.env.REACT_APP_BASE_URL,
-  )
-  console.log(
-    '%c   ws   ',
-    'color: darkgreen; background: palegreen;',
-    process.env.REACT_WEBSOCKET_BASE_URL,
-  )
-  console.log('%c   env   ', 'color: darkgreen; background: palegreen;', process.env)
-
   useEffect(() => {
     if (authorized) {
       const token = getItem('authorization-token')
@@ -131,10 +119,9 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
         if (socket) {
           console.error('Disconnected.')
         }
-        /* socket = new WebSocket(
-          `${process.env.REACT_WEBSOCKET_BASE_URL}/ws/v1?accessToken=${accessToken}`,
-        ) */
-        socket = new WebSocket(`wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`)
+        socket = new WebSocket(
+          `${process.env.REACT_APP_WEBSOCKET_BASE_URL}/ws/v1?accessToken=${accessToken}`,
+        )
 
         socket.addEventListener('open', socketOpenListener)
         socket.addEventListener('message', socketMessageListener)

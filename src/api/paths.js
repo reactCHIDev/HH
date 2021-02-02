@@ -84,5 +84,5 @@ export default {
   searchInFoodMakers: '/v1/search/foodmaker/predictive',
 
   // Files
-  deleteFile: '/v1/file/delete/photo/',
+  deleteFile: '/v1/file/delete/file/',
 }
