@@ -55,7 +55,6 @@ const FoodmakerPage = (props) => {
   const [gallery, setGallery] = useState([])
   const [isFavorite, setIsFavorite] = React.useState('')
   const [inFavorite, setInFavoite] = React.useState()
-  console.log(fm)
 
   useEffect(() => {
     resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
@@ -157,10 +156,10 @@ const FoodmakerPage = (props) => {
                 <img className={styles.shop_icon} src={fm?.coverPhoto} alt="icon" />
                 <div>
                   <p className={styles.shop_owner}>{`SHOP OF ${fm.firstName}`}</p>
-                  <p className={styles.shop_name}>{shop.title}</p>
+                  <p className={styles.shop_name}>{shop?.title}</p>
                 </div>
               </div>
-              <p className={styles.shop_descr}>{shop.description}</p>
+              <p className={styles.shop_descr}>{shop?.description}</p>
               <div className={styles.btn_container}>
                 {/* <Link to={{ pathname: '/shop_page', state: fm.id }}> */}
                 <Button title="Visit shop" onClick={shop?.shopUrl ? openShop : null} />
