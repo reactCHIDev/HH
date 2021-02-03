@@ -25,6 +25,8 @@ const initialState = {
   awaitingConfirmation: false,
   success: false,
   isPaymentDataValid: false,
+  showWithdrawNotification: false,
+  showBankDataNotification: false,
 }
 
 const reducer = function accountReducer(state = initialState, action) {
@@ -78,6 +80,18 @@ const reducer = function accountReducer(state = initialState, action) {
       return {
         ...state,
         isPaymentDataValid: false,
+      }
+
+    case 'NOTIFICATION_FOR_PREV_WITHDRAW':
+      return {
+        ...state,
+        showWithdrawNotification: action.show,
+      }
+
+    case 'NOTIFICATION_FOR_UPDATE_BANK_DATA':
+      return {
+        ...state,
+        showBankDataNotification: action.show,
       }
 
     default:

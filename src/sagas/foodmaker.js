@@ -69,7 +69,11 @@ function* createWithdrawSaga({ payload }) {
     yield delay(3000)
     yield put({ type: 'RESET_ACCOUNT_SUCCESS' })
   } catch (error) {
-    if (error.response) {
+    if ((error.response.data.message = 'Your previous withdraw request is pending')) {
+      yield put({ type: 'NOTIFICATION_FOR_PREV_WITHDRAW', show: true })
+      yield delay(3000)
+      yield put({ type: 'NOTIFICATION_FOR_PREV_WITHDRAW', show: false })
+    } else {
       yield put({ type: CREATE_WITHDRAW_ERROR, error: error.response.data.error })
     }
   }
@@ -79,6 +83,9 @@ function* updateBankDataSaga({ payload }) {
   try {
     yield updateBankDataReq(payload)
     yield put({ type: UPDATE_BANK_DATA_SUCCESS })
+    yield put({ type: 'NOTIFICATION_FOR_UPDATE_BANK_DATA', show: true })
+    yield delay(7000)
+    yield put({ type: 'NOTIFICATION_FOR_UPDATE_BANK_DATA', show: false })
   } catch (error) {
     if (error.response) {
       yield put({ type: UPDATE_BANK_DATA_ERROR, error: error.response.data.error })
