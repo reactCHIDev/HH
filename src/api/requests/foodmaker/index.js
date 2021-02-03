@@ -21,4 +21,6 @@ export const getFoodmakerOrderInfoReq = (id) => apiClient.get(PATHS.fmOrderInfo 
 
 export const createWithdrawReq = (data) => apiClient.post(PATHS.createWithdraw, { data })
 
+export const updateBankDataReq = (data) => apiClient.post(PATHS.updateBankData, { data })
+
 export const changeDeliveryStatusReq = (data) => apiClient.patch(PATHS.changeDelStatus, { data })

@@ -6,14 +6,13 @@ import {
   DELETE_ITEM_FROM_PRODUCTS,
   SET_ITEM_IN_ORDERS,
   SET_SHOP_DATA,
-  INC_PRODUCT_AMOUNT,
-  DEC_PRODUCT_AMOUNT,
   CHANGE_DELIVERY_TYPE,
   ADD_ITEM_TO_ORDER,
   CREATE_ORDER_SUCCESS,
   DELETE_PRODUCT_FROM_LIST,
   DELETE_PRODUCT_AND_SHOP_FROM_LIST,
   CLEAR_CART,
+  UPDATE_CART,
 } from '../actions/constants'
 
 const initialState = {
@@ -56,6 +55,17 @@ const deleteDataAfterError = (state, elementToDelete) => {
   setItem('cart', stateAfterDelete)
   return stateAfterDelete
 }
+
+const totalPriceCounter = (state) => {
+  newState = cloneDeep(state)
+  newState.totalPrice = Object.values(newState.shopsData).reduce(
+    (c, p) => c + (p.price + p.delivery.price),
+    0,
+  )
+  setItem('cart', newState)
+  return newState
+}
+
 const reducer = function cartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT_TO_BASKET:
@@ -124,52 +134,6 @@ const reducer = function cartReducer(state = initialState, action) {
       setItem('cart', newState)
       return newState
 
-    case INC_PRODUCT_AMOUNT:
-      newState = {
-        ...state,
-        orders: {
-          ...state.orders,
-          [action.data.shop]: state.orders[action.data.shop].map((item) =>
-            item.id === action.data.id
-              ? { ...item, total: item.total + 1, totalPrice: item.totalPrice + action.data.price }
-              : item,
-          ),
-        },
-        shopsData: {
-          ...state.shopsData,
-          [action.data.shop]: {
-            ...state.shopsData[action.data.shop],
-            price: state.shopsData[action.data.shop].price + action.data.price,
-          },
-        },
-        totalPrice: state.totalPrice + action.data.price,
-      }
-      setItem('cart', newState)
-      return newState
-
-    case DEC_PRODUCT_AMOUNT:
-      newState = {
-        ...state,
-        orders: {
-          ...state.orders,
-          [action.data.shop]: state.orders[action.data.shop].map((item) =>
-            item.id === action.data.id
-              ? { ...item, total: item.total - 1, totalPrice: item.totalPrice - action.data.price }
-              : item,
-          ),
-        },
-        shopsData: {
-          ...state.shopsData,
-          [action.data.shop]: {
-            ...state.shopsData[action.data.shop],
-            price: state.shopsData[action.data.shop].price - action.data.price,
-          },
-        },
-        totalPrice: state.totalPrice - action.data.price,
-      }
-      setItem('cart', newState)
-      return newState
-
     case CHANGE_DELIVERY_TYPE:
       newState = {
         ...state,
@@ -233,6 +197,26 @@ const reducer = function cartReducer(state = initialState, action) {
         ...state,
         ...initialState,
       }
+
+    case UPDATE_CART:
+      newState = {
+        ...action.data.newState,
+        shopsData: {
+          ...action.data.newState.shopsData,
+          [action.data.shop]: {
+            ...action.data.newState.shopsData[action.data.shop],
+            price: Object.values(action.data.newState.orders[action.data.shop]).reduce(
+              (c, p) => c + p.totalPrice,
+              0,
+            ),
+          },
+        },
+        totalPrice: Object.values(action.data.newState.shopsData).reduce(
+          (c, p) => c + (p.price + p.delivery.price),
+          0,
+        ),
+      }
+      return totalPriceCounter(newState)
 
     default:
       return state

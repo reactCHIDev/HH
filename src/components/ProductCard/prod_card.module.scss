@@ -29,6 +29,22 @@
     justify-content: space-between;
     width: 100%;
 
+    .hit_container {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      height: 32px;
+      width: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      background: #7ad398;
+      color: white;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+
     .img_container {
       height: 0;
       padding-bottom: 100%;

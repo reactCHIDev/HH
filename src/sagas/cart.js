@@ -12,6 +12,9 @@ import {
   ADD_ITEM_TO_ORDER,
   DELETE_PRODUCT_FROM_LIST,
   DELETE_PRODUCT_AND_SHOP_FROM_LIST,
+  INC_PRODUCT_AMOUNT,
+  DEC_PRODUCT_AMOUNT,
+  UPDATE_CART,
 } from '../actions/constants'
 
 function* basketFlow({ data }) {
@@ -92,8 +95,91 @@ function* basketFlow({ data }) {
   }
 }
 
+function* incProductFlow({ data }) {
+  const { shop, id, addDiscount } = data
+  const getOrdersData = (store) => store.cart
+  const state = yield select(getOrdersData)
+  let newState = cloneDeep(state)
+
+  if (addDiscount) {
+    newState = {
+      ...newState,
+      orders: {
+        ...newState.orders,
+        [shop]: newState.orders[shop].map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                total: item.total + 1,
+                price: item.price * (1 - item.discount.discount / 100),
+                prevPrice: item.price,
+                totalPrice: (item.total + 1) * item.price * (1 - item.discount.discount / 100),
+              }
+            : item,
+        ),
+      },
+    }
+  } else {
+    newState = {
+      ...newState,
+      orders: {
+        ...newState.orders,
+        [shop]: newState.orders[shop].map((item) =>
+          item.id === id
+            ? { ...item, total: item.total + 1, totalPrice: (item.total + 1) * item.price }
+            : item,
+        ),
+      },
+    }
+  }
+
+  yield put({ type: UPDATE_CART, data: { newState, shop } })
+}
+
+function* decProductFlow({ data }) {
+  const { shop, id, removeDiscount } = data
+  const getOrdersData = (store) => store.cart
+  const state = yield select(getOrdersData)
+  let newState = cloneDeep(state)
+
+  if (removeDiscount) {
+    newState = {
+      ...newState,
+      orders: {
+        ...newState.orders,
+        [shop]: newState.orders[shop].map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                total: item.total - 1,
+                price: item.prevPrice,
+                totalPrice: (item.total - 1) * item.prevPrice,
+              }
+            : item,
+        ),
+      },
+    }
+  } else {
+    newState = {
+      ...newState,
+      orders: {
+        ...newState.orders,
+        [shop]: newState.orders[shop].map((item) =>
+          item.id === id
+            ? { ...item, total: item.total - 1, totalPrice: (item.total - 1) * item.price }
+            : item,
+        ),
+      },
+    }
+  }
+
+  yield put({ type: UPDATE_CART, data: { newState, shop } })
+}
+
 function* cartWatcher() {
   yield takeLatest(ADD_PRODUCT_TO_BASKET, basketFlow)
+  yield takeLatest(INC_PRODUCT_AMOUNT, incProductFlow)
+  yield takeLatest(DEC_PRODUCT_AMOUNT, decProductFlow)
 }
 
 export default cartWatcher

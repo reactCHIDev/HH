@@ -7,13 +7,51 @@ import styles from './table.module.scss'
 
 function TableRow({ item }) {
   const dispatch = useDispatch()
-
+  const [isDiscount, setIsDiscount] = React.useState(item.total >= item.discount.quantity)
   const incAmount = () => {
-    dispatch(incProductAmount({ id: item.id, shop: item.shop.title, price: item.price }))
+    if (!isDiscount && item.total + 1 >= item.discount.quantity) {
+      dispatch(
+        incProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          addDiscount: true,
+        }),
+      )
+      setIsDiscount(true)
+    } else {
+      dispatch(
+        incProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          addDiscount: false,
+        }),
+      )
+    }
   }
 
   const decAmount = () => {
-    dispatch(decProductAmount({ id: item.id, shop: item.shop.title, price: item.price }))
+    if (isDiscount && item.total - 1 < item.discount.quantity) {
+      dispatch(
+        decProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          removeDiscount: true,
+        }),
+      )
+      setIsDiscount(false)
+    } else {
+      dispatch(
+        decProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          removeDiscount: false,
+        }),
+      )
+    }
   }
 
   const deleteProduct = () => {

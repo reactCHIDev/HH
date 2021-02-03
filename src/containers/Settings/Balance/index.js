@@ -3,9 +3,9 @@ import T from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { Button } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import CurrencyInput from 'react-currency-input'
+import CurrencyInput from 'react-currency-input-field'
 
-import { createWithdrawAC } from 'actions/foodmaker'
+import { createWithdrawAC, updateBankDataAc } from 'actions/foodmaker'
 import Info from 'assets/icons/svg/info-green.svg'
 import _ from 'lodash/fp'
 
@@ -17,21 +17,26 @@ const Balance = () => {
   const [moneyValue, setMoney] = useState(0)
   const dispatch = useDispatch()
   const balance = useSelector((state) => state.account.balance)
+  const isValid = useSelector((state) => state.foodmaker.isPaymentDataValid)
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      title: balance?.bankName || '',
+      code: balance?.bankCode || '',
+      accnumber: balance?.accountNumber || '',
+      phone: balance?.paymentPhone || '',
+    },
   })
 
-  const onMoneyChange = (e) => setMoney(e.target.value)
+  const onMoneyChange = (v) => setMoney(v)
 
   const onWithdraw = () => {
-    console.log(errors)
-    handleSubmit()
     setWithdraw((w) => !w)
     if (withdraw)
       dispatch(
         createWithdrawAC({
-          amount: Number(moneyValue),
+          amount: Number(moneyValue > balance?.hkd ? balance?.hkd : moneyValue),
           currency: 'HKD',
         }),
       )
@@ -39,7 +44,14 @@ const Balance = () => {
   }
 
   const onSubmit = (data) => {
-    console.log('%c   data   ', 'color: white; background: salmon;', data)
+    dispatch(
+      updateBankDataAc({
+        bankName: data.title,
+        bankCode: data.code,
+        accountNumber: data.accnumber,
+        paymentPhone: data.phone,
+      }),
+    )
   }
 
   return (
@@ -115,7 +127,7 @@ const Balance = () => {
           </div>
 
           <div className={styles.form_item}>
-            <div className={styles.label}>Payme phone number</div>
+            <div className={styles.label}>Payment phone number</div>
             <input
               className={styles.input}
               name="phone"
@@ -155,21 +167,24 @@ const Balance = () => {
             ) : (
               <>
                 <CurrencyInput
-                  onChangeEvent={onMoneyChange}
-                  value={moneyValue}
+                  id="money-input"
+                  name="money"
+                  allowNegativeValue={false}
                   className={styles.amountInput}
+                  allowDecimals={false}
+                  defaultValue={0}
                   prefix="$ "
-                  suffix=" HKD"
-                  spellCheck="false"
+                  value={moneyValue}
+                  onValueChange={onMoneyChange}
                 />
               </>
             )}
           </div>
           <button
             className={withdraw ? styles.req_withdraw : styles.withdraw}
-            onClick={!balance?.pending ? onWithdraw : null}
-            type="submit"
-            form="hook-form"
+            style={balance?.bankName || isValid ? {} : { cursor: 'default' }}
+            onClick={!balance?.pending && (balance?.bankName || isValid) ? onWithdraw : null}
+            type="button"
           >
             {!balance?.pending ? (withdraw ? 'REQUEST WITHDRAW' : 'WITHDRAW') : 'Pending'}
           </button>

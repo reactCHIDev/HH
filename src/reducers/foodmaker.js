@@ -5,6 +5,8 @@ import {
   GET_FOODMAKER_INFO_BY_NAME_REQUESTING,
   GET_FOODMAKER_INFO_BY_NAME_SUCCESS,
   GET_FOODMAKER_INFO_BY_NAME_ERROR,
+  UPDATE_BANK_DATA_SUCCESS,
+  UPDATE_BANK_DATA_ERROR,
 } from '../actions/constants'
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
   error: '',
   awaitingConfirmation: false,
   success: false,
+  isPaymentDataValid: false,
 }
 
 const reducer = function accountReducer(state = initialState, action) {
@@ -63,6 +66,18 @@ const reducer = function accountReducer(state = initialState, action) {
         ...state,
         requesting: false,
         error: action.error,
+      }
+
+    case UPDATE_BANK_DATA_SUCCESS:
+      return {
+        ...state,
+        isPaymentDataValid: true,
+      }
+
+    case UPDATE_BANK_DATA_ERROR:
+      return {
+        ...state,
+        isPaymentDataValid: false,
       }
 
     default:
