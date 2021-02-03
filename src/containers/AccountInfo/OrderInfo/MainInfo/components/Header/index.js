@@ -3,7 +3,7 @@ import React from 'react'
 import shareInvoiceIcon from 'assets/icons/svg/share-invoice-icon.svg'
 import styles from './header.module.scss'
 
-function Header({ id, date, time, deliveryType, deliveryStatus }) {
+function Header({ id, date, time, deliveryType, deliveryStatus, receipt }) {
   return (
     <div className={styles.header}>
       <div className={styles.mainOrderInfo}>
@@ -27,9 +27,15 @@ function Header({ id, date, time, deliveryType, deliveryStatus }) {
         </div>
       </div>
       <div>
-        <div className={styles.invoice}>
+        <div
+          className={styles.invoice}
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            window.open(receipt, '_blank')
+          }}
+        >
           <img alt="share-invoice-icon" src={shareInvoiceIcon} />
-          <div>Share Invoice</div>
+          <div>Open Invoice</div>
         </div>
       </div>
     </div>
