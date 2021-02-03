@@ -47,6 +47,10 @@
         color: #fff;
         font-weight: bold;
         margin: 0;
+        @media (max-width: 768px) {
+          font-size: 32px;
+          margin-bottom: 32px;
+        }
 
         mark {
           color: #cc727b;
@@ -64,12 +68,23 @@
       .search_block {
         display: flex;
         justify-content: space-between;
+        // flex-wrap: wrap;
         align-items: flex-end;
         margin: 0 -16px;
+        @media (max-width: 768px) {
+          width: 100%;
+          align-items: center;
+          flex-direction: column;
+          margin: 0;
+        }
 
         .input_wrapper {
           position: relative;
           padding: 0 16px;
+          @media (max-width: 768px) {
+            padding: 0;
+            margin-bottom: 16px;
+          }
 
           // &:first-child {
           //   width: 50%;
@@ -118,6 +133,7 @@
             width: 87%;
             border-radius: 10px;
             padding: 7px 45px 5px 0px;
+            z-index: 2;
             div {
               margin: 0px 5px 5px 10px;
               cursor: pointer;
@@ -137,6 +153,7 @@
             border: 1px solid black;
             padding: 5px 0px 5px 0px;
             width: 94%;
+            z-index: 2;
 
             div {
               margin: 0px 5px 5px 10px;
@@ -158,6 +175,32 @@
             border: none;
             background: #fbe4e4;
             border-radius: 8px;
+            @media (max-width: 768px) {
+              width: 120px;
+            }
+          }
+        }
+
+        .type_input {
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+        }
+        .cat_input {
+          flex-grow: 2;
+
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+        }
+        .price_input {
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+        }
+        .btn_input {
+          @media (max-width: 768px) {
+            margin-top: 56px;
           }
         }
 

@@ -177,7 +177,6 @@ function SearchBlock() {
       <div className={styles.input_wrapper}>
         <label className={styles.label}>City *</label>
         <input
-          style={{ borderRadius: '8px' }}
           className={styles.city_input}
           type="text"
           placeholder="Select a city"

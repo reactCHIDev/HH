@@ -5,7 +5,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ProdCard from 'components/ProductCard'
 import { push } from 'connected-react-router'
-
+import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import { getProductTypes } from 'actions/system'
@@ -99,7 +99,7 @@ const ProductExplore = (props) => {
         <div className={styles.header_content}>
           <h1>Products from our food makers </h1>
           <div style={{ width: '100%' }} className={styles.search_block}>
-            <div style={{ width: '20%' }} className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.type_input)}>
               <label className={styles.label}>Type of products</label>
               <div
                 className={styles.input}
@@ -125,7 +125,7 @@ const ProductExplore = (props) => {
               ) : null}
             </div>
 
-            <div style={{ width: '50%' }} className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.cat_input)}>
               <label className={styles.label}>Category</label>
               <div
                 className={styles.input}
@@ -154,7 +154,7 @@ const ProductExplore = (props) => {
               ) : null}
             </div>
             <div
-              className={styles.input_wrapper}
+              className={cls(styles.input_wrapper, styles.price_input)}
               onClick={() => setVisibilityPriceSelector((v) => !v)}
             >
               <label className={styles.label}>Price</label>
@@ -168,7 +168,7 @@ const ProductExplore = (props) => {
                 visible={isVisiblePriceSelector}
               />
             </div>
-            <div className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.btn_input)}>
               <button className={styles.btn_button} type="button" onClick={() => onSearchCLick()}>
                 <svg
                   width="19"

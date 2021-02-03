@@ -94,7 +94,7 @@ const FoodmakersExplore = (props) => {
         <div className={styles.header_content}>
           <h1>Food makers for food lovers</h1>
           <div className={styles.search_block}>
-            <div className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.type_input)}>
               <label className={styles.label}>Type of Food Maker</label>
               <div className="fmSelectWrapper">
                 <Controller
@@ -123,7 +123,7 @@ const FoodmakersExplore = (props) => {
                 />
               </div>
             </div>
-            <div className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.brand_input)}>
               <label className={styles.label}>Search hosts or brands</label>
               <input
                 className={styles.input}
@@ -132,7 +132,7 @@ const FoodmakersExplore = (props) => {
                 placeholder="E.g. Mike"
               />
             </div>
-            <div className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.service_input)}>
               <label className={styles.label}>Service type</label>
               <div
                 onClick={() => setIsServiceTagsToChooseShown((b) => !b)}
@@ -156,11 +156,11 @@ const FoodmakersExplore = (props) => {
                 </div>
               ) : null}
             </div>
-            <div className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.speciality_input)}>
               <label className={styles.label}>Host speciality</label>
               <input disabled className={styles.input} type="text" />
             </div>
-            <div className={styles.input_wrapper}>
+            <div className={cls(styles.input_wrapper, styles.btn_input)}>
               <button type="button" onClick={() => onSearchClickHandler()}>
                 <svg
                   width="19"
