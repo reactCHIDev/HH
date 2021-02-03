@@ -47,6 +47,10 @@
         color: #fff;
         font-weight: bold;
         margin: 0;
+        @media (max-width: 768px) {
+          font-size: 32px;
+          margin-bottom: 64px;
+        }
 
         mark {
           color: #cc727b;
@@ -66,6 +70,13 @@
         justify-content: space-between;
         align-items: flex-end;
         margin: 0 -16px;
+        @media (max-width: 1024px) {
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin: 0;
+        }
 
         .input_wrapper {
           padding: 0 16px;
@@ -146,6 +157,43 @@
             border: none;
             background: #fbe4e4;
             border-radius: 8px;
+            @media (max-width: 1024px) {
+              width: 120px;
+            }
+          }
+        }
+
+        .type_input {
+          @media (max-width: 1024px) {
+            flex-grow: 2;
+            width: 100%;
+          }
+        }
+        .brand_input {
+          @media (max-width: 1024px) {
+            width: 50%;
+          }
+          @media (max-width: 480px) {
+            width: 100%;
+          }
+        }
+        .service_input {
+          position: relative;
+          @media (max-width: 1024px) {
+            width: 50%;
+          }
+          @media (max-width: 480px) {
+            width: 100%;
+          }
+        }
+        .speciality_input {
+          @media (max-width: 1024px) {
+            width: 100%;
+          }
+        }
+        .btn_input {
+          @media (max-width: 1024px) {
+            margin-top: 56px;
           }
         }
       }

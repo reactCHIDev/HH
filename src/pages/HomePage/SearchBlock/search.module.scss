@@ -12,8 +12,9 @@
     padding: 0 16px;
     flex-grow: 2;
 
-    @media (max-width: 480px) {
-      padding: 0 8px;
+    @media (max-width: 768px) {
+      flex-grow: 0;
+      padding: 0px;
     }
 
     .inputs_container {
@@ -29,9 +30,13 @@
       letter-spacing: 0.07em;
       color: #dcdde1;
       margin: 5px 0;
+      text-overflow: ellipsis;
 
       @media (max-width: 1024px) {
         font-size: 12px;
+      }
+      @media (max-width: 768px) {
+        display: none;
       }
     }
     .selectWrapper {
@@ -42,6 +47,14 @@
       height: 56px;
       padding: 5px;
       border-radius: 8px 0 0 8px;
+      @media (max-width: 1024px) {
+        width: 40%;
+        // min-width: 80px;
+      }
+      @media (max-width: 768px) {
+        width: 100%;
+        // min-width: 80px;
+      }
       @media (max-width: 480px) {
         min-width: 80px;
       }
@@ -104,6 +117,7 @@
       max-height: 200px;
       border-radius: 0 0 8px 8px;
       cursor: pointer;
+
       .sugg {
         margin-bottom: 5px;
         padding: 0 20px;
@@ -129,7 +143,13 @@
       width: 80%;
       min-width: 550px;
       border-radius: 0 8px 8px 0;
-
+      @media (max-width: 1024px) {
+        min-width: 250px;
+        width: 60%;
+      }
+      @media (max-width: 768px) {
+        display: none;
+      }
       @media (max-width: 480px) {
         min-width: 160px;
       }
@@ -144,10 +164,12 @@
       font-size: 16px;
       color: #31394d;
       background-color: #ffffff;
-
       border: none;
-      border-radius: 0 8px 8px 0;
-
+      border-radius: 8px;
+      @media (max-width: 768px) {
+        border-radius: 0;
+        margin-right: 16px;
+      }
       @media (max-width: 480px) {
         min-width: 160px;
       }
@@ -164,6 +186,14 @@
       border-radius: 8px;
       display: flex;
       flex-direction: column;
+      @media (max-width: 1024px) {
+        // min-width: 250px;
+        left: 40%;
+        width: 60%;
+      }
+      @media (max-width: 768px) {
+        display: none;
+      }
 
       div {
         margin-bottom: 5px;
@@ -181,6 +211,9 @@
       border: none;
       background: #fbe4e4;
       border-radius: 8px;
+      @media (max-width: 768px) {
+        border-radius: 0 8px 8px 0;
+      }
     }
   }
 }
