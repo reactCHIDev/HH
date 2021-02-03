@@ -44,6 +44,7 @@ const ProdCard = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
+        {product.hitmark === 'Hit' ? <div className={styles.hit_container}>HIT</div> : null}
         <div
           className={styles.img_container}
           style={{ backgroundImage: `url("${photo || sec21}")` }}

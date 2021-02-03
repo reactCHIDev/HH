@@ -20,6 +20,10 @@ function ProductSummary({ shop, title }) {
   const [dataToShow, setDataToShow] = React.useState()
   const [isDataShown, setIsDataShown] = React.useState(false)
   const [isDiscount, setIsDiscount] = React.useState(false)
+  const [freeDelPrice, setFreeDelPrice] = React.useState(
+    delTypes.filter((e) => e.type === 'FreeDelivery')[0].freeDeliveryOver,
+  )
+  const [freeDelInfoShown, setFreeDelInfoShown] = React.useState(false)
 
   const changeType = (type, delPrice) => {
     dispatch(changeDeliveryType({ type, price: delPrice, shop: title }))
@@ -32,12 +36,17 @@ function ProductSummary({ shop, title }) {
   const typePrettier = (type) => {
     if (type === 'Express') return 'Express'
     if (type === 'Standard') return 'Standard'
-    if (type === 'FreePickUp') return 'Free'
-    if (type === 'FreeDelivery') return 'Pick up'
+    if (type === 'FreeDelivery') return 'Free'
+    if (type === 'FreePickUp') return 'Pick up'
     return null
   }
 
   React.useEffect(() => {
+    if (curDelType.type === 'FreeDelivery' && price < curVal.freeDeliveryOver) {
+      const newT = delTypes.filter((e) => e.type !== 'FreeDelivery')[0]
+      setCurValue(newT)
+      changeType(newT.type, newT.delPrice)
+    }
     if (price >= curVal.freeDeliveryOver && !isDiscount) {
       setIsDiscount(true)
       dispatch(changeDeliveryType({ type: curVal.type, price: 0, shop: title }))
@@ -54,6 +63,13 @@ function ProductSummary({ shop, title }) {
       return curPrice.substring(0, curPrice.indexOf('.'))
     }
     return curPrice.substring(curPrice.lastIndexOf('.') + 1)
+  }
+
+  const freeDelHandler = () => {
+    setFreeDelInfoShown(true)
+    setTimeout(() => {
+      setFreeDelInfoShown(false)
+    }, 3000)
   }
 
   return (
@@ -113,9 +129,13 @@ function ProductSummary({ shop, title }) {
               {dataToShow.map((item) => (
                 <div
                   onClick={() => {
-                    setCurValue(item)
-                    setIsDataShown(false)
-                    changeType(item.type, item.delPrice)
+                    if (item.type === 'FreeDelivery' && item.freeDeliveryOver > price) {
+                      freeDelHandler()
+                    } else {
+                      setCurValue(item)
+                      setIsDataShown(false)
+                      changeType(item.type, item.delPrice)
+                    }
                   }}
                   key={item.type}
                   style={{
@@ -142,7 +162,16 @@ function ProductSummary({ shop, title }) {
             </div>
           </div>
         ) : null}
-        {deliveryPrice || isDiscount ? (
+        {freeDelInfoShown ? (
+          <div className={cls(styles.textWrapper, styles.progress)}>
+            <p className={styles.regularText}>
+              <span className={styles.freeShipping}>
+                {`$${(freeDelPrice - price).toFixed(2)} more `}
+              </span>
+              <span>for free delivery type</span>
+            </p>
+          </div>
+        ) : (deliveryPrice || isDiscount) && curDelType.type !== 'FreeDelivery' ? (
           <div className={cls(styles.textWrapper, styles.progress)}>
             <p className={styles.regularText}>
               {curVal.freeDeliveryOver - price > 0 ? (
