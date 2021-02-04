@@ -80,9 +80,10 @@
           position: absolute;
           top: -35px;
           left: 75px;
-          background: #e3f4ca;
+          background: rgba(122, 211, 152, 0.1);
           padding: 2px 6px;
           border-radius: 5px;
+          color: #7ad398;
         }
 
         button {
@@ -121,12 +122,14 @@
       .withdraw_notification {
         position: absolute;
         width: 80%;
-        padding: 10px 15px;
+        top: 0px;
+        padding: 5px 10px;
         align-items: center;
-        background: #ff0044;
+        color: #eb5769;
+        background-color: #f6e5e6;
         text-align: center;
         z-index: 1;
-        border-radius: 21px;
+        border-radius: 5px;
       }
 
       .sub_content {

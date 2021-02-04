@@ -157,7 +157,7 @@ const Balance = () => {
 
           <div className={styles.btn_container}>
             {isBankDataNotificationShown && (
-              <div className={styles.bank_data_notification}>Your bank data saved</div>
+              <div className={styles.bank_data_notification}>Saved successfully</div>
             )}
             <button type="submit" form="hook-form">
               SAVE CHANGES
