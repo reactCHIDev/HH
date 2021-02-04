@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const useSortableData = (items, config = null) => {
+export default function useSortableData(items, config = null) {
   const [sortConfig, setSortConfig] = React.useState(config)
 
   const sortedItems = React.useMemo(() => {
@@ -29,5 +29,3 @@ const useSortableData = (items, config = null) => {
 
   return { items: sortedItems, requestSort }
 }
-
-export default useSortableData

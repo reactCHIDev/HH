@@ -9,6 +9,7 @@ import cls from 'classnames'
 import { searchRequestingnAc, clearSearchDataAc } from 'actions/search'
 import { getCitiesAC } from 'actions/system'
 import useDebounce from 'hooks/useDebounce'
+import useClickOutside from 'hooks/useClickOutside'
 import { setItem } from 'utils/localStorage'
 import ArrowDark from 'assets/icons/svg/down-arrow.svg'
 import styles from './search.module.scss'
@@ -24,24 +25,35 @@ const searchData = [
     url: 'foodmakers_explore',
     isActive: true,
   },
-  {
-    type: 'Experiences',
-    url: 'experiences_explore',
-    isActive: false,
-  },
+  // {
+  //   type: 'Experiences',
+  //   url: 'experiences_explore',
+  //   isActive: false,
+  // },
 ]
 
 function SearchBlock() {
   const dispatch = useDispatch()
+
+  const typeRef = React.useRef()
+  const cityContainerRef = React.useRef()
+  const resultsRef = React.useRef()
+
   const searchedDataResults = useSelector((state) => state.search.data)
   const cities = useSelector((state) => state.system.cities)
+
   const [searchType, setSearchType] = React.useState('Products')
+  const [isSearchTypesVisible, setIsSearchTypesVisible] = React.useState(false)
   const [searchValue, setSearchValue] = React.useState('')
   const [searchCityValue, setSearchCityValue] = React.useState('')
-  const [isSearchTypesVisible, setIsSearchTypesVisible] = React.useState(false)
   const [cityResult, setCityResults] = React.useState([])
-  const [cityVisibility, setCityVisibility] = React.useState(false)
   const [selectedCity, setSelectedCity] = React.useState('')
+  const [cityVisibility, setCityVisibility] = React.useState(false)
+  const [isResultsShown, setIsResultsShown] = React.useState(false)
+
+  useClickOutside(typeRef, () => setIsSearchTypesVisible(false))
+  useClickOutside(cityContainerRef, () => setCityVisibility(false))
+  useClickOutside(resultsRef, () => setIsResultsShown(false))
 
   const clickHandler = (type) => {
     setSearchType(type)
@@ -106,6 +118,15 @@ function SearchBlock() {
     }
   }, [cityResult])
 
+  React.useEffect(() => {
+    console.log()
+    if (searchedDataResults.length > 0) {
+      setIsResultsShown(true)
+    } else {
+      setIsResultsShown(false)
+    }
+  }, [searchedDataResults])
+
   return (
     <div className={styles.search_block}>
       <div className={styles.input_wrapper}>
@@ -126,6 +147,7 @@ function SearchBlock() {
               <div className={styles.typesWrapper}>
                 {searchData.map((item) => (
                   <div
+                    ref={typeRef}
                     onClick={() => {
                       if (searchType === item.type || !item.isActive) return
                       clickHandler(item.type)
@@ -144,6 +166,7 @@ function SearchBlock() {
             ) : null}
           </div>
           <input
+            onClick={() => setIsResultsShown(true)}
             className={styles.input}
             type="text"
             placeholder={
@@ -153,8 +176,8 @@ function SearchBlock() {
             }
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          {searchedDataResults.length ? (
-            <div className={styles.searchedData}>
+          {searchedDataResults.length && isResultsShown ? (
+            <div className={styles.searchedData} ref={resultsRef}>
               {searchedDataResults.map((item) => (
                 <Link
                   key={item.id}
@@ -164,7 +187,7 @@ function SearchBlock() {
                       : `/${item.hungryHuggerLink.split('/').pop()}`
                   }
                 >
-                  <div>{item.title || `${item.firstName} ${item.lastName}`}</div>
+                  <div>{item.title || `${item.user.profileName}`}</div>
                 </Link>
               ))}
             </div>
@@ -188,7 +211,7 @@ function SearchBlock() {
           value={searchCityValue}
         />
         {cityVisibility && (
-          <div className={styles.sugg_container}>
+          <div className={styles.sugg_container} ref={cityContainerRef}>
             {cityResult.map((s) => (
               <div className={styles.sugg}>
                 <div className={styles.sugg_text} onClick={() => selectCity(s)}>
