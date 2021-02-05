@@ -11,6 +11,8 @@ import Footer from 'components/Footer'
 import { getProductTypes } from 'actions/system'
 import { searchRequestingnAc } from 'actions/search'
 import { getItem, setItem } from 'utils/localStorage'
+import useClickOutside from 'hooks/useClickOutside'
+
 import PriceSelector from './PriceSelector'
 import styles from './prodexp.module.scss'
 
@@ -33,7 +35,17 @@ const ProductExplore = (props) => {
   const [maxPrice, setMaxPrice] = React.useState(100)
 
   const dispatch = useDispatch()
-  const { searchTitle, city } = getItem('search_data')
+
+  const searchData = getItem('search_data')
+  const searchTitle = searchData?.searchTitle || ''
+  const city = searchData?.city || ''
+
+  const visiblePriceSelectorRef = React.useRef()
+  const productCategoriesRef = React.useRef()
+  const productTypesRef = React.useRef()
+  useClickOutside(productTypesRef, () => setIsProductTypesToChooseShown(false))
+  useClickOutside(productCategoriesRef, () => setIsProductCategoriesToChooseShown(false))
+  useClickOutside(visiblePriceSelectorRef, () => setVisibilityPriceSelector(false))
 
   React.useEffect(() => {
     dispatch(
@@ -44,7 +56,7 @@ const ProductExplore = (props) => {
     )
     dispatch(getProductTypes())
     return () => {
-      setItem('search_data', [])
+      setItem('search_data', {})
     }
   }, [])
 
@@ -102,7 +114,7 @@ const ProductExplore = (props) => {
         <div className={styles.header_content}>
           <h1>Products from our food makers </h1>
           <div style={{ width: '100%' }} className={styles.search_block}>
-            <div className={cls(styles.input_wrapper, styles.type_input)}>
+            <div className={cls(styles.input_wrapper, styles.type_input)} ref={productTypesRef}>
               <label className={styles.label}>Type of products</label>
               <div
                 className={styles.input}
@@ -128,7 +140,7 @@ const ProductExplore = (props) => {
               ) : null}
             </div>
 
-            <div className={cls(styles.input_wrapper, styles.cat_input)}>
+            <div className={cls(styles.input_wrapper, styles.cat_input)} ref={productCategoriesRef}>
               <label className={styles.label}>Category</label>
               <div
                 className={styles.input}
@@ -159,6 +171,7 @@ const ProductExplore = (props) => {
             <div
               className={cls(styles.input_wrapper, styles.price_input)}
               onClick={() => setVisibilityPriceSelector((v) => !v)}
+              ref={visiblePriceSelectorRef}
             >
               <label className={styles.label}>Price</label>
               <div className={styles.input} type="text">{`$${minPrice} - $${maxPrice}`}</div>

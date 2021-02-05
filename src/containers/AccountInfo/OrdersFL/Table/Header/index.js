@@ -17,7 +17,7 @@ const headers = [
   },
   {
     title: 'Items',
-    sortType: 'orderProducts.length',
+    sortType: 'totalItems',
     style: 'items',
     id: 2,
   },
