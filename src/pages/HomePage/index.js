@@ -84,7 +84,7 @@ const Home = (props) => {
         <section className={styles.product_section}>
           <div className={styles.product_bg_container}>
             <img src={Pattern2} alt="Pattern2" />
-            <h1>Shop local makers</h1>
+            <h1>Local products</h1>
             <p className={styles.slogan}>
               Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
               distillery tour.{' '}

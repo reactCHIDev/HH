@@ -55,25 +55,27 @@ const Security = ({
 
   const isСhangeMailRoute = confirmation ? confirmation.substring(0, 12) === 'change_email' : false
 
-  if (isСhangeMailRoute) {
-    const token = confirmation.substring(12)
-    const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
-    const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : false
+  useEffect(() => {
+    if (isСhangeMailRoute) {
+      const token = confirmation.substring(12)
+      const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
+      const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : false
 
-    if (!valid) {
-      invalidLink('Your email link is expired !')
-      replace('/settings/security')
-    }
-
-    if (valid && authorized) {
-      const payload = {
-        updateEmailLink: PATHS.url + url,
-        newEmail: jwtData.newEmail,
+      if (!valid) {
+        invalidLink('Your email link is expired !')
+        replace('/settings/security')
       }
 
-      emailConfirm(payload)
+      if (valid && authorized) {
+        const payload = {
+          updateEmailLink: PATHS.url + url,
+          newEmail: jwtData.newEmail,
+        }
+
+        emailConfirm(payload)
+      }
     }
-  }
+  }, [isСhangeMailRoute])
 
   const resend = () => {
     const payload = {

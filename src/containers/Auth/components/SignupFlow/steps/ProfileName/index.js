@@ -12,7 +12,7 @@ const ProfileName = (props) => {
   } = props
   return (
     <>
-      <Heading category="Your profile" name="Set public profile name" />
+      <Heading category="Your profile" name="Set your username" />
       <Input
         name={name}
         placeholder="public name"

@@ -44,7 +44,7 @@ const Signup = ({ signupReq, req }) => {
         <h1>Sign up</h1>
         <input
           name="profileName"
-          placeholder="Name"
+          placeholder="Username"
           type="text"
           ref={register({
             validate: async (value) => {
