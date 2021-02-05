@@ -11,7 +11,7 @@ import T from 'prop-types'
 import { searchRequestingnAc } from 'actions/search'
 import { getServiceTagsAC, getSpecialityTagsAC } from 'actions/system'
 
-import { getItem } from 'utils/localStorage'
+import { getItem, setItem } from 'utils/localStorage'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import FMCard from './components/FMCard'
@@ -53,6 +53,9 @@ const FoodmakersExplore = (props) => {
     )
     dispatch(getSpecialityTagsAC())
     dispatch(getServiceTagsAC())
+    return () => {
+      setItem('search_data', [])
+    }
   }, [])
 
   React.useEffect(() => {

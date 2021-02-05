@@ -74,6 +74,17 @@
         width: 308px;
         padding: 0 70px 0 60px;
         margin-top: 32px;
+        position: relative;
+
+        .bank_data_notification {
+          position: absolute;
+          top: -35px;
+          left: 75px;
+          background: rgba(122, 211, 152, 0.1);
+          padding: 2px 6px;
+          border-radius: 5px;
+          color: #7ad398;
+        }
 
         button {
           width: 100%;
@@ -92,6 +103,7 @@
       }
     }
     .balance_container {
+      position: relative;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -106,6 +118,20 @@
         min-width: 288px;
         padding: 24px;
       }
+
+      .withdraw_notification {
+        position: absolute;
+        width: 80%;
+        top: 0px;
+        padding: 5px 10px;
+        align-items: center;
+        color: #eb5769;
+        background-color: #f6e5e6;
+        text-align: center;
+        z-index: 1;
+        border-radius: 5px;
+      }
+
       .sub_content {
         min-width: 240px;
         margin-right: 32px;
@@ -113,6 +139,7 @@
           margin-right: 0px;
           min-width: 200px;
         }
+
         .balance {
           font-weight: 500;
           font-size: 20px;

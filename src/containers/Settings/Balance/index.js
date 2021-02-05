@@ -18,6 +18,12 @@ const Balance = () => {
   const dispatch = useDispatch()
   const balance = useSelector((state) => state.account.balance)
   const isValid = useSelector((state) => state.foodmaker.isPaymentDataValid)
+  const isBankDataNotificationShown = useSelector(
+    (state) => state.foodmaker.showBankDataNotification,
+  )
+  const isWithdrawNotificationShown = useSelector(
+    (state) => state.foodmaker.showWithdrawNotification,
+  )
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
@@ -150,12 +156,20 @@ const Balance = () => {
           </div>
 
           <div className={styles.btn_container}>
+            {isBankDataNotificationShown && (
+              <div className={styles.bank_data_notification}>Saved successfully</div>
+            )}
             <button type="submit" form="hook-form">
               SAVE CHANGES
             </button>
           </div>
         </form>
         <div className={styles.balance_container}>
+          {isWithdrawNotificationShown && (
+            <div className={styles.withdraw_notification}>
+              You already have one pending withdrawal request, please wait untill it is processed
+            </div>
+          )}
           <div className={styles.sub_content}>
             <div className={styles.balance}>Balance</div>
             {!withdraw ? (

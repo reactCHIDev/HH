@@ -17,8 +17,6 @@ function index({ item }) {
     minute: '2-digit',
   })
 
-  const sumOfProducts = item.orderProducts.reduce((a, b) => a + (b.quantity || 0), 0)
-
   return (
     <>
       <Link to={{ pathname: '/fm_order_info', state: item }}>
@@ -26,13 +24,13 @@ function index({ item }) {
           <div className={styles.columnsWrapper}>
             <div className={styles.time}>
               <div className={styles.date}>
-                {day}, {month}
+                {day} {month}
               </div>
               <div>{time}</div>
             </div>
             <div className={styles.id}>#{item.id}</div>
-            <div className={styles.client}>{item.customer.profileName || 'anonim'}</div>
-            <div className={styles.items}>{sumOfProducts}</div>
+            <div className={styles.client}>{item.clientName || 'anonim'}</div>
+            <div className={styles.items}>{item.totalItems}</div>
             <div className={styles.amount}>$ {item.orderTotal.toFixed(2)}</div>
             <div className={styles.delivery}>{item.deliveryMethod}</div>
             <div
