@@ -140,13 +140,17 @@ const ShopPage = (props) => {
             </div>
           </div>
           <div className={styles.photo_section}>
-            <div className={styles.cover_photo_container}>
-              {shop.coverPhoto ? (
-                <img className={styles.cover_photo} src={shop.coverPhoto} alt="envelope" />
-              ) : (
-                <></>
-              )}
-            </div>
+            {/* <div className={styles.cover_photo_container}> */}
+            {shop.coverPhoto ? (
+              // <img className={styles.cover_photo} src={shop.coverPhoto} alt="envelope" />
+              <div
+                className={styles.cover_img}
+                style={{ backgroundImage: `url("${shop.coverPhoto}")` }}
+              />
+            ) : (
+              <></>
+            )}
+            {/* </div> */}
           </div>
         </div>
       </div>

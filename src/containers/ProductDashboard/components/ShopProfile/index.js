@@ -283,7 +283,7 @@ const ShopProfile = (props) => {
             <div id="uploader_fm" className={styles.uploader}>
               <p className={styles.title}>Cover photo</p>
               <div className={styles.avatar_container}>
-                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
+                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} aspect="1.4" />
               </div>
             </div>
           </div>

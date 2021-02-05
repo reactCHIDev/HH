@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import T from 'prop-types'
+import cls from 'classnames'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -22,9 +23,23 @@ const ImagePreviewer = (props) => {
       swipeToSlide: true,
       infinite: false,
       speed: 500,
-      slidesToShow: 4,
       slidesToScroll: 1,
-      arrows: false,
+      arrows: true,
+      slidesToShow: 3.8,
+      responsive: [
+        {
+          breakpoint: 640,
+          settings: {
+            slidesToShow: 3.2,
+          },
+        },
+        {
+          breakpoint: 375,
+          settings: {
+            slidesToShow: 2.2,
+          },
+        },
+      ],
     }),
     [],
   )
@@ -39,7 +54,7 @@ const ImagePreviewer = (props) => {
         className={styles.img_container}
         style={{ backgroundImage: `url("${selectedImage}")` }}
       ></div>
-      <div className={styles.slider_container}>
+      <div className={cls(styles.slider_container, 'slick_container')}>
         <Slider {...settings}>
           {images.map((image) => (
             <div className={styles.preview_container} id={image} onClick={handleImageClick}>
