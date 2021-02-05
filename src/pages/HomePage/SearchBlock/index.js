@@ -144,7 +144,7 @@ function SearchBlock() {
               </div>
             </div>
             {isSearchTypesVisible ? (
-              <div className={styles.typesWrapper}>
+              <div className={styles.typesWrapper} ref={typeRef}>
                 {searchData.map((item) => (
                   <div
                     ref={typeRef}
@@ -225,7 +225,10 @@ function SearchBlock() {
       </div>
       <div className={styles.input_wrapper}>
         <Link to={searchType === 'Products' ? '/product_explore' : '/foodmakers_explore'}>
-          <button type="button" disabled={!searchedDataResults.length}>
+          <button
+            type="button"
+            //  disabled={!searchedDataResults.length}
+          >
             <svg
               width="19"
               height="19"

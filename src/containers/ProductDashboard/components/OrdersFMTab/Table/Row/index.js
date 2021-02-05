@@ -24,7 +24,7 @@ function index({ item }) {
           <div className={styles.columnsWrapper}>
             <div className={styles.time}>
               <div className={styles.date}>
-                {day}, {month}
+                {day} {month}
               </div>
               <div>{time}</div>
             </div>
