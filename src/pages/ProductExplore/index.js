@@ -10,7 +10,7 @@ import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import { getProductTypes } from 'actions/system'
 import { searchRequestingnAc } from 'actions/search'
-import { getItem } from 'utils/localStorage'
+import { getItem, setItem } from 'utils/localStorage'
 import PriceSelector from './PriceSelector'
 import styles from './prodexp.module.scss'
 
@@ -43,6 +43,9 @@ const ProductExplore = (props) => {
       }),
     )
     dispatch(getProductTypes())
+    return () => {
+      setItem('search_data', [])
+    }
   }, [])
 
   React.useEffect(() => {
@@ -75,7 +78,7 @@ const ProductExplore = (props) => {
       searchRequestingnAc({
         searchType: 'Products',
         dataForSearch: {
-          searchedValue: searchTitle,
+          searchedValue: searchTitle || '',
           prodTypeId: productTypeToShow.id,
           prodCategoryId: selectedCategories.map((el) => el.id).toString(),
           isExplore: true,
@@ -188,25 +191,26 @@ const ProductExplore = (props) => {
 
       <div className={styles.content}>
         <div className={styles.exp_section}>
-          {productsData.map(
-            (item) =>
-              item.coverPhoto && (
-                <ProdCard
-                  key={item.id}
-                  id={item.id}
-                  pathname="/product"
-                  pushRoute={pushRoute}
-                  photo={item.coverPhoto}
-                  tags={item.productTags.map((t) => t.tagName)}
-                  name={item.title}
-                  price={item.price}
-                  rating={item.rating}
-                  rateCount={Number(item.votes)}
-                  isShowCart
-                  product={item}
-                />
-              ),
-          )}
+          {productsData &&
+            productsData.map(
+              (item) =>
+                item.coverPhoto && (
+                  <ProdCard
+                    key={item.id}
+                    id={item.id}
+                    pathname="/product"
+                    pushRoute={pushRoute}
+                    photo={item.coverPhoto}
+                    tags={item.productTags.map((t) => t.tagName)}
+                    name={item.title}
+                    price={item.price}
+                    rating={item.rating}
+                    rateCount={Number(item.votes)}
+                    isShowCart
+                    product={item}
+                  />
+                ),
+            )}
           <div className={styles.btn_holder}>
             <button type="button">More</button>
           </div>
