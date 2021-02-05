@@ -10,12 +10,21 @@ function Options({ setIsCancelModalShowm, total, orderInfo }) {
     }
     return curPrice.substring(curPrice.lastIndexOf('.') + 1)
   }
+
+  const typePrettier = (type) => {
+    if (type === 'Express') return 'Express'
+    if (type === 'Standard') return 'Standard'
+    if (type === 'FreeDelivery') return 'Free'
+    if (type === 'FreePickUp') return 'Pick up'
+    return null
+  }
+
   return (
     <>
       <div className={styles.container}>
         <div>
           <div>Delivery</div>
-          <div className={styles.deliveryType}>{orderInfo?.deliveryMethod}</div>
+          <div className={styles.deliveryType}>{typePrettier(orderInfo?.deliveryMethod)}</div>
         </div>
         <div className={styles.price}>$ {orderInfo?.deliveryPrice}</div>
       </div>

@@ -17,6 +17,14 @@ function index({ item }) {
     minute: '2-digit',
   })
 
+  const typePrettier = (type) => {
+    if (type === 'Express') return 'Express'
+    if (type === 'Standard') return 'Standard'
+    if (type === 'FreeDelivery') return 'Free'
+    if (type === 'FreePickUp') return 'Pick up'
+    return null
+  }
+
   return (
     <>
       <Link to={{ pathname: '/fm_order_info', state: item }}>
@@ -32,7 +40,7 @@ function index({ item }) {
             <div className={styles.client}>{item.clientName || 'anonim'}</div>
             <div className={styles.items}>{item.totalItems}</div>
             <div className={styles.amount}>$ {item.orderTotal.toFixed(2)}</div>
-            <div className={styles.delivery}>{item.deliveryMethod}</div>
+            <div className={styles.delivery}>{typePrettier(item.deliveryMethod)}</div>
             <div
               style={item.deliveryStatus === 'New Order' ? { color: '#7ad398' } : {}}
               className={styles.status}

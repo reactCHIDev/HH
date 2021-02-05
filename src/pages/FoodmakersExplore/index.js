@@ -15,6 +15,7 @@ import { getItem, setItem } from 'utils/localStorage'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
 import FMCard from './components/FMCard'
+import useClickOutside from 'hooks/useClickOutside'
 
 import styles from './fmexp.module.scss'
 import './fm.less'
@@ -24,17 +25,21 @@ const FoodmakersExplore = (props) => {
   const specialityTags = useSelector((state) => state.system.specialityTags)
   const serviceTags = useSelector((state) => state.system.serviceTags)
   const searchData = getItem('search_data')
+  const getInitialSearchValue = () => getItem('search_data').searchTitle || ''
   const searchTitle = searchData?.searchTitle || ''
   const city = searchData?.city || ''
   const dispatch = useDispatch()
 
   const [specialityTagsToShow, setSpecialityTagsToShow] = React.useState([])
   const [selectedItems, setSelectedItems] = React.useState([])
-  const [searchTitleValue, setSearchTitleValue] = React.useState('')
+  const [searchTitleValue, setSearchTitleValue] = React.useState(getInitialSearchValue)
 
   const [serviceTagToShow, setServiceTagToShow] = React.useState()
   const [serviceTagsToChoose, setServiceTagsToChoose] = React.useState([])
   const [isServiceTagsToChooseShown, setIsServiceTagsToChooseShown] = React.useState(false)
+
+  const serviceTagsRef = React.useRef()
+  useClickOutside(serviceTagsRef, () => setIsServiceTagsToChooseShown(false))
 
   const { control } = useForm({
     mode: 'onBlur',
@@ -54,7 +59,7 @@ const FoodmakersExplore = (props) => {
     dispatch(getSpecialityTagsAC())
     dispatch(getServiceTagsAC())
     return () => {
-      setItem('search_data', [])
+      setItem('search_data', {})
     }
   }, [])
 
@@ -66,7 +71,7 @@ const FoodmakersExplore = (props) => {
 
   React.useEffect(() => {
     if (serviceTags && serviceTags.length) {
-      setServiceTagToShow(serviceTags[0])
+      setServiceTagToShow('')
     }
   }, [serviceTags])
 
@@ -133,9 +138,10 @@ const FoodmakersExplore = (props) => {
                 onChange={(e) => setSearchTitleValue(e.target.value)}
                 type="text"
                 placeholder="E.g. Mike"
+                value={searchTitleValue}
               />
             </div>
-            <div className={cls(styles.input_wrapper, styles.service_input)}>
+            <div className={cls(styles.input_wrapper, styles.service_input)} ref={serviceTagsRef}>
               <label className={styles.label}>Service type</label>
               <div
                 onClick={() => setIsServiceTagsToChooseShown((b) => !b)}

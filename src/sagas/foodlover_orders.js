@@ -14,7 +14,12 @@ function* getFoodloverOrdersSaga() {
   console.log('%c   flosaga   ', 'color: white; background: salmon;')
   try {
     const response = yield getFoodloverOrdersReq({ startD: '2021-01-01', endD: '2021-12-31' })
-    yield put({ type: GET_FOODLOVER_ORDERS_SUCCESS, data: response.data })
+    const data = response.data.map(({ totalItems, clientName, ...rest }) => ({
+      totalItems: rest.orderProducts.reduce((a, b) => a + (b.quantity || 0), 0),
+      clientName: rest.customer.profileName,
+      ...rest,
+    }))
+    yield put({ type: GET_FOODLOVER_ORDERS_SUCCESS, data: data })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_FOODLOVER_ORDERS_ERROR, error: error.response.data.error })
