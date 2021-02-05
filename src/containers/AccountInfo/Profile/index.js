@@ -65,7 +65,7 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
         </div>
         <div className={styles.name_section}>
           <div className={styles.content}>
-            <p className={styles.label}>Name</p>
+            <p className={styles.label}>Username</p>
             <input
               className={styles.input_name}
               type="text"

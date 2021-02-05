@@ -76,9 +76,8 @@ const FoodmakerProfile = (props) => {
   const { Option } = Select
 
   const discnt = [
-    { value: 'Ms', title: 'Ms' },
-    { value: 'Mss', title: 'Mss' },
     { value: 'Mr', title: 'Mr' },
+    { value: 'Ms', title: 'Ms' },
   ]
 
   useEffect(() => {

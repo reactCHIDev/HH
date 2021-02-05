@@ -15,6 +15,9 @@ import {
   EMAIL_CONFIRM,
   EMAIL_CONFIRM_SUCCESS,
   EMAIL_CONFIRM_ERROR,
+  EMAIL_VERIFY,
+  EMAIL_VERIFY_SUCCESS,
+  EMAIL_VERIFY_ERROR,
 } from './constants'
 
 export const getUserByLinkAC = (url) => ({
@@ -83,5 +86,10 @@ export const emailConfirmSuccess = (data) => ({
 
 export const emailConfirmFailed = (payload) => ({
   type: EMAIL_CONFIRM_ERROR,
+  payload,
+})
+
+export const emailVerify = (payload) => ({
+  type: EMAIL_VERIFY,
   payload,
 })

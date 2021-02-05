@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import Forgot from 'containers/Auth/components/Forgot'
 import { loginRequest, loginErrorReset, invalidLink } from 'actions/login'
-import { emailConfirm } from 'actions/account'
+import { emailVerify } from 'actions/account'
 import Error from 'containers/Auth/components/Forgot/components/Error'
 import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
@@ -25,7 +25,7 @@ const Login = (props) => {
     url,
     error,
     loginErrorReset,
-    emailConfirm,
+    emailVerify,
     invalidLink,
   } = props
   const { register, handleSubmit, errors } = useForm()
@@ -71,17 +71,12 @@ const Login = (props) => {
   }
 
   // =================================================
-  /* if (isСonfirmMailRoute) {
+  if (isСonfirmMailRoute) {
     token = step.substring(12)
-
-    console.log('%c   ConfirmEmail process   ', 'color: darkgreen; background: palegreen;')
 
     const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
     const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 10000) : true
 
-    console.log('%c   valid   ', 'color: white; background: salmon;', valid)
-    console.log('%c   jwtData   ', 'color: white; background: salmon;', jwtData)
-    console.log('%c   authorized   ', 'color: white; background: salmon;', authorized)
     if (!valid) {
       invalidLink()
       forgotClose()
@@ -90,14 +85,13 @@ const Login = (props) => {
     if (valid) {
       const payload = {
         updateEmailLink: PATHS.url + url,
-        newEmail: jwtData.email,
+        // newEmail: jwtData.email,
       }
-      console.log('payload', payload)
-      emailConfirm(payload)
+      emailVerify(payload)
     }
 
     replace('/login/regular')
-  } */
+  }
   // =============================================
 
   return (
@@ -170,7 +164,7 @@ Login.propTypes = {
   replaceRoute: T.func.isRequired,
   loginErrorReset: T.func.isRequired,
   invalidLink: T.func.isRequired,
-  emailConfirm: T.func.isRequired,
+  emailVerify: T.func.isRequired,
   authorized: T.bool.isRequired,
   url: T.string,
   error: T.string.isRequired,
@@ -188,7 +182,7 @@ export default connect(
     pushRoute: push,
     replaceRoute: replace,
     loginErrorReset,
-    emailConfirm,
+    emailVerify,
     invalidLink,
   },
 )(Login)
