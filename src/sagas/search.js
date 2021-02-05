@@ -8,11 +8,11 @@ function* searchSaga({ data }) {
     const { searchType, dataForSearch } = data
     if (searchType === 'Products') {
       const { data: searchedData } = yield searchByProductsReq(dataForSearch)
-      yield put({ type: SEARCH_SUCCESS, searchedData })
+      yield put({ type: SEARCH_SUCCESS, searchedData: searchedData.products })
     }
     if (searchType === 'Foodmakers') {
       const { data: searchedData } = yield searchByFoodmakersReq(dataForSearch)
-      yield put({ type: SEARCH_SUCCESS, searchedData })
+      yield put({ type: SEARCH_SUCCESS, searchedData: searchedData.foodmakers })
     }
   } catch (error) {
     if (error.response) {

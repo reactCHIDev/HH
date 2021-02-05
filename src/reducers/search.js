@@ -4,6 +4,7 @@ import {
   SEARCH_ERROR,
   CLEAR_SEARCH_DATA,
 } from 'actions/constants'
+import { setItem, getItem } from 'utils/localStorage'
 
 const initialState = {
   data: [],
@@ -22,6 +23,7 @@ const reducer = (state = initialState, action) => {
         error: false,
       }
     case SEARCH_SUCCESS:
+      setItem('search_data_results', action.searchedData)
       return {
         ...state,
         data: action.searchedData,
@@ -37,6 +39,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case CLEAR_SEARCH_DATA:
+      setItem('search_data_results', [])
       return {
         ...state,
         data: [],
