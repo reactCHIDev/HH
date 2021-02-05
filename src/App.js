@@ -115,9 +115,7 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
       }
 
       const socketCloseListener = () => {
-        console.log('%c   closeListener   ', 'color: darkgreen; background: palegreen;')
         if (socket) {
-          socket.close()
           console.error('Disconnected.')
         }
         socket = new WebSocket(

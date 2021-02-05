@@ -115,7 +115,6 @@ const ShopPage = (props) => {
             <p className={styles.first_last_name}>{shop.title}</p>
             <div className={styles.descr}>
               <p>Event hire, custom made, catering.</p>
-              <p>Quick and Easy Vegan Comfort Food. Feel free to get in touch!</p>
             </div>
             <div className={styles.btn_block}>
               <div className={styles.fav_button} onClick={() => onLikeCLick()}>
@@ -140,9 +139,7 @@ const ShopPage = (props) => {
             </div>
           </div>
           <div className={styles.photo_section}>
-            {/* <div className={styles.cover_photo_container}> */}
             {shop.coverPhoto ? (
-              // <img className={styles.cover_photo} src={shop.coverPhoto} alt="envelope" />
               <div
                 className={styles.cover_img}
                 style={{ backgroundImage: `url("${shop.coverPhoto}")` }}
@@ -150,7 +147,6 @@ const ShopPage = (props) => {
             ) : (
               <></>
             )}
-            {/* </div> */}
           </div>
         </div>
       </div>
