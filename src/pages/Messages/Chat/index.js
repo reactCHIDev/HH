@@ -10,6 +10,8 @@ import cls from 'classnames'
 import { setPageAC, setChatHeightAC } from 'actions/chat'
 import attachment from 'assets/icons/svg/attachment.svg'
 import UploaderFile from 'components/ChatUploaderFile'
+import ModalPreview from '../ModalPreview'
+import Modal from 'components/UniversalModal'
 import Message from '../Message'
 import MyMessage from '../MyMessage'
 import styles from './chat.module.scss'
@@ -17,6 +19,8 @@ import styles from './chat.module.scss'
 function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
+  const [modal, setPreviewModal] = useState(false)
+
   const [fileList, setFileList] = useState([])
   const scroll = useSelector((state) => state.chat.scroll)
   const height = useSelector((state) => state.chat.height)
@@ -99,6 +103,8 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
     )
   }
 
+  const closeModal = () => setPreviewModal(false)
+
   return (
     <div className={styles.container}>
       <div className={styles.msg_container} ref={chatWindow} onScroll={onScroll}>
@@ -115,9 +121,14 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
               <React.Fragment key={e.message.createdAt}>
                 {!isSameDay(prevDate, date) && divider(date)}
                 {e.recipient.id === myId ? (
-                  <Message message={e.message} user={user} date={time} />
+                  <Message
+                    message={e.message}
+                    user={user}
+                    date={time}
+                    setPreview={setPreviewModal}
+                  />
                 ) : (
-                  <MyMessage message={e.message} date={time} />
+                  <MyMessage message={e.message} date={time} setPreview={setPreviewModal} />
                 )}
               </React.Fragment>
             )
@@ -157,6 +168,11 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
           </svg>
         </button>
       </div>
+      {modal && (
+        <Modal closeFunc={closeModal}>
+          <ModalPreview closeFunc={closeModal} link={modal} />
+        </Modal>
+      )}
     </div>
   )
 }

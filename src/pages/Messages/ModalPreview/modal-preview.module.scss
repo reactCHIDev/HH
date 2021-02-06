@@ -1,0 +1,36 @@
+.modal_img_wrapper {
+  width: 80%;
+  height: auto;
+  margin: auto;
+  .image_wrapper {
+  }
+  .download_btn {
+    .preview_link {
+      display: block;
+      width: 180px;
+      margin: auto;
+      .file_link_wrapper {
+        display: flex;
+        height: 70px;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        color: #838894;
+        align-items: center;
+        border: 1px solid lightgrey;
+        border-radius: 7px;
+        margin: 10px;
+        background: #ccc;
+        cursor: pointer;
+        .file_icon {
+          width: 60px;
+          height: 55px;
+          border-radius: 7px;
+          padding: 20px;
+        }
+        .download_text {
+          color: black;
+        }
+      }
+    }
+  }
+}
