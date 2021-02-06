@@ -37,22 +37,12 @@
         letter-spacing: 0.5px;
         color: #838894;
         margin-bottom: 12px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid lightgray;
       }
-      .file_link_wrapper {
+      .preview_wrapper {
         display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        border-top: 1px solid #ddd;
-        font-size: 14px;
-        letter-spacing: 0.5px;
-        color: #838894;
-        padding: 6px;
-        cursor: pointer;
-        .dl_icon {
-          width: 12px;
-          height: 12px;
-          margin-right: 7px;
-        }
+        flex-wrap: wrap;
       }
     }
   }

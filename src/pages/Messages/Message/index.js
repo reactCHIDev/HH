@@ -2,9 +2,11 @@ import React from 'react'
 import T from 'prop-types'
 import downloadIcon from 'assets/icons/svg/download.svg'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
+import PreviewIcon from '../PreviewIcon'
+
 import styles from './message.module.scss'
 
-const Message = ({ user, date, message }) => {
+const Message = ({ user, date, message, setPreview }) => {
   return (
     <div className={styles.msg_wrapper}>
       <div className={styles.container}>
@@ -19,14 +21,11 @@ const Message = ({ user, date, message }) => {
             <div className={styles.last_date}>{date}</div>
           </div>
           <div className={styles.text_msg}>{message.text}</div>
-          {message.files.map((e, i) => (
-            <a href={e} download="file">
-              <div className={styles.file_link_wrapper}>
-                <img className={styles.dl_icon} src={downloadIcon} alt="dload" />
-                File
-              </div>
-            </a>
-          ))}
+          <div className={styles.preview_wrapper}>
+            {message.files.map((e, i) => (
+              <PreviewIcon fileLink={e} setPreview={setPreview} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
