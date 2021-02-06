@@ -118,6 +118,78 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
       ),
     },
     {
+      title: 'name',
+      dataIndex: 'userProfileName',
+      key: 'userProfileName',
+      sorter: (a, b) => {
+        if (a.userProfileName.toLowerCase() > b.userProfileName.toLowerCase()) return 1
+        if (a.userProfileName.toLowerCase() < b.userProfileName.toLowerCase()) return -1
+        return 0
+      },
+      sortOrder: sortedInfo.columnKey === 'userProfileName' && sortedInfo.order,
+      ellipsis: true,
+      ...getColumnSearchProps('userProfileName'),
+      width: '40px',
+    },
+    {
+      title: 'email',
+      dataIndex: 'userEmail',
+      key: 'userEmail',
+      sorter: (a, b) => {
+        if (a.userEmail.toLowerCase() > b.userEmail.toLowerCase()) return 1
+        if (a.userEmail.toLowerCase() < b.userEmail.toLowerCase()) return -1
+        return 0
+      },
+      sortOrder: sortedInfo.columnKey === 'userEmail' && sortedInfo.order,
+      ellipsis: true,
+      ...getColumnSearchProps('userEmail'),
+      width: '60px',
+    },
+    {
+      title: 'phone',
+      dataIndex: 'balancePaymentPhone',
+      key: 'balancePaymentPhone',
+      sorter: (a, b) => Number(a.balancePaymentPhone) - Number(b.balancePaymentPhone),
+      sortOrder: sortedInfo.columnKey === 'balancePaymentPhone' && sortedInfo.order,
+      ellipsis: true,
+      ...getColumnSearchProps('balancePaymentPhone'),
+      width: '60px',
+    },
+    {
+      title: 'account number',
+      dataIndex: 'balanceAccountNumber',
+      key: 'balanceAccountNumber',
+      sorter: (a, b) => Number(a.balanceAccountNumber) - Number(b.balanceAccountNumber),
+      sortOrder: sortedInfo.columnKey === 'balanceAccountNumber' && sortedInfo.order,
+      ellipsis: true,
+      ...getColumnSearchProps('balanceAccountNumber'),
+      width: '60px',
+    },
+    {
+      title: 'bank name',
+      dataIndex: 'balanceBankName',
+      key: 'balanceBankName',
+      sorter: (a, b) => {
+        if (a.balanceBankName?.toLowerCase() > b.balanceBankName?.toLowerCase()) return 1
+        if (a.balanceBankName?.toLowerCase() < b.balanceBankName?.toLowerCase()) return -1
+        return 0
+      },
+      sortOrder: sortedInfo.columnKey === 'balanceBankName' && sortedInfo.order,
+      ellipsis: true,
+      ...getColumnSearchProps('balanceBankName'),
+      width: '60px',
+    },
+    {
+      title: 'bank code',
+      dataIndex: 'balanceBankCode',
+      key: 'balanceBankCode',
+      sorter: (a, b) => Number(a.balanceAccountNumber) - Number(b.balanceAccountNumber),
+      sortOrder: sortedInfo.columnKey === 'balanceBankCode' && sortedInfo.order,
+      ellipsis: true,
+      ...getColumnSearchProps('balanceBankCode'),
+      width: '60px',
+    },
+    {
       title: 'id',
       dataIndex: 'id',
       key: 'id',
@@ -125,7 +197,7 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
       sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
       ellipsis: true,
       ...getColumnSearchProps('id'),
-      width: '40px',
+      width: '30px',
     },
     {
       title: 'userProfileId',
@@ -201,7 +273,7 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
       <Table
         columns={columns}
         dataSource={withdrawList}
-        scroll={{ x: 1024 }}
+        scroll={{ x: 1600 }}
         sticky
         loading={requesting}
         onChange={handleChange}
