@@ -46,7 +46,26 @@ function* getShopsListSaga() {
 function* getWithdrawListSaga({ payload }) {
   try {
     const response = yield getWithdrawListReq(payload)
-    yield put({ type: GET_WITHDRAW_LIST_SUCCESS, data: response.data, params: payload })
+    const data = response.data.map(
+      ({
+        userEmail,
+        userProfileName,
+        balanceAccountNumber,
+        balanceBankCode,
+        balanceBankName,
+        balancePaymentPhone,
+        ...rest
+      }) => ({
+        userEmail: rest.userProfile.user.email,
+        userProfileName: rest.userProfile.user.profileName,
+        balanceAccountNumber: rest.userProfile.balance.accountNumber,
+        balanceBankCode: rest.userProfile.balance.bankCode,
+        balanceBankName: rest.userProfile.balance.bankName,
+        balancePaymentPhone: rest.userProfile.balance.paymentPhone,
+        ...rest,
+      }),
+    )
+    yield put({ type: GET_WITHDRAW_LIST_SUCCESS, data, params: payload })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_WITHDRAW_LIST_ERROR, error: error.response.data.error })
