@@ -37,6 +37,7 @@ const Modal = (props) => {
           styles.universal_modal__container,
           isDark ? styles.universal_modal__container_opacity : '',
         )}
+        onClick={!option ? closemodal : undefined}
       >
         <div className={styles.swipe_anchor} />
         {React.cloneElement(children, { closemodal })}
