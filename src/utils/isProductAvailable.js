@@ -5,7 +5,7 @@ const isProductAvailable = (product) => {
   const startTime = new Date(availabilityStartDate).getTime()
   if (quantity === 0) return false
   if (status === 'PAUSED') return false
-  if (available === 'Preorder' && (time > startTime || time < endTime)) {
+  if (available === 'Preorder' && time > startTime && time < endTime) {
     return false
   }
   return true
