@@ -20,6 +20,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
   const [modal, setPreviewModal] = useState(false)
+  const [next, setActiveNext] = useState(true)
 
   const [fileList, setFileList] = useState([])
   const scroll = useSelector((state) => state.chat.scroll)
@@ -35,10 +36,6 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const chatWindow = useRef()
   const msgContainer = useRef()
   const msgInput = useRef()
-
-  useEffect(() => {
-    console.log('%c   fileList   ', 'color: white; background: royalblue;', fileList)
-  }, [fileList])
 
   useEffect(() => {
     if (newMsg === 1 || newMessages) play()
@@ -135,7 +132,11 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
           })}
         </div>
       </div>
-      {!newMsg ? <UploaderFile setFileList={setFileList} /> : <div style={{ height: 20 }} />}
+      {!newMsg ? (
+        <UploaderFile setFileList={setFileList} setActiveNext={setActiveNext} />
+      ) : (
+        <div style={{ height: 20 }} />
+      )}
       <div className={styles.bottomSection}>
         <textarea
           ref={msgInput}
@@ -146,7 +147,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
           onKeyDown={handleKeyDown}
           value={message}
         />
-        <button type="button" onClick={onSend}>
+        <button type="button" onClick={onSend} disabled={!next}>
           <svg
             width="16"
             height="16"

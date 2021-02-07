@@ -12,12 +12,17 @@ const Contact = ({ id, userPhoto, date, profileName, unreaded, activeChat, setAc
     setActiveChat(id, recipient)
   }
 
+  const gotoFMpage = (e) => {
+    e.stopPropagation()
+    // console.log('%c   profileName   ', 'color: darkgreen; background: palegreen;', profileName)
+  }
+
   return (
     <div
       className={cls(styles.container, Number(activeChat) === Number(id) ? styles.selected : '')}
     >
       <div className={styles.local_avatar_info} id={id} onClick={openDialog}>
-        <div className={styles.local_avatar_box}>
+        <div className={styles.local_avatar_box} onClick={gotoFMpage}>
           {userPhoto ? <img src={userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
         </div>
         <div className={styles.info_container}>
