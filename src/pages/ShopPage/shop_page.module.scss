@@ -240,6 +240,7 @@
       .section_experiences {
         margin-bottom: 60px;
         flex-grow: 1;
+        max-width: 800px;
 
         @include media('<phone') {
           margin-bottom: 30px;
@@ -276,7 +277,7 @@
       .about_shop_container {
         width: 354px;
         flex-shrink: 0;
-        margin: 20px 0 0 42px;
+        margin: 27px 0 0 42px;
 
         @include media('<desktop') {
           margin: 25px 0 30px 10px;

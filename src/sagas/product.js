@@ -86,6 +86,7 @@ function* duplicateProductSaga({ payload }) {
     yield put({ type: DUPLICATE_PRODUCT_SUCCESS })
     yield delay(3000)
     yield put({ type: 'RESET_DUPLICATE_SUCCESS' })
+    yield put(replace('/product_dashboard/listings'))
   } catch (error) {
     if (error.response) {
       yield put({ type: DUPLICATE_PRODUCT_ERROR, error: error.response.data.error })

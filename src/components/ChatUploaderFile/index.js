@@ -8,7 +8,7 @@ import { getItem } from 'utils/localStorage'
 import styles from './uploader.module.scss'
 import './uploader.less'
 
-const UploaderFile = ({ setFileList }) => {
+const UploaderFile = ({ setFileList, setActiveNext }) => {
   const uploadBtn = useRef(null)
   const dispatch = useDispatch()
 
@@ -25,6 +25,7 @@ const UploaderFile = ({ setFileList }) => {
     action: `${process.env.REACT_APP_BASE_URL}/api/v1/file/upload/photo`,
     headers: { 'x-api-key': process.env.REACT_APP_X_API_KEY, ...getToken(), From: 'message' },
     onChange(info) {
+      if (typeof setActiveNext === 'function') setActiveNext(info.file.status !== 'uploading')
       if (info.file.status === 'removed') {
         dispatch(deleteFileAC(info.file.response.url.split('/').pop()))
         setFileList(info.fileList.map((e) => e?.response?.url))
