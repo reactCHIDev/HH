@@ -30,7 +30,7 @@ const AccountInfo = (props) => {
         activeTab={activeTab || 'profile'}
         tabs={{
           bookmarks: { mark: false, disabled: true, content: <Soon /> },
-          orders: { mark: false, disabled: true, content: <OrdersTab /> },
+          orders: { mark: false, disabled: false, content: <OrdersTab /> },
           review: { mark: false, disabled: true, content: <Soon /> },
           'blog submission': { mark: false, disabled: true, content: <Soon /> },
           profile: { mark: false, content: <ProfileTab profileName={profileName} /> },
