@@ -5,26 +5,28 @@
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid #e9eaed;
+  }
 
-    .qty {
-      width: 10%;
-      color: #838894;
-      font-size: 12px;
-    }
+  .qty {
+    width: 10%;
+    color: #838894;
+    font-size: 12px;
+    display: flex;
+  }
 
-    .price {
-      width: 10%;
-      color: #838894;
-      font-size: 12px;
-    }
+  .price {
+    width: 10%;
+    color: #838894;
+    font-size: 12px;
+    display: flex;
+  }
 
-    .total {
-      width: 10%;
-      color: #838894;
-      font-size: 12px;
-      display: flex;
-      justify-content: flex-end;
-    }
+  .total {
+    width: 10%;
+    color: #838894;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .rowWrapper {

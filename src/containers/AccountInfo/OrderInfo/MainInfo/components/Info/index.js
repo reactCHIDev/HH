@@ -10,7 +10,7 @@ function Info({ setIsCancelModalShowm, orderInfo }) {
     <div className={styles.container}>
       <Header shopName={orderInfo?.shop?.title} shopUrl={orderInfo?.shop?.shopUrl} />
       <div className={styles.table_scroller}>
-        <Table orderInfo={orderInfo?.orderProducts} />
+        {orderInfo.orderProducts && <Table orderInfo={orderInfo.orderProducts} />}
       </div>
 
       <Options
