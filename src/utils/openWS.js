@@ -6,7 +6,7 @@ const getToken = () => {
   return accessToken
 }
 
-export const getSocket = () => {
+/* export const getSocket = () => {
   const accessToken = getToken()
   const socket = new WebSocket(`wss://hungryhugger.wildwebart.com/ws/v1?accessToken=${accessToken}`)
   socket.onopen = () => {
@@ -28,7 +28,7 @@ export const getSocket = () => {
   return socket
 }
 
-export const closeSocket = (s) => s.close()
+export const closeSocket = (s) => s.close() */
 
 // const socket = getSocket()
 /* socket.addEventListener('message', (data) => {
@@ -93,13 +93,24 @@ export const sendMessage = (socket, message, files, id) => {
 
 export const setAsReviewed = (socket, messageIds) => {
   const accessToken = getToken()
+  if (socket.readyState === 1) {
+    socket.send(
+      JSON.stringify({
+        event: 'setAsReviewed',
+        data: {
+          accessToken,
+          messageIds,
+        },
+      }),
+    )
+  }
+}
+
+export const socketClose = (socket) => {
+  const accessToken = getToken()
   socket.send(
     JSON.stringify({
-      event: 'setAsReviewed',
-      data: {
-        accessToken,
-        messageIds,
-      },
+      event: 'close',
     }),
   )
 }

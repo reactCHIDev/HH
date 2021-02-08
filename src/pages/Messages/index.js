@@ -3,7 +3,7 @@ import T from 'prop-types'
 import { WebSocketContext } from 'App'
 import cloneDeep from 'lodash/cloneDeep'
 import SubHeader from 'components/SubHeader'
-import { getDialog, getDialogs, setAsReviewed } from 'utils/openWS'
+import { socketClose, getDialogs, setAsReviewed } from 'utils/openWS'
 import { useHistory } from 'react-router-dom'
 import { setActiveChatAC, setNewContactAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
@@ -27,6 +27,8 @@ const Messages = ({ location: { state } }) => {
   const history = useHistory()
 
   const socket = useContext(WebSocketContext)
+
+  console.log('%c   socket   ', 'color: white; background: salmon;', socket)
 
   const setActiveChat = (id, recipient) => {
     dispatch(setActiveChatAC(id, recipient))
@@ -63,7 +65,7 @@ const Messages = ({ location: { state } }) => {
       const newMessages = cloneDeep(dialog)
         .map((e) => (e.message.status === 'New' ? e.message.id : null))
         .filter((e) => e)
-      if (newMessages?.length) setAsReviewed(socket, newMessages)
+      if (newMessages?.length && socket.readyState === 1) setAsReviewed(socket, newMessages)
     }
   }, [dialog])
 
@@ -87,6 +89,10 @@ const Messages = ({ location: { state } }) => {
           />
         )}
       </div>
+      <div
+        style={{ width: 50, height: 30, background: '#444' }}
+        onClick={() => socketClose(socket)}
+      />
     </>
   )
 }
