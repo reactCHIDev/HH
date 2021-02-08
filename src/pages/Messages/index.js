@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import T from 'prop-types'
 import { WebSocketContext } from 'App'
+import cls from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
 import SubHeader from 'components/SubHeader'
 import { getDialogs, setAsReviewed } from 'utils/openWS'
@@ -15,7 +16,9 @@ import './messages.less'
 
 const id = getItem('user-id')
 
-const Messages = ({ location: { state } }) => {
+const Messages = (props) => {
+  const { orderChat } = props
+  const state = !orderChat ? props?.location?.state : 'orderChat'
   const myId = useSelector((state) => state.account.id)
   const dialog = useSelector((state) => state.chat.dialog)
   const dialogs = useSelector((state) => state.chat.dialogs)
@@ -35,15 +38,16 @@ const Messages = ({ location: { state } }) => {
   }
 
   useEffect(() => {
-    const chatData = state
-      ? {
-          id: state.id,
-          dialogCreated: new Date(),
-          lastMessageSent: new Date(),
-          recipient: { ...state, email: '' },
-          newMessages: 0,
-        }
-      : null
+    const chatData =
+      state && !orderChat
+        ? {
+            id: state.id,
+            dialogCreated: new Date(),
+            lastMessageSent: new Date(),
+            recipient: { ...state, email: '' },
+            newMessages: 0,
+          }
+        : null
     if (chatData) {
       dispatch(setNewContactAC(chatData))
       history.replace('/messages', undefined)
@@ -51,7 +55,7 @@ const Messages = ({ location: { state } }) => {
   }, [])
 
   useEffect(() => {
-    if (socket?.readyState === 1 && newMessages !== null) {
+    if (socket?.readyState === 1 && newMessages !== null && !orderChat) {
       getDialogs(socket, id)
     }
   }, [socket?.readyState, newMessages])
@@ -61,12 +65,12 @@ const Messages = ({ location: { state } }) => {
   }, [dialogs])
 
   useEffect(() => {
-    if (dialog?.length) {
-      const newMessages = cloneDeep(dialog)
-        .map((e) => (e.message.status === 'New' ? e.message.id : null))
-        .filter((e) => e)
-      if (newMessages?.length && socket.readyState === 1) setAsReviewed(socket, newMessages)
-    }
+    /* if (dialog?.length) { */
+    const newMessages = cloneDeep(dialog)
+      .map((e) => (e.message.status === 'New' ? e.message.id : null))
+      .filter((e) => e)
+    if (newMessages?.length && socket.readyState === 1) setAsReviewed(socket, newMessages)
+    /* } */
   }, [dialog])
 
   const goBack = () => {
@@ -75,9 +79,11 @@ const Messages = ({ location: { state } }) => {
 
   return (
     <>
-      <SubHeader linkTo="/" onBack={goBack} title="Messages" />
-      <div className={styles.content}>
-        <ChatList chatList={dialogs} activeChat={activeChat} setActiveChat={setActiveChat} />
+      {!orderChat && <SubHeader linkTo="/" onBack={goBack} title="Messages" />}
+      <div className={cls(orderChat ? styles.order_chat : '', styles.content)}>
+        {!orderChat && (
+          <ChatList chatList={dialogs} activeChat={activeChat} setActiveChat={setActiveChat} />
+        )}
         {activeChat && (
           <Chat
             myId={myId}
@@ -86,6 +92,7 @@ const Messages = ({ location: { state } }) => {
             activeChat={activeChat}
             rdy={newMessages !== null}
             dialog={dialog}
+            orderChat={orderChat}
           />
         )}
       </div>

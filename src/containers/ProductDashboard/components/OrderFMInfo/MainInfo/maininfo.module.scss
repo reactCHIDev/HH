@@ -1,4 +1,8 @@
 .container {
+  width: 35%;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
   .content {
     padding: 100px 30px;
     display: flex;
