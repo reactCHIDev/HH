@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, delay } from 'redux-saga/effects'
 import { replace } from 'connected-react-router'
 import { removeKey } from '../utils/localStorage'
 
@@ -9,6 +9,7 @@ import {
   updateProductReq,
   getProductInfoReq,
   toggleProductStatus,
+  duplicate,
 } from 'api/requests/Product'
 import {
   createProductSuccess,
@@ -26,6 +27,9 @@ import {
   TOGGLE_PRODUCT_STATUS_REQUESTING,
   TOGGLE_PRODUCT_STATUS_SUCCESS,
   TOGGLE_PRODUCT_STATUS_ERROR,
+  DUPLICATE_PRODUCT_REQUESTING,
+  DUPLICATE_PRODUCT_SUCCESS,
+  DUPLICATE_PRODUCT_ERROR,
 } from '../actions/constants'
 
 function* createProductSaga({ payload }) {
@@ -76,11 +80,26 @@ function* toggleProductStatusSaga({ payload }) {
   }
 }
 
+function* duplicateProductSaga({ payload }) {
+  try {
+    yield duplicate(payload)
+    yield put({ type: DUPLICATE_PRODUCT_SUCCESS })
+    yield delay(3000)
+    yield put({ type: 'RESET_DUPLICATE_SUCCESS' })
+    yield put(replace('/product_dashboard/listings'))
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: DUPLICATE_PRODUCT_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(CREATE_PRODUCT_REQUESTING, createProductSaga)
   yield takeEvery(UPDATE_PRODUCT_REQUESTING, updateProductSaga)
   yield takeEvery(GET_PRODUCT_INFO_REQUESTING, getProductInfoSaga)
   yield takeEvery(TOGGLE_PRODUCT_STATUS_REQUESTING, toggleProductStatusSaga)
+  yield takeEvery(DUPLICATE_PRODUCT_REQUESTING, duplicateProductSaga)
 }
 
 export default accountWatcher

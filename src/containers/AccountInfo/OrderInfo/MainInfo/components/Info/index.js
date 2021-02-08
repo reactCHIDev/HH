@@ -6,7 +6,6 @@ import Table from './Table'
 import Options from './Options'
 
 function Info({ setIsCancelModalShowm, orderInfo }) {
-  console.log(orderInfo, 'orderInfo')
   return (
     <div className={styles.container}>
       <Header shopName={orderInfo?.shop?.title} shopUrl={orderInfo?.shop?.shopUrl} />

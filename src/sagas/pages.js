@@ -48,7 +48,7 @@ function* resolveFoodmakerPageSaga({ url }) {
     const shop = yield getShopByFoodmakerIdReq(foodmaker.data.id)
     yield put({
       type: 'FOODMAKER_PAGE_DATA',
-      data: { foodmakerData: foodmaker.data, shopData: shop.data },
+      data: { foodmakerData: { ...foodmaker.data, userId: response.data.id }, shopData: shop.data },
     })
   } catch (error) {
     if (error.response) {

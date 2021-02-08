@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  .local_avatar_info {
+    display: flex;
+    flex-grow: 2;
+    align-items: center;
+    padding-right: 10px;
+    cursor: pointer;
+
+    .local_avatar_box {
+      margin-right: 15px;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .info_container {
+      .local_name {
+        max-height: 40px;
+        overflow: hidden;
+        font-weight: bold;
+        font-size: 14px;
+        color: #3c3e43;
+      }
+      .last_date {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: #838894;
+      }
+    }
+  }
+  .unreaded {
+    .label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 12px;
+      width: 20px;
+      height: 16px;
+      right: 24px;
+      color: white;
+      background: #eb5769;
+      border-radius: 4px;
+    }
+  }
+}
+.selected {
+  background: #f5f8fb;
+}

@@ -14,6 +14,8 @@ function CartPage() {
   const totalPrice = useSelector((state) => state.cart.totalPrice)
   const requesting = useSelector((state) => state.order.requesting)
   const error = useSelector((state) => state.order.error)
+  const isAuthorized = useSelector((state) => state.login.authorized)
+
   const dispatch = useDispatch()
 
   const modalClose = () => {
@@ -25,7 +27,11 @@ function CartPage() {
       <div className={styles.container}>
         <Heading />
         <Content orders={orders} shops={shops} />
-        <Settings price={totalPrice} active={!!Object.keys(orders).length} />
+        <Settings
+          price={totalPrice}
+          active={!!Object.keys(orders).length}
+          isAuthorized={isAuthorized}
+        />
       </div>
       {requesting && <Tint />}
       {error && <Error close={modalClose} />}

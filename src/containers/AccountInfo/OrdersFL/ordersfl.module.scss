@@ -8,7 +8,9 @@
   }
   .container {
     width: 100%;
-    overflow-x: scroll;
+    @media (max-width: 1260px) {
+      overflow-x: scroll;
+    }
 
     .table_wrapper {
       min-width: 768px;

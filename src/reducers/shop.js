@@ -2,6 +2,9 @@ import {
   UPDATE_SHOP_REQUESTING,
   UPDATE_SHOP_SUCCESS,
   UPDATE_SHOP_ERROR,
+  CREATE_SHOP_REQUESTING,
+  CREATE_SHOP_SUCCESS,
+  CREATE_SHOP_ERROR,
   GET_SHOP_BY_FM_ID_REQUESTING,
   GET_SHOP_BY_FM_ID_SUCCESS,
   GET_SHOP_BY_FM_ID_ERROR,
@@ -40,6 +43,28 @@ const reducer = function accountReducer(state = initialState, action) {
       }
 
     case UPDATE_SHOP_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+
+    case CREATE_SHOP_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
+    case CREATE_SHOP_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        requesting: false,
+        error: '',
+      }
+
+    case CREATE_SHOP_ERROR:
       return {
         ...state,
         requesting: false,

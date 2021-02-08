@@ -7,13 +7,51 @@ import styles from './table.module.scss'
 
 function TableRow({ item }) {
   const dispatch = useDispatch()
-
+  const [isDiscount, setIsDiscount] = React.useState(item.total >= item.discount.quantity)
   const incAmount = () => {
-    dispatch(incProductAmount({ id: item.id, shop: item.shop.title, price: item.price }))
+    if (!isDiscount && item.total + 1 >= item.discount.quantity) {
+      dispatch(
+        incProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          addDiscount: true,
+        }),
+      )
+      setIsDiscount(true)
+    } else {
+      dispatch(
+        incProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          addDiscount: false,
+        }),
+      )
+    }
   }
 
   const decAmount = () => {
-    dispatch(decProductAmount({ id: item.id, shop: item.shop.title, price: item.price }))
+    if (isDiscount && item.total - 1 < item.discount.quantity) {
+      dispatch(
+        decProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          removeDiscount: true,
+        }),
+      )
+      setIsDiscount(false)
+    } else {
+      dispatch(
+        decProductAmount({
+          id: item.id,
+          shop: item.shop.title,
+          price: item.price,
+          removeDiscount: false,
+        }),
+      )
+    }
   }
 
   const deleteProduct = () => {
@@ -22,9 +60,11 @@ function TableRow({ item }) {
         title: item.title,
         shopTitle: item.shop.title,
         price: item.price * item.total,
+        id: item.id,
       }),
     )
   }
+
   return (
     <div key={item.id} className={styles.tableRow}>
       <div className={styles.upperrow}>
@@ -34,7 +74,7 @@ function TableRow({ item }) {
               style={{ backgroundImage: `url('${item.coverPhoto}')` }}
               className={styles.productImage}
             >
-              {item.isHit ? <div className={styles.hitProduct}>HIT</div> : null}
+              {item.hitmark === 'Hit' ? <div className={styles.hitProduct}>HIT</div> : null}
             </div>
           </div>
           <div className={styles.upper_subrow}>
@@ -45,7 +85,7 @@ function TableRow({ item }) {
             <div className={styles.qty_wrapper}>
               <div className={styles.selected_value}>Selected value:</div>
               <div className={styles.order_qty}>
-                {`${item.parameters[0].volume}  ${item.parameters[0].measure}`}
+                {`${item.parameters[0].volume}  ${item.parameters[0].measure || null}`}
               </div>
             </div>
           </div>
@@ -78,9 +118,9 @@ function TableRow({ item }) {
       <div className={styles.lowerrow}>
         <div className={styles.gray_wrapper}>
           <div className={styles.price_title}>Price:</div>
-          <div className={styles.price}>${item.price}</div>
+          <div className={styles.price}>${item.price.toFixed(2)}</div>
           <div className={styles.total_title}>Total:</div>
-          <div className={styles.total}>${item.totalPrice}</div>
+          <div className={styles.total}>${item.totalPrice.toFixed(2)}</div>
         </div>
         <div className={styles.delete_container}>
           <div className={styles.deleteIcon} onClick={() => deleteProduct()}>

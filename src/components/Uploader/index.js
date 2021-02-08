@@ -17,7 +17,7 @@ function getBase64(file) {
   })
 }
 
-const Uploader = ({ list, listSet, cover, setCover, min }) => {
+const Uploader = ({ list, listSet, cover, setCover, min, setActiveNext }) => {
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -39,7 +39,8 @@ const Uploader = ({ list, listSet, cover, setCover, min }) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1))
   }
 
-  const handleChange = ({ fileList }) => {
+  const handleChange = ({ fileList, file: { status } }) => {
+    if (typeof setActiveNext === 'function') setActiveNext(status !== 'uploading')
     addFileList(fileList)
     listSet(fileList)
   }

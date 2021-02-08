@@ -28,11 +28,12 @@ const FoodmakerProfile = (props) => {
     getSpecialityTagsAC,
   } = props
 
-  const { id, userPhoto, success } = account
+  const { id, userPhoto, success, requesting } = account
 
   const [avatar, setAvatar] = useState('')
   const [cover, setCover] = useState('')
   const [fileList, setFilelist] = useState(null)
+  const [isActive, setActiveNext] = useState(true)
 
   const [tags, setTags] = useState([])
   const [languages, setLanguages] = useState([])
@@ -75,9 +76,8 @@ const FoodmakerProfile = (props) => {
   const { Option } = Select
 
   const discnt = [
-    { value: 'Ms', title: 'Ms' },
-    { value: 'Mss', title: 'Mss' },
     { value: 'Mr', title: 'Mr' },
+    { value: 'Ms', title: 'Ms' },
   ]
 
   useEffect(() => {
@@ -348,6 +348,7 @@ const FoodmakerProfile = (props) => {
                       cover={cover}
                       setCover={setCover}
                       min={2}
+                      setActiveNext={setActiveNext}
                     />
                   )}
                 </div>
@@ -375,9 +376,10 @@ const FoodmakerProfile = (props) => {
             <div className={styles.submit_wrapper}>
               <Button
                 type="primary"
+                loading={requesting || success}
                 block
                 size="large"
-                loading={account?.requesting}
+                disabled={!isActive}
                 htmlType="submit"
               >
                 SAVE

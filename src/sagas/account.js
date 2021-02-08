@@ -9,6 +9,7 @@ import {
   getUserByHHLink,
   confirmEmailUpdate,
   updatePhotoName,
+  registrationEmail,
 } from 'api/requests/Account'
 
 import { getItem } from '../utils/localStorage'
@@ -28,6 +29,9 @@ import {
   EMAIL_CONFIRM_SUCCESS,
   EMAIL_CONFIRM_ERROR,
   EMAIL_CONFIRM,
+  EMAIL_VERIFY,
+  EMAIL_VERIFY_SUCCESS,
+  EMAIL_VERIFY_ERROR,
   CREATE_PRODUCT_SUCCESS,
 } from '../actions/constants'
 
@@ -91,10 +95,22 @@ function* changeEmailConfirm({ payload }) {
   try {
     const response = yield confirmEmailUpdate(payload)
     yield put({ type: EMAIL_CONFIRM_SUCCESS, data: response.data })
-    yield put(replace('/settings/security'))
+    yield put(replace('/login/regular'))
   } catch (error) {
     if (error.response) {
       yield put({ type: EMAIL_CONFIRM_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* emailVerify({ payload }) {
+  try {
+    const response = yield registrationEmail(payload)
+    yield put({ type: EMAIL_VERIFY_SUCCESS, data: response.data })
+    yield put(replace('/settings/security'))
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: EMAIL_VERIFY_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -105,6 +121,7 @@ function* accountWatcher() {
   yield takeEvery(CREATE_PRODUCT_SUCCESS, getUserAccountSaga)
   yield takeEvery(UPDATE_ACCOUNT_REQUESTING, updateUserAccount)
   yield takeEvery(EMAIL_CONFIRM, changeEmailConfirm)
+  yield takeEvery(EMAIL_VERIFY, emailVerify)
   yield takeEvery(UPDATE_PHOTO_NAME_REQUESTING, changePhotoName)
 }
 

@@ -60,7 +60,7 @@ const ProductPage = (props) => {
           <div className={styles.content}>
             <ImagePreviewer images={[info.coverPhoto, ...info.otherPhotos]} />
             <div className={styles.inner_content}>
-              <Header text={info.title} />
+              <Header text={info.title} isFavourite={info.isFavorite} id={info.id} />
               <Toolbar params={info.parameters} isPreOrderOnly={false} />
               <Tabs product={info} deliveryMethods={deliveryMethods} />
               <div className={styles.card_link} onClick={openFoodmaker}>

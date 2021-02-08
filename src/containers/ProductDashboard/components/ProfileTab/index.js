@@ -7,9 +7,7 @@ import ShopProfile from '../ShopProfile'
 import styles from './profiletab.module.scss'
 // import './profiletab.less'
 
-const ProfileTab = (props) => {
-  const { x } = props
-
+const ProfileTab = ({ shop }) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -17,6 +15,7 @@ const ProfileTab = (props) => {
           tabs={{
             'Foodmaker profile': { mark: 0, content: <FoodmakerProfile /> },
             'Shop profile': {
+              disabled: !shop,
               mark: 0,
               content: <ShopProfile />,
             },

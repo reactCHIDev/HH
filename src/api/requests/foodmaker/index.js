@@ -20,3 +20,7 @@ export const getFoodmakerOrdersReq = ({ startD = '2021-01-01', endD = '2021-12-3
 export const getFoodmakerOrderInfoReq = (id) => apiClient.get(PATHS.fmOrderInfo + id)
 
 export const createWithdrawReq = (data) => apiClient.post(PATHS.createWithdraw, { data })
+
+export const updateBankDataReq = (data) => apiClient.post(PATHS.updateBankData, { data })
+
+export const changeDeliveryStatusReq = (data) => apiClient.patch(PATHS.changeDelStatus, { data })

@@ -1,0 +1,219 @@
+.search_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 -16px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    align-items: center;
+  }
+  .input_wrapper {
+    padding: 0 16px;
+    flex-grow: 2;
+
+    @media (max-width: 768px) {
+      flex-grow: 0;
+      padding: 0px;
+    }
+
+    .inputs_container {
+      display: flex;
+      position: relative;
+    }
+
+    .label {
+      font-weight: normal;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.07em;
+      color: #dcdde1;
+      margin: 5px 0;
+      text-overflow: ellipsis;
+
+      @media (max-width: 1024px) {
+        font-size: 12px;
+      }
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+    .selectWrapper {
+      position: relative;
+      width: 20%;
+      min-width: 140px;
+      background: white;
+      height: 56px;
+      padding: 5px;
+      border-radius: 8px 0 0 8px;
+      @media (max-width: 1024px) {
+        width: 40%;
+        // min-width: 80px;
+      }
+      @media (max-width: 768px) {
+        width: 100%;
+        // min-width: 80px;
+      }
+      @media (max-width: 480px) {
+        min-width: 80px;
+      }
+      .select {
+        display: flex;
+        position: relative;
+        width: 100%;
+        justify-content: space-between;
+        padding: 13px 5px;
+        font-weight: normal;
+        font-size: 16px;
+        color: #31394d;
+        border-right: 1px solid lightgrey;
+        cursor: pointer;
+
+        div {
+          .arrow {
+            width: 26px;
+            height: 22px;
+            padding: 7px;
+            transition: transform 200ms ease-out;
+          }
+          .arrow_up {
+            transform: rotate(-180deg);
+          }
+        }
+      }
+    }
+
+    .typesWrapper {
+      position: absolute;
+      top: 110%;
+      left: 0px;
+      width: 20%;
+      min-width: 140px;
+      background: white;
+      color: #31394d;
+      border-radius: 10px;
+      padding: 5px 50px 5px 0px;
+      div {
+        margin: 0px 5px 5px 10px;
+        cursor: pointer;
+        opacity: 0.8;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .sugg_container {
+      position: absolute;
+      overflow-y: scroll;
+      padding: 10px 0px;
+      top: 220px;
+      background-color: #ffffff;
+      border: 1px solid black;
+      width: 21%;
+      max-width: 512px;
+      min-height: 50px;
+      max-height: 200px;
+      border-radius: 0 0 8px 8px;
+      cursor: pointer;
+
+      .sugg {
+        margin-bottom: 5px;
+        padding: 0 20px;
+        &:hover {
+          background-color: #e2e2e2;
+        }
+        .sugg_text {
+          font-size: 14px;
+          color: black;
+        }
+      }
+    }
+
+    .input[type='text'] {
+      display: block;
+      position: relative;
+      height: 56px;
+      padding: 16px 8px;
+      font-weight: normal;
+      font-size: 16px;
+      color: #31394d;
+      border: none;
+      width: 80%;
+      min-width: 550px;
+      border-radius: 0 8px 8px 0;
+      @media (max-width: 1024px) {
+        min-width: 250px;
+        width: 60%;
+      }
+      @media (max-width: 768px) {
+        display: none;
+      }
+      @media (max-width: 480px) {
+        min-width: 160px;
+      }
+    }
+    .city_input {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 56px;
+      padding: 16px 8px;
+      font-weight: normal;
+      font-size: 16px;
+      color: #31394d;
+      background-color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      @media (max-width: 768px) {
+        border-radius: 0;
+        margin-right: 16px;
+      }
+      @media (max-width: 480px) {
+        min-width: 160px;
+      }
+    }
+
+    .searchedData {
+      position: absolute;
+      left: 20%;
+      top: 110%;
+      width: 80%;
+      color: black;
+      padding: 5px 0px 0px 15px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 1024px) {
+        // min-width: 250px;
+        left: 40%;
+        width: 60%;
+      }
+      @media (max-width: 768px) {
+        display: none;
+      }
+
+      div {
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+    }
+
+    button {
+      width: 72px;
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      border: none;
+      background: #fbe4e4;
+      border-radius: 8px;
+      @media (max-width: 768px) {
+        border-radius: 0 8px 8px 0;
+      }
+    }
+  }
+}

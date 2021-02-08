@@ -54,7 +54,7 @@ const Step2 = (props) => {
     setItem('addProduct', {
       ...step1,
       ...data,
-      discount: { quantity: discnt ? qtyVal : 0, discount: discnt ? discountVal : 0 },
+      discount: { quantity: discnt ? +qtyVal : 0, discount: discnt ? +discountVal : 0 },
     })
     setStep()
     setStepper(false)

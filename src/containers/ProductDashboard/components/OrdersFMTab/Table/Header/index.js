@@ -17,13 +17,14 @@ const headers = [
   },
   {
     title: 'Client name',
-    sortType: 'client',
+    style: 'client',
+    sortType: 'clientName',
     id: 11,
   },
   {
     title: 'Items',
     style: 'items',
-    sortType: 'orderProducts.length',
+    sortType: 'totalItems',
     id: 2,
   },
   {

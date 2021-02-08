@@ -15,6 +15,11 @@ import foodloverOrders from './foodlover_orders'
 import stripe from './stripe'
 import billingHistory from './billing_history'
 import order from './order'
+import admin from './admin'
+import toggleFavourite from './favourites'
+import search from './search'
+import chat from './chat'
+import files from './files'
 
 export default function* rootSaga() {
   yield all([
@@ -34,5 +39,10 @@ export default function* rootSaga() {
     stripe(),
     billingHistory(),
     order(),
+    admin(),
+    toggleFavourite(),
+    search(),
+    chat(),
+    files(),
   ])
 }

@@ -21,6 +21,7 @@ export default {
   updateSettings: '/v1/account/update_settings',
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',
+  registrationEmail: '/v1/user/verify_registration_email',
 
   // Listing
 
@@ -29,12 +30,14 @@ export default {
   updateProduct: '/v1/product/update',
   getProductInfo: '/v1/product/info/',
   toggleStatus: '/v1/product/toggle_status',
+  duplicate: '/v1/product/duplicate/',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
   getFoodmakerInfoByName: '/v1/foodmaker/info_by_profile_name/',
   updateFoodmakerAccount: '/v1/account/update_foodmaker',
   createWithdraw: '/v1/foodmaker/create_withdraw_request',
+  updateBankData: '/v1/foodmaker/payment_info',
 
   // System
   getProductTypes: '/v1/product/list_types',
@@ -47,6 +50,7 @@ export default {
   // Shop
   isShopExist: '/v1/shop/check_if_exist/',
   updateShop: '/v1/shop/update',
+  createShop: '/v1/shop/create',
   getShopByFoodmakerId: '/v1/shop/foodmaker/',
   getShopByUrl: '/v1/shop/shop_url/',
 
@@ -64,10 +68,23 @@ export default {
   fl_orders: '/v1/order/list_customer_orders',
   fmOrderInfo: '/v1/order/foodmaker_order/',
   flOrderInfo: '/v1/order/customer_order/',
+  changeDelStatus: '/v1/order/update_status',
 
-  //
-  //
-  //
-  //
-  // ========================================================
+  // Admin
+  getUsersList: '/v1/admin/user/list_all',
+  getShopsList: '/v1/admin/shop/list_all',
+  getWithdrawList: '/v1/admin/foodmaker/withdraw',
+  approveWithdraw: '/v1/admin/foodmaker/withdraw',
+
+  // Favourites
+  toggleFavouriteProduct: '/v1/product/toggle_favorite',
+  toggleFavouriteFoodmaker: '/v1/foodmaker/toggle_favorite',
+  toggleFavouriteShop: '/v1/shop/toggle_favorite',
+
+  // Search
+  searchInProducts: '/v1/search/product/predictive',
+  searchInFoodMakers: '/v1/search/foodmaker/predictive',
+
+  // Files
+  deleteFile: '/v1/file/delete/file/',
 }

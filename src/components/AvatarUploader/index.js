@@ -7,7 +7,7 @@ import ImgCrop from 'antd-img-crop'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import './ava.less'
 
-const Avatar = ({ avatarUrl, setAvatar }) => {
+const Avatar = ({ avatarUrl, setAvatar, aspect = 1 }) => {
   const [loading, setLoading] = useState(false)
 
   const sendFile = async (options) => {
@@ -60,7 +60,7 @@ const Avatar = ({ avatarUrl, setAvatar }) => {
 
   return (
     <div className="avatar_uploader_wrapper">
-      <ImgCrop rotate>
+      <ImgCrop rotate aspect={aspect}>
         <Upload
           name="avatar"
           listType="picture-card"

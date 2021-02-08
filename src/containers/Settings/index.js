@@ -14,7 +14,8 @@ import styles from './settings.module.scss'
 import './settings.less'
 
 const Settings = (props) => {
-  const { replaceRoute } = props
+  const { replaceRoute, hkd } = props
+
   const { activeTab } = useParams()
 
   const onChange = (key) => {
@@ -42,8 +43,13 @@ const Settings = (props) => {
               mark: false,
               content: <Exp />,
             },
-            'billing history': { disabled: true, mark: true, content: <BillingHistory /> },
-            balance: { disabled: true, mark: false, content: <Balance /> },
+            'billing history': { disabled: false, mark: true, content: <BillingHistory /> },
+            balance: {
+              disabled: false,
+              mark: false,
+              moneyAmount: hkd,
+              content: <Balance />,
+            },
           }}
         />
       </div>
@@ -53,8 +59,9 @@ const Settings = (props) => {
 
 Settings.propTypes = {
   replaceRoute: T.func,
+  hkd: T.number,
 }
 
-export default connect(null, {
+export default connect(({ account: { balance } }) => ({ hkd: balance?.hkd }), {
   replaceRoute: replace,
 })(Settings)

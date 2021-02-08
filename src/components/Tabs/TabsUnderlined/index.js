@@ -9,6 +9,9 @@ const { TabPane } = Tabs
 
 const TabsUnderlined = ({ tabs, activeTab, onChange }) => {
   const extraMark = () => <span className={styles.extraMark} />
+  const extraData = (moneyAmount) => (
+    <span className={styles.moneyAmount}>{`$ ${moneyAmount.toFixed(2)}`}</span>
+  )
   return (
     <div className="tabs-underlined-container">
       <Tabs
@@ -30,6 +33,7 @@ const TabsUnderlined = ({ tabs, activeTab, onChange }) => {
               <span>
                 {tab}
                 {tabs[tab].mark && extraMark()}
+                {tabs[tab].moneyAmount && extraData(tabs[tab].moneyAmount)}
               </span>
             }
             key={tab}
@@ -50,6 +54,7 @@ TabsUnderlined.propTypes = {
     name: T.shape({
       mark: T.bool,
       content: T.node,
+      moneyAmount: T.number,
     }),
   }).isRequired,
 }

@@ -9,6 +9,16 @@
     width: 100%;
   }
 
+  .printButton {
+    button {
+      padding: 10px 20px;
+      background: none;
+      text-decoration: none;
+      border: 2px solid #cecece;
+      border-radius: 6px;
+    }
+  }
+
   //smth
   .statusWrapper {
     display: flex;
@@ -32,15 +42,15 @@
     margin-bottom: 20px;
     align-items: center;
 
-    .orderImageWrapper {
-      margin-right: 10px;
-
-      .img {
-        background: darkcyan;
-        width: 60px;
-        height: 60px;
-        border-radius: 8px;
-      }
+    .img {
+      margin-right: 16px;
+      background: darkcyan;
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
     }
 
     .orderInfoWrapper {
@@ -52,6 +62,7 @@
         font-size: 16px;
         line-height: 160%;
         letter-spacing: 0.5px;
+        margin-bottom: 3px;
       }
 
       .orderSummaryWrapper {

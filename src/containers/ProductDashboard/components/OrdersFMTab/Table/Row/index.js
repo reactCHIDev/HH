@@ -16,6 +16,15 @@ function index({ item }) {
     hour12: false,
     minute: '2-digit',
   })
+
+  const typePrettier = (type) => {
+    if (type === 'Express') return 'Express'
+    if (type === 'Standard') return 'Standard'
+    if (type === 'FreeDelivery') return 'Free'
+    if (type === 'FreePickUp') return 'Pick up'
+    return null
+  }
+
   return (
     <>
       <Link to={{ pathname: '/fm_order_info', state: item }}>
@@ -23,16 +32,21 @@ function index({ item }) {
           <div className={styles.columnsWrapper}>
             <div className={styles.time}>
               <div className={styles.date}>
-                {day}, {month}
+                {day} {month}
               </div>
               <div>{time}</div>
             </div>
             <div className={styles.id}>#{item.id}</div>
-            <div className={styles.client}>{item.customer.profileName || 'anonim'}</div>
-            <div className={styles.items}>{item.orderProducts.length}</div>
-            <div className={styles.amount}>$ {item.orderTotal}</div>
-            <div className={styles.delivery}>{item.deliveryMethod}</div>
-            <div className={styles.status}>{item.deliveryStatus}</div>
+            <div className={styles.client}>{item.clientName || 'anonim'}</div>
+            <div className={styles.items}>{item.totalItems}</div>
+            <div className={styles.amount}>$ {item.orderTotal.toFixed(2)}</div>
+            <div className={styles.delivery}>{typePrettier(item.deliveryMethod)}</div>
+            <div
+              style={item.deliveryStatus === 'New Order' ? { color: '#7ad398' } : {}}
+              className={styles.status}
+            >
+              {item.deliveryStatus}
+            </div>
           </div>
           <div className={styles.lastSection}>
             <Link to={{ pathname: '/fm_order_info', state: item }}>

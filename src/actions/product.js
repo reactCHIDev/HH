@@ -11,6 +11,7 @@ import {
   TOGGLE_PRODUCT_STATUS_REQUESTING,
   TOGGLE_PRODUCT_STATUS_SUCCESS,
   TOGGLE_PRODUCT_STATUS_ERROR,
+  DUPLICATE_PRODUCT_REQUESTING,
 } from './constants'
 
 export const toggleProductStatusRequestAC = (payload) => ({
@@ -67,4 +68,9 @@ export const getProductInfoSuccess = () => ({
 export const getProductInfoError = (error) => ({
   type: GET_PRODUCT_INFO_ERROR,
   error,
+})
+
+export const duplicateAC = (payload) => ({
+  type: DUPLICATE_PRODUCT_REQUESTING,
+  payload,
 })

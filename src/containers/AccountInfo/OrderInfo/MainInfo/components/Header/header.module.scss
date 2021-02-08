@@ -3,7 +3,9 @@
   justify-content: space-between;
   margin-bottom: 50px;
   width: 100%;
-  overflow-x: scroll;
+  @media (max-width: 768px) {
+    overflow-x: scroll;
+  }
 
   .mainOrderInfo {
     display: flex;
@@ -36,5 +38,12 @@
   .invoice {
     font-size: 14px;
     color: #5375cb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      margin-right: 10px;
+    }
   }
 }

@@ -10,6 +10,9 @@ import cls from 'classnames'
 import { Spin, Space, Rate } from 'antd'
 import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
 import { getUserByLinkAC } from 'actions/account'
+import toggleFavouriteAc from 'actions/favourites'
+import AvatarPlaceholder from 'components/AvatarPlaceholder'
+
 import { getShopByFoodmakerIdAC } from 'actions/shop'
 import { resolveFoodmakerDataAC } from 'actions/pages'
 import Button from 'components/Button'
@@ -21,6 +24,8 @@ import avatar from 'assets/TMP-AVATAR.jpg'
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import mapMarker from 'assets/icons/svg/map_marker.svg'
 import likeHeart from 'assets/icons/svg/like_heart.svg'
+import redLikeHeart from 'assets/icons/svg/red.svg'
+
 import envelope from 'assets/icons/svg/envelope.svg'
 import review from 'assets/images/signup-flow/svg/medium-business.svg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
@@ -36,6 +41,7 @@ const FoodmakerPage = (props) => {
     shop,
     resolveFoodmakerDataAC,
     pushRoute,
+    toggleFavouriteAc,
     /* getUserByLink,
     getFoodmakerInfoAC,
     getFoodmakerInfoByNameAC,
@@ -46,8 +52,9 @@ const FoodmakerPage = (props) => {
   const { userName } = useParams()
 
   const [readMore, setReadMore] = useState(false)
-  const [name, setName] = useState('')
   const [gallery, setGallery] = useState([])
+  const [isFavorite, setIsFavorite] = React.useState('')
+  const [inFavorite, setInFavoite] = React.useState()
 
   useEffect(() => {
     resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
@@ -55,11 +62,22 @@ const FoodmakerPage = (props) => {
 
   useEffect(() => {
     if (fm?.id) {
-      setName(fm.firstName ? `${fm.firstName} ${fm.lastName}` : '')
       setGallery([fm.coverPhoto].concat(fm.otherPhotos))
+      setIsFavorite(fm.isFavorite)
+      setInFavoite(fm.inFavorite)
       window.scrollTo(0, 0)
     }
   }, [fm])
+
+  const onLikeCLick = () => {
+    if (isFavorite) {
+      setInFavoite((c) => c - 1)
+    } else {
+      setInFavoite((c) => c + 1)
+    }
+    setIsFavorite((f) => !f)
+    toggleFavouriteAc({ id: fm.id, type: 'foodmaker' })
+  }
 
   const onReadMore = () => setReadMore(!readMore)
 
@@ -79,7 +97,11 @@ const FoodmakerPage = (props) => {
         <div className={cls(styles.container, 'container')}>
           <div className={styles.info_section}>
             <div className={styles.avatar_container}>
-              <img src={fm.userPhoto} alt="avatar" />
+              {fm.userPhoto ? (
+                <img src={fm.userPhoto} alt="avatar" />
+              ) : (
+                <AvatarPlaceholder width={85} />
+              )}
             </div>
             <div className={styles.location}>
               <div className={styles.maker_location}>
@@ -98,14 +120,25 @@ const FoodmakerPage = (props) => {
               <div className={styles.tags}>{fm.tags?.length && fm.tags.join(', ')}</div>
             </div>
             <div className={styles.btn_block}>
-              <div className={styles.fav_button}>
-                <img className={styles.heart} src={likeHeart} alt="heart" />
+              <div onClick={() => onLikeCLick()} className={styles.fav_button}>
+                <img
+                  className={styles.heart}
+                  src={isFavorite ? redLikeHeart : likeHeart}
+                  alt="heart"
+                />
                 <p className={styles.btn_text}>Favorite Maker</p>
-                <p className={styles.likes}>(0)</p>
+                <p className={styles.likes}>{`(${inFavorite})`}</p>
               </div>
-              <div className={styles.send_msg}>
-                <img className={styles.heart} src={envelope} alt="envelope" />
-              </div>
+              <Link
+                to={{
+                  pathname: '/messages',
+                  state: { id: fm.userId, profileName: fm.profileName, userPhoto: fm.userPhoto },
+                }}
+              >
+                <div className={styles.send_msg}>
+                  <img className={styles.heart} src={envelope} alt="envelope" />
+                </div>
+              </Link>
             </div>
           </div>
           <div className={styles.photo_section}>
@@ -123,10 +156,10 @@ const FoodmakerPage = (props) => {
                 <img className={styles.shop_icon} src={fm?.coverPhoto} alt="icon" />
                 <div>
                   <p className={styles.shop_owner}>{`SHOP OF ${fm.firstName}`}</p>
-                  <p className={styles.shop_name}>{shop.title}</p>
+                  <p className={styles.shop_name}>{shop?.title}</p>
                 </div>
               </div>
-              <p className={styles.shop_descr}>{shop.description}</p>
+              <p className={styles.shop_descr}>{shop?.description}</p>
               <div className={styles.btn_container}>
                 {/* <Link to={{ pathname: '/shop_page', state: fm.id }}> */}
                 <Button title="Visit shop" onClick={shop?.shopUrl ? openShop : null} />
@@ -169,6 +202,7 @@ FoodmakerPage.propTypes = {
   pushRoute: T.func.isRequired,
   fm: T.shape(),
   shop: T.shape(),
+  toggleFavouriteAc: T.func.isRequired,
   /* getFoodmakerInfoAC: T.func.isRequired,
   getFoodmakerInfoByNameAC: T.func.isRequired,
   getUserByLink: T.func.isRequired,
@@ -182,4 +216,5 @@ export default connect(({ pages }) => ({ fm: pages.foodmakerData, shop: pages.sh
   pushRoute: push,
   getUserByLink: getUserByLinkAC,
   resolveFoodmakerDataAC,
+  toggleFavouriteAc,
 })(FoodmakerPage)

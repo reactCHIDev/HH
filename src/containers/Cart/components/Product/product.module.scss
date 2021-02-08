@@ -26,6 +26,7 @@
 
     p {
       text-transform: lowercase;
+      line-height: normal;
       margin: 0;
     }
 
@@ -80,16 +81,19 @@
       .mainAmount {
         font-weight: 500;
         color: #31394d;
+        font-size: 16px;
       }
 
       .secondaryAmount {
         color: #31394d;
+        font-size: 12px;
       }
 
       .deliveryType {
         font-weight: bold;
         color: #5375cb;
         cursor: pointer;
+        text-transform: uppercase;
       }
 
       .freeShipping {

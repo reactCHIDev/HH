@@ -44,6 +44,8 @@ const MainOrderInfo = ({ order, getFLOrderAC, orderInfo }) => {
     minute: '2-digit',
   })
 
+  console.log(orderInfo, 'orderInfo')
+
   return (
     orderInfo && (
       <div className={styles.container}>
@@ -54,6 +56,7 @@ const MainOrderInfo = ({ order, getFLOrderAC, orderInfo }) => {
           time={time}
           deliveryType={orderInfo.deliveryMethod}
           deliveryStatus={orderInfo.deliveryStatus}
+          receipt={orderInfo?.paymentDetails?.receipt_url}
         />
         <div className={styles.content}>
           {orderInfo.foodmaker && <Maker info={orderInfo.foodmaker} />}

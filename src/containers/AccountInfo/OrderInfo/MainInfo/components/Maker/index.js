@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import envelope from 'assets/icons/svg/envelope.svg'
+
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import styles from './maker.module.scss'
 
@@ -17,7 +19,9 @@ function Maker({ info }) {
                 <AvatarPlaceholder width={96} />
               )}
             </div>
-            <div className={styles.icon} />
+            <div className={styles.icon}>
+              <img src={envelope} alt="envelope" />
+            </div>
           </div>
           <div className={styles.textWrapper}>
             <div className={styles.name}>{info.firstName}</div>

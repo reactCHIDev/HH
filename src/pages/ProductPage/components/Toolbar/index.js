@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { Select } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductToBasket } from 'actions/cart'
+import isProductAvailable from 'utils/isProductAvailable'
 import cls from 'classnames'
 import Button from 'components/Button/index'
 import styles from './toolbar.module.scss'
@@ -27,8 +28,17 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
     dispatch(addProductToBasket(data))
   }
 
+  const endDate = {
+    day: new Date(product.availabilityEndDate).toLocaleDateString('en-US', {
+      day: 'numeric',
+    }),
+    month: new Date(product.availabilityEndDate).toLocaleDateString('en-US', {
+      month: 'short',
+    }),
+  }
+
   const { Option } = Select
-  return product.quantity !== 0 ? (
+  return (
     <div className={styles.container}>
       <div className={styles.price}>
         {params.find((p) => p.volume === weightOption)?.price.toFixed(2)}
@@ -59,9 +69,10 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
         </button>
       </div>
       <div className={styles.order_button}>
-        {isPreOrderOnly ? (
+        {isPreOrderOnly || !isProductAvailable(product) ? (
           <Button
             title="PRE-ORDER"
+            endDate={endDate}
             onClick={() => {
               console.log('submit')
             }}
@@ -76,7 +87,7 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
         )}
       </div>
     </div>
-  ) : null
+  )
 }
 
 Toolbar.propTypes = {

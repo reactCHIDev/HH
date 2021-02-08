@@ -26,7 +26,7 @@ const ExpCard = (props) => {
           </div>
         </div>
         <div className={styles.info_container}>
-          <Link className={styles.card_link} to={{ pathname, state }}>
+          <Link className={styles.card_link} to={pathname}>
             <p className={styles.exp_title}>{name}</p>
           </Link>
           <div className={styles.stats_container}>
@@ -55,6 +55,7 @@ ExpCard.propTypes = {
   rating: T.number,
   rateCount: T.number,
   isShowCart: T.bool,
+  pathname: T.string,
 }
 
 ExpCard.defaultProps = {

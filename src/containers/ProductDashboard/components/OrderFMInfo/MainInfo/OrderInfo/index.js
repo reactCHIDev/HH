@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useSelector } from 'react-redux'
+import InvoiceIcon from 'assets/icons/svg/invoice-icon.svg'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
+import StatusWrapper from './components/Status'
 import styles from './orderInfo.module.scss'
 
 function OrderInfo() {
@@ -23,20 +25,26 @@ function OrderInfo() {
   return order?.orderProducts ? (
     <div className={styles.container}>
       {/* Header */}
-      <div className={styles.statusWrapper}>
-        <div className={styles.status}>Status: </div>
-        <div className={styles.statusType}>{order.deliveryStatus}</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
+        <StatusWrapper deliveryStatus={order.deliveryStatus} id={order.id} />
+        <div className={styles.printButton}>
+          <button
+            type="button"
+            onClick={() => {
+              window.open(order.paymentDetails.receipt, '_blank')
+            }}
+          >
+            <img src={InvoiceIcon} alt="invoice_icon" />
+          </button>
+        </div>
       </div>
       {/* Order */}
       {order.orderProducts.map((item) => (
         <div key={item.id}>
           <div className={styles.orderWrapper}>
-            <div className={styles.orderImageWrapper}>
-              <div
-                style={{ backgroundImage: `url("${item.coverPhoto}")` }}
-                className={styles.img}
-              />
-            </div>
+            {/* <div className={styles.orderImageWrapper}> */}
+            <div style={{ backgroundImage: `url("${item.coverPhoto}")` }} className={styles.img} />
+            {/* </div> */}
             <div className={styles.orderInfoWrapper}>
               <div className={styles.header}>{item.title}</div>
               <div className={styles.orderSummaryWrapper}>
@@ -72,7 +80,8 @@ function OrderInfo() {
           </div>
         </div>
         <div className={styles.total}>
-          Total: {order.orderTotal}$<span className={styles.value}>Refund</span>
+          Total: $ {order.orderTotal.toFixed(2)}
+          <span className={styles.value}>Refund</span>
         </div>
       </div>
       {/* Client */}
@@ -91,7 +100,15 @@ function OrderInfo() {
           <div className={styles.mainInfo}>
             <div className={styles.item}>
               <div>Client</div>
-              <div className={styles.value}>{order.customer?.profileName}</div>
+              <div className={styles.value}>
+                {order.customer?.firstName} {order.customer?.lastName}
+              </div>
+              {order.deliveryCompany && (
+                <div>
+                  <div>Company</div>
+                  <div className={styles.value}>{order.deliveryCompany}</div>
+                </div>
+              )}
             </div>
             <div className={styles.item}>
               <div>Contact number</div>

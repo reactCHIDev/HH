@@ -19,6 +19,11 @@ function ProductSummary({ shop, title }) {
 
   const [dataToShow, setDataToShow] = React.useState()
   const [isDataShown, setIsDataShown] = React.useState(false)
+  const [isDiscount, setIsDiscount] = React.useState(false)
+  const [freeDelPrice, setFreeDelPrice] = React.useState(
+    delTypes.filter((e) => e.type === 'FreeDelivery')[0].freeDeliveryOver,
+  )
+  const [freeDelInfoShown, setFreeDelInfoShown] = React.useState(false)
 
   const changeType = (type, delPrice) => {
     dispatch(changeDeliveryType({ type, price: delPrice, shop: title }))
@@ -28,6 +33,45 @@ function ProductSummary({ shop, title }) {
     setDataToShow(delTypes.filter((e) => e.type !== curVal.type))
   }, [curVal])
 
+  const typePrettier = (type) => {
+    if (type === 'Express') return 'Express'
+    if (type === 'Standard') return 'Standard'
+    if (type === 'FreeDelivery') return 'Free'
+    if (type === 'FreePickUp') return 'Pick up'
+    return null
+  }
+
+  React.useEffect(() => {
+    if (curDelType.type === 'FreeDelivery' && price < curVal.freeDeliveryOver) {
+      const newT = delTypes.filter((e) => e.type !== 'FreeDelivery')[0]
+      setCurValue(newT)
+      changeType(newT.type, newT.delPrice)
+    }
+    if (price >= curVal.freeDeliveryOver && !isDiscount) {
+      setIsDiscount(true)
+      dispatch(changeDeliveryType({ type: curVal.type, price: 0, shop: title }))
+    }
+    if (price < curVal.freeDeliveryOver && isDiscount) {
+      setIsDiscount(false)
+      dispatch(changeDeliveryType({ type: curVal.type, price: curVal.delPrice, shop: title }))
+    }
+  }, [price])
+
+  const priceToShow = (isFirstPart, sum = 0) => {
+    const curPrice = sum.toFixed(2)
+    if (isFirstPart) {
+      return curPrice.substring(0, curPrice.indexOf('.'))
+    }
+    return curPrice.substring(curPrice.lastIndexOf('.') + 1)
+  }
+
+  const freeDelHandler = () => {
+    setFreeDelInfoShown(true)
+    setTimeout(() => {
+      setFreeDelInfoShown(false)
+    }, 3000)
+  }
+
   return (
     <div className={styles.informationWrapper}>
       <div className={styles.orderDetails}>
@@ -35,9 +79,17 @@ function ProductSummary({ shop, title }) {
           <p className={styles.regularText} style={{ marginBottom: '10px' }}>
             Subtotal with delivery:{' '}
             <span className={styles.mainAmount}>
-              {`$ ${curVal.freeDeliveryOver >= price ? price + curVal.delPrice : price}.`}
+              {`$ ${
+                curVal.freeDeliveryOver > price
+                  ? priceToShow(true, price + curVal.delPrice)
+                  : priceToShow(true, price)
+              }.`}
             </span>
-            <span className={styles.secondaryAmount}>00</span>
+            <span className={styles.secondaryAmount}>
+              {curVal.freeDeliveryOver > price
+                ? priceToShow(false, price + curVal.delPrice)
+                : priceToShow(false, price)}
+            </span>
           </p>
         </div>
         {dataToShow ? (
@@ -51,13 +103,13 @@ function ProductSummary({ shop, title }) {
               {curVal.delPrice ? (
                 <>
                   <span className={styles.deliveryType}>
-                    {`${curVal.type} $${curVal.delPrice}`}
+                    {`${typePrettier(curVal.type)} $${curVal.delPrice}`}
                   </span>
                   <span>{'>'}</span>
                 </>
               ) : (
                 <>
-                  <span className={styles.deliveryType}>{`${curVal.type}`}</span>
+                  <span className={styles.deliveryType}>{typePrettier(curVal.type)}</span>
                 </>
               )}
             </p>
@@ -77,9 +129,13 @@ function ProductSummary({ shop, title }) {
               {dataToShow.map((item) => (
                 <div
                   onClick={() => {
-                    setCurValue(item)
-                    setIsDataShown(false)
-                    changeType(item.type, item.delPrice)
+                    if (item.type === 'FreeDelivery' && item.freeDeliveryOver > price) {
+                      freeDelHandler()
+                    } else {
+                      setCurValue(item)
+                      setIsDataShown(false)
+                      changeType(item.type, item.delPrice)
+                    }
                   }}
                   key={item.type}
                   style={{
@@ -91,13 +147,13 @@ function ProductSummary({ shop, title }) {
                     {item.delPrice ? (
                       <>
                         <span className={styles.deliveryType}>
-                          {`${item.type} $${item.delPrice}`}
+                          {`${typePrettier(item.type)} $${item.delPrice}`}
                         </span>
                         <span>{'>'}</span>
                       </>
                     ) : (
                       <>
-                        <span className={styles.deliveryType}>{`${item.type}`}</span>
+                        <span className={styles.deliveryType}>{`${typePrettier(item.type)}`}</span>
                       </>
                     )}
                   </p>
@@ -106,13 +162,22 @@ function ProductSummary({ shop, title }) {
             </div>
           </div>
         ) : null}
-        {deliveryPrice ? (
+        {freeDelInfoShown ? (
+          <div className={cls(styles.textWrapper, styles.progress)}>
+            <p className={styles.regularText}>
+              <span className={styles.freeShipping}>
+                {`$${(freeDelPrice - price).toFixed(2)} more `}
+              </span>
+              <span>for free delivery type</span>
+            </p>
+          </div>
+        ) : (deliveryPrice || isDiscount) && curDelType.type !== 'FreeDelivery' ? (
           <div className={cls(styles.textWrapper, styles.progress)}>
             <p className={styles.regularText}>
               {curVal.freeDeliveryOver - price > 0 ? (
                 <>
                   <span className={styles.freeShipping}>
-                    {`$${curVal.freeDeliveryOver - price} more `}
+                    {`$${(curVal.freeDeliveryOver - price).toFixed(2)} more `}
                   </span>
                   <span>for free shipping</span>
                 </>

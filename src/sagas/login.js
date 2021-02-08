@@ -1,7 +1,7 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects'
 import { push, replace } from 'connected-react-router'
 import { login as loginRequest, logout as logoutRequest } from 'api/requests/Auth'
-import { removeItems, setItems } from '../utils/localStorage'
+import { getItem, removeItems, setItems } from '../utils/localStorage'
 import {
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
@@ -12,13 +12,16 @@ import {
 
 export function* logout() {
   logoutRequest()
-  removeItems(['authorization-token', 'user-id'])
+  removeItems(['authorization-token', 'user-id', 'cart', 'search_data', 'loginFromCart'])
   yield put({ type: 'CLEAR_ON_LOGOUT' })
+  yield put({ type: 'CLEAR_CART' })
+
   yield put(push('/login/regular'))
 }
 
 function* loginFlow({ creds }) {
   const { redirect } = creds
+  const isLoginFromCart = getItem('loginFromCart')
   delete creds.redirect
   try {
     const { data, headers } = yield loginRequest(creds)
@@ -34,8 +37,11 @@ function* loginFlow({ creds }) {
       payload: { name: data.profileName, id: data.id, role: data.role },
     })
     yield put({ type: GET_USER_ACCOUNT_REQUESTING })
-
-    if (redirect) yield put(replace('/'))
+    if (isLoginFromCart) {
+      yield put(push('/cart'))
+    } else if (redirect) {
+      yield put(replace('/'))
+    }
   } catch (error) {
     if (error.response) {
       yield put({ type: LOGIN_ERROR, error: error.response.data.error })

@@ -16,7 +16,7 @@ const OrdersTab = (props) => {
         <TabsOpen
           tabs={{
             Products: { mark: 0, content: <OrdersFL /> },
-            Experiences: { mark: 0, content: <Soon /> },
+            Experiences: { disabled: true, mark: 0, content: <Soon /> },
           }}
         />
       </div>

@@ -8,7 +8,7 @@ import { Spin, Space } from 'antd'
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
 import { getUserByHHLink } from 'api/requests/Account'
-import { getShopByUrlReq } from 'api/requests/Shop'
+import { isShopExist } from 'api/requests/Shop'
 import GotoLink from 'assets/icons/svg/goto_link.svg'
 
 import QR from 'qrcode'
@@ -78,12 +78,13 @@ const ShopProfile = (props) => {
           if (e !== 'type') {
             acc[dm.type + e] = dm[e]
           } else {
-            if (dm[e] === 'standart') setStandart(true)
-            if (dm[e] === 'freepick') setFreepick(true)
-            if (dm[e] === 'express') setExpress(true)
-            if (dm[e] === 'free') setFree(true)
+            if (dm[e] === 'Standard') setStandart(true)
+            if (dm[e] === 'FreePickUp') setFreepick(true)
+            if (dm[e] === 'Express') setExpress(true)
+            if (dm[e] === 'FreeDelivery') setFree(true)
           }
         })
+        console.log('%c   acc   ', 'color: darkgreen; background: palegreen;', acc)
         return acc
       }, {})
 
@@ -103,7 +104,6 @@ const ShopProfile = (props) => {
   const filteredTags = tags.length ? tags.filter((o) => !selectedItems.includes(o.tagName)) : []
 
   useEffect(() => {
-    // if (id) getUserAccount(id)
     getServiceTagsAC()
     getSpecialityTagsAC()
     getProductTagsRequestAC()
@@ -131,36 +131,36 @@ const ShopProfile = (props) => {
     const values = { ...formValues }
 
     const standartDelivery = {
-      type: 'standard',
-      price: values.standartprice,
-      freeDeliveryOver: values.standartfreeDeliveryOver,
-      note: values.standartnote,
+      type: 'Standard',
+      price: values.Standardprice,
+      freeDeliveryOver: values.StandardfreeDeliveryOver,
+      note: values.Standardnote,
     }
-    delete values.standartprice
-    delete values.standartfreeDeliveryOver
-    delete values.standartnote
+    delete values.Standardprice
+    delete values.StandardfreeDeliveryOver
+    delete values.Standardnote
 
     const freepickDelivery = {
-      type: 'freepick',
-      note: values.freepicknote,
+      type: 'FreePickUp',
+      note: values.FreePickUpnote,
     }
-    delete values.freepicknote
+    delete values.FreePickUpnote
 
     const expressDelivery = {
-      type: 'express',
-      price: values.expressprice,
-      freeDeliveryOver: values.expressfreeDeliveryOver,
-      note: values.expressnote,
+      type: 'Express',
+      price: values.Expressprice,
+      freeDeliveryOver: values.ExpressfreeDeliveryOver,
+      note: values.Expressnote,
     }
-    delete values.expressprice
-    delete values.expressfreeDeliveryOver
-    delete values.expressnote
+    delete values.Expressprice
+    delete values.ExpressfreeDeliveryOver
+    delete values.Expressnote
 
     const freeDelivery = {
-      type: 'free',
-      price: values.freeprice,
+      type: 'FreeDelivery',
+      freeDeliveryOver: values.FreeDeliveryfreeDeliveryOver,
     }
-    delete values.freeprice
+    delete values.FreeDeliveryfreeDeliveryOver
 
     const delivery = []
 
@@ -192,7 +192,7 @@ const ShopProfile = (props) => {
     onChange(Math.abs(e))
   }
 
-  if (!defaults.title) return <></>
+  // if (!defaults.title) return <></>
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -214,7 +214,7 @@ const ShopProfile = (props) => {
                     validate: async (value) => {
                       const url = process.env.REACT_APP_BASE_URL + '/shop/' + value.toLowerCase()
                       if (url === shop?.shopUrl) return true
-                      const shopData = await getShopByUrlReq(url)
+                      const shopData = await isShopExist(value)
                       return !shopData.data?.title
                     },
                     maxLength: {
@@ -283,7 +283,7 @@ const ShopProfile = (props) => {
             <div id="uploader_fm" className={styles.uploader}>
               <p className={styles.title}>Cover photo</p>
               <div className={styles.avatar_container}>
-                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
+                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} aspect="1.4" />
               </div>
             </div>
           </div>
@@ -327,17 +327,15 @@ const ShopProfile = (props) => {
                     <label className={styles.label}>Cost of delivery</label>
                     <Controller
                       control={control}
-                      name="standartprice"
+                      name="Standardprice"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -347,17 +345,15 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="standartfreeDeliveryOver"
+                      name="StandardfreeDeliveryOver"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -368,7 +364,7 @@ const ShopProfile = (props) => {
 
                   <textarea
                     className={styles.textarea}
-                    name="standartnote"
+                    name="Standardnote"
                     placeholder="Standard delivery description"
                     rows="5"
                     ref={register({
@@ -386,7 +382,7 @@ const ShopProfile = (props) => {
                 <p className={styles.label_note}>Note</p>
                 <textarea
                   className={styles.textarea}
-                  name="freepicknote"
+                  name="FreePickUpnote"
                   placeholder="Pick up description."
                   rows="5"
                   ref={register({
@@ -406,17 +402,15 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="expressprice"
+                      name="Expressprice"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -426,17 +420,15 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="expressfreeDeliveryOver"
+                      name="ExpressfreeDeliveryOver"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />
@@ -447,7 +439,7 @@ const ShopProfile = (props) => {
 
                   <textarea
                     className={styles.textarea}
-                    name="expressnote"
+                    name="Expressnote"
                     placeholder="Express delivery description."
                     rows="5"
                     ref={register({
@@ -468,17 +460,15 @@ const ShopProfile = (props) => {
 
                     <Controller
                       control={control}
-                      name="freeprice"
+                      name="FreeDeliveryfreeDeliveryOver"
                       rules={{ required: false }}
                       render={({ onChange, value, name }) => (
                         <InputNumber
                           name={name}
                           value={value}
                           onChange={handleNumber(onChange)}
-                          formatter={(value) =>
-                            `HKD ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                          }
-                          parser={(value) => value.replace(/\HKD\s?|(,*)/g, '')}
+                          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                         />
                       )}
                     />

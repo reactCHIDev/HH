@@ -37,7 +37,9 @@ const Header = (props) => {
     id,
     role,
     userPhoto,
+    profileName,
     shop,
+    newMessages,
     logOut,
     pathname,
     pushRoute,
@@ -57,6 +59,7 @@ const Header = (props) => {
     '/foodmaker_dashboard',
     '/product_dashboard',
     '/fm_order_info',
+    '/messages',
     '/account_info',
     '/order_info',
     '/addproduct',
@@ -233,77 +236,84 @@ const Header = (props) => {
               </div>
             </li>
           )}
-          <li className={styles.hide} style={{ opacity: 0.5 }}>
-            <div>
-              <svg
-                width="19"
-                height="19"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g opacity="1">
-                  <rect
-                    x="1.33301"
-                    y="4"
-                    width="21.3333"
-                    height="16"
-                    rx="3"
-                    stroke={dark ? 'white' : '#31394D'}
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M2.66699 6.66699L10.8378 12.5033C11.5332 13 12.4674 13 13.1628 12.5033L21.3337 6.66699"
-                    stroke={dark ? 'white' : '#31394D'}
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </g>
-              </svg>
-            </div>
+          <li className={styles.hide}>
+            <Link to="/messages">
+              <div style={{ position: 'relative' }}>
+                {newMessages > 0 ? (
+                  <div className={styles.basketAmount}>
+                    <div>{newMessages}</div>
+                  </div>
+                ) : null}
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g opacity="1">
+                    <rect
+                      x="1.33301"
+                      y="4"
+                      width="21.3333"
+                      height="16"
+                      rx="3"
+                      stroke={dark ? 'white' : '#31394D'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M2.66699 6.66699L10.8378 12.5033C11.5332 13 12.4674 13 13.1628 12.5033L21.3337 6.66699"
+                      stroke={dark ? 'white' : '#31394D'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </Link>
           </li>
-          {authorized && (
-            <li>
-              <Link to="/cart">
-                <div style={{ position: 'relative' }}>
-                  {products.length ? (
-                    <div className={styles.basketAmount}>
-                      <div>{products.length}</div>
-                    </div>
-                  ) : null}
-                  <svg
-                    width="19"
-                    height="19"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g opacity="1">
-                      <path
-                        d="M1 3L2.11047 3C3.52508 3 4.74747 3.9882 5.04387 5.37141L6.21531 10.8381C6.61051 12.6824 8.24037 14 10.1265 14H17.2862C19.0468 14 20.6003 12.8489 21.1129 11.1646L23 4.96429"
-                        stroke={dark ? 'white' : '#31394D'}
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M11.25 19.5C11.25 20.4665 10.4665 21.25 9.5 21.25C8.5335 21.25 7.75 20.4665 7.75 19.5C7.75 18.5335 8.5335 17.75 9.5 17.75C10.4665 17.75 11.25 18.5335 11.25 19.5Z"
-                        stroke={dark ? 'white' : '#31394D'}
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M20.25 19.5C20.25 20.4665 19.4665 21.25 18.5 21.25C17.5335 21.25 16.75 20.4665 16.75 19.5C16.75 18.5335 17.5335 17.75 18.5 17.75C19.4665 17.75 20.25 18.5335 20.25 19.5Z"
-                        stroke={dark ? 'white' : '#31394D'}
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                  </svg>
-                </div>
-              </Link>
-            </li>
-          )}
+          {/* {authorized && ( */}
+          <li>
+            <Link to="/cart">
+              <div style={{ position: 'relative' }}>
+                {products.length ? (
+                  <div className={styles.basketAmount}>
+                    <div>{products.length}</div>
+                  </div>
+                ) : null}
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g opacity="1">
+                    <path
+                      d="M1 3L2.11047 3C3.52508 3 4.74747 3.9882 5.04387 5.37141L6.21531 10.8381C6.61051 12.6824 8.24037 14 10.1265 14H17.2862C19.0468 14 20.6003 12.8489 21.1129 11.1646L23 4.96429"
+                      stroke={dark ? 'white' : '#31394D'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M11.25 19.5C11.25 20.4665 10.4665 21.25 9.5 21.25C8.5335 21.25 7.75 20.4665 7.75 19.5C7.75 18.5335 8.5335 17.75 9.5 17.75C10.4665 17.75 11.25 18.5335 11.25 19.5Z"
+                      stroke={dark ? 'white' : '#31394D'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M20.25 19.5C20.25 20.4665 19.4665 21.25 18.5 21.25C17.5335 21.25 16.75 20.4665 16.75 19.5C16.75 18.5335 17.5335 17.75 18.5 17.75C19.4665 17.75 20.25 18.5335 20.25 19.5Z"
+                      stroke={dark ? 'white' : '#31394D'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </Link>
+          </li>
+          {/* )} */}
         </ul>
         <div className={styles.signin}>
           {!authorized && <Link to="/login/regular">SIGN IN</Link>}
@@ -335,6 +345,8 @@ const Header = (props) => {
         {menu && item === 'all' && (
           <MenuContainer
             useOutsideClick={useOutsideClick}
+            userPhoto={userPhoto}
+            profileName={profileName}
             dark={dark}
             item="all"
             setSubmenu={setSubmenu}
@@ -408,7 +420,9 @@ Header.propTypes = {
   authorized: T.bool.isRequired,
   id: T.oneOfType([T.number, T.string]),
   role: T.string,
+  profileName: T.string,
   pathname: T.string.isRequired,
+  newMessages: T.number,
   logOut: T.func.isRequired,
   pushRoute: T.func.isRequired,
   userPhoto: T.string,
@@ -421,9 +435,10 @@ export default connect(
     router: {
       location: { pathname },
     },
-    account: { userPhoto, id, role, shop },
+    account: { userPhoto, profileName, id, role, shop },
     cart: { products },
-  }) => ({ authorized, id, role, pathname, userPhoto, shop, products }),
+    chat: { newMessages },
+  }) => ({ authorized, id, role, profileName, pathname, userPhoto, shop, products, newMessages }),
   {
     logOut: logout,
     pushRoute: push,
