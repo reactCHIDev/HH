@@ -52,9 +52,6 @@ const ShopPage = (props) => {
   const [productCount, setProductCount] = useState(6)
   const [isFavorite, setIsFavorite] = React.useState('')
   const [inFavorite, setInFavoite] = React.useState(0)
-  console.log(shop)
-
-  const name = fm.firstName ? fm.firstName + ' ' + fm.lastName : ''
 
   const onLikeCLick = () => {
     if (isFavorite) {
@@ -188,7 +185,7 @@ const ShopPage = (props) => {
                   <img src={fm.userPhoto} alt="Avatar" className={styles.avatar} />
                   <div className={styles.text_holder}>
                     <span className={styles.owner}>Shop owner</span>
-                    <strong className={styles.title}>{name}</strong>
+                    <strong className={styles.title}>{fm.profileName}</strong>
                     <p>{fm.about}</p>
                   </div>
                 </div>
