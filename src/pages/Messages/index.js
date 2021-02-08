@@ -3,7 +3,7 @@ import T from 'prop-types'
 import { WebSocketContext } from 'App'
 import cloneDeep from 'lodash/cloneDeep'
 import SubHeader from 'components/SubHeader'
-import { socketClose, getDialogs, setAsReviewed } from 'utils/openWS'
+import { getDialogs, setAsReviewed } from 'utils/openWS'
 import { useHistory } from 'react-router-dom'
 import { setActiveChatAC, setNewContactAC } from 'actions/chat'
 import { useSelector, useDispatch } from 'react-redux'
@@ -89,10 +89,6 @@ const Messages = ({ location: { state } }) => {
           />
         )}
       </div>
-      <div
-        style={{ width: 50, height: 30, background: '#444' }}
-        onClick={() => socketClose(socket)}
-      />
     </>
   )
 }
