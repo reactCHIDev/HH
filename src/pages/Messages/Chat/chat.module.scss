@@ -1,7 +1,12 @@
+.order_chat_container {
+  width: 100%;
+}
+.msg_chat_container {
+  width: 65%;
+}
 .container {
   position: relative;
   min-height: 250px;
-  width: 65%;
   padding-top: 20px;
   border: 1px solid #e5e5e5;
   border-radius: 14px;

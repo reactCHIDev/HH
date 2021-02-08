@@ -16,7 +16,7 @@ import Message from '../Message'
 import MyMessage from '../MyMessage'
 import styles from './chat.module.scss'
 
-function Chat({ dialog, activeChat, myId, recipient, rdy }) {
+function Chat({ dialog, activeChat, myId, recipient, rdy, orderChat }) {
   const [message, setMessage] = useState('')
   const [user, setUser] = useState(null)
   const [modal, setPreviewModal] = useState(false)
@@ -103,7 +103,12 @@ function Chat({ dialog, activeChat, myId, recipient, rdy }) {
   const closeModal = () => setPreviewModal(false)
 
   return (
-    <div className={styles.container}>
+    <div
+      className={cls(
+        orderChat ? styles.order_chat_container : styles.msg_chat_container,
+        styles.container,
+      )}
+    >
       <div className={styles.msg_container} ref={chatWindow} onScroll={onScroll}>
         <div className={styles.msg_wrapper} ref={msgContainer}>
           {chatDialog.reverse().map((e, i, arr) => {
