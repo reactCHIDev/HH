@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './table.module.scss'
 
 function Row({ item }) {
+  console.log({ item })
   return (
     <div className={styles.rowWrapper}>
       <div className={styles.mainInfo}>
@@ -17,7 +18,7 @@ function Row({ item }) {
       </div>
       <div className={styles.qty}>{item.quantity}</div>
       <div className={styles.price}>$ {item.price}</div>
-      <div className={styles.total}>$ {item.price * item.quantity}</div>
+      <div className={styles.total}>$ {item.totalAmount}</div>
     </div>
   )
 }

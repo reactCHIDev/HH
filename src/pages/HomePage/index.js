@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import { getPublicProductsAC, getPublicFoodmakersAC } from 'actions/pages'
 import ProdCard from 'components/ProductCard'
 import { push } from 'connected-react-router'
+import { Spin, Space } from 'antd'
+
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
 import FAQSection from 'components/FAQSection'
@@ -28,6 +30,7 @@ const Home = (props) => {
     pushRoute,
     productList,
     foodmakersList,
+    isLoading,
   } = props
 
   const { Panel } = Collapse
@@ -108,7 +111,15 @@ const Home = (props) => {
               />
             ))}
           <div className={styles.btn_holder}>
-            <Button title="More products near you" dark onClick={moreProducts} />
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+                <Space size="middle">
+                  <Spin size="large" />
+                </Space>
+              </div>
+            ) : (
+              <Button title="More products near you" dark onClick={moreProducts} />
+            )}
           </div>
         </section>
       </div>
@@ -154,7 +165,11 @@ Home.propTypes = {
 }
 
 export default connect(
-  ({ pages }) => ({ productList: pages.products, foodmakersList: pages.foodmakers }),
+  ({ pages }) => ({
+    productList: pages.products,
+    foodmakersList: pages.foodmakers,
+    isLoading: pages.requesting,
+  }),
   {
     getPublicProductsAC,
     getPublicFoodmakersAC,

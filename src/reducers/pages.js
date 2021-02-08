@@ -15,6 +15,7 @@ const initialState = {
   foodmakers: [],
   foodmakerData: null,
   shopData: null,
+  requesting: false,
 }
 
 const reducer = function loginReducer(state = initialState, action) {
@@ -30,6 +31,7 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         ...state,
         products: action.data,
+        requesting: false,
       }
 
     case GET_PUBLIC_PRODUCTS_ERROR:
@@ -49,6 +51,7 @@ const reducer = function loginReducer(state = initialState, action) {
       return {
         ...state,
         foodmakers: action.data,
+        requesting: false,
       }
 
     case GET_PUBLIC_FOODMAKERS_ERROR:
