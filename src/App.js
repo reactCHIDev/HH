@@ -13,7 +13,6 @@ import { Spin, Space } from 'antd'
 /* CUSTOM MODULES */
 import { getUserAccount } from 'actions/account'
 import { getItem } from 'utils/localStorage'
-import { getSocket, sendMessage } from 'utils/openWS'
 import { dispatchMsg } from 'actions/chat'
 import { setBaseEndpoint } from 'utils/apiClient'
 import { history } from 'store'
@@ -97,10 +96,10 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
       const token = getItem('authorization-token')
       const [, accessToken] = token.split('Bearer ')
 
-      let socket
+      let ws
 
       const socketOpenListener = () => {
-        socket.send(
+        ws.send(
           JSON.stringify({
             event: 'getNewMessages',
             data: {
@@ -111,26 +110,24 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
       }
 
       const socketMessageListener = (data) => {
-        dispatchMsg(socket, data.data)
+        dispatchMsg(ws, data.data)
       }
 
       const socketCloseListener = () => {
         if (socket) {
           console.error('Disconnected.')
         }
-        socket = new WebSocket(
+        ws = new WebSocket(
           `${process.env.REACT_APP_WEBSOCKET_BASE_URL}/ws/v1?accessToken=${accessToken}`,
         )
+        ws.addEventListener('open', socketOpenListener)
+        ws.addEventListener('message', socketMessageListener)
+        ws.addEventListener('close', socketCloseListener)
 
-        socket.addEventListener('open', socketOpenListener)
-        socket.addEventListener('message', socketMessageListener)
-        socket.addEventListener('close', socketCloseListener)
-        console.log('%c   socket   ', 'color: darkgreen; background: palegreen;', socket)
+        setWs(ws)
       }
 
       socketCloseListener()
-
-      setWs(socket)
     }
     if (!authorized && socket) socket.close()
   }, [authorized])
@@ -144,8 +141,6 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
   setBaseEndpoint(url)
 
   const hideHeader = ['/signupflow', '/admin'].includes(pathname)
-
-  // console.log('%c   NODE_ENV =   ', 'color: white; background: royalblue;', process.env.NODE_ENV)
 
   return (
     <div className={styles.app_container} id="app-container">

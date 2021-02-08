@@ -16,7 +16,7 @@ const Message = ({ date, message, setPreview }) => {
           <div className={styles.text_msg}>{message.text}</div>
           <div className={styles.preview_wrapper}>
             {message.files.map((e, i) => (
-              <PreviewIcon fileLink={e} setPreview={setPreview} />
+              <PreviewIcon key={e} fileLink={e} setPreview={setPreview} />
             ))}
           </div>
         </div>
