@@ -29,6 +29,8 @@ import Home from 'pages/HomePage'
 import AdminPage from 'pages/Admin'
 import Create from 'containers/Auth/components/Forgot/components/Create'
 
+import Soon from 'components/ComingSoon'
+
 import './App.less'
 import './App.css'
 import 'styles/styles.scss'
@@ -61,9 +63,12 @@ const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
 
 // Product dashboard
-const PrdocutDashboard = lazy(() => import('containers/ProductDashboard'))
+const ProductDashboard = lazy(() => import('containers/ProductDashboard'))
 const AddProduct = lazy(() => import('containers/ProductDashboard/components/AddProduct'))
 const OrderFMInfo = lazy(() => import('containers/ProductDashboard/components/OrderFMInfo'))
+
+// Product dashboard
+const ExperienceDashboard = lazy(() => import('containers/ExperienceDashboard'))
 
 // Other
 const CartPage = lazy(() => import('containers/Cart'))
@@ -174,7 +179,12 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                 <PublicRoute
                   exact
                   path="/product_dashboard/:activeTab?"
-                  component={WaitingComponent(PrdocutDashboard)}
+                  component={WaitingComponent(ProductDashboard)}
+                />
+                <PublicRoute
+                  exact
+                  path="/experience_dashboard/:activeTab?"
+                  component={WaitingComponent(ExperienceDashboard)}
                 />
                 <PublicRoute
                   exact
@@ -218,6 +228,7 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                 />
                 <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} />
                 <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
+                <PrivateRoute exact path="/addexperience" component={Soon} />
                 <PublicRoute
                   exact
                   path="/product/:productId?"

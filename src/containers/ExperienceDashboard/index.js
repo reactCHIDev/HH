@@ -6,17 +6,17 @@ import { replace } from 'connected-react-router'
 import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
-import Listings from './components/Listings'
+import ExpListings from './components/ExpListings'
 import ProfileTab from './components/ProfileTab'
 import OrdersFM from './components/OrdersFMTab'
-import styles from './proddb.module.scss'
+import styles from './expdb.module.scss'
 
-const ProductDashboard = (props) => {
+const ExperienceDashboard = (props) => {
   const { profileName, shop, replaceRoute } = props
   const { activeTab } = useParams()
 
   const onChange = (key) => {
-    replaceRoute(`/product_dashboard/${key}`)
+    replaceRoute(`/experience_dashboard/${key}`)
   }
 
   return (
@@ -26,12 +26,12 @@ const ProductDashboard = (props) => {
         onChange={onChange}
         activeTab={activeTab || 'listings'}
         tabs={{
-          overview: { mark: false, disabled: true, content: <Soon /> },
-          listings: { mark: false, content: <Listings /> },
-          orders: { mark: false, disabled: false, content: <OrdersFM /> },
-          reviews: { mark: false, disabled: true, content: <Soon /> },
-          performance: { mark: false, disabled: true, content: <Soon /> },
-          profile: { mark: false, content: <ProfileTab profileName={profileName} shop={shop} /> },
+          overview: { mark: false, disabled: false, content: <Soon /> },
+          listings: { mark: false, content: <ExpListings /> },
+          booking: { mark: false, disabled: false, content: <Soon /> },
+          reviews: { mark: false, disabled: false, content: <Soon /> },
+          performance: { mark: false, disabled: false, content: <Soon /> },
+          profile: { mark: false, content: <Soon /> },
           /*           orders: {
             mark: false,
             content: <Exp />,
@@ -44,11 +44,11 @@ const ProductDashboard = (props) => {
   )
 }
 
-ProductDashboard.propTypes = {
+ExperienceDashboard.propTypes = {
   profileName: T.string.isRequired,
   replaceRoute: T.func,
 }
 
 export default connect(({ login: { profileName }, account: { shop } }) => ({ profileName, shop }), {
   replaceRoute: replace,
-})(ProductDashboard)
+})(ExperienceDashboard)

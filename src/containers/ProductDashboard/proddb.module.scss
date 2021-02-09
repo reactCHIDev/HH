@@ -1,0 +1,25 @@
+.container {
+  background: #f5f8fb;
+  min-height: 300px;
+
+  .heading {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: 0.07em;
+    color: #31394d;
+    padding: 0px 30px 30px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1260px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 24px;
+      padding: 0 20px 20px;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 18px;
+    }
+  }
+}
