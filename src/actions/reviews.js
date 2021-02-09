@@ -18,3 +18,8 @@ export const getUnreviewedProductSuccess = (data) => ({
   type: GET_UNREVIEWED_PRODUCT_SUCCESS,
   data,
 })
+
+export const createProductReviewAC = (data) => ({
+  type: CREATE_PRODUCT_REVIEW_REQUESTING,
+  data,
+})

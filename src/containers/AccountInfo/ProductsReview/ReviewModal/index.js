@@ -1,7 +1,22 @@
 import React from 'react'
+import { createProductReviewAC } from 'actions/reviews'
+
 import styles from './reviewModal.module.scss'
+import { useDispatch } from 'react-redux'
 
 function ReviewModal({ product }) {
+  const dispatch = useDispatch()
+  const submitReview = () => {
+    dispatch(
+      createProductReviewAC({
+        productId: product.id,
+        review: 'texttexttexttexttext',
+        rating: 4,
+        recommend: true,
+      }),
+    )
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.productWrapper}>
@@ -26,7 +41,9 @@ function ReviewModal({ product }) {
           <div className={styles.starsWrapper}></div>
           <div className={styles.recommendWrapper}></div>
         </div>
-        <div className={styles.submitButton}>Publish</div>
+        <div onClick={() => submitReview()} className={styles.submitButton}>
+          Publish
+        </div>
       </div>
     </div>
   )
