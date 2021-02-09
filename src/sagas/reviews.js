@@ -42,11 +42,8 @@ function* createProductReview({ data }) {
 }
 
 function* getFlProductReviews() {
-  console.log('LOL')
   try {
-    console.log('LOL1')
     const { data } = yield getFlProductsReviewsReq({ startIndex: 1, limit: 6 })
-    console.log(data, 'DATA')
     yield put({ type: GET_FL_REVIEWS_SUCCESS, data })
   } catch (error) {
     if (error.response) {

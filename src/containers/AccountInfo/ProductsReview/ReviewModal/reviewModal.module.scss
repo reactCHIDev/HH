@@ -99,9 +99,24 @@
       }
     }
     .reviewInfo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
       .starsWrapper {
+        margin-right: 30px;
       }
       .recommendWrapper {
+        display: flex;
+
+        .title {
+          margin-right: 10px;
+        }
+
+        .option {
+          margin-right: 10px;
+          cursor: pointer;
+        }
       }
     }
     .submitButton {
