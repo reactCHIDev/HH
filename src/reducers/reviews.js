@@ -5,10 +5,14 @@ import {
   CREATE_PRODUCT_REVIEW_REQUESTING,
   CREATE_PRODUCT_REVIEW_SUCCESS,
   CREATE_PRODUCT_REVIEW_ERROR,
+  GET_FL_REVIEWS_REQUESTING,
+  GET_FL_REVIEWS_SUCCESS,
+  GET_FL_REVIEWS_ERROR,
 } from 'actions/constants'
 
 const initialState = {
   unreviewedProduct: null,
+  reviews: null,
   requesting: false,
   error: false,
   createReviewRequesting: false,
@@ -52,6 +56,28 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         createReviewRequesting: false,
+      }
+
+    case GET_FL_REVIEWS_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        success: false,
+        error: false,
+      }
+    case GET_FL_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        reviews: action.data,
+        requesting: false,
+        error: false,
+      }
+
+    case GET_FL_REVIEWS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: true,
       }
 
     default:

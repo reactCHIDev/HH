@@ -23,3 +23,12 @@ export const createProductReviewAC = (data) => ({
   type: CREATE_PRODUCT_REVIEW_REQUESTING,
   data,
 })
+
+export const getFlProductReviewsAC = () => ({
+  type: GET_FL_REVIEWS_REQUESTING,
+})
+
+export const getFlProductReviewsSuccess = (data) => ({
+  type: GET_FL_REVIEWS_SUCCESS,
+  data,
+})

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUnreviewedProductAC } from 'actions/reviews'
+import { getUnreviewedProductAC, getFlProductReviewsAC } from 'actions/reviews'
 import styles from './productsReview.module.scss'
 import ProductToReview from './ProductToReview'
 import ReviewModal from './ReviewModal'
@@ -13,6 +13,7 @@ function ProductsReview() {
 
   React.useEffect(() => {
     dispatch(getUnreviewedProductAC())
+    dispatch(getFlProductReviewsAC(), [dispatch])
   }, [])
 
   return (
