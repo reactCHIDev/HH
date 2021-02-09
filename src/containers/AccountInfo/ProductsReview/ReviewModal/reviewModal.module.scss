@@ -1,0 +1,125 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 30px;
+  background: #f5f8fb;
+  border-radius: 16px;
+  .productWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 35%;
+    .productImage {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      margin-right: 20px;
+      overflow: hidden;
+      background: yellow;
+      background-position: 50% 0;
+      background-size: cover;
+      border-radius: 12px;
+    }
+
+    .productInfo {
+      display: flex;
+      flex-direction: column;
+
+      .pendingText {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 5px 10px;
+        color: #31394d;
+        font-weight: bold;
+        font-size: 10px;
+        line-height: 13px;
+        white-space: nowrap;
+        text-transform: capitalize;
+        background: #fbe4e4;
+        border-radius: 6px;
+      }
+
+      .productTitle {
+        color: #31394d;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 23px;
+      }
+    }
+  }
+
+  .reviewWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+
+    .reviewHeader {
+      margin-bottom: 10px;
+      color: hsl(222, 7%, 55%);
+      font-size: 12px;
+      line-height: 19px;
+      letter-spacing: 0.5px;
+    }
+    .reviewInputWrapper {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 20px;
+      background: #ffffff;
+      border: 2px solid #31394d;
+      border-radius: 8px;
+
+      .reviewTextArea {
+        width: 100%;
+        height: 128px;
+        overflow: hidden;
+        color: #31394d;
+        line-height: 24px;
+        border: none;
+        opacity: 0.8;
+        resize: none;
+      }
+      .imageSection {
+        .addPhotosButton {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 20%;
+          padding: 10px 30px;
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 19px;
+          white-space: nowrap;
+          text-transform: uppercase;
+          border: 2px solid #b1b6c2;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+      }
+    }
+    .reviewInfo {
+      .starsWrapper {
+      }
+      .recommendWrapper {
+      }
+    }
+    .submitButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35%;
+      padding: 20px 30px;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 19px;
+      text-transform: uppercase;
+      background: #31394d;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  }
+}
