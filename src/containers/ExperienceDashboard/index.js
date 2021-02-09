@@ -21,7 +21,7 @@ const ExperienceDashboard = (props) => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.heading}>Product dashboard</p>
+      <p className={styles.heading}>Experience dashboard</p>
       <TabsUnderlined
         onChange={onChange}
         activeTab={activeTab || 'listings'}
@@ -32,12 +32,6 @@ const ExperienceDashboard = (props) => {
           reviews: { mark: false, disabled: false, content: <Soon /> },
           performance: { mark: false, disabled: false, content: <Soon /> },
           profile: { mark: false, content: <Soon /> },
-          /*           orders: {
-            mark: false,
-            content: <Exp />,
-          },
-          review: { mark: true, content: null },
-          'blog submission': { mark: false, content: <Comp /> }, */
         }}
       />
     </div>

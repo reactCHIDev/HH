@@ -58,6 +58,7 @@ const Header = (props) => {
     '/signupflow',
     '/foodmaker_dashboard',
     '/product_dashboard',
+    '/experience_dashboard',
     '/fm_order_info',
     '/messages',
     '/account_info',
