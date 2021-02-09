@@ -1,0 +1,86 @@
+.container {
+  .content {
+    position: relative;
+    padding-bottom: 100px;
+
+    .header {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 140%;
+      letter-spacing: 0.5px;
+      color: #3c3e43;
+    }
+    .add_info {
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: #31394d;
+      margin-bottom: 22px;
+    }
+
+    .items_wrapper {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      .formlist_item {
+        display: flex;
+        margin-bottom: 12px;
+        @media (max-width: 1024px) {
+          flex-direction: column;
+        }
+        .num_selector {
+          margin-bottom: 10px;
+        }
+      }
+      .delBtn {
+        padding-top: 12px;
+      }
+    }
+
+    .ingr_wrapper {
+      display: flex;
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
+      .ingr_chk {
+        margin: 0 12px 8px 0;
+      }
+      .ingr_text {
+        flex-grow: 2;
+      }
+    }
+
+    .available {
+      .datepicker_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .datepicker_group {
+          display: flex;
+          align-items: center;
+          padding: 5px 0 0 24px;
+          margin-bottom: 36px;
+          .dash {
+            padding: 0 8px;
+          }
+        }
+      }
+    }
+
+    .quantity_container {
+      padding: 0;
+      margin-right: 30px;
+    }
+
+    .form-text {
+      display: block;
+      // padding-bottom: 14px;
+      font-size: 12px;
+      color: #838894;
+      margin-right: 12px;
+    }
+    .add_btn_wrapper {
+      margin-bottom: 46px;
+    }
+  }
+}
