@@ -21,7 +21,7 @@ function ProductSummary({ shop, title }) {
   const [isDataShown, setIsDataShown] = React.useState(false)
   const [isDiscount, setIsDiscount] = React.useState(false)
   const [freeDelPrice, setFreeDelPrice] = React.useState(
-    delTypes.filter((e) => e.type === 'FreeDelivery')[0].freeDeliveryOver,
+    delTypes.filter((e) => e.type === 'FreeDelivery')[0]?.freeDeliveryOver,
   )
   const [freeDelInfoShown, setFreeDelInfoShown] = React.useState(false)
 
