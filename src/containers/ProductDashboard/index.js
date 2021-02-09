@@ -9,7 +9,7 @@ import Soon from 'components/ComingSoon'
 import Listings from './components/Listings'
 import ProfileTab from './components/ProfileTab'
 import OrdersFM from './components/OrdersFMTab'
-import styles from './expdb.module.scss'
+import styles from './proddb.module.scss'
 
 const ProductDashboard = (props) => {
   const { profileName, shop, replaceRoute } = props

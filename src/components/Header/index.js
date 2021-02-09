@@ -58,6 +58,7 @@ const Header = (props) => {
     '/signupflow',
     '/foodmaker_dashboard',
     '/product_dashboard',
+    '/experience_dashboard',
     '/fm_order_info',
     '/messages',
     '/account_info',
@@ -376,12 +377,9 @@ const Header = (props) => {
                   <Link to="/product_dashboard/profile">Foodmaker Profile</Link>
                 </li>
               )}
-              <li
-                /* onClick={onSettingsSelect} */
-                style={{ opacity: 0.5 }}
-              >
+              <li onClick={onSettingsSelect}>
                 <img src={Gallery_icon} alt="icon" />
-                <a href="#"> create Experience</a>
+                <Link to="/experience_dashboard/listings">Experience dashboard</Link>
               </li>
               <li onClick={onSettingsSelect}>
                 <img src={Gallery_icon_1} alt="icon" />
