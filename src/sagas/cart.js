@@ -57,7 +57,7 @@ function* basketFlow({ data }) {
       console.log('error in saga when add new shop to shops list')
       yield put({
         type: DELETE_PRODUCT_FROM_LIST,
-        title,
+        id,
       })
       return
     }
