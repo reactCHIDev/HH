@@ -7,8 +7,6 @@ import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
 import ExpListings from './components/ExpListings'
-import ProfileTab from './components/ProfileTab'
-import OrdersFM from './components/OrdersFMTab'
 import styles from './expdb.module.scss'
 
 const ExperienceDashboard = (props) => {
