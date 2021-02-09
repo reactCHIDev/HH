@@ -5,7 +5,10 @@ function ReviewModal({ product }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.productWrapper}>
-        <div className={styles.productImage}></div>
+        <div
+          className={styles.productImage}
+          style={{ backgroundImage: `url("${product.coverPhoto}")` }}
+        />
         <div className={styles.productInfo}>
           <div className={styles.pendingText}>Pending review</div>
           <div className={styles.productTitle}>{product.title}</div>

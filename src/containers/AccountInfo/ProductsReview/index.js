@@ -1,24 +1,29 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUnreviewedProductAC } from 'actions/reviews'
 import styles from './productsReview.module.scss'
 import ProductToReview from './ProductToReview'
 import ReviewModal from './ReviewModal'
 
-const product = {
-  title: 'Pie with carrots, apple and cinnamon',
-  img: 'green',
-}
+function ProductsReview() {
+  const dispatch = useDispatch()
+  const productToReview = useSelector((state) => state.reviews.unreviewedProduct)
 
-function ProducrsReview() {
   const [isReviewModalOpen, setIsReviewModalOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    dispatch(getUnreviewedProductAC())
+  }, [])
+
   return (
     <div className={styles.container}>
-      {product && !isReviewModalOpen && (
-        <ProductToReview product={product} setIsReviewModalOpen={setIsReviewModalOpen} />
+      {productToReview && !isReviewModalOpen && (
+        <ProductToReview product={productToReview} setIsReviewModalOpen={setIsReviewModalOpen} />
       )}
-      {isReviewModalOpen && <ReviewModal product={product} />}
+      {isReviewModalOpen && <ReviewModal product={productToReview} />}
       <div></div>
     </div>
   )
 }
 
-export default ProducrsReview
+export default ProductsReview

@@ -87,4 +87,7 @@ export default {
 
   // Files
   deleteFile: '/v1/file/delete/file/',
+
+  // Review
+  unreviewedProduct: '/v1/review/product/latest/pending',
 }
