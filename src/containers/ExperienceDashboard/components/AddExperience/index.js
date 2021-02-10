@@ -16,10 +16,10 @@ import Step1 from './components/Steps/Step1'
 import Step2 from './components/Steps/Step2'
 import Step3 from './components/Steps/Step3'
 import Step4 from './components/Steps/Step4'
-import styles from './add_product.module.scss'
-import './add_product.less'
+import styles from './add_experience.module.scss'
+import './add_experience.less'
 
-const AddProduct = (props) => {
+const AddExperience = (props) => {
   const {
     account,
     countries,
@@ -48,9 +48,9 @@ const AddProduct = (props) => {
     getProductTypes()
     getProductTagsRequestAC()
     getCountriesAC()
-    if (!edit) removeKey('addProduct')
-    if (getItem('addProduct')) {
-      const { id } = getItem('addProduct')
+    if (!edit) removeKey('addExperience')
+    if (getItem('addExperience')) {
+      const { id } = getItem('addExperience')
       setId(id)
     }
   }, [])
@@ -88,7 +88,7 @@ const AddProduct = (props) => {
   }
 
   const goBack = () => {
-    removeKey('addProduct')
+    removeKey('addExperience')
   }
 
   const closeModal = (e) => {
@@ -105,9 +105,9 @@ const AddProduct = (props) => {
     <>
       <div className={styles.container}>
         <SubHeader
-          linkTo="/product_dashboard/listings"
+          linkTo="/experience_dashboard/listings"
           onBack={goBack}
-          title={edit ? 'Edit Product' : 'Add Product'}
+          title={edit ? 'Edit Experience' : 'Add Experience'}
         />
         <div className={styles.main}>
           <div id="stepper" className={styles.stepper}>
@@ -187,7 +187,7 @@ const AddProduct = (props) => {
   )
 }
 
-AddProduct.propTypes = {
+AddExperience.propTypes = {
   account: T.arrayOf(shape()),
   types: T.arrayOf(shape()),
   tags: T.arrayOf(shape()),
@@ -200,7 +200,7 @@ AddProduct.propTypes = {
   getProductTagsRequestAC: T.func,
 }
 
-AddProduct.defaultProperties = {
+AddExperience.defaultProperties = {
   types: [],
   tags: [],
 }
@@ -226,4 +226,4 @@ export default connect(
     getProductTagsRequestAC,
     duplicateAC,
   },
-)(AddProduct)
+)(AddExperience)

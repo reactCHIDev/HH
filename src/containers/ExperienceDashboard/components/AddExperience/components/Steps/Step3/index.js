@@ -10,7 +10,7 @@ import './step3.less'
 const Step3 = (props) => {
   const { setStep } = props
 
-  const prevState = getItem('addProduct')
+  const prevState = getItem('addExperience')
 
   const [cover, setCover] = useState(0)
   const [fileList, setFilelist] = useState([])
@@ -38,7 +38,7 @@ const Step3 = (props) => {
   }, [fileList])
 
   const onNext = () => {
-    const prevSteps = getItem('addProduct')
+    const prevSteps = getItem('addExperience')
 
     const formData = {}
 
@@ -52,7 +52,7 @@ const Step3 = (props) => {
             .map((e) => (e?.response ? e.response.url : e.url))
         : []
 
-    setItem('addProduct', {
+    setItem('addExperience', {
       ...prevSteps,
       ...formData,
     })

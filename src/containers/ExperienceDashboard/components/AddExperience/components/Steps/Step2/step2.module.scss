@@ -11,6 +11,27 @@
       border-radius: 16px;
       margin-bottom: 14px;
 
+      .service_tags {
+        width: 100%;
+        margin-bottom: 24px;
+      }
+
+      .slider_container {
+        width: 100%;
+        padding-top: 36px;
+        margin-bottom: 24px;
+      }
+
+      .input_number {
+        margin-bottom: 24px;
+      }
+
+      .price_block {
+        display: flex;
+        column-gap: 24px;
+        align-items: center;
+      }
+
       .item_container {
         .form_label {
           display: block;
@@ -165,7 +186,7 @@
       .discount_container {
         display: flex;
         align-items: center;
-        margin-bottom: 48px;
+        margin-bottom: 16px;
         @media (max-width: 560px) {
           flex-direction: column;
           align-items: flex-start;

@@ -23,7 +23,7 @@ const { Option } = Select
 const { RangePicker } = DatePicker
 
 const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
-  const prevState = getItem('addProduct')
+  const prevState = getItem('addExperience')
 
   const normalizeTagsDefaults = (value) => value.map((t) => tags.find((e) => e.id === t).tagName)
 
@@ -132,19 +132,19 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
       formData.availabilityEndDate = availabilityEndDate
     }
 
-    const prevStep = getItem('addProduct')
+    const prevStep = getItem('addExperience')
     delete prevStep.ingredients
     delete prevStep.deliveryRegionException
     const productData = { ...prevStep, ...formData }
-    setItem('addProduct', productData)
-    delete productData.countries
-    create(productData)
+    setItem('addExperience', productData)
+    // delete productData.countries
+    // create(productData)
   }
 
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   function onFieldChange(vals) {
-    const values = vals ? { ...vals } : getItem('addProduct')
+    const values = vals ? { ...vals } : getItem('addExperience')
 
     // ================
 
@@ -192,11 +192,11 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
       formData.availabilityEndDate = availabilityEndDate
     }
 
-    const prevStep = getItem('addProduct')
+    const prevStep = getItem('addExperience')
     delete prevStep.ingredients
     delete values.deliveryRegionException
     const productData = { ...prevStep, ...formData }
-    setItem('addProduct', productData)
+    setItem('addExperience', productData)
   }
 
   const onRegionRadio = (e) => {

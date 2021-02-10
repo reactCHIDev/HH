@@ -13,7 +13,7 @@ const Step1 = (props) => {
   const { setStep, stepper, setStepper } = props
 
   let shopName = ''
-  const allValues = getItem('addProduct')
+  const allValues = getItem('addExperience')
   if (allValues?.shopName) shopName = allValues?.shopName
 
   const { register, handleSubmit, control, watch, errors } = useForm({
@@ -22,8 +22,8 @@ const Step1 = (props) => {
   })
 
   const onNext = (name) => {
-    const values = getItem('addProduct')
-    setItem('addProduct', { ...values, ...name })
+    const values = getItem('addExperience')
+    setItem('addExperience', { ...values, ...name })
     setStep(1)
     setStepper(false)
   }
