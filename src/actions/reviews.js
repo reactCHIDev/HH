@@ -8,6 +8,7 @@ import {
   GET_FL_REVIEWS_REQUESTING,
   GET_FL_REVIEWS_SUCCESS,
   GET_FL_REVIEWS_ERROR,
+  OPEN_REVIEW_MODAL,
 } from './constants'
 
 export const getUnreviewedProductAC = () => ({
@@ -31,4 +32,8 @@ export const getFlProductReviewsAC = () => ({
 export const getFlProductReviewsSuccess = (data) => ({
   type: GET_FL_REVIEWS_SUCCESS,
   data,
+})
+
+export const openReviewModal = () => ({
+  type: OPEN_REVIEW_MODAL,
 })

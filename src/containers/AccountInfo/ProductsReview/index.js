@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUnreviewedProductAC, getFlProductReviewsAC } from 'actions/reviews'
+import { getUnreviewedProductAC, getFlProductReviewsAC, openReviewModal } from 'actions/reviews'
 import styles from './productsReview.module.scss'
 import ProductToReview from './ProductToReview'
 import ReviewModal from './ReviewModal'
@@ -10,8 +10,9 @@ function ProductsReview() {
   const dispatch = useDispatch()
   const productToReview = useSelector((state) => state.reviews.unreviewedProduct)
   const reviewedProducts = useSelector((state) => state.reviews.reviews)
+  const isReviewModalOpen = useSelector((state) => state.reviews.isModalOpen)
 
-  const [isReviewModalOpen, setIsReviewModalOpen] = React.useState(false)
+  // const [isReviewModalOpen, setIsReviewModalOpen] = React.useState(false)
 
   React.useEffect(() => {
     dispatch(getUnreviewedProductAC())
@@ -21,7 +22,11 @@ function ProductsReview() {
   return (
     <div className={styles.container}>
       {productToReview && !isReviewModalOpen && (
-        <ProductToReview product={productToReview} setIsReviewModalOpen={setIsReviewModalOpen} />
+        <ProductToReview
+          product={productToReview}
+          // setIsReviewModalOpen={setIsReviewModalOpen}
+          openReviewModal={openReviewModal}
+        />
       )}
       {isReviewModalOpen && <ReviewModal product={productToReview} />}
       {reviewedProducts && <ReviewedProducts products={reviewedProducts} />}

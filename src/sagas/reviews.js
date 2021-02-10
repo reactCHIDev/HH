@@ -33,6 +33,7 @@ function* createProductReview({ data }) {
   try {
     yield createProductReviewReq(data)
     yield put({ type: GET_UNREVIEWED_PRODUCT_REQUESTING })
+    yield put({ type: GET_FL_REVIEWS_REQUESTING })
     yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
   } catch (error) {
     if (error.response) {

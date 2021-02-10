@@ -1,7 +1,12 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import styles from './productToReview.module.scss'
 
-function ProductToReview({ product, setIsReviewModalOpen }) {
+function ProductToReview({ product, setIsReviewModalOpen, openReviewModal }) {
+  const dispatch = useDispatch()
+  const openModal = () => {
+    dispatch(openReviewModal())
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.productWrapper}>
@@ -16,7 +21,7 @@ function ProductToReview({ product, setIsReviewModalOpen }) {
       </div>
       <div
         onClick={() => {
-          setIsReviewModalOpen(true)
+          openModal()
         }}
         className={styles.button}
       >

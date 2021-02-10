@@ -8,6 +8,7 @@ import {
   GET_FL_REVIEWS_REQUESTING,
   GET_FL_REVIEWS_SUCCESS,
   GET_FL_REVIEWS_ERROR,
+  OPEN_REVIEW_MODAL,
 } from 'actions/constants'
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   requesting: false,
   error: false,
   createReviewRequesting: false,
+  isModalOpen: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -51,6 +53,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         createReviewRequesting: false,
+        isModalOpen: false,
       }
 
     case CREATE_PRODUCT_REVIEW_ERROR:
@@ -80,6 +83,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         requesting: false,
         error: true,
+      }
+
+    case OPEN_REVIEW_MODAL:
+      return {
+        ...state,
+        isModalOpen: true,
       }
 
     default:
