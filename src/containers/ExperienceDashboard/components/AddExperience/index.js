@@ -6,7 +6,13 @@ import Modal from 'components/UniversalModal'
 import Message from './components/Message'
 import { removeKey } from 'utils/localStorage'
 import { createProductRequestAC, updateProductRequestAC, duplicateAC } from 'actions/product'
-import { getProductTypes, getProductTagsRequestAC, getCountriesAC } from 'actions/system'
+import {
+  getProductTypes,
+  getProductTagsRequestAC,
+  getCountriesAC,
+  getExpTypesAC,
+  getExpTagsAC,
+} from 'actions/system'
 import SubHeader from 'components/SubHeader'
 import { getItem } from 'utils/localStorage'
 import Eye from 'assets/icons/svg/eye-preview.svg'
@@ -22,11 +28,12 @@ import './add_experience.less'
 const AddExperience = (props) => {
   const {
     account,
-    countries,
-    types,
-    tags,
+    expTypes,
+    expTags,
     requesting,
     success,
+    getExpTypesAC,
+    getExpTagsAC,
     getCountriesAC,
     getProductTypes,
     createProductRequestAC,
@@ -48,6 +55,8 @@ const AddExperience = (props) => {
     getProductTypes()
     getProductTagsRequestAC()
     getCountriesAC()
+    getExpTypesAC()
+    getExpTagsAC()
     if (!edit) removeKey('addExperience')
     if (getItem('addExperience')) {
       const { id } = getItem('addExperience')
@@ -58,15 +67,6 @@ const AddExperience = (props) => {
   useEffect(() => {
     if (step > progress) setProgress(step)
   }, [step])
-
-  useEffect(() => {
-    if (types && tags) {
-      const newTags = types.reduce((acc, e) => {
-        return acc.concat(e.productCategories.map((c) => c.title))
-      }, [])
-      setTagsCollection(tags)
-    }
-  }, [types, tags])
 
   useEffect(() => {
     const firstS = account && account?.shop?.id ? 1 : 0
@@ -100,7 +100,7 @@ const AddExperience = (props) => {
     setModal(false)
   }
 
-  if (step === null || types.length === 0) return <></>
+  if (step === null) return <></>
   return (
     <>
       <div className={styles.container}>
@@ -162,14 +162,20 @@ const AddExperience = (props) => {
                 <Step1 setStep={onClick} setStepper={setStepper} stepper={stepper} />
               )}
               {Number(step + firstStep) === 1 && (
-                <Step2 setStep={onClick} types={types} setStepper={setStepper} stepper={stepper} />
+                <Step2
+                  setStep={onClick}
+                  expTypes={expTypes}
+                  expTags={expTags}
+                  setStepper={setStepper}
+                  stepper={stepper}
+                />
               )}
-              {Number(step + firstStep) === 2 && <Step3 setStep={onClick} />}
+              {Number(step + firstStep) === 2 && (
+                <Step3 setStep={onClick} setStepper={setStepper} stepper={stepper} />
+              )}
               {Number(step + firstStep) === 3 && (
                 <Step4
                   create={edit ? updateProductRequestAC : createProductRequestAC}
-                  tags={tagsCollection}
-                  countries={countries}
                   edit={edit}
                   requesting={requesting}
                 />
@@ -189,9 +195,8 @@ const AddExperience = (props) => {
 
 AddExperience.propTypes = {
   account: T.arrayOf(shape()),
-  types: T.arrayOf(shape()),
-  tags: T.arrayOf(shape()),
-  countries: T.arrayOf(shape()),
+  expTypes: T.arrayOf(shape()),
+  expTags: T.arrayOf(shape()),
   requesting: T.bool,
   getCountriesAC: T.func,
   getProductTypes: T.func,
@@ -201,26 +206,23 @@ AddExperience.propTypes = {
 }
 
 AddExperience.defaultProperties = {
-  types: [],
-  tags: [],
+  expTypes: [],
+  expTags: [],
 }
 
 export default connect(
-  ({
-    system: { productTags: tags, productTypes, countries },
+  ({ system: { expTypes, expTags }, account, product: { requesting, success } }) => ({
+    expTypes,
+    expTags,
     account,
-    product: { requesting, success },
-  }) => ({
-    tags,
-    types: productTypes,
-    account,
-    countries,
     requesting,
     success,
   }),
   {
     getProductTypes,
     getCountriesAC,
+    getExpTypesAC,
+    getExpTagsAC,
     createProductRequestAC,
     updateProductRequestAC,
     getProductTagsRequestAC,

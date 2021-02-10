@@ -2,19 +2,35 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import Uploader from 'components/Uploader'
-import { Button } from 'antd'
+import { Button, Radio, Checkbox, Divider } from 'antd'
+import { useForm, Controller } from 'react-hook-form'
 import { getItem, setItem } from 'utils/localStorage'
+import _ from 'lodash/fp'
 import styles from './step3.module.scss'
 import './step3.less'
 
 const Step3 = (props) => {
-  const { setStep } = props
+  const { setStep, stepper, setStepper } = props
 
   const prevState = getItem('addExperience')
+
+  let description1, description2, description3, description4, isAdult, cancellation
+
+  if (getItem('addExperience'))
+    ({ description1, description2, description3, description4, isAdult, cancellation } = getItem(
+      'addExperience',
+    ))
+
+  const { register, handleSubmit, errors } = useForm({
+    mode: 'onBlur',
+    defaultValues: { description1, description2, description3, description4 },
+  })
 
   const [cover, setCover] = useState(0)
   const [fileList, setFilelist] = useState([])
   const [isActive, setActiveNext] = useState(true)
+  const [adult, setIsAdult] = useState(isAdult || false)
+  const [selectedRadio, setRadio] = useState(cancellation || 'FULL_REFUND')
 
   useEffect(() => {
     if (prevState?.coverPhoto) {
@@ -37,10 +53,17 @@ const Step3 = (props) => {
     if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
   }, [fileList])
 
-  const onNext = () => {
+  const isAdultChk = () => setIsAdult((a) => !a)
+
+  const onRadio = (e) => setRadio(e.target.value)
+
+  const onNext = (data) => {
     const prevSteps = getItem('addExperience')
 
-    const formData = {}
+    const formData = {
+      isAdult: adult,
+      cancellation: selectedRadio,
+    }
 
     const coverItem = fileList.length ? fileList.find((e) => e.uid === cover) : { url: '' }
     formData.coverPhoto = coverItem?.response ? coverItem.response.url : coverItem.url
@@ -55,8 +78,14 @@ const Step3 = (props) => {
     setItem('addExperience', {
       ...prevSteps,
       ...formData,
+      ...data,
     })
     setStep()
+    setStepper(false)
+  }
+
+  const onChangeForm = () => {
+    if (!stepper) setStepper(true)
   }
 
   return (
@@ -73,17 +102,110 @@ const Step3 = (props) => {
             setActiveNext={setActiveNext}
           />
         </div>
-        <div className={styles.btn_container}>
-          <Button
-            type="primary"
-            block
-            disabled={fileList.length < 2 || !isActive}
-            size="large"
-            onClick={onNext}
-          >
-            NEXT
-          </Button>
-        </div>
+        <Divider />
+
+        <form className={styles.form} onChange={onChangeForm} onSubmit={handleSubmit(onNext)}>
+          <div className={styles.description_container}>
+            <div className={styles.heading}>What you do during the experience</div>
+            <label className={styles.label}>Description</label>
+            <textarea
+              className={styles.textarea}
+              name="description1"
+              rows="4"
+              ref={register({
+                required: true,
+              })}
+            />
+            {_.get('description.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+          </div>
+          <Divider />
+          <div className={styles.description_container}>
+            <div className={styles.heading}>What you’ll provide</div>
+            <label className={styles.label}>Description</label>
+            <textarea
+              className={styles.textarea}
+              name="description2"
+              rows="4"
+              ref={register({
+                required: true,
+              })}
+            />
+            {_.get('description.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+          </div>
+          <Divider />
+
+          <div className={styles.description_container}>
+            <p className={styles.heading}>Additional requirements</p>
+            <Checkbox checked={adult} onChange={isAdultChk}>
+              Verify customer is over 18 years old
+            </Checkbox>
+          </div>
+
+          <Divider />
+          <div id="radio" className={styles.cancellation}>
+            <p className={styles.heading}>Cancellation policy</p>
+            <Radio.Group onChange={onRadio} value={selectedRadio}>
+              <Radio style={styles.radioStyle} value="FULL_REFUND">
+                Full refund
+              </Radio>
+              <Radio style={styles.radioStyle} value="HALF_REFUND">
+                50% refund
+              </Radio>
+              <Radio style={styles.radioStyle} value="NO_REFUND">
+                Non-refundable
+              </Radio>
+            </Radio.Group>
+          </div>
+          <Divider />
+
+          <div className={styles.description_container}>
+            <div className={styles.heading}>Preset experience reminder notes</div>
+            <label className={styles.label}>Description</label>
+            <textarea
+              className={styles.textarea}
+              name="description3"
+              rows="4"
+              ref={register({
+                required: true,
+              })}
+            />
+            {_.get('description.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+          </div>
+          <Divider />
+          <div className={styles.description_container}>
+            <div className={styles.heading}>Where does experience take place?</div>
+            <label className={styles.label}>Description</label>
+            <textarea
+              className={styles.textarea}
+              name="description4"
+              rows="2"
+              ref={register({
+                required: true,
+              })}
+            />
+            {_.get('description.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+          </div>
+          <Divider />
+          <div className={styles.btn_container}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              // disabled={fileList.length < 2 || !isActive}
+              size="large"
+            >
+              NEXT
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   )

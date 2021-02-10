@@ -1,54 +1,65 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getItem, setItem } from 'utils/localStorage'
-
 import { Select, Slider, InputNumber, Checkbox } from 'antd'
 import ChkBox from 'components/ChkBox'
-import { CaretDownOutlined } from '@ant-design/icons'
 import cls from 'classnames'
 import _ from 'lodash/fp'
 import { useForm, Controller } from 'react-hook-form'
 import styles from './step2.module.scss'
 import './step2.less'
-import { setTemporaryEndpoint } from 'utils/apiClient'
 
 const Step2 = (props) => {
-  const { setStep, types = [], stepper, setStepper } = props
+  const { setStep, expTypes, expTags, stepper, setStepper } = props
 
-  let title, description, productCategoryId, productTypeId, discount
+  let title,
+    expType,
+    expTag,
+    priceAdult,
+    priceChild,
+    isAdult,
+    maxGuests,
+    discount,
+    duration,
+    languages
   if (getItem('addExperience'))
-    ({ title, description, productCategoryId, productTypeId, discount } = getItem('addExperience'))
-  const [selectedItems, setSelectedItems] = useState([
-    'sdfsd',
-    'sdfsdf',
-    'sdfsdfdf',
-    'xcvxcv',
-    'xcvxcvxv',
-  ])
-  const [tags, setTags] = useState(['asdasd', 'dfdfg', 'werwer', 'jghjghj'])
-  const [languages, setLangs] = useState(['English', 'Japan', 'German'])
-  const [selectedLangs, setSelectedLangs] = useState([])
-  const [isAdult, setIsAdult] = useState(false)
-  const [maxPrice, setMaxPrice] = useState(0)
+    ({
+      title,
+      expType,
+      expTag,
+      duration,
+      priceAdult,
+      priceChild,
+      isAdult,
+      discount,
+      maxGuests,
+      languages,
+    } = getItem('addExperience'))
+
+  const [selectedTypes, setSelectedTypes] = useState(expType || [])
+  const [selectedTags, setSelectedTags] = useState(expTag || [])
+  const [dur, setDuration] = useState(duration || 20)
+  const [adult, setIsAdult] = useState(isAdult || false)
   const [discnt, setDiscount] = useState(!!discount?.discount && !!discount?.quantity)
   const [discValue, setDiscountValue] = useState(discount?.discount)
   const [qtyValue, setQtyValue] = useState(discount?.quantity)
-  const [category, setCategory] = useState(
-    types.find((t) => t.id === productTypeId)?.productCategories || [],
-  )
+  const [selectedLangs, setSelectedLangs] = useState(languages || [])
 
-  const { Option } = Select
+  // =========================================================================
 
-  const defaultValues = productTypeId
+  const defaultValues = title
     ? {
         title,
-        description,
-        productTypeId,
-        productCategoryId: types
-          .find((t) => t.id === productTypeId)
-          .productCategories.find((c) => c.id === productCategoryId)?.id,
+        expType,
+        expTag,
+        duration,
+        priceAdult,
+        priceChild,
+        isAdult,
         discountVal: discValue,
         qtyVal: qtyValue,
+        maxGuests,
+        languages,
       }
     : {}
 
@@ -56,6 +67,49 @@ const Step2 = (props) => {
     mode: 'onBlur',
     defaultValues,
   })
+
+  // ===============================================
+
+  const filteredTypes = expTypes?.length
+    ? expTypes.filter((o) => !selectedTypes.includes(o.title))
+    : []
+
+  const handleChangeTypes = (onChange) => (e) => {
+    setSelectedTypes(e)
+    onChange(e)
+  }
+
+  const filteredTags = expTags?.length ? expTags.filter((o) => !selectedTags.includes(o.title)) : []
+
+  const handleChangeTags = (onChange) => (e) => {
+    setSelectedTags(e)
+    onChange(e)
+  }
+
+  function formatter(value) {
+    const time = value * 3 + 30
+    const h = Math.floor(time / 60)
+    const m = time % 60
+    return `${h ? `${h}h` : ''} ${m ? `${m}m ` : ''}`
+  }
+
+  const onSlider = (value) => {
+    setDuration(value)
+  }
+
+  const onChangeChkBox = () => setDiscount(!discnt)
+  const isAdultChk = () => setIsAdult((a) => !a)
+
+  const filteredLangs = ['English', 'Chinese', 'Japan', 'French', 'German', 'Spanish'].filter(
+    (lang) => !selectedLangs.includes(lang),
+  )
+
+  const onLangSelect = (onChange) => (e) => {
+    setSelectedLangs(e)
+    onChange(e)
+  }
+
+  // ===============================================
 
   const onNext = (data) => {
     const step1 = getItem('addExperience')
@@ -67,43 +121,15 @@ const Step2 = (props) => {
       ...step1,
       ...data,
       discount: { quantity: discnt ? +qtyVal : 0, discount: discnt ? +discountVal : 0 },
+      duration: dur,
+      adult: isAdult,
     })
     setStep()
     setStepper(false)
   }
 
-  const handleChangeTags = (selectedItms) => {
-    setSelectedItems(selectedItms)
-  }
-  const handleChangeLangs = (selectedLngs) => {
-    setSelectedLangs(selectedLngs)
-  }
-  const filteredTags = tags.length ? tags.filter((o) => !selectedItems.includes(o.tagName)) : []
-  const filteredLangs = languages.filter((o) => !selectedLangs.includes(o.tagName))
-
-  const onChangeChkBox = () => setDiscount(!discnt)
-  const isAdultChk = () => setIsAdult((a) => !a)
-
-  const handleType = (onChange) => (e) => {
-    setCategory(types.find((t) => t.id === e).productCategories)
-    onChange(e)
-    setValue('productCategoryId', types.find((t) => t.id === e).productCategories[0]?.id)
-    if (!stepper) setStepper(true)
-  }
-
   const onChangeForm = () => {
     if (!stepper) setStepper(true)
-  }
-
-  function formatter(value) {
-    const time = value * 3 + 30
-    const h = Math.floor(time / 60)
-    const m = time % 60
-    return `${h ? `${h}h` : ''} ${m ? `${m}m ` : ''}`
-  }
-
-  const onSlider = (value) => {
-    setMaxPrice(value)
   }
 
   return (
@@ -132,45 +158,71 @@ const Step2 = (props) => {
 
           <label className={styles.label}>Experience type</label>
           <div className={cls(styles.service_tags, 'exp_selects')}>
-            <Select
+            <Controller
+              control={control}
               name="expType"
-              mode="multiple"
-              value={selectedItems}
-              onChange={handleChangeTags}
-              showArrow
-              style={{ width: '100%' }}
-            >
-              {filteredTags.map((item) => (
-                <Select.Option key={item.id} value={item.tagName}>
-                  {item.tagName}
-                </Select.Option>
-              ))}
-            </Select>
+              rules={{ required: true, validate: (value) => value.length > 0 }}
+              render={({ onChange, value, name }) => (
+                <Select
+                  name={name}
+                  mode="multiple"
+                  value={value}
+                  onChange={handleChangeTypes(onChange)}
+                  showArrow
+                  style={{ width: '100%' }}
+                >
+                  {filteredTypes.map((item) => (
+                    <Select.Option key={item.id} value={item.title}>
+                      {item.title}
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
+            />
+            {_.get('expType.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+            {_.get('expType.type', errors) === 'validate' && (
+              <p className={styles.errmsg}>Select types</p>
+            )}
           </div>
 
           <label className={styles.label}>Tags</label>
           <div className={cls(styles.service_tags, 'exp_selects')}>
-            <Select
-              name="tags"
-              mode="multiple"
-              value={tags}
-              onChange={handleChangeTags}
-              showArrow
-              style={{ width: '100%' }}
-            >
-              {filteredTags.map((item) => (
-                <Select.Option key={item.id} value={item.tagName}>
-                  {item.tagName}
-                </Select.Option>
-              ))}
-            </Select>
+            <Controller
+              control={control}
+              name="expTag"
+              rules={{ required: true, validate: (value) => value.length > 0 }}
+              render={({ onChange, value, name }) => (
+                <Select
+                  name={name}
+                  mode="multiple"
+                  value={value}
+                  onChange={handleChangeTags(onChange)}
+                  showArrow
+                  style={{ width: '100%' }}
+                >
+                  {filteredTags.map((item) => (
+                    <Select.Option key={item.id} value={item.title}>
+                      {item.title}
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
+            />
+            {_.get('expTag.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+            {_.get('expTag.type', errors) === 'validate' && (
+              <p className={styles.errmsg}>Select tags</p>
+            )}
           </div>
 
           <label className={styles.label}>Duration</label>
           <div className={cls(styles.slider_container, 'exp-slider')}>
             <Slider
               tipFormatter={formatter}
-              value={maxPrice}
+              value={dur}
               onChange={onSlider}
               step={10}
               tooltipVisible
@@ -182,8 +234,8 @@ const Step2 = (props) => {
               <label className={styles.label}>Price per adults</label>
               <Controller
                 control={control}
-                name="Standardprice"
-                rules={{ required: false }}
+                name="priceAdult"
+                rules={{ required: true }}
                 render={({ onChange, value, name }) => (
                   <InputNumber
                     name={name}
@@ -194,26 +246,33 @@ const Step2 = (props) => {
                   />
                 )}
               />
+              {_.get('priceAdult.type', errors) === 'required' && (
+                <p className={styles.errmsg}>This field is required</p>
+              )}
             </div>
             <div className={cls(styles.input_number, 'exp-input_number')}>
               <label className={styles.label}>Per child (age 6 - 16)</label>
               <Controller
                 control={control}
-                name="Standardprice"
+                name="priceChild"
                 rules={{ required: false }}
                 render={({ onChange, value, name }) => (
-                  <InputNumber
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                  />
+                  <>
+                    <InputNumber
+                      name={name}
+                      value={value}
+                      onChange={onChange}
+                      disabled={adult}
+                      formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                    />
+                  </>
                 )}
               />
             </div>
+
             <div>
-              <Checkbox checked={isAdult} onChange={isAdultChk}>
+              <Checkbox checked={adult} onChange={isAdultChk}>
                 18+ required
               </Checkbox>
             </div>
@@ -234,12 +293,15 @@ const Step2 = (props) => {
                   type="text"
                   disabled={!discnt}
                   ref={register({
-                    required: false,
+                    required: discnt,
                     validate: (value) => value >= 0 && value <= 100,
                   })}
                 />
                 {_.get('discountVal.type', errors) === 'validate' && (
                   <p className={styles.errmsg}>0-100%</p>
+                )}
+                {_.get('discountVal.type', errors) === 'required' && (
+                  <p className={styles.errmsg}>required</p>
                 )}
                 <span className={styles.percent}>%</span>
               </div>
@@ -253,12 +315,15 @@ const Step2 = (props) => {
                   type="text"
                   disabled={!discnt}
                   ref={register({
-                    required: false,
+                    required: discnt,
                     validate: (value) => value >= 0,
                   })}
                 />
                 {_.get('qtyVal.type', errors) === 'validate' && (
                   <p className={styles.errmsg}>Number >= 0</p>
+                )}
+                {_.get('qtyVal.type', errors) === 'required' && (
+                  <p className={styles.errmsg}>required</p>
                 )}
               </div>
             </div>
@@ -268,29 +333,46 @@ const Step2 = (props) => {
             <label className={styles.label}>Maximum no. of guest</label>
             <Controller
               control={control}
-              name="Standardprice"
-              rules={{ required: false }}
+              name="maxGuests"
+              rules={{ required: true }}
               render={({ onChange, value, name }) => (
                 <InputNumber name={name} value={value} onChange={onChange} />
               )}
             />
+            {_.get('maxGuests.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
           </div>
 
           <label className={styles.label}>Language</label>
           <div className={cls(styles.service_tags, 'exp_selects')}>
-            <Select
-              mode="tags"
-              value={selectedLangs}
-              onChange={handleChangeLangs}
-              showArrow
-              style={{ width: '100%' }}
-            >
-              {filteredLangs.map((item) => (
-                <Select.Option key={item.id} value={item.tagName}>
-                  {item.tagName}
-                </Select.Option>
-              ))}
-            </Select>
+            <Controller
+              control={control}
+              name="languages"
+              rules={{ required: true, validate: (value) => value.length > 0 }}
+              render={({ onChange, value, name }) => (
+                <Select
+                  mode="tags"
+                  onChange={onLangSelect(onChange)}
+                  name={name}
+                  value={value}
+                  showArrow
+                  style={{ width: '100%' }}
+                >
+                  {filteredLangs.map((item) => (
+                    <Select.Option key={item} value={item}>
+                      {item}
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
+            />
+            {_.get('languages.type', errors) === 'required' && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+            {_.get('languages.type', errors) === 'validate' && (
+              <p className={styles.errmsg}>Select languages</p>
+            )}
           </div>
           <input type="submit" value="Next" />
         </form>

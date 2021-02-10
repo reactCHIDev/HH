@@ -10,6 +10,8 @@ import {
   getProductTagsReq,
   getCitiesReq,
   getCountriesReq,
+  getExpTypesReq,
+  getExpTagsReq,
 } from 'api/requests/System'
 
 import {
@@ -31,6 +33,12 @@ import {
   GET_COUNTRIES_REQUESTING,
   GET_COUNTRIES_SUCCESS,
   GET_COUNTRIES_ERROR,
+  GET_EXP_TYPES_REQUESTING,
+  GET_EXP_TYPES_SUCCESS,
+  GET_EXP_TYPES_ERROR,
+  GET_EXP_TAGS_REQUESTING,
+  GET_EXP_TAGS_SUCCESS,
+  GET_EXP_TAGS_ERROR,
 } from '../actions/constants'
 
 function* getProductTypeSaga() {
@@ -101,6 +109,28 @@ function* getCountriesSaga() {
   }
 }
 
+function* getExpTypesSaga() {
+  try {
+    const response = yield getExpTypesReq()
+    yield put({ type: GET_EXP_TYPES_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_EXP_TYPES_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getExpTagsSaga() {
+  try {
+    const response = yield getExpTagsReq()
+    yield put({ type: GET_EXP_TAGS_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_EXP_TAGS_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(GET_PRODUCT_TYPES_REQUESTING, getProductTypeSaga)
   yield takeEvery(GET_SERVICE_TAGS_REQUESTING, getServiceTagsSaga)
@@ -108,6 +138,8 @@ function* accountWatcher() {
   yield takeEvery(GET_PRODUCT_TAGS_REQUESTING, getProductTagsSaga)
   yield takeEvery(GET_CITIES_REQUESTING, getCitiesSaga)
   yield takeEvery(GET_COUNTRIES_REQUESTING, getCountriesSaga)
+  yield takeEvery(GET_EXP_TYPES_REQUESTING, getExpTypesSaga)
+  yield takeEvery(GET_EXP_TAGS_REQUESTING, getExpTagsSaga)
 }
 
 export default accountWatcher

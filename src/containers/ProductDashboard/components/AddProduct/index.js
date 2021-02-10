@@ -164,7 +164,9 @@ const AddProduct = (props) => {
               {Number(step + firstStep) === 1 && (
                 <Step2 setStep={onClick} types={types} setStepper={setStepper} stepper={stepper} />
               )}
-              {Number(step + firstStep) === 2 && <Step3 setStep={onClick} />}
+              {Number(step + firstStep) === 2 && (
+                <Step3 setStep={onClick} setStepper={setStepper} stepper={stepper} />
+              )}
               {Number(step + firstStep) === 3 && (
                 <Step4
                   create={edit ? updateProductRequestAC : createProductRequestAC}
