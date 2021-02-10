@@ -43,8 +43,11 @@ function* createProductReview({ data }) {
 
 function* getFlProductReviews() {
   try {
-    const { data } = yield getFlProductsReviewsReq({ startIndex: 1, limit: 6 })
-    yield put({ type: GET_FL_REVIEWS_SUCCESS, data })
+    const { data } = yield getFlProductsReviewsReq({ startIndex: 0, limit: 6 })
+    yield put({
+      type: GET_FL_REVIEWS_SUCCESS,
+      data: { reviews: data.reviews, count: data.reviewsCount },
+    })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_FL_REVIEWS_ERROR })

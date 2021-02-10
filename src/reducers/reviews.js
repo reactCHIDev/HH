@@ -13,6 +13,7 @@ import {
 const initialState = {
   unreviewedProduct: null,
   reviews: null,
+  reviewsCount: null,
   requesting: false,
   error: false,
   createReviewRequesting: false,
@@ -68,7 +69,8 @@ const reducer = (state = initialState, action) => {
     case GET_FL_REVIEWS_SUCCESS:
       return {
         ...state,
-        reviews: action.data,
+        reviews: action.data.reviews,
+        count: action.data.reviewsCount,
         requesting: false,
         error: false,
       }

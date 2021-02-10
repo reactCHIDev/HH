@@ -1,8 +1,10 @@
 import React from 'react'
 import { createProductReviewAC } from 'actions/reviews'
 import { Rate } from 'antd'
+import cls from 'classnames'
 
 import styles from './reviewModal.module.scss'
+import './reviewModal.less'
 import { useDispatch } from 'react-redux'
 
 function ReviewModal({ product }) {
@@ -57,7 +59,7 @@ function ReviewModal({ product }) {
           </div>
         </div>
         <div className={styles.reviewInfo}>
-          <div className={styles.starsWrapper}>
+          <div className={cls(styles.starsWrapper, 'starsWrapper')}>
             <Rate
               style={{ color: '#31394C' }}
               defaultValue={5}

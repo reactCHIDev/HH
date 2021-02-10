@@ -6,7 +6,7 @@ import ProductsReview from '../ProductsReview'
 
 const OrdersTab = () => {
   return (
-    <div styles={{ paddingTop: '32px' }}>
+    <div style={{ paddingTop: '32px' }}>
       <div>
         <TabsOpen
           tabs={{
