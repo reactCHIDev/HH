@@ -17,7 +17,6 @@ import SubHeader from 'components/SubHeader'
 import { getItem } from 'utils/localStorage'
 import Eye from 'assets/icons/svg/eye-preview.svg'
 import Copy from 'assets/icons/svg/copy-icon.svg'
-import Btn from 'components/Button'
 import Step1 from './components/Steps/Step1'
 import Step2 from './components/Steps/Step2'
 import Step3 from './components/Steps/Step3'
@@ -47,7 +46,6 @@ const AddExperience = (props) => {
   const [firstStep, setFirstStep] = useState(null)
   const [progress, setProgress] = useState(0)
   const [stepper, setStepper] = useState(false)
-  const [tagsCollection, setTagsCollection] = useState(false)
   const [id, setId] = useState(null)
   const [modal, setModal] = useState(false)
 
@@ -100,7 +98,7 @@ const AddExperience = (props) => {
     setModal(false)
   }
 
-  if (step === null) return <></>
+  if (firstStep === null) return <></>
   return (
     <>
       <div className={styles.container}>
