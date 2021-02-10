@@ -6,7 +6,7 @@ import Review from '../../Review'
 import styles from './reviews.module.scss'
 import './reviews.less'
 
-const reviews = [] // Array(100).fill('q')
+const reviews = Array(100).fill('q')
 
 const Reviews = () => {
   const [page, setPage] = useState(1)

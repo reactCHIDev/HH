@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { getProductInfoRequestAC } from 'actions/product'
 import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { getProductReviewsAC } from 'actions/reviews'
 import { getShopByFoodmakerIdAC } from 'actions/shop'
 import { Spin, Space } from 'antd'
 import { useParams } from 'react-router-dom'
@@ -27,6 +28,7 @@ const ProductPage = (props) => {
     deliveryMethods,
     getProductInfoRequest,
     getFoodmakerInfo,
+    getProductReviews,
     getShopByFoodmakerId,
     pushRoute,
   } = props
@@ -43,6 +45,7 @@ const ProductPage = (props) => {
   useEffect(() => {
     if (info?.userProfile) getFoodmakerInfo(info.userProfile.id)
     if (info?.userProfile) getShopByFoodmakerId(info.userProfile.id)
+    if (info?.userProfile) getProductReviews(info.userProfile.id)
   }, [info])
 
   if (!info || info.id != productId)
@@ -127,5 +130,6 @@ export default connect(
     getFoodmakerInfo: getFoodmakerInfoAC,
     getShopByFoodmakerId: getShopByFoodmakerIdAC,
     pushRoute: push,
+    getProductReviews: getProductReviewsAC,
   },
 )(ProductPage)

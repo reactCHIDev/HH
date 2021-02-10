@@ -9,3 +9,9 @@ export const getFlProductsReviewsReq = ({ startIndex = 1, limit = 6 }) => {
   const params = `?${i}&${l}`
   return apiClient.get(PATHS.getFlProductReviews + params)
 }
+export const getProductReviewsReq = ({ id, startIndex = 1, limit = 6 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `${id}?${i}&${l}`
+  return apiClient.get(PATHS.getProductReviews + params)
+}

@@ -92,4 +92,5 @@ export default {
   unreviewedProduct: '/v1/review/product/latest/pending',
   createProductReview: '/v1/review/product/create',
   getFlProductReviews: '/v1/review/product/list_my',
+  getProductReviews: '/v1/review/product/by_id/',
 }

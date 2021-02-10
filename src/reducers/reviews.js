@@ -9,11 +9,15 @@ import {
   GET_FL_REVIEWS_SUCCESS,
   GET_FL_REVIEWS_ERROR,
   OPEN_REVIEW_MODAL,
+  GET_PRODUCT_REVIEWS_SUCCESS,
+  GET_PRODUCT_REVIEWS_ERROR,
 } from 'actions/constants'
 
 const initialState = {
   unreviewedProduct: null,
   reviews: null,
+  productReviews: null,
+  productReviewsCount: null,
   reviewsCount: null,
   requesting: false,
   error: false,
@@ -89,6 +93,19 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isModalOpen: true,
+      }
+
+    case GET_PRODUCT_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        productReviews: action.data.reviews,
+        productReviewsCount: action.data.count,
+      }
+
+    case GET_PRODUCT_REVIEWS_ERROR:
+      return {
+        ...state,
+        error: true,
       }
 
     default:

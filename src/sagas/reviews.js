@@ -3,6 +3,7 @@ import {
   getUnreviewedProductReq,
   createProductReviewReq,
   getFlProductsReviewsReq,
+  getProductReviewsReq,
 } from 'api/requests/Review'
 
 import {
@@ -15,8 +16,10 @@ import {
   GET_FL_REVIEWS_REQUESTING,
   GET_FL_REVIEWS_SUCCESS,
   GET_FL_REVIEWS_ERROR,
+  GET_PRODUCT_REVIEWS_REQUESTING,
+  GET_PRODUCT_REVIEWS_SUCCESS,
+  GET_PRODUCT_REVIEWS_ERROR,
 } from '../actions/constants'
-import { takeLast } from 'lodash/fp'
 
 function* getUnreviewedProduct() {
   try {
@@ -56,10 +59,27 @@ function* getFlProductReviews() {
   }
 }
 
+function* getProductReviews({ id }) {
+  try {
+    const response = yield getProductReviewsReq({ id, startIndex: 0, limit: 6 })
+    console.log(response, 'RESPONSE')
+    yield put({
+      type: GET_PRODUCT_REVIEWS_SUCCESS,
+      data: { reviews: response.data.reviews, count: response.data.reviewsCount },
+    })
+  } catch (error) {
+    if (error.response) {
+      console.log('error')
+      yield put({ type: GET_PRODUCT_REVIEWS_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* reviewsWatcher() {
   yield takeEvery(GET_UNREVIEWED_PRODUCT_REQUESTING, getUnreviewedProduct)
   yield takeEvery(CREATE_PRODUCT_REVIEW_REQUESTING, createProductReview)
   yield takeEvery(GET_FL_REVIEWS_REQUESTING, getFlProductReviews)
+  yield takeEvery(GET_PRODUCT_REVIEWS_REQUESTING, getProductReviews)
 }
 
 export default reviewsWatcher
