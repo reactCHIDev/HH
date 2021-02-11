@@ -31,6 +31,8 @@ const ProductPage = (props) => {
     getProductReviews,
     getShopByFoodmakerId,
     pushRoute,
+    productReviews,
+    productReviewsCount,
   } = props
 
   const { productId } = useParams()
@@ -45,7 +47,7 @@ const ProductPage = (props) => {
   useEffect(() => {
     if (info?.userProfile) getFoodmakerInfo(info.userProfile.id)
     if (info?.userProfile) getShopByFoodmakerId(info.userProfile.id)
-    if (info?.userProfile) getProductReviews(info.userProfile.id)
+    if (info?.userProfile) getProductReviews(info.id)
   }, [info])
 
   if (!info || info.id != productId)
@@ -65,7 +67,12 @@ const ProductPage = (props) => {
             <div className={styles.inner_content}>
               <Header text={info.title} isFavourite={info.isFavorite} id={info.id} />
               <Toolbar params={info.parameters} isPreOrderOnly={false} />
-              <Tabs product={info} deliveryMethods={deliveryMethods} />
+              <Tabs
+                product={info}
+                deliveryMethods={deliveryMethods}
+                productReviews={productReviews}
+                productReviewsCount={productReviewsCount}
+              />
               <div className={styles.card_link} onClick={openFoodmaker}>
                 <AboutMaker
                   name={info.userProfile.firstName}
@@ -120,10 +127,12 @@ ProductPage.propTypes = {
 }
 
 export default connect(
-  ({ product, foodmaker, shop }) => ({
+  ({ product, foodmaker, shop, reviews }) => ({
     info: product.info,
     fm: foodmaker,
     deliveryMethods: shop?.shopData?.deliveryMethods,
+    productReviews: reviews.productReviews,
+    productReviewsCount: reviews.productReviewsCount,
   }),
   {
     getProductInfoRequest: getProductInfoRequestAC,

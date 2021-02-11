@@ -13,6 +13,8 @@ const Tabs = (props) => {
   const {
     product: { description, ingredients, refundPolicy, deliveryRegion, refundPolicyNote },
     deliveryMethods,
+    productReviews,
+    productReviewsCount,
   } = props
 
   const tabs = {
@@ -20,8 +22,10 @@ const Tabs = (props) => {
       content: <InformationTab description={description} ingredients={ingredients} />,
     },
     REVIEWS: {
-      content: <ReviewTab />,
+      content: <ReviewTab productReviews={productReviews} />,
+      mark: productReviewsCount,
     },
+
     'DELIVERY INFO': {
       content: <DeliveryInfoTab region={deliveryRegion} deliveryMethods={deliveryMethods} />,
     },

@@ -62,7 +62,6 @@ function* getFlProductReviews() {
 function* getProductReviews({ id }) {
   try {
     const response = yield getProductReviewsReq({ id, startIndex: 0, limit: 6 })
-    console.log(response, 'RESPONSE')
     yield put({
       type: GET_PRODUCT_REVIEWS_SUCCESS,
       data: { reviews: response.data.reviews, count: response.data.reviewsCount },

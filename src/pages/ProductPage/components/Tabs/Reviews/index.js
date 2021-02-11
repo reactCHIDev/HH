@@ -6,9 +6,7 @@ import Review from '../../Review'
 import styles from './reviews.module.scss'
 import './reviews.less'
 
-const reviews = Array(100).fill('q')
-
-const Reviews = () => {
+const Reviews = ({ productReviews }) => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(3)
 
@@ -26,11 +24,10 @@ const Reviews = () => {
         pageChange={pageChange}
         onShowSizeChange={sizeChange}
         pageSize={pageSize}
-        pageSizeOptions={['3', '10', '50']}
-        total={reviews.length}
+        total={productReviews.length}
       >
-        {reviews.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize).map((r) => (
-          <Review key={r} />
+        {productReviews.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize).map((r) => (
+          <Review key={r.id} el={r} />
         ))}
       </ListContainer>
       <div className={styles.btn_container}>

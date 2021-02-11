@@ -32,6 +32,7 @@ const ListContainer = (props) => {
           onShowSizeChange={onShowSizeChange}
           pageSizeOptions={pageSizeOptions}
           total={total}
+          showSizeChanger={false}
         />
       )}
     </>
