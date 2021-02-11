@@ -1,7 +1,9 @@
 import React from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
+
 import TabsComponent from 'components/Tabs/TabsCard'
+
 import InformationTab from './Information'
 import ReviewTab from './Reviews'
 import DeliveryInfoTab from './DeliveryInfo'
@@ -11,8 +13,12 @@ import './tabs.less'
 
 const Tabs = (props) => {
   const {
-    product: { description, ingredients, refundPolicy, deliveryRegion, refundPolicyNote },
+    product: { id, description, ingredients, refundPolicy, deliveryRegion, refundPolicyNote },
     deliveryMethods,
+    productReviews,
+    productReviewsCount,
+    currentPage,
+    isUserCanReview,
   } = props
 
   const tabs = {
@@ -20,8 +26,18 @@ const Tabs = (props) => {
       content: <InformationTab description={description} ingredients={ingredients} />,
     },
     REVIEWS: {
-      content: <ReviewTab />,
+      content: (
+        <ReviewTab
+          productReviews={productReviews}
+          productReviewsCount={productReviewsCount}
+          currentPage={currentPage}
+          productId={id}
+          isUserCanReview={isUserCanReview}
+        />
+      ),
+      mark: productReviewsCount,
     },
+
     'DELIVERY INFO': {
       content: <DeliveryInfoTab region={deliveryRegion} deliveryMethods={deliveryMethods} />,
     },

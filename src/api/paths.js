@@ -87,4 +87,10 @@ export default {
 
   // Files
   deleteFile: '/v1/file/delete/file/',
+
+  // Review
+  unreviewedProduct: '/v1/review/product/latest/pending',
+  createProductReview: '/v1/review/product/create',
+  getFlProductReviews: '/v1/review/product/list_my',
+  getProductReviews: '/v1/review/product/by_id/',
 }

@@ -1,41 +1,62 @@
 import React, { useState } from 'react'
-import T from 'prop-types'
+import { useDispatch } from 'react-redux'
+
 import Button from 'components/Button'
+import Modal from 'components/UniversalModal'
 import ListContainer from 'components/ListContainer'
+import { getProductReviewsAC } from 'actions/reviews'
+
 import Review from '../../Review'
+import ReviewModal from './ReviewModal'
 import styles from './reviews.module.scss'
 import './reviews.less'
 
-const reviews = [] // Array(100).fill('q')
+const Reviews = ({
+  productReviews,
+  productReviewsCount,
+  currentPage,
+  productId,
+  isUserCanReview,
+}) => {
+  const [isModalShown, setIsModalShown] = useState(false)
 
-const Reviews = () => {
-  const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(3)
+  const dispatch = useDispatch()
 
   const pageChange = (newPage) => {
-    setPage(newPage)
+    dispatch(getProductReviewsAC({ id: productId, page: newPage }))
   }
-  const sizeChange = (current, pageSize) => {
-    setPageSize(pageSize)
+
+  const closeModal = () => {
+    setIsModalShown(false)
   }
 
   return (
     <div className={styles.list_container}>
       <ListContainer
-        page={page}
+        page={currentPage}
         pageChange={pageChange}
-        onShowSizeChange={sizeChange}
-        pageSize={pageSize}
-        pageSizeOptions={['3', '10', '50']}
-        total={reviews.length}
+        pageSize={3}
+        total={productReviewsCount}
       >
-        {reviews.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize).map((r) => (
-          <Review key={r} />
+        {productReviews.map((r) => (
+          <Review key={r.id} el={r} />
         ))}
       </ListContainer>
-      <div className={styles.btn_container}>
-        <Button title="Add review" onClick={() => {}} />
-      </div>
+      {isUserCanReview && (
+        <div className={styles.btn_container}>
+          <Button
+            title="Add review"
+            onClick={() => {
+              setIsModalShown(true)
+            }}
+          />
+        </div>
+      )}
+      {isModalShown && (
+        <Modal option>
+          <ReviewModal closeFunc={closeModal} productId={productId} />
+        </Modal>
+      )}
     </div>
   )
 }
