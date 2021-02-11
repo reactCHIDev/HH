@@ -135,5 +135,20 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
+    .submitButtonError {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35%;
+      padding: 20px;
+      color: #0e0d0d;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 19px;
+      text-transform: uppercase;
+      background: #a1a1a1;
+      border-radius: 6px;
+    }
   }
 }

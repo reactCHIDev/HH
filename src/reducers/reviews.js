@@ -23,6 +23,8 @@ const initialState = {
   error: false,
   createReviewRequesting: false,
   isModalOpen: false,
+  currentPage: 1,
+  isUserCanReview: true,
 }
 
 const reducer = (state = initialState, action) => {
@@ -100,6 +102,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         productReviews: action.data.reviews,
         productReviewsCount: action.data.count,
+        currentPage: action.data.currentProductPage,
+        isUserCanReview: action.data.isUserCanReview,
       }
 
     case GET_PRODUCT_REVIEWS_ERROR:

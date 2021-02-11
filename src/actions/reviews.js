@@ -36,9 +36,9 @@ export const openReviewModal = () => ({
   type: OPEN_REVIEW_MODAL,
 })
 
-export const getProductReviewsAC = (id) => ({
+export const getProductReviewsAC = (data) => ({
   type: GET_PRODUCT_REVIEWS_REQUESTING,
-  id,
+  data,
 })
 
 export const getProductReviewsSuccess = (data) => ({

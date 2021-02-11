@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, select } from 'redux-saga/effects'
 import {
   getUnreviewedProductReq,
   createProductReviewReq,
@@ -33,11 +33,21 @@ function* getUnreviewedProduct() {
 }
 
 function* createProductReview({ data }) {
+  const getReviewsData = (store) => store.reviews
+  const { currentPage } = yield select(getReviewsData)
   try {
     yield createProductReviewReq(data)
-    yield put({ type: GET_UNREVIEWED_PRODUCT_REQUESTING })
-    yield put({ type: GET_FL_REVIEWS_REQUESTING })
-    yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+    if (data.isReviewOnProductPage) {
+      yield put({
+        type: GET_PRODUCT_REVIEWS_REQUESTING,
+        data: { id: data.productId, page: currentPage },
+      })
+      yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+    } else {
+      yield put({ type: GET_UNREVIEWED_PRODUCT_REQUESTING })
+      yield put({ type: GET_FL_REVIEWS_REQUESTING })
+      yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+    }
   } catch (error) {
     if (error.response) {
       yield put({ type: CREATE_PRODUCT_REVIEW_ERROR })
@@ -59,12 +69,19 @@ function* getFlProductReviews() {
   }
 }
 
-function* getProductReviews({ id }) {
+function* getProductReviews({ data }) {
+  const { id, page } = data
   try {
-    const response = yield getProductReviewsReq({ id, startIndex: 0, limit: 6 })
+    const response = yield getProductReviewsReq({ id, startIndex: page * 3 - 3, limit: 3 })
+    console.log(response)
     yield put({
       type: GET_PRODUCT_REVIEWS_SUCCESS,
-      data: { reviews: response.data.reviews, count: response.data.reviewsCount },
+      data: {
+        reviews: response.data.reviews,
+        count: response.data.reviewsCount,
+        currentProductPage: page,
+        isUserCanReview: !response.data.isReviewed,
+      },
     })
   } catch (error) {
     if (error.response) {

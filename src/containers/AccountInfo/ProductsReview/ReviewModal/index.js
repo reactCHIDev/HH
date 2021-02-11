@@ -21,6 +21,7 @@ function ReviewModal({ product }) {
           review,
           rating,
           recommend,
+          isReviewOnProductPage: false,
         }),
       )
     } else {
@@ -53,6 +54,7 @@ function ReviewModal({ product }) {
             autoFocus={true}
             className={styles.reviewTextArea}
             onChange={onChangeReview}
+            placeholder="The review must be 20 characters or more"
           ></textarea>
           <div className={styles.imageSection}>
             <div className={styles.addPhotosButton}>Add photos</div>
@@ -85,7 +87,10 @@ function ReviewModal({ product }) {
             </div>
           </div>
         </div>
-        <div onClick={() => submitReview()} className={styles.submitButton}>
+        <div
+          onClick={() => (isValid ? submitReview() : console.log('erorr'))}
+          className={isValid() ? styles.submitButton : styles.submitButtonError}
+        >
           Publish
         </div>
       </div>
