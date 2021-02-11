@@ -142,12 +142,12 @@
       padding: 0 0 50px;
       flex-grow: 2;
       width: 100%;
-      max-width: 768px;
+      // max-width: 768px;
 
       .section {
         padding: 20px 40px;
         @media (max-width: 768px) {
-          padding: 20px;
+          padding: 0px;
         }
       }
       .btn {
