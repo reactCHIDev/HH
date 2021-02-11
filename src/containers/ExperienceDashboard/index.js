@@ -7,6 +7,7 @@ import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
 import ExpListings from './components/ExpListings'
+import BookingHistory from './components/BookingHistory'
 import styles from './expdb.module.scss'
 
 const ExperienceDashboard = (props) => {
@@ -26,7 +27,7 @@ const ExperienceDashboard = (props) => {
         tabs={{
           overview: { mark: false, disabled: false, content: <Soon /> },
           listings: { mark: false, content: <ExpListings /> },
-          booking: { mark: false, disabled: false, content: <Soon /> },
+          booking: { mark: false, disabled: false, content: <BookingHistory /> },
           reviews: { mark: false, disabled: false, content: <Soon /> },
           performance: { mark: false, disabled: false, content: <Soon /> },
           profile: { mark: false, content: <Soon /> },

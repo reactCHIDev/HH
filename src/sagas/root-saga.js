@@ -21,6 +21,7 @@ import search from './search'
 import chat from './chat'
 import files from './files'
 import reviews from './reviews'
+import fmBookingHistoryWatcher from './bookings_history'
 
 export default function* rootSaga() {
   yield all([
@@ -46,5 +47,6 @@ export default function* rootSaga() {
     chat(),
     files(),
     reviews(),
+    fmBookingHistoryWatcher(),
   ])
 }
