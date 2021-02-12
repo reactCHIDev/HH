@@ -1,8 +1,10 @@
 import React from 'react'
 import T from 'prop-types'
+import { setItem } from 'utils/localStorage'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { createOrderRequestrinAc } from 'actions/order'
+import { stripeCheckoutAC } from 'actions/stripe'
 
 import _ from 'lodash/fp'
 import styles from './adress.module.scss'
@@ -12,7 +14,9 @@ const AdressForm = ({ closeFunc }) => {
   const dispatch = useDispatch()
 
   const onSubmit = (adressData) => {
-    dispatch(createOrderRequestrinAc(adressData))
+    // dispatch(createOrderRequestrinAc(adressData))
+    setItem('adress', adressData)
+    dispatch(stripeCheckoutAC())
     closeFunc()
   }
 
