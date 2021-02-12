@@ -21,6 +21,7 @@ import admin from './admin'
 import search from './search'
 import chat from './chat'
 import reviews from './reviews'
+import fmBookingsHistory from './booking-history'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -45,6 +46,7 @@ const createRootReducer = (history) =>
     search,
     chat,
     reviews,
+    fmBookingsHistory,
   })
 
 export default createRootReducer

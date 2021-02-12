@@ -22,6 +22,7 @@ export default {
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',
   registrationEmail: '/v1/user/verify_registration_email',
+  fmBookingHistory: '',
 
   // Listing
 
