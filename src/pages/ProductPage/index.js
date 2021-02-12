@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import { getProductInfoRequestAC } from 'actions/product'
-import { getFoodmakerInfoAC } from 'actions/foodmaker'
-import { getShopByFoodmakerIdAC } from 'actions/shop'
 import { Spin, Space } from 'antd'
 import { useParams } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import cls from 'classnames'
+
+import { getProductInfoRequestAC } from 'actions/product'
+import { getFoodmakerInfoAC } from 'actions/foodmaker'
+import { getProductReviewsAC } from 'actions/reviews'
+import { getShopByFoodmakerIdAC } from 'actions/shop'
+
 import CardsContainer from 'components/CardsContainer'
 import ProdCard from 'components/ProductCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
+
 import styles from './product_page.module.scss'
 import ImagePreviewer from './components/ImagePreviewer'
 import Header from './components/Header'
@@ -27,8 +31,13 @@ const ProductPage = (props) => {
     deliveryMethods,
     getProductInfoRequest,
     getFoodmakerInfo,
+    getProductReviews,
     getShopByFoodmakerId,
     pushRoute,
+    productReviews,
+    productReviewsCount,
+    currentPage,
+    isUserCanReview,
   } = props
 
   const { productId } = useParams()
@@ -43,6 +52,7 @@ const ProductPage = (props) => {
   useEffect(() => {
     if (info?.userProfile) getFoodmakerInfo(info.userProfile.id)
     if (info?.userProfile) getShopByFoodmakerId(info.userProfile.id)
+    if (info?.userProfile) getProductReviews({ id: info.id, page: 1 })
   }, [info])
 
   if (!info || info.id != productId)
@@ -62,7 +72,14 @@ const ProductPage = (props) => {
             <div className={styles.inner_content}>
               <Header text={info.title} isFavourite={info.isFavorite} id={info.id} />
               <Toolbar params={info.parameters} isPreOrderOnly={false} />
-              <Tabs product={info} deliveryMethods={deliveryMethods} />
+              <Tabs
+                product={info}
+                deliveryMethods={deliveryMethods}
+                productReviews={productReviews}
+                productReviewsCount={productReviewsCount}
+                currentPage={currentPage}
+                isUserCanReview={isUserCanReview}
+              />
               <div className={styles.card_link} onClick={openFoodmaker}>
                 <AboutMaker
                   name={info.userProfile.firstName}
@@ -117,15 +134,20 @@ ProductPage.propTypes = {
 }
 
 export default connect(
-  ({ product, foodmaker, shop }) => ({
+  ({ product, foodmaker, shop, reviews }) => ({
     info: product.info,
     fm: foodmaker,
     deliveryMethods: shop?.shopData?.deliveryMethods,
+    productReviews: reviews.productReviews,
+    productReviewsCount: reviews.productReviewsCount,
+    currentPage: reviews.currentPage,
+    isUserCanReview: reviews.isUserCanReview,
   }),
   {
     getProductInfoRequest: getProductInfoRequestAC,
     getFoodmakerInfo: getFoodmakerInfoAC,
     getShopByFoodmakerId: getShopByFoodmakerIdAC,
     pushRoute: push,
+    getProductReviews: getProductReviewsAC,
   },
 )(ProductPage)
