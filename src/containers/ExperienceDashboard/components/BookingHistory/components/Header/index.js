@@ -19,7 +19,11 @@ const Header = (props) => {
         </div>
         <div className={styles.tools}>
           <div className={styles.srch_block}>
-            <Search onSearch={onSearch} />
+            <Search
+              onSearch={onSearch}
+              placeholder="Search by experiences
+"
+            />
           </div>
           <div className={styles.date_picker}>
             <RangePicker disabled={false} id="1" format="DD MMM YY" onChange={onDataChange} />

@@ -6,6 +6,7 @@ import useSortableData from 'hooks/useSortable'
 import { getFmBookingHistoryAC } from 'actions/booking-history'
 import Header from './components/Header'
 import styles from './bookingHistory.module.scss'
+import TableHeader from './components/TableHeader'
 
 function BookingHistory() {
   const dispatch = useDispatch()
@@ -14,7 +15,7 @@ function BookingHistory() {
   const [data, setData] = React.useState()
 
   const { items, requestSort } = useSortableData(bookings, {
-    key: 'createdAt',
+    key: 'product',
     direction: 'descending',
   })
 
@@ -59,8 +60,14 @@ function BookingHistory() {
     }
   }
   return data ? (
-    <div className={styles.container}>
-      <Header />
+    <div className={styles.main_wrapper}>
+      <Header onSearch={setSearchValue} />
+
+      <div className={styles.container}>
+        <div className={styles.tableWrapper}>
+          <TableHeader requestSort={requestSort} />
+        </div>
+      </div>
     </div>
   ) : (
     <div>---</div>
