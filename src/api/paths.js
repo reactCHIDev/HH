@@ -61,6 +61,7 @@ export default {
 
   // Stripe
   stripe: '/v1/stripe/create_payment',
+  stripeCheckout: '/v1/stripe/create-checkout-session',
 
   // Order
   order: '/v1/order/create',

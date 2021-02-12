@@ -5,6 +5,7 @@
 /* eslint-disable no-console */
 import { put, takeEvery, select, call } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
+import { getItem } from 'utils/localStorage'
 import { createOrder, createCharge } from 'api/requests/Order'
 import { getStripe } from 'api/requests/Stripe'
 
@@ -36,11 +37,12 @@ function* createOrderRequest({ data }) {
   // lastName: "asdasd"
   // phone: "312321312"
   const { orders, totalPrice, shopsData } = yield select(getOrdersData)
-  const { id: userId } = yield select(getAccountData)
+  // const { id: userId } = yield select(getAccountData)
+  const userId = getItem('user-id')
   const { adress, firstName, lastName, phone, company } = data
 
   try {
-    const token = yield getStripe({ card })
+    /* const token = yield getStripe({ card })
     const charge = yield createCharge({
       amount: totalPrice,
       cardToken: token.data.id,
@@ -56,7 +58,7 @@ function* createOrderRequest({ data }) {
           productMeasure: parameters[0].measure,
           total: total * parameters[0].price,
         })),
-    })
+    }) */
 
     for (const key in orders) {
       yield call(createOrder, createParam(key))
@@ -82,13 +84,13 @@ function* createOrderRequest({ data }) {
         company: company || null,
         deliveryPrice: shopsData[shop].delivery.price,
         orderTotal: shopsData[shop].price + shopsData[shop].delivery.price,
-        paymentDetails: charge.data.receiptData,
+        paymentDetails: {}, //charge.data.receiptData,
       }
       return params
     }
 
     yield put({ type: CREATE_ORDER_SUCCESS })
-    yield put(push('/account_info/orders'))
+    // yield put(push('/account_info/orders'))
   } catch (error) {
     if (error.response) {
       yield put({ type: CREATE_ORDER_ERROR, error: error.response.data.error })
