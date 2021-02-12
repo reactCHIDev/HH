@@ -27,7 +27,7 @@ const ExperienceDashboard = (props) => {
         tabs={{
           overview: { mark: false, disabled: false, content: <Soon /> },
           listings: { mark: false, content: <ExpListings /> },
-          booking: { mark: false, disabled: false, content: <BookingHistory /> },
+          booking: { mark: false, disabled: true, content: <BookingHistory /> },
           reviews: { mark: false, disabled: false, content: <Soon /> },
           performance: { mark: false, disabled: false, content: <Soon /> },
           profile: { mark: false, content: <Soon /> },
