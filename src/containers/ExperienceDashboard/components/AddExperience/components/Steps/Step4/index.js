@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import T from 'prop-types'
 import { Button, Select, DatePicker, Calendar, Radio, Col, Row, Typography } from 'antd'
-import { format, toDate, isSameDay } from 'date-fns'
+import { format, toDate, getDate, getMonth, getYear, isSameDay } from 'date-fns'
 import Finish from '../Finish'
 import DatePick from 'components/DatePicker/DatePicker.js'
 import moment from 'moment'
@@ -52,7 +52,9 @@ const times = [
 ]
 
 const Step4 = () => {
-  const [period, setPeriod] = useState('Weekly')
+  const [period, setPeriod] = useState('No Repeat')
+  const [date, setDate] = useState(new Date())
+  const [eventTime, setEventTime] = useState(null)
 
   function onPanelChange(value, mode) {
     console.log(value, mode)
@@ -62,38 +64,59 @@ const Step4 = () => {
     setPeriod(data)
   }
 
-  const onDataChange = (date) => {
+  const onDateChange = (date) => {
     console.log('%c   date   ', 'color: darkgreen; background: palegreen;', date)
+    setDate(date)
   }
 
-  const createDate = (dateArr) => toDate(new Date(...dateArr)) // 2014, 1, 11, 11, 30
-  console.log(
-    '%c   date   ',
-    'color: white; background: salmon;',
-    createDate([2014, 1, 11, 11, 30]),
-  )
+  const createDate = (date, time) => {
+    const year = getYear(date)
+    const month = getMonth(date)
+    const day = getDate(date)
+    const [hours, minutes] = time.split(':').map(Number)
+    console.log('%c   elems   ', 'color: white; background: royalblue;', {
+      year,
+      month,
+      day,
+      hours,
+      minutes,
+    })
+
+    return toDate(new Date(year, month, day, hours, minutes)) // 2014, 1, 11, 11, 30
+  }
+
+  const onTimeSelect = (e) => {
+    setEventTime(createDate(date, e.target.id))
+  }
 
   return (
     <div className={styles.container}>
       <p className={styles.heading}>Choose available date and time</p>
       <div className={styles.content}>
-        <DatePick date={new Date()} setSliderParams={() => {}} setCalendarVisibility={() => {}} />
+        <DatePick
+          date={date}
+          onChange={onDateChange}
+          setSliderParams={() => {}}
+          setCalendarVisibility={() => {}}
+        />
         <div className={styles.timepicker_container}>
           <p className={styles.current_date}>{format(new Date(), 'dd MMM, yy')}</p>
           <div className={styles.time_section}>
             {times.map((t) => (
-              <p className={styles.time}>{t}</p>
+              <p className={styles.time} id={t} onClick={onTimeSelect}>
+                {t}
+              </p>
             ))}
           </div>
           <div className={cls(styles.selector_block, 'addexp')}>
             <div className={styles.date_picker}>
               <label className={styles.label}>Period</label>
               <RangePicker
-                // defaultValue={new Date()}
+                defaultValue={[new Date(), new Date()]}
                 disabled={false}
                 id="1"
                 format="DD MMM YY"
-                onChange={onDataChange}
+                onChange={() => {}}
               />
             </div>
             <div className={styles.item_container}>

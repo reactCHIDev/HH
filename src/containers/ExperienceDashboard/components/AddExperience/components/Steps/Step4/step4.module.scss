@@ -6,9 +6,13 @@
   }
   .content {
     display: flex;
+    @media (max-width: 1280px) {
+      flex-direction: column;
+      align-items: center;
+    }
     // flex-wrap: wrap;
     .timepicker_container {
-      min-width: 386px;
+      max-width: 540px;
       padding: 0 20px;
       flex-grow: 2;
       border: none;
@@ -39,11 +43,15 @@
         margin-bottom: 24px;
         padding-left: 16px;
         .item_container {
+          display: flex;
+          flex-direction: column;
           .label {
             font-size: 14px;
           }
         }
         .date_picker {
+          display: flex;
+          flex-direction: column;
           .label {
             font-size: 14px;
           }
@@ -51,11 +59,17 @@
       }
       .btn_section {
         display: flex;
-        flex-wrap: wrap;
+        @media (max-width: 480px) {
+          flex-direction: column;
+          align-items: center;
+        }
         padding: 32px 0 0 16px;
         .btn_apply {
           width: 160px;
-          margin-right: 32px;
+          margin: 0 32px 0 0;
+          @media (max-width: 480px) {
+            margin: 0 0 32px 0;
+          }
         }
         .btn_complete {
           width: 160px;

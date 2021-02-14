@@ -14,7 +14,7 @@ import styles from './datepicker.module.scss'
 import './datepicker.scss'
 
 function DatePicker(props) {
-  const { sendCurrentDate, setCalendarVisibility, date } = props
+  const { onChange, setCalendarVisibility, date } = props
 
   const tileClassName = ({ date }) => {
     // const { condition } = this.props
@@ -35,9 +35,7 @@ function DatePicker(props) {
           locale="en"
           view="month"
           formatShortWeekday={(en, mDate) => format(mDate, 'EEEEE')}
-          onClickDay={(mDate) => {
-            sendCurrentDate(mDate, 'daily')
-          }}
+          onClickDay={onChange}
           tileClassName={tileClassName}
           tileContent={tileContent}
         />
@@ -46,6 +44,4 @@ function DatePicker(props) {
   )
 }
 
-export default connect(null, {
-  sendCurrentDate: sendCurrDate,
-})(DatePicker)
+export default DatePicker
