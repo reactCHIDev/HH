@@ -58,17 +58,12 @@ function* stripeCheckoutSaga() {
               name: 'HungryHugger', // какая то подпись
               images: ['https://hungryhugger.com/favicon.png'],
             },
-            unit_amount: totalPrice
-              .toFixed(2)
-              .split('.')
-              .join(''),
+            unit_amount: totalPrice * 100,
           },
           quantity: 1,
         },
       ],
-      // success_url: `${process.env.REACT_APP_BASE_URL}/payment-success`,
-      success_url: `http://localhost:3000/payment-success`,
-
+      success_url: `${process.env.REACT_APP_BASE_URL}/payment-success`,
       cancel_url: `${process.env.REACT_APP_BASE_URL}/payment-error`,
     }
     const response = yield stripeCheckout(checkoutData)

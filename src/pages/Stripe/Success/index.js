@@ -8,15 +8,19 @@ import { createOrderRequestrinAc } from 'actions/order'
 import cls from 'classnames'
 import styles from './success.module.scss'
 import './success.less'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { replace } from 'connected-react-router'
 
 const Success = () => {
   const adressData = getItem('adress')
   const dispatch = useDispatch()
+  const isRequesting = useSelector((state) => state.order.requesting)
 
+  console.log('1')
   React.useEffect(() => {
-    dispatch(createOrderRequestrinAc(adressData))
+    console.log('2')
+
+    if (!isRequesting) dispatch(createOrderRequestrinAc(adressData))
   }, [])
   const toHome = () => {
     dispatch(replace('/'))
