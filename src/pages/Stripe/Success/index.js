@@ -14,7 +14,10 @@ import { replace } from 'connected-react-router'
 const Success = () => {
   const adressData = getItem('adress')
   const dispatch = useDispatch()
-  // dispatch(createOrderRequestrinAc(adressData))
+
+  React.useEffect(() => {
+    dispatch(createOrderRequestrinAc(adressData))
+  }, [])
   const toHome = () => {
     dispatch(replace('/'))
   }
