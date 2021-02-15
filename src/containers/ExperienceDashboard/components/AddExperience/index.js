@@ -192,7 +192,7 @@ const AddExperience = (props) => {
 }
 
 AddExperience.propTypes = {
-  account: T.arrayOf(shape()),
+  account: T.shape(),
   expTypes: T.arrayOf(shape()),
   expTags: T.arrayOf(shape()),
   requesting: T.bool,

@@ -112,7 +112,7 @@ const Step4 = () => {
             <div className={styles.date_picker}>
               <label className={styles.label}>Period</label>
               <RangePicker
-                defaultValue={[new Date(), new Date()]}
+                // defaultValue={[new Date(), new Date()]}
                 disabled={false}
                 id="1"
                 format="DD MMM YY"
