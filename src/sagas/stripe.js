@@ -58,7 +58,7 @@ function* stripeCheckoutSaga() {
               name: 'HungryHugger', // какая то подпись
               images: ['https://hungryhugger.com/favicon.png'],
             },
-            unit_amount: totalPrice * 100,
+            unit_amount: totalPrice.toFixed(2) * 100,
           },
           quantity: 1,
         },
