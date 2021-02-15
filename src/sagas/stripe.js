@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { setItem } from 'utils/localStorage'
+import { getItem, setItem } from 'utils/localStorage'
 import { loadStripe } from '@stripe/stripe-js'
 import { getStripe, stripeCheckout } from 'api/requests/Stripe'
 
@@ -44,6 +44,7 @@ function* getStripeToken() {
 }
 
 function* stripeCheckoutSaga() {
+  const { totalPrice } = getItem('cart')
   try {
     const stripe = yield loadStripe(process.env.REACT_APP_STRIPE_KEY)
     const checkoutData = {
@@ -57,7 +58,7 @@ function* stripeCheckoutSaga() {
               name: 'HungryHugger', // какая то подпись
               images: ['https://hungryhugger.com/favicon.png'],
             },
-            unit_amount: 2000,
+            unit_amount: totalPrice * 100,
           },
           quantity: 1,
         },

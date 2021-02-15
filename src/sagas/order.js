@@ -3,7 +3,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-inner-declarations */
 /* eslint-disable no-console */
-import { put, takeEvery, select, call } from 'redux-saga/effects'
+import { put, takeEvery, select, call, delay } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import { getItem } from 'utils/localStorage'
 import { createOrder, createCharge } from 'api/requests/Order'
@@ -29,16 +29,19 @@ const superCard = {
 }
 
 function* createOrderRequest({ data }) {
-  const getOrdersData = (store) => store.cart
-  const getAccountData = (store) => store.account
+  // const getOrdersData = (store) => store.cart
+  // const getAccountData = (store) => store.account
   console.log(data)
+
   // adress: "adsdasd"
   // firstName: "dsadasd"
   // lastName: "asdasd"
   // phone: "312321312"
-  const { orders, totalPrice, shopsData } = yield select(getOrdersData)
+  // const { orders, totalPrice, shopsData } = yield select(getOrdersData)
   // const { id: userId } = yield select(getAccountData)
   const userId = getItem('user-id')
+  const sessionId = getItem('sessionId')
+  const { orders, shopsData } = getItem('cart')
   const { adress, firstName, lastName, phone, company } = data
 
   try {
@@ -65,16 +68,17 @@ function* createOrderRequest({ data }) {
     }
 
     function createParam(shop) {
+      const orderProducts = orders[shop].map(({ id, parameters, total }) => ({
+        productId: id,
+        price: parameters[0].price,
+        currency: parameters[0].currency,
+        quantity: total,
+        productVolume: parameters[0].volume,
+        productMeasure: parameters[0].measure,
+        total: total * parameters[0].price,
+      }))
       const params = {
-        orderProducts: orders[shop].map(({ id, parameters, total }) => ({
-          productId: id,
-          price: parameters[0].price,
-          currency: parameters[0].currency,
-          quantity: total,
-          productVolume: parameters[0].volume,
-          productMeasure: parameters[0].measure,
-          total: total * parameters[0].price,
-        })),
+        orderProducts,
         customerId: userId,
         firstName,
         lastName,
@@ -84,7 +88,10 @@ function* createOrderRequest({ data }) {
         company: company || null,
         deliveryPrice: shopsData[shop].delivery.price,
         orderTotal: shopsData[shop].price + shopsData[shop].delivery.price,
-        paymentDetails: {}, //charge.data.receiptData,
+        sessionId,
+        paymentDetails: {
+          products: JSON.stringify(orderProducts),
+        },
       }
       return params
     }
