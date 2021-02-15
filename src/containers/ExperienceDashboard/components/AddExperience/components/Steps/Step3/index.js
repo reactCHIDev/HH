@@ -14,23 +14,23 @@ const Step3 = (props) => {
 
   const prevState = getItem('addExperience')
 
-  let description1, description2, description3, description4, isAdult, cancellation
+  let summary, thingsToTake, notes, additionalInfo, isAdult, cancellationPolicy
 
   if (getItem('addExperience'))
-    ({ description1, description2, description3, description4, isAdult, cancellation } = getItem(
+    ({ summary, thingsToTake, notes, additionalInfo, isAdult, cancellationPolicy } = getItem(
       'addExperience',
     ))
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
-    defaultValues: { description1, description2, description3, description4 },
+    defaultValues: { summary, thingsToTake, notes, additionalInfo, isAdult, cancellationPolicy },
   })
 
   const [cover, setCover] = useState(0)
   const [fileList, setFilelist] = useState([])
   const [isActive, setActiveNext] = useState(true)
   const [adult, setIsAdult] = useState(isAdult || false)
-  const [selectedRadio, setRadio] = useState(cancellation || 'FULL_REFUND')
+  const [selectedRadio, setRadio] = useState(cancellationPolicy || 'FULL_REFUND')
 
   useEffect(() => {
     if (prevState?.coverPhoto) {
@@ -62,7 +62,7 @@ const Step3 = (props) => {
 
     const formData = {
       isAdult: adult,
-      cancellation: selectedRadio,
+      cancellationPolicy: selectedRadio,
     }
 
     const coverItem = fileList.length ? fileList.find((e) => e.uid === cover) : { url: '' }
@@ -110,7 +110,7 @@ const Step3 = (props) => {
             <label className={styles.label}>Description</label>
             <textarea
               className={styles.textarea}
-              name="description1"
+              name="summary"
               rows="4"
               ref={register({
                 required: true,
@@ -126,7 +126,7 @@ const Step3 = (props) => {
             <label className={styles.label}>Description</label>
             <textarea
               className={styles.textarea}
-              name="description2"
+              name="thingsToTake"
               rows="4"
               ref={register({
                 required: true,
@@ -167,7 +167,7 @@ const Step3 = (props) => {
             <label className={styles.label}>Description</label>
             <textarea
               className={styles.textarea}
-              name="description3"
+              name="notes"
               rows="4"
               ref={register({
                 required: true,
@@ -183,7 +183,7 @@ const Step3 = (props) => {
             <label className={styles.label}>Description</label>
             <textarea
               className={styles.textarea}
-              name="description4"
+              name="additionalInfo"
               rows="2"
               ref={register({
                 required: true,

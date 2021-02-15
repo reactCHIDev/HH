@@ -14,7 +14,7 @@ import {
   getExpTagsAC,
 } from 'actions/system'
 import SubHeader from 'components/SubHeader'
-import { getItem } from 'utils/localStorage'
+import { getItem, setItem } from 'utils/localStorage'
 import Eye from 'assets/icons/svg/eye-preview.svg'
 import Copy from 'assets/icons/svg/copy-icon.svg'
 import Step1 from './components/Steps/Step1'
@@ -23,6 +23,60 @@ import Step3 from './components/Steps/Step3'
 import Step4 from './components/Steps/Step4'
 import styles from './add_experience.module.scss'
 import './add_experience.less'
+
+const currentExperience = {
+  id: 71,
+  shopId: 43,
+  shopName: 'My shop',
+  title: 'Alco - Discoteque - Next',
+  typeIds: [1, 2, 3],
+  tagIds: [1, 2],
+  duration: 40,
+  priceAdult: 100,
+  priceChild: 30,
+  currency: 'HKD',
+  isAdult: false,
+  guests: {
+    adults: 5,
+    children: 5,
+  },
+  guestsTotal: 10,
+  languages: ['English', 'Spanish'],
+  discount: { quantity: 5, discount: 10 },
+  coverPhoto:
+    'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1611831571066.jpg',
+  otherPhotos: [
+    'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1612528894745.jpg',
+    'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1612528912562.jpg',
+  ],
+  summary:
+    'Lorem ipsum about Lorem ipsum about Lorem ipsum about Lorem ipsum about Lorem ipsum about Lorem ipsum about',
+  thingsToTake: 'spoon, knife, fork, plate',
+  additionalInfo: 'Lorem ipsum about Lorem ipsum about Lorem ipsum ',
+  cancellationPolicy: 'HALF_REFUND',
+
+  notes: 'ipsum about Lorem ipsum about Lorem ipsum about',
+  address: 'Pivdennyi vokzal',
+  location: '49.9878502,36.199552',
+  startDate: '2021-02-10T09:27:12.667Z',
+  endDate: '2021-03-11T09:27:12.667Z',
+  time: [
+    '2021-02-10T09:27:12.667Z',
+    '2021-02-17T09:27:12.667Z',
+    '2021-02-24T09:27:12.667Z',
+    '2021-03-03T09:27:12.667Z',
+    '2021-03-10T09:27:12.667Z',
+  ],
+  periodicity: 'Weekly',
+  experienceUrl: 'localhost/experience/alco_-_discoteque_-_next',
+  status: 'PUBLISHED',
+  type: 'PUBLIC',
+  rating: 0,
+  votes: '0',
+  visits: '0',
+  updatedAt: '2021-02-10T06:51:06.406Z',
+  createdAt: '2021-02-10T06:51:06.406Z',
+}
 
 const AddExperience = (props) => {
   const {
@@ -42,6 +96,8 @@ const AddExperience = (props) => {
     location: { state: edit },
   } = props
 
+  // setItem('addExperience', currentExperience)
+
   const [step, setStep] = useState(0)
   const [firstStep, setFirstStep] = useState(null)
   const [progress, setProgress] = useState(0)
@@ -55,7 +111,7 @@ const AddExperience = (props) => {
     getCountriesAC()
     getExpTypesAC()
     getExpTagsAC()
-    if (!edit) removeKey('addExperience')
+    // if (!edit) removeKey('addExperience')
     if (getItem('addExperience')) {
       const { id } = getItem('addExperience')
       setId(id)
@@ -67,7 +123,7 @@ const AddExperience = (props) => {
   }, [step])
 
   useEffect(() => {
-    const firstS = account && account?.shop?.id ? 3 : 0
+    const firstS = account && account?.shop?.id ? 0 : 0
     setFirstStep(firstS)
   }, [account])
 

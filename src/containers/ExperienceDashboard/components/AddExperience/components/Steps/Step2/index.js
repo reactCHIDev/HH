@@ -10,63 +10,91 @@ import styles from './step2.module.scss'
 import './step2.less'
 
 const Step2 = (props) => {
-  const { setStep, expTypes, expTags, stepper, setStepper } = props
+  const { setStep, expTypes = [], expTags = [], stepper, setStepper } = props
 
   let title,
-    expType,
-    expTag,
+    typeIds,
+    tagIds,
     priceAdult,
     priceChild,
     isAdult,
-    maxGuests,
+    guestsTotal,
     discount,
     duration,
     languages
   if (getItem('addExperience'))
     ({
       title,
-      expType,
-      expTag,
+      typeIds,
+      tagIds,
       duration,
       priceAdult,
       priceChild,
       isAdult,
       discount,
-      maxGuests,
+      guestsTotal,
       languages,
     } = getItem('addExperience'))
 
-  const [selectedTypes, setSelectedTypes] = useState(expType || [])
-  const [selectedTags, setSelectedTags] = useState(expTag || [])
+  const normalizeTypesForSubmit = (value, allTags) =>
+    value.map((t) => allTags.find((e) => e.title === t).id)
+
+  const normalizeTypesForRender = (value, allTags) =>
+    value.map((t) => allTags.find((e) => e.id === t).title)
+
+  const normalizeTagsForSubmit = (value, allTags) =>
+    value.map((t) => allTags.find((e) => e.tagName === t).id)
+
+  const normalizeTagsForRender = (value, allTags) =>
+    value.map((t) => allTags.find((e) => e.id === t).tagName)
+
+  const [selectedTypes, setSelectedTypes] = useState([])
+  const [selectedTags, setSelectedTags] = useState([])
   const [dur, setDuration] = useState(duration || 20)
   const [adult, setIsAdult] = useState(isAdult || false)
   const [discnt, setDiscount] = useState(!!discount?.discount && !!discount?.quantity)
   const [discValue, setDiscountValue] = useState(discount?.discount)
   const [qtyValue, setQtyValue] = useState(discount?.quantity)
   const [selectedLangs, setSelectedLangs] = useState(languages || [])
+  const [defaultValues, setDefaultValues] = useState({})
 
   // =========================================================================
 
-  const defaultValues = title
-    ? {
+  useEffect(() => {
+    if (expTypes.length && expTags.length) {
+      setSelectedTypes(normalizeTypesForRender(typeIds, expTypes))
+      setSelectedTags(normalizeTagsForRender(tagIds, expTags))
+    }
+  }, [expTypes, expTags])
+
+  useEffect(() => {
+    if (selectedTypes.length && selectedTags.length) {
+      setDefaultValues({
         title,
-        expType,
-        expTag,
+        typeIds: selectedTypes,
+        tagIds: selectedTags,
         duration,
         priceAdult,
         priceChild,
         isAdult,
         discountVal: discValue,
         qtyVal: qtyValue,
-        maxGuests,
+        maxGuests: guestsTotal,
         languages,
-      }
-    : {}
+      })
+    }
+  }, [selectedTypes, selectedTags])
 
-  const { register, handleSubmit, control, watch, setValue, errors } = useForm({
+  const { register, handleSubmit, control, setValue, errors } = useForm({
     mode: 'onBlur',
     defaultValues,
   })
+
+  useEffect(() => {
+    if (Object.keys(defaultValues).length) {
+      Object.keys(defaultValues).forEach((k) => setValue(k, defaultValues[k]))
+    }
+  }, [defaultValues])
 
   // ===============================================
 
@@ -113,14 +141,21 @@ const Step2 = (props) => {
 
   const onNext = (data) => {
     const step1 = getItem('addExperience')
-    const { discountVal, qtyVal } = data
+    const { discountVal, qtyVal, typeIds, tagIds } = data
     delete data.discountVal
     delete data.qtyVal
+    delete data.typeIds
+    delete data.tagIds
 
     setItem('addExperience', {
       ...step1,
       ...data,
-      discount: { quantity: discnt ? +qtyVal : 0, discount: discnt ? +discountVal : 0 },
+      typeIds: normalizeTypesForSubmit(typeIds, expTypes),
+      tagIds: normalizeTagsForSubmit(tagIds, expTags),
+      discount: {
+        quantity: discnt ? Number(qtyVal) : 0,
+        discount: discnt ? Number(discountVal) : 0,
+      },
       duration: dur,
       adult: isAdult,
     })
@@ -160,7 +195,7 @@ const Step2 = (props) => {
           <div className={cls(styles.service_tags, 'exp_selects')}>
             <Controller
               control={control}
-              name="expType"
+              name="typeIds"
               rules={{ required: true, validate: (value) => value.length > 0 }}
               render={({ onChange, value, name }) => (
                 <Select
@@ -191,7 +226,7 @@ const Step2 = (props) => {
           <div className={cls(styles.service_tags, 'exp_selects')}>
             <Controller
               control={control}
-              name="expTag"
+              name="tagIds"
               rules={{ required: true, validate: (value) => value.length > 0 }}
               render={({ onChange, value, name }) => (
                 <Select
