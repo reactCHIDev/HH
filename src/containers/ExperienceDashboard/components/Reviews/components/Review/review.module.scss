@@ -73,10 +73,57 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
+
+      .reviewMarks {
+        display: flex;
+        align-items: baseline;
+
+        .rateWrapper {
+          margin-right: 10px;
+        }
+
+        .reads {
+          display: flex;
+          flex-grow: 2;
+          align-items: center;
+          margin: 0 24px;
+          .reads_people {
+            display: flex;
+            align-items: center;
+            width: 10px;
+            margin-right: 7px;
+            .people {
+            }
+          }
+          .qty_reads {
+            margin-bottom: 0;
+            color: #31394d;
+            font-weight: 500;
+            font-size: 14px;
+            font-style: normal;
+            line-height: 160%;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+          }
+        }
+      }
+
+      .reviewDate {
+        display: flex;
+        color: #939d98;
+        font-size: 12px;
+        line-height: 140%;
+        letter-spacing: 0.3px;
+      }
     }
 
     .reviewText {
       margin-bottom: 10px;
+      color: #31394d;
+      font-size: 14px;
+      line-height: 160%;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
     }
 
     .replyButton {
