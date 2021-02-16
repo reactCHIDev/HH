@@ -2,6 +2,7 @@ import {
   GET_STRIPE_TOKEN_REQUESTING,
   GET_STRIPE_TOKEN_SUCCESS,
   GET_STRIPE_TOKEN_ERROR,
+  STRIPE_CHECKOUT_REQUESTING,
 } from './constants'
 
 export const getStripeTokenAC = () => ({
@@ -18,4 +19,8 @@ export const getStripeTokenSuccess = (token) => {
 export const getStripeTokenError = (error) => ({
   type: GET_STRIPE_TOKEN_ERROR,
   error,
+})
+
+export const stripeCheckoutAC = () => ({
+  type: STRIPE_CHECKOUT_REQUESTING,
 })

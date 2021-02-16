@@ -71,6 +71,8 @@ const OrderFMInfo = lazy(() => import('containers/ProductDashboard/components/Or
 const ExperienceDashboard = lazy(() => import('containers/ExperienceDashboard'))
 
 // Other
+const Success = lazy(() => import('pages/Stripe/Success'))
+const Error = lazy(() => import('pages/Stripe/Error'))
 const CartPage = lazy(() => import('containers/Cart'))
 const Settings = lazy(() => import('containers/Settings'))
 const PageNotFound = lazy(() => import('components/PageNotFound'))
@@ -200,6 +202,8 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                     <CreateExperienceLanding role={role} />
                   ))}
                 />
+                <PublicRoute exact path="/payment-success" component={WaitingComponent(Success)} />
+                <PublicRoute exact path="/payment-error" component={WaitingComponent(Error)} />
                 <PublicRoute
                   exact
                   path="/landing/create_shop"
