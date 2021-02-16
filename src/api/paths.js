@@ -33,6 +33,7 @@ export default {
   duplicate: '/v1/product/duplicate/',
 
   // Experience
+  createExperience: '/v1/experience/create',
   expTypes: '/v1/experience/types',
   expTags: '/v1/experience/tags',
 

@@ -4,11 +4,13 @@ import { Button, Select, DatePicker, Calendar, Radio, Col, Row, Typography } fro
 import { format, toDate, getDate, getMonth, getYear, isSameDay } from 'date-fns'
 import Finish from '../Finish'
 import DatePick from 'components/DatePicker/DatePicker'
+import { createExperienceAC } from 'actions/experience'
 import moment from 'moment'
 import { getItem, setItem } from 'utils/localStorage'
 import cls from 'classnames'
 import styles from './step4.module.scss'
 import './step4.less'
+import { useDispatch } from 'react-redux'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
@@ -56,6 +58,10 @@ const Step4 = () => {
   const [date, setDate] = useState(new Date())
   const [eventTime, setEventTime] = useState(null)
 
+  const prevData = getItem('addExperience')
+
+  const dispatch = useDispatch()
+
   function onPanelChange(value, mode) {
     console.log(value, mode)
   }
@@ -87,6 +93,30 @@ const Step4 = () => {
 
   const onTimeSelect = (e) => {
     setEventTime(createDate(date, e.target.id))
+  }
+
+  const onApply = () => {
+    const dateTime = {
+      address: 'Pivdennyi vokzal',
+      location: '49.9878502,36.199552',
+      startDate: '2021-02-10T09:27:12.667Z',
+      endDate: '2021-03-11T09:27:12.667Z',
+      time: [
+        '2021-02-10T09:27:12.667Z',
+        '2021-02-17T09:27:12.667Z',
+        '2021-02-24T09:27:12.667Z',
+        '2021-03-03T09:27:12.667Z',
+        '2021-03-10T09:27:12.667Z',
+      ],
+      periodicity: 'Weekly',
+      experienceUrl: 'https://hungryhugger.wildwebart.com/qweqwe',
+      status: 'PUBLISHED',
+    }
+    const payload = {
+      ...prevData,
+      ...dateTime,
+    }
+    dispatch(createExperienceAC(payload))
   }
 
   return (
@@ -136,6 +166,7 @@ const Step4 = () => {
                 block
                 // disabled={fileList.length < 2 || !isActive}
                 size="large"
+                onClick={onApply}
               >
                 APPLY
               </Button>

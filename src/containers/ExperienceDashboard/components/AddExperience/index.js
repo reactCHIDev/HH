@@ -154,7 +154,7 @@ const AddExperience = (props) => {
     setModal(false)
   }
 
-  if (firstStep === null) return <></>
+  if (firstStep === null || !expTypes || !expTags) return <></>
   return (
     <>
       <div className={styles.container}>

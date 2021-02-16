@@ -10,7 +10,7 @@ import styles from './step2.module.scss'
 import './step2.less'
 
 const Step2 = (props) => {
-  const { setStep, expTypes = [], expTags = [], stepper, setStepper } = props
+  const { setStep, expTypes, expTags, stepper, setStepper } = props
 
   let title,
     typeIds,
@@ -22,7 +22,8 @@ const Step2 = (props) => {
     discount,
     duration,
     languages
-  if (getItem('addExperience'))
+  const prevData = getItem('addExperience')
+  if (prevData)
     ({
       title,
       typeIds,
@@ -61,29 +62,29 @@ const Step2 = (props) => {
   // =========================================================================
 
   useEffect(() => {
-    if (expTypes.length && expTags.length) {
+    if (expTypes.length && expTags.length && typeIds && tagIds) {
       setSelectedTypes(normalizeTypesForRender(typeIds, expTypes))
       setSelectedTags(normalizeTagsForRender(tagIds, expTags))
     }
-  }, [expTypes, expTags])
+  }, [])
 
   useEffect(() => {
-    if (selectedTypes.length && selectedTags.length) {
+    if (prevData) {
       setDefaultValues({
         title,
-        typeIds: selectedTypes,
-        tagIds: selectedTags,
+        typeIds: typeIds ? normalizeTypesForRender(typeIds, expTypes) : [],
+        tagIds: tagIds ? normalizeTagsForRender(tagIds, expTags) : [],
         duration,
         priceAdult,
         priceChild,
         isAdult,
         discountVal: discValue,
         qtyVal: qtyValue,
-        maxGuests: guestsTotal,
+        guestsTotal,
         languages,
       })
     }
-  }, [selectedTypes, selectedTags])
+  }, [])
 
   const { register, handleSubmit, control, setValue, errors } = useForm({
     mode: 'onBlur',
@@ -107,7 +108,9 @@ const Step2 = (props) => {
     onChange(e)
   }
 
-  const filteredTags = expTags?.length ? expTags.filter((o) => !selectedTags.includes(o.title)) : []
+  const filteredTags = expTags?.length
+    ? expTags.filter((o) => !selectedTags.includes(o.tagName))
+    : []
 
   const handleChangeTags = (onChange) => (e) => {
     setSelectedTags(e)
@@ -158,6 +161,11 @@ const Step2 = (props) => {
       },
       duration: dur,
       adult: isAdult,
+      currency: 'HKD',
+      guests: {
+        adults: 5,
+        children: 5,
+      },
     })
     setStep()
     setStepper(false)
@@ -238,7 +246,7 @@ const Step2 = (props) => {
                   style={{ width: '100%' }}
                 >
                   {filteredTags.map((item) => (
-                    <Select.Option key={item.id} value={item.title}>
+                    <Select.Option key={item.id} value={item.tagName}>
                       {item.title}
                     </Select.Option>
                   ))}
@@ -368,7 +376,7 @@ const Step2 = (props) => {
             <label className={styles.label}>Maximum no. of guest</label>
             <Controller
               control={control}
-              name="maxGuests"
+              name="guestsTotal"
               rules={{ required: true }}
               render={({ onChange, value, name }) => (
                 <InputNumber name={name} value={value} onChange={onChange} />
