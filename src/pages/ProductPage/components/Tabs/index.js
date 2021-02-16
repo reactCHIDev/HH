@@ -35,7 +35,7 @@ const Tabs = (props) => {
           isUserCanReview={isUserCanReview}
         />
       ),
-      mark: productReviewsCount,
+      mark: productReviewsCount || '',
     },
 
     'DELIVERY INFO': {

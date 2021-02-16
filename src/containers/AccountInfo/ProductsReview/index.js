@@ -30,7 +30,6 @@ function ProductsReview() {
       )}
       {isReviewModalOpen && <ReviewModal product={productToReview} />}
       {reviewedProducts && <ReviewedProducts products={reviewedProducts} />}
-      <div></div>
     </div>
   )
 }
