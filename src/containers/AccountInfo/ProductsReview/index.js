@@ -11,26 +11,22 @@ function ProductsReview() {
   const productToReview = useSelector((state) => state.reviews.unreviewedProduct)
   const reviewedProducts = useSelector((state) => state.reviews.reviews)
   const isReviewModalOpen = useSelector((state) => state.reviews.isModalOpen)
-
-  // const [isReviewModalOpen, setIsReviewModalOpen] = React.useState(false)
+  const currentPage = useSelector((state) => state.reviews.reviewsCurrentPage)
 
   React.useEffect(() => {
-    dispatch(getUnreviewedProductAC())
-    dispatch(getFlProductReviewsAC(), [dispatch])
+    dispatch(getUnreviewedProductAC(), [dispatch])
+    dispatch(getFlProductReviewsAC({ page: currentPage }), [dispatch])
   }, [])
 
   return (
     <div className={styles.container}>
       {productToReview && !isReviewModalOpen && (
-        <ProductToReview
-          product={productToReview}
-          // setIsReviewModalOpen={setIsReviewModalOpen}
-          openReviewModal={openReviewModal}
-        />
+        <ProductToReview product={productToReview} openReviewModal={openReviewModal} />
       )}
       {isReviewModalOpen && <ReviewModal product={productToReview} />}
-      {reviewedProducts && <ReviewedProducts products={reviewedProducts} />}
-      <div></div>
+      {reviewedProducts && (
+        <ReviewedProducts products={reviewedProducts} currentPage={currentPage} />
+      )}
     </div>
   )
 }

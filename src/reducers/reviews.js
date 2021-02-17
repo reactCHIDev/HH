@@ -24,7 +24,9 @@ const initialState = {
   createReviewRequesting: false,
   isModalOpen: false,
   currentPage: 1,
+  reviewsCurrentPage: 1,
   isUserCanReview: true,
+  count: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -79,9 +81,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: action.data.reviews,
-        count: action.data.reviewsCount,
+        count: action.data.count,
         requesting: false,
         error: false,
+        reviewsCurrentPage: action.data.currentProductPage,
       }
 
     case GET_FL_REVIEWS_ERROR:

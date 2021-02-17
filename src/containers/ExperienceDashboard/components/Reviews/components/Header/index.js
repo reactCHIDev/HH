@@ -6,7 +6,6 @@ import styles from './header.module.scss'
 
 const Header = (props) => {
   const { onSearch, onDataChange, mark = '' } = props
-  const { RangePicker } = DatePicker
 
   const extraMark = (num) => <div className={styles.extra_mark}>{num}</div>
 
@@ -14,19 +13,15 @@ const Header = (props) => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.title}>
-          <p className={styles.qwe}>Bookings </p>
+          <p className={styles.qwe}>Reviews </p>
           {extraMark(mark)}
         </div>
         <div className={styles.tools}>
-          <div className={styles.srch_block}>
-            <Search
-              onSearch={onSearch}
-              placeholder="Search by experiences
-"
-            />
-          </div>
           <div className={styles.date_picker}>
-            <RangePicker disabled={false} id="1" format="DD MMM YY" onChange={onDataChange} />
+            <DatePicker disabled={false} id="1" format="DD MMM YY" onChange={onDataChange} />
+          </div>
+          <div className={styles.srch_block}>
+            <Search onSearch={onSearch} placeholder="Search by experiences" />
           </div>
         </div>
       </div>

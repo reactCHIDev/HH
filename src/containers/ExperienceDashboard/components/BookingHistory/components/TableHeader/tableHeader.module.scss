@@ -6,7 +6,7 @@
   .headingsWrapper {
     display: flex;
     justify-content: space-between;
-    width: 75%;
+    width: 100%;
     color: #838894;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -14,43 +14,39 @@
     .heading {
       display: flex;
       align-items: center;
+      margin-bottom: 10px;
       cursor: pointer;
     }
 
-    .createdAt {
-      width: 10%;
+    .product {
+      width: 50%;
       min-width: 75px;
     }
 
-    .id {
+    .day {
       width: 10%;
       min-width: 70px;
     }
 
-    .items {
-      width: 10%;
+    .time {
+      width: 5%;
       min-width: 60px;
     }
 
-    .orderTotal {
-      width: 10%;
+    .price {
+      width: 5%;
       min-width: 65px;
     }
 
-    .deliveryMethod {
+    .participants {
       width: 10%;
       min-width: 70px;
-    }
-
-    .deliveryStatus {
-      width: 10%;
-      min-width: 60px;
     }
   }
 
   .lastSection {
     display: flex;
     justify-content: flex-end;
-    width: 25%;
+    width: 20%;
   }
 }

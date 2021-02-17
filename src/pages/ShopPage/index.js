@@ -105,8 +105,12 @@ const ShopPage = (props) => {
                 </p>
               </div>
               <div className={styles.rating_container}>
-                <Rate style={{ color: '#EB5769' }} disabled defaultValue={fm.rating} />
-                <p className={styles.qauntity}>(0)</p>
+                <Rate
+                  style={{ color: '#EB5769' }}
+                  disabled
+                  defaultValue={Math.round(shop.rating)}
+                />
+                <p className={styles.qauntity}>{`(${shop.votes})`}</p>
               </div>
             </div>
             <p className={styles.first_last_name}>{shop.title}</p>

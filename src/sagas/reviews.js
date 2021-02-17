@@ -34,7 +34,7 @@ function* getUnreviewedProduct() {
 
 function* createProductReview({ data }) {
   const getReviewsData = (store) => store.reviews
-  const { currentPage } = yield select(getReviewsData)
+  const { currentPage, reviewsCurrentPage } = yield select(getReviewsData)
   try {
     yield createProductReviewReq(data)
     if (data.isReviewOnProductPage) {
@@ -44,8 +44,10 @@ function* createProductReview({ data }) {
       })
       yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
     } else {
-      yield put({ type: GET_UNREVIEWED_PRODUCT_REQUESTING })
-      yield put({ type: GET_FL_REVIEWS_REQUESTING })
+      yield put({
+        type: GET_UNREVIEWED_PRODUCT_REQUESTING,
+      })
+      yield put({ type: GET_FL_REVIEWS_REQUESTING, data: { page: reviewsCurrentPage } })
       yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
     }
   } catch (error) {
@@ -55,12 +57,18 @@ function* createProductReview({ data }) {
   }
 }
 
-function* getFlProductReviews() {
+function* getFlProductReviews({ data }) {
+  const { page } = data
+
   try {
-    const { data } = yield getFlProductsReviewsReq({ startIndex: 0, limit: 6 })
+    const { data: products } = yield getFlProductsReviewsReq({ startIndex: page * 3 - 3, limit: 3 })
     yield put({
       type: GET_FL_REVIEWS_SUCCESS,
-      data: { reviews: data.reviews, count: data.reviewsCount },
+      data: {
+        reviews: products.reviews,
+        count: products.reviewsCount,
+        currentProductPage: page,
+      },
     })
   } catch (error) {
     if (error.response) {

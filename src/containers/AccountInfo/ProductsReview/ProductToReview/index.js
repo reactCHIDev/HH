@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import styles from './productToReview.module.scss'
 
-function ProductToReview({ product, setIsReviewModalOpen, openReviewModal }) {
+function ProductToReview({ product, openReviewModal }) {
   const dispatch = useDispatch()
   const openModal = () => {
     dispatch(openReviewModal())

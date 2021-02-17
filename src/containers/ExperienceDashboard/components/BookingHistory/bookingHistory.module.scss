@@ -1,21 +1,19 @@
-.container {
+.main_wrapper {
   width: 100%;
   max-width: 1260px;
   margin: 0 auto;
-  padding: 20px 30px 30px;
-
-  @media (max-width: 1440px) {
-    padding: 20px 4% 0 4%;
+  padding: 20px 30px;
+  @media (max-width: 768px) {
+    padding: 20px 20px;
   }
-
-  @media (max-width: 1024px) {
-    padding: 20px 5% 0 5%;
-  }
-
-  .table_scroller {
+  .container {
     width: 100%;
-    @media (max-width: 768px) {
+    @media (max-width: 1260px) {
       overflow-x: scroll;
+    }
+
+    .table_wrapper {
+      min-width: 768px;
     }
   }
 }
