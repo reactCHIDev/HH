@@ -119,7 +119,6 @@ function SearchBlock() {
   }, [cityResult])
 
   React.useEffect(() => {
-    console.log()
     if (searchedDataResults.length > 0) {
       setIsResultsShown(true)
     } else {
@@ -132,7 +131,7 @@ function SearchBlock() {
       <div className={styles.input_wrapper}>
         <label className={styles.label}>What are you looking for? *</label>
         <div className={styles.inputs_container}>
-          <div className={styles.selectWrapper}>
+          <div className={styles.selectWrapper} ref={typeRef}>
             <div className={styles.select} onClick={() => setIsSearchTypesVisible((v) => !v)}>
               {searchType}
               <div>
@@ -144,10 +143,9 @@ function SearchBlock() {
               </div>
             </div>
             {isSearchTypesVisible ? (
-              <div className={styles.typesWrapper} ref={typeRef}>
+              <div className={styles.typesWrapper}>
                 {searchData.map((item) => (
                   <div
-                    ref={typeRef}
                     onClick={() => {
                       if (searchType === item.type || !item.isActive) return
                       clickHandler(item.type)

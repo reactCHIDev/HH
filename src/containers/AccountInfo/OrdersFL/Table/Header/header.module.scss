@@ -1,14 +1,14 @@
 .container {
-  width: 100%;
   display: flex;
+  width: 100%;
   border-bottom: 1px solid #dcdde1;
 
   .headingsWrapper {
-    width: 75%;
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    width: 75%;
     color: #838894;
+    font-size: 12px;
     letter-spacing: 0.5px;
 
     .heading {

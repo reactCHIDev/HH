@@ -22,7 +22,8 @@ export default {
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',
   registrationEmail: '/v1/user/verify_registration_email',
-
+  fmBookingHistory: '',
+  experiencesReviews: '',
   // Listing
 
   // Product
@@ -65,6 +66,7 @@ export default {
 
   // Stripe
   stripe: '/v1/stripe/create_payment',
+  stripeCheckout: '/v1/stripe/create-checkout-session',
 
   // Order
   order: '/v1/order/create',
@@ -92,4 +94,10 @@ export default {
 
   // Files
   deleteFile: '/v1/file/delete/file/',
+
+  // Review
+  unreviewedProduct: '/v1/review/product/latest/pending',
+  createProductReview: '/v1/review/product/create',
+  getFlProductReviews: '/v1/review/product/list_my',
+  getProductReviews: '/v1/review/product/by_id/',
 }

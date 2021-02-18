@@ -9,6 +9,7 @@ import { Collapse } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 import T from 'prop-types'
 import styles from './expexp.module.scss'
+import SearchBlock from './SearchBlock'
 
 const ExploreExp = (props) => {
   return (
@@ -18,7 +19,8 @@ const ExploreExp = (props) => {
           <h1>
             Food experiences in <mark>Singapore</mark>{' '}
           </h1>
-          <div className={styles.search_block}>
+          <SearchBlock />
+          {/* <div className={styles.search_block}>
             <div className={styles.input_wrapper}>
               <label className={styles.label}>Type of experience</label>
               <input disabled className={styles.input} type="text" />
@@ -52,7 +54,7 @@ const ExploreExp = (props) => {
                 </svg>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

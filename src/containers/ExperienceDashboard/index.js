@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
@@ -7,6 +9,8 @@ import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
 import ExpListings from './components/ExpListings'
+import BookingHistory from './components/BookingHistory'
+import ReviewsContainer from './components/Reviews'
 import styles from './expdb.module.scss'
 
 const ExperienceDashboard = (props) => {
@@ -26,8 +30,8 @@ const ExperienceDashboard = (props) => {
         tabs={{
           overview: { mark: false, disabled: false, content: <Soon /> },
           listings: { mark: false, content: <ExpListings /> },
-          booking: { mark: false, disabled: false, content: <Soon /> },
-          reviews: { mark: false, disabled: false, content: <Soon /> },
+          booking: { mark: false, disabled: false, content: <BookingHistory /> },
+          reviews: { mark: false, disabled: false, content: <ReviewsContainer /> },
           performance: { mark: false, disabled: false, content: <Soon /> },
           profile: { mark: false, content: <Soon /> },
         }}

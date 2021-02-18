@@ -25,7 +25,7 @@ const FoodmakersExplore = (props) => {
   const specialityTags = useSelector((state) => state.system.specialityTags)
   const serviceTags = useSelector((state) => state.system.serviceTags)
   const searchData = getItem('search_data')
-  const getInitialSearchValue = () => getItem('search_data').searchTitle || ''
+  const getInitialSearchValue = () => getItem('search_data')?.searchTitle || ''
   const searchTitle = searchData?.searchTitle || ''
   const city = searchData?.city || ''
   const dispatch = useDispatch()

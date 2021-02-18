@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #dcdde1;
+
+  .headingsWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #838894;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+
+    .heading {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .product {
+      width: 50%;
+      min-width: 75px;
+    }
+
+    .day {
+      width: 10%;
+      min-width: 70px;
+    }
+
+    .time {
+      width: 5%;
+      min-width: 60px;
+    }
+
+    .price {
+      width: 5%;
+      min-width: 65px;
+    }
+
+    .participants {
+      width: 10%;
+      min-width: 70px;
+    }
+  }
+
+  .lastSection {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+  }
+}

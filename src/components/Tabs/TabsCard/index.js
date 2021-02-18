@@ -7,11 +7,11 @@ import './tabs.less'
 const { TabPane } = Tabs
 
 function callback(key) {
-  console.log(key)
+  // console.log(key)
 }
 
 const HHTabs = ({ tabs }) => {
-  const extraMark = () => <span className={styles.extraMark} />
+  const extraMark = (el) => <span className={styles.extraMark}>{el}</span>
   return (
     <div className="tabs-card-container">
       <Tabs
@@ -32,7 +32,7 @@ const HHTabs = ({ tabs }) => {
             tab={
               <span>
                 {tab}
-                {tabs[tab].mark && extraMark()}
+                {tabs[tab].mark && extraMark(tabs[tab].mark)}
               </span>
             }
             key={tab}

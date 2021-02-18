@@ -6,6 +6,7 @@
     "@ant-design/icons": "^4.2.2",
     "@craco/craco": "^5.7.0",
     "@hookform/error-message": "0.0.4",
+    "@stripe/stripe-js": "^1.12.1",
     "antd": "^4.7.0",
     "antd-img-crop": "^3.13.1",
     "axios": "^0.20.0",
@@ -70,10 +71,11 @@
   "devDependencies": {
     "eslint-config-airbnb": "^18.0.0",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "prettier-plugin-style-order": "^0.2.2"
   }
 }
