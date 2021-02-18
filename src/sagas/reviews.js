@@ -66,7 +66,7 @@ function* getFlProductReviews({ data }) {
       type: GET_FL_REVIEWS_SUCCESS,
       data: {
         reviews: products.reviews,
-        count: products.reviewsCount,
+        count: products.counter,
         currentProductPage: page,
       },
     })
@@ -86,7 +86,7 @@ function* getProductReviews({ data }) {
       type: GET_PRODUCT_REVIEWS_SUCCESS,
       data: {
         reviews: response.data.reviews,
-        count: response.data.reviewsCount,
+        count: response.data.counter,
         currentProductPage: page,
         isUserCanReview: !response.data.isReviewed,
       },
