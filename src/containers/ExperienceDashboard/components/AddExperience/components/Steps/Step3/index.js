@@ -64,8 +64,6 @@ const Step3 = (props) => {
       isAdult: adult,
       // cancellationPolicy: selectedRadio,
       cancellationPolicy: {
-        NO_REFUND: ' ',
-        HALF_REFUND: 'Prior 3 days before event',
         FULL_REFUND: 'Prior 7 days before event',
       },
     }
@@ -121,7 +119,7 @@ const Step3 = (props) => {
                 required: true,
               })}
             />
-            {_.get('description.type', errors) === 'required' && (
+            {_.get('summary.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>
@@ -137,7 +135,7 @@ const Step3 = (props) => {
                 required: true,
               })}
             />
-            {_.get('description.type', errors) === 'required' && (
+            {_.get('thingsToTake.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>
@@ -178,7 +176,7 @@ const Step3 = (props) => {
                 required: true,
               })}
             />
-            {_.get('description.type', errors) === 'required' && (
+            {_.get('notes.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>
@@ -194,7 +192,7 @@ const Step3 = (props) => {
                 required: true,
               })}
             />
-            {_.get('description.type', errors) === 'required' && (
+            {_.get('additionalInfo.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>

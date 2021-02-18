@@ -222,10 +222,10 @@ const Step2 = (props) => {
                 </Select>
               )}
             />
-            {_.get('expType.type', errors) === 'required' && (
+            {_.get('typeIds.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
-            {_.get('expType.type', errors) === 'validate' && (
+            {_.get('typeIds.type', errors) === 'validate' && (
               <p className={styles.errmsg}>Select types</p>
             )}
           </div>
@@ -253,10 +253,10 @@ const Step2 = (props) => {
                 </Select>
               )}
             />
-            {_.get('expTag.type', errors) === 'required' && (
+            {_.get('tagIds.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
-            {_.get('expTag.type', errors) === 'validate' && (
+            {_.get('tagIds.type', errors) === 'validate' && (
               <p className={styles.errmsg}>Select tags</p>
             )}
           </div>
@@ -382,7 +382,7 @@ const Step2 = (props) => {
                 <InputNumber name={name} value={value} onChange={onChange} />
               )}
             />
-            {_.get('maxGuests.type', errors) === 'required' && (
+            {_.get('guestsTotal.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>

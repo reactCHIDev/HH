@@ -123,7 +123,7 @@ const AddExperience = (props) => {
   }, [step])
 
   useEffect(() => {
-    const firstS = account && account?.shop?.id ? 0 : 0
+    const firstS = account && account?.shop?.id ? 1 : 0
     setFirstStep(firstS)
   }, [account])
 

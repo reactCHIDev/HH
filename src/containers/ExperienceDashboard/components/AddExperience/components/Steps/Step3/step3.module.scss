@@ -4,10 +4,10 @@
     position: relative;
 
     .header {
-      font-style: normal;
+      color: #3c3e43;
       font-weight: bold;
       font-size: 20px;
-      color: #3c3e43;
+      font-style: normal;
     }
   }
   .photo_container {
@@ -17,17 +17,17 @@
     .description_container {
       margin-bottom: 32px;
       .heading {
+        margin-bottom: 24px;
+        color: #3c3e43;
         font-weight: bold;
         font-size: 20px;
-        color: #3c3e43;
-        margin-bottom: 24px;
       }
       .label {
         display: block;
+        margin-bottom: 6px;
+        color: #838894;
         font-weight: normal;
         font-size: 12px;
-        color: #838894;
-        margin-bottom: 6px;
       }
       .textarea {
         width: 100%;
@@ -41,15 +41,24 @@
       flex-direction: column;
       margin-bottom: 24px;
       .heading {
+        margin-bottom: 24px;
+        color: #3c3e43;
         font-weight: bold;
         font-size: 20px;
-        color: #3c3e43;
-        margin-bottom: 24px;
       }
       .radio-style {
         display: block;
         margin-bottom: 12px;
       }
+    }
+    .errmsg {
+      // margin: -22px 0px 0;
+      color: #bf1650;
+    }
+
+    .errmsg::before {
+      display: inline;
+      content: '⚠ ';
     }
   }
   .btn_container {

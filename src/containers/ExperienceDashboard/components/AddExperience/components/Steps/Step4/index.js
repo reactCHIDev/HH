@@ -54,9 +54,11 @@ const times = [
 ]
 
 const Step4 = () => {
-  const [period, setPeriod] = useState('No Repeat')
+  const [period, setPeriod] = useState('Weekly')
   const [date, setDate] = useState(new Date())
-  const [eventTime, setEventTime] = useState(null)
+  const [eventTime, setEventTime] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
   const prevData = getItem('addExperience')
 
@@ -88,27 +90,26 @@ const Step4 = () => {
       minutes,
     })
 
-    return toDate(new Date(year, month, day, hours, minutes)) // 2014, 1, 11, 11, 30
+    return toDate(new Date(year, month, day, hours, minutes)).toISOString() // 2014, 1, 11, 11, 30
   }
 
   const onTimeSelect = (e) => {
     setEventTime(createDate(date, e.target.id))
   }
 
+  const onRangeSelect = (dates) => {
+    setStartDate(new Date(dates[0]).toISOString())
+    setEndDate(new Date(dates[1]).toISOString())
+  }
+
   const onApply = () => {
     const dateTime = {
-      address: 'Pivdennyi vokzal',
+      address: 'Manhattan',
       location: '49.9878502,36.199552',
-      startDate: '2021-02-10T09:27:12.667Z',
-      endDate: '2021-03-11T09:27:12.667Z',
-      time: [
-        '2021-02-10T09:27:12.667Z',
-        '2021-02-17T09:27:12.667Z',
-        '2021-02-24T09:27:12.667Z',
-        '2021-03-03T09:27:12.667Z',
-        '2021-03-10T09:27:12.667Z',
-      ],
-      periodicity: 'Weekly',
+      startDate,
+      endDate,
+      time: [eventTime],
+      periodicity: period,
       experienceUrl: 'https://hungryhugger.wildwebart.com/qweqwe',
       status: 'PUBLISHED',
     }
@@ -146,7 +147,7 @@ const Step4 = () => {
                 disabled={false}
                 id="1"
                 format="DD MMM YY"
-                onChange={() => {}}
+                onChange={onRangeSelect}
               />
             </div>
             <div className={styles.item_container}>
