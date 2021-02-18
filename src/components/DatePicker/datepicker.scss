@@ -1,0 +1,183 @@
+.calendar {
+  &__wrapper {
+    width: 386px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 394px;
+    border-radius: 34px;
+    @media screen and (max-width: 480px) {
+      width: 100%;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 200vh;
+      width: 200vh;
+      z-index: -1;
+    }
+  }
+
+  &__top--button {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 25px;
+
+    button {
+      padding: 12px 15px;
+      font-weight: 500;
+      font-size: 13px;
+      color: #c0c2c6;
+      border-radius: 20px;
+      min-width: 82px;
+
+      &.active {
+        background: #eb5769;
+        color: #fff !important;
+      }
+    }
+  }
+  &--now__date {
+    font-weight: 500;
+    font-size: 20px;
+    color: #5545f5;
+    padding: 0 15px;
+  }
+}
+
+.react-calendar {
+  width: auto !important;
+  border: 1px solid #eaebed;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 32px rgba(90, 96, 112, 0.07);
+  border-radius: 8px;
+  padding: 16px;
+
+  &__navigation {
+    display: flex;
+    // display: none !important;
+    &__label {
+      order: 0;
+    }
+    &__prev-button {
+      order: 1;
+    }
+    &__next-button {
+      order: 2;
+    }
+    &__prev2-button {
+      display: none !important;
+    }
+    &__next2-button {
+      display: none !important;
+    }
+  }
+
+  &__month-view__days {
+    opacity: 0;
+    animation: animate-month 2s ease forwards;
+    button {
+      border: 2px solid white;
+      border-radius: 6px;
+    }
+    &__day {
+      padding: 11px;
+      font-weight: 500 !important;
+      color: #262626;
+      font-size: 14px;
+      flex-basis: auto;
+      max-width: none;
+
+      &.react-calendar__tile--active {
+        color: #fff;
+        background: #eb5769;
+      }
+
+      &--neighboringMonth {
+        font-weight: normal;
+        color: #c0c2c6;
+      }
+    }
+  }
+
+  &__month-view__weekdays {
+    margin: 0 0 10px;
+
+    &__weekday {
+      font-weight: 500;
+      color: #b5b8bd;
+      font-size: 13px;
+
+      abbr[title] {
+        border: none !important;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__year-view__months,
+  &__decade-view__years {
+    button {
+      padding: 15px 10px !important;
+      margin: 5px 0;
+      font-size: 13px;
+      border-radius: 6px;
+
+      &.react-calendar__tile--hasActive {
+        color: #fff;
+        background: #eb5769;
+      }
+    }
+  }
+}
+.event {
+  background-color: #fffaf5;
+  color: red;
+  // font-weight: bold;
+}
+
+.free {
+}
+
+.today {
+  font-size: 9px;
+  color: grey;
+  margin-top: -8px;
+  display: flex;
+  justify-content: center;
+}
+
+.react-calendar__tile {
+  height: 48px;
+  &--active {
+    background-color: #eb5769;
+    border-radius: 6px;
+    .today {
+      font-size: 9px;
+      color: white;
+      margin-top: -8px;
+    }
+    &:enabled:hover,
+    &:enabled:focus {
+      background-color: #eb5769;
+      .today {
+        font-size: 9px;
+        color: white;
+        margin-top: -8px;
+      }
+    }
+  }
+}
+
+.react-calendar__month-view__days__day .react-calendar__month-view__days__day--weekend {
+  flex-basis: 8%;
+}
+
+@keyframes animate-month {
+  to {
+    opacity: 1;
+  }
+}

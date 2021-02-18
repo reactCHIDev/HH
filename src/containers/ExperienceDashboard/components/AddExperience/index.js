@@ -6,27 +6,87 @@ import Modal from 'components/UniversalModal'
 import Message from './components/Message'
 import { removeKey } from 'utils/localStorage'
 import { createProductRequestAC, updateProductRequestAC, duplicateAC } from 'actions/product'
-import { getProductTypes, getProductTagsRequestAC, getCountriesAC } from 'actions/system'
+import {
+  getProductTypes,
+  getProductTagsRequestAC,
+  getCountriesAC,
+  getExpTypesAC,
+  getExpTagsAC,
+} from 'actions/system'
 import SubHeader from 'components/SubHeader'
-import { getItem } from 'utils/localStorage'
+import { getItem, setItem } from 'utils/localStorage'
 import Eye from 'assets/icons/svg/eye-preview.svg'
 import Copy from 'assets/icons/svg/copy-icon.svg'
-import Btn from 'components/Button'
 import Step1 from './components/Steps/Step1'
 import Step2 from './components/Steps/Step2'
 import Step3 from './components/Steps/Step3'
 import Step4 from './components/Steps/Step4'
-import styles from './add_product.module.scss'
-import './add_product.less'
+import styles from './add_experience.module.scss'
+import './add_experience.less'
 
-const AddProduct = (props) => {
+const currentExperience = {
+  id: 71,
+  shopId: 43,
+  shopName: 'My shop',
+  title: 'Alco - Discoteque - Next',
+  typeIds: [1, 2, 3],
+  tagIds: [1, 2],
+  duration: 40,
+  priceAdult: 100,
+  priceChild: 30,
+  currency: 'HKD',
+  isAdult: false,
+  guests: {
+    adults: 5,
+    children: 5,
+  },
+  guestsTotal: 10,
+  languages: ['English', 'Spanish'],
+  discount: { quantity: 5, discount: 10 },
+  coverPhoto:
+    'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1611831571066.jpg',
+  otherPhotos: [
+    'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1612528894745.jpg',
+    'https://hungryhugger-space.fra1.digitaloceanspaces.com/72cb3de3-61ef-4149-afae-75f9bf1be702_1612528912562.jpg',
+  ],
+  summary:
+    'Lorem ipsum about Lorem ipsum about Lorem ipsum about Lorem ipsum about Lorem ipsum about Lorem ipsum about',
+  thingsToTake: 'spoon, knife, fork, plate',
+  additionalInfo: 'Lorem ipsum about Lorem ipsum about Lorem ipsum ',
+  cancellationPolicy: 'HALF_REFUND',
+
+  notes: 'ipsum about Lorem ipsum about Lorem ipsum about',
+  address: 'Pivdennyi vokzal',
+  location: '49.9878502,36.199552',
+  startDate: '2021-02-10T09:27:12.667Z',
+  endDate: '2021-03-11T09:27:12.667Z',
+  time: [
+    '2021-02-10T09:27:12.667Z',
+    '2021-02-17T09:27:12.667Z',
+    '2021-02-24T09:27:12.667Z',
+    '2021-03-03T09:27:12.667Z',
+    '2021-03-10T09:27:12.667Z',
+  ],
+  periodicity: 'Weekly',
+  experienceUrl: 'localhost/experience/alco_-_discoteque_-_next',
+  status: 'PUBLISHED',
+  type: 'PUBLIC',
+  rating: 0,
+  votes: '0',
+  visits: '0',
+  updatedAt: '2021-02-10T06:51:06.406Z',
+  createdAt: '2021-02-10T06:51:06.406Z',
+}
+
+const AddExperience = (props) => {
   const {
     account,
-    countries,
-    types,
-    tags,
+    expTypes,
+    expTags,
     requesting,
     success,
+    getExpTypesAC,
+    getExpTagsAC,
     getCountriesAC,
     getProductTypes,
     createProductRequestAC,
@@ -36,11 +96,12 @@ const AddProduct = (props) => {
     location: { state: edit },
   } = props
 
+  // setItem('addExperience', currentExperience)
+
   const [step, setStep] = useState(0)
   const [firstStep, setFirstStep] = useState(null)
   const [progress, setProgress] = useState(0)
   const [stepper, setStepper] = useState(false)
-  const [tagsCollection, setTagsCollection] = useState(false)
   const [id, setId] = useState(null)
   const [modal, setModal] = useState(false)
 
@@ -48,9 +109,11 @@ const AddProduct = (props) => {
     getProductTypes()
     getProductTagsRequestAC()
     getCountriesAC()
-    if (!edit) removeKey('addProduct')
-    if (getItem('addProduct')) {
-      const { id } = getItem('addProduct')
+    getExpTypesAC()
+    getExpTagsAC()
+    // if (!edit) removeKey('addExperience')
+    if (getItem('addExperience')) {
+      const { id } = getItem('addExperience')
       setId(id)
     }
   }, [])
@@ -58,15 +121,6 @@ const AddProduct = (props) => {
   useEffect(() => {
     if (step > progress) setProgress(step)
   }, [step])
-
-  useEffect(() => {
-    if (types && tags) {
-      const newTags = types.reduce((acc, e) => {
-        return acc.concat(e.productCategories.map((c) => c.title))
-      }, [])
-      setTagsCollection(tags)
-    }
-  }, [types, tags])
 
   useEffect(() => {
     const firstS = account && account?.shop?.id ? 1 : 0
@@ -88,7 +142,7 @@ const AddProduct = (props) => {
   }
 
   const goBack = () => {
-    removeKey('addProduct')
+    removeKey('addExperience')
   }
 
   const closeModal = (e) => {
@@ -100,14 +154,14 @@ const AddProduct = (props) => {
     setModal(false)
   }
 
-  if (step === null || types.length === 0) return <></>
+  if (firstStep === null || !expTypes || !expTags) return <></>
   return (
     <>
       <div className={styles.container}>
         <SubHeader
-          linkTo="/product_dashboard/listings"
+          linkTo="/experience_dashboard/listings"
           onBack={goBack}
-          title={edit ? 'Edit Product' : 'Add Product'}
+          title={edit ? 'Edit Experience' : 'Add Experience'}
         />
         <div className={styles.main}>
           <div id="stepper" className={styles.stepper}>
@@ -162,7 +216,13 @@ const AddProduct = (props) => {
                 <Step1 setStep={onClick} setStepper={setStepper} stepper={stepper} />
               )}
               {Number(step + firstStep) === 1 && (
-                <Step2 setStep={onClick} types={types} setStepper={setStepper} stepper={stepper} />
+                <Step2
+                  setStep={onClick}
+                  expTypes={expTypes}
+                  expTags={expTags}
+                  setStepper={setStepper}
+                  stepper={stepper}
+                />
               )}
               {Number(step + firstStep) === 2 && (
                 <Step3 setStep={onClick} setStepper={setStepper} stepper={stepper} />
@@ -170,8 +230,6 @@ const AddProduct = (props) => {
               {Number(step + firstStep) === 3 && (
                 <Step4
                   create={edit ? updateProductRequestAC : createProductRequestAC}
-                  tags={tagsCollection}
-                  countries={countries}
                   edit={edit}
                   requesting={requesting}
                 />
@@ -189,11 +247,10 @@ const AddProduct = (props) => {
   )
 }
 
-AddProduct.propTypes = {
-  account: T.arrayOf(shape()),
-  types: T.arrayOf(shape()),
-  tags: T.arrayOf(shape()),
-  countries: T.arrayOf(shape()),
+AddExperience.propTypes = {
+  account: T.shape(),
+  expTypes: T.arrayOf(shape()),
+  expTags: T.arrayOf(shape()),
   requesting: T.bool,
   getCountriesAC: T.func,
   getProductTypes: T.func,
@@ -202,30 +259,27 @@ AddProduct.propTypes = {
   getProductTagsRequestAC: T.func,
 }
 
-AddProduct.defaultProperties = {
-  types: [],
-  tags: [],
+AddExperience.defaultProperties = {
+  expTypes: [],
+  expTags: [],
 }
 
 export default connect(
-  ({
-    system: { productTags: tags, productTypes, countries },
+  ({ system: { expTypes, expTags }, account, product: { requesting, success } }) => ({
+    expTypes,
+    expTags,
     account,
-    product: { requesting, success },
-  }) => ({
-    tags,
-    types: productTypes,
-    account,
-    countries,
     requesting,
     success,
   }),
   {
     getProductTypes,
     getCountriesAC,
+    getExpTypesAC,
+    getExpTagsAC,
     createProductRequestAC,
     updateProductRequestAC,
     getProductTagsRequestAC,
     duplicateAC,
   },
-)(AddProduct)
+)(AddExperience)

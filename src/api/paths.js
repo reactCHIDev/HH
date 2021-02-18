@@ -33,6 +33,11 @@ export default {
   toggleStatus: '/v1/product/toggle_status',
   duplicate: '/v1/product/duplicate/',
 
+  // Experience
+  createExperience: '/v1/experience/create',
+  expTypes: '/v1/experience/types',
+  expTags: '/v1/experience/tags',
+
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
   getFoodmakerInfoByName: '/v1/foodmaker/info_by_profile_name/',

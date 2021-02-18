@@ -1,0 +1,48 @@
+.container {
+  margin-top: 100px;
+  .content {
+    .text {
+      font-size: 22px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      color: #31394d;
+    }
+    .heading {
+      font-weight: bold;
+      font-size: 32px;
+      text-align: center;
+      letter-spacing: 0.3px;
+      color: #31394d;
+    }
+    .share_block {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 50px;
+      padding: 50px;
+      background-color: #fff1e2;
+      .share {
+        font-weight: 500;
+        font-size: 18px;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #31394d;
+      }
+      a {
+        display: block;
+        font-size: 16px;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #5375cb;
+        margin-bottom: 24px;
+      }
+      .btn_apply {
+        width: 120px;
+        margin: auto;
+      }
+    }
+    .btn_complete {
+      width: 240px;
+      margin: 0 auto 32px;
+    }
+  }
+}

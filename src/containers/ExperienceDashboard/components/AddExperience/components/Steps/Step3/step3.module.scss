@@ -1,0 +1,67 @@
+.container {
+  width: 100%;
+  .content {
+    position: relative;
+
+    .header {
+      color: #3c3e43;
+      font-weight: bold;
+      font-size: 20px;
+      font-style: normal;
+    }
+  }
+  .photo_container {
+    margin-bottom: 32px;
+  }
+  .form {
+    .description_container {
+      margin-bottom: 32px;
+      .heading {
+        margin-bottom: 24px;
+        color: #3c3e43;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .label {
+        display: block;
+        margin-bottom: 6px;
+        color: #838894;
+        font-weight: normal;
+        font-size: 12px;
+      }
+      .textarea {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+    }
+    .cancellation {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+      .heading {
+        margin-bottom: 24px;
+        color: #3c3e43;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .radio-style {
+        display: block;
+        margin-bottom: 12px;
+      }
+    }
+    .errmsg {
+      // margin: -22px 0px 0;
+      color: #bf1650;
+    }
+
+    .errmsg::before {
+      display: inline;
+      content: '⚠ ';
+    }
+  }
+  .btn_container {
+    width: 160px;
+  }
+}

@@ -8,12 +8,10 @@ import ChkBox from 'components/ChkBox'
 import CollapsedBlock from 'components/CollapsedBlock'
 import cls from 'classnames'
 import SortElement from 'components/SortElement'
-import Modal from 'components/UniversalModal'
 import { toggleProductStatusRequestAC } from 'actions/product'
 import { getMyProductList } from 'actions/listing'
 import { getProductTypes } from 'actions/system'
 import Header from './components/ListingHeader'
-import EditProduct from './components/EditProduct'
 import Product from './components/Product'
 import styles from './listing.module.scss'
 import './listing.less'
@@ -56,7 +54,6 @@ const Listings = (props) => {
   const [filteredProducts, filterProducts] = useState([])
   const [searchSubstring, setSearchSubstring] = useState('')
   const [menu, setMenu] = useState(false)
-  const [edit, showEdit] = useState(false)
 
   const resetFilters = () => {
     setIds([])
@@ -179,8 +176,6 @@ const Listings = (props) => {
     toggleProductStatusRequestAC(data)
   }
 
-  const closeEdit = () => showEdit(false)
-
   return (
     <div className={styles.container}>
       <Header onSearch={onSearch} mark={filteredProducts?.length} />
@@ -231,14 +226,7 @@ const Listings = (props) => {
               </div>
 
               {filteredProducts.map((product) => (
-                <Product
-                  key={product.id}
-                  pushRoute={pushRoute}
-                  product={product}
-                  userProfile={userProfile}
-                  onToggle={test}
-                  onEdit={showEdit}
-                />
+                <Product key={product.id} pushRoute={pushRoute} product={product} onToggle={test} />
               ))}
             </div>
           </div>
@@ -250,11 +238,6 @@ const Listings = (props) => {
           </div>
         )}
       </div>
-      {edit && (
-        <Modal closeFunc={closeEdit}>
-          <EditProduct />
-        </Modal>
-      )}
     </div>
   )
 }

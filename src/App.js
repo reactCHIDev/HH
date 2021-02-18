@@ -69,6 +69,7 @@ const OrderFMInfo = lazy(() => import('containers/ProductDashboard/components/Or
 
 // Product dashboard
 const ExperienceDashboard = lazy(() => import('containers/ExperienceDashboard'))
+const AddExperience = lazy(() => import('containers/ExperienceDashboard/components/AddExperience'))
 
 // Other
 const Success = lazy(() => import('pages/Stripe/Success'))
@@ -232,7 +233,11 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                 />
                 <PublicRoute exact path="/cart" component={WaitingComponent(CartPage)} />
                 <PrivateRoute exact path="/addproduct" component={WaitingComponent(AddProduct)} />
-                <PrivateRoute exact path="/addexperience" component={Soon} />
+                <PrivateRoute
+                  exact
+                  path="/addexperience"
+                  component={WaitingComponent(AddExperience)}
+                />
                 <PublicRoute
                   exact
                   path="/product/:productId?"
