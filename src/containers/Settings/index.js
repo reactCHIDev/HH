@@ -47,7 +47,7 @@ const Settings = (props) => {
             balance: {
               disabled: false,
               mark: false,
-              moneyAmount: hkd,
+              moneyAmount: hkd || '',
               content: <Balance />,
             },
           }}
