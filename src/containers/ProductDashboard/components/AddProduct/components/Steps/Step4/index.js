@@ -11,11 +11,13 @@ import {
   Row,
   Checkbox,
   Button,
+  Popover,
 } from 'antd'
 import moment from 'moment'
 import { getItem, setItem } from 'utils/localStorage'
 import cls from 'classnames'
 import { MinusCircleOutlined } from '@ant-design/icons'
+import Info from 'assets/icons/svg/info-green.svg'
 import styles from './step4.module.scss'
 import './step4.less'
 
@@ -550,7 +552,23 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
 
           <Divider />
 
-          <p className={styles.header}>Refund policy</p>
+          <p className={styles.header}>
+            Refund policy
+            <Popover
+              content={() => (
+                <>
+                  <div>Refund will take 5-7 working</div>
+                  <div>days to process</div>
+                </>
+              )}
+              title=""
+              placement="right"
+            >
+              <span>
+                <img className={styles.info_ico} src={Info} alt="info" />
+              </span>
+            </Popover>
+          </p>
           <Form.Item
             name="refundPolicy"
             rules={[{ required: true, message: 'Please choose refund policy' }]}
@@ -559,6 +577,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
               <Radio style={radioStyle} value="FULL_REFUND">
                 Full refund
               </Radio>
+
               <Radio style={radioStyle} value="NO_REFUND">
                 Non-refundable
               </Radio>

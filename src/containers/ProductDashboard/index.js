@@ -3,16 +3,14 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
-import { getItem } from 'utils/localStorage'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
 import Listings from './components/Listings'
-import ProfileTab from './components/ProfileTab'
 import OrdersFM from './components/OrdersFMTab'
 import styles from './proddb.module.scss'
 
 const ProductDashboard = (props) => {
-  const { profileName, shop, replaceRoute } = props
+  const { replaceRoute } = props
   const { activeTab } = useParams()
 
   const onChange = (key) => {
@@ -31,13 +29,6 @@ const ProductDashboard = (props) => {
           orders: { mark: false, disabled: false, content: <OrdersFM /> },
           reviews: { mark: false, disabled: true, content: <Soon /> },
           performance: { mark: false, disabled: true, content: <Soon /> },
-          profile: { mark: false, content: <ProfileTab profileName={profileName} shop={shop} /> },
-          /*           orders: {
-            mark: false,
-            content: <Exp />,
-          },
-          review: { mark: true, content: null },
-          'blog submission': { mark: false, content: <Comp /> }, */
         }}
       />
     </div>
@@ -45,10 +36,9 @@ const ProductDashboard = (props) => {
 }
 
 ProductDashboard.propTypes = {
-  profileName: T.string.isRequired,
   replaceRoute: T.func,
 }
 
-export default connect(({ login: { profileName }, account: { shop } }) => ({ profileName, shop }), {
+export default connect(null, {
   replaceRoute: replace,
 })(ProductDashboard)
