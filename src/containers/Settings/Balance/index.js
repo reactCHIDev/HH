@@ -83,6 +83,7 @@ const Balance = () => {
             <input
               className={styles.input}
               name="title"
+              disabled={!isBankDataActive}
               type="text"
               placeholder="Enter bank name"
               autoComplete="off"
@@ -101,6 +102,7 @@ const Balance = () => {
               className={styles.input}
               name="code"
               type="text"
+              disabled={!isBankDataActive}
               placeholder="Code"
               autoComplete="off"
               ref={register({
@@ -124,6 +126,7 @@ const Balance = () => {
               className={styles.input}
               name="accName"
               type="text"
+              disabled={!isBankDataActive}
               placeholder="Enter account name"
               autoComplete="off"
               ref={register({
@@ -141,6 +144,7 @@ const Balance = () => {
               className={styles.input}
               name="accnumber"
               type="text"
+              disabled={!isBankDataActive}
               placeholder="Enter account number"
               autoComplete="off"
               ref={register({
