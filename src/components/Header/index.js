@@ -376,7 +376,7 @@ const Header = (props) => {
               {role === 'FOODMAKER' && (
                 <li onClick={onSettingsSelect}>
                   <img src={Person} width="16px" alt="icon" />
-                  <Link to="/product_dashboard/profile">Foodmaker Profile</Link>
+                  <Link to="/foodmaker_dashboard/foodmaker%20profile">Foodmaker Profile</Link>
                 </li>
               )}
               <li onClick={onSettingsSelect}>

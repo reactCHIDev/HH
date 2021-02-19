@@ -62,12 +62,15 @@ const CreateProfileLanding = lazy(() => import('landings/CreateProfile'))
 const CreateExperienceLanding = lazy(() => import('landings/CreateExperience'))
 const CreateShopLanding = lazy(() => import('landings/CreateShop'))
 
+// Foodmaker dashboard
+const FoodmakerDashboard = lazy(() => import('containers/FoodmakerDashboard'))
+
 // Product dashboard
 const ProductDashboard = lazy(() => import('containers/ProductDashboard'))
 const AddProduct = lazy(() => import('containers/ProductDashboard/components/AddProduct'))
 const OrderFMInfo = lazy(() => import('containers/ProductDashboard/components/OrderFMInfo'))
 
-// Product dashboard
+// Experience dashboard
 const ExperienceDashboard = lazy(() => import('containers/ExperienceDashboard'))
 const AddExperience = lazy(() => import('containers/ExperienceDashboard/components/AddExperience'))
 
@@ -107,6 +110,7 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
       let ws
 
       const socketOpenListener = () => {
+        setWs(ws)
         ws.send(
           JSON.stringify({
             event: 'getNewMessages',
@@ -131,8 +135,6 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
         ws.addEventListener('open', socketOpenListener)
         ws.addEventListener('message', socketMessageListener)
         ws.addEventListener('close', socketCloseListener)
-
-        setWs(ws)
       }
 
       socketCloseListener()
@@ -183,6 +185,11 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                   exact
                   path="/product_dashboard/:activeTab?"
                   component={WaitingComponent(ProductDashboard)}
+                />
+                <PublicRoute
+                  exact
+                  path="/foodmaker_dashboard/:activeTab?"
+                  component={WaitingComponent(FoodmakerDashboard)}
                 />
                 <PublicRoute
                   exact

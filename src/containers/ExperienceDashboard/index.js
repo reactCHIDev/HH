@@ -33,7 +33,6 @@ const ExperienceDashboard = (props) => {
           booking: { mark: false, disabled: false, content: <BookingHistory /> },
           reviews: { mark: false, disabled: false, content: <ReviewsContainer /> },
           performance: { mark: false, disabled: false, content: <Soon /> },
-          profile: { mark: false, content: <Soon /> },
         }}
       />
     </div>
