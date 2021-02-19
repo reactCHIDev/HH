@@ -20,7 +20,7 @@ const ProductDashboard = (props) => {
 
   return (
     <div className={styles.container}>
-      <p className={styles.heading}>Foodmaker dashboard</p>
+      <p className={styles.heading}>Foodmaker profile</p>
       <TabsUnderlined
         onChange={onChange}
         activeTab={activeTab || 'foodmaker profile'}
