@@ -107,7 +107,8 @@ const FoodmakerProfile = (props) => {
     setSelectedItems(account?.tags || [])
     setSelectedLangs(account?.languages || [])
     if (account?.firstName) {
-      const { reffering, firstName, lastName, about } = account
+      const { profileName, reffering, firstName, lastName, about } = account
+      setValue('username', profileName)
       setValue('reffering', reffering)
       setValue('firstName', firstName)
       setValue('lastName', lastName)
