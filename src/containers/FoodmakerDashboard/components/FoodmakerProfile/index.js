@@ -108,7 +108,7 @@ const FoodmakerProfile = (props) => {
     setSelectedLangs(account?.languages || [])
     if (account?.firstName) {
       const { profileName, reffering, firstName, lastName, about } = account
-      setValue('username', profileName)
+      setValue('profileName', profileName)
       setValue('reffering', reffering)
       setValue('firstName', firstName)
       setValue('lastName', lastName)
@@ -199,29 +199,28 @@ const FoodmakerProfile = (props) => {
                     <label className={styles.label}>Username</label>
                     <input
                       className={styles.input}
-                      name="username"
+                      name="profileName"
                       type="text"
                       autoComplete="off"
                       onChange={null}
                       ref={register({
                         required: true,
                         validate: async (value) => {
-                          const user = await getUserByName(value)
+                          const name = value
+                            .split(' ')
+                            .reduce((acc, el) => (el ? acc + ` ${el}` : acc + ''))
+                            .trim()
+                          const url = process.env.REACT_APP_BASE_URL + '/' + name.toLowerCase()
+                          if (url === hungryHuggerLink) return true
+                          const user = await getUserByHHLink(url)
                           return !user.data?.profileName
                         },
-                        /* validate: async (value) => {
-                          const url =
-                            process.env.REACT_APP_BASE_URL + '/shop/' + value.toLowerCase()
-                          if (url === shop?.shopUrl) return true
-                          const shopData = await isShopExist(value)
-                          return !shopData.data?.title
-                        }, */
                         maxLength: {
                           value: 100,
                         },
                       })}
                     />
-                    {errors?.username?.type === 'validate' && (
+                    {errors?.profileName?.type === 'validate' && (
                       <p className={styles.errmsg}>This user already exists</p>
                     )}
                   </div>
