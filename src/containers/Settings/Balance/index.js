@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { Button } from 'antd'
+import { Button, Checkbox } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import CurrencyInput from 'react-currency-input-field'
 
@@ -15,9 +15,13 @@ import './balance.less'
 const Balance = () => {
   const [withdraw, setWithdraw] = useState(false)
   const [moneyValue, setMoney] = useState(0)
+  const [isBankDataActive, setisBankDataActive] = useState(true)
+
   const dispatch = useDispatch()
   const balance = useSelector((state) => state.account.balance)
   const isValid = useSelector((state) => state.foodmaker.isPaymentDataValid)
+  const withdrawRequest = useSelector((state) => state.foodmaker.withdrawRequest)
+
   const isBankDataNotificationShown = useSelector(
     (state) => state.foodmaker.showBankDataNotification,
   )
@@ -31,6 +35,7 @@ const Balance = () => {
       title: balance?.bankName || '',
       code: balance?.bankCode || '',
       accnumber: balance?.accountNumber || '',
+      accName: balance?.accountName || '',
       phone: balance?.paymentPhone || '',
     },
   })
@@ -52,13 +57,17 @@ const Balance = () => {
   const onSubmit = (data) => {
     dispatch(
       updateBankDataAc({
+        isBankDataActive,
         bankName: data.title,
         bankCode: data.code,
         accountNumber: data.accnumber,
+        accountName: data.accName,
         paymentPhone: data.phone,
       }),
     )
   }
+
+  const isPending = () => withdrawRequest.status === 'Pending'
 
   return (
     <div className={styles.container}>
@@ -78,10 +87,50 @@ const Balance = () => {
               placeholder="Enter bank name"
               autoComplete="off"
               ref={register({
-                required: true,
+                required: isBankDataActive,
               })}
             />
-            {_.get('title.type', errors) === 'required' && (
+            {_.get('title.type', errors) === 'required' && isBankDataActive && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+          </div>
+
+          <div className={styles.form_item}>
+            <div className={styles.label}>Bank code</div>
+            <input
+              className={styles.input}
+              name="code"
+              type="text"
+              placeholder="Code"
+              autoComplete="off"
+              ref={register({
+                required: isBankDataActive,
+                pattern: {
+                  value: /^(?=.*\d).{8,12}$/,
+                },
+              })}
+            />
+            {_.get('code.type', errors) === 'required' && isBankDataActive && (
+              <p className={styles.errmsg}>This field is required</p>
+            )}
+            {_.get('code.type', errors) === 'pattern' && isBankDataActive && (
+              <p className={styles.errmsg}>8-12 digits</p>
+            )}
+          </div>
+
+          <div className={styles.form_item}>
+            <div className={styles.label}>Account Name</div>
+            <input
+              className={styles.input}
+              name="accName"
+              type="text"
+              placeholder="Enter account name"
+              autoComplete="off"
+              ref={register({
+                required: isBankDataActive,
+              })}
+            />
+            {_.get('accName.type', errors) === 'required' && isBankDataActive && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>
@@ -95,73 +144,54 @@ const Balance = () => {
               placeholder="Enter account number"
               autoComplete="off"
               ref={register({
-                required: true,
+                required: isBankDataActive,
                 pattern: {
                   value: /^(?=.*\d).{12,12}$/,
                 },
               })}
             />
-            {_.get('accnumber.type', errors) === 'required' && (
+            {_.get('accnumber.type', errors) === 'required' && isBankDataActive && (
               <p className={styles.errmsg}>This field is required</p>
             )}
-            {_.get('accnumber.type', errors) === 'pattern' && (
+            {_.get('accnumber.type', errors) === 'pattern' && isBankDataActive && (
               <p className={styles.errmsg}>12 digits</p>
             )}
           </div>
 
           <div className={styles.form_item}>
-            <div className={styles.label}>Bank code</div>
-            <input
-              className={styles.input}
-              name="code"
-              type="text"
-              placeholder="Code"
-              autoComplete="off"
-              ref={register({
-                required: true,
-                pattern: {
-                  value: /^(?=.*\d).{8,12}$/,
-                },
-              })}
-            />
-            {_.get('code.type', errors) === 'required' && (
-              <p className={styles.errmsg}>This field is required</p>
-            )}
-            {_.get('code.type', errors) === 'pattern' && (
-              <p className={styles.errmsg}>8-12 digits</p>
-            )}
-          </div>
-
-          <div className={styles.form_item}>
-            <div className={styles.label}>Payment phone number</div>
+            <div className={styles.checkboxLabel}>
+              <Checkbox onChange={() => setisBankDataActive((b) => !b)} />
+              <div style={{ marginLeft: '10px' }}>Pay via Payme</div>
+            </div>
+            <div className={styles.label}>NumberActive</div>
             <input
               className={styles.input}
               name="phone"
               type="text"
-              placeholder="Enter payment phone number"
+              disabled={isBankDataActive}
+              placeholder="Enter Payme phone number"
               autoComplete="off"
               ref={register({
-                required: true,
+                required: !isBankDataActive,
                 pattern: {
                   value: /^(?=.*\d).{8,12}$/,
                 },
               })}
             />
-            {_.get('phone.type', errors) === 'required' && (
+            {_.get('phone.type', errors) === 'required' && !isBankDataActive && (
               <p className={styles.errmsg}>This field is required</p>
             )}
-            {_.get('phone.type', errors) === 'pattern' && (
+            {_.get('phone.type', errors) === 'pattern' && !isBankDataActive && (
               <p className={styles.errmsg}>Should be phone number</p>
             )}
-          </div>
-
-          <div className={styles.btn_container}>
-            {isBankDataNotificationShown && (
-              <div className={styles.bank_data_notification}>Saved successfully</div>
-            )}
-            <button type="submit" form="hook-form">
-              SAVE CHANGES
-            </button>
+            <div className={styles.btn_container}>
+              {isBankDataNotificationShown && (
+                <div className={styles.bank_data_notification}>Saved successfully</div>
+              )}
+              <button type="submit" form="hook-form">
+                SAVE CHANGES
+              </button>
+            </div>
           </div>
         </form>
         <div className={styles.balance_container}>
@@ -196,11 +226,19 @@ const Balance = () => {
           </div>
           <button
             className={withdraw ? styles.req_withdraw : styles.withdraw}
-            style={balance?.bankName || isValid ? {} : { cursor: 'default' }}
-            onClick={!balance?.pending && (balance?.bankName || isValid) ? onWithdraw : null}
+            style={(balance?.bankName || isValid) && !isPending ? {} : { cursor: 'default' }}
+            onClick={
+              !balance?.pending && (balance?.bankName || isValid) && !isPending ? onWithdraw : null
+            }
             type="button"
           >
-            {!balance?.pending ? (withdraw ? 'REQUEST WITHDRAW' : 'WITHDRAW') : 'Pending'}
+            {isPending
+              ? 'Pending'
+              : !balance?.pending
+              ? withdraw
+                ? 'REQUEST WITHDRAW'
+                : 'WITHDRAW'
+              : null}
           </button>
         </div>
         {false && (
