@@ -80,8 +80,9 @@ function* createWithdrawSaga({ payload }) {
 }
 
 function* updateBankDataSaga({ payload }) {
+  const { isBankDataActive, paymentPhone, ...rest } = payload
   try {
-    yield updateBankDataReq(payload)
+    yield isBankDataActive ? updateBankDataReq(rest) : updateBankDataReq({ paymentPhone })
     yield put({ type: UPDATE_BANK_DATA_SUCCESS })
     yield put({ type: 'NOTIFICATION_FOR_UPDATE_BANK_DATA', show: true })
     yield delay(7000)
