@@ -62,10 +62,7 @@ const Step3 = (props) => {
 
     const formData = {
       isAdult: adult,
-      // cancellationPolicy: selectedRadio,
-      cancellationPolicy: {
-        FULL_REFUND: 'Prior 7 days before event',
-      },
+      cancellationPolicy: selectedRadio,
     }
 
     const coverItem = fileList.length ? fileList.find((e) => e.uid === cover) : { url: '' }

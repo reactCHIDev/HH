@@ -208,7 +208,7 @@ const FoodmakerProfile = (props) => {
                         validate: async (value) => {
                           const name = value
                             .split(' ')
-                            .reduce((acc, el) => (el ? acc + ` ${el}` : acc + ''))
+                            .reduce((acc, el) => (el ? `${acc}${el}` : acc))
                             .trim()
                           const url = process.env.REACT_APP_BASE_URL + '/' + name.toLowerCase()
                           if (url === hungryHuggerLink) return true

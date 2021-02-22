@@ -63,8 +63,8 @@ function* stripeCheckoutSaga() {
           quantity: 1,
         },
       ],
-      // success_url: `${process.env.REACT_APP_BASE_URL}/payment-success`,
-      success_url: `http://localhost:3000/payment-success`,
+      success_url: `${process.env.REACT_APP_BASE_URL}/payment-success`,
+      // success_url: `http://localhost:3000/payment-success`,
       cancel_url: `${process.env.REACT_APP_BASE_URL}/payment-error`,
     }
     const response = yield stripeCheckout(checkoutData)

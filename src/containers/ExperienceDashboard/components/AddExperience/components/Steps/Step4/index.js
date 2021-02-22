@@ -54,64 +54,58 @@ const times = [
 ]
 
 const Step4 = () => {
-  const [period, setPeriod] = useState('Weekly')
   const [date, setDate] = useState(new Date())
-  const [eventTime, setEventTime] = useState(new Date())
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-
-  const prevData = getItem('addExperience')
+  const [eventTime, setEventTime] = useState('')
+  const [events, setEvents] = useState([])
 
   const dispatch = useDispatch()
 
-  function onPanelChange(value, mode) {
-    console.log(value, mode)
-  }
-
+  /*
+  const [period, setPeriod] = useState('Weekly')
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  
   const onRepeat = (data) => {
     setPeriod(data)
-  }
-
-  const onDateChange = (date) => {
-    console.log('%c   date   ', 'color: darkgreen; background: palegreen;', date)
-    setDate(date)
-  }
-
-  const createDate = (date, time) => {
-    const year = getYear(date)
-    const month = getMonth(date)
-    const day = getDate(date)
-    const [hours, minutes] = time.split(':').map(Number)
-    console.log('%c   elems   ', 'color: white; background: royalblue;', {
-      year,
-      month,
-      day,
-      hours,
-      minutes,
-    })
-
-    return toDate(new Date(year, month, day, hours, minutes)).toISOString() // 2014, 1, 11, 11, 30
-  }
-
-  const onTimeSelect = (e) => {
-    setEventTime(createDate(date, e.target.id))
   }
 
   const onRangeSelect = (dates) => {
     setStartDate(new Date(dates[0]).toISOString())
     setEndDate(new Date(dates[1]).toISOString())
   }
+  */
+
+  const prevData = getItem('addExperience')
+
+  const onDateChange = (selectedDate) => setDate(selectedDate)
+
+  const createDate = (date, time) => {
+    const year = getYear(date)
+    const month = getMonth(date)
+    const day = getDate(date)
+    const [hours, minutes] = time.split(':').map(Number)
+    const eventDate = toDate(new Date(year, month, day, hours, minutes)).toISOString() // 2014, 1, 11, 11, 30
+    return eventDate
+  }
+
+  const onTimeSelect = (e) => {
+    setEventTime(createDate(date, e.target.id))
+  }
 
   const onApply = () => {
+    if (eventTime) {
+      setEvents(events.concat([eventTime]))
+      setEventTime('')
+    }
+  }
+
+  const onComplete = () => {
     const dateTime = {
       address: 'Manhattan',
       location: '49.9878502,36.199552',
-      startDate,
-      endDate,
-      time: [eventTime],
-      periodicity: period,
       experienceUrl: 'https://hungryhugger.wildwebart.com/qweqwe',
       status: 'PUBLISHED',
+      time: events,
     }
     const payload = {
       ...prevData,
@@ -139,7 +133,7 @@ const Step4 = () => {
               </p>
             ))}
           </div>
-          <div className={cls(styles.selector_block, 'addexp')}>
+          {/*  <div className={cls(styles.selector_block, 'addexp')}>
             <div className={styles.date_picker}>
               <label className={styles.label}>Period</label>
               <RangePicker
@@ -160,15 +154,10 @@ const Step4 = () => {
                 ))}
               </Select>
             </div>
-          </div>
+          </div> */}
           <div className={cls(styles.btn_section, 'buttons')}>
             <div className={styles.btn_apply}>
-              <Button
-                block
-                // disabled={fileList.length < 2 || !isActive}
-                size="large"
-                onClick={onApply}
-              >
+              <Button block size="large" onClick={onApply}>
                 APPLY
               </Button>
             </div>
@@ -176,8 +165,9 @@ const Step4 = () => {
               <Button
                 type="primary"
                 block
-                // disabled={fileList.length < 2 || !isActive}
+                onClick={onComplete}
                 size="large"
+                disabled={!events.length}
               >
                 COMPLETE
               </Button>
