@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  width: 100%;
+
+  .heading {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .name {
+    display: flex;
+    width: 60%;
+
+    @media screen and (max-width: 768px) {
+      width: 40%;
+    }
+  }
+
+  .status {
+    width: 20%;
+
+    @media screen and (max-width: 768px) {
+      width: 30%;
+    }
+  }
+
+  .date {
+    width: 15%;
+
+    @media screen and (max-width: 768px) {
+      width: 20%;
+    }
+  }
+}

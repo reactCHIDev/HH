@@ -23,6 +23,7 @@ import files from './files'
 import experience from './experience'
 import reviews from './reviews'
 import fmBookingHistoryWatcher from './bookings_history'
+import expListing from './experiences_listing'
 
 export default function* rootSaga() {
   yield all([
@@ -50,5 +51,6 @@ export default function* rootSaga() {
     experience(),
     reviews(),
     fmBookingHistoryWatcher(),
+    expListing(),
   ])
 }
