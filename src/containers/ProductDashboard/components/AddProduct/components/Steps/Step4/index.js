@@ -63,8 +63,10 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
           prevState.deliveryRegionException.split(' ')
       : [],
   )
-  const [availabilityStartDate, setStartDate] = useState(prevState?.availabilityStartDate)
-  const [availabilityEndDate, setEndDate] = useState(prevState?.availabilityEndDate)
+  const [availabilityStartDate, setStartDate] = useState(
+    prevState?.availabilityStartDate || new Date(),
+  )
+  const [availabilityEndDate, setEndDate] = useState(prevState?.availabilityEndDate || new Date())
   const [isAdult, setIsAdult] = useState(!!prevState?.isAdult)
   const [dates, setDates] = useState(prevState?.available !== 'Preorder')
   const [isQuantity, setIsQuantity] = useState(!!prevState?.quantity)

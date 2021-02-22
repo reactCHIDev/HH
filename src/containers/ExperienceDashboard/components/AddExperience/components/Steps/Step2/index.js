@@ -12,16 +12,7 @@ import './step2.less'
 const Step2 = (props) => {
   const { setStep, expTypes, expTags, stepper, setStepper } = props
 
-  let title,
-    typeIds,
-    tagIds,
-    priceAdult,
-    priceChild,
-    isAdult,
-    guestsTotal,
-    discount,
-    duration,
-    languages
+  let title, typeIds, tagIds, priceAdult, priceChild, isAdult, guests, discount, duration, languages
   const prevData = getItem('addExperience')
   if (prevData)
     ({
@@ -33,7 +24,7 @@ const Step2 = (props) => {
       priceChild,
       isAdult,
       discount,
-      guestsTotal,
+      guests,
       languages,
     } = getItem('addExperience'))
 
@@ -80,7 +71,7 @@ const Step2 = (props) => {
         isAdult,
         discountVal: discValue,
         qtyVal: qtyValue,
-        guestsTotal,
+        guests,
         languages,
       })
     }
@@ -162,10 +153,6 @@ const Step2 = (props) => {
       duration: dur,
       adult: isAdult,
       currency: 'HKD',
-      guests: {
-        adults: 5,
-        children: 5,
-      },
     })
     setStep()
     setStepper(false)
@@ -376,13 +363,13 @@ const Step2 = (props) => {
             <label className={styles.label}>Maximum no. of guest</label>
             <Controller
               control={control}
-              name="guestsTotal"
+              name="guests"
               rules={{ required: true }}
               render={({ onChange, value, name }) => (
                 <InputNumber name={name} value={value} onChange={onChange} />
               )}
             />
-            {_.get('guestsTotal.type', errors) === 'required' && (
+            {_.get('guests.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>
