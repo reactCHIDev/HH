@@ -1,0 +1,60 @@
+.container {
+  .content {
+    .radio_item {
+      margin-right: 10px;
+    }
+    .cover_selector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-style: bold;
+
+      input[type='radio']:after {
+        position: relative;
+        top: -2px;
+        left: -1px;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-color: #d1d3d1;
+        border: 1px solid #31394d;
+        border-radius: 15px;
+        visibility: visible;
+        content: '';
+        user-select: none;
+      }
+
+      input[type='radio']:checked:after {
+        position: relative;
+        top: -2px;
+        left: -1px;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-color: #31394d;
+        border: 1px solid #31394d;
+        border-radius: 15px;
+        visibility: visible;
+        content: '';
+        user-select: none;
+      }
+    }
+  }
+
+  .addPhotosButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    border: 2px solid #b1b6c2;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useSortableData from 'hooks/useSortable'
@@ -32,9 +33,9 @@ const ExpListings = (props) => {
   return (
     <div className={styles.container}>
       <Header onSearch={() => {}} mark={2} />
+      <TableHeader requestSort={requestSort} />
       {data && data.length ? (
         <>
-          <TableHeader requestSort={requestSort} />
           {data.map((el) => (
             <ProductRaw key={el.id} element={el} />
           ))}

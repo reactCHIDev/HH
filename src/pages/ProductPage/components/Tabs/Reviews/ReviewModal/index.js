@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react'
 import { Rate } from 'antd'
 import cls from 'classnames'
 import { useDispatch } from 'react-redux'
+import Uploader from 'components/ReviewUploader'
 
 import useClickOutside from 'hooks/useClickOutside'
 import { createProductReviewAC } from 'actions/reviews'
@@ -13,19 +15,27 @@ function ReviewModal({ closeFunc, productId }) {
   const [rating, setRating] = React.useState(5)
   const [recommend, setRecommend] = React.useState(true)
 
+  const [fileList, setFilelist] = React.useState([])
+  const [isActive, setActiveNext] = React.useState(true)
+
   const dispatch = useDispatch()
 
   const modalRef = React.useRef()
-  useClickOutside(modalRef, closeFunc)
+  // useClickOutside(modalRef, closeFunc)
 
   const submitReview = () => {
     dispatch(
       createProductReviewAC({
-        productId: productId,
+        productId,
         review,
         rating,
         recommend,
         isReviewOnProductPage: true,
+        photos: fileList.length
+          ? fileList
+              .filter((e) => e.status !== 'error')
+              .map((e) => (e?.response ? e.response.url : e.url))
+          : [],
       }),
     )
     closeFunc()
@@ -45,7 +55,6 @@ function ReviewModal({ closeFunc, productId }) {
           style={{ cursor: 'pointer' }}
           onClick={() => {
             closeFunc()
-            console.log(1)
           }}
         >
           &#10005;
@@ -53,11 +62,11 @@ function ReviewModal({ closeFunc, productId }) {
       </div>
       <div className={styles.reviewInputWrapper}>
         <textarea
-          autoFocus={true}
+          autoFocus
           className={styles.reviewTextArea}
           onChange={onChangeReview}
           placeholder="The review must be 20 characters or more"
-        ></textarea>
+        />
       </div>
       <div className={styles.reviewInfo}>
         <div className={cls(styles.starsWrapper, 'starsWrapper')}>
@@ -87,7 +96,7 @@ function ReviewModal({ closeFunc, productId }) {
         </div>
       </div>
       <div className={styles.imageSection}>
-        <div className={styles.addPhotosButton}>Add photos</div>
+        <Uploader list={fileList} listSet={setFilelist} min={2} setActiveNext={setActiveNext} />
       </div>
       <div
         onClick={() => (isValid ? submitReview() : console.log('errror'))}
