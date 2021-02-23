@@ -37,6 +37,7 @@ export default {
   createExperience: '/v1/experience/create',
   expTypes: '/v1/experience/types',
   expTags: '/v1/experience/tags',
+  toggleExpStatus: '/v1/experience/toggle_status',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

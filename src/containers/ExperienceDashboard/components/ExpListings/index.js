@@ -15,6 +15,7 @@ import './listing.less'
 const ExpListings = (props) => {
   const dispatch = useDispatch()
   const experiences = useSelector((state) => state.expListing.myExperiences)
+  const counter = useSelector((state) => state.expListing.counter)
 
   const [data, setData] = React.useState()
   const { items, requestSort } = useSortableData(experiences, {
@@ -32,7 +33,7 @@ const ExpListings = (props) => {
 
   return (
     <div className={styles.container}>
-      <Header onSearch={() => {}} mark={2} />
+      <Header onSearch={() => {}} mark={counter || ''} />
       {data && data.length ? (
         <>
           <TableHeader requestSort={requestSort} />

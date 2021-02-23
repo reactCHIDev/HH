@@ -15,6 +15,7 @@ export function* logout() {
   removeItems(['authorization-token', 'user-id', 'cart', 'search_data', 'loginFromCart'])
   yield put({ type: 'CLEAR_ON_LOGOUT' })
   yield put({ type: 'CLEAR_CART' })
+  yield put({ type: 'CLEAR_REVIEWS_OPTION' })
 
   yield put(push('/login/regular'))
 }
