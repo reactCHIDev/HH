@@ -9,7 +9,6 @@ import Option from '../Option'
 import styles from './productRaw.module.scss'
 
 function ProductRaw({ element }) {
-  console.log(element, 'ELEMENT')
   const onClick = () => setItem('addExperience', element)
   const a = element.createdAt
 

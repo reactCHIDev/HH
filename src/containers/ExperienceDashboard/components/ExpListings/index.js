@@ -33,9 +33,9 @@ const ExpListings = (props) => {
   return (
     <div className={styles.container}>
       <Header onSearch={() => {}} mark={2} />
-      <TableHeader requestSort={requestSort} />
       {data && data.length ? (
         <>
+          <TableHeader requestSort={requestSort} />
           {data.map((el) => (
             <ProductRaw key={el.id} element={el} />
           ))}
