@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button, Select, DatePicker } from 'antd'
 import {
   format,
@@ -14,7 +14,7 @@ import {
   parseISO,
 } from 'date-fns'
 import DatePick from 'components/DatePicker/DatePicker'
-import { createExperienceAC } from 'actions/experience'
+import { getExperiencesByDateAC } from 'actions/experience'
 import { getItem } from 'utils/localStorage'
 import cls from 'classnames'
 import Finish from '../Finish'
@@ -62,14 +62,22 @@ const times = [
   '00:00',
 ]
 
-const duration = 40
+const Step4 = ({ create, edit }) => {
+  const prevData = getItem('addExperience')
 
-const Step4 = () => {
   const [date, setDate] = useState(new Date())
   const [eventTime, setEventTime] = useState('')
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState(prevData.time?.length ? prevData.time : [])
+  const [month, setMonth] = useState(new Date().toISOString())
+
+  const expsByDate = useSelector((state) => state.expListing.monthExperiences)
+  console.log('%c   expsByDate   ', 'color: white; background: salmon;', expsByDate)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getExperiencesByDateAC(month))
+  }, [month])
 
   /*
   const [period, setPeriod] = useState('Weekly')
@@ -85,8 +93,6 @@ const Step4 = () => {
     setEndDate(new Date(dates[1]).toISOString())
   }
   */
-
-  const prevData = getItem('addExperience')
 
   const onDateChange = (selectedDate) => setDate(selectedDate)
 
@@ -128,7 +134,10 @@ const Step4 = () => {
     const dateTime = {
       address: 'Manhattan',
       location: '49.9878502,36.199552',
-      experienceUrl: 'https://hungryhugger.wildwebart.com/qweqwe',
+      experienceUrl: `https://hungryhugger.wildwebart.com/${prevData.title
+        .split('')
+        .filter((e) => e !== ' ')
+        .join('')}${edit ? String(prevData.id) : ''}`,
       status: 'PUBLISHED',
       time: events,
     }
@@ -136,7 +145,7 @@ const Step4 = () => {
       ...prevData,
       ...dateTime,
     }
-    dispatch(createExperienceAC(payload))
+    dispatch(create(payload))
   }
 
   return (
@@ -144,10 +153,12 @@ const Step4 = () => {
       <p className={styles.heading}>Choose available date and time</p>
       <div className={styles.content}>
         <DatePick
+          events={events}
           date={date}
           onChange={onDateChange}
           setSliderParams={() => {}}
           setCalendarVisibility={() => {}}
+          setMonth={setMonth}
         />
         <div className={styles.timepicker_container}>
           <p className={styles.current_date}>{format(new Date(), 'dd MMM, yy')}</p>
@@ -207,7 +218,7 @@ const Step4 = () => {
                 size="large"
                 disabled={!events.length}
               >
-                COMPLETE
+                {edit ? 'UPDATE' : 'COMPLETE'}
               </Button>
             </div>
           </div>
@@ -218,6 +229,8 @@ const Step4 = () => {
   )
 }
 
-Step4.propTypes = {}
+Step4.propTypes = {
+  create: T.func.isRequired,
+}
 
 export default Step4

@@ -194,7 +194,7 @@ const Step3 = (props) => {
             )}
           </div>
           <Divider />
-          <div className={styles.btn_container}>
+          <div className={cls(styles.btn_container, 'buttons')}>
             <Button
               type="primary"
               htmlType="submit"

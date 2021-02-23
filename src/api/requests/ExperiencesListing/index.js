@@ -6,5 +6,5 @@ import PATHS from 'api/paths'
 
 export const getMyExperiencesListReq = () =>
   apiClient.get(
-    `/v1/experience/list_my_experiences?startIndex=0&limit=6&sort=title+desc,status+asc,updated_at+asc`,
+    `/v1/experience/list_my_experiences?startIndex=0&limit=99&sort=title+desc,status+asc,updated_at+asc`,
   )

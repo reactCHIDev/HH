@@ -71,7 +71,7 @@ const Step2 = (props) => {
         isAdult,
         discountVal: discValue,
         qtyVal: qtyValue,
-        guests,
+        guests: Number(guests),
         languages,
       })
     }
@@ -151,7 +151,7 @@ const Step2 = (props) => {
         discount: discnt ? Number(discountVal) : 0,
       },
       duration: dur,
-      adult: isAdult,
+      // adult: isAdult,
       currency: 'HKD',
     })
     setStep()
