@@ -1,0 +1,38 @@
+.photo_container {
+  .ant-upload-picture-card-wrapper {
+    .ant-upload-list {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      .ant-upload-list-picture-card-container {
+        width: 60px;
+        height: 60px;
+
+        margin: 0 8px 18px 0;
+        @media (max-width: 768px) {
+          margin: 0 18px 18px 0;
+        }
+        .ant-upload-list-item {
+          padding: 0;
+          overflow: hidden;
+          font-size: 10px;
+          border: none;
+          border-radius: 8px;
+        }
+      }
+      .ant-upload {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 60px;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 19px;
+        white-space: nowrap;
+        text-transform: uppercase;
+        border-radius: 6px;
+      }
+    }
+  }
+}

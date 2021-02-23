@@ -25,6 +25,7 @@ function ReviewdProducts({ products, currentPage }) {
   const pageChange = (newPage) => {
     dispatch(getFlProductReviewsAC({ page: newPage }))
   }
+
   return (
     <ListContainer page={currentPage} pageChange={pageChange} pageSize={3} total={reviewsCount}>
       {products.map((item) => (
@@ -52,7 +53,20 @@ function ReviewdProducts({ products, currentPage }) {
               <div className={styles.reviewDate}>{getDate(item.createdAt)}</div>
             </div>
             <div className={styles.reviewText}>{item.review}</div>
-            <div className={styles.reviewPhotosWrapper}></div>
+            <div className={styles.reviewPhotosWrapper}>
+              {item.photos.length > 0 &&
+                item.photos.map((el) => (
+                  <div
+                    key={item}
+                    style={{ backgroundImage: `url("${el}")` }}
+                    className={styles.imgWrapper}
+                  />
+                ))}
+              {/* <div
+                style={{ backgroundImage: `url("${element?.coverPhoto}")` }}
+                className={styles.imgWrapper}
+              /> */}
+            </div>
           </div>
         </div>
       ))}

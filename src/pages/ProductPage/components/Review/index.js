@@ -1,7 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
-import avatar from 'assets/TMP-AVATAR.jpg'
-import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import people from 'assets/icons/svg/people.svg'
 import { Rate } from 'antd'
 import cls from 'classnames'
@@ -41,20 +40,15 @@ const Review = ({ el }) => {
             <div className={styles.date}>{getDate(el.createdAt)}</div>
           </div>
           <div className={styles.review_content}>{el.review}</div>
-          {/* <div className={styles.review_page}>
-            <div className={styles.review_photo}>
-              <img className={styles.photo} src={coverPhoto} alt="avatar" />
-            </div>
-            <div className={styles.review_photo}>
-              <img className={styles.photo} src={coverPhoto} alt="avatar" />
-            </div>
-            <div className={styles.review_photo}>
-              <img className={styles.photo} src={coverPhoto} alt="avatar" />
-            </div>
-            <div className={styles.review_photo}>
-              <img className={styles.photo} src={coverPhoto} alt="avatar" />
-            </div>
-          </div> */}
+          <div className={styles.review_page}>
+            {el.photos.length > 0
+              ? el.photos.map((element) => (
+                  <div key={element} className={styles.review_photo}>
+                    <img className={styles.photo} src={element} alt="review" />
+                  </div>
+                ))
+              : null}
+          </div>
         </div>
       </div>
     </div>

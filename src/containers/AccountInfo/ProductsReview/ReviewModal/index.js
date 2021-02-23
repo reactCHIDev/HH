@@ -1,11 +1,15 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/no-autofocus */
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { createProductReviewAC } from 'actions/reviews'
+import Uploader from 'components/ReviewUploader'
+
 import { Rate } from 'antd'
 import cls from 'classnames'
 
 import styles from './reviewModal.module.scss'
 import './reviewModal.less'
-import { useDispatch } from 'react-redux'
 
 function ReviewModal({ product }) {
   const dispatch = useDispatch()
@@ -13,6 +17,14 @@ function ReviewModal({ product }) {
   const [review, setReview] = React.useState('')
   const [rating, setRating] = React.useState(5)
   const [recommend, setRecommend] = React.useState(true)
+
+  const [fileList, setFilelist] = useState([])
+  const [isActive, setActiveNext] = useState(true)
+
+  const isValid = () => {
+    return review.length >= 20
+  }
+
   const submitReview = () => {
     if (isValid()) {
       dispatch(
@@ -22,15 +34,16 @@ function ReviewModal({ product }) {
           rating,
           recommend,
           isReviewOnProductPage: false,
+          photos: fileList.length
+            ? fileList
+                .filter((e) => e.status !== 'error')
+                .map((e) => (e?.response ? e.response.url : e.url))
+            : [],
         }),
       )
     } else {
       console.log('error')
     }
-  }
-
-  const isValid = () => {
-    return review.length >= 20
   }
 
   const onChangeReview = (e) => setReview(e.target.value)
@@ -51,13 +64,14 @@ function ReviewModal({ product }) {
         <div className={styles.reviewHeader}>Text of review</div>
         <div className={styles.reviewInputWrapper}>
           <textarea
-            autoFocus={true}
+            autoFocus
             className={styles.reviewTextArea}
             onChange={onChangeReview}
             placeholder="The review must be 20 characters or more"
-          ></textarea>
+          />
           <div className={styles.imageSection}>
-            <div className={styles.addPhotosButton}>Add photos</div>
+            {/* <div className={styles.addPhotosButton}>Add photos</div> */}
+            <Uploader list={fileList} listSet={setFilelist} min={2} setActiveNext={setActiveNext} />
           </div>
         </div>
         <div className={styles.reviewInfo}>
