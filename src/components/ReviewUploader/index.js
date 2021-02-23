@@ -64,7 +64,7 @@ const Uploader = ({ list, listSet, setActiveNext }) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className="photo_container">
+        <div className="review_photo_container">
           <ImgCrop rotate aspect={1}>
             <Upload
               action={`${process.env.REACT_APP_BASE_URL}/api/v1/file/upload/photo`}
