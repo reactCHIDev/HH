@@ -1,21 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import T from 'prop-types'
-import { Button, Select, DatePicker, Calendar, Radio, Col, Row, Typography } from 'antd'
-import { format, toDate, getDate, getMonth, getYear, isSameDay } from 'date-fns'
-import Finish from '../Finish'
+import { useDispatch } from 'react-redux'
+import { Button, Select, DatePicker } from 'antd'
+import {
+  format,
+  toDate,
+  getHours,
+  getMinutes,
+  getDate,
+  getMonth,
+  getYear,
+  isSameDay,
+  parseISO,
+} from 'date-fns'
 import DatePick from 'components/DatePicker/DatePicker'
 import { createExperienceAC } from 'actions/experience'
-import moment from 'moment'
-import { getItem, setItem } from 'utils/localStorage'
+import { getItem } from 'utils/localStorage'
 import cls from 'classnames'
+import Finish from '../Finish'
 import styles from './step4.module.scss'
 import './step4.less'
-import { useDispatch } from 'react-redux'
 
-const { Option } = Select
-const { RangePicker } = DatePicker
+// const { Option } = Select
+// const { RangePicker } = DatePicker
+// const periods = ['No Repeat', 'Daily', 'Weekly', 'Monthly', 'Yearly']
 
-const periods = ['No Repeat', 'Daily', 'Weekly', 'Monthly', 'Yearly']
 const times = [
   '07:30',
   '08:00',
@@ -53,6 +62,8 @@ const times = [
   '00:00',
 ]
 
+const duration = 40
+
 const Step4 = () => {
   const [date, setDate] = useState(new Date())
   const [eventTime, setEventTime] = useState('')
@@ -88,8 +99,22 @@ const Step4 = () => {
     return eventDate
   }
 
+  const isBooked = (time) => {
+    return events.some(
+      (e) =>
+        isSameDay(date, parseISO(e)) &&
+        `${String(getHours(parseISO(e))).padStart(2, '0')}:${String(
+          getMinutes(parseISO(e)),
+        ).padStart(2, '0')}` === time,
+    )
+  }
+
   const onTimeSelect = (e) => {
-    setEventTime(createDate(date, e.target.id))
+    if (!isBooked(e.target.id)) {
+      setEventTime(createDate(date, e.target.id))
+    } else {
+      setEventTime('')
+    }
   }
 
   const onApply = () => {
@@ -128,7 +153,20 @@ const Step4 = () => {
           <p className={styles.current_date}>{format(new Date(), 'dd MMM, yy')}</p>
           <div className={styles.time_section}>
             {times.map((t) => (
-              <p className={styles.time} id={t} onClick={onTimeSelect}>
+              <p
+                className={
+                  t ===
+                  `${String(getHours(parseISO(eventTime))).padStart(2, '0')}:${String(
+                    getMinutes(parseISO(eventTime)),
+                  ).padStart(2, '0')}`
+                    ? styles.clickedTime
+                    : isBooked(t)
+                    ? styles.bookedTime
+                    : styles.time
+                }
+                id={t}
+                onClick={onTimeSelect}
+              >
                 {t}
               </p>
             ))}
@@ -157,7 +195,7 @@ const Step4 = () => {
           </div> */}
           <div className={cls(styles.btn_section, 'buttons')}>
             <div className={styles.btn_apply}>
-              <Button block size="large" onClick={onApply}>
+              <Button block size="large" onClick={onApply} disabled={!eventTime}>
                 APPLY
               </Button>
             </div>
