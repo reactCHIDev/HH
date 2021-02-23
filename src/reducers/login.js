@@ -118,6 +118,7 @@ const reducer = function loginReducer(state = initialState, action) {
     case 'CLEAR_ON_LOGOUT':
       return {
         ...initialState,
+        authorized: false,
       }
 
     default:

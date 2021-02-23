@@ -39,6 +39,7 @@ export default {
   getExperiencesByDate: '/v1/experience/list_my_experiences_by_date?date=',
   expTypes: '/v1/experience/types',
   expTags: '/v1/experience/tags',
+  toggleExpStatus: '/v1/experience/toggle_status',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

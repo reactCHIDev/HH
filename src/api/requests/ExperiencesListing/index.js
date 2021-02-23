@@ -8,3 +8,5 @@ export const getMyExperiencesListReq = () =>
   apiClient.get(
     `/v1/experience/list_my_experiences?startIndex=0&limit=99&sort=title+desc,status+asc,updated_at+asc`,
   )
+
+export const toggleExperienceStatus = (data) => apiClient.patch(PATHS.toggleExpStatus, { data })

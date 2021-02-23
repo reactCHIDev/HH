@@ -7,8 +7,12 @@
     display: flex;
     width: 60%;
     padding: 20px 0;
+    @media screen and (max-width: 1024px) {
+      width: 45%;
+    }
     @media screen and (max-width: 768px) {
-      width: 40%;
+      flex-direction: column;
+      width: 25%;
     }
 
     .imgWrapper {
@@ -39,7 +43,7 @@
         justify-content: center;
         width: 40px;
         height: 40px;
-        margin-left: 10px;
+        margin: 0 10px;
         padding: 3px 10px;
         border: 2px solid lightgrey;
         border-radius: 5px;
@@ -54,9 +58,10 @@
   }
   .statusWrapper {
     width: 20%;
+    margin-right: 10px;
 
     @media screen and (max-width: 768px) {
-      width: 30%;
+      width: 35%;
     }
   }
 

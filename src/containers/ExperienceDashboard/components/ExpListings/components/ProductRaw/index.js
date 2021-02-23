@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
+import { toggleExperienceStatusRequestAC } from 'actions/experience-listing'
 import { setItem } from 'utils/localStorage'
 
 import Option from '../Option'
@@ -9,8 +11,9 @@ import Option from '../Option'
 import styles from './productRaw.module.scss'
 
 function ProductRaw({ element }) {
+  const dispatch = useDispatch()
   const onClick = () => setItem('addExperience', element)
-  const a = element.createdAt
+  const toggleStatus = (data) => dispatch(toggleExperienceStatusRequestAC(data))
 
   const day = new Date(element.createdAt).toLocaleDateString('en-US', {
     month: 'short',
@@ -40,7 +43,7 @@ function ProductRaw({ element }) {
         </div>
       </div>
       <div className={styles.statusWrapper}>
-        <Option checked={element.status === 'PUBLISHED'} onChange={() => {}} id={1} />
+        <Option checked={element.status === 'PUBLISHED'} onChange={toggleStatus} id={element.id} />
       </div>
       <div className={styles.dateWrapper}>
         <span>{time}</span>

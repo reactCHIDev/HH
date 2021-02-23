@@ -115,6 +115,12 @@ const reducer = (state = initialState, action) => {
         error: true,
       }
 
+    case 'CLEAR_REVIEWS_OPTION':
+      return {
+        ...state,
+        isUserCanReview: false,
+      }
+
     default:
       return state
   }
