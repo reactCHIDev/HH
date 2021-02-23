@@ -1,12 +1,22 @@
 import { put, takeEvery, delay } from 'redux-saga/effects'
 import { replace } from 'connected-react-router'
-import { createExperienceReq } from 'api/requests/Experience'
+import {
+  createExperienceReq,
+  updateExperienceReq,
+  getExperiencesByDateReq,
+} from 'api/requests/Experience'
 import { removeKey } from '../utils/localStorage'
 
 import {
   CREATE_EXPERIENCE_REQUESTING,
   CREATE_EXPERIENCE_SUCCESS,
   CREATE_EXPERIENCE_ERROR,
+  UPDATE_EXPERIENCE_REQUESTING,
+  UPDATE_EXPERIENCE_SUCCESS,
+  UPDATE_EXPERIENCE_ERROR,
+  GET_EXPERIENCE_BY_DATE_REQUESTING,
+  GET_EXPERIENCE_BY_DATE_SUCCESS,
+  GET_EXPERIENCE_BY_DATE_ERROR,
 } from '../actions/constants'
 
 function* createExperienceSaga({ payload }) {
@@ -18,6 +28,30 @@ function* createExperienceSaga({ payload }) {
   } catch (error) {
     if (error.response) {
       yield put({ type: CREATE_EXPERIENCE_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* updateExperienceSaga({ payload }) {
+  try {
+    yield updateExperienceReq(payload)
+    yield put({ type: UPDATE_EXPERIENCE_SUCCESS })
+    removeKey('addExperience')
+    yield put(replace('/experience_dashboard/listings'))
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: UPDATE_EXPERIENCE_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getExperiencesByDateSaga({ payload }) {
+  try {
+    const response = yield getExperiencesByDateReq(payload)
+    yield put({ type: GET_EXPERIENCE_BY_DATE_SUCCESS, payload: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_EXPERIENCE_BY_DATE_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -75,6 +109,8 @@ function* duplicateProductSaga({ payload }) {
 
 function* accountWatcher() {
   yield takeEvery(CREATE_EXPERIENCE_REQUESTING, createExperienceSaga)
+  yield takeEvery(UPDATE_EXPERIENCE_REQUESTING, updateExperienceSaga)
+  yield takeEvery(GET_EXPERIENCE_BY_DATE_REQUESTING, getExperiencesByDateSaga)
 }
 
 export default accountWatcher
