@@ -35,6 +35,8 @@ export default {
 
   // Experience
   createExperience: '/v1/experience/create',
+  updateExperience: '/v1/experience/update',
+  getExperiencesByDate: '/v1/experience/list_my_experiences_by_date?date=',
   expTypes: '/v1/experience/types',
   expTags: '/v1/experience/tags',
   toggleExpStatus: '/v1/experience/toggle_status',
