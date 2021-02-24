@@ -1,5 +1,9 @@
-import { put, takeEvery } from 'redux-saga/effects'
-import { searchByProductsReq, searchByFoodmakersReq } from 'api/requests/Search'
+import { put, takeEvery, takeLatest } from 'redux-saga/effects'
+import {
+  searchByProductsReq,
+  searchByFoodmakersReq,
+  searchByExperiencesReq,
+} from 'api/requests/Search'
 
 import { SEARCH_REQUESTING, SEARCH_SUCCESS, SEARCH_ERROR } from '../actions/constants'
 
@@ -13,6 +17,10 @@ function* searchSaga({ data }) {
     if (searchType === 'Foodmakers') {
       const { data: searchedData } = yield searchByFoodmakersReq(dataForSearch)
       yield put({ type: SEARCH_SUCCESS, searchedData: searchedData.foodmakers })
+    }
+    if (searchType === 'Experiences') {
+      const { data: searchedData } = yield searchByExperiencesReq(dataForSearch)
+      yield put({ type: SEARCH_SUCCESS, searchedData })
     }
   } catch (error) {
     if (error.response) {

@@ -14,8 +14,8 @@ import styles from './searchBlock.module.scss'
 import './searchBlock.less'
 
 function SearchBlock() {
-  const specialityTags = useSelector((state) => state.system.specialityTags)
-  const serviceTags = useSelector((state) => state.system.serviceTags)
+  // const specialityTags = useSelector((state) => state.system.specialityTags)
+  // const serviceTags = useSelector((state) => state.system.serviceTags)
   const searchData = getItem('search_data')
   const getInitialSearchValue = () => getItem('search_data')?.searchTitle || ''
   const searchTitle = searchData?.searchTitle || ''
@@ -37,35 +37,39 @@ function SearchBlock() {
     mode: 'onBlur',
   })
 
+  const getData = React.useCallback(
+    () =>
+      dispatch(
+        searchRequestingnAc({
+          searchType: 'Experiences',
+          dataForSearch: { isExplore: true },
+        }),
+      ),
+    [dispatch],
+  )
+
   React.useEffect(() => {
-    dispatch(
-      searchRequestingnAc({
-        searchType: 'Foodmakers',
-        dataForSearch: { searchedValue: searchTitle, city, isExplore: true },
-      }),
-    )
-    dispatch(getSpecialityTagsAC())
-    dispatch(getServiceTagsAC())
+    getData()
     return () => {
       setItem('search_data', {})
     }
   }, [])
 
-  React.useEffect(() => {
-    if (specialityTags.length) {
-      setSpecialityTagsToShow(specialityTags)
-    }
-  }, [specialityTags])
+  // React.useEffect(() => {
+  //   if (specialityTags.length) {
+  //     setSpecialityTagsToShow(specialityTags)
+  //   }
+  // }, [specialityTags])
 
-  React.useEffect(() => {
-    if (serviceTags && serviceTags.length) {
-      setServiceTagToShow('')
-    }
-  }, [serviceTags])
+  // React.useEffect(() => {
+  //   if (serviceTags && serviceTags.length) {
+  //     setServiceTagToShow('')
+  //   }
+  // }, [serviceTags])
 
-  React.useEffect(() => {
-    setServiceTagsToChoose(serviceTags.filter((el) => el.tagName !== serviceTagToShow?.tagName))
-  }, [serviceTagToShow])
+  // React.useEffect(() => {
+  //   setServiceTagsToChoose(serviceTags.filter((el) => el.tagName !== serviceTagToShow?.tagName))
+  // }, [serviceTagToShow])
 
   const handleTags = (onChange) => (e) => {
     setSelectedItems(e)
