@@ -1,0 +1,42 @@
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+
+  .infoRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 20px;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      margin-bottom: 0px;
+    }
+
+    .infoElement {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 35%;
+
+      @media (max-width: 1024px) {
+        margin-bottom: 10px;
+      }
+
+      .infoIcon {
+        height: 20px;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+
+      p {
+        margin: 0 0 -2px 0;
+        color: #31394d;
+        font-size: 14px;
+        line-height: 160%;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+    }
+  }
+}
