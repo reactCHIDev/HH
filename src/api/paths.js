@@ -40,6 +40,7 @@ export default {
   expTypes: '/v1/experience/types',
   expTags: '/v1/experience/tags',
   toggleExpStatus: '/v1/experience/toggle_status',
+  getExperienceById: '/v1/experience/by_id/',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

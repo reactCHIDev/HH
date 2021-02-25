@@ -1,4 +1,10 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { Spin, Space } from 'antd'
+
+import { getExperienceByIdAC } from 'actions/experience'
+
 import MainInfo from './components/MainInfo'
 import Overview from './components/Overview'
 import About from './components/About'
@@ -7,7 +13,15 @@ import Review from './components/Review'
 import styles from './expPage.module.scss'
 
 function ExperincePage() {
-  return (
+  const dispatch = useDispatch()
+  const experience = useSelector((state) => state.expListing.experience)
+
+  const { productId } = useParams()
+  React.useEffect(() => {
+    dispatch(getExperienceByIdAC(productId))
+  }, [])
+
+  return experience ? (
     <div className={styles.wrapper}>
       <MainInfo />
       <div className={styles.container}>
@@ -16,6 +30,12 @@ function ExperincePage() {
         {/* <GuestPhotos /> */}
         <Review />
       </div>
+    </div>
+  ) : (
+    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 300 }}>
+      <Space size="middle">
+        <Spin size="large" />
+      </Space>
     </div>
   )
 }

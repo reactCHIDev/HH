@@ -76,4 +76,23 @@
       width: 20%;
     }
   }
+
+  .lastSection {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      width: 60px;
+      color: #31394d;
+      font-size: 17px;
+      text-decoration: none;
+      background: white;
+      border: 2px solid #dcdde1;
+      border-radius: 5px;
+
+      &:hover {
+        border-color: #31394d;
+      }
+    }
+  }
 }
