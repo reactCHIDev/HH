@@ -25,7 +25,17 @@ function ExperincePage() {
     <div className={styles.wrapper}>
       <ExpHeader />
       <div className={styles.container}>
-        <Overview />
+        <Overview
+          rate={experience.experience.rating}
+          rateAmount={experience.experience.votes}
+          priceFrom={experience.experience?.priceChild || experience.experience.priceAdult}
+          city={experience.experience.address}
+          time={experience.experience.duration}
+          maxGuests={experience.experience.guests}
+          languages={experience.experience.languages.toString()}
+          visits={experience.experience.visits}
+          foodmaker={experience.userProfile}
+        />
         <About />
         {/* <GuestPhotos /> */}
         <Review />
