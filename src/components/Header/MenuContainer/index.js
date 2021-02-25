@@ -36,7 +36,7 @@ const items = {
     { img: CreateShop, heading: 'Create Shop', route: '/landing/create_shop' },
   ],
   explore: [
-    { img: FoodExperience, heading: 'Food Experience', route: '/landing/create_experience' },
+    { img: FoodExperience, heading: 'Food Experience', route: '/explore_experiences' },
     { img: FoodMakers, heading: 'Food Makers', route: '/foodmakers_explore' },
     { img: Products, heading: 'Products', route: '/product_explore' },
     { img: Blog, heading: 'Blog', route: 'https://medium.com/hungryhugger' },

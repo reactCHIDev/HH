@@ -94,6 +94,7 @@ export default {
   // Search
   searchInProducts: '/v1/search/product/predictive',
   searchInFoodMakers: '/v1/search/foodmaker/predictive',
+  searchInExperiences: '/v1/search/experience/predictive',
 
   // Files
   deleteFile: '/v1/file/delete/file/',

@@ -49,6 +49,7 @@ const OrderInfo = lazy(() => import('containers/AccountInfo/OrderInfo'))
 
 // Public pages
 const ProductPage = lazy(() => import('pages/ProductPage'))
+const ExperiencePage = lazy(() => import('pages/ExperiencePage'))
 const ShopPage = lazy(() => import('pages/ShopPage'))
 const ProductExplore = lazy(() => import('pages/ProductExplore'))
 const FoodmakersExplore = lazy(() => import('pages/FoodmakersExplore'))
@@ -249,6 +250,11 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                   exact
                   path="/product/:productId?"
                   component={WaitingComponent(ProductPage)}
+                />
+                <PublicRoute
+                  exact
+                  path="/experience/:productId?"
+                  component={WaitingComponent(ExperiencePage)}
                 />
                 <PrivateRoute
                   exact

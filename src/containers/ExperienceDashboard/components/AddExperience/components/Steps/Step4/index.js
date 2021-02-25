@@ -134,10 +134,6 @@ const Step4 = ({ create, edit }) => {
     const dateTime = {
       address: 'Manhattan',
       location: '49.9878502,36.199552',
-      experienceUrl: `https://hungryhugger.wildwebart.com/${prevData.title
-        .split('')
-        .filter((e) => e !== ' ')
-        .join('')}${edit ? String(prevData.id) : ''}`,
       status: 'PUBLISHED',
       time: events,
     }

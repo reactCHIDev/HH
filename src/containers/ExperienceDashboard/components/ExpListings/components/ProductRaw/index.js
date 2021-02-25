@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { push } from 'connected-react-router'
 import { Link } from 'react-router-dom'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import { toggleExperienceStatusRequestAC } from 'actions/experience-listing'
@@ -13,6 +14,10 @@ import styles from './productRaw.module.scss'
 function ProductRaw({ element }) {
   const dispatch = useDispatch()
   const onClick = () => setItem('addExperience', element)
+  const openExpPage = () => {
+    dispatch(push(`/experience/${element.id}`))
+  }
+
   const toggleStatus = (data) => dispatch(toggleExperienceStatusRequestAC(data))
 
   const day = new Date(element.createdAt).toLocaleDateString('en-US', {
@@ -49,6 +54,7 @@ function ProductRaw({ element }) {
         <span>{time}</span>
         {day}
       </div>
+      <div onClick={() => openExpPage()}>open</div>
     </div>
   )
 }
