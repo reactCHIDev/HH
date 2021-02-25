@@ -5,7 +5,7 @@ import { Spin, Space } from 'antd'
 
 import { getExperienceByIdAC } from 'actions/experience'
 
-import MainInfo from './components/MainInfo'
+import ExpHeader from './components/ExpHeader'
 import Overview from './components/Overview'
 import About from './components/About'
 import GuestPhotos from './components/GuestPhotos'
@@ -23,7 +23,7 @@ function ExperincePage() {
 
   return experience ? (
     <div className={styles.wrapper}>
-      <MainInfo />
+      <ExpHeader />
       <div className={styles.container}>
         <Overview />
         <About />

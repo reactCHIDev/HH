@@ -180,7 +180,7 @@ const Step3 = (props) => {
           <Divider />
           <div className={styles.description_container}>
             <div className={styles.heading}>Where does experience take place?</div>
-            <label className={styles.label}>Description</label>
+            <label className={styles.label}>Address</label>
             <textarea
               className={styles.textarea}
               name="additionalInfo"
