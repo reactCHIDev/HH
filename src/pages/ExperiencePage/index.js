@@ -23,7 +23,7 @@ function ExperincePage() {
 
   return experience ? (
     <div className={styles.wrapper}>
-      <ExpHeader />
+      <ExpHeader experience={experience.experience} user={experience.userProfile} />
       <div className={styles.container}>
         <Overview />
         <About />

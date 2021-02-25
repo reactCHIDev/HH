@@ -69,6 +69,7 @@ const Header = (props) => {
     '/editexperience',
     '/shop/',
     '/product/',
+    '/experience/',
     '/settings/',
     '/cart',
     '/landing/create_experience',
