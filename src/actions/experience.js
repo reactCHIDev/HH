@@ -3,6 +3,7 @@ import {
   UPDATE_EXPERIENCE_REQUESTING,
   GET_EXPERIENCE_BY_DATE_REQUESTING,
   GET_EXPERIENCE_BY_ID_REQUESTING,
+  GET_BOOKING_BY_DATE_REQUESTING,
 } from './constants'
 
 export const createExperienceAC = (payload) => ({
@@ -28,4 +29,10 @@ export const duplicateAC = (payload) => ({
 export const getExperienceByIdAC = (payload) => ({
   type: GET_EXPERIENCE_BY_ID_REQUESTING,
   payload,
+})
+
+export const getBookingByDateAC = (id, date) => ({
+  type: GET_BOOKING_BY_DATE_REQUESTING,
+  id,
+  date,
 })
