@@ -18,7 +18,6 @@
   .inner_content {
     flex-grow: 1;
     width: 50%;
-    font-size: 72px;
 
     @include media('<desktop') {
       width: 100%;
@@ -71,6 +70,7 @@
       .info_container {
         min-width: 263px;
         .info_text {
+          margin-bottom: 5px;
           color: #31394d;
           font-size: 12px;
           opacity: 0.6;
