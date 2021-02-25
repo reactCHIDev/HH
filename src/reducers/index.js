@@ -24,6 +24,7 @@ import reviews from './reviews'
 import fmBookingsHistory from './booking-history'
 import expReviews from './experiences-reviews'
 import expListing from './experience-listing'
+import experience from './experience'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -51,6 +52,7 @@ const createRootReducer = (history) =>
     fmBookingsHistory,
     expReviews,
     expListing,
+    experience,
   })
 
 export default createRootReducer

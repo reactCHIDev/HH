@@ -7,3 +7,5 @@ export const getExperiencesByDateReq = (data) => apiClient.get(PATHS.getExperien
 export const getExperienceByIdReq = (data) => {
   return apiClient.get(PATHS.getExperienceById + data)
 }
+export const getBookingByDateReq = (id, date) =>
+  apiClient.get(PATHS.getBookingByDate + id + '/bookings?date=' + date)

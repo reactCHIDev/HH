@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
-import { parseISO, isSameDay } from 'date-fns'
+import { getBookingByDateAC } from 'actions/experience'
+
+import { parseISO, isSameDay, getDate, getMonth, getYear } from 'date-fns'
 import { InputNumber, Button } from 'antd'
 import GuestsSelector from '../GuestsSelector'
 import { useForm, Controller } from 'react-hook-form'
@@ -10,8 +12,9 @@ import ImagePreviewer from 'pages/ProductPage/components/ImagePreviewer'
 import Calendar from '../Calendar'
 import styles from './exp_page_header.module.scss'
 import './exp_page_header.less'
+import { useDispatch } from 'react-redux'
 
-const ExpHeader = ({ experience, user }) => {
+const ExpHeader = ({ experience, user, bookingsByDate }) => {
   const { id, coverPhoto, otherPhotos, guests, discount, time, priceAdult, priceChild } = experience
   const { firstName, lastName } = user
 
@@ -24,6 +27,8 @@ const ExpHeader = ({ experience, user }) => {
   const [children, setChildrenCount] = useState(0)
   const [total, setTotal] = useState(0)
 
+  const dispatch = useDispatch()
+
   const { handleSubmit, control, errors } = useForm({
     mode: 'onBlur',
   })
@@ -31,12 +36,12 @@ const ExpHeader = ({ experience, user }) => {
   const onBook = (data) => {
     const bookData = {
       guests: {
-        adults: 10,
-        children: 5,
+        adults: adult,
+        children,
       },
       time: selectedTime,
       experienceId: id,
-      totalPrice: 250,
+      totalPrice: total,
       currency: 'HKD',
       firstName,
       lastName,
@@ -44,6 +49,20 @@ const ExpHeader = ({ experience, user }) => {
     }
     console.log('%c   bookData   ', 'color: darkgreen; background: palegreen;', bookData)
   }
+
+  useEffect(() => {
+    if (selectedDate) {
+      const year = getYear(parseISO(selectedDate))
+      const month = getMonth(parseISO(selectedDate))
+      const day = getDate(parseISO(selectedDate))
+      dispatch(
+        getBookingByDateAC(
+          id,
+          `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+        ),
+      )
+    }
+  }, [selectedDate])
 
   useEffect(() => {
     setTotal(

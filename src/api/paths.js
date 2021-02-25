@@ -41,6 +41,7 @@ export default {
   expTags: '/v1/experience/tags',
   toggleExpStatus: '/v1/experience/toggle_status',
   getExperienceById: '/v1/experience/by_id/',
+  getBookingByDate: '/v1/experience/',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
