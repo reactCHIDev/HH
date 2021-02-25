@@ -1,0 +1,58 @@
+@import 'styles/styles.scss';
+
+.main_container {
+  width: 100%;
+  max-width: 580px;
+  margin-bottom: 32px;
+  padding: 0 20px;
+
+  .img_container {
+    position: relative;
+    height: 0;
+    padding: 0 0 100%;
+    overflow: hidden;
+    text-align: center;
+    background-position: 50% 0;
+    background-size: cover;
+    border-radius: 16px;
+  }
+
+  .slider_container {
+    padding: 24px 0;
+    .label {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      padding-left: 0px;
+      color: #838894;
+      font-weight: normal;
+      font-size: 14px;
+      font-style: normal;
+      line-height: 160%;
+      letter-spacing: 0.5px;
+    }
+
+    .selected {
+      background-color: white;
+      border: 2px solid black;
+    }
+
+    .regular {
+      border: 2px solid lightgray;
+    }
+
+    .preview_container {
+      position: relative;
+      width: 78px;
+      height: 56px;
+      margin: 0 auto;
+      padding: 8px;
+      color: #31394d;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+}
