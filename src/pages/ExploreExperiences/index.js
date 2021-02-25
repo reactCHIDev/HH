@@ -1,15 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+
 import ExpCard from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
-import stub2 from 'assets/images/landings/create_experience/sec21.jpg'
-import styles from './expexp.module.scss'
+
 import SearchBlock from './SearchBlock'
+import styles from './expexp.module.scss'
 
 const ExploreExp = () => {
   const fmData = useSelector((state) => state.search.data)
-  console.log(fmData, 'fmdata')
 
   return (
     <div>
@@ -33,7 +33,7 @@ const ExploreExp = () => {
                 price={100}
                 rating={el.experience.rating}
                 rateCount={el.experience.votes}
-                pathname={`experience/${el.experience.id}`}
+                pathname={`/experience/${el.experience.id}`}
               />
             ))}
           </div>

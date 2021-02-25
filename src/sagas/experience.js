@@ -4,6 +4,7 @@ import {
   createExperienceReq,
   updateExperienceReq,
   getExperiencesByDateReq,
+  getExperienceByIdReq,
 } from 'api/requests/Experience'
 import { removeKey } from '../utils/localStorage'
 
@@ -17,6 +18,9 @@ import {
   GET_EXPERIENCE_BY_DATE_REQUESTING,
   GET_EXPERIENCE_BY_DATE_SUCCESS,
   GET_EXPERIENCE_BY_DATE_ERROR,
+  GET_EXPERIENCE_BY_ID_REQUESTING,
+  GET_EXPERIENCE_BY_ID_SUCCESS,
+  GET_EXPERIENCE_BY_ID_ERROR,
 } from '../actions/constants'
 
 function* createExperienceSaga({ payload }) {
@@ -52,6 +56,17 @@ function* getExperiencesByDateSaga({ payload }) {
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_EXPERIENCE_BY_DATE_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getExperienceByIdSaga({ payload }) {
+  try {
+    const response = yield getExperienceByIdReq(payload)
+    yield put({ type: GET_EXPERIENCE_BY_ID_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_EXPERIENCE_BY_ID_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -111,6 +126,7 @@ function* accountWatcher() {
   yield takeEvery(CREATE_EXPERIENCE_REQUESTING, createExperienceSaga)
   yield takeEvery(UPDATE_EXPERIENCE_REQUESTING, updateExperienceSaga)
   yield takeEvery(GET_EXPERIENCE_BY_DATE_REQUESTING, getExperiencesByDateSaga)
+  yield takeEvery(GET_EXPERIENCE_BY_ID_REQUESTING, getExperienceByIdSaga)
 }
 
 export default accountWatcher

@@ -6,11 +6,15 @@ import {
   GET_EXPERIENCE_BY_DATE_REQUESTING,
   GET_EXPERIENCE_BY_DATE_SUCCESS,
   GET_EXPERIENCE_BY_DATE_ERROR,
+  GET_EXPERIENCE_BY_ID_REQUESTING,
+  GET_EXPERIENCE_BY_ID_SUCCESS,
+  GET_EXPERIENCE_BY_ID_ERROR,
 } from '../actions/constants'
 
 const initialState = {
   myExperiences: [],
   monthExperiences: [],
+  experience: null,
   requesting: false,
   error: '',
   counter: 0,
@@ -61,6 +65,28 @@ const reducer = function experiencesReducer(state = initialState, action) {
     case TOGGLE_EXPERIENCE_STATUS_ERROR:
       return {
         ...state,
+        error: action.error,
+      }
+
+    case GET_EXPERIENCE_BY_ID_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
+    case GET_EXPERIENCE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        experience: action.data,
+        requesting: false,
+        error: '',
+      }
+
+    case GET_EXPERIENCE_BY_ID_ERROR:
+      return {
+        ...state,
+        requesting: false,
         error: action.error,
       }
 

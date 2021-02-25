@@ -54,7 +54,9 @@ function ProductRaw({ element }) {
         <span>{time}</span>
         {day}
       </div>
-      <div onClick={() => openExpPage()}>open</div>
+      <div className={styles.lastSection} onClick={() => openExpPage()}>
+        <button type="button">{'>'}</button>
+      </div>
     </div>
   )
 }
