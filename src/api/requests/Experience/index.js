@@ -7,3 +7,5 @@ export const getExperiencesByDateReq = (data) => apiClient.get(PATHS.getExperien
 export const getExperienceByIdReq = (data) => {
   return apiClient.get(PATHS.getExperienceById + data)
 }
+export const getExperienceReviews = () => apiClient.get(PATHS.experienceReviews)
+export const getFoodmakerExperiencesReviews = () => apiClient.get(PATHS.foodmakerExperiencesReviews)

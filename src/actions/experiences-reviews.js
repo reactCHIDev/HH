@@ -4,8 +4,9 @@ import {
   GET_EXPERIENCE_REVIEW_ERROR,
 } from './constants'
 
-export const getExperienceReviewAC = () => ({
+export const getExperienceReviewAC = (payload) => ({
   type: GET_EXPERIENCE_REVIEW_REQUESTING,
+  payload,
 })
 
 export const getExperienceReviewSuccess = (payload) => ({

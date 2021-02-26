@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { getExperiencesReviews } from 'api/requests/Account'
+import { getExperienceReviews, getFoodmakerExperiencesReviews } from 'api/requests/Experience'
 
 import {
   GET_EXPERIENCE_REVIEW_REQUESTING,
@@ -7,9 +7,16 @@ import {
   GET_EXPERIENCE_REVIEW_ERROR,
 } from '../actions/constants'
 
-function* getExperiencesReviewsSage() {
+function* getExperiencesReviewsSage({ payload }) {
+  const { page, type } = payload
+  // console.log(type, 'TYPE')
   try {
-    const response = yield getExperiencesReviews()
+    const response =
+      type === 'fmExperiencesReview'
+        ? yield getFoodmakerExperiencesReviews()
+        : yield getExperienceReviews()
+
+    console.log(response, 'response')
     yield put({ type: GET_EXPERIENCE_REVIEW_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {

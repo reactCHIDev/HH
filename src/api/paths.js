@@ -41,6 +41,10 @@ export default {
   expTags: '/v1/experience/tags',
   toggleExpStatus: '/v1/experience/toggle_status',
   getExperienceById: '/v1/experience/by_id/',
+  experienceReviews: '/v1/review/experience/by_id/',
+  // /v1/review/experience/by_id/23?startIndex=0&limit=3
+  foodmakerExperiencesReviews: '/v1/review/experience/by_foodmaker/',
+  // /v1/review/experience/by_foodmaker/214
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

@@ -10,7 +10,6 @@ export const updatePhotoName = (data) => apiClient.patch(PATHS.updatePhotoName, 
 export const getBillingHistory = () => apiClient.get(PATHS.billingHistory)
 export const getFMBookingHistory = () => apiClient.get(PATHS.fmBookingHistory)
 export const registrationEmail = (data) => apiClient.patch(PATHS.registrationEmail, { data })
-export const getExperiencesReviews = () => apiClient.get(PATHS.experiencesReviews)
 
 //
 //
