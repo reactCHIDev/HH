@@ -94,8 +94,6 @@ function* createPublicBookingSaga({ payload }) {
   try {
     const response = yield createPublicBookingReq(payload)
     yield put({ type: CREATE_PUBLIC_BOOKING_SUCCESS, data: response.data })
-    removeKey('booking')
-    removeKey('sessionId')
   } catch (error) {
     if (error.response) {
       yield put({ type: CREATE_PUBLIC_BOOKING_ERROR, error: error.response.data.error })
