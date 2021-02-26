@@ -5,6 +5,8 @@ import {
   updateExperienceReq,
   getExperiencesByDateReq,
   getExperienceByIdReq,
+  getBookingByDateReq,
+  createPublicBookingReq,
 } from 'api/requests/Experience'
 import { removeKey } from '../utils/localStorage'
 
@@ -21,6 +23,12 @@ import {
   GET_EXPERIENCE_BY_ID_REQUESTING,
   GET_EXPERIENCE_BY_ID_SUCCESS,
   GET_EXPERIENCE_BY_ID_ERROR,
+  GET_BOOKING_BY_DATE_REQUESTING,
+  GET_BOOKING_BY_DATE_SUCCESS,
+  GET_BOOKING_BY_DATE_ERROR,
+  CREATE_PUBLIC_BOOKING_REQUESTING,
+  CREATE_PUBLIC_BOOKING_SUCCESS,
+  CREATE_PUBLIC_BOOKING_ERROR,
 } from '../actions/constants'
 
 function* createExperienceSaga({ payload }) {
@@ -71,62 +79,35 @@ function* getExperienceByIdSaga({ payload }) {
   }
 }
 
-/*
-
-function* updateProductSaga({ payload }) {
+function* getBookingByDateSaga({ id, date }) {
   try {
-    yield updateProductReq(payload)
-    yield put(updateProductSuccess())
-    removeKey('addProduct')
-    yield put(replace('/product_dashboard/listings'))
+    const response = yield getBookingByDateReq(id, date)
+    yield put({ type: GET_BOOKING_BY_DATE_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {
-      yield put(updateProductError())
+      yield put({ type: GET_BOOKING_BY_DATE_ERROR, error: error.response.data.error })
     }
   }
 }
 
-function* getProductInfoSaga({ id }) {
+function* createPublicBookingSaga({ payload }) {
   try {
-    const response = yield getProductInfoReq(id)
-    yield put({ type: GET_PRODUCT_INFO_SUCCESS, data: response.data })
+    const response = yield createPublicBookingReq(payload)
+    yield put({ type: CREATE_PUBLIC_BOOKING_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {
-      yield put({ type: GET_PRODUCT_INFO_ERROR, error: error.response.data.error })
+      yield put({ type: CREATE_PUBLIC_BOOKING_ERROR, error: error.response.data.error })
     }
   }
 }
-
-function* toggleProductStatusSaga({ payload }) {
-  try {
-    yield toggleProductStatus({ id: payload })
-    yield put({ type: 'GET_MY_PRODUCT_LIST_REQUESTING' })
-  } catch (error) {
-    if (error.response) {
-      yield put({ type: TOGGLE_PRODUCT_STATUS_ERROR, error: error.response.data.error })
-    }
-  }
-}
-
-function* duplicateProductSaga({ payload }) {
-  try {
-    yield duplicate(payload)
-    yield put({ type: DUPLICATE_PRODUCT_SUCCESS })
-    yield delay(3000)
-    yield put({ type: 'RESET_DUPLICATE_SUCCESS' })
-    yield put(replace('/product_dashboard/listings'))
-  } catch (error) {
-    if (error.response) {
-      yield put({ type: DUPLICATE_PRODUCT_ERROR, error: error.response.data.error })
-    }
-  }
-} */
 
 function* accountWatcher() {
   yield takeEvery(CREATE_EXPERIENCE_REQUESTING, createExperienceSaga)
   yield takeEvery(UPDATE_EXPERIENCE_REQUESTING, updateExperienceSaga)
   yield takeEvery(GET_EXPERIENCE_BY_DATE_REQUESTING, getExperiencesByDateSaga)
   yield takeEvery(GET_EXPERIENCE_BY_ID_REQUESTING, getExperienceByIdSaga)
+  yield takeEvery(GET_BOOKING_BY_DATE_REQUESTING, getBookingByDateSaga)
+  yield takeEvery(CREATE_PUBLIC_BOOKING_REQUESTING, createPublicBookingSaga)
 }
 
 export default accountWatcher

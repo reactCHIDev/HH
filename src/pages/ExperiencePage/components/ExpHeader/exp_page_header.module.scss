@@ -1,83 +1,115 @@
 @import 'styles/styles.scss';
-
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-  padding: 30px 0 160px;
-
-  @include media('<desktop') {
-    width: 100%;
-    padding-bottom: 100px;
+.wrapper {
+  background: #f5f8fb;
+  .gray {
+    background: #f4f7fa;
   }
 
-  @include media('<tablet') {
-    padding-bottom: 40px;
-  }
-
-  .inner_content {
-    flex-grow: 1;
-    width: 50%;
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 30px 0 160px;
 
     @include media('<desktop') {
       width: 100%;
+      padding-bottom: 100px;
     }
-    .exp_heading {
-      color: #3c3e43;
-      font-weight: bold;
-      font-size: 32px;
+
+    @include media('<tablet') {
+      padding-bottom: 40px;
     }
-    .input_number {
-      .input_wrapper {
+
+    .inner_content {
+      flex-grow: 1;
+      width: 50%;
+
+      @include media('<desktop') {
+        width: 100%;
+      }
+      .exp_heading {
+        color: #3c3e43;
+        font-weight: bold;
+        font-size: 32px;
+      }
+      .input_number {
         position: relative;
-        width: 180px;
-        height: 56px;
-        .success {
-          position: absolute;
-          top: 20px;
-          right: 30px;
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 10px;
-          color: #7ad398;
-          font-weight: normal;
-          font-size: 12px;
-          font-style: normal;
-          line-height: 160%;
-          letter-spacing: 0.5px;
-          background: rgba(122, 211, 152, 0.1);
-          border-radius: 6px;
+        .input_wrapper {
+          position: relative;
+          width: 180px;
+          height: 56px;
+          margin-bottom: 24px;
+          .input {
+            width: 180px;
+            height: 56px;
+            padding: 0 12px;
+            border: 2px solid rgba(49, 57, 77, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+          }
+          .success {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+            color: #7ad398;
+            font-weight: normal;
+            font-size: 12px;
+            font-style: normal;
+            line-height: 160%;
+            letter-spacing: 0.5px;
+            background: rgba(122, 211, 152, 0.1);
+            border-radius: 6px;
+          }
         }
       }
-    }
-    .label {
-      display: flex;
-      align-items: center;
-      margin: 10px 0;
-      padding-left: 0px;
-      color: #838894;
-      font-weight: normal;
-      font-size: 14px;
-      font-style: normal;
-      line-height: 160%;
-      letter-spacing: 0.5px;
-    }
-    .info_wrapper {
-      display: flex;
-      margin-bottom: 32px;
-      .info_container {
-        min-width: 263px;
-        .info_text {
-          margin-bottom: 5px;
-          color: #31394d;
-          font-size: 12px;
-          opacity: 0.6;
-        }
+      .errmsg {
+        margin: -22px 0px 0;
+        color: #bf1650;
       }
-      .button_container {
-        width: 263px;
+
+      .errmsg::before {
+        display: inline;
+        content: '⚠ ';
+      }
+      .label {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        padding-left: 0px;
+        color: #838894;
+        font-weight: normal;
+        font-size: 14px;
+        font-style: normal;
+        line-height: 160%;
+        letter-spacing: 0.5px;
+      }
+      .info_wrapper {
+        display: flex;
+        margin-bottom: 32px;
+        .info_container {
+          min-width: 263px;
+          .info_text {
+            margin-bottom: 5px;
+            color: #31394d;
+            font-size: 12px;
+            opacity: 0.6;
+            .discount_total {
+              color: #7ad398;
+              font-weight: bold;
+            }
+            .no_discount {
+              display: none;
+            }
+          }
+        }
+        .button_container {
+          width: 263px;
+        }
       }
     }
   }

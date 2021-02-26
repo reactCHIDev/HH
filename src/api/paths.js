@@ -45,6 +45,8 @@ export default {
   // /v1/review/experience/by_id/23?startIndex=0&limit=3
   foodmakerExperiencesReviews: '/v1/review/experience/by_foodmaker/',
   // /v1/review/experience/by_foodmaker/214
+  getBookingByDate: '/v1/experience/',
+  createPublicBooking: '/v1/experience/create/public_booking',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

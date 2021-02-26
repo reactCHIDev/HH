@@ -21,6 +21,8 @@ export const getStripeTokenError = (error) => ({
   error,
 })
 
-export const stripeCheckoutAC = () => ({
+export const stripeCheckoutAC = (item, price) => ({
   type: STRIPE_CHECKOUT_REQUESTING,
+  item,
+  price,
 })

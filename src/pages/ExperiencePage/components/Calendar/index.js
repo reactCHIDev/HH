@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
-import { format, addDays, isSameDay } from 'date-fns'
+import { format, getMinutes, getHours, parseISO, isSameDay } from 'date-fns'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -9,20 +9,17 @@ import styles from './exp_calendar.module.scss'
 import './exp_calendar.less'
 
 const DateSlider = (props) => {
-  const { images } = props
-  const [selectedDate, setSelectedDate] = useState()
-  const [dates, setDates] = useState([])
+  const {
+    selectedDate,
+    setSelectedDate,
+    selectedTime,
+    setSelectedTime,
+    dates,
+    appointments,
+  } = props
 
   useEffect(() => {
-    let d = []
-    for (let i = -7; i < 7; i += 1) {
-      d = [...d, addDays(new Date(), i)]
-    }
-    setDates(d)
-  }, [])
-
-  useEffect(() => {
-    if (dates?.length) setSelectedDate(dates[7])
+    if (dates?.length) setSelectedDate(dates[0])
   }, [dates])
 
   const settings = useMemo(
@@ -36,9 +33,7 @@ const DateSlider = (props) => {
       slidesToScroll: 1,
       arrows: true,
       slidesToShow: 6,
-      initialSlide: 7,
-      // nextArrow: <SampleNextArrow />,
-      // prevArrow: <SamplePrevArrow />,
+      initialSlide: 0,
       responsive: [
         {
           breakpoint: 640,
@@ -73,6 +68,11 @@ const DateSlider = (props) => {
     setSelectedDate(e.currentTarget.id)
   })
 
+  const handleTimeClick = useCallback((e) => {
+    setSelectedTime(e.currentTarget.id)
+  })
+
+  // if (!dates?.length) return <></>
   return (
     <div className={styles.main_container}>
       <div className={cls(styles.slider_container, 'slick_experience')}>
@@ -83,7 +83,7 @@ const DateSlider = (props) => {
               <div
                 className={cls(
                   styles.preview_container,
-                  isSameDay(new Date(date), new Date(selectedDate))
+                  isSameDay(parseISO(date), parseISO(selectedDate))
                     ? styles.selected
                     : styles.regular,
                 )}
@@ -91,7 +91,7 @@ const DateSlider = (props) => {
                 id={date}
                 onClick={handleDateClick}
               >
-                {format(date, 'dd MMM eee')}
+                {format(parseISO(date), 'dd MMM eee')}
               </div>
             </div>
           ))}
@@ -100,20 +100,20 @@ const DateSlider = (props) => {
       <div className={cls(styles.slider_container, 'slick_experience')}>
         <label className={styles.label}>Select time</label>
         <Slider {...settings}>
-          {dates.map((date) => (
+          {appointments.map((time) => (
             <div>
               <div
                 className={cls(
                   styles.preview_container,
-                  isSameDay(new Date(date), new Date(selectedDate))
-                    ? styles.selected
-                    : styles.regular,
+                  time === selectedTime ? styles.selected : styles.regular,
                 )}
-                key={date}
-                id={date}
-                onClick={handleDateClick}
+                key={time}
+                id={time}
+                onClick={handleTimeClick}
               >
-                {format(date, 'dd MMM eee')}
+                {`${String(getHours(parseISO(time))).padStart(2, '0')}:${String(
+                  getMinutes(parseISO(time)),
+                ).padStart(2, '0')}`}
               </div>
             </div>
           ))}

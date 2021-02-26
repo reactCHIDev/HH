@@ -16,7 +16,7 @@ const AdressForm = ({ closeFunc }) => {
   const onSubmit = (adressData) => {
     // dispatch(createOrderRequestrinAc(adressData))
     setItem('adress', adressData)
-    dispatch(stripeCheckoutAC())
+    dispatch(stripeCheckoutAC('cart', null))
     closeFunc()
   }
 
