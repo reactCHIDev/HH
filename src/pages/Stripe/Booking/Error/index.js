@@ -10,15 +10,13 @@ import './error.less'
 import { useDispatch } from 'react-redux'
 import { replace } from 'connected-react-router'
 
-const Success = () => {
-  const adressData = getItem('adress')
+const Error = () => {
   const dispatch = useDispatch()
-  // dispatch(createOrderRequestrinAc(adressData))
   const toHome = () => {
     dispatch(replace('/'))
   }
-  const toCart = () => {
-    dispatch(replace('/cart'))
+  const toListings = () => {
+    dispatch(replace('/experience_dashboard/listings'))
   }
 
   return (
@@ -33,7 +31,7 @@ const Success = () => {
           </Button>
         </div>
         <div className={styles.btn_container}>
-          <Button type="primary" block size="large" onClick={toCart}>
+          <Button type="primary" block size="large" onClick={toListings}>
             To Cart
           </Button>
         </div>
@@ -42,6 +40,6 @@ const Success = () => {
   )
 }
 
-Success.propTypes = {}
+Error.propTypes = {}
 
-export default Success
+export default Error

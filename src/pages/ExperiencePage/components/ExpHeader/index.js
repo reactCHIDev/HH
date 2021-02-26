@@ -34,11 +34,11 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
   })
 
   const onBook = (data) => {
+    const guests = {}
+    if (adult > 0) guests.adults = adult
+    if (childrenn > 0) guests.children = childrenn
     const bookData = {
-      guests: {
-        adults: adult,
-        children: childrenn,
-      },
+      guests,
       time: selectedTime,
       experienceId: id,
       totalPrice: Number(total),
@@ -51,8 +51,6 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
       setItem('booking', bookData)
       dispatch(stripeCheckoutAC('booking', total))
     }
-
-    console.log('%c   bookData   ', 'color: darkgreen; background: palegreen;', bookData)
   }
 
   useEffect(() => {
