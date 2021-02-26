@@ -32,7 +32,7 @@ const Success = () => {
 
   return (
     <div className={styles.success}>
-      {isOrderCreating ? (
+      {isRequesting ? (
         <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
           <Space size="middle">
             <Spin size="large" />

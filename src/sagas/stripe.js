@@ -54,8 +54,8 @@ function* stripeCheckoutSaga({ item, price }) {
   }
   if (item === 'booking') {
     totalPrice = Number(price)
-    // successUrl = `http://localhost:3000/booking-success`
-    successUrl = `${process.env.REACT_APP_BASE_URL}/booking-success`
+    successUrl = `http://localhost:3000/booking-success`
+    // successUrl = `${process.env.REACT_APP_BASE_URL}/booking-success`
     cancelUrl = `${process.env.REACT_APP_BASE_URL}/booking-error`
   }
 
