@@ -12,7 +12,7 @@ const GuestsSelector = ({
   priceChild,
   adult,
   setAdultCount,
-  children,
+  childrenn,
   setChildrenCount,
 }) => {
   const handleCountDecrement = () =>
@@ -40,7 +40,7 @@ const GuestsSelector = ({
           <button
             className={styles.button_right}
             type="button"
-            disabled={adult + children >= guests}
+            disabled={adult + childrenn >= guests}
             onClick={handleCountIncrement}
           >
             +
@@ -54,11 +54,11 @@ const GuestsSelector = ({
           <button className={styles.button_left} type="button" onClick={handleChildrenDecrement}>
             -
           </button>
-          <div className={styles.count_text}>{children}</div>
+          <div className={styles.count_text}>{childrenn}</div>
           <button
             className={styles.button_right}
             type="button"
-            disabled={adult + children >= guests}
+            disabled={adult + childrenn >= guests}
             onClick={handleChildrenIncrement}
           >
             +

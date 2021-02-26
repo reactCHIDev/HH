@@ -43,8 +43,22 @@ function* getStripeToken() {
   }
 }
 
-function* stripeCheckoutSaga() {
-  const { totalPrice } = getItem('cart')
+function* stripeCheckoutSaga({ item, price }) {
+  let totalPrice
+  let successUrl
+  let cancelUrl
+  if (item === 'cart') {
+    ;({ totalPrice } = getItem('cart'))
+    successUrl = `${process.env.REACT_APP_BASE_URL}/payment-success`
+    cancelUrl = `${process.env.REACT_APP_BASE_URL}/payment-error`
+  }
+  if (item === 'booking') {
+    totalPrice = Number(price)
+    successUrl = `http://localhost:3000/booking-success`
+    // successUrl = `${process.env.REACT_APP_BASE_URL}/booking-success`
+    cancelUrl = `${process.env.REACT_APP_BASE_URL}/booking-error`
+  }
+
   try {
     const stripe = yield loadStripe(process.env.REACT_APP_STRIPE_KEY)
     const checkoutData = {
@@ -58,15 +72,15 @@ function* stripeCheckoutSaga() {
               name: 'HungryHugger', // какая то подпись
               images: ['https://hungryhugger.com/favicon.png'],
             },
-            unit_amount: +(totalPrice * 100).toFixed(2),
+            unit_amount: Number(totalPrice.toFixed(2)) * 100,
           },
           quantity: 1,
         },
       ],
-      success_url: `${process.env.REACT_APP_BASE_URL}/payment-success`,
-      // success_url: `http://localhost:3000/payment-success`,
-      cancel_url: `${process.env.REACT_APP_BASE_URL}/payment-error`,
+      success_url: successUrl,
+      cancel_url: cancelUrl,
     }
+
     const response = yield stripeCheckout(checkoutData)
     setItem('sessionId', response.data.id)
     const result = yield stripe.redirectToCheckout({ sessionId: response.data.id })

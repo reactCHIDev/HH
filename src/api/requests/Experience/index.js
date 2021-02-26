@@ -9,3 +9,5 @@ export const getExperienceByIdReq = (data) => {
 }
 export const getBookingByDateReq = (id, date) =>
   apiClient.get(PATHS.getBookingByDate + id + '/bookings?date=' + date)
+
+export const createPublicBookingReq = (data) => apiClient.post(PATHS.createPublicBooking, { data })

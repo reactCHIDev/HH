@@ -6,6 +6,7 @@ import {
   getExperiencesByDateReq,
   getExperienceByIdReq,
   getBookingByDateReq,
+  createPublicBookingReq,
 } from 'api/requests/Experience'
 import { removeKey } from '../utils/localStorage'
 
@@ -25,6 +26,9 @@ import {
   GET_BOOKING_BY_DATE_REQUESTING,
   GET_BOOKING_BY_DATE_SUCCESS,
   GET_BOOKING_BY_DATE_ERROR,
+  CREATE_PUBLIC_BOOKING_REQUESTING,
+  CREATE_PUBLIC_BOOKING_SUCCESS,
+  CREATE_PUBLIC_BOOKING_ERROR,
 } from '../actions/constants'
 
 function* createExperienceSaga({ payload }) {
@@ -86,12 +90,26 @@ function* getBookingByDateSaga({ id, date }) {
   }
 }
 
+function* createPublicBookingSaga({ payload }) {
+  try {
+    const response = yield createPublicBookingReq(payload)
+    yield put({ type: CREATE_PUBLIC_BOOKING_SUCCESS, data: response.data })
+    removeKey('booking')
+    removeKey('sessionId')
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: CREATE_PUBLIC_BOOKING_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(CREATE_EXPERIENCE_REQUESTING, createExperienceSaga)
   yield takeEvery(UPDATE_EXPERIENCE_REQUESTING, updateExperienceSaga)
   yield takeEvery(GET_EXPERIENCE_BY_DATE_REQUESTING, getExperiencesByDateSaga)
   yield takeEvery(GET_EXPERIENCE_BY_ID_REQUESTING, getExperienceByIdSaga)
   yield takeEvery(GET_BOOKING_BY_DATE_REQUESTING, getBookingByDateSaga)
+  yield takeEvery(CREATE_PUBLIC_BOOKING_REQUESTING, createPublicBookingSaga)
 }
 
 export default accountWatcher
