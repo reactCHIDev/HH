@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import { getBookingByDateAC } from 'actions/experience'
-
+import { stripeCheckoutAC } from 'actions/stripe'
 import { parseISO, isSameDay, getDate, getMonth, getYear } from 'date-fns'
-import { InputNumber, Button } from 'antd'
-import GuestsSelector from '../GuestsSelector'
-import { useForm, Controller } from 'react-hook-form'
-import _ from 'lodash/fp'
+import { Button } from 'antd'
+import { setItem } from 'utils/localStorage'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import ImagePreviewer from 'pages/ProductPage/components/ImagePreviewer'
+import GuestsSelector from '../GuestsSelector'
 import Calendar from '../Calendar'
 import styles from './exp_page_header.module.scss'
 import './exp_page_header.less'
-import { useDispatch } from 'react-redux'
 
 const ExpHeader = ({ experience, user, bookingsByDate }) => {
   const { id, coverPhoto, otherPhotos, guests, discount, time, priceAdult, priceChild } = experience
@@ -24,7 +24,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
   const [appointments, setAppointments] = useState([])
   const [visible, setVisibilityGuestsSelector] = useState(false)
   const [adult, setAdultCount] = useState(1)
-  const [children, setChildrenCount] = useState(0)
+  const [childrenn, setChildrenCount] = useState(0)
   const [total, setTotal] = useState(0)
 
   const dispatch = useDispatch()
@@ -37,16 +37,21 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
     const bookData = {
       guests: {
         adults: adult,
-        children,
+        children: childrenn,
       },
       time: selectedTime,
       experienceId: id,
-      totalPrice: total,
+      totalPrice: Number(total),
       currency: 'HKD',
       firstName,
       lastName,
       phone: '123 12345678',
     }
+    if (total > 0) {
+      setItem('booking', bookData)
+      dispatch(stripeCheckoutAC('booking', total))
+    }
+
     console.log('%c   bookData   ', 'color: darkgreen; background: palegreen;', bookData)
   }
 
@@ -67,17 +72,17 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
   useEffect(() => {
     setTotal(
       Number(
-        (adult * priceAdult + children * priceChild) *
-          (1 - (adult + children >= discount.quantity ? discount.discount / 100 : 0)),
+        (adult * priceAdult + childrenn * priceChild) *
+          (1 - (adult + childrenn >= discount.quantity ? discount.discount / 100 : 0)),
       ).toFixed(2),
     )
-  }, [adult, children])
+  }, [adult, childrenn])
 
   useEffect(() => {
     const getDates = (allDays) => {
       if (!allDays) return
       return allDays.reduce(
-        (acc, el, i, arr) =>
+        (acc, el) =>
           acc.find((d) => isSameDay(parseISO(el), parseISO(d))) ? acc : acc.concat([el]),
         [],
       )
@@ -114,19 +119,19 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                   priceChild={priceChild}
                   adult={adult}
                   setAdultCount={setAdultCount}
-                  children={children}
+                  childrenn={childrenn}
                   setChildrenCount={setChildrenCount}
                 />
 
                 <label className={styles.label}>Number of guests</label>
                 <div className={cls(styles.input_wrapper, 'exp-page-input')}>
                   <div className={styles.success}>
-                    {adult + children >= discount.quantity ? `${discount.discount}% OFF` : ''}
+                    {adult + childrenn >= discount.quantity ? `${discount.discount}% OFF` : ''}
                   </div>
                   <input
                     className={styles.input}
                     type="text"
-                    value={`${adult + children} people`}
+                    value={`${adult + childrenn} people`}
                   />
                 </div>
               </div>
@@ -145,12 +150,12 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                   </div>
                   <div
                     className={styles.info_text}
-                  >{`Children x ${children} ($${priceChild}) = $${children * priceChild}`}</div>
+                  >{`Children x ${childrenn} ($${priceChild}) = $${childrenn * priceChild}`}</div>
                   <div className={styles.info_text}>
                     Total
                     <span
                       className={
-                        adult + children >= discount.quantity
+                        adult + childrenn >= discount.quantity
                           ? styles.discount_total
                           : styles.no_discount
                       }

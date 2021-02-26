@@ -76,8 +76,10 @@ const ExperienceDashboard = lazy(() => import('containers/ExperienceDashboard'))
 const AddExperience = lazy(() => import('containers/ExperienceDashboard/components/AddExperience'))
 
 // Other
-const Success = lazy(() => import('pages/Stripe/Success'))
-const Error = lazy(() => import('pages/Stripe/Error'))
+const Success = lazy(() => import('pages/Stripe/Cart/Success'))
+const Error = lazy(() => import('pages/Stripe/Cart/Error'))
+const BookingSuccess = lazy(() => import('pages/Stripe/Booking/Success'))
+const BookingError = lazy(() => import('pages/Stripe/Booking/Error'))
 const CartPage = lazy(() => import('containers/Cart'))
 const Settings = lazy(() => import('containers/Settings'))
 const PageNotFound = lazy(() => import('components/PageNotFound'))
@@ -213,6 +215,16 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                 />
                 <PublicRoute exact path="/payment-success" component={WaitingComponent(Success)} />
                 <PublicRoute exact path="/payment-error" component={WaitingComponent(Error)} />
+                <PublicRoute
+                  exact
+                  path="/booking-success"
+                  component={WaitingComponent(BookingSuccess)}
+                />
+                <PublicRoute
+                  exact
+                  path="/booking-error"
+                  component={WaitingComponent(BookingError)}
+                />
                 <PublicRoute
                   exact
                   path="/landing/create_shop"
