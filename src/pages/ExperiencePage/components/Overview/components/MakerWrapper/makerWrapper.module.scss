@@ -6,9 +6,9 @@
   background: #fbe4e4;
   border-radius: 16px;
 
-  @media (max-width: 1200px) {
-    flex-direction: column;
-  }
+  // @media (max-width: 1200px) {
+  //   flex-direction: column;
+  // }
   @media (max-width: 1024px) {
     flex-direction: row;
     width: 100%;
@@ -16,6 +16,8 @@
   }
   @media (max-width: 480px) {
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .mainInfo {
@@ -23,7 +25,10 @@
     flex-direction: column;
     align-items: center;
     margin-right: 20px;
-    // margin-bottom: 20px;
+    @media (max-width: 480px) {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
 
     .imgWrapper {
       position: relative;
