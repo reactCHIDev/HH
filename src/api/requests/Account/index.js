@@ -8,7 +8,6 @@ export const updateSettings = (data) => apiClient.patch(PATHS.updateSettings, { 
 export const confirmEmailUpdate = (data) => apiClient.patch(PATHS.confirmEmailUpdate, { data })
 export const updatePhotoName = (data) => apiClient.patch(PATHS.updatePhotoName, { data })
 export const getBillingHistory = () => apiClient.get(PATHS.billingHistory)
-export const getFMBookingHistory = () => apiClient.get(PATHS.fmBookingHistory)
 export const registrationEmail = (data) => apiClient.patch(PATHS.registrationEmail, { data })
 
 //

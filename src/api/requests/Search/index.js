@@ -37,6 +37,7 @@ export const searchByFoodmakersReq = ({ searchedValue, city, isExplore, fmTags }
 
 export const searchByExperiencesReq = ({
   startIdx,
+  searchedValue,
   lim,
   city,
   prodPrice,
@@ -44,14 +45,15 @@ export const searchByExperiencesReq = ({
   guests,
   types,
 }) => {
-  const startIndex = startIdx >= 0 ? `startIndex=${startIdx}` : ''
+  const title = searchedValue ? `title=${searchedValue}` : ''
+  const startIndex = startIdx >= 0 ? `&startIndex=${startIdx}` : ''
   const limit = lim >= 0 ? `&limit=${lim}` : ''
   const cityId = city ? `&cityId=${city}` : ''
   const price = prodPrice ? `&price=${prodPrice}` : ''
   const explore = isExplore ? '&explore=true' : ''
   const guestsQ = guests ? `&guests=${guests}` : ''
   const typeId = types ? `&typeIds=${types}` : ''
-  const params = `?${startIndex}${limit}${cityId}${price}${explore}${guestsQ}${typeId}`
+  const params = `?${title}${startIndex}${limit}${cityId}${price}${explore}${guestsQ}${typeId}`
   return apiClient.get(PATHS.searchInExperiences + params)
   // ?startIndex=0&limit=12&cityId=307&price=0,499&explore=true&guests=15&typeIds=1,2,3
 }

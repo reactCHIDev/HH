@@ -22,7 +22,6 @@ export default {
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',
   registrationEmail: '/v1/user/verify_registration_email',
-  fmBookingHistory: '',
   experiencesReviews: '',
   // Listing
 
@@ -47,6 +46,7 @@ export default {
   // /v1/review/experience/by_foodmaker/214
   getBookingByDate: '/v1/experience/',
   createPublicBooking: '/v1/experience/create/public_booking',
+  fmBookingHistory: '',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

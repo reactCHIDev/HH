@@ -14,3 +14,4 @@ export const createPublicBookingReq = (data) => apiClient.post(PATHS.createPubli
 
 export const getExperienceReviews = () => apiClient.get(PATHS.experienceReviews)
 export const getFoodmakerExperiencesReviews = () => apiClient.get(PATHS.foodmakerExperiencesReviews)
+export const getFMBookingHistory = () => apiClient.get(PATHS.fmBookingHistory)

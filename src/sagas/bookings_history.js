@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { getFMBookingHistory } from 'api/requests/Account'
+import { getFMBookingHistory } from 'api/requests/Experience'
 
 import {
   GET_FM_BOOKING_HISTORY_REQUESTING,

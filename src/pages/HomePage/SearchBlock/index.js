@@ -17,19 +17,19 @@ import styles from './search.module.scss'
 const searchData = [
   {
     type: 'Products',
-    url: 'proucts_explore',
+    url: '/product_explore',
     isActive: true,
   },
   {
     type: 'Foodmakers',
-    url: 'foodmakers_explore',
+    url: '/foodmakers_explore',
     isActive: true,
   },
-  // {
-  //   type: 'Experiences',
-  //   url: 'experiences_explore',
-  //   isActive: false,
-  // },
+  {
+    type: 'Experiences',
+    url: '/explore_experiences',
+    isActive: true,
+  },
 ]
 
 function SearchBlock() {
@@ -50,6 +50,7 @@ function SearchBlock() {
   const [selectedCity, setSelectedCity] = React.useState('')
   const [cityVisibility, setCityVisibility] = React.useState(false)
   const [isResultsShown, setIsResultsShown] = React.useState(false)
+  const [urlToOpen, setUrlToOpen] = React.useState('/product_explore')
 
   useClickOutside(typeRef, () => setIsSearchTypesVisible(false))
   useClickOutside(cityContainerRef, () => setCityVisibility(false))
@@ -149,6 +150,7 @@ function SearchBlock() {
                     onClick={() => {
                       if (searchType === item.type || !item.isActive) return
                       clickHandler(item.type)
+                      setUrlToOpen(item.url)
                     }}
                     key={item.type}
                     style={
@@ -170,7 +172,9 @@ function SearchBlock() {
             placeholder={
               searchType === 'Products'
                 ? 'food & drink, catering, gift hampers...'
-                : 'chef, food maker, tastemaker...'
+                : searchType === 'Foodmakers'
+                ? 'chef, food maker, tastemaker...'
+                : 'experiences'
             }
             onChange={(e) => setSearchValue(e.target.value)}
           />
@@ -180,12 +184,14 @@ function SearchBlock() {
                 <Link
                   key={item.id}
                   to={
-                    item.title
-                      ? `/product/${item.id}`
-                      : `/${item.hungryHuggerLink.split('/').pop()}`
+                    searchType === 'Products'
+                      ? `/product/${item?.id}`
+                      : searchType === 'Foodmakers'
+                      ? `/${item?.hungryHuggerLink.split('/').pop()}`
+                      : `/experience/${item?.id}`
                   }
                 >
-                  <div>{item.title || `${item.user.profileName}`}</div>
+                  <div>{item?.title || `${item?.user?.profileName || ''}`}</div>
                 </Link>
               ))}
             </div>
@@ -222,11 +228,8 @@ function SearchBlock() {
         <span className={cls(styles.label, 'mobile_hidden')}>Hong-Kong, Sydney</span>
       </div>
       <div className={styles.input_wrapper}>
-        <Link to={searchType === 'Products' ? '/product_explore' : '/foodmakers_explore'}>
-          <button
-            type="button"
-            //  disabled={!searchedDataResults.length}
-          >
+        <Link to={urlToOpen}>
+          <button type="button">
             <svg
               width="19"
               height="19"

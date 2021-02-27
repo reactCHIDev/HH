@@ -37,19 +37,13 @@ function SearchBlock() {
     mode: 'onBlur',
   })
 
-  const getData = React.useCallback(
-    () =>
-      dispatch(
-        searchRequestingnAc({
-          searchType: 'Experiences',
-          dataForSearch: { isExplore: true },
-        }),
-      ),
-    [dispatch],
-  )
-
   React.useEffect(() => {
-    getData()
+    dispatch(
+      searchRequestingnAc({
+        searchType: 'Experiences',
+        dataForSearch: { isExplore: true, searchedValue: searchTitle },
+      }),
+    )
     return () => {
       setItem('search_data', {})
     }
