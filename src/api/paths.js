@@ -97,6 +97,7 @@ export default {
   toggleFavouriteProduct: '/v1/product/toggle_favorite',
   toggleFavouriteFoodmaker: '/v1/foodmaker/toggle_favorite',
   toggleFavouriteShop: '/v1/shop/toggle_favorite',
+  toggleFavouriteExp: '/v1/experience/toggle_favorite',
 
   // Search
   searchInProducts: '/v1/search/product/predictive',
