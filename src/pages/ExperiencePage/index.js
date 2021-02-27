@@ -22,6 +22,8 @@ function ExperincePage() {
     dispatch(getExperienceByIdAC(productId))
   }, [])
 
+  console.log(experience, 'experience')
+
   return experience ? (
     <div className={styles.wrapper}>
       <ExpHeader
@@ -43,7 +45,7 @@ function ExperincePage() {
         />
         <About />
         {/* <GuestPhotos /> */}
-        <Review />
+        <Review id={experience.experience.id} />
       </div>
     </div>
   ) : (

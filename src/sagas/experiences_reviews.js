@@ -8,15 +8,13 @@ import {
 } from '../actions/constants'
 
 function* getExperiencesReviewsSage({ payload }) {
-  const { page, type } = payload
-  // console.log(type, 'TYPE')
+  const { page, type, id } = payload
   try {
     const response =
       type === 'fmExperiencesReview'
-        ? yield getFoodmakerExperiencesReviews()
-        : yield getExperienceReviews()
+        ? yield getFoodmakerExperiencesReviews({ startIndex: page * 3 - 3, limit: 3 })
+        : yield getExperienceReviews({ id, startIndex: page * 3 - 3, limit: 3 })
 
-    console.log(response, 'response')
     yield put({ type: GET_EXPERIENCE_REVIEW_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {

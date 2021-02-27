@@ -53,6 +53,6 @@ export default function* rootSaga() {
     reviews(),
     fmBookingHistoryWatcher(),
     expListing(),
-    // expReviews(),
+    expReviews(),
   ])
 }

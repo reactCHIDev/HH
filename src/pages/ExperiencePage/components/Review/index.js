@@ -8,12 +8,12 @@ import ReviewsStats from './components/ReviewsStats'
 
 import styles from './review.module.scss'
 
-function Review() {
+function Review({ id }) {
   const dispatch = useDispatch()
   const expReviews = useSelector((state) => state.expReviews.expReviews)
 
   React.useEffect(() => {
-    dispatch(getExperienceReviewAC())
+    dispatch(getExperienceReviewAC({ page: 1, type: 'experienceReviews', id }))
   }, [])
 
   return (
