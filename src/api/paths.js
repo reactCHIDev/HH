@@ -46,7 +46,7 @@ export default {
   // /v1/review/experience/by_foodmaker/214
   getBookingByDate: '/v1/experience/',
   createPublicBooking: '/v1/experience/create/public_booking',
-  fmBookingHistory: '',
+  fmBookingHistory: '/v1/experience/list_foodmaker_bookings',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

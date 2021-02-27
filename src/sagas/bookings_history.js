@@ -10,7 +10,7 @@ import {
 function* getFMBookingHistorySaga() {
   try {
     const response = yield getFMBookingHistory()
-    yield put({ type: GET_FM_BOOKING_HISTORY_SUCCESS, data: response.data })
+    yield put({ type: GET_FM_BOOKING_HISTORY_SUCCESS, data: response.data.bookings })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_FM_BOOKING_HISTORY_ERROR, error: error.response.data.error })
