@@ -24,7 +24,17 @@ import styles from './exp_page_header.module.scss'
 import './exp_page_header.less'
 
 const ExpHeader = ({ experience, user, bookingsByDate }) => {
-  const { id, coverPhoto, otherPhotos, guests, discount, time, priceAdult, priceChild } = experience
+  const {
+    title,
+    id,
+    coverPhoto,
+    otherPhotos,
+    guests,
+    discount,
+    time,
+    priceAdult,
+    priceChild,
+  } = experience
   const { firstName, lastName } = user
 
   const [selectedDate, setSelectedDate] = useState()
@@ -44,6 +54,20 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
   })
 
   useEffect(() => {
+    const getDates = (allDays) => {
+      if (!allDays) return
+      return allDays
+        .filter((d) => differenceInMinutes(parseISO(d), new Date()) > 0)
+        .reduce(
+          (acc, el) =>
+            acc.find((d) => isSameDay(parseISO(el), parseISO(d))) ? acc : acc.concat([el]),
+          [],
+        )
+    }
+    if (time?.length) setDates(getDates(time))
+  }, [time])
+
+  useEffect(() => {
     if (selectedDate) {
       const year = getYear(parseISO(selectedDate))
       const month = getMonth(parseISO(selectedDate))
@@ -54,9 +78,9 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
           `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
         ),
       )
-      const getAppointments = (day, allDays) => {
+      const getAppointments = (selectedDay, allDays) => {
         if (!allDays) return
-        const thisDay = allDays.filter((d) => isSameDay(parseISO(day), parseISO(d)))
+        const thisDay = allDays.filter((d) => isSameDay(parseISO(selectedDay), parseISO(d)))
         return thisDay
       }
       setAppointments(
@@ -64,15 +88,22 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
           (d) => differenceInMinutes(parseISO(d), new Date()) > 0,
         ),
       )
+      setSelectedTime('')
+      setAdultCount(1)
+      setChildrenCount(0)
     }
   }, [selectedDate])
 
   useEffect(() => {
     if (selectedTime) {
       const getAvailablePlaces = (appointmentTime, bookingList, guestsLimit) => {
-        const booking = bookingList.find((b) => b.time === appointmentTime)
-        const available = booking
-          ? guestsLimit - (booking.guests?.adults || 0) - (booking.guests?.children || 0)
+        const booking = bookingList.filter((b) => b.time === appointmentTime)
+        const available = booking.length
+          ? guestsLimit -
+            booking.reduce(
+              (acc, el) => acc + (el.guests?.adults || 0) + (el.guests?.children || 0),
+              0,
+            )
           : guestsLimit
 
         return available
@@ -91,18 +122,6 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
       ),
     )
   }, [adult, childrenn])
-
-  useEffect(() => {
-    const getDates = (allDays) => {
-      if (!allDays) return
-      return allDays.reduce(
-        (acc, el) =>
-          acc.find((d) => isSameDay(parseISO(el), parseISO(d))) ? acc : acc.concat([el]),
-        [],
-      )
-    }
-    if (time?.length) setDates(getDates(time).filter((d) => !isBefore(parseISO(d), startOfToday())))
-  }, [time])
 
   const onBook = (data) => {
     const guests = {}
@@ -130,7 +149,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
         <div className={styles.content}>
           <ImagePreviewer images={[coverPhoto].concat(otherPhotos)} />
           <div className={styles.inner_content}>
-            <p className={styles.exp_heading}>Experience title</p>
+            <p className={styles.exp_heading}>{title}</p>
             <form className={styles.form} onSubmit={handleSubmit(onBook)}>
               <div
                 className={cls(styles.input_number, 'exp-guests_number')}
