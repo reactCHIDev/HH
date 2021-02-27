@@ -54,8 +54,8 @@ function* stripeCheckoutSaga({ item, price }) {
   }
   if (item === 'booking') {
     totalPrice = Number(price)
-    // successUrl = `http://localhost:3000/booking-success`
-    successUrl = `${process.env.REACT_APP_BASE_URL}/booking-success`
+    successUrl = `http://localhost:3000/booking-success`
+    // successUrl = `${process.env.REACT_APP_BASE_URL}/booking-success`
     cancelUrl = `${process.env.REACT_APP_BASE_URL}/booking-error`
   }
 
@@ -72,7 +72,7 @@ function* stripeCheckoutSaga({ item, price }) {
               name: 'HungryHugger', // какая то подпись
               images: ['https://hungryhugger.com/favicon.png'],
             },
-            unit_amount: Number(totalPrice.toFixed(2)) * 100,
+            unit_amount: Number((totalPrice * 100).toFixed(0)),
           },
           quantity: 1,
         },

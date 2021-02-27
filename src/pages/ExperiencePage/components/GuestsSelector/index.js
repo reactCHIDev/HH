@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { Slider, Divider, Button } from 'antd'
 import styles from './guests_selector.module.scss'
@@ -14,12 +14,21 @@ const GuestsSelector = ({
   setAdultCount,
   childrenn,
   setChildrenCount,
+  available,
 }) => {
+  useEffect(() => {
+    setAdultCount(1)
+    setChildrenCount(0)
+  }, [available])
+
   const handleCountDecrement = () =>
-    setAdultCount((oldCount) => (oldCount > 0 ? oldCount - 1 : oldCount))
-  const handleCountIncrement = () => setAdultCount((oldCount) => oldCount + 1)
+    setAdultCount((oldCount) =>
+      oldCount > 0 && oldCount + childrenn > 1 ? oldCount - 1 : oldCount,
+    )
+  const handleCountIncrement = () =>
+    setAdultCount((oldCount) => (oldCount + childrenn < available ? oldCount + 1 : oldCount))
   const handleChildrenDecrement = () =>
-    setChildrenCount((oldCount) => (oldCount > 0 ? oldCount - 1 : oldCount))
+    setChildrenCount((oldCount) => (oldCount > 0 && oldCount + adult > 1 ? oldCount - 1 : oldCount))
   const handleChildrenIncrement = () => setChildrenCount((oldCount) => oldCount + 1)
 
   return (
@@ -40,7 +49,7 @@ const GuestsSelector = ({
           <button
             className={styles.button_right}
             type="button"
-            disabled={adult + childrenn >= guests}
+            disabled={adult + childrenn >= available}
             onClick={handleCountIncrement}
           >
             +
@@ -58,7 +67,7 @@ const GuestsSelector = ({
           <button
             className={styles.button_right}
             type="button"
-            disabled={adult + childrenn >= guests}
+            disabled={adult + childrenn >= available}
             onClick={handleChildrenIncrement}
           >
             +

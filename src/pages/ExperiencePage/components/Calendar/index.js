@@ -1,7 +1,16 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
-import { format, getMinutes, getHours, parseISO, isSameDay } from 'date-fns'
+import {
+  format,
+  getMinutes,
+  getHours,
+  parseISO,
+  isSameDay,
+  differenceInMinutes,
+  isBefore,
+  startOfToday,
+} from 'date-fns'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -16,11 +25,26 @@ const DateSlider = (props) => {
     setSelectedTime,
     dates,
     appointments,
+    bookingsByDate,
+    guests,
+    available,
   } = props
+
+  const [actualDates, setActualDates] = useState([])
 
   useEffect(() => {
     if (dates?.length) setSelectedDate(dates[0])
+    setActualDates(
+      dates.filter(
+        (d) =>
+          !isBefore(parseISO(d), startOfToday()) &&
+          appointments.filter((t) => differenceInMinutes(parseISO(t), new Date()) > 0).length > 0,
+      ),
+    )
   }, [dates])
+  console.log('%c   dates   ', 'color: white; background: royalblue;', dates)
+  console.log('%c   actualDates   ', 'color: white; background: royalblue;', actualDates)
+  console.log('%c   appointments   ', 'color: white; background: royalblue;', appointments)
 
   const settings = useMemo(
     () => ({
@@ -72,6 +96,15 @@ const DateSlider = (props) => {
     setSelectedTime(e.currentTarget.id)
   })
 
+  const getAvailablePlaces = (appointmentTime, bookingList, guestsLimit) => {
+    const booking = bookingList.find((b) => b.time === appointmentTime)
+    const available = booking
+      ? guestsLimit - (booking.guests?.adults || 0) - (booking.guests?.children || 0)
+      : guestsLimit
+
+    return available
+  }
+
   // if (!dates?.length) return <></>
   return (
     <div className={styles.main_container}>
@@ -114,6 +147,9 @@ const DateSlider = (props) => {
                 {`${String(getHours(parseISO(time))).padStart(2, '0')}:${String(
                   getMinutes(parseISO(time)),
                 ).padStart(2, '0')}`}
+                <div className={styles.available}>
+                  {`${getAvailablePlaces(time, bookingsByDate, guests)} left`}
+                </div>
               </div>
             </div>
           ))}
