@@ -47,15 +47,21 @@ function ProductRaw({ element }) {
           </div>
         </div>
       </div>
-      <div className={styles.statusWrapper}>
-        <Option checked={element.status === 'PUBLISHED'} onChange={toggleStatus} id={element.id} />
-      </div>
-      <div className={styles.dateWrapper}>
-        <span>{time}</span>
-        {day}
-      </div>
-      <div className={styles.lastSection} onClick={() => openExpPage()}>
-        <button type="button">{'>'}</button>
+      <div className={styles.secondaryInfo}>
+        <div className={styles.statusWrapper}>
+          <Option
+            checked={element.status === 'PUBLISHED'}
+            onChange={toggleStatus}
+            id={element.id}
+          />
+        </div>
+        <div className={styles.dateWrapper}>
+          <span>{time}</span>
+          {day}
+        </div>
+        <div className={styles.lastSection} onClick={() => openExpPage()}>
+          <button type="button">{'>'}</button>
+        </div>
       </div>
     </div>
   )
