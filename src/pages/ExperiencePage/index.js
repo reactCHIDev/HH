@@ -15,7 +15,6 @@ import styles from './expPage.module.scss'
 function ExperincePage() {
   const dispatch = useDispatch()
   const experience = useSelector((state) => state.expListing.experience)
-  const bookingsByDate = useSelector((state) => state.experience.bookingByDate)
 
   const { productId } = useParams()
   React.useEffect(() => {
@@ -26,11 +25,7 @@ function ExperincePage() {
 
   return experience ? (
     <div className={styles.wrapper}>
-      <ExpHeader
-        experience={experience.experience}
-        user={experience.userProfile}
-        bookingsByDate={bookingsByDate}
-      />
+      <ExpHeader experience={experience.experience} user={experience.userProfile} />
       <div className={styles.container}>
         <Overview
           rate={experience.experience.rating}

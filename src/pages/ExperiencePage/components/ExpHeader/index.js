@@ -1,39 +1,135 @@
+/* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import { getBookingByDateAC } from 'actions/experience'
 import { stripeCheckoutAC } from 'actions/stripe'
-import { parseISO, isSameDay, getDate, getMonth, getYear } from 'date-fns'
+import { parseISO, isSameDay, getDate, getMonth, getYear, differenceInMinutes } from 'date-fns'
 import { Button } from 'antd'
 import { setItem } from 'utils/localStorage'
-import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ImagePreviewer from 'pages/ProductPage/components/ImagePreviewer'
 import GuestsSelector from '../GuestsSelector'
 import Calendar from '../Calendar'
 import styles from './exp_page_header.module.scss'
 import './exp_page_header.less'
 
-const ExpHeader = ({ experience, user, bookingsByDate }) => {
-  const { id, coverPhoto, otherPhotos, guests, discount, time, priceAdult, priceChild } = experience
+const ExpHeader = ({ experience, user }) => {
+  const {
+    title,
+    id,
+    duration,
+    coverPhoto,
+    otherPhotos,
+    guests,
+    discount,
+    time,
+    priceAdult,
+    priceChild,
+  } = experience
   const { firstName, lastName } = user
 
   const [selectedDate, setSelectedDate] = useState()
-  const [selectedTime, setSelectedTime] = useState()
+  const [selectedTime, setSelectedTime] = useState('')
   const [dates, setDates] = useState([])
   const [appointments, setAppointments] = useState([])
   const [visible, setVisibilityGuestsSelector] = useState(false)
   const [adult, setAdultCount] = useState(1)
   const [childrenn, setChildrenCount] = useState(0)
   const [total, setTotal] = useState(0)
+  const [available, setAvailable] = useState(guests)
+
+  const bookingsByDate = useSelector((state) => state.experience.bookingByDate)
 
   const dispatch = useDispatch()
 
-  const { handleSubmit, control, errors } = useForm({
-    mode: 'onBlur',
-  })
+  useEffect(() => {
+    //time
+    const getDates = (allDays) => {
+      if (!allDays) return
+      return allDays
+        .filter((d) => differenceInMinutes(parseISO(d), new Date()) > 0)
+        .reduce(
+          (acc, el) =>
+            acc.find((d) => isSameDay(parseISO(el), parseISO(d))) ? acc : acc.concat([el]),
+          [],
+        )
+    }
+    if (time?.length) {
+      const dates = getDates(time)
+      setDates(dates) // dates
+      setSelectedDate(dates[0] || '')
+    }
+    setAppointments([])
+  }, [time])
 
-  const onBook = (data) => {
+  useEffect(() => {
+    // selectedDate
+    if (selectedDate) {
+      const year = getYear(parseISO(selectedDate))
+      const month = getMonth(parseISO(selectedDate))
+      const day = getDate(parseISO(selectedDate))
+      dispatch(
+        getBookingByDateAC(
+          id,
+          `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+        ),
+      )
+    }
+
+    setSelectedTime('')
+    setAdultCount(1)
+    setChildrenCount(0)
+  }, [selectedDate])
+
+  useEffect(() => {
+    // bookingsByDate
+    const getAppointments = (selectedDay, allDays) => {
+      if (!allDays) return
+      const thisDay = allDays.filter((d) => isSameDay(parseISO(selectedDay), parseISO(d)))
+      return thisDay
+    }
+
+    setAppointments(
+      getAppointments(selectedDate, time).filter(
+        (d) => differenceInMinutes(parseISO(d), new Date()) > 0,
+      ),
+    )
+    setSelectedTime('')
+  }, [bookingsByDate])
+
+  useEffect(() => {
+    // selectedTime
+    if (selectedTime) {
+      const getAvailablePlaces = (appointmentTime, bookingList, guestsLimit) => {
+        const booking = bookingList.filter((b) => b.time === appointmentTime)
+        const available = booking.length
+          ? guestsLimit -
+            booking.reduce(
+              (acc, el) => acc + (el.guests?.adults || 0) + (el.guests?.children || 0),
+              0,
+            )
+          : guestsLimit
+
+        return available
+      }
+      setAvailable(getAvailablePlaces(selectedTime, bookingsByDate, guests))
+    }
+  }, [selectedTime])
+
+  useEffect(() => {
+    // adult, childrenn
+    setTotal(
+      Number(
+        Number(
+          (adult * priceAdult + childrenn * priceChild) *
+            (1 - (adult + childrenn >= discount.quantity ? discount.discount / 100 : 0)),
+        ).toFixed(2),
+      ),
+    )
+  }, [adult, childrenn])
+
+  const onBook = () => {
     const guests = {}
     if (adult > 0) guests.adults = adult
     if (childrenn > 0) guests.children = childrenn
@@ -53,64 +149,22 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
     }
   }
 
-  useEffect(() => {
-    if (selectedDate) {
-      const year = getYear(parseISO(selectedDate))
-      const month = getMonth(parseISO(selectedDate))
-      const day = getDate(parseISO(selectedDate))
-      dispatch(
-        getBookingByDateAC(
-          id,
-          `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
-        ),
-      )
-    }
-  }, [selectedDate])
-
-  useEffect(() => {
-    setTotal(
-      Number(
-        (adult * priceAdult + childrenn * priceChild) *
-          (1 - (adult + childrenn >= discount.quantity ? discount.discount / 100 : 0)),
-      ).toFixed(2),
-    )
-  }, [adult, childrenn])
-
-  useEffect(() => {
-    const getDates = (allDays) => {
-      if (!allDays) return
-      return allDays.reduce(
-        (acc, el) =>
-          acc.find((d) => isSameDay(parseISO(el), parseISO(d))) ? acc : acc.concat([el]),
-        [],
-      )
-    }
-    if (time?.length) setDates(getDates(time))
-  }, [time])
-
-  useEffect(() => {
-    const getAppointments = (day, allDays) => {
-      if (!allDays) return
-      const thisDay = allDays.filter((d) => isSameDay(parseISO(day), parseISO(d)))
-      return thisDay
-    }
-    setAppointments(getAppointments(selectedDate, time))
-  }, [selectedDate])
+  const guestSelectorSwitch = () => {
+    setVisibilityGuestsSelector(!visible)
+  }
 
   return (
     <div className={styles.wrapper}>
       <div className={cls(styles.container, styles.gray)}>
         <div className={styles.content}>
           <ImagePreviewer images={[coverPhoto].concat(otherPhotos)} />
-          <div className={styles.inner_content}>
-            <p className={styles.exp_heading}>Experience title</p>
-            <form className={styles.form} onSubmit={handleSubmit(onBook)}>
-              <div
-                className={cls(styles.input_number, 'exp-guests_number')}
-                onClick={() => setVisibilityGuestsSelector((v) => !v)}
-              >
+          {dates.length ? (
+            <div className={styles.inner_content}>
+              <p className={styles.exp_heading}>{title}</p>
+              <div className={cls(styles.input_number, 'exp-guests_number')}>
                 <GuestsSelector
                   visible={visible}
+                  setVisibilityGuestsSelector={setVisibilityGuestsSelector}
                   discount={discount}
                   guests={guests}
                   priceAdult={priceAdult}
@@ -119,6 +173,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                   setAdultCount={setAdultCount}
                   childrenn={childrenn}
                   setChildrenCount={setChildrenCount}
+                  available={available}
                 />
 
                 <label className={styles.label}>Number of guests</label>
@@ -130,6 +185,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                     className={styles.input}
                     type="text"
                     value={`${adult + childrenn} people`}
+                    onClick={guestSelectorSwitch}
                   />
                 </div>
               </div>
@@ -140,6 +196,10 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                 setSelectedTime={setSelectedTime}
                 dates={dates}
                 appointments={appointments}
+                bookingsByDate={bookingsByDate}
+                guests={guests}
+                available={available}
+                duration={duration}
               />
               <div className={styles.info_wrapper}>
                 <div className={styles.info_container}>
@@ -164,13 +224,21 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                   </div>
                 </div>
                 <div className={cls(styles.button_container, 'booking_btn')}>
-                  <Button type="primary" block size="large" htmlType="submit">
-                    {`BOOK FOR ${total} HKD`}
+                  <Button
+                    type="primary"
+                    block
+                    size="large"
+                    disabled={!selectedTime || adult + childrenn === 0}
+                    onClick={onBook}
+                  >
+                    {`${selectedTime ? `BOOK FOR ${total} HKD` : 'SELECT TIME'}`}
                   </Button>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          ) : (
+            <p className={styles.no_data}>No available events</p>
+          )}
         </div>
       </div>
     </div>
