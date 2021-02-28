@@ -93,6 +93,7 @@ function* getBookingByDateSaga({ id, date }) {
 function* createPublicBookingSaga({ payload }) {
   try {
     const response = yield createPublicBookingReq(payload)
+    yield delay(3000)
     yield put({ type: CREATE_PUBLIC_BOOKING_SUCCESS, data: response.data })
   } catch (error) {
     if (error.response) {
