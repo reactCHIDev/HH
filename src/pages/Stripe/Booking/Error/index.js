@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getItem } from 'utils/localStorage'
 import { Button } from 'antd'
+import info from 'assets/icons/svg/info-red.svg'
 import Cross from 'assets/images/signup-flow/svg/cross.svg'
 import { createOrderRequestrinAc } from 'actions/order'
 import cls from 'classnames'
@@ -21,20 +22,17 @@ const Error = () => {
 
   return (
     <div className={styles.success}>
-      <img className={styles.img} src={Cross} alt="chk" />
-      <p className={styles.title}>Sorry!</p>
-      <p className={styles.msg}>Something went wrong. Try again.</p>
-      <div className={styles.btn_block}>
-        <div className={styles.btn_container}>
-          <Button type="primary" block size="large" onClick={toHome}>
-            To Home page
-          </Button>
-        </div>
-        <div className={styles.btn_container}>
-          <Button type="primary" block size="large" onClick={toListings}>
-            To Cart
-          </Button>
-        </div>
+      <p className={styles.title}>Payment failed</p>
+      <div className={styles.msg}>Please try again</div>
+      <div className={styles.my_bookings} onClick={toListings}>
+        <img className={styles.img} src={info} alt="info" />
+        No response received from the payment system, it may be worth checking the Internet
+        connection
+      </div>
+      <div className={cls(styles.btn_container, 'success_btn')}>
+        <Button type="primary" block size="large" onClick={toHome}>
+          BACK TO BOOKING
+        </Button>
       </div>
     </div>
   )

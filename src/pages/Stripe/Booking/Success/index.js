@@ -26,7 +26,7 @@ const Success = () => {
   const toHome = () => {
     dispatch(replace('/'))
   }
-  const toListings = () => {
+  const toBookings = () => {
     dispatch(replace('/experience_dashboard/listings'))
   }
 
@@ -39,26 +39,49 @@ const Success = () => {
           </Space>
         </div>
       ) : (
-        <>
-          <div className={styles.chk_container}>
-            <img className={styles.chk1} src={Chk1} alt="chk" />
-            <img className={styles.chk2} src={Chk2} alt="chk" />
+        <div>
+          <p className={styles.title}>Everything is ready!!</p>
+          <div className={styles.msg}>Find your booking confirmation in </div>
+          <div className={styles.my_bookings} onClick={toBookings}>
+            My bookings
           </div>
-          <p className={styles.title}>Thank You!</p>
-          <p className={styles.msg}>Your payment was successful</p>
-          <div className={styles.btn_block}>
-            <div className={styles.btn_container}>
-              <Button type="primary" block size="large" onClick={toHome}>
-                To Home page
-              </Button>
-            </div>
-            <div className={styles.btn_container}>
-              <Button type="primary" block size="large" onClick={toListings}>
-                To listings
-              </Button>
-            </div>
+          <div className={styles.msg}>The copy will be sent to your email</div>
+
+          <div className={cls(styles.msg, styles.mail)}>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 34 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g opacity="1">
+                <rect
+                  x="1.33301"
+                  y="4"
+                  width="21.3333"
+                  height="16"
+                  rx="3"
+                  stroke="#1d53d9"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M2.66699 6.66699L10.8378 12.5033C11.5332 13 12.4674 13 13.1628 12.5033L21.3337 6.66699"
+                  stroke="#1d53d9"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </g>
+            </svg>
+            alexwatson@gmail.com
           </div>
-        </>
+          <div className={cls(styles.btn_container, 'success_btn')}>
+            <Button type="primary" block size="large" onClick={toHome}>
+              CLOSE
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   )

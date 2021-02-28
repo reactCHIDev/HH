@@ -8,6 +8,7 @@ import {
 } from '../actions/constants'
 
 const initialState = {
+  bookingByDate: [],
   requesting: false,
   error: '',
 }

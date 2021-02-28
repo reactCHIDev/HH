@@ -1,15 +1,15 @@
 .container {
   position: absolute;
-  top: 92px;
-  left: 0;
+  top: 90px;
+  left: 25px;
   z-index: 99999;
   display: block;
   width: 174px;
   height: 278px;
-  padding: 10px 16px;
+  padding: 10px 15px;
   background: white;
-  border: 1px solid grey;
-  border-radius: 16px;
+  border: 2px solid rgba(49, 57, 77, 0.2);
+  border-radius: 6px;
   .content {
     .label_container {
       display: flex;
@@ -40,10 +40,6 @@
       border: solid 1px gray;
       border-radius: 10px;
       opacity: 0.8;
-
-      @media (max-width: 768px) {
-        margin: 0 8px 10px;
-      }
 
       .button_left {
         display: inline-block;
