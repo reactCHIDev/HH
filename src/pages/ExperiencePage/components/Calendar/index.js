@@ -82,11 +82,11 @@ const DateSlider = (props) => {
 
   const handleDateClick = useCallback((e) => {
     setSelectedDate(e.currentTarget.id)
-  })
+  }, [])
 
   const handleTimeClick = useCallback((e) => {
     setSelectedTime(e.currentTarget.id)
-  })
+  }, [])
 
   const getAvailablePlaces = (appointmentTime, bookingList, guestsLimit) => {
     const booking = bookingList.filter((b) => b.time === appointmentTime)
@@ -96,6 +96,13 @@ const DateSlider = (props) => {
       : guestsLimit
 
     return available
+  }
+
+  function formatter(value) {
+    const time = value * 3 + 30
+    const h = Math.floor(time / 60)
+    const m = time % 60
+    return `${h ? `${h}h` : ''} ${m ? `${m}m ` : ''}`
   }
 
   // if (!dates?.length) return <></>
@@ -125,7 +132,7 @@ const DateSlider = (props) => {
       </div>
       <div className={cls(styles.slider_container, 'slick_experience')}>
         <label className={cls(styles.label, selectedTime ? '' : styles.red_label)}>
-          {`Select time (${duration} duration)`}
+          {`Select time (${formatter(duration)} duration)`}
         </label>
         <Slider {...settings} key={appointments}>
           {appointments.map((time) => {
@@ -150,9 +157,9 @@ const DateSlider = (props) => {
                       getMinutes(parseISO(time)),
                     ).padStart(2, '0')}`}
                   </span>
-                  <div
-                    className={left > 0 ? styles.available : styles.time_text}
-                  >{`${left} left`}</div>
+                  <div className={left > 0 ? styles.available : styles.time_text}>
+                    {`${left} left`}
+                  </div>
                   {left === 0 && (
                     <div className={styles.locked}>
                       <img className={styles.lock_img} src={Lock} alt="lock" />

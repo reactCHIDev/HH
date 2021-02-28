@@ -1,22 +1,12 @@
 /* eslint-disable consistent-return */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import { getBookingByDateAC } from 'actions/experience'
 import { stripeCheckoutAC } from 'actions/stripe'
-import {
-  parseISO,
-  isSameDay,
-  getDate,
-  getMonth,
-  getYear,
-  differenceInMinutes,
-  isBefore,
-  startOfToday,
-} from 'date-fns'
+import { parseISO, isSameDay, getDate, getMonth, getYear, differenceInMinutes } from 'date-fns'
 import { Button } from 'antd'
 import { setItem } from 'utils/localStorage'
-import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import ImagePreviewer from 'pages/ProductPage/components/ImagePreviewer'
 import GuestsSelector from '../GuestsSelector'
@@ -52,10 +42,6 @@ const ExpHeader = ({ experience, user }) => {
   const bookingsByDate = useSelector((state) => state.experience.bookingByDate)
 
   const dispatch = useDispatch()
-
-  const { handleSubmit } = useForm({
-    mode: 'onBlur',
-  })
 
   useEffect(() => {
     //time
@@ -143,7 +129,7 @@ const ExpHeader = ({ experience, user }) => {
     )
   }, [adult, childrenn])
 
-  const onBook = (data) => {
+  const onBook = useCallback(() => {
     const guests = {}
     if (adult > 0) guests.adults = adult
     if (childrenn > 0) guests.children = childrenn
@@ -161,11 +147,11 @@ const ExpHeader = ({ experience, user }) => {
       setItem('booking', bookData)
       dispatch(stripeCheckoutAC('booking', total))
     }
-  }
+  }, [])
 
-  const guestSelectorSwitch = () => {
+  const guestSelectorSwitch = useCallback(() => {
     setVisibilityGuestsSelector(!visible)
-  }
+  }, [])
 
   return (
     <div className={styles.wrapper}>
