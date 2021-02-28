@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Slider, Divider, Button } from 'antd'
 import useClickOutside from 'hooks/useClickOutside'
@@ -9,7 +9,6 @@ const GuestsSelector = ({
   visible,
   setVisibilityGuestsSelector,
   discount,
-  guests,
   priceAdult,
   priceChild,
   adult,
