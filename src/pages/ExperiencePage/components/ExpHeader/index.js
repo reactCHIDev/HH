@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import { getBookingByDateAC } from 'actions/experience'
@@ -129,7 +129,7 @@ const ExpHeader = ({ experience, user }) => {
     )
   }, [adult, childrenn])
 
-  const onBook = useCallback(() => {
+  const onBook = () => {
     const guests = {}
     if (adult > 0) guests.adults = adult
     if (childrenn > 0) guests.children = childrenn
@@ -147,11 +147,11 @@ const ExpHeader = ({ experience, user }) => {
       setItem('booking', bookData)
       dispatch(stripeCheckoutAC('booking', total))
     }
-  }, [])
+  }
 
-  const guestSelectorSwitch = useCallback(() => {
+  const guestSelectorSwitch = () => {
     setVisibilityGuestsSelector(!visible)
-  }, [])
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -161,7 +161,6 @@ const ExpHeader = ({ experience, user }) => {
           {dates.length ? (
             <div className={styles.inner_content}>
               <p className={styles.exp_heading}>{title}</p>
-              {/* <form className={styles.form} onSubmit={handleSubmit(onBook)}> */}
               <div className={cls(styles.input_number, 'exp-guests_number')}>
                 <GuestsSelector
                   visible={visible}
@@ -229,7 +228,6 @@ const ExpHeader = ({ experience, user }) => {
                     type="primary"
                     block
                     size="large"
-                    /* htmlType="submit" */
                     disabled={!selectedTime || adult + childrenn === 0}
                     onClick={onBook}
                   >
@@ -237,7 +235,6 @@ const ExpHeader = ({ experience, user }) => {
                   </Button>
                 </div>
               </div>
-              {/* </form> */}
             </div>
           ) : (
             <p className={styles.no_data}>No available events</p>
