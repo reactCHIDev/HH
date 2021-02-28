@@ -124,6 +124,31 @@
       width: 100%;
     }
   }
+
+  .price_input {
+    position: relative;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+  }
+  .priceLabel{
+    position: relative;
+    display: block;
+    width: 100%;
+    min-width: 176px;
+    height: 56px;
+    padding: 16px;
+    color: #31394d;
+    font-weight: normal;
+    font-size: 16px;
+    background: #fff;
+    border: none;
+    border-radius: 8px;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+  }
   .btn_input {
     @media (max-width: 1024px) {
       margin-top: 56px;

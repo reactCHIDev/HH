@@ -10,6 +10,7 @@ import { getServiceTagsAC, getSpecialityTagsAC } from 'actions/system'
 
 import { getItem, setItem } from 'utils/localStorage'
 import useClickOutside from 'hooks/useClickOutside'
+import PriceSelector from './PriceSelector'
 import styles from './searchBlock.module.scss'
 import './searchBlock.less'
 
@@ -30,8 +31,15 @@ function SearchBlock() {
   const [serviceTagsToChoose, setServiceTagsToChoose] = React.useState([])
   const [isServiceTagsToChooseShown, setIsServiceTagsToChooseShown] = React.useState(false)
 
+  const [minPrice, setMinPrice] = React.useState(0)
+  const [maxPrice, setMaxPrice] = React.useState(100)
+  const [isVisiblePriceSelector, setVisibilityPriceSelector] = React.useState(false)
+
   const serviceTagsRef = React.useRef()
+  const visiblePriceSelectorRef = React.useRef()
+
   useClickOutside(serviceTagsRef, () => setIsServiceTagsToChooseShown(false))
+  useClickOutside(visiblePriceSelectorRef, () => setVisibilityPriceSelector(false))
 
   const { control } = useForm({
     mode: 'onBlur',
@@ -81,6 +89,10 @@ function SearchBlock() {
         },
       }),
     )
+  }
+
+  const onApply = () => {
+    setVisibilityPriceSelector(false)
   }
 
   return null
@@ -150,15 +162,35 @@ function SearchBlock() {
   //         </div>
   //       ) : null}
   //     </div>
-  //     <div className={cls(styles.input_wrapper, styles.speciality_input)}>
-  //       <label className={styles.label}>Price ($)</label>
-  //       <input
-  //         className={styles.input}
-  //         onChange={(e) => setSearchTitleValue(e.target.value)}
-  //         type="text"
-  //         placeholder="E.g. Mike"
-  //         value={searchTitleValue}
+  //     <div
+  //       className={cls(styles.input_wrapper, styles.price_input)}
+  //       onClick={() => setVisibilityPriceSelector((v) => !v)}
+  //       ref={visiblePriceSelectorRef}
+  //     >
+  //       <label className={styles.label}>Price</label>
+  //       <div className={styles.priceLabel} type="text">{`$${minPrice} - $${maxPrice}`}</div>
+  //       <PriceSelector
+  //         min={minPrice}
+  //         max={maxPrice}
+  //         setMin={setMinPrice}
+  //         setMax={setMaxPrice}
+  //         onApply={onApply}
+  //         visible={isVisiblePriceSelector}
   //       />
+  //     </div>
+  //     <div className={cls(styles.input_wrapper, styles.btn_input)}>
+  //       <button className={styles.btn_button} type="button" onClick={() => onSearchClickHandler()}>
+  //         <svg
+  //           width="19"
+  //           height="19"
+  //           viewBox="0 0 24 24"
+  //           fill="none"
+  //           xmlns="http://www.w3.org/2000/svg"
+  //         >
+  //           <circle cx="11.5" cy="11.5" r="8.75" stroke="#000000" />
+  //           <path d="M18 18L22 22" stroke="#000000" />
+  //         </svg>
+  //       </button>
   //     </div>
   //   </div>
   // )

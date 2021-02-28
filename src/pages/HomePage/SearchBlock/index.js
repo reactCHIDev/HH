@@ -174,7 +174,7 @@ function SearchBlock() {
                 ? 'food & drink, catering, gift hampers...'
                 : searchType === 'Foodmakers'
                 ? 'chef, food maker, tastemaker...'
-                : 'experiences'
+                : 'celebration, team building, family day...'
             }
             onChange={(e) => setSearchValue(e.target.value)}
           />

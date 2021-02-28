@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Spin, Space } from 'antd'
 
 import ExpCard from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
@@ -25,21 +26,29 @@ const ExploreExp = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.exp_section}>
-            {fmData.map(
-              (el) =>
-                el?.experience?.coverPhoto && (
-                  <ExpCard
-                    photo={el.experience.coverPhoto}
-                    tags={el.experience.tagIds.map((i) => i.tagName)}
-                    name={el.experience.title}
-                    price={el.experience?.priceChild || el.experience.priceAdult}
-                    rating={el.experience.rating}
-                    rateCount={el.experience.votes}
-                    pathname={`/experience/${el.experience.id}`}
-                    id={el.experience.id}
-                    isFavorite={el.isFavorite}
-                  />
-                ),
+            {fmData.length ? (
+              fmData.map(
+                (el) =>
+                  el?.experience?.coverPhoto && (
+                    <ExpCard
+                      photo={el.experience.coverPhoto}
+                      tags={el.experience.tagIds.map((i) => i.tagName)}
+                      name={el.experience.title}
+                      price={el.experience?.priceChild || el.experience.priceAdult}
+                      rating={el.experience.rating}
+                      rateCount={el.experience.votes}
+                      pathname={`/experience/${el.experience.id}`}
+                      id={el.experience.id}
+                      isFavorite={el.isFavorite}
+                    />
+                  ),
+              )
+            ) : (
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+                <Space size="middle">
+                  <Spin size="large" />
+                </Space>
+              </div>
             )}
           </div>
         </div>
