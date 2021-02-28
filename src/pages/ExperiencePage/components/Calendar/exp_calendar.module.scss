@@ -23,13 +23,16 @@
       display: flex;
       align-items: center;
       margin: 10px 0;
-      padding-left: 0px;
+      padding-left: 5px;
       color: #838894;
       font-weight: normal;
       font-size: 14px;
       font-style: normal;
       line-height: 160%;
       letter-spacing: 0.5px;
+    }
+    .red_label {
+      color: #eb5769;
     }
 
     .selected {

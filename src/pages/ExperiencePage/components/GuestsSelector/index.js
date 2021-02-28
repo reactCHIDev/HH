@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Slider, Divider, Button } from 'antd'
+import useClickOutside from 'hooks/useClickOutside'
 import styles from './guests_selector.module.scss'
 import './guests_selector.less'
 
 const GuestsSelector = ({
   visible,
+  setVisibilityGuestsSelector,
   discount,
   guests,
   priceAdult,
@@ -21,20 +23,26 @@ const GuestsSelector = ({
     setChildrenCount(0)
   }, [available])
 
+  const selector = useRef(null)
+  useClickOutside(selector, () => setVisibilityGuestsSelector(false))
+
   const handleCountDecrement = () =>
     setAdultCount((oldCount) =>
-      oldCount > 0 && oldCount + childrenn > 1 ? oldCount - 1 : oldCount,
+      oldCount > 0 && oldCount + childrenn >= 1 ? oldCount - 1 : oldCount,
     )
   const handleCountIncrement = () =>
     setAdultCount((oldCount) => (oldCount + childrenn < available ? oldCount + 1 : oldCount))
   const handleChildrenDecrement = () =>
-    setChildrenCount((oldCount) => (oldCount > 0 && oldCount + adult > 1 ? oldCount - 1 : oldCount))
+    setChildrenCount((oldCount) =>
+      oldCount > 0 && oldCount + adult >= 1 ? oldCount - 1 : oldCount,
+    )
   const handleChildrenIncrement = () => setChildrenCount((oldCount) => oldCount + 1)
 
   return (
     <div
       className={visible ? styles.container : styles.hidden}
       onClick={(e) => e.stopPropagation()}
+      ref={selector}
     >
       <div className={styles.content}>
         <div className={styles.label_container}>

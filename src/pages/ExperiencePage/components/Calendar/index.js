@@ -28,24 +28,9 @@ const DateSlider = (props) => {
     appointments,
     bookingsByDate,
     guests,
+    duration,
     available,
   } = props
-
-  const [actualDates, setActualDates] = useState([])
-
-  useEffect(() => {
-    if (dates?.length) setSelectedDate(dates[0])
-    setActualDates(
-      dates.filter(
-        (d) =>
-          !isBefore(parseISO(d), startOfToday()) &&
-          appointments.filter((t) => differenceInMinutes(parseISO(t), new Date()) > 0).length > 0,
-      ),
-    )
-  }, [dates])
-  console.log('%c   dates   ', 'color: white; background: royalblue;', dates)
-  console.log('%c   actualDates   ', 'color: white; background: royalblue;', actualDates)
-  console.log('%c   appointments   ', 'color: white; background: royalblue;', appointments)
 
   const settings = useMemo(
     () => ({
@@ -61,19 +46,25 @@ const DateSlider = (props) => {
       initialSlide: 0,
       responsive: [
         {
-          breakpoint: 640,
+          breakpoint: 1200,
           settings: {
             slidesToShow: 5,
           },
         },
         {
-          breakpoint: 540,
+          breakpoint: 1023,
           settings: {
-            slidesToShow: 4,
+            slidesToShow: 6,
           },
         },
         {
-          breakpoint: 440,
+          breakpoint: 576,
+          settings: {
+            slidesToShow: 5,
+          },
+        },
+        {
+          breakpoint: 480,
           settings: {
             slidesToShow: 4,
           },
@@ -133,8 +124,10 @@ const DateSlider = (props) => {
         </Slider>
       </div>
       <div className={cls(styles.slider_container, 'slick_experience')}>
-        <label className={styles.label}>Select time</label>
-        <Slider {...settings}>
+        <label className={cls(styles.label, selectedTime ? '' : styles.red_label)}>
+          {`Select time (${duration} duration)`}
+        </label>
+        <Slider {...settings} key={appointments}>
           {appointments.map((time) => {
             const left = getAvailablePlaces(time, bookingsByDate, guests)
             return (

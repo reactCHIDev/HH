@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
@@ -23,10 +24,11 @@ import Calendar from '../Calendar'
 import styles from './exp_page_header.module.scss'
 import './exp_page_header.less'
 
-const ExpHeader = ({ experience, user, bookingsByDate }) => {
+const ExpHeader = ({ experience, user }) => {
   const {
     title,
     id,
+    duration,
     coverPhoto,
     otherPhotos,
     guests,
@@ -47,6 +49,8 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
   const [total, setTotal] = useState(0)
   const [available, setAvailable] = useState(guests)
 
+  const bookingsByDate = useSelector((state) => state.experience.bookingByDate)
+
   const dispatch = useDispatch()
 
   const { handleSubmit } = useForm({
@@ -54,6 +58,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
   })
 
   useEffect(() => {
+    //time
     const getDates = (allDays) => {
       if (!allDays) return
       return allDays
@@ -64,10 +69,16 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
           [],
         )
     }
-    if (time?.length) setDates(getDates(time))
+    if (time?.length) {
+      const dates = getDates(time)
+      setDates(dates) // dates
+      setSelectedDate(dates[0] || '')
+    }
+    setAppointments([])
   }, [time])
 
   useEffect(() => {
+    // selectedDate
     if (selectedDate) {
       const year = getYear(parseISO(selectedDate))
       const month = getMonth(parseISO(selectedDate))
@@ -78,23 +89,31 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
           `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
         ),
       )
-      const getAppointments = (selectedDay, allDays) => {
-        if (!allDays) return
-        const thisDay = allDays.filter((d) => isSameDay(parseISO(selectedDay), parseISO(d)))
-        return thisDay
-      }
-      setAppointments(
-        getAppointments(selectedDate, time).filter(
-          (d) => differenceInMinutes(parseISO(d), new Date()) > 0,
-        ),
-      )
-      setSelectedTime('')
-      setAdultCount(1)
-      setChildrenCount(0)
     }
+
+    setSelectedTime('')
+    setAdultCount(1)
+    setChildrenCount(0)
   }, [selectedDate])
 
   useEffect(() => {
+    // bookingsByDate
+    const getAppointments = (selectedDay, allDays) => {
+      if (!allDays) return
+      const thisDay = allDays.filter((d) => isSameDay(parseISO(selectedDay), parseISO(d)))
+      return thisDay
+    }
+
+    setAppointments(
+      getAppointments(selectedDate, time).filter(
+        (d) => differenceInMinutes(parseISO(d), new Date()) > 0,
+      ),
+    )
+    setSelectedTime('')
+  }, [bookingsByDate])
+
+  useEffect(() => {
+    // selectedTime
     if (selectedTime) {
       const getAvailablePlaces = (appointmentTime, bookingList, guestsLimit) => {
         const booking = bookingList.filter((b) => b.time === appointmentTime)
@@ -113,6 +132,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
   }, [selectedTime])
 
   useEffect(() => {
+    // adult, childrenn
     setTotal(
       Number(
         Number(
@@ -143,20 +163,23 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
     }
   }
 
+  const guestSelectorSwitch = () => {
+    setVisibilityGuestsSelector(!visible)
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={cls(styles.container, styles.gray)}>
         <div className={styles.content}>
           <ImagePreviewer images={[coverPhoto].concat(otherPhotos)} />
-          <div className={styles.inner_content}>
-            <p className={styles.exp_heading}>{title}</p>
-            <form className={styles.form} onSubmit={handleSubmit(onBook)}>
-              <div
-                className={cls(styles.input_number, 'exp-guests_number')}
-                onClick={() => setVisibilityGuestsSelector((v) => !v)}
-              >
+          {dates.length ? (
+            <div className={styles.inner_content}>
+              <p className={styles.exp_heading}>{title}</p>
+              {/* <form className={styles.form} onSubmit={handleSubmit(onBook)}> */}
+              <div className={cls(styles.input_number, 'exp-guests_number')}>
                 <GuestsSelector
                   visible={visible}
+                  setVisibilityGuestsSelector={setVisibilityGuestsSelector}
                   discount={discount}
                   guests={guests}
                   priceAdult={priceAdult}
@@ -177,6 +200,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                     className={styles.input}
                     type="text"
                     value={`${adult + childrenn} people`}
+                    onClick={guestSelectorSwitch}
                   />
                 </div>
               </div>
@@ -190,6 +214,7 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                 bookingsByDate={bookingsByDate}
                 guests={guests}
                 available={available}
+                duration={duration}
               />
               <div className={styles.info_wrapper}>
                 <div className={styles.info_container}>
@@ -218,15 +243,19 @@ const ExpHeader = ({ experience, user, bookingsByDate }) => {
                     type="primary"
                     block
                     size="large"
-                    htmlType="submit"
-                    disabled={!selectedTime}
+                    /* htmlType="submit" */
+                    disabled={!selectedTime || adult + childrenn === 0}
+                    onClick={onBook}
                   >
                     {`${selectedTime ? `BOOK FOR ${total} HKD` : 'SELECT TIME'}`}
                   </Button>
                 </div>
               </div>
-            </form>
-          </div>
+              {/* </form> */}
+            </div>
+          ) : (
+            <p className={styles.no_data}>No available events</p>
+          )}
         </div>
       </div>
     </div>
