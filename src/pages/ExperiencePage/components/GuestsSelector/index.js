@@ -9,6 +9,7 @@ const GuestsSelector = ({
   visible,
   setVisibilityGuestsSelector,
   discount,
+  isAdult,
   priceAdult,
   priceChild,
   adult,
@@ -62,24 +63,32 @@ const GuestsSelector = ({
             +
           </button>
         </div>
-        <div className={styles.label_container}>
-          <label className={styles.label}>Children</label>
-          <label className={styles.label}>{`$${priceChild}/p`}</label>
-        </div>
-        <div className={styles.count}>
-          <button className={styles.button_left} type="button" onClick={handleChildrenDecrement}>
-            -
-          </button>
-          <div className={styles.count_text}>{childrenn}</div>
-          <button
-            className={styles.button_right}
-            type="button"
-            disabled={adult + childrenn >= available}
-            onClick={handleChildrenIncrement}
-          >
-            +
-          </button>
-        </div>
+        {!isAdult && (
+          <div>
+            <div className={styles.label_container}>
+              <label className={styles.label}>Children</label>
+              <label className={styles.label}>{`$${priceChild}/p`}</label>
+            </div>
+            <div className={styles.count}>
+              <button
+                className={styles.button_left}
+                type="button"
+                onClick={handleChildrenDecrement}
+              >
+                -
+              </button>
+              <div className={styles.count_text}>{childrenn}</div>
+              <button
+                className={styles.button_right}
+                type="button"
+                disabled={adult + childrenn >= available}
+                onClick={handleChildrenIncrement}
+              >
+                +
+              </button>
+            </div>
+          </div>
+        )}
 
         <Divider />
 
