@@ -22,6 +22,7 @@ const ExpHeader = ({ experience, user }) => {
     coverPhoto,
     otherPhotos,
     guests,
+    isAdult,
     discount,
     time,
     priceAdult,
@@ -160,13 +161,16 @@ const ExpHeader = ({ experience, user }) => {
           <ImagePreviewer images={[coverPhoto].concat(otherPhotos)} />
           {dates.length ? (
             <div className={styles.inner_content}>
-              <p className={styles.exp_heading}>{title}</p>
+              <p className={styles.exp_heading}>
+                {title} {isAdult && <span className={styles.adults_only}>18+</span>}
+              </p>
               <div className={cls(styles.input_number, 'exp-guests_number')}>
                 <GuestsSelector
                   visible={visible}
                   setVisibilityGuestsSelector={setVisibilityGuestsSelector}
                   discount={discount}
                   guests={guests}
+                  isAdult={isAdult}
                   priceAdult={priceAdult}
                   priceChild={priceChild}
                   adult={adult}
