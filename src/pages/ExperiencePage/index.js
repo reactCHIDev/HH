@@ -21,14 +21,26 @@ function ExperincePage() {
     dispatch(getExperienceByIdAC(productId))
   }, [])
 
+  console.log(experience, 'experience')
+
   return experience ? (
     <div className={styles.wrapper}>
       <ExpHeader experience={experience.experience} user={experience.userProfile} />
       <div className={styles.container}>
-        <Overview />
+        <Overview
+          rate={experience.experience.rating}
+          rateAmount={experience.experience.votes}
+          priceFrom={experience.experience?.priceChild || experience.experience.priceAdult}
+          city={experience.experience.address}
+          time={experience.experience.duration}
+          maxGuests={experience.experience.guests}
+          languages={experience.experience.languages.toString()}
+          visits={experience.experience.visits}
+          foodmaker={experience.userProfile}
+        />
         <About />
         {/* <GuestPhotos /> */}
-        <Review />
+        <Review id={experience.experience.id} />
       </div>
     </div>
   ) : (

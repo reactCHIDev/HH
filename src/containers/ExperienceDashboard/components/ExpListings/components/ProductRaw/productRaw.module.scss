@@ -3,6 +3,12 @@
   align-items: center;
   width: 100%;
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    // width: 25%;
+  }
+
   .mainInfo {
     display: flex;
     width: 60%;
@@ -11,8 +17,7 @@
       width: 45%;
     }
     @media screen and (max-width: 768px) {
-      flex-direction: column;
-      width: 25%;
+      width: 100%;
     }
 
     .imgWrapper {
@@ -31,10 +36,15 @@
       align-items: center;
       justify-content: space-between;
       width: 70%;
-
       @media screen and (max-width: 1024px) {
         width: 60%;
       }
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+
+      
 
       .edit_btn_container {
         display: flex;
@@ -49,6 +59,11 @@
         border-radius: 5px;
         cursor: pointer;
 
+        @media screen and (max-width: 768px) {
+          margin: 0;
+        }
+    
+
         .edit_btn_img {
           width: 18px;
           margin: 3px 0 0 1px;
@@ -56,42 +71,63 @@
       }
     }
   }
-  .statusWrapper {
-    width: 20%;
-    margin-right: 10px;
 
-    @media screen and (max-width: 768px) {
-      width: 35%;
-    }
-  }
-
-  .dateWrapper {
-    width: 15%;
-
-    span {
-      margin-right: 5px;
-    }
-
-    @media screen and (max-width: 768px) {
-      width: 20%;
-    }
-  }
-
-  .lastSection {
+  .secondaryInfo {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    width: 40%;
+    @media screen and (max-width: 1024px) {
+      width: 55%;
+    }
 
-    button {
-      width: 60px;
-      color: #31394d;
-      font-size: 17px;
-      text-decoration: none;
-      background: white;
-      border: 2px solid #dcdde1;
-      border-radius: 5px;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      
+    }
 
-      &:hover {
-        border-color: #31394d;
+    .statusWrapper {
+      width: 55%;
+      // margin-right: 10px;
+      @media screen and (max-width: 1024px) {
+        width: 48%;
+      }
+     
+    }
+
+    .dateWrapper {
+      width: 40%;
+
+      span {
+        margin-right: 5px;
+      }
+
+      @media screen and (max-width: 1024px) {
+        width: 45%;
+      }
+
+      @media screen and (max-width: 768px) {
+      display: none;
+      }
+    }
+
+    .lastSection {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        width: 60px;
+        color: #31394d;
+        font-size: 17px;
+        text-decoration: none;
+        background: white;
+        border: 2px solid #dcdde1;
+        border-radius: 5px;
+
+        &:hover {
+          border-color: #31394d;
+        }
       }
     }
   }

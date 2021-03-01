@@ -20,3 +20,5 @@ export const toggleFavouriteFoodmakerReq = (data) =>
   apiClient.post(PATHS.toggleFavouriteFoodmaker, { data })
 
 export const toggleFavouriteShopReq = (data) => apiClient.post(PATHS.toggleFavouriteShop, { data })
+export const toggleFavouriteExperienceReq = (data) =>
+  apiClient.post(PATHS.toggleFavouriteExp, { data })

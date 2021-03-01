@@ -7,19 +7,19 @@ import SortingElement from '../SortingElement'
 const headers = [
   {
     title: 'Experience name',
-    sortType: 'product',
+    sortType: 'title',
     style: 'product',
     id: 0,
   },
   {
     title: 'Day',
-    sortType: 'day',
+    sortType: 'time',
     style: 'day',
     id: 1,
   },
   {
     title: 'Time',
-    sortType: 'time',
+    // sortType: 'time',
     style: 'time',
     id: 2,
   },
@@ -31,14 +31,14 @@ const headers = [
   },
   {
     title: 'Participants',
-    sortType: 'participants',
+    sortType: 'guests',
     style: 'participants',
     id: 4,
   },
 ]
 
 function TableHeader({ requestSort }) {
-  const [sortedColumn, setSortedColumn] = React.useState('time')
+  const [sortedColumn, setSortedColumn] = React.useState('product')
   const [sorterOrder, setSorterOrder] = React.useState(false)
 
   return (
@@ -55,7 +55,9 @@ function TableHeader({ requestSort }) {
               }}
             >
               <div>{item.title}</div>
-              <SortingElement type={sorterOrder} isSort={sortedColumn === item.sortType} />
+              {item.sortType && (
+                <SortingElement type={sorterOrder} isSort={sortedColumn === item.sortType} />
+              )}
             </div>
           </div>
         ))}
