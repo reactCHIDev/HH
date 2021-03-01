@@ -4,20 +4,50 @@ import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import { Rate, Tag } from 'antd'
 
+import { useDispatch, useSelector } from 'react-redux'
+import toggleFavouriteAc from 'actions/favourites'
+
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
+import expLikeRed from 'assets/icons/svg/exp_like_red.svg'
+
 import OutlinedCartIcon from 'assets/icons/svg/cart-outlined-icon.svg'
 import styles from './exp_card.module.scss'
 import './exp_card.less'
 
 const ExpCard = (props) => {
-  const { photo, tags, name, price, rating, rateCount, isShowCart, pathname, state } = props
+  const {
+    photo,
+    tags,
+    name,
+    price,
+    rating,
+    rateCount,
+    isShowCart,
+    pathname,
+    // state,
+    isFavorite,
+    id,
+  } = props
+
+  const dispatch = useDispatch()
+  const [isFavourite, setIsFavourite] = React.useState(isFavorite)
+
+  const onLikeCLick = () => {
+    setIsFavourite((f) => !f)
+    dispatch(toggleFavouriteAc({ id, type: 'exp' }))
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.img_container}>
-          <img className={styles.card_like} src={expLike} alt="explike" />
+          <img
+            className={styles.card_like}
+            alt="explike"
+            onClick={() => onLikeCLick()}
+            src={isFavourite ? expLikeRed : expLike}
+          />
           <img className={styles.card_img} src={photo ?? sec21} alt="cardimg" />
           <div className={cls('tags', styles.tags_container)}>
             {tags.map((tag) => (
@@ -56,6 +86,8 @@ ExpCard.propTypes = {
   rateCount: T.number,
   isShowCart: T.bool,
   pathname: T.string,
+  isFavorite: T.bool,
+  id: T.number,
 }
 
 ExpCard.defaultProps = {

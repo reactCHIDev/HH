@@ -22,7 +22,6 @@ export default {
   confirmEmailUpdate: '/v1/account/confirm_email_update',
   updatePhotoName: '/v1/account/update_photo_name',
   registrationEmail: '/v1/user/verify_registration_email',
-  fmBookingHistory: '',
   experiencesReviews: '',
   // Listing
 
@@ -41,8 +40,13 @@ export default {
   expTags: '/v1/experience/tags',
   toggleExpStatus: '/v1/experience/toggle_status',
   getExperienceById: '/v1/experience/by_id/',
+  experienceReviews: '/v1/review/experience/by_id/',
+  // /v1/review/experience/by_id/23?startIndex=0&limit=3
+  foodmakerExperiencesReviews: '/v1/review/experience/by_foodmaker/',
+  // /v1/review/experience/by_foodmaker/214
   getBookingByDate: '/v1/experience/',
   createPublicBooking: '/v1/experience/create/public_booking',
+  fmBookingHistory: '/v1/experience/list_foodmaker_bookings',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
@@ -93,6 +97,7 @@ export default {
   toggleFavouriteProduct: '/v1/product/toggle_favorite',
   toggleFavouriteFoodmaker: '/v1/foodmaker/toggle_favorite',
   toggleFavouriteShop: '/v1/shop/toggle_favorite',
+  toggleFavouriteExp: '/v1/experience/toggle_favorite',
 
   // Search
   searchInProducts: '/v1/search/product/predictive',

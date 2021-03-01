@@ -1,12 +1,16 @@
 .container {
   display: flex;
   width: 100%;
+  padding-bottom: 10px;
   border-bottom: 1px solid #dcdde1;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 
   .headingsWrapper {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    align-items: center;
+    width: 85%;
     color: #838894;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -14,39 +18,32 @@
     .heading {
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
       cursor: pointer;
     }
 
     .product {
       width: 50%;
-      min-width: 75px;
     }
 
     .day {
-      width: 10%;
-      min-width: 70px;
+      width: 15%;
     }
 
     .time {
-      width: 5%;
-      min-width: 60px;
+      width: 10%;
     }
 
     .price {
-      width: 5%;
-      min-width: 65px;
+      width: 10%;
     }
 
     .participants {
-      width: 10%;
-      min-width: 70px;
+      width: 15%;
     }
   }
-
   .lastSection {
     display: flex;
     justify-content: flex-end;
-    width: 20%;
+    width: 15%;
   }
 }

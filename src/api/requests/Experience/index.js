@@ -11,3 +11,18 @@ export const getBookingByDateReq = (id, date) =>
   apiClient.get(PATHS.getBookingByDate + id + '/bookings?date=' + date)
 
 export const createPublicBookingReq = (data) => apiClient.post(PATHS.createPublicBooking, { data })
+
+export const getFMBookingHistory = () => apiClient.get(PATHS.fmBookingHistory)
+
+export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `${id}?${i}&${l}`
+  return apiClient.get(PATHS.experienceReviews + params)
+}
+
+export const getFoodmakerExperiencesReviews = () => {
+  console.log('bbbb')
+
+  apiClient.get(PATHS.foodmakerExperiencesReviews)
+}

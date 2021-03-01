@@ -1,29 +1,17 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getExperienceReviewAC } from 'actions/experiences-reviews'
-import useSortableData from 'hooks/useSortable'
 import Header from './components/Header'
 import Review from './components/Review'
 import styles from './reviews.module.scss'
 
 function ReviewsContainer() {
   const dispatch = useDispatch()
-  const bookings = useSelector((state) => state.fmBookingsHistory.bookings)
-
-  const [data, setData] = React.useState()
-
-  const { items, requestSort } = useSortableData(bookings, {
-    key: 'product',
-    direction: 'descending',
-  })
+  const expReviews = useSelector((state) => state.expReviews.expReviews)
 
   React.useEffect(() => {
-    dispatch(getExperienceReviewAC())
+    dispatch(getExperienceReviewAC({ page: 1, type: 'fmExperiencesReview' }))
   }, [])
-
-  React.useEffect(() => {
-    setData(items)
-  }, [items])
 
   return (
     <div className={styles.main_wrapper}>
