@@ -5,12 +5,16 @@ import {
   CREATE_PUBLIC_BOOKING_REQUESTING,
   CREATE_PUBLIC_BOOKING_SUCCESS,
   CREATE_PUBLIC_BOOKING_ERROR,
+  GET_FM_BOOKING_INFO_REQUESTING,
+  GET_FM_BOOKING_INFO_SUCCESS,
+  GET_FM_BOOKING_INFO_ERROR,
 } from '../actions/constants'
 
 const initialState = {
   bookingByDate: [],
   requesting: false,
   error: '',
+  bookingByID: '',
 }
 
 const reducer = function experienceReducer(state = initialState, action) {
@@ -47,6 +51,26 @@ const reducer = function experienceReducer(state = initialState, action) {
         error: '',
       }
     case CREATE_PUBLIC_BOOKING_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+
+    case GET_FM_BOOKING_INFO_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case GET_FM_BOOKING_INFO_SUCCESS:
+      return {
+        ...state,
+        bookingByID: action.data,
+        requesting: false,
+        error: '',
+      }
+    case GET_FM_BOOKING_INFO_ERROR:
       return {
         ...state,
         requesting: false,
