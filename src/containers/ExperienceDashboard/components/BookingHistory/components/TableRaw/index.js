@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './tableRaw.module.scss'
 
 function TableRaw({ element }) {
@@ -26,7 +27,9 @@ function TableRaw({ element }) {
         <div className={styles.price}>{element.price}$</div>
         <div className={styles.guests}>{element.guests}</div>
         <div className={styles.button}>
-          <button type="button">view</button>
+          <Link to={{ pathname: '/fm_booking_info', state: element.id }}>
+            <button type="button">view</button>
+          </Link>
         </div>
       </div>
     </div>

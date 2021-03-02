@@ -74,6 +74,7 @@ const OrderFMInfo = lazy(() => import('containers/ProductDashboard/components/Or
 // Experience dashboard
 const ExperienceDashboard = lazy(() => import('containers/ExperienceDashboard'))
 const AddExperience = lazy(() => import('containers/ExperienceDashboard/components/AddExperience'))
+const FMBookingInfo = lazy(() => import('containers/ExperienceDashboard/components/FMBookingInfo'))
 
 // Other
 const Success = lazy(() => import('pages/Stripe/Cart/Success'))
@@ -289,6 +290,12 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                   path="/settings/:activeTab?/:confirmation?"
                   component={WaitingComponent(Settings)}
                 />
+                <PrivateRoute
+                  exact
+                  path="/fm_booking_info"
+                  component={WaitingComponent(FMBookingInfo)}
+                />
+
                 <PrivateRoute exact path="/admin" component={AdminPage} />
                 <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
                 <Route path="/*" component={WaitingComponent(PageNotFound)} />

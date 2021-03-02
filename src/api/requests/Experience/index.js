@@ -22,7 +22,9 @@ export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
 }
 
 export const getFoodmakerExperiencesReviews = () => {
-  console.log('bbbb')
-
   apiClient.get(PATHS.foodmakerExperiencesReviews)
+}
+
+export const getFMBookingInfoByIdReq = (payload) => {
+  apiClient.get(PATHS.foodmakerBookingInfo + payload)
 }

@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  @media (max-width: 1240px) {
+    width: 100%;
+  }
+
+  .mainInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .imgWrapper {
+      width: 120px;
+      height: 70px;
+      margin-right: 20px;
+      background: salmon;
+    }
+
+    .expWrapper {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        color: #31394d;
+        font-size: 16px;
+        line-height: 26px;
+        letter-spacing: 0.5px;
+      }
+
+      .additionalInfo {
+        display: flex;
+
+        .section {
+          display: flex;
+          flex-direction: column;
+          margin-right: 30px;
+
+          .heading {
+            color: #939d98;
+            font-size: 12px;
+            line-height: 19px;
+            letter-spacing: 0.5px;
+          }
+
+          .item {
+            color: #3c3e43;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 19px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+  .detailsInfo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    .ticketsInfo {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        margin-right: 50px;
+
+        .heading {
+          color: #939d98;
+          font-size: 12px;
+          line-height: 19px;
+          letter-spacing: 0.5px;
+        }
+
+        .item {
+          color: #3c3e43;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 19px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .discounInfo {
+      margin-bottom: 20px;
+      color: #7ad398;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 19px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .totalInfo {
+      margin-bottom: 30px;
+      color: #3c3e43;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 23px;
+      letter-spacing: 0.5px;
+    }
+  }
+}

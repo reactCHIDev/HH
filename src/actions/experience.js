@@ -5,6 +5,7 @@ import {
   GET_EXPERIENCE_BY_ID_REQUESTING,
   GET_BOOKING_BY_DATE_REQUESTING,
   CREATE_PUBLIC_BOOKING_REQUESTING,
+  GET_FM_BOOKING_INFO_REQUESTING,
 } from './constants'
 
 export const createExperienceAC = (payload) => ({
@@ -40,5 +41,10 @@ export const getBookingByDateAC = (id, date) => ({
 
 export const createPublicBookingAC = (payload) => ({
   type: CREATE_PUBLIC_BOOKING_REQUESTING,
+  payload,
+})
+
+export const getFMBookingInfoAC = (payload) => ({
+  type: GET_FM_BOOKING_INFO_REQUESTING,
   payload,
 })
