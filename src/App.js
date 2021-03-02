@@ -46,6 +46,7 @@ const Forgot = lazy(() => import('containers/Auth/components/Forgot'))
 // Foodlover dashboard
 const AccountInfo = lazy(() => import('containers/AccountInfo'))
 const OrderInfo = lazy(() => import('containers/AccountInfo/OrderInfo'))
+const FLBookingInfo = lazy(() => import('containers/AccountInfo/BookingInfo'))
 
 // Public pages
 const ProductPage = lazy(() => import('pages/ProductPage'))
@@ -295,7 +296,11 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
                   path="/fm_booking_info"
                   component={WaitingComponent(FMBookingInfo)}
                 />
-
+                <PrivateRoute
+                  exact
+                  path="/fl_booking_info"
+                  component={WaitingComponent(FLBookingInfo)}
+                />
                 <PrivateRoute exact path="/admin" component={AdminPage} />
                 <PublicRoute exact path="/:userName" component={WaitingComponent(FoodmakerPage)} />
                 <Route path="/*" component={WaitingComponent(PageNotFound)} />

@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  .expInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .expInfoData {
+      display: flex;
+      flex-direction: row;
+
+      .info {
+        margin-right: 40px;
+        @media (max-width: 768px) {
+          width: 40px;
+        }
+
+        .option {
+          margin-bottom: 7px;
+          color: #838894;
+          font-size: 12px;
+        }
+
+        .text {
+          color: #31394d;
+          font-weight: bold;
+          font-size: 14px;
+          text-transform: capitalize;
+        }
+      }
+    }
+
+    .expInvoiceButton {
+      color: #5375cb;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .rulesContainer {
+    margin-bottom: 20px;
+    .heading {
+      color: #838894;
+      font-size: 12px;
+      line-height: 19px;
+      letter-spacing: 0.5px;
+    }
+
+    .text {
+      color: #31394d;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+  }
+  .locationContainer {
+    .heading {
+      color: #838894;
+      font-size: 12px;
+      line-height: 19px;
+      letter-spacing: 0.5px;
+    }
+
+    .text {
+      color: #31394d;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 19px;
+      letter-spacing: 0.5px;
+      text-transform: capitalize;
+    }
+  }
+}

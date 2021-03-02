@@ -1,0 +1,107 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 30px 20px;
+  background: #fbe4e4;
+  border-radius: 16px;
+
+  // @media (max-width: 1200px) {
+  //   flex-direction: column;
+  // }
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    width: 100%;
+    margin-right: 0px;
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mainInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    @media (max-width: 480px) {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+
+    .imgWrapper {
+      position: relative;
+      margin-bottom: 10px;
+      .img {
+        display: flex;
+        width: 96px;
+        height: 96px;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      .icon {
+        position: absolute;
+        top: 65px;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 30px;
+        height: 30px;
+        background: whitesmoke;
+        border-radius: 50%;
+      }
+    }
+
+    .textWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .name {
+        color: #3c3e43;
+        font-weight: bold;
+        font-size: 14px;
+        font-style: normal;
+        line-height: 18px;
+        letter-spacing: 0.5px;
+      }
+
+      .description {
+        display: flex;
+        color: #838894;
+        font-size: 12px;
+        line-height: 140%;
+        letter-spacing: 0.3px;
+      }
+    }
+  }
+
+  .secondaryInfo {
+    display: flex;
+    flex-direction: column;
+
+    .heading {
+      color: #3c3e43;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 26px;
+      letter-spacing: 0.5px;
+    }
+
+    .text {
+      color: #31394d;
+      font-weight: normal;
+      font-size: 12px;
+      font-style: normal;
+      line-height: 160%;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+  }
+}
