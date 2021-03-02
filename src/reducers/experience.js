@@ -8,13 +8,17 @@ import {
   GET_FM_BOOKING_INFO_REQUESTING,
   GET_FM_BOOKING_INFO_SUCCESS,
   GET_FM_BOOKING_INFO_ERROR,
+  GET_FL_BOOKING_INFO_REQUESTING,
+  GET_FL_BOOKING_INFO_SUCCESS,
+  GET_FL_BOOKING_INFO_ERROR,
 } from '../actions/constants'
 
 const initialState = {
   bookingByDate: [],
   requesting: false,
   error: '',
-  bookingByID: '',
+  fmBookingByID: '',
+  flBookingByID: '',
 }
 
 const reducer = function experienceReducer(state = initialState, action) {
@@ -66,11 +70,30 @@ const reducer = function experienceReducer(state = initialState, action) {
     case GET_FM_BOOKING_INFO_SUCCESS:
       return {
         ...state,
-        bookingByID: action.data,
+        fmBookingByID: action.data,
         requesting: false,
         error: '',
       }
     case GET_FM_BOOKING_INFO_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+    case GET_FL_BOOKING_INFO_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+    case GET_FL_BOOKING_INFO_SUCCESS:
+      return {
+        ...state,
+        flBookingByID: action.data,
+        requesting: false,
+        error: '',
+      }
+    case GET_FL_BOOKING_INFO_ERROR:
       return {
         ...state,
         requesting: false,

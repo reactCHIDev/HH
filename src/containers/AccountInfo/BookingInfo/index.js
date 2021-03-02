@@ -25,12 +25,14 @@ const OrderInfo = (props) => {
     removeOrder()
   }
 
+  console.log(order, 'order')
+
   return (
     <div className={styles.container}>
       <SubHeader linkTo="/account_info/orders" onBack={goBack} title="Smth" />
       <TabsUnderlined
         tabs={{
-          'Main Info': { mark: false, content: <MainInfo order /> },
+          'Main Info': { mark: false, content: <MainInfo order={order} /> },
           'Payment Info': { disabled: true, mark: false, content: <PaymentInfo orderHash /> },
         }}
       />

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import cloneDeep from 'lodash/cloneDeep'
 
 import useSortableData from 'hooks/useSortable'
-import { getFmBookingHistoryAC } from 'actions/booking-history'
+import { getFlBookingHistoryAC } from 'actions/booking-history'
 import Header from './components/Header'
 import styles from './bookingHistory.module.scss'
 import TableHeader from './components/TableHeader'
@@ -11,7 +11,7 @@ import TableRaw from './components/TableRaw'
 
 function BookingHistory() {
   const dispatch = useDispatch()
-  const bookings = useSelector((state) => state.fmBookingsHistory.bookings)
+  const bookings = useSelector((state) => state.fmBookingsHistory.flBookings)
   const [data, setData] = React.useState()
 
   const { items, requestSort } = useSortableData(bookings, {
@@ -20,7 +20,7 @@ function BookingHistory() {
   })
 
   React.useEffect(() => {
-    dispatch(getFmBookingHistoryAC())
+    dispatch(getFlBookingHistoryAC())
   }, [])
 
   React.useEffect(() => {

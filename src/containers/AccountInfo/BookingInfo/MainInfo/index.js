@@ -2,16 +2,16 @@
 /* eslint-disable no-shadow */
 import React, { useEffect } from 'react'
 import T from 'prop-types'
-import { getFLOrderAC } from 'actions/foodlover-orders'
+import { getFLBookingInfoAC } from 'actions/experience'
 import { connect } from 'react-redux'
 import ExpInfo from './components/ExpInfo'
 import MakerInfo from './components/MakerInfo'
 import styles from './maininfo.module.scss'
 
-const MainOrderInfo = ({ order, getFLOrderAC, orderInfo }) => {
+const MainOrderInfo = ({ order, getFLBookingInfoAC, orderInfo }) => {
   useEffect(() => {
-    getFLOrderAC(order?.id)
-  }, [order])
+    getFLBookingInfoAC(order)
+  }, [])
 
   console.log(order, 'order')
 
@@ -31,5 +31,5 @@ MainOrderInfo.propTypes = {
 }
 
 export default connect(({ flOrders }) => ({ orderInfo: flOrders.order }), {
-  getFLOrderAC,
+  getFLBookingInfoAC,
 })(MainOrderInfo)
