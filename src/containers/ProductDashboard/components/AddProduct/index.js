@@ -122,18 +122,20 @@ const AddProduct = (props) => {
                 Preview
               </Button>
             </div>
-            <div className={styles.btn_preview}>
-              {success && <div className={styles.success}>Copied successfully</div>}
-              <Button
-                type="default"
-                block
-                // icon={() => <img src={Copy} width="20px" height="20px" />}
-                size="large"
-                onClick={duplicate}
-              >
-                Duplicate Listing
-              </Button>
-            </div>
+            {edit && (
+              <div className={styles.btn_preview}>
+                {success && <div className={styles.success}>Copied successfully</div>}
+                <Button
+                  type="default"
+                  block
+                  // icon={() => <img src={Copy} width="20px" height="20px" />}
+                  size="large"
+                  onClick={duplicate}
+                >
+                  Duplicate Listing
+                </Button>
+              </div>
+            )}
           </div>
           <div className={styles.mobile_stepper}>
             <div className={styles.info_container}>
@@ -145,9 +147,11 @@ const AddProduct = (props) => {
                   <div className={styles.preview}>PREVIEW</div>
                 </div>
               )}
-              <div>
-                <img src={Copy} className={styles.copy_btn} onClick={duplicate} alt="copy" />
-              </div>
+              {edit && (
+                <div>
+                  <img src={Copy} className={styles.copy_btn} onClick={duplicate} alt="copy" />
+                </div>
+              )}
             </div>
             <div className={styles.mobile_progress}>
               <div

@@ -42,7 +42,7 @@ const Step2 = (props) => {
 
   const [selectedTypes, setSelectedTypes] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
-  const [dur, setDuration] = useState(duration || 20)
+  const [dur, setDuration] = useState(duration || 12)
   const [adult, setIsAdult] = useState(isAdult || false)
   const [discnt, setDiscount] = useState(!!discount?.discount && !!discount?.quantity)
   const [discValue, setDiscountValue] = useState(discount?.discount)
@@ -109,7 +109,7 @@ const Step2 = (props) => {
   }
 
   function formatter(value) {
-    const time = value * 3 + 30
+    const time = value * 5 + 30
     const h = Math.floor(time / 60)
     const m = time % 60
     return `${h ? `${h}h` : ''} ${m ? `${m}m ` : ''}`
@@ -254,7 +254,7 @@ const Step2 = (props) => {
               tipFormatter={formatter}
               value={dur}
               onChange={onSlider}
-              step={10}
+              step={6}
               tooltipVisible
             />
           </div>
@@ -270,6 +270,7 @@ const Step2 = (props) => {
                   <InputNumber
                     name={name}
                     value={value}
+                    min="0"
                     onChange={onChange}
                     formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
@@ -291,6 +292,7 @@ const Step2 = (props) => {
                     <InputNumber
                       name={name}
                       value={value}
+                      min="0"
                       onChange={onChange}
                       disabled={adult}
                       formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -366,7 +368,7 @@ const Step2 = (props) => {
               name="guests"
               rules={{ required: true }}
               render={({ onChange, value, name }) => (
-                <InputNumber name={name} value={value} onChange={onChange} />
+                <InputNumber name={name} value={value} min="0" onChange={onChange} />
               )}
             />
             {_.get('guests.type', errors) === 'required' && (

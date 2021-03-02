@@ -112,7 +112,7 @@ const DateSlider = (props) => {
         <label className={styles.label}>Select date</label>
         <Slider {...settings}>
           {dates.map((date) => (
-            <div>
+            <div key={date}>
               <div
                 className={cls(
                   styles.preview_container,
@@ -138,7 +138,7 @@ const DateSlider = (props) => {
           {appointments.map((time) => {
             const left = getAvailablePlaces(time, bookingsByDate, guests)
             return (
-              <div>
+              <div key={time}>
                 <div
                   className={cls(
                     styles.preview_container,
@@ -175,8 +175,6 @@ const DateSlider = (props) => {
   )
 }
 
-DateSlider.propTypes = {
-  images: T.arrayOf(T.string).isRequired,
-}
+DateSlider.propTypes = {}
 
 export default DateSlider

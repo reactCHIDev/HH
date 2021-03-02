@@ -1,7 +1,9 @@
 .container {
   display: flex;
   width: 100%;
+  margin-bottom: 8px;
   border-bottom: 1px solid #dcdde1;
+
   .heading {
     display: flex;
     align-items: center;

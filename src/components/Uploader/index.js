@@ -127,7 +127,7 @@ const Uploader = ({ list, listSet, cover, setCover, min, setActiveNext }) => {
 Uploader.propTypes = {
   list: T.arrayOf(T.string).isRequired,
   listSet: T.func.isRequired,
-  cover: T.number.isRequired,
+  cover: T.string.isRequired,
   setCover: T.func.isRequired,
   min: T.number.isRequired,
 }

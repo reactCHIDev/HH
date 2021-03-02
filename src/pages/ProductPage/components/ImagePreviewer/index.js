@@ -57,7 +57,12 @@ const ImagePreviewer = (props) => {
       <div className={cls(styles.slider_container, 'slick_container')}>
         <Slider {...settings}>
           {images.map((image) => (
-            <div className={styles.preview_container} id={image} onClick={handleImageClick}>
+            <div
+              key={image}
+              className={styles.preview_container}
+              id={image}
+              onClick={handleImageClick}
+            >
               <span
                 style={{ backgroundImage: `url("${image}")` }}
                 className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}
