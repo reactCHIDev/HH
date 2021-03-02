@@ -71,7 +71,6 @@ const Step4 = ({ create, edit }) => {
   const [month, setMonth] = useState(new Date().toISOString())
 
   const expsByDate = useSelector((state) => state.expListing.monthExperiences)
-  console.log('%c   expsByDate   ', 'color: white; background: salmon;', expsByDate)
 
   const dispatch = useDispatch()
 
@@ -161,6 +160,7 @@ const Step4 = ({ create, edit }) => {
           <div className={styles.time_section}>
             {times.map((t) => (
               <p
+                key={t}
                 className={
                   t ===
                   `${String(getHours(parseISO(eventTime))).padStart(2, '0')}:${String(
