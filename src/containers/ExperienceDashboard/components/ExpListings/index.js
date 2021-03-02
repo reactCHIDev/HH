@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useSortableData from 'hooks/useSortable'
 import { getMyExperiencesList } from 'actions/experience-listing'
-
+import { Divider } from 'antd'
+import cls from 'classnames'
 import T, { element, shape } from 'prop-types'
 import Modal from 'components/UniversalModal'
 import Header from './components/ListingHeader'
@@ -32,13 +33,16 @@ const ExpListings = (props) => {
   }, [items])
 
   return (
-    <div className={styles.container}>
+    <div className={cls(styles.container, 'exp_listing_container')}>
       <Header onSearch={() => {}} mark={counter || ''} />
       {data && data.length ? (
         <>
           <TableHeader requestSort={requestSort} />
           {data.map((el) => (
-            <ProductRaw key={el.id} element={el} />
+            <>
+              <ProductRaw key={el.id} element={el} />
+              <Divider />
+            </>
           ))}
         </>
       ) : null}

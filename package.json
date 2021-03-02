@@ -45,10 +45,12 @@
     "sass-loader": "^10.0.5",
     "serve": "^11.3.2",
     "slick-carousel": "^1.8.1",
+    "source-map-explorer": "^2.5.2",
     "stripe": "^8.129.0",
     "use-sound": "^2.0.1"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "craco start",
     "build": "craco build",
     "eject": "react-scripts eject"

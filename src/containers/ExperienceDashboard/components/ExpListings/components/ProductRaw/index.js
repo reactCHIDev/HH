@@ -13,7 +13,10 @@ import styles from './productRaw.module.scss'
 
 function ProductRaw({ element }) {
   const dispatch = useDispatch()
-  const onClick = () => setItem('addExperience', element)
+  const onClick = (e) => {
+    e.stopPropagation()
+    setItem('addExperience', element)
+  }
   const openExpPage = () => {
     dispatch(push(`/experience/${element.id}`))
   }
@@ -32,14 +35,23 @@ function ProductRaw({ element }) {
     minute: '2-digit',
   })
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={openExpPage}>
       <div className={styles.mainInfo}>
         <div
           style={{ backgroundImage: `url("${element?.coverPhoto}")` }}
           className={styles.imgWrapper}
         />
         <div className={styles.titleWrapper}>
-          <div>{element.title}</div>
+          <div>
+            <div className={styles.title}>{element.title.substring(0, 30)}</div>
+            <div className={styles.statusWrapper} onClick={(e) => e.stopPropagation()}>
+              <Option
+                checked={element.status === 'PUBLISHED'}
+                onChange={toggleStatus}
+                id={element.id}
+              />
+            </div>
+          </div>
           <div className={styles.edit_btn_container} onClick={onClick}>
             <Link to={{ pathname: '/addexperience', state: 'edit' }}>
               <img className={styles.edit_btn_img} src={EditIcon} alt="edit" />

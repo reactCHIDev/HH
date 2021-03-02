@@ -22,7 +22,7 @@ const ChkBox = (props) => {
 }
 
 ChkBox.propTypes = {
-  id: T.number.isRequired,
+  id: T.string.isRequired,
   labelText: T.string.isRequired,
   checked: T.bool,
   onChange: T.func,

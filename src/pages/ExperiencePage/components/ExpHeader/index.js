@@ -190,6 +190,7 @@ const ExpHeader = ({ experience, user }) => {
                     type="text"
                     value={`${adult + childrenn} people`}
                     onClick={guestSelectorSwitch}
+                    onChange={() => null}
                   />
                 </div>
               </div>
