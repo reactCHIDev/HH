@@ -30,6 +30,7 @@ const initialState = {
   serviceTags: [],
   specialityTags: [],
   productTags: [],
+  expTypes: [],
   cities: [],
   countries: [],
   requesting: false,

@@ -2,12 +2,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
-import { DatePicker, Select } from 'antd'
+import { DatePicker, Select, InputNumber } from 'antd'
 
 import cls from 'classnames'
 
 import { searchRequestingnAc } from 'actions/search'
-import { getServiceTagsAC, getSpecialityTagsAC } from 'actions/system'
+import { getExpTypesAC } from 'actions/system'
 
 import { getItem, setItem } from 'utils/localStorage'
 import useClickOutside from 'hooks/useClickOutside'
@@ -16,8 +16,7 @@ import styles from './searchBlock.module.scss'
 import './searchBlock.less'
 
 function SearchBlock() {
-  // const specialityTags = useSelector((state) => state.system.specialityTags)
-  // const serviceTags = useSelector((state) => state.system.serviceTags)
+  const specialityTags = useSelector((state) => state.system.expTypes)
   const searchData = getItem('search_data')
   const getInitialSearchValue = () => getItem('search_data')?.searchTitle || ''
   const searchTitle = searchData?.searchTitle || ''
@@ -28,20 +27,18 @@ function SearchBlock() {
   const [selectedItems, setSelectedItems] = React.useState([])
   const [searchTitleValue, setSearchTitleValue] = React.useState(getInitialSearchValue)
 
-  const [serviceTagToShow, setServiceTagToShow] = React.useState()
-  const [serviceTagsToChoose, setServiceTagsToChoose] = React.useState([])
-  const [isServiceTagsToChooseShown, setIsServiceTagsToChooseShown] = React.useState(false)
-
   const [minPrice, setMinPrice] = React.useState(0)
   const [maxPrice, setMaxPrice] = React.useState(100)
   const [isVisiblePriceSelector, setVisibilityPriceSelector] = React.useState(false)
+  const [selectedCategories, updateSelectedCategories] = React.useState([])
+
+  const [guestsAmount, setGuestsAmount] = React.useState(0)
 
   const [date, setDate] = React.useState(new Date())
 
   const serviceTagsRef = React.useRef()
   const visiblePriceSelectorRef = React.useRef()
 
-  useClickOutside(serviceTagsRef, () => setIsServiceTagsToChooseShown(false))
   useClickOutside(visiblePriceSelectorRef, () => setVisibilityPriceSelector(false))
 
   const { control } = useForm({
@@ -55,44 +52,38 @@ function SearchBlock() {
         dataForSearch: { isExplore: true, searchedValue: searchTitle },
       }),
     )
+    dispatch(getExpTypesAC())
     return () => {
       setItem('search_data', {})
     }
   }, [])
 
-  // React.useEffect(() => {
-  //   if (specialityTags.length) {
-  //     setSpecialityTagsToShow(specialityTags)
-  //   }
-  // }, [specialityTags])
-
-  // React.useEffect(() => {
-  //   if (serviceTags && serviceTags.length) {
-  //     setServiceTagToShow('')
-  //   }
-  // }, [serviceTags])
-
-  // React.useEffect(() => {
-  //   setServiceTagsToChoose(serviceTags.filter((el) => el.tagName !== serviceTagToShow?.tagName))
-  // }, [serviceTagToShow])
+  React.useEffect(() => {
+    if (specialityTags.length) {
+      setSpecialityTagsToShow(specialityTags)
+    }
+  }, [specialityTags])
 
   const handleTags = (onChange) => (e) => {
-    setSelectedItems(e)
     onChange(e)
+    setSelectedItems(e)
   }
 
   const onSearchClickHandler = () => {
-    console.log(date, minPrice, maxPrice, 'AAA')
-    // dispatch(
-    //   searchRequestingnAc({
-    //     searchType: 'Foodmakers',
-    //     dataForSearch: {
-    //       searchedValue: searchTitleValue,
-    //       isExplore: true,
-    //       fmTags: [...selectedItems, serviceTagToShow.tagName].toString(),
-    //     },
-    //   }),
-    // )
+    dispatch(
+      searchRequestingnAc({
+        searchType: 'Experiences',
+        dataForSearch: {
+          searchedValue: searchTitleValue,
+          isExplore: true,
+          types: specialityTagsToShow
+            .filter((item) => selectedItems.includes(item.title))
+            .map((i) => i.id),
+          prodPrice: `${minPrice},${maxPrice}`,
+          guests: guestsAmount,
+        },
+      }),
+    )
   }
 
   const onApply = () => {
@@ -100,6 +91,8 @@ function SearchBlock() {
   }
 
   const onDateChange = (selectedDate) => setDate(selectedDate)
+
+  const onGuestsAmountChange = (v) => setGuestsAmount(v)
 
   return (
     <div className={styles.search_block}>
@@ -123,8 +116,8 @@ function SearchBlock() {
                 maxTagCount={3}
               >
                 {specialityTagsToShow.map((item) => (
-                  <Select.Option key={item.id} value={item.tagName}>
-                    {item.tagName}
+                  <Select.Option key={item.id} value={item.title}>
+                    {item.title}
                   </Select.Option>
                 ))}
               </Select>
@@ -141,27 +134,9 @@ function SearchBlock() {
       </div>
       <div className={cls(styles.input_wrapper, styles.service_input)} ref={serviceTagsRef}>
         <label className={styles.label}>Number of guests</label>
-        <div
-          // onClick={() => setIsServiceTagsToChooseShown((b) => !b)}
-          className={styles.serviceTagsType}
-        >
-          {serviceTagToShow?.tagName}
+        <div className="guestInput">
+          <InputNumber value={guestsAmount} min="0" max="500" onChange={onGuestsAmountChange} />
         </div>
-        {isServiceTagsToChooseShown ? (
-          <div className={styles.typesWrapper}>
-            {serviceTagsToChoose.map((el) => (
-              <div
-                key={el.id}
-                onClick={() => {
-                  setServiceTagToShow(el)
-                  setIsServiceTagsToChooseShown(false)
-                }}
-              >
-                {el.tagName}
-              </div>
-            ))}
-          </div>
-        ) : null}
       </div>
       <div
         className={cls(styles.input_wrapper, styles.price_input)}
