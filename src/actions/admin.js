@@ -3,6 +3,10 @@ import {
   GET_SHOPS_LIST_REQUESTING,
   GET_WITHDRAW_LIST_REQUESTING,
   APPROVE_WITHDRAW_REQUESTING,
+  GET_FAQ_LIST_REQUESTING,
+  CREATE_FAQ_REQUESTING,
+  DELETE_FAQ_REQUESTING,
+  EDIT_FAQ_REQUESTING,
 } from './constants'
 
 export const getUsersListAC = () => ({
@@ -21,4 +25,23 @@ export const getWithdrawListAC = (params) => ({
 export const approveWithdrawAC = (id) => ({
   type: APPROVE_WITHDRAW_REQUESTING,
   payload: id,
+})
+
+export const getFaqAC = () => ({
+  type: GET_FAQ_LIST_REQUESTING,
+})
+
+export const createFaqAC = (data) => ({
+  type: CREATE_FAQ_REQUESTING,
+  payload: data,
+})
+
+export const deleteFaqAC = (id) => ({
+  type: DELETE_FAQ_REQUESTING,
+  payload: id,
+})
+
+export const editFaqAC = (data) => ({
+  type: EDIT_FAQ_REQUESTING,
+  payload: data,
 })

@@ -1,0 +1,46 @@
+.container {
+  background-color: white;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    .title {
+      align-self: flex-start;
+      font-size: 20px;
+    }
+    .textarea {
+      margin-bottom: 22px;
+      padding: 8px;
+      color: #777;
+      border: 1px solid #dddddd;
+      border-radius: 6px;
+    }
+    .submit_btn {
+      display: block;
+      width: 150px;
+      height: 56px;
+      font-size: 18px;
+      text-align: center;
+      border: 1px solid grey;
+      border-radius: 6px;
+      cursor: pointer;
+      &:hover {
+        color: white;
+        background-color: #555;
+      }
+    }
+    p {
+      align-self: flex-start;
+      margin: -22px 15px 0;
+      color: #bf1650;
+    }
+
+    p::before {
+      display: inline;
+      content: '⚠ ';
+    }
+  }
+}

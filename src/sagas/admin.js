@@ -4,6 +4,10 @@ import {
   getShopsListReq,
   getWithdrawListReq,
   approveWithdrawReq,
+  getFaqReq,
+  createFaqReq,
+  editFaqReq,
+  deleteFaqReq,
 } from 'api/requests/Admin'
 
 import {
@@ -19,6 +23,12 @@ import {
   APPROVE_WITHDRAW_REQUESTING,
   APPROVE_WITHDRAW_SUCCESS,
   APPROVE_WITHDRAW_ERROR,
+  GET_FAQ_LIST_REQUESTING,
+  GET_FAQ_LIST_SUCCESS,
+  GET_FAQ_LIST_ERROR,
+  CREATE_FAQ_REQUESTING,
+  DELETE_FAQ_REQUESTING,
+  EDIT_FAQ_REQUESTING,
 } from '../actions/constants'
 
 function* getUsersListSaga() {
@@ -39,6 +49,17 @@ function* getShopsListSaga() {
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_SHOPS_LIST_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getFaqListSaga() {
+  try {
+    const response = yield getFaqReq()
+    yield put({ type: GET_FAQ_LIST_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_FAQ_LIST_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -88,11 +109,49 @@ function* approveWithdrawSaga({ payload }) {
   }
 }
 
+function* createFaqSaga({ payload }) {
+  try {
+    const response = yield createFaqReq(payload)
+    yield put({ type: 'CREATE_FAQ_SUCCESS', data: response.data })
+    yield put({ type: GET_FAQ_LIST_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'CREATE_FAQ__ERROR', error: error.response.data.error })
+    }
+  }
+}
+function* editFaqSaga({ payload }) {
+  try {
+    const response = yield editFaqReq(payload)
+    yield put({ type: 'EDIT_FAQ_SUCCESS', data: response.data })
+    yield put({ type: GET_FAQ_LIST_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'EDIT_FAQ__ERROR', error: error.response.data.error })
+    }
+  }
+}
+function* deleteFaqSaga({ payload }) {
+  try {
+    const response = yield deleteFaqReq(payload)
+    yield put({ type: 'DELETE_FAQ_SUCCESS', data: response.data })
+    yield put({ type: GET_FAQ_LIST_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'DELETE_FAQ__ERROR', error: error.response.data.error })
+    }
+  }
+}
+
 function* adminWatcher() {
   yield takeEvery(GET_USERS_LIST_REQUESTING, getUsersListSaga)
   yield takeEvery(GET_SHOPS_LIST_REQUESTING, getShopsListSaga)
   yield takeEvery(GET_WITHDRAW_LIST_REQUESTING, getWithdrawListSaga)
   yield takeEvery(APPROVE_WITHDRAW_REQUESTING, approveWithdrawSaga)
+  yield takeEvery(GET_FAQ_LIST_REQUESTING, getFaqListSaga)
+  yield takeEvery(CREATE_FAQ_REQUESTING, createFaqSaga)
+  yield takeEvery(EDIT_FAQ_REQUESTING, editFaqSaga)
+  yield takeEvery(DELETE_FAQ_REQUESTING, deleteFaqSaga)
 }
 
 export default adminWatcher
