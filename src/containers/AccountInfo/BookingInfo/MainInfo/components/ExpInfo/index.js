@@ -1,26 +1,39 @@
 import React from 'react'
 import styles from './expInfo.module.scss'
 
-function ExpInfo() {
+function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
+  const day = new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: '2-digit',
+  })
+
+  const time = new Date(date).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    hour12: false,
+    minute: '2-digit',
+  })
   return (
     <div className={styles.container}>
       <div className={styles.expInfo}>
         <div className={styles.expInfoData}>
           <div className={styles.info}>
             <div className={styles.option}>Booking Date</div>
-            <div className={styles.text}>23 May, 20</div>
+            <div className={styles.text}>{day}</div>
           </div>{' '}
           <div className={styles.info}>
             <div className={styles.option}>Time</div>
-            <div className={styles.text}>13:20 – 15:40</div>
+            <div className={styles.text}>{time}</div>
           </div>{' '}
           <div className={styles.info}>
             <div className={styles.option}>Participants</div>
-            <div className={styles.text}>4 - 2</div>
+            <div className={styles.text}>
+              {`${adults}a` || ''} -{`${childs}c` || ''}{' '}
+            </div>
           </div>{' '}
           <div className={styles.info}>
             <div className={styles.option}>Price</div>
-            <div className={styles.text}>$ 620</div>
+            <div className={styles.text}>$ {price}</div>
           </div>
         </div>
         <div className={styles.expInvoiceButton}>Share invoice</div>

@@ -1,22 +1,35 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styles from './makerInfo.module.scss'
 import MakerWrapper from '../MakerWrapper'
 
-function MakerInfo() {
+function MakerInfo({ bookingID, date, foodmaker }) {
+  const day = new Date(date).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+  })
+
+  const time = new Date(date).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    hour12: false,
+    minute: '2-digit',
+  })
   return (
     <div className={styles.container}>
       <div className={styles.textInfo}>
         <div className={styles.info}>
-          <div className={styles.option}>Delivery</div>
-          <div className={styles.id}>lol</div>
+          <div className={styles.option}>Booking ID</div>
+          <div className={styles.id}>#{bookingID}</div>
         </div>
         <div className={styles.info}>
-          <div className={styles.option}>Delivery</div>
-          <div className={styles.text}>lol</div>
+          <div className={styles.option}>Date/time</div>
+          <div className={styles.text}>
+            {day} {time}
+          </div>
         </div>
       </div>
       <div className={styles.makerInfo}>
-        <MakerWrapper />
+        <MakerWrapper foodmaker={foodmaker} />
       </div>
       <div className={styles.expPageButton}>
         <div>Go to the Experience page</div>

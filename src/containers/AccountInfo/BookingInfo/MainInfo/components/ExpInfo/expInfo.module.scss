@@ -16,17 +16,26 @@
     .expInfoData {
       display: flex;
       flex-direction: row;
+      @media (max-width: 778px) {
+        flex-direction: column;
+      }
 
       .info {
+        display: flex;
+        flex-direction: column;
         margin-right: 40px;
         @media (max-width: 768px) {
-          width: 40px;
+          flex-direction: row;
+          // width: 40px;
         }
 
         .option {
           margin-bottom: 7px;
           color: #838894;
           font-size: 12px;
+          @media (max-width: 768px) {
+            margin-right: 10px;
+          }
         }
 
         .text {

@@ -24,12 +24,12 @@ export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
 }
 
 export const getFoodmakerExperiencesReviews = () => {
-  apiClient.get(PATHS.foodmakerExperiencesReviews)
+  return apiClient.get(PATHS.foodmakerExperiencesReviews)
 }
 
 export const getFMBookingInfoByIdReq = (payload) => {
-  apiClient.get(PATHS.foodmakerBookingInfo + payload)
+  return apiClient.get(PATHS.foodmakerBookingInfo + payload)
 }
 export const getFLBookingInfoByIdReq = (payload) => {
-  apiClient.get(PATHS.foodloverBookingInfo + payload)
+  return apiClient.get(PATHS.foodloverBookingInfo + payload)
 }

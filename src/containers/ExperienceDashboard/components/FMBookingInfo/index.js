@@ -16,6 +16,7 @@ function BookingInfo(props) {
     location: { state: order },
     replaceRoute,
     getData,
+    orderInfo,
   } = props
 
   const goBack = () => {
@@ -32,14 +33,14 @@ function BookingInfo(props) {
         <SubHeader linkTo="/experience_dashboard/booking" onBack={goBack} title="Booking details" />
       </div>
       <div className={styles.content}>
-        <MainInfo />
+        {orderInfo.experience && <MainInfo orderInfo={orderInfo} />}
         <Chat />
       </div>
     </>
   )
 }
 
-export default connect(null, {
+export default connect(({ experience }) => ({ orderInfo: experience.fmBookingByID }), {
   replaceRoute: replace,
   getData: getFMBookingInfoAC,
 })(BookingInfo)

@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { removeFLOrder } from 'actions/foodlover-orders'
+import { getFLBookingInfoAC } from 'actions/experience'
 
 import SubHeader from 'components/SubHeader'
 import TabsUnderlined from 'components/Tabs/TabsUnderlined'
@@ -17,6 +21,8 @@ const OrderInfo = (props) => {
     location: { state: order },
     replaceRoute,
     removeOrder,
+    getFLBookingInfoAC,
+    orderInfo,
   } = props
   const { orderHash } = useParams()
 
@@ -25,15 +31,26 @@ const OrderInfo = (props) => {
     removeOrder()
   }
 
-  console.log(order, 'order')
+  useEffect(() => {
+    getFLBookingInfoAC(order)
+  }, [])
+
+  console.log(orderInfo?.experience?.title, 'orderInfo')
 
   return (
     <div className={styles.container}>
-      <SubHeader linkTo="/account_info/orders" onBack={goBack} title="Smth" />
+      <SubHeader
+        linkTo="/account_info/orders"
+        onBack={goBack}
+        title={orderInfo?.experience?.title}
+      />
       <TabsUnderlined
         tabs={{
-          'Main Info': { mark: false, content: <MainInfo order={order} /> },
-          'Payment Info': { disabled: true, mark: false, content: <PaymentInfo orderHash /> },
+          'Main Info': {
+            mark: false,
+            content: <MainInfo />,
+          },
+          'Payment Info': { disabled: false, mark: false, content: <PaymentInfo orderHash /> },
         }}
       />
       <div className={styles.content} />
@@ -46,7 +63,8 @@ OrderInfo.propTypes = {
   removeOrder: T.func,
 }
 
-export default connect(({ orders }) => ({ orders }), {
+export default connect(({ experience }) => ({ orderInfo: experience.flBookingByID }), {
   replaceRoute: replace,
   removeOrder: removeFLOrder,
+  getFLBookingInfoAC,
 })(OrderInfo)
