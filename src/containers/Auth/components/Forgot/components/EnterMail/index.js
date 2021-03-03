@@ -8,7 +8,7 @@ const EnterMail = ({ onSubmit }) => {
   const { register, handleSubmit, errors } = useForm()
 
   return (
-    <div className={styles.content}>
+    <div className={styles.content} onClick={(e) => e.stopPropagation()}>
       <p className={styles.header}>Don't worry, we'll restore your password now</p>
       <p className={styles.text}>
         Input the email to which the account is registered, and we will send a link to create a new

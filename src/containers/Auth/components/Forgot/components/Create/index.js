@@ -17,7 +17,7 @@ const Create = ({ onSubmit }) => {
   }
 
   return (
-    <div className={styles.content}>
+    <div className={styles.content} onClick={(e) => e.stopPropagation()}>
       <p className={styles.header}>Let's create your new password!</p>
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

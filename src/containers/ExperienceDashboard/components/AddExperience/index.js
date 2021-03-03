@@ -122,7 +122,7 @@ const AddExperience = (props) => {
                 Preview
               </Button>
             </div>
-            {edit && (
+            {false && (
               <div className={styles.btn_preview}>
                 {success && <div className={styles.success}>Copied successfully</div>}
                 <Button
@@ -147,7 +147,7 @@ const AddExperience = (props) => {
                   <div className={styles.preview}>PREVIEW</div>
                 </div>
               )}
-              {edit && (
+              {false && (
                 <div>
                   <img src={Copy} className={styles.copy_btn} onClick={duplicate} alt="copy" />
                 </div>

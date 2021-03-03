@@ -140,6 +140,10 @@ const Step2 = (props) => {
     delete data.qtyVal
     delete data.typeIds
     delete data.tagIds
+    if (adult) {
+      delete data.priceChild
+      delete step1.priceChild
+    }
 
     setItem('addExperience', {
       ...step1,
@@ -153,6 +157,7 @@ const Step2 = (props) => {
       duration: dur,
       // adult: isAdult,
       currency: 'HKD',
+      isAdult: adult,
     })
     setStep()
     setStepper(false)
