@@ -100,8 +100,8 @@ export default {
   deleteFaq: '/v1/admin/faq/delete/',
   editFaq: '/v1/admin/faq/moderate',
   createCity: '/v1/admin/city/create',
-  deleteCity: '/v1/city/delete/',
-  editCity: '/v1/city/update',
+  deleteCity: '/v1/admin/city/delete/',
+  editCity: '/v1/admin/city/update',
 
   // Favourites
   toggleFavouriteProduct: '/v1/product/toggle_favorite',
