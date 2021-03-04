@@ -50,8 +50,10 @@ const FormItem = (props) => {
 }
 
 FormItem.propTypes = {
-  question: T.string,
-  answer: T.string,
+  city: T.shape(),
+  available: T.string,
+  id: T.number,
+  closemodal: T.func,
+  editCityAC: T.func,
 }
-
 export default FormItem

@@ -4,12 +4,10 @@ import { Table, Input, Button, Space, Radio } from 'antd'
 import Highlighter from 'react-highlight-words'
 import { SearchOutlined } from '@ant-design/icons'
 import { getCitiesAC } from 'actions/system'
-import { getFaqAC, createCityAC, deleteCityAC, editCityAC } from 'actions/admin'
-import Avatar from 'components/AvatarPlaceholder'
+import { createCityAC, deleteCityAC, editCityAC } from 'actions/admin'
+import { connect } from 'react-redux'
 import Modal from 'components/UniversalModal'
 import FormItem from './ItemForm'
-import { connect } from 'react-redux'
-import { setDialogAC } from 'actions/chat'
 
 const CityTable = ({ cities, requesting, getCitiesAC, createCityAC, deleteCityAC, editCityAC }) => {
   const [id, setId] = useState('')
@@ -32,7 +30,6 @@ const CityTable = ({ cities, requesting, getCitiesAC, createCityAC, deleteCityAC
 
   const handleReset = (clearFilters) => {
     clearFilters()
-    console.log('%c   clearFilters   ', 'color: darkgreen; background: palegreen;', clearFilters)
     setSearchText('')
   }
 
@@ -115,7 +112,6 @@ const CityTable = ({ cities, requesting, getCitiesAC, createCityAC, deleteCityAC
   const addChange = (e) => setAddCityName(e.target.value)
 
   const onRadio = (e) => setAddAvailable(e.target.value)
-  const toggleAvailable = () => setAvailable(!available)
 
   const closeModal = () => setVisible(false)
 
@@ -193,7 +189,7 @@ const CityTable = ({ cities, requesting, getCitiesAC, createCityAC, deleteCityAC
 }
 
 CityTable.propTypes = {
-  faq: T.shape(),
+  cities: T.arrayOf(T.shape()),
   requesting: T.bool,
   getCitiesAC: T.func,
   createCityAC: T.func,
