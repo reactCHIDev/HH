@@ -95,6 +95,13 @@ export default {
   getShopsList: '/v1/admin/shop/list_all',
   getWithdrawList: '/v1/admin/foodmaker/withdraw',
   approveWithdraw: '/v1/admin/foodmaker/withdraw',
+  getFaq: '/v1/faq/list',
+  createFaq: '/v1/admin/faq/create',
+  deleteFaq: '/v1/admin/faq/delete/',
+  editFaq: '/v1/admin/faq/moderate',
+  createCity: '/v1/admin/city/create',
+  deleteCity: '/v1/city/delete/',
+  editCity: '/v1/city/update',
 
   // Favourites
   toggleFavouriteProduct: '/v1/product/toggle_favorite',

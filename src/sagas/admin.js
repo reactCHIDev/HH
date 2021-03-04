@@ -4,6 +4,13 @@ import {
   getShopsListReq,
   getWithdrawListReq,
   approveWithdrawReq,
+  getFaqReq,
+  createFaqReq,
+  editFaqReq,
+  deleteFaqReq,
+  createCityReq,
+  editCityReq,
+  deleteCityReq,
 } from 'api/requests/Admin'
 
 import {
@@ -19,6 +26,18 @@ import {
   APPROVE_WITHDRAW_REQUESTING,
   APPROVE_WITHDRAW_SUCCESS,
   APPROVE_WITHDRAW_ERROR,
+  GET_FAQ_LIST_REQUESTING,
+  GET_FAQ_LIST_SUCCESS,
+  GET_FAQ_LIST_ERROR,
+  CREATE_FAQ_REQUESTING,
+  DELETE_FAQ_REQUESTING,
+  EDIT_FAQ_REQUESTING,
+  GET_CITIES_REQUESTING,
+  GET_CITIES_SUCCESS,
+  GET_CITIES_ERROR,
+  CREATE_CITY_REQUESTING,
+  DELETE_CITY_REQUESTING,
+  EDIT_CITY_REQUESTING,
 } from '../actions/constants'
 
 function* getUsersListSaga() {
@@ -39,6 +58,17 @@ function* getShopsListSaga() {
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_SHOPS_LIST_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getFaqListSaga() {
+  try {
+    const response = yield getFaqReq()
+    yield put({ type: GET_FAQ_LIST_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_FAQ_LIST_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -88,11 +118,86 @@ function* approveWithdrawSaga({ payload }) {
   }
 }
 
+function* createFaqSaga({ payload }) {
+  try {
+    const response = yield createFaqReq(payload)
+    yield put({ type: 'CREATE_FAQ_SUCCESS', data: response.data })
+    yield put({ type: GET_FAQ_LIST_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'CREATE_FAQ__ERROR', error: error.response.data.error })
+    }
+  }
+}
+function* editFaqSaga({ payload }) {
+  try {
+    const response = yield editFaqReq(payload)
+    yield put({ type: 'EDIT_FAQ_SUCCESS', data: response.data })
+    yield put({ type: GET_FAQ_LIST_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'EDIT_FAQ__ERROR', error: error.response.data.error })
+    }
+  }
+}
+function* deleteFaqSaga({ payload }) {
+  try {
+    const response = yield deleteFaqReq(payload)
+    yield put({ type: 'DELETE_FAQ_SUCCESS', data: response.data })
+    yield put({ type: GET_FAQ_LIST_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'DELETE_FAQ__ERROR', error: error.response.data.error })
+    }
+  }
+}
+
+function* createCitySaga({ payload }) {
+  try {
+    const response = yield createCityReq(payload)
+    yield put({ type: 'CREATE_CITY_SUCCESS', data: response.data })
+    yield put({ type: GET_CITIES_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'CREATE_CITY__ERROR', error: error.response.data.error })
+    }
+  }
+}
+function* editCitySaga({ payload }) {
+  try {
+    const response = yield editCityReq(payload)
+    yield put({ type: 'EDIT_CITY_SUCCESS', data: response.data })
+    yield put({ type: GET_CITIES_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'EDIT_CITY__ERROR', error: error.response.data.error })
+    }
+  }
+}
+function* deleteCitySaga({ payload }) {
+  try {
+    const response = yield deleteCityReq(payload)
+    yield put({ type: 'DELETE_CITY_SUCCESS', data: response.data })
+    yield put({ type: GET_CITIES_REQUESTING })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: 'DELETE_CITY__ERROR', error: error.response.data.error })
+    }
+  }
+}
+
 function* adminWatcher() {
   yield takeEvery(GET_USERS_LIST_REQUESTING, getUsersListSaga)
   yield takeEvery(GET_SHOPS_LIST_REQUESTING, getShopsListSaga)
   yield takeEvery(GET_WITHDRAW_LIST_REQUESTING, getWithdrawListSaga)
   yield takeEvery(APPROVE_WITHDRAW_REQUESTING, approveWithdrawSaga)
+  yield takeEvery(GET_FAQ_LIST_REQUESTING, getFaqListSaga)
+  yield takeEvery(CREATE_FAQ_REQUESTING, createFaqSaga)
+  yield takeEvery(EDIT_FAQ_REQUESTING, editFaqSaga)
+  yield takeEvery(DELETE_FAQ_REQUESTING, deleteFaqSaga)
+  yield takeEvery(CREATE_CITY_REQUESTING, createCitySaga)
+  yield takeEvery(EDIT_CITY_REQUESTING, editCitySaga)
+  yield takeEvery(DELETE_CITY_REQUESTING, deleteCitySaga)
 }
 
 export default adminWatcher

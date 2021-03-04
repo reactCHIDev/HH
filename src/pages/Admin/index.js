@@ -6,6 +6,8 @@ import Sidebar from './components/Sidebar'
 import Users from './components/Tables/Users'
 import Withdraws from './components/Tables/Withdraws'
 import Shops from './components/Tables/Shops'
+import City from './components/Tables/City'
+import Faq from './components/Tables/Faq'
 
 import './admin_page.less'
 
@@ -23,6 +25,8 @@ function Admin() {
           {activeTab === 'users' && <Users />}
           {activeTab === 'shops' && <Shops />}
           {activeTab === 'withdraws' && <Withdraws />}
+          {activeTab === 'city' && <City />}
+          {activeTab === 'faq' && <Faq />}
         </Content>
       </Layout>
     </Layout>

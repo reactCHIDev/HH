@@ -53,7 +53,7 @@ const Step3 = (props) => {
     if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
   }, [fileList])
 
-  const isAdultChk = () => setIsAdult((a) => !a)
+  const isAdultChk = () => setIsAdult((a) => a)
 
   const onRadio = (e) => setRadio(e.target.value)
 
