@@ -7,6 +7,9 @@ import {
   CREATE_FAQ_REQUESTING,
   DELETE_FAQ_REQUESTING,
   EDIT_FAQ_REQUESTING,
+  CREATE_CITY_REQUESTING,
+  DELETE_CITY_REQUESTING,
+  EDIT_CITY_REQUESTING,
 } from './constants'
 
 export const getUsersListAC = () => ({
@@ -43,5 +46,20 @@ export const deleteFaqAC = (id) => ({
 
 export const editFaqAC = (data) => ({
   type: EDIT_FAQ_REQUESTING,
+  payload: data,
+})
+
+export const createCityAC = (data) => ({
+  type: CREATE_CITY_REQUESTING,
+  payload: data,
+})
+
+export const deleteCityAC = (id) => ({
+  type: DELETE_CITY_REQUESTING,
+  payload: id,
+})
+
+export const editCityAC = (data) => ({
+  type: EDIT_CITY_REQUESTING,
   payload: data,
 })
