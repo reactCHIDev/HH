@@ -24,6 +24,9 @@ function Sidebar({ activeTab, setActiveTab }) {
         >
           Withdraws
         </Menu.Item>
+        <Menu.Item key="city" icon={<ShoppingOutlined />} onClick={() => setActiveTab('city')}>
+          City
+        </Menu.Item>
         <Menu.Item key="faq" icon={<ShoppingOutlined />} onClick={() => setActiveTab('faq')}>
           FAQ
         </Menu.Item>
