@@ -14,6 +14,8 @@ export const createPublicBookingReq = (data) => apiClient.post(PATHS.createPubli
 
 export const getFMBookingHistory = () => apiClient.get(PATHS.fmBookingHistory)
 
+export const getFLBookingHistory = () => apiClient.get(PATHS.flBookingHistory)
+
 export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
   const i = `startIndex=${startIndex}`
   const l = `limit=${limit}`
@@ -22,7 +24,12 @@ export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
 }
 
 export const getFoodmakerExperiencesReviews = () => {
-  console.log('bbbb')
+  return apiClient.get(PATHS.foodmakerExperiencesReviews)
+}
 
-  apiClient.get(PATHS.foodmakerExperiencesReviews)
+export const getFMBookingInfoByIdReq = (payload) => {
+  return apiClient.get(PATHS.foodmakerBookingInfo + payload)
+}
+export const getFLBookingInfoByIdReq = (payload) => {
+  return apiClient.get(PATHS.foodloverBookingInfo + payload)
 }

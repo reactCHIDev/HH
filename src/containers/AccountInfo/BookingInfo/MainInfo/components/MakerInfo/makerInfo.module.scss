@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-right: 30px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  .textInfo {
+    display: flex;
+    margin-bottom: 20px;
+
+    .info {
+      margin-right: 40px;
+
+      .option {
+        margin-bottom: 7px;
+        color: #838894;
+        font-size: 12px;
+      }
+
+      .text {
+        color: #31394d;
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: capitalize;
+      }
+
+      .id {
+        color: #5375cb;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+  }
+  .makerInfo {
+    margin-bottom: 30px;
+  }
+
+  .expPageButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 0px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #31394d;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .btnSection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+
+    .leaveBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60%;
+      padding: 10px 0px;
+
+      color: #31394d;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 19px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid #838894;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .printBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30%;
+      padding: 10px 0px;
+      color: #31394d;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 19px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid #838894;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  }
+}

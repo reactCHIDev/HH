@@ -27,7 +27,7 @@ function TableRaw({ element }) {
         <div className={styles.price}>{element.price}$</div>
         <div className={styles.guests}>{element.guests}</div>
         <div className={styles.button}>
-          <Link to={{ pathname: '/fm_booking_info', state: element.id }}>
+          <Link to={{ pathname: '/fl_booking_info', state: element.id }}>
             <button type="button">view</button>
           </Link>
         </div>

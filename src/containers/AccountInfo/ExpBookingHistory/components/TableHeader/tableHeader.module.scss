@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dcdde1;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
+  .headingsWrapper {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    color: #838894;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+
+    .heading {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .product {
+      width: 50%;
+    }
+
+    .day {
+      width: 15%;
+    }
+
+    .time {
+      width: 10%;
+    }
+
+    .price {
+      width: 10%;
+    }
+
+    .participants {
+      width: 15%;
+    }
+  }
+  .lastSection {
+    display: flex;
+    justify-content: flex-end;
+    width: 15%;
+  }
+}

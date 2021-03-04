@@ -7,6 +7,8 @@ import {
   getExperienceByIdReq,
   getBookingByDateReq,
   createPublicBookingReq,
+  getFMBookingInfoByIdReq,
+  getFLBookingInfoByIdReq,
 } from 'api/requests/Experience'
 import { removeKey } from '../utils/localStorage'
 
@@ -29,6 +31,12 @@ import {
   CREATE_PUBLIC_BOOKING_REQUESTING,
   CREATE_PUBLIC_BOOKING_SUCCESS,
   CREATE_PUBLIC_BOOKING_ERROR,
+  GET_FM_BOOKING_INFO_REQUESTING,
+  GET_FM_BOOKING_INFO_SUCCESS,
+  GET_FM_BOOKING_INFO_ERROR,
+  GET_FL_BOOKING_INFO_REQUESTING,
+  GET_FL_BOOKING_INFO_SUCCESS,
+  GET_FL_BOOKING_INFO_ERROR,
 } from '../actions/constants'
 
 function* createExperienceSaga({ payload }) {
@@ -102,6 +110,28 @@ function* createPublicBookingSaga({ payload }) {
   }
 }
 
+function* getFMBookingInfoSaga({ payload }) {
+  try {
+    const response = yield getFMBookingInfoByIdReq(payload)
+    yield put({ type: GET_FM_BOOKING_INFO_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_FM_BOOKING_INFO_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getFLBookingInfoSaga({ payload }) {
+  try {
+    const response = yield getFLBookingInfoByIdReq(payload)
+    yield put({ type: GET_FL_BOOKING_INFO_SUCCESS, data: response.data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_FL_BOOKING_INFO_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* accountWatcher() {
   yield takeEvery(CREATE_EXPERIENCE_REQUESTING, createExperienceSaga)
   yield takeEvery(UPDATE_EXPERIENCE_REQUESTING, updateExperienceSaga)
@@ -109,6 +139,8 @@ function* accountWatcher() {
   yield takeEvery(GET_EXPERIENCE_BY_ID_REQUESTING, getExperienceByIdSaga)
   yield takeEvery(GET_BOOKING_BY_DATE_REQUESTING, getBookingByDateSaga)
   yield takeEvery(CREATE_PUBLIC_BOOKING_REQUESTING, createPublicBookingSaga)
+  yield takeEvery(GET_FM_BOOKING_INFO_REQUESTING, getFMBookingInfoSaga)
+  yield takeEvery(GET_FL_BOOKING_INFO_REQUESTING, getFLBookingInfoSaga)
 }
 
 export default accountWatcher
