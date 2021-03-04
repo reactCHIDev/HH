@@ -1,7 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { Layout, Menu } from 'antd'
-import { UserOutlined, DollarOutlined, ShoppingOutlined } from '@ant-design/icons'
+import {
+  UserOutlined,
+  DollarOutlined,
+  ShoppingOutlined,
+  BankOutlined,
+  QuestionOutlined,
+} from '@ant-design/icons'
 
 const { Sider } = Layout
 
@@ -24,10 +30,10 @@ function Sidebar({ activeTab, setActiveTab }) {
         >
           Withdraws
         </Menu.Item>
-        <Menu.Item key="city" icon={<ShoppingOutlined />} onClick={() => setActiveTab('city')}>
+        <Menu.Item key="city" icon={<BankOutlined />} onClick={() => setActiveTab('city')}>
           City
         </Menu.Item>
-        <Menu.Item key="faq" icon={<ShoppingOutlined />} onClick={() => setActiveTab('faq')}>
+        <Menu.Item key="faq" icon={<QuestionOutlined />} onClick={() => setActiveTab('faq')}>
           FAQ
         </Menu.Item>
       </Menu>
