@@ -16,7 +16,9 @@ function BookingHistory() {
   const bookings = useSelector((state) => state.fmBookingsHistory.bookings)
   const currentPage = useSelector((state) => state.fmBookingsHistory.bookingHistoryPage)
   const reviewsCount = useSelector((state) => state.fmBookingsHistory.bookingHistoryCount)
+  const isRequesting = useSelector((state) => state.fmBookingsHistory.requesting)
 
+  const [isPastExpShown, setIsPastExpShown] = React.useState(false)
   const [searchValue, setSearchValue] = React.useState('')
   const [data, setData] = React.useState()
 
@@ -26,7 +28,7 @@ function BookingHistory() {
   })
 
   React.useEffect(() => {
-    dispatch(getFmBookingHistoryAC({ page: currentPage }))
+    dispatch(getFmBookingHistoryAC({ page: currentPage, showPast: isPastExpShown }))
   }, [])
 
   React.useEffect(() => {
@@ -67,7 +69,20 @@ function BookingHistory() {
   }
 
   const pageChange = (newPage) => {
-    dispatch(getFmBookingHistoryAC({ page: newPage }))
+    dispatch(getFmBookingHistoryAC({ page: newPage, showPast: isPastExpShown }))
+  }
+
+  const showPrev = () => {
+    if (isRequesting) {
+      return
+    }
+    if (isPastExpShown) {
+      dispatch(getFmBookingHistoryAC({ page: 1, showPast: false }))
+      setIsPastExpShown(false)
+    } else {
+      dispatch(getFmBookingHistoryAC({ page: 1, showPast: true }))
+      setIsPastExpShown(true)
+    }
   }
 
   return data ? (
@@ -80,7 +95,7 @@ function BookingHistory() {
           <ListContainer
             page={currentPage}
             pageChange={pageChange}
-            pageSize={6}
+            pageSize={5}
             total={reviewsCount}
           >
             <div style={{ marginBottom: '20px' }}>
@@ -88,7 +103,9 @@ function BookingHistory() {
                 <TableRaw key={el.id} element={el} />
               ))}
             </div>
-            <div className={styles.button}>1</div>
+            <div className={styles.button} onClick={() => showPrev()}>
+              &#8634; {isPastExpShown ? 'new' : 'past'} experiences
+            </div>
           </ListContainer>
         </div>
       </div>

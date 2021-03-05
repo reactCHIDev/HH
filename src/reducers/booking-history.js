@@ -49,7 +49,7 @@ const reducer = function accountReducer(state = initialState, action) {
         ...state,
         flBookings: action.data.bookings,
         flBookingHistoryCount: action.data.counter,
-        flbookingHistoryPage: action.data.page,
+        flBookingHistoryPage: action.data.page,
         requesting: false,
       }
     case GET_FL_BOOKING_HISTORY_ERROR:

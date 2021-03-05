@@ -1,5 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { getFMBookingHistory, getFLBookingHistory } from 'api/requests/Experience'
+import {
+  getFMBookingHistory,
+  getFLBookingHistory,
+  getPastFLBookingHistory,
+  getPastFMBookingHistory,
+} from 'api/requests/Experience'
 
 import {
   GET_FM_BOOKING_HISTORY_REQUESTING,
@@ -11,11 +16,12 @@ import {
 } from '../actions/constants'
 
 function* getFMBookingHistorySaga({ payload }) {
-  const { page } = payload
+  const { page, showPast } = payload
 
   try {
-    const response = yield getFMBookingHistory({ startIndex: page * 6 - 6, limit: 6 })
-    console.log(response)
+    const response = showPast
+      ? yield getPastFMBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
+      : yield getFMBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
     yield put({
       type: GET_FM_BOOKING_HISTORY_SUCCESS,
       data: {
@@ -40,10 +46,12 @@ function* getFMBookingHistorySaga({ payload }) {
   }
 }
 function* getFLBookingHistorySaga({ payload }) {
-  const { page } = payload
+  const { page, showPast } = payload
 
   try {
-    const response = yield getFLBookingHistory({ startIndex: page * 6 - 6, limit: 6 })
+    const response = showPast
+      ? yield getPastFLBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
+      : yield getFLBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
 
     yield put({
       type: GET_FL_BOOKING_HISTORY_SUCCESS,
