@@ -4,6 +4,8 @@ import cloneDeep from 'lodash/cloneDeep'
 
 import useSortableData from 'hooks/useSortable'
 import { getFmBookingHistoryAC } from 'actions/booking-history'
+import ListContainer from 'components/ListContainer/index'
+
 import Header from './components/Header'
 import styles from './bookingHistory.module.scss'
 import TableHeader from './components/TableHeader'
@@ -12,6 +14,9 @@ import TableRaw from './components/TableRaw'
 function BookingHistory() {
   const dispatch = useDispatch()
   const bookings = useSelector((state) => state.fmBookingsHistory.bookings)
+  const currentPage = useSelector((state) => state.fmBookingsHistory.bookingHistoryPage)
+  const reviewsCount = useSelector((state) => state.fmBookingsHistory.bookingHistoryCount)
+
   const [searchValue, setSearchValue] = React.useState('')
   const [data, setData] = React.useState()
 
@@ -21,7 +26,7 @@ function BookingHistory() {
   })
 
   React.useEffect(() => {
-    dispatch(getFmBookingHistoryAC())
+    dispatch(getFmBookingHistoryAC({ page: currentPage }))
   }, [])
 
   React.useEffect(() => {
@@ -61,6 +66,10 @@ function BookingHistory() {
     }
   }
 
+  const pageChange = (newPage) => {
+    dispatch(getFmBookingHistoryAC({ page: newPage }))
+  }
+
   return data ? (
     <div className={styles.main_wrapper}>
       <Header onSearch={setSearchValue} />
@@ -68,9 +77,19 @@ function BookingHistory() {
       <div className={styles.container}>
         <div className={styles.tableWrapper}>
           <TableHeader requestSort={requestSort} />
-          {data.map((el) => (
-            <TableRaw key={el.id} element={el} />
-          ))}
+          <ListContainer
+            page={currentPage}
+            pageChange={pageChange}
+            pageSize={6}
+            total={reviewsCount}
+          >
+            <div style={{ marginBottom: '20px' }}>
+              {data.map((el) => (
+                <TableRaw key={el.id} element={el} />
+              ))}
+            </div>
+            <div className={styles.button}>1</div>
+          </ListContainer>
         </div>
       </div>
     </div>

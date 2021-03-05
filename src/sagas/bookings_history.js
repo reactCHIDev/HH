@@ -10,21 +10,28 @@ import {
   GET_FL_BOOKING_HISTORY_ERROR,
 } from '../actions/constants'
 
-function* getFMBookingHistorySaga() {
+function* getFMBookingHistorySaga({ payload }) {
+  const { page } = payload
+
   try {
-    const response = yield getFMBookingHistory()
+    const response = yield getFMBookingHistory({ startIndex: page * 6 - 6, limit: 6 })
+    console.log(response)
     yield put({
       type: GET_FM_BOOKING_HISTORY_SUCCESS,
-      data: response.data.bookings.map(({ ...data }) => ({
-        adults: data.guests.adults || 0,
-        childs: data.guests.childs || 0,
-        id: data.id,
-        title: data.experience.title,
-        photo: data.experience.coverPhoto,
-        time: data.time,
-        price: data.totalPrice,
-        guests: data.guests.adults || 0 + data.guests.childs || 0,
-      })),
+      data: {
+        bookings: response.data.bookings.map(({ ...data }) => ({
+          adults: data.guests.adults || 0,
+          childs: data.guests.childs || 0,
+          id: data.id,
+          title: data.experience.title,
+          photo: data.experience.coverPhoto,
+          time: data.time,
+          price: data.totalPrice,
+          guests: data.guests.adults || 0 + data.guests.childs || 0,
+        })),
+        counter: response.data.counter,
+        page,
+      },
     })
   } catch (error) {
     if (error.response) {
@@ -32,22 +39,28 @@ function* getFMBookingHistorySaga() {
     }
   }
 }
-function* getFLBookingHistorySaga() {
+function* getFLBookingHistorySaga({ payload }) {
+  const { page } = payload
+
   try {
-    const response = yield getFLBookingHistory()
-    // console.log(response, 'response')
+    const response = yield getFLBookingHistory({ startIndex: page * 6 - 6, limit: 6 })
+
     yield put({
       type: GET_FL_BOOKING_HISTORY_SUCCESS,
-      data: response.data.bookings.map(({ ...data }) => ({
-        adults: data.guests.adults || 0,
-        childs: data.guests.childs || 0,
-        id: data.id,
-        title: data.experience.title,
-        photo: data.experience.coverPhoto,
-        time: data.time,
-        price: data.totalPrice,
-        guests: data.guests.adults || 0 + data.guests.childs || 0,
-      })),
+      data: {
+        bookings: response.data.bookings.map(({ ...data }) => ({
+          adults: data.guests.adults || 0,
+          childs: data.guests.childs || 0,
+          id: data.id,
+          title: data.experience.title,
+          photo: data.experience.coverPhoto,
+          time: data.time,
+          price: data.totalPrice,
+          guests: data.guests.adults || 0 + data.guests.childs || 0,
+        })),
+        counter: response.data.counter,
+        page,
+      },
     })
   } catch (error) {
     if (error.response) {

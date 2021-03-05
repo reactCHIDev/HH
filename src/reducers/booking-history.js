@@ -12,6 +12,10 @@ const initialState = {
   eroror: '',
   bookings: [],
   flBookings: [],
+  bookingHistoryCount: null,
+  bookingHistoryPage: 1,
+  flBookingHistoryCount: null,
+  flBookingHistoryPage: 1,
 }
 
 const reducer = function accountReducer(state = initialState, action) {
@@ -24,7 +28,9 @@ const reducer = function accountReducer(state = initialState, action) {
     case GET_FM_BOOKING_HISTORY_SUCCESS:
       return {
         ...state,
-        bookings: action.data,
+        bookings: action.data.bookings,
+        bookingHistoryCount: action.data.counter,
+        bookingHistoryPage: action.data.page,
         requesting: false,
       }
     case GET_FM_BOOKING_HISTORY_ERROR:
@@ -41,7 +47,9 @@ const reducer = function accountReducer(state = initialState, action) {
     case GET_FL_BOOKING_HISTORY_SUCCESS:
       return {
         ...state,
-        flBookings: action.data,
+        flBookings: action.data.bookings,
+        flBookingHistoryCount: action.data.counter,
+        flbookingHistoryPage: action.data.page,
         requesting: false,
       }
     case GET_FL_BOOKING_HISTORY_ERROR:

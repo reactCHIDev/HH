@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { Rate } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'

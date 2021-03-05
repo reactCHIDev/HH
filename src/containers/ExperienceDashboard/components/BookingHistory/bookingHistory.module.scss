@@ -7,6 +7,12 @@
     padding: 20px 20px;
   }
   .container {
+    position: relative;
     width: 100%;
+
+    .button {
+      position: absolute;
+      right: 0px;
+    }
   }
 }

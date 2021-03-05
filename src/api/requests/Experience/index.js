@@ -12,9 +12,26 @@ export const getBookingByDateReq = (id, date) =>
 
 export const createPublicBookingReq = (data) => apiClient.post(PATHS.createPublicBooking, { data })
 
-export const getFMBookingHistory = () => apiClient.get(PATHS.fmBookingHistory)
+export const getFMBookingHistory = ({ startIndex = 0, limit = 6 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.fmBookingHistory + params)
+}
 
-export const getFLBookingHistory = () => apiClient.get(PATHS.flBookingHistory)
+export const getFLBookingHistory = ({ startIndex = 0, limit = 6 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.flBookingHistory + params)
+}
+
+// export const getFlProductsReviewsReq = ({ startIndex = 1, limit = 6 }) => {
+//   const i = `startIndex=${startIndex}`
+//   const l = `limit=${limit}`
+//   const params = `?${i}&${l}`
+//   return apiClient.get(PATHS.getFlProductReviews + params)
+// }
 
 export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
   const i = `startIndex=${startIndex}`
