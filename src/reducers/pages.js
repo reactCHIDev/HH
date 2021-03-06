@@ -2,6 +2,9 @@ import {
   GET_PUBLIC_PRODUCTS,
   GET_PUBLIC_PRODUCTS_SUCCESS,
   GET_PUBLIC_PRODUCTS_ERROR,
+  GET_PUBLIC_EXPERIENCES,
+  GET_PUBLIC_EXPERIENCES_SUCCESS,
+  GET_PUBLIC_EXPERIENCES_ERROR,
   GET_PUBLIC_FOODMAKERS,
   GET_PUBLIC_FOODMAKERS_SUCCESS,
   GET_PUBLIC_FOODMAKERS_ERROR,
@@ -12,6 +15,7 @@ import {
 
 const initialState = {
   products: [],
+  experiences: [],
   foodmakers: [],
   foodmakerData: null,
   shopData: null,
@@ -35,6 +39,26 @@ const reducer = function loginReducer(state = initialState, action) {
       }
 
     case GET_PUBLIC_PRODUCTS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+    case GET_PUBLIC_EXPERIENCES:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
+    case GET_PUBLIC_EXPERIENCES_SUCCESS:
+      return {
+        ...state,
+        experiences: action.data,
+        requesting: false,
+      }
+
+    case GET_PUBLIC_EXPERIENCES_ERROR:
       return {
         ...state,
         requesting: false,

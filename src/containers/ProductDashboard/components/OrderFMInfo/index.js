@@ -32,7 +32,7 @@ const OrderFMInfo = (props) => {
     removeOrder()
   }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (orderInf) {
       const contact = {
         id: orderInf.id,
@@ -49,7 +49,7 @@ const OrderFMInfo = (props) => {
       dispatch(setNewContactAC(contact))
       dispatch(setActiveChatAC(contact.id, contact.recipient))
     }
-  }, [orderInf])
+  }, [orderInf]) */
 
   return (
     <div className={styles.container}>

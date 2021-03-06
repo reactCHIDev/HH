@@ -4,10 +4,11 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import { getPublicProductsAC, getPublicFoodmakersAC } from 'actions/pages'
+import { getPublicProductsAC, getPublicExperiencesAC, getPublicFoodmakersAC } from 'actions/pages'
 import ProdCard from 'components/ProductCard'
 import { push } from 'connected-react-router'
 import { Spin, Space } from 'antd'
+import ExpCard from 'components/ExperienceCard'
 
 import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
@@ -26,9 +27,11 @@ import './home.less'
 const Home = (props) => {
   const {
     getPublicProductsAC,
+    getPublicExperiencesAC,
     getPublicFoodmakersAC,
     pushRoute,
     productList,
+    experiencesList,
     foodmakersList,
     isLoading,
   } = props
@@ -38,12 +41,19 @@ const Home = (props) => {
   const [productStartIndex, setProductStartIndex] = useState(0)
   const [productCollection, setProductCollection] = useState([])
 
+  const [experiencesStartIndex, setExperiencesStartIndex] = useState(0)
+  const [experiencesCollection, setExperiencesCollection] = useState([])
+
   const [foodmakerStartIndex, setFoodmakerStartIndex] = useState(0)
   const [foodmakerCollection, setFoodmakerCollection] = useState([])
 
   useEffect(() => {
     getPublicProductsAC(productStartIndex, 6)
   }, [productStartIndex])
+
+  useEffect(() => {
+    getPublicExperiencesAC(experiencesStartIndex, 6)
+  }, [experiencesStartIndex])
 
   useEffect(() => {
     getPublicFoodmakersAC(foodmakerStartIndex, 3)
@@ -54,6 +64,12 @@ const Home = (props) => {
       p.concat(productList.filter((e) => !p.find((el) => el.id === e.id))),
     )
   }, [productList])
+
+  useEffect(() => {
+    setExperiencesCollection((p) =>
+      p.concat(experiencesList.filter((e) => !p.find((el) => el.id === e.id))),
+    )
+  }, [experiencesList])
 
   useEffect(() => {
     setFoodmakerCollection((p) =>
@@ -67,6 +83,10 @@ const Home = (props) => {
 
   const moreProducts = () => {
     setProductStartIndex((si) => si + 6)
+  }
+
+  const moreExperiences = () => {
+    setExperiencesStartIndex((si) => si + 6)
   }
 
   return (
@@ -84,6 +104,35 @@ const Home = (props) => {
       </section>
 
       <div className={styles.content}>
+        <div className={styles.product_section}>
+          {experiencesCollection.map(
+            (el) =>
+              el?.experience?.coverPhoto && (
+                <ExpCard
+                  photo={el.experience.coverPhoto}
+                  tags={el.experience.tagIds.map((i) => i.tagName)}
+                  name={el.experience.title}
+                  price={el.experience?.priceChild || el.experience.priceAdult}
+                  rating={el.experience.rating}
+                  rateCount={el.experience.votes}
+                  pathname={`/experience/${el.experience.id}`}
+                  id={el.experience.id}
+                  isFavorite={el.isFavorite}
+                />
+              ),
+          )}
+          <div className={styles.btn_holder}>
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+                <Space size="middle">
+                  <Spin size="large" />
+                </Space>
+              </div>
+            ) : (
+              <Button title="Explore more" dark onClick={moreExperiences} />
+            )}
+          </div>
+        </div>
         <section className={styles.product_section}>
           <div className={styles.product_bg_container}>
             <img src={Pattern2} alt="Pattern2" />
@@ -158,6 +207,7 @@ const Home = (props) => {
 
 Home.propTypes = {
   productList: T.arrayOf(T.shape),
+  experiencesList: T.arrayOf(T.shape),
   foodmakersList: T.arrayOf(T.shape),
   getPublicProductsAC: T.func,
   getPublicFoodmakersAC: T.func,
@@ -167,11 +217,13 @@ Home.propTypes = {
 export default connect(
   ({ pages }) => ({
     productList: pages.products,
+    experiencesList: pages.experiences,
     foodmakersList: pages.foodmakers,
     isLoading: pages.requesting,
   }),
   {
     getPublicProductsAC,
+    getPublicExperiencesAC,
     getPublicFoodmakersAC,
     pushRoute: push,
   },
