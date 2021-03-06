@@ -44,6 +44,7 @@ export const searchByExperiencesReq = ({
   isExplore,
   guests,
   types,
+  date,
 }) => {
   const title = searchedValue ? `title=${searchedValue}` : ''
   const startIndex = startIdx >= 0 ? `&startIndex=${startIdx}` : ''
@@ -53,8 +54,8 @@ export const searchByExperiencesReq = ({
   const explore = isExplore ? '&explore=true' : ''
   const guestsQ = guests ? `&guests=${guests}` : ''
   const typeId = types ? `&typeIds=${types}` : ''
-  const params = `?${title}${startIndex}${limit}${cityId}${price}${explore}${guestsQ}${typeId}`
-  console.log(params, 'PARAMS')
+  const day = date ? `&date=${date}` : ''
+  const params = `?${title}${startIndex}${limit}${cityId}${price}${explore}${guestsQ}${typeId}${day}`
   return apiClient.get(PATHS.searchInExperiences + params)
   // ?startIndex=0&limit=12&cityId=307&price=0,499&explore=true&guests=15&typeIds=1,2,3
 }

@@ -81,6 +81,7 @@ function SearchBlock() {
             .map((i) => i.id),
           prodPrice: `${minPrice},${maxPrice}`,
           guests: guestsAmount,
+          date,
         },
       }),
     )
@@ -90,7 +91,9 @@ function SearchBlock() {
     setVisibilityPriceSelector(false)
   }
 
-  const onDateChange = (selectedDate) => setDate(selectedDate)
+  const onDateChange = (dateString) => {
+    setDate(new Date(dateString).toLocaleDateString().replaceAll('/', '-'))
+  }
 
   const onGuestsAmountChange = (v) => setGuestsAmount(v)
 
@@ -136,6 +139,12 @@ function SearchBlock() {
         <label className={styles.label}>Number of guests</label>
         <div className="guestInput">
           <InputNumber value={guestsAmount} min="0" max="500" onChange={onGuestsAmountChange} />
+        </div>
+      </div>
+      <div className={cls(styles.input_wrapper, styles.service_input)} ref={serviceTagsRef}>
+        <label className={styles.label}>Host Speciality </label>
+        <div className="guestInput">
+          <input disabled className={styles.input} type="text" />
         </div>
       </div>
       <div
