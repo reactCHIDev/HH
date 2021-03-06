@@ -76,6 +76,7 @@ const Header = (props) => {
     '/landing/foodmakers',
     '/landing/create_profile',
     '/landing/create_shop',
+    '/fm_booking_info',
   ]
 
   const darkTheme = ['']

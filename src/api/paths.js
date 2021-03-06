@@ -77,6 +77,7 @@ export default {
 
   // Home page
   getHomePageProducts: '/v1/product/list_all',
+  getHomePageExperiences: '/v1/experience/list',
   listFoodmakersForHome: '/v1/foodmaker/list_all',
 
   // Stripe
