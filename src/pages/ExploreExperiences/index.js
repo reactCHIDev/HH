@@ -32,7 +32,10 @@ const ExploreExp = () => {
                   el?.experience?.coverPhoto && (
                     <ExpCard
                       photo={el.experience.coverPhoto}
-                      tags={el.experience.tagIds.map((i) => i.tagName)}
+                      tags={[
+                        ...el.experience.tagIds.map((i) => i.tagName),
+                        ...el.experience.typeIds.map((i) => i.title),
+                      ]}
                       name={el.experience.title}
                       price={el.experience?.priceChild || el.experience.priceAdult}
                       rating={el.experience.rating}
