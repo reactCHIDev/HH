@@ -27,7 +27,7 @@ const Success = () => {
     dispatch(replace('/'))
   }
   const toBookings = () => {
-    dispatch(replace('/experience_dashboard/listings'))
+    dispatch(replace('/account_info/orders'))
   }
 
   return (

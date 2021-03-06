@@ -5,7 +5,7 @@ import { DatePicker } from 'antd'
 import styles from './header.module.scss'
 
 const Header = (props) => {
-  const { onSearch, onDataChange, mark = '' } = props
+  const { onSearch, onDateChange, mark = '' } = props
   const { RangePicker } = DatePicker
 
   const extraMark = (num) => <div className={styles.extra_mark}>{num}</div>
@@ -26,7 +26,7 @@ const Header = (props) => {
             />
           </div>
           <div className={styles.date_picker}>
-            <RangePicker disabled={false} id="1" format="DD MMM YY" onChange={onDataChange} />
+            <RangePicker disabled={false} id="1" format="DD MMM YY" onChange={onDateChange} />
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   onSearch: T.func,
-  onDataChange: T.func,
+  onDateChange: T.func,
   mark: T.number,
 }
 

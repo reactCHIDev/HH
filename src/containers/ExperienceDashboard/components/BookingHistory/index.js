@@ -59,9 +59,9 @@ function BookingHistory() {
   }
 
   const onDateChange = (date) => {
-    const { 0: start, 1: end } = date
     if (date) {
-      const newState = cloneDeep(items).filter((e) => isDateValid(e.createdAt, start, end))
+      const { 0: start, 1: end } = date
+      const newState = cloneDeep(items).filter((e) => isDateValid(e.time, start, end))
       setData(newState)
     } else {
       setData(items)
@@ -87,7 +87,7 @@ function BookingHistory() {
 
   return data ? (
     <div className={styles.main_wrapper}>
-      <Header onSearch={setSearchValue} />
+      <Header onSearch={setSearchValue} onDateChange={onDateChange} />
 
       <div className={styles.container}>
         <div className={styles.tableWrapper}>
