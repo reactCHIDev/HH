@@ -3,11 +3,14 @@
 import { connect } from 'react-redux'
 import SubHeader from 'components/SubHeader'
 import { getFMBookingInfoAC } from 'actions/experience'
+import { useSelector, useDispatch } from 'react-redux'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { replace } from 'connected-react-router'
+import { setActiveChatAC, setNewContactAC } from 'actions/chat'
+
+import Messages from 'pages/Messages'
 import MainInfo from './components/MainInfo'
-import Chat from './components/Chat'
 
 import styles from './fmBooking.module.scss'
 
@@ -19,12 +22,34 @@ function BookingInfo(props) {
     orderInfo,
   } = props
 
+  const dispatch = useDispatch()
+
   const goBack = () => {
     replaceRoute(`/experience_dashboard/booking`)
   }
 
   React.useEffect(() => {
     getData(order)
+  }, [])
+
+  useEffect(() => {
+    if (true) {
+      const contact = {
+        id: 668,
+        dialogCreated: new Date(),
+        lastMessageSent: new Date(),
+        recipient: {
+          id: 668,
+          profileName: 'Sasha',
+          userPhoto:
+            'https://hungryhugger-space.fra1.digitaloceanspaces.com/84499c8a-e2e0-46e3-820a-e478f1a7edc9_1611823430013.jpg',
+          email: '',
+        },
+        newMessages: 0,
+      }
+      dispatch(setNewContactAC(contact))
+      dispatch(setActiveChatAC(contact.id, contact.recipient))
+    }
   }, [])
 
   return (
@@ -34,7 +59,9 @@ function BookingInfo(props) {
       </div>
       <div className={styles.content}>
         {orderInfo.experience && <MainInfo orderInfo={orderInfo} />}
-        <Chat />
+        <div className={styles.chat}>
+          <Messages orderChat />
+        </div>
       </div>
     </>
   )

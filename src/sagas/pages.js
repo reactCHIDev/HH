@@ -3,7 +3,11 @@ import { replace } from 'connected-react-router'
 
 import PATHS from 'api/paths'
 
-import { getHomePageProductsReq, getFoodmakesForHomePageReq } from 'api/requests/Pages'
+import {
+  getHomePageProductsReq,
+  getHomePageExperiencesReq,
+  getFoodmakesForHomePageReq,
+} from 'api/requests/Pages'
 import { createProductSuccess, createProductError } from 'actions/product'
 import { getUserByHHLink } from 'api/requests/Account'
 import { getFoodmakerInfoByNameReq } from 'api/requests/foodmaker'
@@ -13,6 +17,9 @@ import {
   GET_PUBLIC_PRODUCTS,
   GET_PUBLIC_PRODUCTS_SUCCESS,
   GET_PUBLIC_PRODUCTS_ERROR,
+  GET_PUBLIC_EXPERIENCES,
+  GET_PUBLIC_EXPERIENCES_SUCCESS,
+  GET_PUBLIC_EXPERIENCES_ERROR,
   GET_PUBLIC_FOODMAKERS,
   GET_PUBLIC_FOODMAKERS_SUCCESS,
   GET_PUBLIC_FOODMAKERS_ERROR,
@@ -26,6 +33,18 @@ function* getProductsSaga({ payload }) {
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_PUBLIC_PRODUCTS_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
+function* getExperiencesSaga({ payload }) {
+  try {
+    const response = yield getHomePageExperiencesReq(payload)
+    console.log('%c   response   ', 'color: white; background: salmon;', response)
+    yield put({ type: GET_PUBLIC_EXPERIENCES_SUCCESS, data: response.data.experiences })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_PUBLIC_EXPERIENCES_ERROR, error: error.response.data.error })
     }
   }
 }
@@ -59,6 +78,7 @@ function* resolveFoodmakerPageSaga({ url }) {
 
 function* pagesWatcher() {
   yield takeEvery(GET_PUBLIC_PRODUCTS, getProductsSaga)
+  yield takeEvery(GET_PUBLIC_EXPERIENCES, getExperiencesSaga)
   yield takeEvery(GET_PUBLIC_FOODMAKERS, getFoodmakersSaga)
   yield takeEvery(RESOLVE_FOODMAKER_DATA, resolveFoodmakerPageSaga)
 }
