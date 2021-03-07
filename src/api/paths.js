@@ -75,6 +75,7 @@ export default {
   createShop: '/v1/shop/create',
   getShopByFoodmakerId: '/v1/shop/foodmaker/',
   getShopByUrl: '/v1/shop/shop_url/',
+  getFavShops: '/v1/shop/list_favorite',
 
   // Home page
   getHomePageProducts: '/v1/product/list_all',

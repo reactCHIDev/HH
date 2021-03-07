@@ -1,4 +1,9 @@
-import { GET_FAV_PRODUCTS, GET_FAV_EXPERIENCES, GET_FAV_FOODMAKERS } from './constants'
+import {
+  GET_FAV_PRODUCTS,
+  GET_FAV_EXPERIENCES,
+  GET_FAV_FOODMAKERS,
+  GET_FAV_SHOPS,
+} from './constants'
 
 export const getFavExperiencesAC = (startIdx, lim) => ({
   type: GET_FAV_EXPERIENCES,
@@ -12,5 +17,10 @@ export const getFavProductsAC = (startIdx, lim) => ({
 
 export const getFavMakersAC = (startIdx, lim) => ({
   type: GET_FAV_FOODMAKERS,
+  payload: { startIdx, lim },
+})
+
+export const getFavShopsAC = (startIdx, lim) => ({
+  type: GET_FAV_SHOPS,
   payload: { startIdx, lim },
 })

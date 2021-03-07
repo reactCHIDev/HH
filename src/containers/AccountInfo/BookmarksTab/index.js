@@ -1,10 +1,10 @@
 import React from 'react'
 import T from 'prop-types'
 import TabsOpen from 'components/Tabs/TabsOpen'
-import OrdersFL from '../OrdersFL'
 import FavExperiences from './FavExperiences'
 import FavProducts from './FavProducts'
 import FavMakers from './FavFoodmakers'
+import FavShops from './FavShops'
 
 import styles from './bookmarkstab.module.scss'
 
@@ -17,7 +17,7 @@ const BookmarksTab = () => {
             Experiences: { mark: 0, content: <FavExperiences /> },
             Products: { mark: 0, content: <FavProducts /> },
             Foodmakers: { mark: 0, content: <FavMakers /> },
-            Shops: { mark: 0, content: <OrdersFL /> },
+            Shops: { mark: 0, content: <FavShops /> },
           }}
         />
       </div>

@@ -1,6 +1,11 @@
 import { put, takeEvery } from 'redux-saga/effects'
 
-import { getFavProductsReq, getFavExperiencesReq, getFavMakersReq } from 'api/requests/Bookmarks'
+import {
+  getFavProductsReq,
+  getFavExperiencesReq,
+  getFavMakersReq,
+  getFavShopsReq,
+} from 'api/requests/Bookmarks'
 
 import {
   GET_FAV_PRODUCTS,
@@ -12,6 +17,9 @@ import {
   GET_FAV_FOODMAKERS,
   GET_FAV_FOODMAKERS_SUCCESS,
   GET_FAV_FOODMAKERS_ERROR,
+  GET_FAV_SHOPS,
+  GET_FAV_SHOPS_SUCCESS,
+  GET_FAV_SHOPS_ERROR,
 } from '../actions/constants'
 
 function* getFavProductsSaga({ payload }) {
@@ -35,6 +43,7 @@ function* getFavExperiencesSaga({ payload }) {
     }
   }
 }
+
 function* getFavMakersSaga({ payload }) {
   try {
     const response = yield getFavMakersReq(payload)
@@ -46,10 +55,22 @@ function* getFavMakersSaga({ payload }) {
   }
 }
 
+function* getFavShopsSaga({ payload }) {
+  try {
+    const response = yield getFavShopsReq(payload)
+    yield put({ type: GET_FAV_SHOPS_SUCCESS, data: response.data.shops })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_FAV_SHOPS_ERROR, error: error.response.data.error })
+    }
+  }
+}
+
 function* bookmarksWatcher() {
   yield takeEvery(GET_FAV_PRODUCTS, getFavProductsSaga)
   yield takeEvery(GET_FAV_EXPERIENCES, getFavExperiencesSaga)
   yield takeEvery(GET_FAV_FOODMAKERS, getFavMakersSaga)
+  yield takeEvery(GET_FAV_SHOPS, getFavShopsSaga)
 }
 
 export default bookmarksWatcher

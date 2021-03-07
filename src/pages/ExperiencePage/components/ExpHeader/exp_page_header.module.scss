@@ -48,6 +48,8 @@
           width: 100%;
         }
         .exp_heading {
+          display: flex;
+          justify-content: space-between;
           color: #3c3e43;
           font-weight: bold;
           font-size: 32px;
@@ -58,6 +60,12 @@
             vertical-align: middle;
             background: lightgray;
             border-radius: 4px;
+          }
+          .like_btn {
+            width: 32px;
+            margin: 0 3px;
+            vertical-align: middle;
+            cursor: pointer;
           }
         }
         .input_number {
