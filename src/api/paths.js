@@ -52,6 +52,8 @@ export default {
   pastFlBookingHistory: '/v1/experience/list_past_bookings/',
   foodmakerBookingInfo: '/v1/experience/foodmaker_booking/',
   foodloverBookingInfo: '/v1/experience/foodlover_booking/',
+  unreviewedExperience: '/v1/review/experience/latest/pending',
+  createExperienceReview: '/v1/review/experience/create',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',

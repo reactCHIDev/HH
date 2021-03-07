@@ -57,3 +57,10 @@ export const getFMBookingInfoByIdReq = (payload) => {
 export const getFLBookingInfoByIdReq = (payload) => {
   return apiClient.get(PATHS.foodloverBookingInfo + payload)
 }
+
+export const getUnreviewedExperienceReq = () => {
+  return apiClient.get(PATHS.unreviewedExperience)
+}
+
+export const createExperienceReviewReq = (data) =>
+  apiClient.post(PATHS.createExperienceReview, { data })

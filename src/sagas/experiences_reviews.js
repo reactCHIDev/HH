@@ -1,11 +1,58 @@
-import { put, takeEvery } from 'redux-saga/effects'
-import { getExperienceReviews, getFoodmakerExperiencesReviews } from 'api/requests/Experience'
+import { put, takeEvery, select } from 'redux-saga/effects'
+import {
+  getExperienceReviews,
+  getFoodmakerExperiencesReviews,
+  getUnreviewedExperienceReq,
+  createExperienceReviewReq,
+} from 'api/requests/Experience'
 
 import {
   GET_EXPERIENCE_REVIEW_REQUESTING,
   GET_EXPERIENCE_REVIEW_SUCCESS,
   GET_EXPERIENCE_REVIEW_ERROR,
+  GET_UNREVIEWED_EXPERIENCE_REQUESTING,
+  GET_UNREVIEWED_EXPERIENCE_SUCCESS,
+  GET_UNREVIEWED_EXPERIENCE_ERROR,
+  CREATE_EXPERIENCE_REVIEW_REQUESTING,
+  CREATE_PRODUCT_REVIEW_SUCCESS,
+  CREATE_EXPERIENCE_REVIEW_ERROR,
 } from '../actions/constants'
+
+function* getUnreviewedExperienceSaga() {
+  try {
+    const { data } = yield getUnreviewedExperienceReq()
+    yield put({ type: GET_UNREVIEWED_EXPERIENCE_SUCCESS, data })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_UNREVIEWED_EXPERIENCE_ERROR })
+    }
+  }
+}
+
+function* createProductReview({ data }) {
+  const getReviewsData = (store) => store.reviews
+  const { currentPage, reviewsCurrentPage } = yield select(getReviewsData)
+  try {
+    yield createExperienceReviewReq(data)
+    // if (data.isReviewOnProductPage) {
+    //   yield put({
+    //     type: GET_PRODUCT_REVIEWS_REQUESTING,
+    //     data: { id: data.productId, page: currentPage },
+    //   })
+    //   yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+    // } else {
+    //   yield put({
+    //     type: GET_UNREVIEWED_PRODUCT_REQUESTING,
+    //   })
+    //   yield put({ type: GET_FL_REVIEWS_REQUESTING, data: { page: reviewsCurrentPage } })
+    yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+    // }
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: CREATE_EXPERIENCE_REVIEW_ERROR })
+    }
+  }
+}
 
 function* getExperiencesReviewsSage({ payload }) {
   const { page, type, id } = payload
@@ -25,6 +72,8 @@ function* getExperiencesReviewsSage({ payload }) {
 
 function* getExperiencesReviewsWatcher() {
   yield takeEvery(GET_EXPERIENCE_REVIEW_REQUESTING, getExperiencesReviewsSage)
+  yield takeEvery(GET_UNREVIEWED_EXPERIENCE_REQUESTING, getUnreviewedExperienceSaga)
+  yield takeEvery(CREATE_EXPERIENCE_REVIEW_REQUESTING, createProductReview)
 }
 
 export default getExperiencesReviewsWatcher
