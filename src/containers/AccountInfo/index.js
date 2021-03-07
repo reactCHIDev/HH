@@ -10,6 +10,7 @@ import Exp from 'components/Tabs/Test/Exp'
 import Comp from 'components/Tabs/Test/Comp'
 // import Listings from '../ProductDashboard/components/Listings'
 import ProfileTab from './ProfileTab'
+import BookmarksTab from './BookmarksTab'
 import OrdersTab from './OrdersTab'
 import ReviewsTab from './ReviewsTab'
 import styles from './accinfo.module.scss'
@@ -30,7 +31,7 @@ const AccountInfo = (props) => {
         onChange={onChange}
         activeTab={activeTab || 'profile'}
         tabs={{
-          bookmarks: { mark: false, disabled: true, content: <Soon /> },
+          bookmarks: { mark: false, disabled: false, content: <BookmarksTab /> },
           orders: { mark: false, disabled: false, content: <OrdersTab /> },
           review: { mark: false, disabled: false, content: <ReviewsTab /> },
           'blog submission': { mark: false, disabled: true, content: <Soon /> },

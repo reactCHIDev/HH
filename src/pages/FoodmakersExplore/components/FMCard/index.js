@@ -73,13 +73,13 @@ const FMCard = ({ item }) => {
             )}
           </div>
           <div className={styles.fm_card_info}>
-            <p className={styles.fm_card_name}>
+            <div className={styles.fm_card_name}>
               {item.firstName} {item.lastName.charAt(0)}.
               <div className={cls(styles.fm_card_stats, 'rating')}>
                 <Rate style={{ color: '#31394C' }} disabled defaultValue={item.rating} />
                 <span>({`${item.votes || 0}`})</span>
               </div>
-            </p>
+            </div>
             <p className={styles.timestamp}>{item.about}</p>
             <p className={styles.autor}>
               {item.tags && item.tags.map((el, i) => <span key={el}>{(i ? ', ' : '') + el}</span>)}

@@ -31,6 +31,7 @@ export default {
   getProductInfo: '/v1/product/info/',
   toggleStatus: '/v1/product/toggle_status',
   duplicate: '/v1/product/duplicate/',
+  getFavProducts: '/v1/product/list_favorite',
 
   // Experience
   createExperience: '/v1/experience/create',
@@ -54,6 +55,7 @@ export default {
   foodloverBookingInfo: '/v1/experience/foodlover_booking/',
   unreviewedExperience: '/v1/review/experience/latest/pending',
   createExperienceReview: '/v1/review/experience/create',
+  getFavExperiences: '/v1/experience/list_favorite',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
@@ -61,6 +63,7 @@ export default {
   updateFoodmakerAccount: '/v1/account/update_foodmaker',
   createWithdraw: '/v1/foodmaker/create_withdraw_request',
   updateBankData: '/v1/foodmaker/payment_info',
+  getFavMakers: '/v1/foodmaker/list_favorite',
 
   // System
   getProductTypes: '/v1/product/list_types',
@@ -76,6 +79,7 @@ export default {
   createShop: '/v1/shop/create',
   getShopByFoodmakerId: '/v1/shop/foodmaker/',
   getShopByUrl: '/v1/shop/shop_url/',
+  getFavShops: '/v1/shop/list_favorite',
 
   // Home page
   getHomePageProducts: '/v1/product/list_all',
