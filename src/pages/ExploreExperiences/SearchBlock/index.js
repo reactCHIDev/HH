@@ -3,6 +3,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { DatePicker, Select, InputNumber } from 'antd'
+import format from 'date-fns/format'
 
 import cls from 'classnames'
 
@@ -70,6 +71,7 @@ function SearchBlock() {
   }
 
   const onSearchClickHandler = () => {
+    console.log(date)
     dispatch(
       searchRequestingnAc({
         searchType: 'Experiences',
@@ -92,7 +94,7 @@ function SearchBlock() {
   }
 
   const onDateChange = (dateString) => {
-    setDate(new Date(dateString).toLocaleDateString().replaceAll('/', '-'))
+    setDate(format(new Date(dateString), 'yyyy-MM-dd'))
   }
 
   const onGuestsAmountChange = (v) => setGuestsAmount(v)
