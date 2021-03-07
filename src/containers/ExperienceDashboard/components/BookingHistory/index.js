@@ -91,22 +91,30 @@ function BookingHistory() {
 
       <div className={styles.container}>
         <div className={styles.tableWrapper}>
-          <TableHeader requestSort={requestSort} />
-          <ListContainer
-            page={currentPage}
-            pageChange={pageChange}
-            pageSize={5}
-            total={reviewsCount}
-          >
-            <div style={{ marginBottom: '20px' }}>
-              {data.map((el) => (
-                <TableRaw key={el.id} element={el} />
-              ))}
-            </div>
-            <div className={styles.button} onClick={() => showPrev()}>
+          {reviewsCount ? (
+            <>
+              <TableHeader requestSort={requestSort} />
+              <ListContainer
+                page={currentPage}
+                pageChange={pageChange}
+                pageSize={5}
+                total={reviewsCount}
+              >
+                <div style={{ marginBottom: '20px' }}>
+                  {data.map((el) => (
+                    <TableRaw key={el.id} element={el} />
+                  ))}
+                </div>
+                <div className={styles.button} onClick={() => showPrev()}>
+                  &#8634; {isPastExpShown ? 'new' : 'past'} experiences
+                </div>
+              </ListContainer>
+            </>
+          ) : (
+            <div className={styles.emptyButton} onClick={() => showPrev()}>
               &#8634; {isPastExpShown ? 'new' : 'past'} experiences
             </div>
-          </ListContainer>
+          )}
         </div>
       </div>
     </div>
