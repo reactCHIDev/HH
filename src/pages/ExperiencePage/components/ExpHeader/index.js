@@ -8,6 +8,9 @@ import { parseISO, isSameDay, getDate, getMonth, getYear, differenceInMinutes } 
 import { Button } from 'antd'
 import { setItem } from 'utils/localStorage'
 import { useDispatch, useSelector } from 'react-redux'
+import ExpLike from 'assets/icons/svg/exp-page-like.svg'
+import ExpLikeRed from 'assets/icons/svg/exp_like_red.svg'
+import ExpShare from 'assets/icons/svg/exp-share.svg'
 import ImagePreviewer from 'pages/ProductPage/components/ImagePreviewer'
 import GuestsSelector from '../GuestsSelector'
 import Calendar from '../Calendar'
@@ -154,6 +157,14 @@ const ExpHeader = ({ experience, user }) => {
     setVisibilityGuestsSelector(!visible)
   }
 
+  const likeClick = () => {
+    dispatch()
+  }
+
+  const shareClick = () => {
+    dispatch()
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={cls(styles.container, styles.gray)}>
@@ -162,7 +173,17 @@ const ExpHeader = ({ experience, user }) => {
           {dates.length ? (
             <div className={styles.inner_content}>
               <p className={styles.exp_heading}>
-                {title} {isAdult && <span className={styles.adults_only}>18+</span>}
+                <span>
+                  {title} {isAdult && <span className={styles.adults_only}>18+</span>}
+                </span>
+                <span>
+                  <span className={styles.like_btn} onClick={likeClick}>
+                    <img src={true ? ExpLike : ExpLikeRed} alt="like" />
+                  </span>
+                  <span className={styles.like_btn} onClick={shareClick}>
+                    <img src={ExpShare} alt="share" />
+                  </span>
+                </span>
               </p>
               <div className={cls(styles.input_number, 'exp-guests_number')}>
                 <GuestsSelector

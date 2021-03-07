@@ -8,6 +8,9 @@ import {
   GET_FAV_FOODMAKERS,
   GET_FAV_FOODMAKERS_SUCCESS,
   GET_FAV_FOODMAKERS_ERROR,
+  GET_FAV_SHOPS,
+  GET_FAV_SHOPS_SUCCESS,
+  GET_FAV_SHOPS_ERROR,
 } from '../actions/constants'
 
 const initialState = {
@@ -75,6 +78,26 @@ const reducer = function bookmarksReducer(state = initialState, action) {
       }
 
     case GET_FAV_FOODMAKERS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+    case GET_FAV_SHOPS:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
+    case GET_FAV_SHOPS_SUCCESS:
+      return {
+        ...state,
+        favShops: action.data,
+        requesting: false,
+      }
+
+    case GET_FAV_SHOPS_ERROR:
       return {
         ...state,
         requesting: false,
