@@ -25,6 +25,7 @@ import reviews from './reviews'
 import fmBookingHistoryWatcher from './bookings_history'
 import expListing from './experiences_listing'
 import expReviews from './experiences_reviews'
+import bookmarks from './bookmarks'
 
 export default function* rootSaga() {
   yield all([
@@ -54,5 +55,6 @@ export default function* rootSaga() {
     fmBookingHistoryWatcher(),
     expListing(),
     expReviews(),
+    bookmarks(),
   ])
 }

@@ -31,6 +31,7 @@ export default {
   getProductInfo: '/v1/product/info/',
   toggleStatus: '/v1/product/toggle_status',
   duplicate: '/v1/product/duplicate/',
+  getFavProducts: '/v1/product/list_favorite',
 
   // Experience
   createExperience: '/v1/experience/create',
@@ -50,6 +51,7 @@ export default {
   flBookingHistory: '/v1/experience/list_bookings',
   foodmakerBookingInfo: '/v1/experience/foodmaker_booking/',
   foodloverBookingInfo: '/v1/experience/foodlover_booking/',
+  getFavExperiences: '/v1/experience/list_favorite',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
@@ -57,6 +59,7 @@ export default {
   updateFoodmakerAccount: '/v1/account/update_foodmaker',
   createWithdraw: '/v1/foodmaker/create_withdraw_request',
   updateBankData: '/v1/foodmaker/payment_info',
+  getFavMakers: '/v1/foodmaker/list_favorite',
 
   // System
   getProductTypes: '/v1/product/list_types',
