@@ -7,8 +7,9 @@ import {
   GET_FL_BOOKING_HISTORY_ERROR,
 } from './constants'
 
-export const getFmBookingHistoryAC = () => ({
+export const getFmBookingHistoryAC = (payload) => ({
   type: GET_FM_BOOKING_HISTORY_REQUESTING,
+  payload,
 })
 
 export const getFmBookingHistorySuccess = (payload) => ({
@@ -21,8 +22,9 @@ export const getFmBookingHistoryError = (payload) => ({
   payload,
 })
 
-export const getFlBookingHistoryAC = () => ({
+export const getFlBookingHistoryAC = (payload) => ({
   type: GET_FL_BOOKING_HISTORY_REQUESTING,
+  payload,
 })
 
 export const getFlBookingHistorySuccess = (payload) => ({

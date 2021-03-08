@@ -9,14 +9,18 @@ import PhoneIcon from 'assets/icons/svg/phone-icon.svg'
 import styles from './paymentinfo.module.scss'
 
 const PaymentOrderInfo = ({ orderInfo }) => {
-  // const dateOptions = {
-  //   year: 'numeric',
-  //   month: 'short',
-  //   day: 'numeric',
-  // }
+  console.log(orderInfo, 'orderInfo')
+  const dateOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }
 
-  // const mainDate = new Date(orderInfo.createdAt).toLocaleDateString('en-US', dateOptions)
-  // const secondaryDate = new Date(orderInfo.createdAt).toLocaleDateString('en-GB', dateOptions)
+  const mainDate = new Date(orderInfo.booking.createdAt).toLocaleDateString('en-US', dateOptions)
+  const secondaryDate = new Date(orderInfo.booking.createdAt).toLocaleDateString(
+    'en-GB',
+    dateOptions,
+  )
 
   return (
     <div className={styles.container}>
@@ -26,21 +30,21 @@ const PaymentOrderInfo = ({ orderInfo }) => {
           <div className={styles.infoWrapper}>
             <div className={styles.item}>
               <div className={styles.text}>Day</div>
-              <div className={styles.value}>{/* {mainDate} */}</div>
+              <div className={styles.value}>{secondaryDate}</div>
             </div>
             <div className={styles.item}>
               <div className={styles.text}>Payment method</div>
               <div className={styles.value}>
-                {/* {orderInfo.paymentDetails.brand} *{orderInfo.paymentDetails.last4} */}
+                {orderInfo.paymentDetails.brand} *{orderInfo.paymentDetails.last4}
               </div>
             </div>
             <div className={styles.item}>
               <div className={styles.text}>Status</div>
-              <div className={styles.value}>{/* {orderInfo.deliveryStatus} */}</div>
+              <div className={styles.value}>Received</div>
             </div>
             <div className={styles.item}>
               <div className={styles.text}>Value</div>
-              <div className={styles.value}>{/* $ {orderInfo.orderTotal} */}</div>
+              <div className={styles.value}>$ {orderInfo.booking.totalPrice}</div>
             </div>
           </div>
         </div>
@@ -58,7 +62,7 @@ const PaymentOrderInfo = ({ orderInfo }) => {
             </div>
             <div className={styles.column}>
               <div className={styles.header}>To</div>
-              <div>{/* # {orderInfo.customer.profileName} */}</div>
+              <div># {orderInfo.user}</div>
               <div>{/* {orderInfo.customer.email} */}</div>
             </div>
           </div>
@@ -66,6 +70,7 @@ const PaymentOrderInfo = ({ orderInfo }) => {
             <div className={styles.column}>
               <div className={styles.header}>Item</div>
               <div>
+                {orderInfo.experience.title}
                 {/* {orderInfo.orderProducts.map((item) => (
                   <div key={item.id}>{item.title}</div>
                 ))} */}
@@ -74,23 +79,26 @@ const PaymentOrderInfo = ({ orderInfo }) => {
             <div className={styles.column}>
               <div className={styles.header}>Price</div>
               <div>
+                $ {orderInfo.booking.totalPrice}
                 {/* {orderInfo.orderProducts.map((item) => (
                   <div key={item.id}>$ {item.price}</div>
                 ))} */}
               </div>
             </div>
           </div>
-          <div className={styles.foodMakerWrapper}>
+          {/* <div className={styles.foodMakerWrapper}>
             <div className={styles.foodMakerInfo}>
               <div className={styles.foodMakerName}>
-                <div className={styles.text}>Food maker</div>
+                <div className={styles.text}>Experience details</div>
                 <div className={styles.data}>
-                  {/* {orderInfo.foodmaker.firstName} {orderInfo.foodmaker.lastName.charAt(0)}. */}
+                  <div>• lol</div>
+                  <div>• lol1</div>
+                  <div>• lol2</div>
                 </div>
               </div>
               <div className={styles.foodMakerPhone}>
                 <img src={PhoneIcon} alt="phone-icon" />
-                <div>{/* {orderInfo.foodmaker.phone */}</div>
+                <div> {orderInfo.foodmaker.phone </div>
               </div>
             </div>
             <div className={styles.printButton}>
@@ -103,7 +111,7 @@ const PaymentOrderInfo = ({ orderInfo }) => {
                 <img src={InvoiceIcon} alt="invoice_icon" />
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -114,4 +122,7 @@ PaymentOrderInfo.propTypes = {
   orderHash: T.string,
 }
 
-export default connect(({ flOrders }) => ({ orderInfo: flOrders.order }), null)(PaymentOrderInfo)
+export default connect(
+  ({ experience }) => ({ orderInfo: experience.flBookingByID }),
+  null,
+)(PaymentOrderInfo)

@@ -35,8 +35,6 @@ const OrderInfo = (props) => {
     getFLBookingInfoAC(order)
   }, [])
 
-  console.log(orderInfo?.experience?.title, 'orderInfo')
-
   return (
     <div className={styles.container}>
       <SubHeader
@@ -50,7 +48,11 @@ const OrderInfo = (props) => {
             mark: false,
             content: <MainInfo />,
           },
-          'Payment Info': { disabled: false, mark: false, content: <PaymentInfo orderHash /> },
+          'Payment Info': {
+            disabled: false,
+            mark: false,
+            content: <PaymentInfo />,
+          },
         }}
       />
       <div className={styles.content} />

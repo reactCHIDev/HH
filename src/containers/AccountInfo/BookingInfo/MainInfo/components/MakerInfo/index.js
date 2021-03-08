@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from './makerInfo.module.scss'
 import MakerWrapper from '../MakerWrapper'
 
-function MakerInfo({ bookingID, date, foodmaker }) {
+function MakerInfo({ bookingID, date, foodmaker, expId }) {
   const day = new Date(date).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -32,7 +33,9 @@ function MakerInfo({ bookingID, date, foodmaker }) {
         <MakerWrapper foodmaker={foodmaker} />
       </div>
       <div className={styles.expPageButton}>
-        <div>Go to the Experience page</div>
+        <Link style={{ color: 'white' }} to={`/experience/${expId}`}>
+          Go to the Experience page
+        </Link>
       </div>
       <div className={styles.btnSection}>
         <div className={styles.leaveBtn}>Leave a review</div>

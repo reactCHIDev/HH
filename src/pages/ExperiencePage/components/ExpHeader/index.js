@@ -4,12 +4,13 @@ import T from 'prop-types'
 import cls from 'classnames'
 import { getBookingByDateAC } from 'actions/experience'
 import { stripeCheckoutAC } from 'actions/stripe'
+import toggleFavouriteAc from 'actions/favourites'
 import { parseISO, isSameDay, getDate, getMonth, getYear, differenceInMinutes } from 'date-fns'
 import { Button } from 'antd'
 import { setItem } from 'utils/localStorage'
 import { useDispatch, useSelector } from 'react-redux'
-import ExpLike from 'assets/icons/svg/exp-page-like.svg'
-import ExpLikeRed from 'assets/icons/svg/exp_like_red.svg'
+import LikeIcon from 'assets/icons/svg/like-icon.svg'
+import LikeIconGray from 'assets/icons/svg/like-icon-gray.svg'
 import ExpShare from 'assets/icons/svg/exp-share.svg'
 import ImagePreviewer from 'pages/ProductPage/components/ImagePreviewer'
 import GuestsSelector from '../GuestsSelector'
@@ -30,7 +31,9 @@ const ExpHeader = ({ experience, user }) => {
     time,
     priceAdult,
     priceChild,
+    isFavorite,
   } = experience
+  console.log(experience, 'exp')
   const { firstName, lastName } = user
 
   const [selectedDate, setSelectedDate] = useState()
@@ -42,6 +45,7 @@ const ExpHeader = ({ experience, user }) => {
   const [childrenn, setChildrenCount] = useState(0)
   const [total, setTotal] = useState(0)
   const [available, setAvailable] = useState(guests)
+  const [isFavourite, setIsFavourite] = useState(isFavorite)
 
   const bookingsByDate = useSelector((state) => state.experience.bookingByDate)
 
@@ -158,7 +162,8 @@ const ExpHeader = ({ experience, user }) => {
   }
 
   const likeClick = () => {
-    dispatch()
+    setIsFavourite((f) => !f)
+    dispatch(toggleFavouriteAc({ id, type: 'exp' }))
   }
 
   const shareClick = () => {
@@ -178,7 +183,7 @@ const ExpHeader = ({ experience, user }) => {
                 </span>
                 <span>
                   <span className={styles.like_btn} onClick={likeClick}>
-                    <img src={true ? ExpLike : ExpLikeRed} alt="like" />
+                    <img src={isFavourite ? LikeIcon : LikeIconGray} alt="like" />
                   </span>
                   <span className={styles.like_btn} onClick={shareClick}>
                     <img src={ExpShare} alt="share" />

@@ -53,9 +53,8 @@ const MainOrderInfo = () => {
   }
 
   const onDataChange = (date) => {
-    const { 0: start, 1: end } = date
-
     if (date) {
+      const { 0: start, 1: end } = date
       const newState = cloneDeep(items).filter((e) => isDateValid(e.createdAt, start, end))
       setData(newState)
     } else {

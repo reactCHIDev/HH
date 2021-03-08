@@ -8,13 +8,37 @@ export const getExperienceByIdReq = (data) => {
   return apiClient.get(PATHS.getExperienceById + data)
 }
 export const getBookingByDateReq = (id, date) =>
-  apiClient.get(PATHS.getBookingByDate + id + '/bookings?date=' + date)
+  apiClient.get(`${PATHS.getBookingByDate + id}/bookings?date=${date}`)
 
 export const createPublicBookingReq = (data) => apiClient.post(PATHS.createPublicBooking, { data })
 
-export const getFMBookingHistory = () => apiClient.get(PATHS.fmBookingHistory)
+export const getFMBookingHistory = ({ startIndex = 1, limit = 5 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.fmBookingHistory + params)
+}
 
-export const getFLBookingHistory = () => apiClient.get(PATHS.flBookingHistory)
+export const getFLBookingHistory = ({ startIndex = 1, limit = 5 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.flBookingHistory + params)
+}
+
+export const getPastFMBookingHistory = ({ startIndex = 1, limit = 5 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.pastFmBookingHistory + params)
+}
+
+export const getPastFLBookingHistory = ({ startIndex = 1, limit = 5 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.pastFlBookingHistory + params)
+}
 
 export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
   const i = `startIndex=${startIndex}`
@@ -33,3 +57,10 @@ export const getFMBookingInfoByIdReq = (payload) => {
 export const getFLBookingInfoByIdReq = (payload) => {
   return apiClient.get(PATHS.foodloverBookingInfo + payload)
 }
+
+export const getUnreviewedExperienceReq = () => {
+  return apiClient.get(PATHS.unreviewedExperience)
+}
+
+export const createExperienceReviewReq = (data) =>
+  apiClient.post(PATHS.createExperienceReview, { data })

@@ -49,8 +49,12 @@ export default {
   createPublicBooking: '/v1/experience/create/public_booking',
   fmBookingHistory: '/v1/experience/list_foodmaker_bookings',
   flBookingHistory: '/v1/experience/list_bookings',
+  pastFmBookingHistory: '/v1/experience/list_foodmaker_past_bookings/',
+  pastFlBookingHistory: '/v1/experience/list_past_bookings/',
   foodmakerBookingInfo: '/v1/experience/foodmaker_booking/',
   foodloverBookingInfo: '/v1/experience/foodlover_booking/',
+  unreviewedExperience: '/v1/review/experience/latest/pending',
+  createExperienceReview: '/v1/review/experience/create',
   getFavExperiences: '/v1/experience/list_favorite',
 
   // Foodmaker

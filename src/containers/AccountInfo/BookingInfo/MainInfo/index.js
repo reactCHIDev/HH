@@ -8,13 +8,13 @@ import MakerInfo from './components/MakerInfo'
 import styles from './maininfo.module.scss'
 
 const MainOrderInfo = ({ orderInfo }) => {
-  console.log(orderInfo, 'order')
   return orderInfo?.booking ? (
     <div className={styles.container}>
       <MakerInfo
         bookingID={orderInfo.booking.id}
         date={orderInfo.booking.createdAt}
         foodmaker={orderInfo.foodmaker}
+        expId={orderInfo.experience.id}
       />
       <ExpInfo
         date={orderInfo.booking.time}

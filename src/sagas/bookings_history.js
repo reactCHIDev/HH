@@ -1,5 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { getFMBookingHistory, getFLBookingHistory } from 'api/requests/Experience'
+import {
+  getFMBookingHistory,
+  getFLBookingHistory,
+  getPastFLBookingHistory,
+  getPastFMBookingHistory,
+} from 'api/requests/Experience'
 
 import {
   GET_FM_BOOKING_HISTORY_REQUESTING,
@@ -10,21 +15,29 @@ import {
   GET_FL_BOOKING_HISTORY_ERROR,
 } from '../actions/constants'
 
-function* getFMBookingHistorySaga() {
+function* getFMBookingHistorySaga({ payload }) {
+  const { page, showPast } = payload
+
   try {
-    const response = yield getFMBookingHistory()
+    const response = showPast
+      ? yield getPastFMBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
+      : yield getFMBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
     yield put({
       type: GET_FM_BOOKING_HISTORY_SUCCESS,
-      data: response.data.bookings.map(({ ...data }) => ({
-        adults: data.guests.adults || 0,
-        childs: data.guests.childs || 0,
-        id: data.id,
-        title: data.experience.title,
-        photo: data.experience.coverPhoto,
-        time: data.time,
-        price: data.totalPrice,
-        guests: data.guests.adults || 0 + data.guests.childs || 0,
-      })),
+      data: {
+        bookings: response.data.bookings.map(({ ...data }) => ({
+          adults: data.guests.adults || 0,
+          childs: data.guests.childs || 0,
+          id: data.id,
+          title: data.experience.title,
+          photo: data.experience.coverPhoto,
+          time: data.time,
+          price: data.totalPrice,
+          guests: data.guests.adults || 0 + data.guests.childs || 0,
+        })),
+        counter: response.data.counter,
+        page,
+      },
     })
   } catch (error) {
     if (error.response) {
@@ -32,22 +45,30 @@ function* getFMBookingHistorySaga() {
     }
   }
 }
-function* getFLBookingHistorySaga() {
+function* getFLBookingHistorySaga({ payload }) {
+  const { page, showPast } = payload
+
   try {
-    const response = yield getFLBookingHistory()
-    // console.log(response, 'response')
+    const response = showPast
+      ? yield getPastFLBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
+      : yield getFLBookingHistory({ startIndex: page * 5 - 5, limit: 5 })
+
     yield put({
       type: GET_FL_BOOKING_HISTORY_SUCCESS,
-      data: response.data.bookings.map(({ ...data }) => ({
-        adults: data.guests.adults || 0,
-        childs: data.guests.childs || 0,
-        id: data.id,
-        title: data.experience.title,
-        photo: data.experience.coverPhoto,
-        time: data.time,
-        price: data.totalPrice,
-        guests: data.guests.adults || 0 + data.guests.childs || 0,
-      })),
+      data: {
+        bookings: response.data.bookings.map(({ ...data }) => ({
+          adults: data.guests.adults || 0,
+          childs: data.guests.childs || 0,
+          id: data.id,
+          title: data.experience.title,
+          photo: data.experience.coverPhoto,
+          time: data.time,
+          price: data.totalPrice,
+          guests: data.guests.adults || 0 + data.guests.childs || 0,
+        })),
+        counter: response.data.counter,
+        page,
+      },
     })
   } catch (error) {
     if (error.response) {

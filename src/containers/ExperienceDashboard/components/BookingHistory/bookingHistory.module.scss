@@ -7,6 +7,33 @@
     padding: 20px 20px;
   }
   .container {
+    position: relative;
     width: 100%;
+
+    .button {
+      position: absolute;
+      right: 0px;
+      bottom: 5px;
+      color: #31394d;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 19px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .emptyButton {
+      position: absolute;
+      right: 0px;
+      bottom: -4px;
+      color: #31394d;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 19px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
   }
 }

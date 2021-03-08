@@ -31,20 +31,21 @@
       font-weight: normal;
       font-size: 14px;
       letter-spacing: 0.07em;
+      white-space: nowrap;
     }
 
     .input[type='text'] {
-      position: relative;
       display: block;
-      width: 100%;
-      min-width: 176px;
+      position: relative;
       height: 56px;
       padding: 16px;
-      color: #31394d;
       font-weight: normal;
       font-size: 16px;
-      border: none;
+      color: #31394d;
       border-radius: 8px;
+      border: none;
+      width: 100%;
+      // min-width: 176px;
     }
 
     .serviceTagsType {
@@ -114,7 +115,7 @@
     position: relative;
     width: 50%;
     @media (max-width: 1024px) {
-      width: 50%;
+      width: 33%;
     }
     @media (max-width: 480px) {
       width: 100%;
