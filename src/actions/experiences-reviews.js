@@ -7,6 +7,9 @@ import {
   GET_UNREVIEWED_EXPERIENCE_SUCCESS,
   //
   CREATE_EXPERIENCE_REVIEW_REQUESTING,
+  //
+  GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
+  GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
 } from './constants'
 
 export const createExperienceReviewAC = (data) => ({
@@ -35,5 +38,15 @@ export const getExperienceReviewSuccess = (payload) => ({
 
 export const getExperienceReviewError = (payload) => ({
   type: GET_EXPERIENCE_REVIEW_ERROR,
+  payload,
+})
+
+export const getFLExperienceReviewsAC = (payload) => ({
+  type: GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
+  payload,
+})
+
+export const getFLExperiencesReviewSuccess = (payload) => ({
+  type: GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
   payload,
 })

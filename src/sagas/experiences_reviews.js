@@ -4,6 +4,7 @@ import {
   getFoodmakerExperiencesReviews,
   getUnreviewedExperienceReq,
   createExperienceReviewReq,
+  getFLExperienceReviewsReq,
 } from 'api/requests/Experience'
 
 import {
@@ -16,6 +17,9 @@ import {
   CREATE_EXPERIENCE_REVIEW_REQUESTING,
   CREATE_PRODUCT_REVIEW_SUCCESS,
   CREATE_EXPERIENCE_REVIEW_ERROR,
+  GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
+  GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
+  GET_FL_EXPERIENCE_REVIEWS_ERROR,
 } from '../actions/constants'
 
 function* getUnreviewedExperienceSaga() {
@@ -54,7 +58,7 @@ function* createProductReview({ data }) {
   }
 }
 
-function* getExperiencesReviewsSage({ payload }) {
+function* getExperiencesReviewsSaga({ payload }) {
   const { page, type, id } = payload
   try {
     const response =
@@ -70,10 +74,35 @@ function* getExperiencesReviewsSage({ payload }) {
   }
 }
 
+function* getFlExperiencesReviews({ data }) {
+  // const { page } = data
+  const page = 1
+
+  try {
+    const { data: products } = yield getFLExperienceReviewsReq({
+      startIndex: page * 3 - 3,
+      limit: 3,
+    })
+    // yield put({
+    //   type: GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
+    //   data: {
+    //     reviews: products.reviews,
+    //     count: products.counter,
+    //     currentProductPage: page,
+    //   },
+    // })
+  } catch (error) {
+    if (error.response) {
+      yield put({ type: GET_FL_EXPERIENCE_REVIEWS_ERROR })
+    }
+  }
+}
+
 function* getExperiencesReviewsWatcher() {
-  yield takeEvery(GET_EXPERIENCE_REVIEW_REQUESTING, getExperiencesReviewsSage)
+  yield takeEvery(GET_EXPERIENCE_REVIEW_REQUESTING, getExperiencesReviewsSaga)
   yield takeEvery(GET_UNREVIEWED_EXPERIENCE_REQUESTING, getUnreviewedExperienceSaga)
   yield takeEvery(CREATE_EXPERIENCE_REVIEW_REQUESTING, createProductReview)
+  yield takeEvery(GET_FL_EXPERIENCE_REVIEWS_REQUESTING, getFlExperiencesReviews)
 }
 
 export default getExperiencesReviewsWatcher
