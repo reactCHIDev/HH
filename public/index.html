@@ -4,10 +4,12 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH8JKSJLRC"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-EH8JKSJLRC');
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-EH8JKSJLRC')
     </script>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
@@ -30,23 +32,55 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Hungry-Hugger</title>
   </head>
   <script>
     window.intercomSettings = {
-      app_id: "m96oa4de"
-    };
+      app_id: 'm96oa4de',
+    }
   </script>
   <script>
-  // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/m96oa4de'
-  (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/m96oa4de';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+    // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/m96oa4de'
+    ;(function() {
+      var w = window
+      var ic = w.Intercom
+      if (typeof ic === 'function') {
+        ic('reattach_activator')
+        ic('update', w.intercomSettings)
+      } else {
+        var d = document
+        var i = function() {
+          i.c(arguments)
+        }
+        i.q = []
+        i.c = function(args) {
+          i.q.push(args)
+        }
+        w.Intercom = i
+        var l = function() {
+          var s = d.createElement('script')
+          s.type = 'text/javascript'
+          s.async = true
+          s.src = 'https://widget.intercom.io/widget/m96oa4de'
+          var x = d.getElementsByTagName('script')[0]
+          x.parentNode.insertBefore(s, x)
+        }
+        if (w.attachEvent) {
+          w.attachEvent('onload', l)
+        } else {
+          w.addEventListener('load', l, false)
+        }
+      }
+    })()
   </script>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">loading...</div>
     <div id="modal"></div>
     <!--
       This HTML file is a template.

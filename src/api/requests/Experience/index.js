@@ -64,3 +64,10 @@ export const getUnreviewedExperienceReq = () => {
 
 export const createExperienceReviewReq = (data) =>
   apiClient.post(PATHS.createExperienceReview, { data })
+
+export const getFLExperienceReviewsReq = ({ startIndex = 1, limit = 6 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.getFlExperienceReviews + params)
+}
