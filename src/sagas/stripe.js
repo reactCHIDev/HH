@@ -49,13 +49,18 @@ function* stripeCheckoutSaga({ item, price }) {
   let cancelUrl
   if (item === 'cart') {
     ;({ totalPrice } = getItem('cart'))
-    successUrl = `${process.env.REACT_APP_BASE_URL}/payment-success`
+    successUrl =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000/payment-success'
+        : `${process.env.REACT_APP_BASE_URL}/payment-success`
     cancelUrl = `${process.env.REACT_APP_BASE_URL}/payment-error`
   }
   if (item === 'booking') {
     totalPrice = Number(price)
-    successUrl = `http://localhost:3000/booking-success`
-    // successUrl = `${process.env.REACT_APP_BASE_URL}/booking-success`
+    successUrl =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000/booking-success'
+        : `${process.env.REACT_APP_BASE_URL}/booking-success`
     cancelUrl = `${process.env.REACT_APP_BASE_URL}/booking-error`
   }
 

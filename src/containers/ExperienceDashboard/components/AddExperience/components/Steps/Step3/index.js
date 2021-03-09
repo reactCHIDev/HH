@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import Uploader from 'components/Uploader'
-import { Button, Radio, Checkbox, Divider } from 'antd'
+import { Button, Radio, Checkbox, Divider, Popover } from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import { getItem, setItem } from 'utils/localStorage'
+import Info from 'assets/icons/svg/info-green.svg'
 import _ from 'lodash/fp'
 import styles from './step3.module.scss'
 import './step3.less'
@@ -147,7 +148,23 @@ const Step3 = (props) => {
 
           <Divider />
           <div id="radio" className={styles.cancellation}>
-            <p className={styles.heading}>Cancellation policy</p>
+            <p className={styles.heading}>
+              Cancellation policy
+              <Popover
+                content={() => (
+                  <>
+                    <div>Refund will take 5-7 working</div>
+                    <div>days to process</div>
+                  </>
+                )}
+                title=""
+                placement="right"
+              >
+                <span>
+                  <img className={styles.info_ico} src={Info} alt="info" />
+                </span>
+              </Popover>
+            </p>
             <Radio.Group onChange={onRadio} value={selectedRadio}>
               <Radio style={styles.radioStyle} value="FULL_REFUND">
                 Full refund
