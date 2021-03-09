@@ -43,7 +43,7 @@ function ProductSummary({ shop, title }) {
 
   React.useEffect(() => {
     if (curDelType.type === 'FreeDelivery' && price < curVal.freeDeliveryOver) {
-      const newT = delTypes.filter((e) => e.type !== 'FreeDelivery')[0]
+      const newT = delTypes.filter((e) => e.type !== 'FreeDelivery')[0] || delTypes[0]
       setCurValue(newT)
       changeType(newT.type, newT.delPrice)
     }

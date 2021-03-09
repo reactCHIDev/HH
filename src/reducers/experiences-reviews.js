@@ -8,6 +8,9 @@ import {
   CREATE_EXPERIENCE_REVIEW_REQUESTING,
   CREATE_EXPERIENCE_REVIEW_SUCCESS,
   CREATE_EXPERIENCE_REVIEW_ERROR,
+  GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
+  GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
+  GET_FL_EXPERIENCE_REVIEWS_ERROR,
 } from '../actions/constants'
 
 const initialState = {
@@ -78,6 +81,30 @@ const reducer = function accountReducer(state = initialState, action) {
       return {
         ...state,
         createReviewRequesting: false,
+      }
+
+    case GET_FL_EXPERIENCE_REVIEWS_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        success: false,
+        error: false,
+      }
+    case GET_FL_EXPERIENCE_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        reviews: action.data.reviews,
+        count: action.data.count,
+        requesting: false,
+        error: false,
+        reviewsCurrentPage: action.data.currentProductPage,
+      }
+
+    case GET_FL_EXPERIENCE_REVIEWS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: true,
       }
 
     default:

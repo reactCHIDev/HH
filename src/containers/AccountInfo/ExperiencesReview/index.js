@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFlProductReviewsAC, openReviewModal } from 'actions/reviews'
-import { getUnreviewedExperienceAC } from 'actions/experiences-reviews'
+import { getUnreviewedExperienceAC, getFLExperienceReviewsAC } from 'actions/experiences-reviews'
 
 import styles from './productsReview.module.scss'
 import ProductToReview from './ProductToReview'
@@ -17,9 +17,8 @@ function ProductsReview() {
 
   React.useEffect(() => {
     dispatch(getUnreviewedExperienceAC(), [dispatch])
-    dispatch(getFlProductReviewsAC({ page: currentPage }), [dispatch])
+    dispatch(getFLExperienceReviewsAC({ page: currentPage }), [dispatch])
   }, [])
-  console.log(experienceToReview, 'experienceToReview')
   return (
     <div className={styles.container}>
       {experienceToReview && !isReviewModalOpen && (
