@@ -32,7 +32,7 @@ function BookingInfo(props) {
     getData(order)
   }, [])
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (true) {
       const contact = {
         id: 668,
@@ -50,13 +50,30 @@ function BookingInfo(props) {
       dispatch(setNewContactAC(contact))
       dispatch(setActiveChatAC(contact.id, contact.recipient))
     }
-  }, [])
+  }, []) */
+
+  useEffect(() => {
+    if (orderInfo) {
+      const contact = {
+        id: orderInfo.user.id,
+        dialogCreated: new Date(),
+        lastMessageSent: new Date(),
+        recipient: {
+          id: orderInfo.user.id,
+          profileName: orderInfo.user.profileName,
+          userPhoto: orderInfo.user.userPhoto,
+          email: '',
+        },
+        newMessages: 0,
+      }
+      dispatch(setNewContactAC(contact))
+      dispatch(setActiveChatAC(contact.id, contact.recipient))
+    }
+  }, [orderInfo])
 
   return (
     <>
-      <div className={styles.container}>
-        <SubHeader linkTo="/experience_dashboard/booking" onBack={goBack} title="Booking details" />
-      </div>
+      <SubHeader linkTo="/experience_dashboard/booking" onBack={goBack} title="Booking details" />
       <div className={styles.content}>
         {orderInfo.experience && <MainInfo orderInfo={orderInfo} />}
         <div className={styles.chat}>
