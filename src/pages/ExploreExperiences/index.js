@@ -17,7 +17,7 @@ const ExploreExp = () => {
       <div className={styles.page_header}>
         <div className={styles.header_content}>
           <h1>
-            Food experiences in <mark>Singapore</mark>{' '}
+            Food experiences in<mark>Honk Kong</mark>{' '}
           </h1>
           <SearchBlock />
         </div>

@@ -11,10 +11,12 @@ import langIcon from 'assets/icons/svg/overview-lang.svg'
 import styles from './infoWrapper.module.scss'
 
 function InfoWrapper({ priceFrom, city, time, maxGuests, languages, visits }) {
-  const hours = time / 60
-  const rhours = Math.floor(hours)
-  const minutes = (hours - rhours) * 60
-  const rminutes = Math.round(minutes)
+  function formatter(t) {
+    const duration = t * 5 + 30
+    const h = Math.floor(duration / 60)
+    const m = duration % 60
+    return `${h ? `${h}h` : ''} ${m ? `${m}m ` : ''}`
+  }
   return (
     <div className={styles.infoWrapper}>
       <div className={styles.infoRow}>
@@ -34,10 +36,7 @@ function InfoWrapper({ priceFrom, city, time, maxGuests, languages, visits }) {
       <div className={styles.infoRow}>
         <div className={styles.infoElement}>
           <img className={styles.infoIcon} src={timeIcon} alt="info" />
-          <p>
-            {rhours ? `${rhours} hour(s)` : ''} {rhours && rminutes ? `and ` : ''}
-            {rminutes ? `${rminutes} minute(s)` : ''}
-          </p>
+          <p>{formatter(time)}</p>
         </div>
         <div className={styles.infoElement}>
           <img className={styles.infoIcon} src={guestsIcon} alt="info" />

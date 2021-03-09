@@ -5,6 +5,8 @@ import cls from 'classnames'
 import { Rate, Tag } from 'antd'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { replace } from 'connected-react-router'
+
 import toggleFavouriteAc from 'actions/favourites'
 
 import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
@@ -33,19 +35,24 @@ const ExpCard = (props) => {
   const dispatch = useDispatch()
   const [isFavourite, setIsFavourite] = React.useState(isFavorite)
 
-  const onLikeCLick = () => {
+  const onLikeCLick = (e) => {
+    e.stopPropagation()
     setIsFavourite((f) => !f)
     dispatch(toggleFavouriteAc({ id, type: 'exp' }))
   }
 
+  const onCardClick = () => {
+    dispatch(replace(pathname))
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onCardClick()}>
       <div className={styles.content}>
         <div className={styles.img_container}>
           <img
             className={styles.card_like}
             alt="explike"
-            onClick={() => onLikeCLick()}
+            onClick={(e) => onLikeCLick(e)}
             src={isFavourite ? expLikeRed : expLike}
           />
           <img className={styles.card_img} src={photo ?? sec21} alt="cardimg" />
@@ -56,9 +63,7 @@ const ExpCard = (props) => {
           </div>
         </div>
         <div className={styles.info_container}>
-          <Link className={styles.card_link} to={pathname}>
-            <p className={styles.exp_title}>{name}</p>
-          </Link>
+          <p className={styles.exp_title}>{name}</p>
           <div className={styles.stats_container}>
             <div className={styles.exp_price_container}>
               <p className={styles.exp_price}>{`FROM $${price}`}</p>

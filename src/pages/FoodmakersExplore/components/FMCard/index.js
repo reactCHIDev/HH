@@ -13,6 +13,24 @@ import styles from './fmcard.module.scss'
 import './fmcard.less'
 
 const FMCard = ({ item }) => {
+  function SampleNextArrow(props) {
+    const { className, onClick } = props
+    return (
+      <div onClick={(e) => e.stopPropagation()}>
+        <div className={className} onClick={onClick} />
+      </div>
+    )
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, onClick } = props
+    return (
+      <div onClick={(e) => e.stopPropagation()}>
+        <div className={className} onClick={onClick} />
+      </div>
+    )
+  }
+
   const settings = useMemo(
     () => ({
       draggable: true,
@@ -23,6 +41,8 @@ const FMCard = ({ item }) => {
       speed: 500,
       slidesToShow: 4.2,
       slidesToScroll: 1,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />,
       arrows: true,
       responsive: [
         {
@@ -62,9 +82,9 @@ const FMCard = ({ item }) => {
   }
 
   return (
-    <div className={styles.container} key={item.id}>
+    <div className={styles.container} key={item.id} onClick={() => pushRoute()}>
       <div className={styles.content}>
-        <div className={styles.fm_card} onClick={() => pushRoute()}>
+        <div className={styles.fm_card}>
           <div className={styles.avatar_container}>
             {item.userPhoto ? (
               <img src={item.userPhoto || avatar} alt="avatar" />
@@ -74,7 +94,7 @@ const FMCard = ({ item }) => {
           </div>
           <div className={styles.fm_card_info}>
             <div className={styles.fm_card_name}>
-              {item.firstName} {item.lastName.charAt(0)}.
+              {item.profileName}
               <div className={cls(styles.fm_card_stats, 'rating')}>
                 <Rate style={{ color: '#31394C' }} disabled defaultValue={item.rating} />
                 <span>({`${item.votes || 0}`})</span>
@@ -106,6 +126,7 @@ const FMCard = ({ item }) => {
             {photos.map((el) => (
               <div className={styles.preview_container} key={el}>
                 <span
+                  onClick={(e) => e.stopPropagation()}
                   style={{ backgroundImage: `url("${el}")` }}
                   className={styles.preview_img_clear}
                 />

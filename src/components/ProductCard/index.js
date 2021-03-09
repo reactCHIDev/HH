@@ -29,20 +29,27 @@ const ProdCard = (props) => {
 
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
-  const onProductClick = (productData) => {
+  const onProductClick = (productData, e) => {
+    e.stopPropagation()
     if (isRequesting) {
       return
     }
     dispatch(addProductToBasket(productData))
   }
 
-  const onLikeCLick = () => {
+  const onLikeCLick = (e) => {
+    e.stopPropagation()
     setIsFavourite((f) => !f)
     dispatch(toggleFavouriteAc({ id, type: 'product' }))
   }
 
+  const onTagClick = (e, t) => {
+    e.stopPropagation()
+    // pushRoute(`${pathname}/${id}`
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <div className={styles.content}>
         {product.hitmark === 'Hit' ? <div className={styles.hit_container}>HIT</div> : null}
         <div
@@ -50,21 +57,21 @@ const ProdCard = (props) => {
           style={{ backgroundImage: `url("${photo || sec21}")` }}
         >
           <img
-            onClick={() => onLikeCLick()}
+            onClick={(e) => onLikeCLick(e)}
             className={styles.card_like}
             src={isFavourite ? expLikeRed : expLike}
             alt="explike"
           />
           <div className={cls('tags', styles.tags_container)}>
             {tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
+              <Tag key={tag} onClick={(e) => onTagClick(e, tag)}>
+                {tag}
+              </Tag>
             ))}
           </div>
         </div>
         <div className={styles.info_container}>
-          <p className={styles.exp_title} onClick={onClick}>
-            {name}
-          </p>
+          <p className={styles.exp_title}>{name}</p>
           <div className={styles.stats_container}>
             <div className={styles.exp_price_container}>
               <p className={styles.exp_price}>{`$${price}`}</p>
@@ -86,8 +93,8 @@ const ProdCard = (props) => {
                       : {}
                   }
                   alt="buy product"
-                  onClick={() => {
-                    if (isProductAvailable(product)) onProductClick(product)
+                  onClick={(e) => {
+                    if (isProductAvailable(product)) onProductClick(product, e)
                   }}
                 />
               )}
