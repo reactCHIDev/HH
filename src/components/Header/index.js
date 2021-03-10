@@ -12,6 +12,7 @@ import { logout } from 'actions/login'
 import cls from 'classnames'
 import useOutsideClick from 'utils/outsideClick'
 import { getUserAccount } from 'actions/account'
+import { getMyExperiencesList } from 'actions/experience-listing'
 import MenuContainer from 'components/Header/MenuContainer'
 import MenuBtn from 'components/MenuCrosshair'
 import LogoDark from 'assets/images/header/logo_dark.svg'
@@ -30,6 +31,7 @@ import LogOut from 'assets/images/header/LogOut.svg'
 import textLogoBlue from 'assets/images/header/logo_text_beta_blue.svg'
 import Avatar from './components/Avatar'
 import styles from './header.module.scss'
+import ExpListings from 'containers/ExperienceDashboard/components/ExpListings/index'
 
 const Header = (props) => {
   const {
@@ -44,6 +46,8 @@ const Header = (props) => {
     pathname,
     pushRoute,
     getUserAccount,
+    getMyExperiencesList,
+    myExperiences = [],
     products,
   } = props
 
@@ -87,8 +91,9 @@ const Header = (props) => {
   useEffect(() => {
     if (id) {
       getUserAccount(id)
+      getMyExperiencesList()
     }
-  }, [])
+  }, [id])
 
   const clickLogo = () => {
     if (menu) setMenu(!menu)
@@ -381,10 +386,16 @@ const Header = (props) => {
                   <Link to="/foodmaker_dashboard/foodmaker%20profile">Foodmaker Profile</Link>
                 </li>
               )}
-              <li onClick={onSettingsSelect}>
-                <img src={Gallery_icon} alt="icon" />
-                <Link to="/experience_dashboard/listings">Experience dashboard</Link>
-              </li>
+              {role === 'FOODMAKER' && (
+                <li onClick={onSettingsSelect}>
+                  <img src={Gallery_icon} alt="icon" />
+                  {myExperiences?.length ? (
+                    <Link to="/experience_dashboard/listings">Experience dashboard</Link>
+                  ) : (
+                    <Link to="/addexperience">Add experience</Link>
+                  )}
+                </li>
+              )}
               <li onClick={onSettingsSelect}>
                 <img src={Gallery_icon_1} alt="icon" />
                 {role === 'FOODMAKER' ? (
@@ -425,10 +436,12 @@ Header.propTypes = {
   profileName: T.string,
   pathname: T.string.isRequired,
   newMessages: T.number,
+  myExperiences: T.arrayOf(T.shape()),
   logOut: T.func.isRequired,
   pushRoute: T.func.isRequired,
   userPhoto: T.string,
   getUserAccount: T.func.isRequired,
+  getMyExperiencesList: T.func.isRequired,
 }
 
 export default connect(
@@ -438,12 +451,25 @@ export default connect(
       location: { pathname },
     },
     account: { userPhoto, profileName, id, role, shop },
+    expListing: { myExperiences },
     cart: { products },
     chat: { newMessages },
-  }) => ({ authorized, id, role, profileName, pathname, userPhoto, shop, products, newMessages }),
+  }) => ({
+    authorized,
+    id,
+    role,
+    profileName,
+    pathname,
+    userPhoto,
+    shop,
+    products,
+    newMessages,
+    myExperiences,
+  }),
   {
     logOut: logout,
     pushRoute: push,
     getUserAccount,
+    getMyExperiencesList,
   },
 )(Header)
