@@ -45,10 +45,10 @@ function* createProductReview({ data }) {
     //   })
     //   yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
     // } else {
-    //   yield put({
-    //     type: GET_UNREVIEWED_PRODUCT_REQUESTING,
-    //   })
-    //   yield put({ type: GET_FL_REVIEWS_REQUESTING, data: { page: reviewsCurrentPage } })
+    yield put({
+      type: GET_UNREVIEWED_EXPERIENCE_REQUESTING,
+    })
+    yield put({ type: GET_FL_EXPERIENCE_REVIEWS_REQUESTING, data: { page: reviewsCurrentPage } })
     yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
     // }
   } catch (error) {
@@ -74,23 +74,24 @@ function* getExperiencesReviewsSaga({ payload }) {
   }
 }
 
-function* getFlExperiencesReviews({ data }) {
-  // const { page } = data
-  const page = 1
+function* getFlExperiencesReviews({ payload }) {
+  console.log(payload, 'AAA')
+  const { page } = payload
+  // const page = 1
 
   try {
     const { data: products } = yield getFLExperienceReviewsReq({
       startIndex: page * 3 - 3,
       limit: 3,
     })
-    // yield put({
-    //   type: GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
-    //   data: {
-    //     reviews: products.reviews,
-    //     count: products.counter,
-    //     currentProductPage: page,
-    //   },
-    // })
+    yield put({
+      type: GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
+      data: {
+        reviews: products.reviews,
+        count: products.counter,
+        currentProductPage: page,
+      },
+    })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_FL_EXPERIENCE_REVIEWS_ERROR })

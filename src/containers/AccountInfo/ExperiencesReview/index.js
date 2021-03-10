@@ -11,9 +11,12 @@ import ReviewedProducts from './ReviewedProducts'
 function ProductsReview() {
   const dispatch = useDispatch()
   const experienceToReview = useSelector((state) => state.expReviews.unreviewedExperience)
-  const reviewedProducts = useSelector((state) => state.reviews.reviews)
+  const reviewedProducts = useSelector((state) => state.expReviews.reviews)
   const isReviewModalOpen = useSelector((state) => state.reviews.isModalOpen)
-  const currentPage = useSelector((state) => state.reviews.reviewsCurrentPage)
+  const currentPage = useSelector((state) => state.expReviews.reviewsCurrentPage)
+  const reviewsCount = useSelector((state) => state.expReviews.count)
+
+  console.log(reviewedProducts, 'reviewedProducts')
 
   React.useEffect(() => {
     dispatch(getUnreviewedExperienceAC(), [dispatch])
@@ -25,10 +28,13 @@ function ProductsReview() {
         <ProductToReview experience={experienceToReview} openReviewModal={openReviewModal} />
       )}
       {isReviewModalOpen && <ReviewModal experience={experienceToReview} />}
-      {/* 
       {reviewedProducts && (
-        <ReviewedProducts products={reviewedProducts} currentPage={currentPage} />
-      )} */}
+        <ReviewedProducts
+          products={reviewedProducts}
+          currentPage={currentPage}
+          reviewsCount={reviewsCount}
+        />
+      )}
     </div>
   )
 }

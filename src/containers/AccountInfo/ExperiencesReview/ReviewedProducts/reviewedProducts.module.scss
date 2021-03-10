@@ -39,8 +39,7 @@
       .reviewDataWrapper {
         display: flex;
         flex-direction: row;
-        .reviewRate {
-        }
+
         .reviewRecommend {
           margin-right: 10px;
           font-weight: 500;
@@ -64,17 +63,25 @@
       letter-spacing: 0.5px;
       opacity: 0.8;
     }
-    .reviewPhotosWrapper {
+    .imageContainer {
       display: flex;
-      .imgWrapper {
-        width: 56px;
-        height: 56px;
-        margin-right: 5px;
-        overflow: hidden;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        border-radius: 6px;
+      width: 100%;
+      .reviewPhotosWrapper {
+        display: flex;
+        width: 50%;
+        .imgWrapper {
+          width: 56px;
+          height: 56px;
+          margin-right: 5px;
+          overflow: hidden;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          border-radius: 6px;
+        }
+      }
+      .reviewRate {
+        width: 50%;
       }
     }
   }

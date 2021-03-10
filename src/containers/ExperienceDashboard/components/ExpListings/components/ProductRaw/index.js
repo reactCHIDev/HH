@@ -23,13 +23,13 @@ function ProductRaw({ element }) {
 
   const toggleStatus = (data) => dispatch(toggleExperienceStatusRequestAC(data))
 
-  const day = new Date(element.createdAt).toLocaleDateString('en-US', {
+  const day = new Date(element.updatedAt).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: '2-digit',
   })
 
-  const time = new Date(element.createdAt).toLocaleTimeString('en-US', {
+  const time = new Date(element.updatedAt).toLocaleTimeString('en-US', {
     hour: 'numeric',
     hour12: false,
     minute: '2-digit',

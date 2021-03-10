@@ -56,7 +56,7 @@ export default {
   unreviewedExperience: '/v1/review/experience/latest/pending',
   createExperienceReview: '/v1/review/experience/create',
   getFavExperiences: '/v1/experience/list_favorite',
-  getFlExperienceReviews: '/v1/experience/list_past_bookings/',
+  getFlExperienceReviews: '/v1/review/experience/list_my',
 
   // Foodmaker
   getFoodmakerInfo: '/v1/account/foodmaker/',
