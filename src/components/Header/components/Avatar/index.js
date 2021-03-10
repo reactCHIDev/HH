@@ -14,7 +14,7 @@ const UserImage = (props) => {
     <div className={cls(styles.container, 'avatar-container')}>
       <div className={styles.content}>
         <Badge dot>
-          <Avatar shape="circle" size={40} icon={<UserOutlined />} src={imgsrc} />
+          <Avatar shape="circle" size={40} icon={<UserOutlined />} src={imgsrc} alt="avatar" />
         </Badge>
       </div>
     </div>

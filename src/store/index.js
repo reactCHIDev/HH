@@ -22,7 +22,9 @@ function configStore(preloadedState) {
   const store = createStore(
     createRootReducer(history),
     preloadedState,
-    composeWithDevTools(applyMiddleware(...middleware)),
+    process.env.NODE_ENV === 'development'
+      ? composeWithDevTools(applyMiddleware(...middleware))
+      : applyMiddleware(...middleware),
   )
   return store
 }
