@@ -3,7 +3,6 @@
 }
 
 .product-tabs .ant-tabs-tab {
-  
 }
 
 .product-tabs .ant-tabs .ant-tabs-content-holder {
@@ -11,19 +10,21 @@
 }
 
 .product-tabs .ant-tabs-card > .ant-tabs-nav .ant-tabs-nav-list {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
 
   .ant-tabs-tab {
-    flex-grow: 1;
-    text-align: center;
-    font-weight: bold;
     display: block;
-    color: #31394d;
-    opacity: 0.4;
-    border-radius: 16px 16px 0 0 !important;
+    flex-grow: 1;
     padding: 10px 28px;
+    color: #31394d;
+    font-weight: bold;
     font-size: 12px;
+    text-align: center;
     border: none;
+    border-radius: 16px 16px 0 0 !important;
+    opacity: 0.4;
   }
 
   .ant-tabs-tab-active {
