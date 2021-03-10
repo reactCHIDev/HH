@@ -15,7 +15,6 @@ import cart from './cart'
 import order from './order'
 import fmOrders from './foodmaker_orders'
 import flOrders from './foodlover_orders'
-import stripe from './stripe'
 import billingHistory from './billing_history'
 import admin from './admin'
 import search from './search'
@@ -44,7 +43,6 @@ const createRootReducer = (history) =>
     order,
     fmOrders,
     flOrders,
-    stripe,
     billingHistory,
     admin,
     search,
