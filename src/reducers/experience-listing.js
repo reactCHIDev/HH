@@ -25,6 +25,7 @@ const reducer = function experiencesReducer(state = initialState, action) {
     case GET_MY_EXPERIENCES_LIST_REQUESTING:
       return {
         ...state,
+        myExperiences: [],
         requesting: true,
         error: '',
       }

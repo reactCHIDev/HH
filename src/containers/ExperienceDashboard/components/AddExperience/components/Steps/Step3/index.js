@@ -15,16 +15,30 @@ const Step3 = (props) => {
 
   const prevState = getItem('addExperience')
 
-  let summary, thingsToTake, notes, additionalInfo, isAdult, cancellationPolicy
+  let summary, thingsToTake, notes, additionalInfo, isAdult, cancellationPolicy, address
 
   if (getItem('addExperience'))
-    ({ summary, thingsToTake, notes, additionalInfo, isAdult, cancellationPolicy } = getItem(
-      'addExperience',
-    ))
+    ({
+      summary,
+      thingsToTake,
+      notes,
+      additionalInfo,
+      isAdult,
+      cancellationPolicy,
+      address,
+    } = getItem('addExperience'))
 
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
-    defaultValues: { summary, thingsToTake, notes, additionalInfo, isAdult, cancellationPolicy },
+    defaultValues: {
+      summary,
+      thingsToTake,
+      notes,
+      additionalInfo,
+      isAdult,
+      cancellationPolicy,
+      address,
+    },
   })
 
   const [cover, setCover] = useState(0)
@@ -200,13 +214,13 @@ const Step3 = (props) => {
             <label className={styles.label}>Address</label>
             <textarea
               className={styles.textarea}
-              name="additionalInfo"
+              name="address"
               rows="2"
               ref={register({
                 required: true,
               })}
             />
-            {_.get('additionalInfo.type', errors) === 'required' && (
+            {_.get('address.type', errors) === 'required' && (
               <p className={styles.errmsg}>This field is required</p>
             )}
           </div>
