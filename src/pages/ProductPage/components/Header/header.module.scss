@@ -26,17 +26,42 @@
   }
 
   .title {
-    margin: 0 0 24px;
-    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    color: #3c3e43;
+    font-weight: bold;
     font-size: 32px;
-    letter-spacing: 0.02em;
 
     @media (max-width: 768px) {
       font-size: 22px;
     }
-
-    p {
-      margin: 0;
+    .btns_wrapper {
+      display: flex;
+      .like_btn {
+        position: relative;
+        width: 32px;
+        margin: 0 3px;
+        vertical-align: middle;
+        cursor: pointer;
+        .success {
+          position: absolute;
+          top: 40px;
+          left: -230px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 260px;
+          height: 37px;
+          color: #7ad398;
+          font-weight: normal;
+          font-size: 18px;
+          font-style: normal;
+          line-height: 160%;
+          letter-spacing: 0.5px;
+          background: rgba(122, 211, 152, 0.1);
+          border-radius: 6px;
+        }
+      }
     }
   }
 }

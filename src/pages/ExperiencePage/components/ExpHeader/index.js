@@ -45,8 +45,10 @@ const ExpHeader = ({ experience, user }) => {
   const [total, setTotal] = useState(0)
   const [available, setAvailable] = useState(guests)
   const [isFavourite, setIsFavourite] = useState(isFavorite)
+  const [success, setSuccess] = useState(false)
 
   const bookingsByDate = useSelector((state) => state.experience.bookingByDate)
+  const pathname = useSelector((state) => state.router.location.pathname)
 
   const dispatch = useDispatch()
 
@@ -166,7 +168,9 @@ const ExpHeader = ({ experience, user }) => {
   }
 
   const shareClick = () => {
-    dispatch()
+    window.navigator.clipboard.writeText(`${process.env.REACT_APP_BASE_URL}${pathname}`)
+    setSuccess(true)
+    setTimeout(() => setSuccess(false), 3000)
   }
 
   return (
@@ -180,12 +184,13 @@ const ExpHeader = ({ experience, user }) => {
                 <span>
                   {title} {isAdult && <span className={styles.adults_only}>18+</span>}
                 </span>
-                <span>
+                <span className={styles.btns_wrapper}>
                   <span className={styles.like_btn} onClick={likeClick}>
                     <img src={isFavourite ? LikeIcon : LikeIconGray} alt="like" />
                   </span>
                   <span className={styles.like_btn} onClick={shareClick}>
                     <img src={ExpShare} alt="share" />
+                    {success && <div className={styles.success}>URL is copied to clipboard</div>}
                   </span>
                 </span>
               </p>
