@@ -69,6 +69,7 @@ const Step4 = ({ create, edit }) => {
   const [eventTime, setEventTime] = useState('')
   const [events, setEvents] = useState(prevData.time?.length ? prevData.time : [])
   const [month, setMonth] = useState(new Date().toISOString())
+  const [btnAction, setBtnAction] = useState('Apply')
 
   const expsByDate = useSelector((state) => state.expListing.monthExperiences)
 
@@ -77,6 +78,14 @@ const Step4 = ({ create, edit }) => {
   useEffect(() => {
     dispatch(getExperiencesByDateAC(month))
   }, [month])
+
+  useEffect(() => {
+    if (events.includes(eventTime)) {
+      setBtnAction('Clear')
+    } else {
+      setBtnAction('Apply')
+    }
+  }, [eventTime])
 
   /*
   const [period, setPeriod] = useState('Weekly')
@@ -115,23 +124,30 @@ const Step4 = ({ create, edit }) => {
   }
 
   const onTimeSelect = (e) => {
-    if (!isBooked(e.target.id)) {
+    setEventTime(createDate(date, e.target.id))
+    /* if (!isBooked(e.target.id)) {
       setEventTime(createDate(date, e.target.id))
     } else {
       setEventTime('')
-    }
+    } */
   }
 
   const onApply = () => {
     if (eventTime) {
-      setEvents(events.concat([eventTime]))
-      setEventTime('')
+      if (btnAction === 'Apply') {
+        setEvents(events.concat([eventTime]))
+        setEventTime('')
+      }
+      if (btnAction === 'Clear') {
+        setEvents(events.filter((e) => e !== eventTime))
+        setEventTime('')
+      }
     }
   }
 
   const onComplete = () => {
     const dateTime = {
-      address: 'Manhattan',
+      additionalInfo: 'You need to be 18 and above to attend this session.',
       location: '49.9878502,36.199552',
       status: 'PUBLISHED',
       time: events,
@@ -203,7 +219,7 @@ const Step4 = ({ create, edit }) => {
           <div className={cls(styles.btn_section, 'buttons')}>
             <div className={styles.btn_apply}>
               <Button block size="large" onClick={onApply} disabled={!eventTime}>
-                APPLY
+                {eventTime ? btnAction : 'Select time'}
               </Button>
             </div>
             <div className={styles.btn_complete}>
