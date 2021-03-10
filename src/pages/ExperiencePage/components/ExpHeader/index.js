@@ -33,7 +33,6 @@ const ExpHeader = ({ experience, user }) => {
     priceChild,
     isFavorite,
   } = experience
-  console.log(experience, 'exp')
   const { firstName, lastName } = user
 
   const [selectedDate, setSelectedDate] = useState()

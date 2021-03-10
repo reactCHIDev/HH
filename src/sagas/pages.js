@@ -40,7 +40,6 @@ function* getProductsSaga({ payload }) {
 function* getExperiencesSaga({ payload }) {
   try {
     const response = yield getHomePageExperiencesReq(payload)
-    console.log('%c   response   ', 'color: white; background: salmon;', response)
     yield put({ type: GET_PUBLIC_EXPERIENCES_SUCCESS, data: response.data.experiences })
   } catch (error) {
     if (error.response) {
