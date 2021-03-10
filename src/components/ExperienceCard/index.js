@@ -5,7 +5,7 @@ import cls from 'classnames'
 import { Rate, Tag } from 'antd'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { replace } from 'connected-react-router'
+import { push } from 'connected-react-router'
 
 import toggleFavouriteAc from 'actions/favourites'
 
@@ -42,7 +42,7 @@ const ExpCard = (props) => {
   }
 
   const onCardClick = () => {
-    dispatch(replace(pathname))
+    dispatch(push(pathname))
   }
 
   return (
