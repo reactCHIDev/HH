@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
+import people from 'assets/icons/svg/people.svg'
 import styles from './expInfo.module.scss'
 
 function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
@@ -27,8 +29,14 @@ function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
           </div>{' '}
           <div className={styles.info}>
             <div className={styles.option}>Participants</div>
-            <div className={styles.text}>
-              {`${adults}a` || ''} -{`${childs}c` || ''}{' '}
+            {/* <div className={styles.text}> */}
+            <div
+              className={styles.reads_people}
+              style={{ display: 'flex', alignItems: 'baseline' }}
+            >
+              <img src={people} alt="avatar" style={{ width: '15px', height: '15px' }} /> {adults}
+              <img src={people} alt="avatar" style={{ marginLeft: '10px' }} /> {childs}
+              {/* {`${adults}a` || ''} -{`${childs}c` || ''}{' '} */}
             </div>
           </div>{' '}
           <div className={styles.info}>
@@ -36,7 +44,14 @@ function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
             <div className={styles.text}>$ {price}</div>
           </div>
         </div>
-        <div className={styles.expInvoiceButton}>Share invoice</div>
+        <div
+          className={styles.expInvoiceButton}
+          onClick={() => {
+            window.open(invoiceUrl, '_blank')
+          }}
+        >
+          Share invoice
+        </div>
       </div>
       <div className={styles.rulesContainer}>
         <div className={styles.heading}>Experience rules</div>
