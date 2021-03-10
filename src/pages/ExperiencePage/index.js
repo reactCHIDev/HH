@@ -38,7 +38,7 @@ function ExperincePage() {
         />
         <About />
         {/* <GuestPhotos /> */}
-        {/* <Review id={experience.experience.id} /> */}
+        <Review id={experience.experience.id} experience={experience.experience} />
       </div>
     </div>
   ) : (

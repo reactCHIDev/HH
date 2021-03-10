@@ -59,14 +59,26 @@ function* createProductReview({ data }) {
 }
 
 function* getExperiencesReviewsSaga({ payload }) {
+  // expReviews: action.data.reviews,
+  //       expCount: action.data.count,
+  //       expCurrentPage: action.data.page,
   const { page, type, id } = payload
   try {
-    const response =
+    const { data } =
       type === 'fmExperiencesReview'
         ? yield getFoodmakerExperiencesReviews({ startIndex: page * 3 - 3, limit: 3 })
         : yield getExperienceReviews({ id, startIndex: page * 3 - 3, limit: 3 })
 
-    yield put({ type: GET_EXPERIENCE_REVIEW_SUCCESS, data: response.data })
+    console.log(data, ' data')
+
+    yield put({
+      type: GET_EXPERIENCE_REVIEW_SUCCESS,
+      payload: {
+        expReviews: data.reviews,
+        expCount: data.counter,
+        expCurrentPage: 9,
+      },
+    })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_EXPERIENCE_REVIEW_ERROR, error: error.response.data.error })

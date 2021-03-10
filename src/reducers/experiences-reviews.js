@@ -17,11 +17,14 @@ const initialState = {
   requesting: false,
   eroror: '',
   expReviews: [],
+  reviews: [],
   unreviewedExperience: null,
-  currentPage: 1,
+  expCurrentPage: 1,
   reviewsCurrentPage: 1,
   createReviewRequesting: false,
   isModalOpen: false,
+  count: 0,
+  expCount: 0,
 }
 
 const reducer = function accountReducer(state = initialState, action) {
@@ -55,7 +58,9 @@ const reducer = function accountReducer(state = initialState, action) {
     case GET_EXPERIENCE_REVIEW_SUCCESS:
       return {
         ...state,
-        expReviews: action.data,
+        expReviews: action.payload.expReviews,
+        expCount: action.payload.expCount,
+        expCurrentPage: action.payload.expCurrentPage,
         requesting: false,
       }
     case GET_EXPERIENCE_REVIEW_ERROR:
