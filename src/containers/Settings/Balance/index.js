@@ -16,11 +16,12 @@ const Balance = () => {
   const [withdraw, setWithdraw] = useState(false)
   const [moneyValue, setMoney] = useState(0)
   const [isBankDataActive, setisBankDataActive] = useState(true)
+  const [isPendingAfterClick, setIsPendingAfterClick] = React.useState(false)
 
   const dispatch = useDispatch()
   const balance = useSelector((state) => state.account.balance)
   const isValid = useSelector((state) => state.foodmaker.isPaymentDataValid)
-  const withdrawRequest = useSelector((state) => state.foodmaker.withdrawRequest)
+  const withdrawRequest = useSelector((state) => state.account.withdrawRequest)
 
   const isBankDataNotificationShown = useSelector(
     (state) => state.foodmaker.showBankDataNotification,
@@ -29,7 +30,12 @@ const Balance = () => {
     (state) => state.foodmaker.showWithdrawNotification,
   )
 
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    errors,
+    formState: { isDirty },
+  } = useForm({
     mode: 'onBlur',
     defaultValues: {
       title: balance?.bankName || '',
@@ -42,15 +48,18 @@ const Balance = () => {
 
   const onMoneyChange = (v) => setMoney(v)
 
+  const isPending = withdrawRequest?.status === 'Pending'
   const onWithdraw = () => {
     setWithdraw((w) => !w)
-    if (withdraw)
+    if (withdraw) {
+      setIsPendingAfterClick(true)
       dispatch(
         createWithdrawAC({
           amount: Number(moneyValue > balance?.hkd ? balance?.hkd : moneyValue),
           currency: 'HKD',
         }),
       )
+    }
     setMoney(0)
   }
 
@@ -66,8 +75,6 @@ const Balance = () => {
       }),
     )
   }
-
-  const isPending = withdrawRequest?.status === 'Pending'
 
   return (
     <div className={styles.container}>
@@ -192,7 +199,12 @@ const Balance = () => {
               {isBankDataNotificationShown && (
                 <div className={styles.bank_data_notification}>Saved successfully</div>
               )}
-              <button type="submit" form="hook-form">
+              <button
+                type="submit"
+                form="hook-form"
+                disabled={!isDirty}
+                style={isDirty ? { background: '#31394d' } : { cursor: 'default' }}
+              >
                 SAVE CHANGES
               </button>
             </div>
@@ -230,13 +242,22 @@ const Balance = () => {
           </div>
           <button
             className={withdraw ? styles.req_withdraw : styles.withdraw}
-            style={(balance?.bankName || isValid) && !isPending ? {} : { cursor: 'default' }}
+            style={
+              (balance?.bankName || isValid) && !isPending && !isPendingAfterClick
+                ? {}
+                : { cursor: 'default' }
+            }
             onClick={
-              !balance?.pending && (balance?.bankName || isValid) && !isPending ? onWithdraw : null
+              !balance?.pending &&
+              (balance?.bankName || isValid) &&
+              !isPending &&
+              !isPendingAfterClick
+                ? onWithdraw
+                : null
             }
             type="button"
           >
-            {isPending
+            {isPending || isPendingAfterClick
               ? 'Pending'
               : !balance?.pending
               ? withdraw
