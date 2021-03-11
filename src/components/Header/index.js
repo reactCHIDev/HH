@@ -91,7 +91,7 @@ const Header = (props) => {
   useEffect(() => {
     if (id) {
       getUserAccount(id)
-      getMyExperiencesList()
+      if (role !== 'ADMIN') getMyExperiencesList()
     }
   }, [id])
 
