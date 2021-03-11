@@ -16,14 +16,14 @@ const Header = (props) => {
           <p className={styles.qwe}>Reviews </p>
           {extraMark(mark)}
         </div>
-        <div className={styles.tools}>
+        {/* <div className={styles.tools}>
           <div className={styles.date_picker}>
             <DatePicker disabled={false} id="1" format="DD MMM YY" onChange={onDataChange} />
           </div>
           <div className={styles.srch_block}>
             <Search onSearch={onSearch} placeholder="Search by experiences" />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )
