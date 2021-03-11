@@ -63,7 +63,7 @@ function* getExperiencesReviewsSaga({ payload }) {
   try {
     const { data } =
       type === 'fmExperiencesReview'
-        ? yield getFoodmakerExperiencesReviews({ startIndex: page * 3 - 3, limit: 3 })
+        ? yield getFoodmakerExperiencesReviews({ id, startIndex: page * 3 - 3, limit: 3 })
         : yield getExperienceReviews({ id, startIndex: page * 3 - 3, limit: 3 })
 
     yield put({

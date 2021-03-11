@@ -10,7 +10,7 @@ function ReviewsContainer() {
   const expReviews = useSelector((state) => state.expReviews.expReviews)
 
   React.useEffect(() => {
-    dispatch(getExperienceReviewAC({ page: 1, type: 'fmExperiencesReview' }))
+    dispatch(getExperienceReviewAC({ id: 668, page: 1, type: 'fmExperiencesReview' }))
   }, [])
 
   return (
