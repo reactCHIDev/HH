@@ -33,24 +33,27 @@ function* getUnreviewedExperienceSaga() {
   }
 }
 
-function* createProductReview({ data }) {
+function* createProductReview({ payload }) {
   const getReviewsData = (store) => store.reviews
   const { currentPage, reviewsCurrentPage } = yield select(getReviewsData)
   try {
-    yield createExperienceReviewReq(data)
-    // if (data.isReviewOnProductPage) {
-    //   yield put({
-    //     type: GET_PRODUCT_REVIEWS_REQUESTING,
-    //     data: { id: data.productId, page: currentPage },
-    //   })
-    //   yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
-    // } else {
-    //   yield put({
-    //     type: GET_UNREVIEWED_PRODUCT_REQUESTING,
-    //   })
-    //   yield put({ type: GET_FL_REVIEWS_REQUESTING, data: { page: reviewsCurrentPage } })
-    yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
-    // }
+    yield createExperienceReviewReq(payload)
+    if (payload.isReviewOnProductPage) {
+      yield put({
+        type: GET_EXPERIENCE_REVIEW_REQUESTING,
+        payload: { id: payload.experienceId, page: 1 },
+      })
+      yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+    } else {
+      yield put({
+        type: GET_UNREVIEWED_EXPERIENCE_REQUESTING,
+      })
+      yield put({
+        type: GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
+        payload: { page: reviewsCurrentPage },
+      })
+      yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+    }
   } catch (error) {
     if (error.response) {
       yield put({ type: CREATE_EXPERIENCE_REVIEW_ERROR })
@@ -61,12 +64,19 @@ function* createProductReview({ data }) {
 function* getExperiencesReviewsSaga({ payload }) {
   const { page, type, id } = payload
   try {
-    const response =
+    const { data } =
       type === 'fmExperiencesReview'
-        ? yield getFoodmakerExperiencesReviews({ startIndex: page * 3 - 3, limit: 3 })
+        ? yield getFoodmakerExperiencesReviews({ id, startIndex: page * 3 - 3, limit: 3 })
         : yield getExperienceReviews({ id, startIndex: page * 3 - 3, limit: 3 })
 
-    yield put({ type: GET_EXPERIENCE_REVIEW_SUCCESS, data: response.data })
+    yield put({
+      type: GET_EXPERIENCE_REVIEW_SUCCESS,
+      payload: {
+        expReviews: data.reviews,
+        expCount: data.counter,
+        expCurrentPage: 9,
+      },
+    })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_EXPERIENCE_REVIEW_ERROR, error: error.response.data.error })
@@ -74,23 +84,22 @@ function* getExperiencesReviewsSaga({ payload }) {
   }
 }
 
-function* getFlExperiencesReviews({ data }) {
-  // const { page } = data
-  const page = 1
+function* getFlExperiencesReviews({ payload }) {
+  const { page } = payload
 
   try {
     const { data: products } = yield getFLExperienceReviewsReq({
       startIndex: page * 3 - 3,
       limit: 3,
     })
-    // yield put({
-    //   type: GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
-    //   data: {
-    //     reviews: products.reviews,
-    //     count: products.counter,
-    //     currentProductPage: page,
-    //   },
-    // })
+    yield put({
+      type: GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
+      data: {
+        reviews: products.reviews,
+        count: products.counter,
+        currentProductPage: page,
+      },
+    })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_FL_EXPERIENCE_REVIEWS_ERROR })

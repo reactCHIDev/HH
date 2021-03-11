@@ -19,6 +19,7 @@ import {
 
 function* basketFlow({ data }) {
   const { title, shop, price, amount, id } = data
+  const isDiscount = amount + 1 > data.discount.quantity
 
   const getOrdersData = (store) => store.cart
   const { products, orders, shopsData } = yield select(getOrdersData)
@@ -36,7 +37,9 @@ function* basketFlow({ data }) {
       const {
         data: { deliveryMethods, title: shopTitle },
       } = yield getShopByUrlReq(shop.shopUrl)
-      const newPrice = price * (amount || 1)
+      const newPrice = isDiscount
+        ? price * (amount || 1) * (1 - data.discount.discount / 100)
+        : price * (amount || 1)
 
       const methods = deliveryMethods.map(({ freeDeliveryOver, note, price: delPrice, type }) => ({
         freeDeliveryOver: freeDeliveryOver || 0,
@@ -62,7 +65,7 @@ function* basketFlow({ data }) {
       return
     }
   } else {
-    yield put({ type: ADD_ITEM_TO_ORDER, data: { shop: shop.title, price } })
+    yield put({ type: ADD_ITEM_TO_ORDER, data: { shop: shop.title, price: 20 } })
   }
 
   if (shop.title in orders) {
@@ -70,7 +73,12 @@ function* basketFlow({ data }) {
       const newState = cloneDeep(orders)
       newState[shop.title].push({
         ...data,
-        ...{ total: amount || 1, totalPrice: (amount || 1) * price },
+        ...{
+          total: amount || 1,
+          totalPrice: isDiscount
+            ? (amount || 1) * price * (1 - data.discount.discount / 100)
+            : (amount || 1) * price,
+        },
       })
       yield put({ type: SET_ITEM_IN_ORDERS, newState })
     } catch {
@@ -83,8 +91,16 @@ function* basketFlow({ data }) {
   } else {
     try {
       const newState = cloneDeep(orders)
+      data.prevPrice = price
+      data.price = isDiscount ? price * (1 - data.discount.discount / 100) : price
       newState[shop.title] = [
-        { ...data, ...{ total: amount || 1 }, totalPrice: (amount || 1) * price },
+        {
+          ...data,
+          ...{ total: amount || 1 },
+          totalPrice: isDiscount
+            ? (amount || 1) * price * (1 - data.discount.discount / 100)
+            : (amount || 1) * price,
+        },
       ]
       yield put({ type: SET_ITEM_IN_ORDERS, newState })
     } catch {

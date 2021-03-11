@@ -8,7 +8,6 @@ function ProductToReview({ experience, openReviewModal }) {
   const openModal = () => {
     dispatch(openReviewModal())
   }
-  console.log(experience, 'exp')
   return (
     <div className={styles.wrapper}>
       <div className={styles.productWrapper}>

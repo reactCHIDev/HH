@@ -12,9 +12,9 @@ import {
   GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
 } from './constants'
 
-export const createExperienceReviewAC = (data) => ({
+export const createExperienceReviewAC = (payload) => ({
   type: CREATE_EXPERIENCE_REVIEW_REQUESTING,
-  data,
+  payload,
 })
 
 export const getUnreviewedExperienceAC = () => ({

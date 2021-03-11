@@ -1,17 +1,21 @@
 .wrapper {
   display: flex;
   width: 100%;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px 0 30px;
   padding: 10px 20px;
   border: 1px solid #b4b4b4;
   border-radius: 16px;
-  .productWrapper {
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .expWrapper {
     display: flex;
-    align-items: center;
-    width: 40%;
-    margin-right: 30px;
-    .productImage {
+    align-items: flex-start;
+    width: 30%;
+
+    .imgWrapper {
       position: relative;
       width: 66px;
       height: 66px;
@@ -21,34 +25,50 @@
       background-size: cover;
       border-radius: 12px;
     }
-    .productTitle {
-      margin-left: 10px;
+
+    .titleWrapper {
       color: #3c3e43;
       font-weight: bold;
       font-size: 18px;
       line-height: 23px;
       letter-spacing: 0.5px;
     }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   }
+
   .reviewWrapper {
-    width: 60%;
-    .reviewInfo {
+    flex-direction: column;
+    width: 70%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    .reviewInfoWrapper {
       display: flex;
-      flex-direction: row;
+      align-items: center;
       justify-content: space-between;
-      .reviewDataWrapper {
+      width: 100%;
+      margin-bottom: 10px;
+
+      .reviewPeople {
         display: flex;
-        flex-direction: row;
-        .reviewRate {
+        align-items: baseline;
+
+        .adult {
+          width: 15px;
+          height: 15px;
         }
-        .reviewRecommend {
-          margin-right: 10px;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 22px;
-          letter-spacing: 0.5px;
+
+        .child {
+          margin-left: 10px;
         }
       }
+
       .reviewDate {
         color: #31394d;
         font-size: 12px;
@@ -57,24 +77,78 @@
         opacity: 0.6;
       }
     }
+
     .reviewText {
+      margin-bottom: 10px;
       color: #31394d;
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 0.5px;
       opacity: 0.8;
     }
-    .reviewPhotosWrapper {
+
+    .reviewData {
       display: flex;
-      .imgWrapper {
-        width: 56px;
-        height: 56px;
-        margin-right: 5px;
-        overflow: hidden;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        border-radius: 6px;
+      width: 100%;
+      @media (max-width: 1200px) {
+        flex-direction: column;
+      }
+
+      .imgContainer {
+        display: flex;
+        width: 40%;
+
+        @media (max-width: 1200px) {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        div {
+          width: 56px;
+          height: 56px;
+          margin-right: 7px;
+          overflow: hidden;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          border-radius: 6px;
+        }
+      }
+
+      .ratesContainer {
+        display: flex;
+        flex-wrap: wrap;
+        width: 60%;
+        @media (max-width: 1200px) {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+        .reviewRate {
+          display: flex;
+          align-items: baseline;
+          width: 50%;
+
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+
+          p {
+            display: flex;
+            align-items: center;
+            margin-left: 2px;
+            color: #838894;
+            font-size: 12px;
+            line-height: 19px;
+            letter-spacing: 0.5px;
+
+            @media (max-width: 768px) {
+              margin-left: 7px;
+            }
+          }
+        }
       }
     }
   }

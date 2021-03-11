@@ -23,13 +23,13 @@ function ProductRaw({ element }) {
 
   const toggleStatus = (data) => dispatch(toggleExperienceStatusRequestAC(data))
 
-  const day = new Date(element.createdAt).toLocaleDateString('en-US', {
+  const day = new Date(element.updatedAt).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: '2-digit',
   })
 
-  const time = new Date(element.createdAt).toLocaleTimeString('en-US', {
+  const time = new Date(element.updatedAt).toLocaleTimeString('en-US', {
     hour: 'numeric',
     hour12: false,
     minute: '2-digit',
@@ -60,7 +60,7 @@ function ProductRaw({ element }) {
         </div>
       </div>
       <div className={styles.secondaryInfo}>
-        <div className={styles.statusWrapper}>
+        <div className={styles.statusWrapper} onClick={(e) => e.stopPropagation()}>
           <Option
             checked={element.status === 'PUBLISHED'}
             onChange={toggleStatus}
@@ -71,7 +71,7 @@ function ProductRaw({ element }) {
           <span>{time}</span>
           {day}
         </div>
-        <div className={styles.lastSection} onClick={() => openExpPage()}>
+        <div className={styles.lastSection} onClick={openExpPage}>
           <button type="button">{'>'}</button>
         </div>
       </div>

@@ -1,40 +1,47 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { Rate } from 'antd'
 import people from 'assets/icons/svg/people.svg'
 
 import styles from './review.module.scss'
 
-function Review() {
+function Review({ el }) {
+  const dateOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }
+  const mainDate = new Date(el.createdAt).toLocaleDateString('en-US', dateOptions)
+  const visitedDate = new Date(el.visitedAt).toLocaleDateString('en-US', dateOptions)
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} key={el.id}>
       <div className={styles.clientWrapper}>
-        <div className={styles.clientAvatar} />
+        <div
+          className={styles.clientAvatar}
+          style={{ backgroundImage: `url("${el.customer.userPhoto}")` }}
+        />
         <div className={styles.clientInfo}>
-          <div>Sasha</div>
-          <div>Visit: 12 May, 20</div>
+          <div>{el.customer.profileName}</div>
+          <div>Visit: {visitedDate}</div>
         </div>
       </div>
       <div className={styles.reviewWrapper}>
         <div className={styles.reviewInfo}>
           <div className={styles.reviewMarks}>
             <div className={styles.rateWrapper}>
-              <Rate style={{ color: '#31394C' }} disabled value={4} />
+              <Rate style={{ color: '#31394C' }} disabled value={el.avgRating} />
             </div>
             <div className={styles.reads}>
-              <div className={styles.reads_people}>
-                <img src={people} alt="avatar" />
-              </div>
-              <div className={styles.qty_reads}>4</div>
+              <img src={people} alt="avatar" className={styles.adult} />
+              {el.guests?.adults || 0}
+              <img src={people} alt="avatar" className={styles.child} />
+              {el.guests?.childs || 0}
             </div>
           </div>
-          <div className={styles.reviewDate}>22 May</div>
+          <div className={styles.reviewDate}>{mainDate}</div>
         </div>
-        <div className={styles.reviewText}>
-          Super cool gin program they have going here. All the different infusions are super
-          interesting. Сocktails, was a great time. Super cool gin program they have going here. All
-          the different infusions are super interesting. Got to make some cocktails, was a great
-          time.
-        </div>
+        <div className={styles.reviewText}>{el.review}</div>
         {/* <div className={styles.replyButton}>REPLY</div> */}
       </div>
     </div>

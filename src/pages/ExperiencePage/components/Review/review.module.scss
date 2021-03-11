@@ -4,4 +4,22 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
+
+  .openReviewButton {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+    div {
+      padding: 20px 60px;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 23px;
+      letter-spacing: 0.5px;
+      text-align: center;
+      background: #31394d;
+      border-radius: 6px;
+    }
+  }
 }

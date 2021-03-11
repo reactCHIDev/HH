@@ -11,24 +11,29 @@ import ReviewedProducts from './ReviewedProducts'
 function ProductsReview() {
   const dispatch = useDispatch()
   const experienceToReview = useSelector((state) => state.expReviews.unreviewedExperience)
-  const reviewedProducts = useSelector((state) => state.reviews.reviews)
+  const reviewedProducts = useSelector((state) => state.expReviews.reviews)
   const isReviewModalOpen = useSelector((state) => state.reviews.isModalOpen)
-  const currentPage = useSelector((state) => state.reviews.reviewsCurrentPage)
+  const currentPage = useSelector((state) => state.expReviews.reviewsCurrentPage)
+  const reviewsCount = useSelector((state) => state.expReviews.count)
 
   React.useEffect(() => {
     dispatch(getUnreviewedExperienceAC(), [dispatch])
     dispatch(getFLExperienceReviewsAC({ page: currentPage }), [dispatch])
   }, [])
+
   return (
     <div className={styles.container}>
       {experienceToReview && !isReviewModalOpen && (
         <ProductToReview experience={experienceToReview} openReviewModal={openReviewModal} />
       )}
       {isReviewModalOpen && <ReviewModal experience={experienceToReview} />}
-      {/* 
       {reviewedProducts && (
-        <ReviewedProducts products={reviewedProducts} currentPage={currentPage} />
-      )} */}
+        <ReviewedProducts
+          products={reviewedProducts}
+          currentPage={currentPage}
+          reviewsCount={reviewsCount}
+        />
+      )}
     </div>
   )
 }

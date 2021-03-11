@@ -39,10 +39,10 @@ const ExpListings = (props) => {
         <>
           <TableHeader requestSort={requestSort} />
           {data.map((el) => (
-            <>
+            <div key={el.id}>
               <ProductRaw key={el.id} element={el} />
               <Divider />
-            </>
+            </div>
           ))}
         </>
       ) : null}

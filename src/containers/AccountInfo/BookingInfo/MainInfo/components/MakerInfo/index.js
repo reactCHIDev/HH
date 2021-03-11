@@ -38,8 +38,8 @@ function MakerInfo({ bookingID, date, foodmaker, expId }) {
         </Link>
       </div>
       <div className={styles.btnSection}>
-        <div className={styles.leaveBtn}>Leave a review</div>
-        <div className={styles.printBtn}>Print</div>
+        {/* <div className={styles.leaveBtn}>Leave a review</div> */}
+        {/* <div className={styles.printBtn}>Print</div> */}
       </div>
     </div>
   )

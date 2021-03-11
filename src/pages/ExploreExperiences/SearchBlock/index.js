@@ -35,7 +35,7 @@ function SearchBlock() {
 
   const [guestsAmount, setGuestsAmount] = React.useState(0)
 
-  const [date, setDate] = React.useState(new Date())
+  const [date, setDate] = React.useState()
 
   const serviceTagsRef = React.useRef()
   const visiblePriceSelectorRef = React.useRef()

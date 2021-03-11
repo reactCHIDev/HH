@@ -47,8 +47,8 @@ export const getExperienceReviews = ({ id, startIndex = 0, limit = 3 }) => {
   return apiClient.get(PATHS.experienceReviews + params)
 }
 
-export const getFoodmakerExperiencesReviews = () => {
-  return apiClient.get(PATHS.foodmakerExperiencesReviews)
+export const getFoodmakerExperiencesReviews = ({ id }) => {
+  return apiClient.get(PATHS.foodmakerExperiencesReviews + id)
 }
 
 export const getFMBookingInfoByIdReq = (payload) => {

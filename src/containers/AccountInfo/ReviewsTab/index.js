@@ -14,7 +14,7 @@ const OrdersTab = () => {
         <TabsOpen
           tabs={{
             Products: { mark: reviewsCount, content: <ProductsReview /> },
-            Experiences: { disabled: true, mark: 0, content: <ExperiencesReview /> },
+            Experiences: { disabled: false, mark: 0, content: <ExperiencesReview /> },
           }}
         />
       </div>

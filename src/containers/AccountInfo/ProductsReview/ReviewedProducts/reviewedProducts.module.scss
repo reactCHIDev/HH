@@ -6,11 +6,21 @@
   padding: 10px 20px;
   border: 1px solid #b4b4b4;
   border-radius: 16px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
   .productWrapper {
     display: flex;
     align-items: center;
     width: 40%;
     margin-right: 30px;
+    @media (max-width: 1024px) {
+      margin-bottom: 10px;
+    }
+    @media (max-width: 768px) {
+      width: 100%;
+    }
     .productImage {
       position: relative;
       width: 66px;
@@ -32,13 +42,20 @@
   }
   .reviewWrapper {
     width: 60%;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
     .reviewInfo {
       display: flex;
-      flex-direction: row;
+      align-items: flex-end;
       justify-content: space-between;
+
       .reviewDataWrapper {
         display: flex;
         flex-direction: row;
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
         .reviewRate {
         }
         .reviewRecommend {
@@ -47,6 +64,7 @@
           font-size: 14px;
           line-height: 22px;
           letter-spacing: 0.5px;
+          white-space: nowrap;
         }
       }
       .reviewDate {
@@ -55,6 +73,10 @@
         line-height: 19px;
         letter-spacing: 0.5px;
         opacity: 0.6;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
       }
     }
     .reviewText {
@@ -63,6 +85,10 @@
       line-height: 22px;
       letter-spacing: 0.5px;
       opacity: 0.8;
+
+      @media (max-width: 1024px) {
+        margin-bottom: 10px;
+      }
     }
     .reviewPhotosWrapper {
       display: flex;

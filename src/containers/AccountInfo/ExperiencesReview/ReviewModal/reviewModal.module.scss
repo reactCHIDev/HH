@@ -139,6 +139,10 @@
       .recommendWrapper {
         display: flex;
 
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+
         .title {
           margin-right: 10px;
           white-space: nowrap;
