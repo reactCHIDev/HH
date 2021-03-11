@@ -157,7 +157,11 @@ const DateSlider = (props) => {
                       getMinutes(parseISO(time)),
                     ).padStart(2, '0')}`}
                   </span>
-                  <div className={left > 0 ? styles.available : styles.time_text}>
+                  <div
+                    className={
+                      left > 0 ? (left > 2 ? styles.available : styles.red) : styles.time_text
+                    }
+                  >
                     {`${left} left`}
                   </div>
                   {left === 0 && (
