@@ -41,7 +41,7 @@ function* createProductReview({ payload }) {
     if (payload.isReviewOnProductPage) {
       yield put({
         type: GET_EXPERIENCE_REVIEW_REQUESTING,
-        data: { id: payload.productId, page: 1 },
+        payload: { id: payload.experienceId, page: 1 },
       })
       yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
     } else {

@@ -33,6 +33,7 @@ function ReviewModal({ experience, setIsReviewModalShown }) {
 
   const submitReview = () => {
     if (isValid()) {
+      setIsReviewModalShown(false)
       dispatch(
         createExperienceReviewAC({
           experienceId: experience.id,

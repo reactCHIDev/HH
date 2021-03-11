@@ -33,7 +33,7 @@ function Review({ id, experience }) {
         knowledgeableRate={experience.ratingDetails.knowledgeableRating || 0}
         valueForMoneyRate={experience.ratingDetails.valueForMoneyRating || 0}
       />
-      {/* {isReviewModalShown && (
+      {isReviewModalShown && (
         <ReviewModal experience={experience} setIsReviewModalShown={setIsReviewModalShown} />
       )}
       {isUserCanReview && !isReviewModalShown && (
@@ -46,7 +46,7 @@ function Review({ id, experience }) {
             Add Review
           </div>
         </div>
-      )} */}
+      )}
       {expReviews.length ? expReviews.map((el) => <ReviewWrapper el={el} />) : null}
     </div>
   )
