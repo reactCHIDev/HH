@@ -48,7 +48,10 @@ function* createProductReview({ payload }) {
       yield put({
         type: GET_UNREVIEWED_EXPERIENCE_REQUESTING,
       })
-      yield put({ type: GET_FL_EXPERIENCE_REVIEWS_REQUESTING, data: { page: reviewsCurrentPage } })
+      yield put({
+        type: GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
+        payload: { page: reviewsCurrentPage },
+      })
       yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
     }
   } catch (error) {

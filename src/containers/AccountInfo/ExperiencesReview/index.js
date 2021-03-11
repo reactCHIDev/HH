@@ -16,12 +16,11 @@ function ProductsReview() {
   const currentPage = useSelector((state) => state.expReviews.reviewsCurrentPage)
   const reviewsCount = useSelector((state) => state.expReviews.count)
 
-  console.log(reviewedProducts, 'reviewedProducts')
-
   React.useEffect(() => {
     dispatch(getUnreviewedExperienceAC(), [dispatch])
     dispatch(getFLExperienceReviewsAC({ page: currentPage }), [dispatch])
   }, [])
+
   return (
     <div className={styles.container}>
       {experienceToReview && !isReviewModalOpen && (

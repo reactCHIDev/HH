@@ -67,7 +67,7 @@ const Balance = () => {
     )
   }
 
-  const isPending = () => withdrawRequest.status === 'Pending'
+  const isPending = withdrawRequest?.status === 'Pending'
 
   return (
     <div className={styles.container}>
