@@ -67,7 +67,9 @@ const Home = (props) => {
 
   useEffect(() => {
     setExperiencesCollection((p) =>
-      p.concat(experiencesList.filter((e) => !p.find((el) => el.id === e.id))),
+      p.concat(
+        experiencesList.filter((e) => !p.find((el) => el.experience.id === e.experience.id)),
+      ),
     )
   }, [experiencesList])
 
