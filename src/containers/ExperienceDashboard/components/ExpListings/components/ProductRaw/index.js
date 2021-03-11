@@ -60,7 +60,7 @@ function ProductRaw({ element }) {
         </div>
       </div>
       <div className={styles.secondaryInfo}>
-        <div className={styles.statusWrapper}>
+        <div className={styles.statusWrapper} onClick={(e) => e.stopPropagation()}>
           <Option
             checked={element.status === 'PUBLISHED'}
             onChange={toggleStatus}
@@ -71,7 +71,7 @@ function ProductRaw({ element }) {
           <span>{time}</span>
           {day}
         </div>
-        <div className={styles.lastSection} onClick={() => openExpPage()}>
+        <div className={styles.lastSection} onClick={openExpPage}>
           <button type="button">{'>'}</button>
         </div>
       </div>

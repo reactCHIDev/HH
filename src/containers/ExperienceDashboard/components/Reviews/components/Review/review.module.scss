@@ -107,7 +107,6 @@
         .reads {
           display: flex;
           flex-grow: 2;
-          align-items: center;
           align-items: baseline;
           margin: 0 24px;
 
@@ -118,24 +117,6 @@
 
           .child {
             margin-left: 10px;
-          }
-          .reads_people {
-            display: flex;
-            align-items: center;
-            width: 10px;
-            margin-right: 7px;
-            .people {
-            }
-          }
-          .qty_reads {
-            margin-bottom: 0;
-            color: #31394d;
-            font-weight: 500;
-            font-size: 14px;
-            font-style: normal;
-            line-height: 160%;
-            letter-spacing: 0.5px;
-            opacity: 0.8;
           }
         }
       }

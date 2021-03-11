@@ -7,6 +7,13 @@ import people from 'assets/icons/svg/people.svg'
 import styles from './review.module.scss'
 
 function Review({ el }) {
+  const dateOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }
+  const mainDate = new Date(el.createdAt).toLocaleDateString('en-US', dateOptions)
+  const visitedDate = new Date(el.visitedAt).toLocaleDateString('en-US', dateOptions)
   return (
     <div className={styles.wrapper} key={el.id}>
       <div className={styles.clientWrapper}>
@@ -16,7 +23,7 @@ function Review({ el }) {
         />
         <div className={styles.clientInfo}>
           <div>{el.customer.profileName}</div>
-          <div>Visit: 12 May, 20</div>
+          <div>Visit: {visitedDate}</div>
         </div>
       </div>
       <div className={styles.reviewWrapper}>
@@ -26,13 +33,13 @@ function Review({ el }) {
               <Rate style={{ color: '#31394C' }} disabled value={el.avgRating} />
             </div>
             <div className={styles.reads}>
-              <div className={styles.reads_people}>
-                <img src={people} alt="avatar" />
-              </div>
-              <div className={styles.qty_reads}>4</div>
+              <img src={people} alt="avatar" className={styles.adult} />
+              {el.guests?.adults || 0}
+              <img src={people} alt="avatar" className={styles.child} />
+              {el.guests?.childs || 0}
             </div>
           </div>
-          <div className={styles.reviewDate}>22 May</div>
+          <div className={styles.reviewDate}>{mainDate}</div>
         </div>
         <div className={styles.reviewText}>{el.review}</div>
         {/* <div className={styles.replyButton}>REPLY</div> */}

@@ -23,7 +23,6 @@ function ReviewdProducts({ products, currentPage }) {
   const pageChange = (newPage) => {
     dispatch(getFLExperienceReviewsAC({ page: newPage }))
   }
-
   return (
     <ListContainer page={currentPage} pageChange={pageChange} pageSize={3} total={reviewsCount}>
       {products.map((item) => (

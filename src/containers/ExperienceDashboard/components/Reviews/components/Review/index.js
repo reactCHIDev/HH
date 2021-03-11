@@ -5,8 +5,6 @@ import people from 'assets/icons/svg/people.svg'
 import styles from './review.module.scss'
 
 function Review({ el }) {
-  console.log(el, 'el')
-
   const dateOptions = {
     year: 'numeric',
     month: 'short',

@@ -8,7 +8,7 @@ import styles from './reviews.module.scss'
 function ReviewsContainer() {
   const dispatch = useDispatch()
   const expReviews = useSelector((state) => state.expReviews.expReviews)
-  const id = useSelector((state) => state.account.shop.userProfileId)
+  const id = useSelector((state) => state.account?.shop?.userProfileId)
 
   React.useEffect(() => {
     dispatch(getExperienceReviewAC({ id, page: 1, type: 'fmExperiencesReview' }))
@@ -18,7 +18,6 @@ function ReviewsContainer() {
     <div className={styles.main_wrapper}>
       <Header />
       <div>{expReviews.length ? expReviews.map((el) => <Review el={el} key={el.id} />) : null}</div>
-      {/* {data && data.map((el) => <div key={el.id}>123</div>)} */}
     </div>
   )
 }
