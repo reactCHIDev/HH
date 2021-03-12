@@ -97,7 +97,7 @@ const reducer = (state = initialState, action) => {
     case OPEN_REVIEW_MODAL:
       return {
         ...state,
-        isModalOpen: true,
+        isModalOpen: !state.isModalOpen,
       }
 
     case GET_PRODUCT_REVIEWS_SUCCESS:

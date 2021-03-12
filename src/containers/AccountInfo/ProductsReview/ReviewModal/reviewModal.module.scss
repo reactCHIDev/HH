@@ -1,11 +1,5 @@
-// @media (max-width: 1024px) {
-//   margin-bottom: 10px;
-// }
-// @media (max-width: 768px) {
-//   width: 100%;
-// }
-
 .wrapper {
+  position: relative;
   display: flex;
   width: 100%;
   padding: 30px;
@@ -14,13 +8,21 @@
   @media (max-width: 1024px) {
     flex-direction: column;
   }
+
+  .closeIcon {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+  }
+
   .productWrapper {
     display: flex;
     flex-direction: row;
     width: 35%;
     @media (max-width: 1024px) {
-      margin-bottom: 10px;
       width: 100%;
+      margin-bottom: 10px;
     }
     .productImage {
       position: relative;

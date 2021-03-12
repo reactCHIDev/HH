@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createExperienceReviewAC } from 'actions/experiences-reviews'
+import { createExperienceReviewAC, openReviewModal } from 'actions/experiences-reviews'
 import Uploader from 'components/ReviewUploader'
 
 import { Rate } from 'antd'
@@ -57,9 +57,13 @@ function ReviewModal({ experience }) {
   }
 
   const onChangeReview = (e) => setReview(e.target.value)
+  const closeHandler = () => dispatch(openReviewModal())
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.closeIcon} onClick={closeHandler}>
+        ✕
+      </div>
       <div className={styles.productWrapper}>
         <div
           className={styles.productImage}

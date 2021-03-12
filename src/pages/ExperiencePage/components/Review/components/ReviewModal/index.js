@@ -12,7 +12,6 @@ import styles from './reviewModal.module.scss'
 import './reviewModal.less'
 
 function ReviewModal({ experience, setIsReviewModalShown }) {
-  console.log(experience, 'exp')
   const dispatch = useDispatch()
 
   const [review, setReview] = React.useState('')
