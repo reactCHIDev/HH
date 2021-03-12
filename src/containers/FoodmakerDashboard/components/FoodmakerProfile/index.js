@@ -228,7 +228,7 @@ const FoodmakerProfile = (props) => {
 
                 <div className={styles.user_data}>
                   <div className={styles.refer}>
-                    <label className={styles.label}>Ms/Mr</label>
+                    <label className={styles.label}>Mr/Ms</label>
 
                     <Controller
                       control={control}
