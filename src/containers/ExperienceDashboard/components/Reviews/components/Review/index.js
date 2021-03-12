@@ -22,7 +22,7 @@ function Review({ el }) {
           style={{ backgroundImage: `url("${el.customer.userPhoto}")` }}
         />
         <div className={styles.clientInfo}>
-          <div>Sasha</div>
+          <div>{el.customer.profileName}</div>
           <div>Visit: {visitedDate}</div>
         </div>
       </div>
