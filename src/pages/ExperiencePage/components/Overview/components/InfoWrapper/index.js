@@ -24,10 +24,7 @@ function InfoWrapper({ priceFrom, city, time, maxGuests, languages, visits }) {
           <img className={styles.infoIcon} src={financeIcon} alt="info" />
           <p>From ${priceFrom}</p>
         </div>
-        <div className={styles.infoElement}>
-          <img className={styles.infoIcon} src={cityIcon} alt="info" />
-          <p>{city}</p>
-        </div>
+
         <div className={styles.infoElement}>
           <img className={styles.infoIcon} src={langIcon} alt="info" />
           <p>{languages}</p>
@@ -45,6 +42,12 @@ function InfoWrapper({ priceFrom, city, time, maxGuests, languages, visits }) {
         <div className={styles.infoElement}>
           <img className={styles.infoIcon} src={peopleVisitedIcon} alt="info" />
           <p>{visits} people visited</p>
+        </div>
+      </div>
+      <div className={styles.infoRow}>
+        <div className={styles.infoElement}>
+          <img className={styles.infoIcon} src={cityIcon} alt="info" />
+          <p>{city}</p>
         </div>
       </div>
     </div>
