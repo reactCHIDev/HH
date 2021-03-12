@@ -7,7 +7,7 @@ import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import { toggleExperienceStatusRequestAC } from 'actions/experience-listing'
 import { setItem } from 'utils/localStorage'
 
-import Option from '../Option'
+import Option from 'components/Option'
 
 import styles from './productRaw.module.scss'
 

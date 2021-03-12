@@ -143,8 +143,8 @@ const AddExperience = (props) => {
               <div className={styles.mobile_step}>{`Step ${step + 1} of ${4 - firstStep}`}</div>
               {step > 0 && (
                 <div className={styles.mobile_preview} onClick={prevStep}>
-                  <img className={styles.eye} src={Eye} alt="eye" />
-                  <div className={styles.preview}>PREVIEW</div>
+                  {/* <img className={styles.eye} src={Eye} alt="eye" /> */}
+                  <div className={styles.preview}>Back</div>
                 </div>
               )}
               {false && (

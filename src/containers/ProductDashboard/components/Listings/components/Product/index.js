@@ -7,7 +7,7 @@ import EditIcon from 'assets/icons/svg/editor-icon.svg'
 import ChkIcon from 'assets/icons/svg/chk-icon.svg'
 import DashIcon from 'assets/icons/svg/dash-icon.svg'
 import { Rate } from 'antd'
-import Option from '../Option'
+import Option from 'components/Option'
 import styles from './product.module.scss'
 import './product.less'
 

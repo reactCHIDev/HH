@@ -230,7 +230,7 @@ const Step3 = (props) => {
               type="primary"
               htmlType="submit"
               block
-              // disabled={fileList.length < 2 || !isActive}
+              disabled={fileList.length < 2 || !isActive}
               size="large"
             >
               NEXT
