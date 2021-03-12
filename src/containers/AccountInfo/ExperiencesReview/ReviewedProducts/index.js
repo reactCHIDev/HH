@@ -53,7 +53,7 @@ function ReviewdProducts({ products, currentPage }) {
                   item.photos.map((el) => (
                     <div key={item} style={{ backgroundImage: `url("${el}")` }} />
                   ))}
-                <div />
+                {/* <div /> */}
               </div>
               <div className={styles.ratesContainer}>
                 <div className={cls(styles.reviewRate, 'reviewRate')}>

@@ -100,8 +100,16 @@
         display: flex;
         align-items: baseline;
 
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+
         .rateWrapper {
           margin-right: 10px;
+
+          @media (max-width: 768px) {
+            margin-bottom: 10px;
+          }
         }
 
         .reads {
@@ -109,6 +117,10 @@
           flex-grow: 2;
           align-items: baseline;
           margin: 0 24px;
+
+          @media (max-width: 768px) {
+            margin: 0;
+          }
 
           .adult {
             width: 15px;
@@ -137,6 +149,27 @@
       line-height: 160%;
       letter-spacing: 0.5px;
       opacity: 0.8;
+    }
+
+    .imgContainer {
+      display: flex;
+      width: 40%;
+
+      @media (max-width: 1200px) {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      div {
+        width: 56px;
+        height: 56px;
+        margin-right: 7px;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        border-radius: 6px;
+      }
     }
 
     .replyButton {

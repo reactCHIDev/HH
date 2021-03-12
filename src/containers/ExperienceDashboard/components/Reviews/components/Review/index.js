@@ -52,6 +52,11 @@ function Review({ el }) {
           <div className={styles.reviewDate}>{mainDate}</div>
         </div>
         <div className={styles.reviewText}>{el.review}</div>
+        <div className={styles.imgContainer}>
+          {el.photos.length > 0 &&
+            el.photos.map((i) => <div key={i} style={{ backgroundImage: `url("${i}")` }} />)}
+          {/* <div /> */}
+        </div>
         {/* <div className={styles.replyButton}>REPLY</div> */}
       </div>
     </div>
