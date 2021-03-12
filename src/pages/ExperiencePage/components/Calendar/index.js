@@ -99,7 +99,7 @@ const DateSlider = (props) => {
   }
 
   function formatter(value) {
-    const time = value * 3 + 30
+    const time = value * 5 + 30
     const h = Math.floor(time / 60)
     const m = time % 60
     return `${h ? `${h}h` : ''} ${m ? `${m}m ` : ''}`
