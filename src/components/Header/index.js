@@ -81,6 +81,7 @@ const Header = (props) => {
     '/landing/create_profile',
     '/landing/create_shop',
     '/fm_booking_info',
+    '/fl_booking_info',
   ]
 
   const darkTheme = ['']
