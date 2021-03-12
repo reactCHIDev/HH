@@ -122,6 +122,27 @@
       opacity: 0.8;
     }
 
+    .imgContainer {
+      display: flex;
+      width: 40%;
+
+      @media (max-width: 1200px) {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      div {
+        width: 56px;
+        height: 56px;
+        margin-right: 7px;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        border-radius: 6px;
+      }
+    }
+
     .replyButton {
       width: 20%;
       padding: 5px 10px;

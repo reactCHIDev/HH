@@ -1,4 +1,5 @@
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -8,6 +9,12 @@
   @media (max-width: 1024px) {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .closeIcon {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
   }
   .productWrapper {
     display: flex;

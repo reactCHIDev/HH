@@ -10,6 +10,7 @@ import {
   //
   GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
   GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
+  OPEN_EXP_REVIEW_MODAL,
 } from './constants'
 
 export const createExperienceReviewAC = (payload) => ({
@@ -49,4 +50,8 @@ export const getFLExperienceReviewsAC = (payload) => ({
 export const getFLExperiencesReviewSuccess = (payload) => ({
   type: GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
   payload,
+})
+
+export const openReviewModal = () => ({
+  type: OPEN_EXP_REVIEW_MODAL,
 })

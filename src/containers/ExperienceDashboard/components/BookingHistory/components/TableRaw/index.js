@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import people from 'assets/icons/svg/people.svg'
 import styles from './tableRaw.module.scss'
 
 function TableRaw({ element }) {
@@ -25,7 +26,13 @@ function TableRaw({ element }) {
         <div className={styles.day}>{day}</div>
         <div className={styles.time}>{time}</div>
         <div className={styles.price}>{element.price}$</div>
-        <div className={styles.guests}>{element.guests}</div>
+        {/* <div className={styles.guests}>{element.guests}</div> */}
+        <div className={styles.guests}>
+          <img src={people} alt="avatar" className={styles.adult} />
+          {element.adults || 0}
+          <img src={people} alt="avatar" className={styles.child} />
+          {element.childs || 0}
+        </div>
         <div className={styles.button}>
           <Link to={{ pathname: '/fm_booking_info', state: element.id }}>
             <button type="button">view</button>

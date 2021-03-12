@@ -15,7 +15,7 @@ import {
   GET_UNREVIEWED_EXPERIENCE_SUCCESS,
   GET_UNREVIEWED_EXPERIENCE_ERROR,
   CREATE_EXPERIENCE_REVIEW_REQUESTING,
-  CREATE_PRODUCT_REVIEW_SUCCESS,
+  CREATE_EXPERIENCE_REVIEW_SUCCESS,
   CREATE_EXPERIENCE_REVIEW_ERROR,
   GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
   GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
@@ -43,7 +43,7 @@ function* createProductReview({ payload }) {
         type: GET_EXPERIENCE_REVIEW_REQUESTING,
         payload: { id: payload.experienceId, page: 1 },
       })
-      yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+      yield put({ type: CREATE_EXPERIENCE_REVIEW_SUCCESS })
     } else {
       yield put({
         type: GET_UNREVIEWED_EXPERIENCE_REQUESTING,
@@ -52,7 +52,7 @@ function* createProductReview({ payload }) {
         type: GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
         payload: { page: reviewsCurrentPage },
       })
-      yield put({ type: CREATE_PRODUCT_REVIEW_SUCCESS })
+      yield put({ type: CREATE_EXPERIENCE_REVIEW_SUCCESS })
     }
   } catch (error) {
     if (error.response) {

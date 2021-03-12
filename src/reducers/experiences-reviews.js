@@ -11,6 +11,7 @@ import {
   GET_FL_EXPERIENCE_REVIEWS_REQUESTING,
   GET_FL_EXPERIENCE_REVIEWS_SUCCESS,
   GET_FL_EXPERIENCE_REVIEWS_ERROR,
+  OPEN_EXP_REVIEW_MODAL,
 } from '../actions/constants'
 
 const initialState = {
@@ -110,6 +111,12 @@ const reducer = function accountReducer(state = initialState, action) {
         ...state,
         requesting: false,
         error: true,
+      }
+
+    case OPEN_EXP_REVIEW_MODAL:
+      return {
+        ...state,
+        isModalOpen: !state.isModalOpen,
       }
 
     default:

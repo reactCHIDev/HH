@@ -84,9 +84,21 @@
     }
 
     .guests {
+      display: flex;
+      flex-grow: 2;
+      align-items: baseline;
       width: 30%;
       @media screen and (max-width: 386px) {
         width: 50%;
+      }
+
+      .adult {
+        width: 15px;
+        height: 15px;
+      }
+
+      .child {
+        margin-left: 10px;
       }
     }
 
