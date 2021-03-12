@@ -29,7 +29,7 @@ const ExpListings = (props) => {
   }, [])
 
   React.useEffect(() => {
-    setData(items)
+    if (items?.length) setData(items)
   }, [items])
 
   return (

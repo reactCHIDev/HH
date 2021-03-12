@@ -8,9 +8,9 @@ import './option.less'
 
 const Option = ({ checked, id, onChange }) => {
   return (
-    <div className={styles.container}>
+    <div className={cls(styles.container, 'switch')}>
       <p className={cls(styles.title, checked ? styles.off : '')}>PAUSED</p>
-      <Switch className="switch" checked={checked} size="small" onChange={() => onChange(id)} />
+      <Switch checked={checked} size="small" onChange={() => onChange(id)} />
       <p className={checked ? styles.on : styles.off}>PUBLISHED</p>
     </div>
   )
