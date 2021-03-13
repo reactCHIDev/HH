@@ -1,5 +1,6 @@
 import React from 'react'
 import T from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import envelope from 'assets/icons/svg/envelope.svg'
 
@@ -18,9 +19,16 @@ function Maker({ foodmaker }) {
               <AvatarPlaceholder width={96} />
             )}
           </div>
-          <div className={styles.icon}>
-            <img src={envelope} alt="envelope" />
-          </div>
+          <Link
+            to={{
+              pathname: '/messages',
+              /* state: { id: fm.userId, profileName: fm.profileName, userPhoto: fm.userPhoto }, */
+            }}
+          >
+            <div className={styles.icon}>
+              <img src={envelope} alt="envelope" />
+            </div>
+          </Link>
         </div>
         <div className={styles.textWrapper}>
           <div className={styles.name}>{foodmaker.firstName}</div>
