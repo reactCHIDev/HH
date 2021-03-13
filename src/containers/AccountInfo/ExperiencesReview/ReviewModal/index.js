@@ -155,7 +155,7 @@ function ReviewModal({ experience }) {
           </div>
         </div>
         <div
-          onClick={() => (isValid ? submitReview() : console.log('erorr'))}
+          onClick={() => (isValid ? submitReview() : console.log('error'))}
           className={isValid() ? styles.submitButton : styles.submitButtonError}
         >
           Publish

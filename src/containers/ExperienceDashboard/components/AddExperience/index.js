@@ -16,7 +16,6 @@ import {
 } from 'actions/system'
 import SubHeader from 'components/SubHeader'
 
-import Eye from 'assets/icons/svg/eye-preview.svg'
 import Copy from 'assets/icons/svg/copy-icon.svg'
 import Message from './components/Message'
 import Step1 from './components/Steps/Step1'

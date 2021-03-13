@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
-import T from 'prop-types'
 import { connect } from 'react-redux'
 import { Spin, Space } from 'antd'
 import { useParams } from 'react-router-dom'

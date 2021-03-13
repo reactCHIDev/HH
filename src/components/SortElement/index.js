@@ -5,6 +5,7 @@ import SortIcon2 from 'assets/icons/svg/sort2.svg'
 import styles from './sort.module.scss'
 
 const Sort = (props) => {
+  // eslint-disable-next-line react/prop-types
   const { title, type, onClick } = props
 
   return (

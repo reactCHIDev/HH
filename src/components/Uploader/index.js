@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-shadow */
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'

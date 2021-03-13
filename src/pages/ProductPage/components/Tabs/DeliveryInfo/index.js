@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import styles from './delivery_info.module.scss'
 import './delivery_info.less'
 

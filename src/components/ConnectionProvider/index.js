@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* REACT */
 import React, { useEffect } from 'react'

@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import cls from 'classnames'
 
 import TabsComponent from 'components/Tabs/TabsCard'

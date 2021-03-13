@@ -1,6 +1,8 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import T from 'prop-types'
-import { Slider, InputNumber, Button } from 'antd'
+import { Slider, InputNumber } from 'antd'
 import styles from './price_selector.module.scss'
 import './price_selector.less'
 

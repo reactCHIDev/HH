@@ -12,10 +12,6 @@ export const getUserByEmail = (email) => apiClient.get(PATHS.userbyemail + email
 export const forgotStep1 = (data) => apiClient.post(PATHS.forgotStep1, { data })
 export const forgotStep3 = (data) => apiClient.post(PATHS.forgotStep3, { data })
 
-//
-//
-//
-// ====================================================================================================
 /*
 export const registration = (data) => apiClient.post(PATHS.registration, { data })
 

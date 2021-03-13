@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import styles from './button.module.scss'

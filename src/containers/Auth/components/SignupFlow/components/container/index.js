@@ -22,6 +22,7 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
     // eslint-disable-next-line
   }, [])
 
+  // eslint-disable-next-line
   useEffect(() => {
     if (container.current) {
       setWidth(container.current.offsetWidth)
