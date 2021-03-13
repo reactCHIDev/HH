@@ -37,12 +37,18 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
     }),
   }
 
+  const getPrice = (amount) => {
+    const isDiscount = amount + 1 > product.discount.quantity
+    return isDiscount
+      ? params.find((p) => p.volume === weightOption)?.price.toFixed(2) *
+          (1 - product.discount.discount / 100)
+      : params.find((p) => p.volume === weightOption)?.price.toFixed(2)
+  }
+
   const { Option } = Select
   return (
     <div className={styles.container}>
-      <div className={styles.price}>
-        {params.find((p) => p.volume === weightOption)?.price.toFixed(2)}
-      </div>
+      <div className={styles.price}>{getPrice(count)}</div>
       <div className={cls(styles.select_container, 'selects')}>
         <Select defaultValue={weightOption} onChange={handleWeightChange}>
           {true &&
@@ -79,7 +85,7 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
           />
         ) : (
           <Button
-            title="ADD TO CARD"
+            title="ADD TO CART"
             onClick={() => {
               onProductClick()
             }}
