@@ -33,10 +33,10 @@ const Tags = (props) => {
   }, [])
 
   const handleChangeMain = (selectedItems) => {
-    setMainTags(selectedItems)
+    setMainTags(selectedItems.slice(0, 3))
   }
   const handleChangeAdd = (selectedItems) => {
-    setAddTags(selectedItems)
+    setAddTags(selectedItems.slice(0, 3))
   }
 
   const submitData = {
@@ -63,7 +63,7 @@ const Tags = (props) => {
 
   return (
     <div className={styles.container}>
-      <Heading category="About" name="Customize your tags" />
+      <Heading category="About" name="Customize your tags (up to 3)" />
       <div className={cls(styles.selectors, 'selector_container')}>
         <p className={styles.label}>Your speciality</p>
         <Select

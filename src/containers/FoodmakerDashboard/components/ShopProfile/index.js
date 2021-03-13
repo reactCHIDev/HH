@@ -188,7 +188,7 @@ const ShopProfile = (props) => {
   }
 
   const handleTags = (onChange) => (e) => {
-    setSelectedItems(e)
+    setSelectedItems(e.slice(0, 5))
     onChange(e)
   }
 

@@ -347,6 +347,8 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                             rules={[{ required: true, message: 'Please input price!' }]}
                           >
                             <InputNumber
+                              min={0}
+                              max={99999}
                               formatter={(value) =>
                                 `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                               }
