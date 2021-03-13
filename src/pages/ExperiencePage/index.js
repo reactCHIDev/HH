@@ -21,6 +21,8 @@ function ExperincePage() {
     // eslint-disable-next-line
   }, [])
 
+  console.log(experience, 'experience')
+
   return experience ? (
     <div className={styles.wrapper}>
       <ExpHeader experience={experience.experience} user={experience.userProfile} />
@@ -36,7 +38,11 @@ function ExperincePage() {
           visits={experience.experience.visits}
           foodmaker={experience.userProfile}
         />
-        <About />
+        <About
+          isAdult={experience.experience.isAdult}
+          summary={experience.experience.summary}
+          thingsToTake={experience.experience.thingsToTake}
+        />
         {/* <GuestPhotos /> */}
         <Review id={experience.experience.id} experience={experience.experience} />
       </div>
