@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
-import { setItem, getItem, removeKey } from 'utils/localStorage'
+import { setItem, removeKey } from 'utils/localStorage'
 
 import styles from './requesting.module.scss'
 
@@ -128,6 +130,7 @@ const Requesting = ({
           },
         ),
       )
+    // eslint-disable-next-line
   }, [])
 
   const onError = () => {

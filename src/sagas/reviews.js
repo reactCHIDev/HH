@@ -81,7 +81,6 @@ function* getProductReviews({ data }) {
   const { id, page } = data
   try {
     const response = yield getProductReviewsReq({ id, startIndex: page * 3 - 3, limit: 3 })
-    console.log(response)
     yield put({
       type: GET_PRODUCT_REVIEWS_SUCCESS,
       data: {

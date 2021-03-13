@@ -1,16 +1,8 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
-import T from 'prop-types'
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/prop-types */
+import React, { useCallback, useMemo } from 'react'
 import cls from 'classnames'
-import {
-  format,
-  getMinutes,
-  getHours,
-  parseISO,
-  isSameDay,
-  differenceInMinutes,
-  isBefore,
-  startOfToday,
-} from 'date-fns'
+import { format, getMinutes, getHours, parseISO, isSameDay } from 'date-fns'
 import Slider from 'react-slick'
 import Lock from 'assets/icons/svg/dop.svg'
 import 'slick-carousel/slick/slick.css'
@@ -29,7 +21,6 @@ const DateSlider = (props) => {
     bookingsByDate,
     guests,
     duration,
-    available,
   } = props
 
   const settings = useMemo(
@@ -82,10 +73,12 @@ const DateSlider = (props) => {
 
   const handleDateClick = useCallback((e) => {
     setSelectedDate(e.currentTarget.id)
+    // eslint-disable-next-line
   }, [])
 
   const handleTimeClick = useCallback((e) => {
     setSelectedTime(e.currentTarget.id)
+    // eslint-disable-next-line
   }, [])
 
   const getAvailablePlaces = (appointmentTime, bookingList, guestsLimit) => {

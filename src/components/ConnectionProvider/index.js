@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* REACT */
 import React, { useEffect } from 'react'
 import { node, shape, string, func, bool } from 'prop-types'
@@ -30,6 +31,7 @@ function ConnectionProvider({
       window.removeEventListener('online', handleConnectionChange)
       // window.removeEventListener('offline', handleConnectionChange)
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -37,6 +39,7 @@ function ConnectionProvider({
       setState(false)
     }
     if (location.pathname !== '/messages') clearChat()
+    // eslint-disable-next-line
   }, [location.pathname])
 
   return isConnected ? children : <OfflinePage />

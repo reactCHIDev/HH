@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable react/prop-types */
+import React from 'react'
 import cls from 'classnames'
 import T from 'prop-types'
 import { Switch } from 'antd'

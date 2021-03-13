@@ -9,12 +9,12 @@ import {
   STRIPE_CHECKOUT_ERROR,
 } from '../actions/constants'
 
-const card = {
-  number: '4000003440000004',
-  exp_month: 12,
-  exp_year: 2021,
-  cvc: '314',
-}
+// const card = {
+//   number: '4000003440000004',
+//   exp_month: 12,
+//   exp_year: 2021,
+//   cvc: '314',
+// }
 
 function* stripeCheckoutSaga({ item, price }) {
   let totalPrice

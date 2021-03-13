@@ -16,6 +16,7 @@ const OrdersFL = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getFoodloverOrdersAC())
+    // eslint-disable-next-line
   }, [])
 
   const { items, requestSort } = useSortableData(orders, {

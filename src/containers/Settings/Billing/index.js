@@ -7,10 +7,10 @@ import styles from './billing.module.scss'
 function BillingHistory() {
   const dispatch = useDispatch()
   const billings = useSelector((state) => state.billingHistory.orders)
-  console.log(billings)
 
   React.useEffect(() => {
     dispatch(getBillingHistoryAC())
+    // eslint-disable-next-line
   }, [])
 
   return (

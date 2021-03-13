@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import T, { shape } from 'prop-types'
 import {
@@ -22,7 +26,6 @@ import styles from './step4.module.scss'
 import './step4.less'
 
 const { Option } = Select
-const { RangePicker } = DatePicker
 
 const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
   const prevState = getItem('addProduct')
@@ -70,7 +73,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
   const [isAdult, setIsAdult] = useState(!!prevState?.isAdult)
   const [dates, setDates] = useState(prevState?.available !== 'Preorder')
   const [isQuantity, setIsQuantity] = useState(!!prevState?.quantity)
-
+  // eslint-disable-next-line
   useEffect(() => onFieldChange(), [
     ingredients,
     selectedItems,
@@ -98,9 +101,9 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
       const deliveryRegionData = { '1': 'Local', '2': 'Worldwide' }
       deliveryRegion = deliveryRegionData[selectedRegionRadio]
     } else {
-      if (selectedCountryRadio == 4)
+      if (selectedCountryRadio === 4)
         deliveryRegion = selectedCountries?.length ? selectedCountries.join(' ') : []
-      if (selectedCountryRadio == 5)
+      if (selectedCountryRadio === 5)
         deliveryRegionException = exceptionCountries?.length ? exceptionCountries.join(' ') : []
     }
 
@@ -158,9 +161,9 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
       const deliveryRegionData = { '1': 'Local', '2': 'Worldwide' }
       deliveryRegion = deliveryRegionData[selectedRegionRadio]
     } else {
-      if (selectedCountryRadio == 4)
+      if (selectedCountryRadio === 4)
         deliveryRegion = selectedCountries?.length ? selectedCountries.join(' ') : ''
-      if (selectedCountryRadio == 5)
+      if (selectedCountryRadio === 5)
         deliveryRegionException = exceptionCountries?.length ? exceptionCountries.join(' ') : ''
     }
 
@@ -214,7 +217,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
   const ingredientsChk = () => setIngredients((i) => !i)
 
   const isAdultChk = () => setIsAdult((a) => !a)
-  const isQuantityChk = () => setIsQuantity((a) => !a)
+  // const isQuantityChk = () => setIsQuantity((a) => !a)
 
   const handleChangeTags = (selectedItms) => {
     setSelectedItems(selectedItms)
@@ -471,7 +474,7 @@ const Step4 = ({ create, countries, tags, requesting, edit = false }) => {
                 name="deliveryRegionException"
                 rules={[
                   {
-                    required: selectedRegionRadio == 3 && selectedCountryRadio == 5,
+                    required: selectedRegionRadio === 3 && selectedCountryRadio === 5,
                     message: 'Please select countries!',
                   },
                 ]}

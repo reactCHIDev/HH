@@ -13,6 +13,7 @@ const Input = ({ name, value, placeholder, registerObj, focus, fixedText, onSubm
   useEffect(() => {
     setValue(value)
     if (name === 'password') setType('password')
+    // eslint-disable-next-line
   }, [])
 
   const submit = (data) => {

@@ -1,10 +1,9 @@
 import React from 'react'
 import T from 'prop-types'
-import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import { Rate, Tag } from 'antd'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { push } from 'connected-react-router'
 
 import toggleFavouriteAc from 'actions/favourites'
@@ -88,7 +87,7 @@ ExpCard.propTypes = {
   name: T.string,
   price: T.number,
   rating: T.number,
-  rateCount: T.number,
+  rateCount: T.string,
   isShowCart: T.bool,
   pathname: T.string,
   isFavorite: T.bool,
@@ -100,7 +99,7 @@ ExpCard.defaultProps = {
   name: 'Boring Indian Curry Workshop',
   price: 650,
   rating: 3,
-  rateCount: 8,
+  rateCount: '8',
   isShowCart: false,
 }
 

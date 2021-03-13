@@ -1,15 +1,18 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
+/* eslint-disable one-var */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import T from 'prop-types'
 import { getItem, setItem } from 'utils/localStorage'
 import { Select } from 'antd'
 import ChkBox from 'components/ChkBox'
-import { CaretDownOutlined } from '@ant-design/icons'
 import cls from 'classnames'
 import _ from 'lodash/fp'
 import { useForm, Controller } from 'react-hook-form'
 import styles from './step2.module.scss'
 import './step2.less'
-import { setTemporaryEndpoint } from 'utils/apiClient'
 
 const Step2 = (props) => {
   const { setStep, types = [], stepper, setStepper } = props
@@ -210,7 +213,7 @@ const Step2 = (props) => {
 
 Step2.propTypes = {
   setStep: T.func.isRequired,
-  types: T.shape(),
+  // types: T.shape(),
 }
 
 export default Step2

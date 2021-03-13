@@ -1,7 +1,9 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { Button, Select, DatePicker } from 'antd'
+import { useDispatch } from 'react-redux'
+import { Button } from 'antd'
 import {
   format,
   toDate,
@@ -12,6 +14,7 @@ import {
   getYear,
   isSameDay,
   parseISO,
+  // eslint-disable-next-line import/no-extraneous-dependencies
 } from 'date-fns'
 import DatePick from 'components/DatePicker/DatePicker'
 import { getExperiencesByDateAC } from 'actions/experience'
@@ -71,12 +74,11 @@ const Step4 = ({ create, edit }) => {
   const [month, setMonth] = useState(new Date().toISOString())
   const [btnAction, setBtnAction] = useState('Apply')
 
-  const expsByDate = useSelector((state) => state.expListing.monthExperiences)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getExperiencesByDateAC(month))
+    // eslint-disable-next-line
   }, [month])
 
   useEffect(() => {
@@ -85,6 +87,7 @@ const Step4 = ({ create, edit }) => {
     } else {
       setBtnAction('Apply')
     }
+    // eslint-disable-next-line
   }, [eventTime])
 
   /*

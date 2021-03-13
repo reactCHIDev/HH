@@ -1,16 +1,14 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */ // TODO: fix this after finishing component
 /* eslint-disable react/no-unused-state */ // TODO: fix this after finishing component
 
 /* REACT */
 import React from 'react'
-import { connect } from 'react-redux'
 import { format, isSameDay, parseISO } from 'date-fns'
 
 /* MODULES */
 import Calendar from 'react-calendar'
-import { sendCurrDate } from 'actions/date-picker'
 
-import styles from './datepicker.module.scss'
 import './datepicker.scss'
 
 function DatePicker(props) {
@@ -22,13 +20,13 @@ function DatePicker(props) {
     return events.some((e) => isSameDay(date, parseISO(e))) ? 'event' : 'free'
   }
 
-  const tileContent = ({ activeStartDate, date, view }) => {
+  const tileContent = ({ date, view }) => {
     return view === 'month' && isSameDay(date, new Date()) ? (
       <div className="today">today</div>
     ) : null
   }
 
-  const onNav = ({ date, label, locale, view }) => {
+  const onNav = ({ date, label }) => {
     setMonth(date.toISOString())
     return label
   }

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
-import { getItem } from 'utils/localStorage'
+/* eslint-disable import/order */
+import React from 'react'
 import { Button } from 'antd'
 import info from 'assets/icons/svg/info-red.svg'
-import Cross from 'assets/images/signup-flow/svg/cross.svg'
-import { createOrderRequestrinAc } from 'actions/order'
 import cls from 'classnames'
 import styles from './error.module.scss'
 import './error.less'

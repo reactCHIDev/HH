@@ -1,21 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { string, func, bool } from 'prop-types'
 import cls from 'classnames'
 import { createPortal } from 'react-dom'
 import styles from './modal.module.scss'
 
 const Modal = (props) => {
-  const { children, mode = 'dark', classname, white, closeFunc, option } = props
+  const { children, mode = 'dark', closeFunc, option } = props
   const [containerElement] = useState(document.getElementById('modal'))
   const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
     setIsDark(mode === 'dark')
     document.body.style.overflow = 'hidden'
+    // eslint-disable-next-line func-names
     return function() {
       document.body.style.overflow = 'unset'
       return null
     }
+    // eslint-disable-next-line
   }, [])
 
   const closemodal = () => {

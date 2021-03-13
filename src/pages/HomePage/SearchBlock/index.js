@@ -71,6 +71,7 @@ function SearchBlock() {
 
   React.useEffect(() => {
     dispatch(getCitiesAC())
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {
@@ -91,6 +92,7 @@ function SearchBlock() {
     } else {
       dispatch(clearSearchDataAc())
     }
+    // eslint-disable-next-line
   }, [debouncedSearchTerm, searchType, selectedCity])
 
   React.useEffect(() => {
@@ -99,6 +101,7 @@ function SearchBlock() {
     } else {
       dispatch(clearSearchDataAc())
     }
+    // eslint-disable-next-line
   }, [debouncedCitySearch, searchType])
 
   React.useEffect(() => {
@@ -109,6 +112,7 @@ function SearchBlock() {
     } else {
       setCityResults([])
     }
+    // eslint-disable-next-line
   }, [searchCityValue])
 
   React.useEffect(() => {
@@ -117,6 +121,7 @@ function SearchBlock() {
     } else {
       setCityVisibility(false)
     }
+    // eslint-disable-next-line
   }, [cityResult])
 
   React.useEffect(() => {

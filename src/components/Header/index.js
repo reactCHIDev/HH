@@ -31,7 +31,6 @@ import LogOut from 'assets/images/header/LogOut.svg'
 import textLogoBlue from 'assets/images/header/logo_text_beta_blue.svg'
 import Avatar from './components/Avatar'
 import styles from './header.module.scss'
-import ExpListings from 'containers/ExperienceDashboard/components/ExpListings/index'
 
 const Header = (props) => {
   const {
@@ -83,7 +82,7 @@ const Header = (props) => {
     '/fm_booking_info',
   ]
 
-  const darkTheme = ['']
+  // const darkTheme = ['']
 
   const dark = !lightTheme.some((e) => pathname.includes(e))
   const isTextLogo = ['/shop/', '/product/'].some((e) => pathname.includes(e))
@@ -93,6 +92,7 @@ const Header = (props) => {
       getUserAccount(id)
       if (role !== 'ADMIN') getMyExperiencesList()
     }
+    // eslint-disable-next-line
   }, [id])
 
   const clickLogo = () => {
@@ -150,10 +150,10 @@ const Header = (props) => {
     onSettings()
   }
 
-  const getPath = () => {
-    if (role === 'FOODMAKER') return '/product_dashboard/profile'
-    if (role === 'FOODLOVER') return '/account_info'
-  }
+  // const getPath = () => {
+  //   if (role === 'FOODMAKER') return '/product_dashboard/profile'
+  //   if (role === 'FOODLOVER') return '/account_info'
+  // }
 
   return (
     <header className={cls(styles.header, dark ? styles.dark : styles.light)}>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import styles from './table.module.scss'
 import SortingElement from './SortingElement'
@@ -28,7 +29,7 @@ function Header({ requestSort }) {
       <div style={{ width: '70%' }} />
       <>
         {headers.map((item) => (
-          <>
+          <React.Fragment key={item.sortType}>
             <div
               className={styles[item.style]}
               style={{ cursor: 'pointer' }}
@@ -41,7 +42,7 @@ function Header({ requestSort }) {
               {item.title}
               <SortingElement type={sorterOrder} isSort={sortedColumn === item.sortType} />
             </div>
-          </>
+          </React.Fragment>
         ))}
       </>
     </div>

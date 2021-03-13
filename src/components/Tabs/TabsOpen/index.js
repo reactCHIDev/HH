@@ -1,12 +1,11 @@
 import React from 'react'
 import { Tabs } from 'antd'
 import T from 'prop-types'
-import styles from './tabsopen.module.scss'
 import './tabs.less'
 
 const { TabPane } = Tabs
 
-function callback(key) {}
+function callback() {}
 const TabsOpen = ({ tabs }) => {
   const extraMark = (num) => (
     <div className="extra-mark" style={{ fontSize: 12, paddingTop: 6 }}>
@@ -52,8 +51,8 @@ TabsOpen.propTypes = {
     name: T.shape({
       mark: T.bool,
       content: T.node,
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
 }
 
 export default TabsOpen

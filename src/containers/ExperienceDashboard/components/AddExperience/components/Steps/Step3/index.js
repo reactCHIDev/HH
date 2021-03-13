@@ -1,9 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable one-var */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
 import Uploader from 'components/Uploader'
 import { Button, Radio, Checkbox, Divider, Popover } from 'antd'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { getItem, setItem } from 'utils/localStorage'
 import Info from 'assets/icons/svg/info-green.svg'
 import _ from 'lodash/fp'
@@ -62,10 +66,12 @@ const Step3 = (props) => {
       )
       setCover(prevState.coverPhoto.slice(-28, -(prevState.coverPhoto.split('.').pop().length + 1)))
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
+    // eslint-disable-next-line
   }, [fileList])
 
   const isAdultChk = () => setIsAdult((a) => a)

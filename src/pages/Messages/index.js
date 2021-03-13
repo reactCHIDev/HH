@@ -1,5 +1,7 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useContext } from 'react'
-import T from 'prop-types'
 import { WebSocketContext } from 'App'
 import cls from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
@@ -31,8 +33,6 @@ const Messages = (props) => {
 
   const socket = useContext(WebSocketContext)
 
-  console.log('%c   socket   ', 'color: white; background: salmon;', socket)
-
   const setActiveChat = (id, recipient) => {
     dispatch(setActiveChatAC(id, recipient))
   }
@@ -52,25 +52,27 @@ const Messages = (props) => {
       dispatch(setNewContactAC(chatData))
       history.replace('/messages', undefined)
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     if (socket?.readyState === 1 && newMessages !== null && !orderChat) {
       getDialogs(socket, id)
     }
+    // eslint-disable-next-line
   }, [socket?.readyState, newMessages])
 
   useEffect(() => {
     if (dialogs?.length && !activeChat) setActiveChat(dialogs[0].recipient.id, dialogs[0].recipient)
+    // eslint-disable-next-line
   }, [dialogs])
 
   useEffect(() => {
-    /* if (dialog?.length) { */
     const newMessages = cloneDeep(dialog)
       .map((e) => (e.message.status === 'New' ? e.message.id : null))
       .filter((e) => e)
     if (newMessages?.length && socket.readyState === 1) setAsReviewed(socket, newMessages)
-    /* } */
+    // eslint-disable-next-line
   }, [dialog])
 
   const goBack = () => {

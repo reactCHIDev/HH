@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
-import { getItem } from 'utils/localStorage'
+/* eslint-disable import/order */
+import React from 'react'
 import { Button } from 'antd'
 import Cross from 'assets/images/signup-flow/svg/cross.svg'
-import { createOrderRequestrinAc } from 'actions/order'
-import cls from 'classnames'
 import styles from './error.module.scss'
 import './error.less'
 import { useDispatch } from 'react-redux'
 import { replace } from 'connected-react-router'
 
 const Success = () => {
-  const adressData = getItem('adress')
   const dispatch = useDispatch()
   // dispatch(createOrderRequestrinAc(adressData))
   const toHome = () => {

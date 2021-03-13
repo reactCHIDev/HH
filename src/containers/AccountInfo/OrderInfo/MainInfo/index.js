@@ -15,6 +15,7 @@ const MainOrderInfo = ({ order, getFLOrderAC, orderInfo }) => {
 
   useEffect(() => {
     getFLOrderAC(order?.id)
+    // eslint-disable-next-line
   }, [order])
 
   const escFunction = React.useCallback((event) => {
@@ -29,6 +30,7 @@ const MainOrderInfo = ({ order, getFLOrderAC, orderInfo }) => {
     return () => {
       document.removeEventListener('keydown', escFunction, false)
     }
+    // eslint-disable-next-line
   }, [])
 
   const day = new Date(orderInfo.createdAt).toLocaleDateString('en-US', {
@@ -43,8 +45,6 @@ const MainOrderInfo = ({ order, getFLOrderAC, orderInfo }) => {
     hour12: false,
     minute: '2-digit',
   })
-
-  console.log(orderInfo, 'orderInfo')
 
   return (
     orderInfo && (

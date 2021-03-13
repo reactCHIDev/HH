@@ -2,13 +2,7 @@ import { takeEvery, put, select } from 'redux-saga/effects'
 import { getDialog, getNewMessages } from 'utils/openWS'
 import { getItem } from 'utils/localStorage'
 
-import {
-  DISPATCH_MSG,
-  SET_DIALOG,
-  SET_DIALOGS,
-  NEW_DIALOG,
-  ADD_NEW_DIALOG,
-} from '../actions/constants'
+import { DISPATCH_MSG, SET_DIALOG, SET_DIALOGS } from '../actions/constants'
 
 const id = getItem('user-id')
 

@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import T, { shape } from 'prop-types'
 import { connect } from 'react-redux'
 import { Steps, Button } from 'antd'
 import Modal from 'components/UniversalModal'
-import Message from './components/Message'
-import { removeKey } from 'utils/localStorage'
+import { removeKey, getItem } from 'utils/localStorage'
 import { createExperienceAC, updateExperienceAC, duplicateAC } from 'actions/experience'
 import {
   getProductTypes,
@@ -14,9 +15,10 @@ import {
   getExpTagsAC,
 } from 'actions/system'
 import SubHeader from 'components/SubHeader'
-import { getItem, setItem } from 'utils/localStorage'
+
 import Eye from 'assets/icons/svg/eye-preview.svg'
 import Copy from 'assets/icons/svg/copy-icon.svg'
+import Message from './components/Message'
 import Step1 from './components/Steps/Step1'
 import Step2 from './components/Steps/Step2'
 import Step3 from './components/Steps/Step3'
@@ -35,8 +37,6 @@ const AddExperience = (props) => {
     getExpTagsAC,
     getCountriesAC,
     getProductTypes,
-    createProductRequestAC,
-    updateProductRequestAC,
     getProductTagsRequestAC,
     duplicateAC,
     location: { state: edit },
@@ -62,10 +62,12 @@ const AddExperience = (props) => {
       const { id } = getItem('addExperience')
       setId(id)
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     if (step > progress) setProgress(step)
+    // eslint-disable-next-line
   }, [step])
 
   useEffect(() => {
@@ -204,8 +206,6 @@ AddExperience.propTypes = {
   requesting: T.bool,
   getCountriesAC: T.func,
   getProductTypes: T.func,
-  createProductRequestAC: T.func,
-  updateProductRequestAC: T.func,
   getProductTagsRequestAC: T.func,
 }
 

@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import Checkmail from 'assets/images/checkmail.svg'
-import _ from 'lodash/fp'
 import T from 'prop-types'
 import Chk1 from 'assets/images/signup-flow/svg/chk1.svg'
 import Chk2 from 'assets/images/signup-flow/svg/chk2.svg'

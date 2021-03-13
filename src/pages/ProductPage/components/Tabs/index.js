@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
@@ -53,13 +54,13 @@ const Tabs = (props) => {
   )
 }
 
-Tabs.propTypes = {
-  product: T.shape,
-  description: T.string,
-  ingredients: T.string,
-  deliveryMethods: T.shape,
-  refundPolicy: T.string,
-  refundPolicyNote: T.string,
-}
+// Tabs.propTypes = {
+//   product: T.shape,
+//   description: T.string,
+//   ingredients: T.string,
+//   deliveryMethods: T.shape,
+//   refundPolicy: T.string,
+//   refundPolicyNote: T.string,
+// }
 
 export default Tabs

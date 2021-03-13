@@ -1,5 +1,4 @@
 import React from 'react'
-import T from 'prop-types'
 import avatar from 'assets/TMP-AVATAR.jpg'
 import coverPhoto from 'assets/images/landings/foodmakers/fm-leading.jpg'
 import people from 'assets/icons/svg/people.svg'
@@ -8,9 +7,7 @@ import cls from 'classnames'
 import styles from './review.module.scss'
 import './review.less'
 
-const Review = (props) => {
-  const { x } = props
-
+const Review = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>

@@ -14,8 +14,6 @@ import {
   RESET_CONFIRMATION,
 } from '../actions/constants'
 
-const isLogin = !!JSON.parse(localStorage.getItem('authorization-token'))
-
 const initialState = {
   id: '',
   profileName: '',

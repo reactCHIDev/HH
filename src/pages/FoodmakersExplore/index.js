@@ -14,8 +14,8 @@ import { getServiceTagsAC, getSpecialityTagsAC } from 'actions/system'
 import { getItem, setItem } from 'utils/localStorage'
 import BottomSection from 'components/BottomSection'
 import Footer from 'components/Footer'
-import FMCard from './components/FMCard'
 import useClickOutside from 'hooks/useClickOutside'
+import FMCard from './components/FMCard'
 
 import styles from './fmexp.module.scss'
 import './fm.less'
@@ -61,6 +61,7 @@ const FoodmakersExplore = (props) => {
     return () => {
       setItem('search_data', {})
     }
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {
@@ -77,6 +78,7 @@ const FoodmakersExplore = (props) => {
 
   React.useEffect(() => {
     setServiceTagsToChoose(serviceTags.filter((el) => el.tagName !== serviceTagToShow?.tagName))
+    // eslint-disable-next-line
   }, [serviceTagToShow])
 
   const handleTags = (onChange) => (e) => {
@@ -190,7 +192,7 @@ const FoodmakersExplore = (props) => {
       <div className={cls(styles.content, 'class')}>
         <div className={styles.exp_section}>
           {fmData.map((item) => (
-            <FMCard item={item} />
+            <FMCard item={item} key={item.id} />
           ))}
         </div>
       </div>

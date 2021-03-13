@@ -2,7 +2,7 @@
 import React from 'react'
 import { Rate } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUnreviewedProductAC, getFlProductReviewsAC, openReviewModal } from 'actions/reviews'
+import { getFlProductReviewsAC } from 'actions/reviews'
 
 import cls from 'classnames'
 import ListContainer from 'components/ListContainer'
@@ -58,15 +58,11 @@ function ReviewdProducts({ products, currentPage }) {
               {item.photos.length > 0 &&
                 item.photos.map((el) => (
                   <div
-                    key={item}
+                    key={el}
                     style={{ backgroundImage: `url("${el}")` }}
                     className={styles.imgWrapper}
                   />
                 ))}
-              {/* <div
-                style={{ backgroundImage: `url("${element?.coverPhoto}")` }}
-                className={styles.imgWrapper}
-              /> */}
             </div>
           </div>
         </div>

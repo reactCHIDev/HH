@@ -1,7 +1,4 @@
-import { put, takeEvery, delay } from 'redux-saga/effects'
-import { replace } from 'connected-react-router'
-import * as jwt from 'jsonwebtoken'
-import PATHS from 'api/paths'
+import { put, takeEvery } from 'redux-saga/effects'
 
 import {
   getProductTypesReq,

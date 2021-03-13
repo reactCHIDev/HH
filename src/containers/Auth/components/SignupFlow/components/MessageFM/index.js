@@ -3,7 +3,7 @@ import T from 'prop-types'
 import styles from './message.module.scss'
 
 const Message = (props) => {
-  const { closemodal, reset } = props
+  const { reset } = props
 
   return (
     <div className={styles.msg_container} style={{}}>
@@ -21,7 +21,6 @@ const Message = (props) => {
 }
 
 Message.propTypes = {
-  closemodal: T.func,
   reset: T.func.isRequired,
 }
 

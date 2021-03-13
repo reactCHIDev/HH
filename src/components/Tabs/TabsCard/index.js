@@ -50,8 +50,8 @@ HHTabs.propTypes = {
     name: T.shape({
       mark: T.bool,
       content: T.node,
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
 }
 
 export default HHTabs

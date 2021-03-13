@@ -25,6 +25,7 @@ function BookingHistory() {
 
   React.useEffect(() => {
     dispatch(getFlBookingHistoryAC({ page: currentPage, showPast: isPastExpShown }))
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {

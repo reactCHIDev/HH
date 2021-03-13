@@ -1,12 +1,11 @@
+/* eslint-disable no-shadow */
 import React, { useEffect } from 'react'
 import T from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, connect } from 'react-redux'
 import { setActiveChatAC, setNewContactAC } from 'actions/chat'
 import { getFMOrderAC, removeFMOrder } from 'actions/foodmaker-orders'
 import SubHeader from 'components/SubHeader'
 import Messages from 'pages/Messages'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import MainInfo from './MainInfo'
 import styles from './orderinfo.module.scss'
@@ -20,11 +19,11 @@ const OrderFMInfo = (props) => {
   } = props
 
   const dispatch = useDispatch()
-  const { orderHash } = useParams()
   const orderInf = useSelector((state) => state.fmOrders.order.customer)
 
   useEffect(() => {
     getFMOrderAC(order?.id)
+    // eslint-disable-next-line
   }, [order])
 
   const goBack = () => {
@@ -49,6 +48,7 @@ const OrderFMInfo = (props) => {
       dispatch(setNewContactAC(contact))
       dispatch(setActiveChatAC(contact.id, contact.recipient))
     }
+    // eslint-disable-next-line
   }, [orderInf])
 
   return (

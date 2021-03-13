@@ -7,12 +7,11 @@ import Cross from 'assets/images/signup-flow/svg/cross.svg'
 import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
 import Heading from '../../components/heading'
-import Input from '../../components/input'
 import styles from './password.module.scss'
 
 const CreatePassword = (props) => {
   const {
-    properties: { name, value },
+    properties: { name },
     onSubmit,
   } = props
 

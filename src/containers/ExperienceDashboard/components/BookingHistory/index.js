@@ -29,10 +29,12 @@ function BookingHistory() {
 
   React.useEffect(() => {
     dispatch(getFmBookingHistoryAC({ page: currentPage, showPast: isPastExpShown }))
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {
     setData(items)
+    // eslint-disable-next-line
   }, [items])
 
   React.useEffect(() => {
@@ -49,6 +51,7 @@ function BookingHistory() {
     } else {
       setData(items)
     }
+    // eslint-disable-next-line
   }, [searchValue])
 
   const isDateValid = (curTime, startTime, endTime) => {

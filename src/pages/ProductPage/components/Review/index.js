@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
-import people from 'assets/icons/svg/people.svg'
 import { Rate } from 'antd'
 import cls from 'classnames'
 import styles from './review.module.scss'

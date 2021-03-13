@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Table, Input, Button, Space } from 'antd'
@@ -16,17 +18,18 @@ const AdminTable = ({ usersList, requesting, getUsersListAC }) => {
 
   useEffect(() => {
     getUsersListAC()
+    // eslint-disable-next-line
   }, [])
 
   const handleChange = (pagination, filters, sorter) => {
     setSort(sorter)
   }
 
-  const clearAll = () => {
-    setSort(null)
-    setSearchText('')
-    setSearchedColumn('')
-  }
+  // const clearAll = () => {
+  //   setSort(null)
+  //   setSearchText('')
+  //   setSearchedColumn('')
+  // }
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm()
@@ -36,7 +39,6 @@ const AdminTable = ({ usersList, requesting, getUsersListAC }) => {
 
   const handleReset = (clearFilters) => {
     clearFilters()
-    console.log('%c   clearFilters   ', 'color: darkgreen; background: palegreen;', clearFilters)
     setSearchText('')
   }
 
@@ -152,7 +154,7 @@ const AdminTable = ({ usersList, requesting, getUsersListAC }) => {
       width: '100px',
       render: (url) =>
         url ? (
-          <img src={url} width={48} height={48} style={{ borderRadius: 8 }} alt="photo" />
+          <img src={url} width={48} height={48} style={{ borderRadius: 8 }} alt="user" />
         ) : (
           <Avatar />
         ),

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
 import ProdCard from 'components/ProductCard'
 
 import { Spin, Space } from 'antd'
@@ -24,6 +23,7 @@ const FavProducts = () => {
 
   useEffect(() => {
     dispatch(getFavProductsAC(productsStartIndex, 12))
+    // eslint-disable-next-line
   }, [productsStartIndex])
 
   useEffect(() => {

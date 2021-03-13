@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect, useReducer } from 'react'
 import T from 'prop-types'
 import { setItem, getItem, removeKey } from 'utils/localStorage'
@@ -89,7 +92,6 @@ const Signup = ({
 }) => {
   const [step, setStep] = useState(getItem('step') ? getItem('step') : 0)
   const [direction, setDirection] = useState('forward')
-  const [hhLink, setHHLink] = useState('')
   const [msg, setMsg] = useState(false)
   const [msgFM, setMsgFM] = useState(false)
 
@@ -141,6 +143,7 @@ const Signup = ({
     if (id) getUserAccount(id)
     getServiceTagsAC()
     getSpecialityTagsAC()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -182,12 +185,14 @@ const Signup = ({
       removeKey('step')
       removeKey('registering')
     }
+    // eslint-disable-next-line
   }, [step])
 
   useEffect(() => {
     if (steps[step].props.name === 'requesting') {
       if (!requesting && success) setStep((s) => s + 1)
     }
+    // eslint-disable-next-line
   }, [success])
 
   const onSubmit = (submitData) => {

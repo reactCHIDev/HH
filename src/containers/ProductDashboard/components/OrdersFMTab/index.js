@@ -18,6 +18,7 @@ const MainOrderInfo = () => {
 
   useEffect(() => {
     dispatch(getFoodmakerOrdersAC())
+    // eslint-disable-next-line
   }, [])
 
   const { items, requestSort } = useSortableData(orders, {
@@ -27,6 +28,7 @@ const MainOrderInfo = () => {
 
   React.useEffect(() => {
     setData(items)
+    // eslint-disable-next-line
   }, [items])
 
   React.useEffect(() => {
@@ -43,6 +45,7 @@ const MainOrderInfo = () => {
     } else {
       setData(items)
     }
+    // eslint-disable-next-line
   }, [searchValue])
 
   const isDateValid = (curTime, startTime, endTime) => {

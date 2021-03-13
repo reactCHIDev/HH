@@ -1,6 +1,4 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import PATHS from 'api/paths'
-
 import { getMyProductListReq } from 'api/requests/Listing'
 
 import {

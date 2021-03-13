@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
 import ShopCard from 'components/ShopCard'
 
 import { Spin, Space } from 'antd'
 import Button from 'components/Button'
-import { push } from 'connected-react-router'
 
 import { getFavShopsAC } from 'actions/bookmarks'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,10 +18,9 @@ const FavShops = () => {
 
   const dispatch = useDispatch()
 
-  const pushRoute = (route) => dispatch(push(route))
-
   useEffect(() => {
     dispatch(getFavShopsAC(shopsStartIndex, 12))
+    // eslint-disable-next-line
   }, [shopsStartIndex])
 
   useEffect(() => {
@@ -34,7 +31,6 @@ const FavShops = () => {
     setShopsStartIndex((si) => si + 12)
   }
 
-  console.log('%c   shopsCollection   ', 'color: white; background: royalblue;', shopsCollection)
   return (
     <div className={styles.container}>
       <div className={styles.content}>

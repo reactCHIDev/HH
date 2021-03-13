@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react'
 import { connect } from 'react-redux'
-import { Route, Redirect } from 'react-router-dom'
-import { getItem } from 'utils/localStorage'
+import { Route } from 'react-router-dom'
 
 class PublicRoute extends React.Component {
   render() {

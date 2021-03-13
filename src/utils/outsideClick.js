@@ -26,5 +26,6 @@ export default function useOutsideClick(ref, handler, classId) {
       document.removeEventListener('mousedown', handleClickOutside)
       document.removeEventListener('touchstart', handleClickOutside)
     }
+    // eslint-disable-next-line
   }, [ref])
 }

@@ -48,12 +48,14 @@ const ProductPage = (props) => {
   useEffect(() => {
     getProductInfoRequest(productId)
     window.scrollTo(0, 0)
+    // eslint-disable-next-line
   }, [productId])
 
   useEffect(() => {
     if (info?.userProfile) getFoodmakerInfo(info.userProfile.id)
     if (info?.userProfile) getShopByFoodmakerId(info.userProfile.id)
     if (info?.userProfile) getProductReviews({ id: info.id, page: 1 })
+    // eslint-disable-next-line
   }, [info])
 
   if (!info || info.id != productId)
@@ -124,15 +126,15 @@ const ProductPage = (props) => {
   )
 }
 
-ProductPage.propTypes = {
-  info: T.shape,
-  fm: T.shape,
-  deliveryMethods: T.shape,
-  getProductInfoRequest: T.func.isRequired,
-  getFoodmakerInfo: T.func.isRequired,
-  getShopByFoodmakerId: T.func.isRequired,
-  pushRoute: T.func.isRequired,
-}
+// ProductPage.propTypes = {
+//   info: T.shape,
+//   fm: T.shape,
+//   deliveryMethods: T.shape,
+//   getProductInfoRequest: T.func.isRequired,
+//   getFoodmakerInfo: T.func.isRequired,
+//   getShopByFoodmakerId: T.func.isRequired,
+//   pushRoute: T.func.isRequired,
+// }
 
 export default connect(
   ({ product, foodmaker, shop, reviews }) => ({

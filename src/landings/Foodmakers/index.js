@@ -1,7 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import cls from 'classnames'
-import { Collapse } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
 import Scrollchor from 'react-scrollchor'
 import { Link } from 'react-router-dom'
 import Slider from 'react-slick'
@@ -22,7 +21,6 @@ import styles from '../styles.module.scss'
 import './foodmakers.less'
 
 const Foodmakers = ({ role }) => {
-  const { Panel } = Collapse
   const settings = {
     draggable: true,
     touchThreshold: 30,
@@ -47,7 +45,7 @@ const Foodmakers = ({ role }) => {
               community of food lovers.
             </p>
             <Scrollchor to="#more" animate={{ offset: -100, duration: 300 }} disableHistory>
-              <button href="#more" className={styles.btn_leading}>
+              <button href="#more" className={styles.btn_leading} type="button">
                 Tell me more
               </button>
             </Scrollchor>
@@ -156,7 +154,7 @@ const Foodmakers = ({ role }) => {
                 speciality, our platform enables you to be discovered and found easily.{' '}
               </p>
               <a className={styles.card_link} href="">
-                Learn more >
+                Learn more {'>'}
               </a>
             </div>
             <div className={styles.card}>
@@ -171,7 +169,7 @@ const Foodmakers = ({ role }) => {
                 bookings and enable food lovers’ reviews for every experience to boost your sales.
               </p>
               <a className={styles.card_link} href="">
-                Learn more >
+                Learn more {'>'}
               </a>
             </div>
             <div className={styles.card}>
@@ -195,7 +193,7 @@ const Foodmakers = ({ role }) => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <Link to={role == 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
+            <Link to={role === 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
               <button type="button">Join now!</button>
             </Link>
           </div>

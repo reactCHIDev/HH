@@ -58,6 +58,7 @@ const ProductExplore = (props) => {
     return () => {
       setItem('search_data', {})
     }
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {
@@ -74,6 +75,7 @@ const ProductExplore = (props) => {
       )
       updateSelectedCategories([])
     }
+    // eslint-disable-next-line
   }, [productTypeToShow])
 
   const onCategoriesClickHandler = (el) => {

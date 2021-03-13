@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import styles from './cardscontainer.module.scss'
 
 const CardsContainer = ({ children }) => {
@@ -9,5 +9,3 @@ const CardsContainer = ({ children }) => {
 CardsContainer.propTypes = {}
 
 export default CardsContainer
-
-// import CardsContainer from 'components/CardsContainer'

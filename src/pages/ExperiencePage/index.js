@@ -8,7 +8,6 @@ import { getExperienceByIdAC } from 'actions/experience'
 import ExpHeader from './components/ExpHeader'
 import Overview from './components/Overview'
 import About from './components/About'
-import GuestPhotos from './components/GuestPhotos'
 import Review from './components/Review'
 import styles from './expPage.module.scss'
 
@@ -19,6 +18,7 @@ function ExperincePage() {
   const { productId } = useParams()
   React.useEffect(() => {
     dispatch(getExperienceByIdAC(productId))
+    // eslint-disable-next-line
   }, [])
 
   return experience ? (

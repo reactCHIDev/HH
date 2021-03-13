@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { WebSocketContext } from 'App'
 import cloneDeep from 'lodash/cloneDeep'
@@ -8,10 +9,9 @@ import useSound from 'use-sound'
 import tick from 'assets/sound/tick.mp3'
 import cls from 'classnames'
 import { setPageAC, setChatHeightAC } from 'actions/chat'
-import attachment from 'assets/icons/svg/attachment.svg'
 import UploaderFile from 'components/ChatUploaderFile'
-import ModalPreview from '../ModalPreview'
 import Modal from 'components/UniversalModal'
+import ModalPreview from '../ModalPreview'
 import Message from '../Message'
 import MyMessage from '../MyMessage'
 import styles from './chat.module.scss'
@@ -39,6 +39,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy, orderChat }) {
 
   useEffect(() => {
     if (newMsg === 1 || newMessages) play()
+    // eslint-disable-next-line
   }, [newMsg, newMessages])
 
   useEffect(() => {
@@ -46,6 +47,7 @@ function Chat({ dialog, activeChat, myId, recipient, rdy, orderChat }) {
       getDialog(socket, activeChat)
     }
     msgInput.current.focus()
+    // eslint-disable-next-line
   }, [activeChat])
 
   useEffect(() => {
@@ -54,12 +56,14 @@ function Chat({ dialog, activeChat, myId, recipient, rdy, orderChat }) {
       dispatch(setChatHeightAC(msgContainer.current.scrollHeight))
     }
     setUser(recipient)
+    // eslint-disable-next-line
   }, [dialog])
 
   useEffect(() => {
     if (socket?.readyState === 1 && activeChat && rdy && page !== 0) {
       getDialog(socket, activeChat, page * 25)
     }
+    // eslint-disable-next-line
   }, [page])
 
   const onSend = () => {

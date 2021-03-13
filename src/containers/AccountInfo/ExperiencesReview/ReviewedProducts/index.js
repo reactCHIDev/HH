@@ -51,7 +51,7 @@ function ReviewdProducts({ products, currentPage }) {
               <div className={styles.imgContainer}>
                 {item.photos.length > 0 &&
                   item.photos.map((el) => (
-                    <div key={item} style={{ backgroundImage: `url("${el}")` }} />
+                    <div key={el} style={{ backgroundImage: `url("${el}")` }} />
                   ))}
                 {/* <div /> */}
               </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import T from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { Button, Checkbox } from 'antd'
+import { Checkbox } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import CurrencyInput from 'react-currency-input-field'
 

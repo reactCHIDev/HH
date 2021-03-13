@@ -3,7 +3,6 @@ import React from 'react'
 import styles from './table.module.scss'
 
 function Row({ item }) {
-  console.log({ item })
   return (
     <div className={styles.rowWrapper}>
       <div className={styles.mainInfo}>

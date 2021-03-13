@@ -29,8 +29,6 @@ import Home from 'pages/HomePage'
 import AdminPage from 'pages/Admin'
 import Create from 'containers/Auth/components/Forgot/components/Create'
 
-import Soon from 'components/ComingSoon'
-
 import './App.less'
 import './App.css'
 import 'styles/styles.scss'
@@ -145,11 +143,13 @@ function App({ authorized, role, pathname, getUserAccount, dispatchMsg }) {
       socketCloseListener()
     }
     if (!authorized && socket) socket.close()
+    // eslint-disable-next-line
   }, [authorized])
 
   useEffect(() => {
     const id = getItem('user-id')
     if (authorized && id) getUserAccount(id)
+    // eslint-disable-next-line
   }, [authorized])
 
   const url = `${process.env.REACT_APP_BASE_URL}/api`

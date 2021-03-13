@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
 import { Progress } from 'antd'
 
 const Progress5 = () => {
@@ -12,6 +11,7 @@ const Progress5 = () => {
     }, 40)
     if (time === 100) clearInterval(interval)
     return () => clearInterval(interval)
+    // eslint-disable-next-line
   }, [])
 
   return <Progress type="circle" format={(p) => null} percent={time} width={50} />

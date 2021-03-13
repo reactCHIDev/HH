@@ -66,12 +66,14 @@ const ShopPage = (props) => {
   useEffect(() => {
     getShopByUrlAC(`${process.env.REACT_APP_BASE_URL}/shop/${shopName}`)
     window.scrollTo(0, 0)
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     if (shop?.userProfile) getFoodmakerInfoAC(shop.userProfile.id)
     setInFavoite(shop.inFavorite)
     setIsFavorite(shop.isFavorite)
+    // eslint-disable-next-line
   }, [shop])
 
   const showMore = () => setProductCount((c) => c + 6)
@@ -88,7 +90,7 @@ const ShopPage = (props) => {
         </Space>
       </div>
     )
-  console.log('%c   fm   ', 'color: darkgreen; background: palegreen;', fm)
+
   return (
     <div>
       <div className={styles.header}>
@@ -127,16 +129,11 @@ const ShopPage = (props) => {
                 <p className={styles.btn_text}>Favorite Shop</p>
                 <span className={styles.likes}>{`(${inFavorite})`}</span>
               </div>
-              <Link
-              /* to={{
-                  pathname: '/messages',
-                  state: { id: fm.userId, profileName: fm.profileName, userPhoto: fm.userPhoto },
-                }} */
-              >
+              <div>
                 <div className={styles.send_msg}>
                   <img className={styles.heart} src={envelope} alt="envelope" />
                 </div>
-              </Link>
+              </div>
             </div>
           </div>
           <div className={styles.photo_section}>

@@ -56,7 +56,7 @@ TabsUnderlined.propTypes = {
       content: T.node,
       moneyAmount: T.number,
     }),
-  }).isRequired,
+  }),
 }
 
 export default TabsUnderlined

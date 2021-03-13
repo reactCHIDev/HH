@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import { setItem } from 'utils/localStorage'
@@ -72,7 +73,7 @@ const Product = ({ product, pushRoute, onToggle }) => {
 }
 
 Product.propTypes = {
-  product: T.arrayOf(T.shape),
+  // product: T.arrayOf(T.shape) ,
   onToggle: T.func,
   pushRoute: T.func,
 }

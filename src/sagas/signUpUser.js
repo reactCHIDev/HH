@@ -1,6 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
-import { setItem } from '../utils/localStorage'
 import * as jwt from 'jsonwebtoken'
 import PATHS from 'api/paths'
 
@@ -24,6 +23,7 @@ import {
 } from 'api/requests/Auth'
 
 import { loginRequest } from 'actions/login'
+import { setItem } from '../utils/localStorage'
 
 function* signUpProcess({ credentials }) {
   try {

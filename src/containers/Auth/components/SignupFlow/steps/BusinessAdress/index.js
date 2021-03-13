@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
 import Modal from 'components/UniversalModal'
-import Location from 'components/Location'
 import MapUrl from 'assets/images/signup-flow/svg/mapurl.svg'
 import Heading from '../../components/heading'
 import styles from './adress.module.scss'
@@ -20,6 +19,7 @@ const BusinessAdress = (props) => {
   useEffect(() => {
     setTextValue(value.adress)
     setInputalue(value.location)
+    // eslint-disable-next-line
   }, [])
 
   const onChange = (e) => {
@@ -53,6 +53,7 @@ const BusinessAdress = (props) => {
           cols="42"
           value={curTextValue}
           onChange={onChange}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
         />
         <div className={styles.input_wrapper}>
@@ -60,7 +61,7 @@ const BusinessAdress = (props) => {
             name="mapURL"
             placeholder="url"
             value={curInputValue}
-            disabled={true}
+            disabled
             type="text"
             onChange={onChangeInput}
             ref={register({

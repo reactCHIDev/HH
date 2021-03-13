@@ -1,5 +1,4 @@
 import React from 'react'
-import T from 'prop-types'
 import TabsOpen from 'components/Tabs/TabsOpen'
 import FavExperiences from './FavExperiences'
 import FavProducts from './FavProducts'

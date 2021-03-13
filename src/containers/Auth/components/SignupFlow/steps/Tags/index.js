@@ -8,7 +8,7 @@ import './tags.less'
 
 const Tags = (props) => {
   const {
-    properties: { name, value, specialityTags, serviceTags },
+    properties: { value, specialityTags, serviceTags },
     onSubmit,
   } = props
   const [specialityTagIds, setMainTags] = useState([])
@@ -29,6 +29,7 @@ const Tags = (props) => {
         return acc
       }, []),
     )
+    // eslint-disable-next-line
   }, [])
 
   const handleChangeMain = (selectedItems) => {

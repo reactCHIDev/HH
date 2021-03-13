@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import T from 'prop-types'
 import { getUserByHHLink } from 'api/requests/Account'
@@ -57,7 +58,8 @@ const WebSiteName = (props) => {
                 return false
               },
               pattern: {
-                value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{12,12}\.[a-z]{3,3}\b([-a-zA-Z0-9@:%_\+.~#?&//=])/,
+                // eslint-disable-next-line max-len
+                value: /[(http(s)?):\\/\\/(www\\.)?a-zA-Z0-9@:%._\\+~#=]{12,12}\.[a-z]{3,3}\b([-a-zA-Z0-9@:%_\\+.~#?&//=])/,
               },
             })}
           />

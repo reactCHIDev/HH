@@ -1,6 +1,5 @@
 import React from 'react'
 import T from 'prop-types'
-import cls from 'classnames'
 import Contact from '../Contact'
 import styles from './chatlist.module.scss'
 

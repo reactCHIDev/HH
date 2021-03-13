@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import Button from 'components/Button'
@@ -6,8 +7,6 @@ import AvaUploader from 'components/AvatarUploader'
 import { connect } from 'react-redux'
 import { getItem } from 'utils/localStorage'
 import { getUserAccount, updatePhotoNameAC } from 'actions/account'
-import { Upload, Progress } from 'antd'
-import ImgCrop from 'antd-img-crop'
 import styles from './profile.module.scss'
 import './profile.less'
 
@@ -16,7 +15,6 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
 
   const [avatar, setAvatar] = useState('')
   const [name, setName] = useState('')
-  const [url, setUrl] = useState('')
 
   const onSubmit = () => {
     const payload = {}
@@ -28,6 +26,7 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
   useEffect(() => {
     const id = getItem('user-id')
     if (id) getUserAccount(id)
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -35,6 +34,7 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
       const id = getItem('user-id')
       if (id) getUserAccount(id)
     }
+    // eslint-disable-next-line
   }, [success])
 
   useEffect(() => {

@@ -35,7 +35,7 @@ function* getUnreviewedExperienceSaga() {
 
 function* createProductReview({ payload }) {
   const getReviewsData = (store) => store.reviews
-  const { currentPage, reviewsCurrentPage } = yield select(getReviewsData)
+  const { reviewsCurrentPage } = yield select(getReviewsData)
   try {
     yield createExperienceReviewReq(payload)
     if (payload.isReviewOnProductPage) {

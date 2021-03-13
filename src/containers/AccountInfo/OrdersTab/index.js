@@ -1,16 +1,12 @@
 import React from 'react'
-import T from 'prop-types'
 import TabsOpen from 'components/Tabs/TabsOpen'
-import Soon from 'components/ComingSoon'
 import OrdersFL from '../OrdersFL'
 import ExperiencesFl from '../ExpBookingHistory'
 
 import styles from './orderstab.module.scss'
 // import './orderstab.less'
 
-const OrdersTab = (props) => {
-  const { x } = props
-
+const OrdersTab = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
