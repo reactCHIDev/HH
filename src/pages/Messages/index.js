@@ -31,8 +31,6 @@ const Messages = (props) => {
 
   const socket = useContext(WebSocketContext)
 
-  console.log('%c   socket   ', 'color: white; background: salmon;', socket)
-
   const setActiveChat = (id, recipient) => {
     dispatch(setActiveChatAC(id, recipient))
   }
