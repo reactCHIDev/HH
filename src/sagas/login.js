@@ -12,7 +12,20 @@ import {
 
 export function* logout() {
   logoutRequest()
-  removeItems(['authorization-token', 'user-id', 'cart', 'search_data', 'loginFromCart'])
+  removeItems([
+    'authorization-token',
+    'user-id',
+    'user-name',
+    'cart',
+    'search_data',
+    'loginFromCart',
+    'signup_data',
+    'step',
+    'link',
+    'booking',
+    'sessionId',
+    'search_data_results',
+  ])
   yield put({ type: 'CLEAR_ON_LOGOUT' })
   yield put({ type: 'CLEAR_CART' })
   yield put({ type: 'CLEAR_REVIEWS_OPTION' })
