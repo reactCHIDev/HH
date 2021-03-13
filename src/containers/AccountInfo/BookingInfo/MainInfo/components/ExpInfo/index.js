@@ -64,6 +64,14 @@ function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
       <div className={styles.locationContainer}>
         <div className={styles.heading}>Location</div>
         <div className={styles.text}>36 Sin Ming Industrial Est Sector A</div>
+        <div
+          className={styles.expCancelBtn}
+          onClick={() => {
+            console.log('%c   cancel   ', 'color: darkgreen; background: palegreen;')
+          }}
+        >
+          Cancel order
+        </div>
       </div>
       <div></div>
       <div></div>

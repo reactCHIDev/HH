@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 70%;
+  padding-bottom: 100px;
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -43,6 +44,13 @@
           font-weight: bold;
           font-size: 14px;
           text-transform: capitalize;
+        }
+        .expCancelBtn {
+          color: #5375cb;
+          font-size: 14px;
+          line-height: 22px;
+          letter-spacing: 0.5px;
+          cursor: pointer;
         }
       }
     }
@@ -88,6 +96,14 @@
       line-height: 19px;
       letter-spacing: 0.5px;
       text-transform: capitalize;
+    }
+    .expCancelBtn {
+      color: #5375cb;
+      text-align: right;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
     }
   }
 }

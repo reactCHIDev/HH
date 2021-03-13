@@ -102,10 +102,6 @@ const ProductExplore = (props) => {
     )
   }
 
-  const onApply = () => {
-    setVisibilityPriceSelector(false)
-  }
-
   const pushRoute = (url) => {
     dispatch(push(url))
   }
@@ -182,7 +178,6 @@ const ProductExplore = (props) => {
                 max={maxPrice}
                 setMin={setMinPrice}
                 setMax={setMaxPrice}
-                onApply={onApply}
                 visible={isVisiblePriceSelector}
               />
             </div>

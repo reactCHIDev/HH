@@ -130,7 +130,10 @@ const Step2 = (props) => {
   }
 
   const onChangeChkBox = () => setDiscount(!discnt)
-  const isAdultChk = () => setIsAdult((a) => !a)
+  const isAdultChk = () => {
+    if (!adult) setValue('priceChild', 0)
+    setIsAdult((a) => !a)
+  }
 
   const filteredLangs = ['English', 'Chinese', 'Japan', 'French', 'German', 'Spanish'].filter(
     (lang) => !selectedLangs.includes(lang),
@@ -151,8 +154,8 @@ const Step2 = (props) => {
     delete data.typeIds
     delete data.tagIds
     if (adult) {
-      delete data.priceChild
-      delete step1.priceChild
+      delete data?.priceChild
+      delete step1?.priceChild
     }
 
     setItem('addExperience', {
