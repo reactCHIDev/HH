@@ -1,22 +1,22 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getUserAccount } from 'actions/account'
 import { updateFoodmakerAccountAC } from 'actions/foodmaker'
 import { getSpecialityTagsAC } from 'actions/system'
 import { getUserByHHLink } from 'api/requests/Account'
-import { getUserByName } from 'api/requests/Auth'
-import { Spin, Space } from 'antd'
-import { Button } from 'antd'
+import { Button, Select } from 'antd'
 
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
 import Uploader from 'components/Uploader'
-import { Select } from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import _ from 'lodash/fp'
 import GotoLink from 'assets/icons/svg/goto_link.svg'
 import { connect } from 'react-redux'
-import { getItem } from 'utils/localStorage'
 import styles from './foodmakerprofile.module.scss'
 import './foodmakerprofile.less'
 
@@ -29,7 +29,7 @@ const FoodmakerProfile = (props) => {
     getSpecialityTagsAC,
   } = props
 
-  const { id, userPhoto, success, requesting } = account
+  const { id, success, requesting } = account
 
   const [avatar, setAvatar] = useState('')
   const [cover, setCover] = useState('')
@@ -84,7 +84,7 @@ const FoodmakerProfile = (props) => {
   useEffect(() => {
     if (id) getUserAccount(id)
     getSpecialityTagsAC()
-  }, [])
+  }, [getUserAccount, getSpecialityTagsAC, id])
 
   useEffect(() => {
     if (account.hungryHuggerLink) setSiteValue(account.hungryHuggerLink)
@@ -114,16 +114,19 @@ const FoodmakerProfile = (props) => {
       setValue('lastName', lastName)
       setValue('about', about)
     }
+    // eslint-disable-next-line
   }, [account])
 
   useEffect(() => {
     if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
+    // eslint-disable-next-line
   }, [fileList])
 
   useEffect(() => {
     if (specialityTags && specialityTags.length) {
       setTags(specialityTags)
     }
+    // eslint-disable-next-line
   }, [specialityTags])
 
   useEffect(() => {
@@ -134,9 +137,10 @@ const FoodmakerProfile = (props) => {
     if (success) {
       if (id) getUserAccount(id)
     }
-  }, [success])
+    // eslint-disable-next-line
+  }, [success, getUserAccount])
 
-  const fixedText = process.env.REACT_APP_BASE_URL + '/'
+  const fixedText = `${process.env.REACT_APP_BASE_URL}/`
 
   const onChangeHHLink = (e) => {
     const { value } = e.target
@@ -210,7 +214,7 @@ const FoodmakerProfile = (props) => {
                             .split(' ')
                             .reduce((acc, el) => (el ? `${acc}${el}` : acc))
                             .trim()
-                          const url = process.env.REACT_APP_BASE_URL + '/' + name.toLowerCase()
+                          const url = `${process.env.REACT_APP_BASE_URL}/${name.toLowerCase()}`
                           if (url === hungryHuggerLink) return true
                           const user = await getUserByHHLink(url)
                           return !user.data?.profileName

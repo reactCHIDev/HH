@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 
 import T from 'prop-types'
@@ -22,8 +24,8 @@ const ChkBox = (props) => {
 }
 
 ChkBox.propTypes = {
-  id: T.string.isRequired,
-  labelText: T.string.isRequired,
+  // id: T.string,
+  labelText: T.string,
   checked: T.bool,
   onChange: T.func,
   name: T.string,

@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+/* eslint-disable no-shadow */
+import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-import { Table, Input, Button, Space } from 'antd'
-import Highlighter from 'react-highlight-words'
-import { SearchOutlined } from '@ant-design/icons'
+import { Table, Button, Space } from 'antd'
 import { getFaqAC, createFaqAC, deleteFaqAC, editFaqAC } from 'actions/admin'
-import Avatar from 'components/AvatarPlaceholder'
 import Modal from 'components/UniversalModal'
-import FormItem from './ItemForm'
 import { connect } from 'react-redux'
-import { setDialogAC } from 'actions/chat'
+import FormItem from './ItemForm'
 
 const FaqTable = ({ faq, requesting, getFaqAC, createFaqAC, deleteFaqAC, editFaqAC }) => {
   const [visible, setVisible] = useState(false)
@@ -19,6 +16,7 @@ const FaqTable = ({ faq, requesting, getFaqAC, createFaqAC, deleteFaqAC, editFaq
 
   useEffect(() => {
     getFaqAC()
+    // eslint-disable-next-line
   }, [])
 
   const createFAQ = () => {

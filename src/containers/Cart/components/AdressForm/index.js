@@ -3,14 +3,13 @@ import T from 'prop-types'
 import { setItem } from 'utils/localStorage'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { createOrderRequestrinAc } from 'actions/order'
 import { stripeCheckoutAC } from 'actions/stripe'
 
 import _ from 'lodash/fp'
 import styles from './adress.module.scss'
 
 const AdressForm = ({ closeFunc }) => {
-  const { register, handleSubmit, errors, watch } = useForm()
+  const { register, handleSubmit, errors } = useForm()
   const dispatch = useDispatch()
 
   const onSubmit = (adressData) => {

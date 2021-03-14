@@ -1,9 +1,9 @@
+/* eslint-disable no-shadow */
 import React from 'react'
 import T from 'prop-types'
 import { getUserByName } from 'api/requests/Auth'
 import Heading from '../../components/heading'
 import Input from '../../components/input'
-import styles from './profilename.module.scss'
 
 const ProfileName = (props) => {
   const {

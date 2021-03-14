@@ -26,6 +26,7 @@ const ExpListings = (props) => {
 
   React.useEffect(() => {
     dispatch(getMyExperiencesList())
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {

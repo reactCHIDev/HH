@@ -3,20 +3,18 @@
 import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import InvoiceIcon from 'assets/icons/svg/invoice-icon.svg'
-import PhoneIcon from 'assets/icons/svg/phone-icon.svg'
+// import InvoiceIcon from 'assets/icons/svg/invoice-icon.svg'
+// import PhoneIcon from 'assets/icons/svg/phone-icon.svg'
 
 import styles from './paymentinfo.module.scss'
 
 const PaymentOrderInfo = ({ orderInfo }) => {
-  console.log(orderInfo, 'orderInfo')
   const dateOptions = {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   }
 
-  const mainDate = new Date(orderInfo.booking.createdAt).toLocaleDateString('en-US', dateOptions)
   const secondaryDate = new Date(orderInfo.booking.createdAt).toLocaleDateString(
     'en-GB',
     dateOptions,

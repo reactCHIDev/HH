@@ -1,6 +1,5 @@
 import React from 'react'
 import T from 'prop-types'
-import PrivateRoute from 'components/Routing/PrivateRoute'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'

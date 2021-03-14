@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import useSortableData from 'hooks/useSortable'
 import Header from './Header'
 import Row from './Row'
 import styles from './table.module.scss'
-import useSortableData from 'hooks/useSortable'
 
 function Table({ orderInfo }) {
   const data = orderInfo.map(({ totalAmount, ...rest }) => ({

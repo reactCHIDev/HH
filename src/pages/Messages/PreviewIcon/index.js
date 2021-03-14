@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable react/prop-types */
+import React from 'react'
 import T from 'prop-types'
 import downloadIcon from 'assets/icons/svg/download.svg'
 import styles from './preview.module.scss'
@@ -19,14 +20,14 @@ const PreviewIcon = ({ fileLink, setPreview }) => {
               className={styles.image_container}
               style={{ backgroundImage: `url("${fileLink}")` }}
             />
-            <div className={styles.file_descr}>{'.' + fileLink.split('.').pop()}</div>
+            <div className={styles.file_descr}>{`.${fileLink.split('.').pop()}`}</div>
           </div>
         </div>
       ) : (
         <a className={styles.preview_link} href={fileLink} download="file">
           <div className={styles.file_link_wrapper}>
             <img className={styles.file_icon} src={downloadIcon} alt="dload" />
-            <div className={styles.file_descr}>{'File.' + fileLink.split('.').pop()}</div>
+            <div className={styles.file_descr}>{`File.${fileLink.split('.').pop()}`}</div>
           </div>
         </a>
       )}

@@ -30,6 +30,7 @@ function BookingInfo(props) {
 
   React.useEffect(() => {
     getData(order)
+    // eslint-disable-next-line
   }, [])
 
   /* useEffect(() => {
@@ -69,6 +70,7 @@ function BookingInfo(props) {
       dispatch(setNewContactAC(contact))
       dispatch(setActiveChatAC(contact.id, contact.recipient))
     }
+    // eslint-disable-next-line
   }, [orderInfo])
 
   return (

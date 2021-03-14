@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react'
 import { Rate } from 'antd'
@@ -5,7 +6,6 @@ import cls from 'classnames'
 import { useDispatch } from 'react-redux'
 import Uploader from 'components/ReviewUploader'
 
-import useClickOutside from 'hooks/useClickOutside'
 import { createProductReviewAC } from 'actions/reviews'
 
 import styles from './reviewModal.module.scss'
@@ -16,6 +16,7 @@ function ReviewModal({ closeFunc, productId }) {
   const [recommend, setRecommend] = React.useState(true)
 
   const [fileList, setFilelist] = React.useState([])
+  // eslint-disable-next-line no-unused-vars
   const [isActive, setActiveNext] = React.useState(true)
 
   const dispatch = useDispatch()

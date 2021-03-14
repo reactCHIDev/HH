@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { Tabs } from 'antd'
 import T from 'prop-types'
@@ -50,8 +51,8 @@ HHTabs.propTypes = {
     name: T.shape({
       mark: T.bool,
       content: T.node,
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
 }
 
 export default HHTabs

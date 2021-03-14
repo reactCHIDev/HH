@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import T, { arrayOf } from 'prop-types'
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react'
+import T from 'prop-types'
 import Heading from '../../components/heading'
-import Input from '../../components/input'
 import styles from './city.module.scss'
 
 const CityStep = (props) => {

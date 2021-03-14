@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
 import ExpCard from 'components/ExperienceCard'
 import { Spin, Space } from 'antd'
 import Button from 'components/Button'
 
-import { getFavExperiencesAC, getFavProductsAC } from 'actions/bookmarks'
+import { getFavExperiencesAC } from 'actions/bookmarks'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './favexp.module.scss'
@@ -20,6 +19,7 @@ const FavExperiences = () => {
 
   useEffect(() => {
     dispatch(getFavExperiencesAC(experiencesStartIndex, 12))
+    // eslint-disable-next-line
   }, [experiencesStartIndex])
 
   useEffect(() => {
@@ -28,6 +28,7 @@ const FavExperiences = () => {
         experiencesList.filter((e) => !p.find((el) => el.experience.id === e.experience.id)),
       ),
     )
+    // eslint-disable-next-line
   }, [experiencesList])
 
   const moreExperiences = () => {

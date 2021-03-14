@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable react/prop-types */
+import React from 'react'
 import T from 'prop-types'
 import { removeFLOrder } from 'actions/foodlover-orders'
 

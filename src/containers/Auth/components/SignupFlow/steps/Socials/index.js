@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
@@ -83,7 +84,7 @@ const Socials = (props) => {
               fb.current = e
               register(e, {
                 pattern: {
-                  value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+                  value: /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
                   message: 'Invalid name symbols',
                 },
               })
@@ -112,7 +113,7 @@ const Socials = (props) => {
               insta.current = e
               register(e, {
                 pattern: {
-                  value: /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+                  value: /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
                   message: 'Invalid name symbols',
                 },
               })

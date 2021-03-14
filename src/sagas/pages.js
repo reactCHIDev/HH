@@ -1,14 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { replace } from 'connected-react-router'
-
-import PATHS from 'api/paths'
 
 import {
   getHomePageProductsReq,
   getHomePageExperiencesReq,
   getFoodmakesForHomePageReq,
 } from 'api/requests/Pages'
-import { createProductSuccess, createProductError } from 'actions/product'
 import { getUserByHHLink } from 'api/requests/Account'
 import { getFoodmakerInfoByNameReq } from 'api/requests/foodmaker'
 import { getShopByFoodmakerIdReq } from 'api/requests/Shop'

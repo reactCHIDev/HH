@@ -1,6 +1,8 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import T from 'prop-types'
 import cls from 'classnames'
 import Heading from '../../components/heading'
 import styles from './phone.module.scss'

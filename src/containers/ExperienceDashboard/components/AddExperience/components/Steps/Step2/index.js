@@ -1,3 +1,10 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
+/* eslint-disable one-var */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getItem, setItem } from 'utils/localStorage'
@@ -57,6 +64,7 @@ const Step2 = (props) => {
       setSelectedTypes(normalizeTypesForRender(typeIds, expTypes))
       setSelectedTags(normalizeTagsForRender(tagIds, expTags))
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -75,6 +83,7 @@ const Step2 = (props) => {
         languages,
       })
     }
+    // eslint-disable-next-line
   }, [])
 
   const { register, handleSubmit, control, setValue, errors } = useForm({
@@ -86,6 +95,7 @@ const Step2 = (props) => {
     if (Object.keys(defaultValues).length) {
       Object.keys(defaultValues).forEach((k) => setValue(k, defaultValues[k]))
     }
+    // eslint-disable-next-line
   }, [defaultValues])
 
   // ===============================================

@@ -12,7 +12,7 @@ const Step3 = (props) => {
 
   const prevState = getItem('addProduct')
 
-  const [cover, setCover] = useState(0)
+  const [cover, setCover] = useState('')
   const [fileList, setFilelist] = useState([])
   const [isActive, setActiveNext] = useState(true)
 
@@ -31,10 +31,12 @@ const Step3 = (props) => {
       )
       setCover(prevState.coverPhoto.slice(-28, -(prevState.coverPhoto.split('.').pop().length + 1)))
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
+    // eslint-disable-next-line
   }, [fileList])
 
   const onNext = () => {

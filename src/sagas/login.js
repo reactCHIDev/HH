@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { put, takeLatest, takeEvery } from 'redux-saga/effects'
 import { push, replace } from 'connected-react-router'
 import { login as loginRequest, logout as logoutRequest } from 'api/requests/Auth'

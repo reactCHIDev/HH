@@ -1,8 +1,5 @@
 import { put, takeEvery, delay } from 'redux-saga/effects'
 import { replace } from 'connected-react-router'
-import { removeKey } from '../utils/localStorage'
-
-import PATHS from 'api/paths'
 
 import {
   createProductReq,
@@ -17,6 +14,7 @@ import {
   updateProductSuccess,
   updateProductError,
 } from 'actions/product'
+import { removeKey } from '../utils/localStorage'
 
 import {
   CREATE_PRODUCT_REQUESTING,
@@ -25,7 +23,6 @@ import {
   GET_PRODUCT_INFO_SUCCESS,
   GET_PRODUCT_INFO_ERROR,
   TOGGLE_PRODUCT_STATUS_REQUESTING,
-  TOGGLE_PRODUCT_STATUS_SUCCESS,
   TOGGLE_PRODUCT_STATUS_ERROR,
   DUPLICATE_PRODUCT_REQUESTING,
   DUPLICATE_PRODUCT_SUCCESS,

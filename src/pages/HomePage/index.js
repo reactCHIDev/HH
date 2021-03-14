@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-shadow */
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -9,13 +10,9 @@ import ProdCard from 'components/ProductCard'
 import { push } from 'connected-react-router'
 import { Spin, Space } from 'antd'
 import ExpCard from 'components/ExperienceCard'
-
-import cls from 'classnames'
 import BottomSection from 'components/BottomSection'
 import FAQSection from 'components/FAQSection'
 import Footer from 'components/Footer'
-import { Collapse } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
 import Button from 'components/Button'
 import Pattern2 from 'assets/images/pattern 2.svg'
 import hands from 'assets/images/landings/home_page/Group 677.svg'
@@ -36,8 +33,6 @@ const Home = (props) => {
     isLoading,
   } = props
 
-  const { Panel } = Collapse
-
   const [productStartIndex, setProductStartIndex] = useState(0)
   const [productCollection, setProductCollection] = useState([])
 
@@ -49,14 +44,17 @@ const Home = (props) => {
 
   useEffect(() => {
     getPublicProductsAC(productStartIndex, 6)
+    // eslint-disable-next-line
   }, [productStartIndex])
 
   useEffect(() => {
     getPublicExperiencesAC(experiencesStartIndex, 6)
+    // eslint-disable-next-line
   }, [experiencesStartIndex])
 
   useEffect(() => {
     getPublicFoodmakersAC(foodmakerStartIndex, 3)
+    // eslint-disable-next-line
   }, [foodmakerStartIndex])
 
   useEffect(() => {
@@ -120,6 +118,7 @@ const Home = (props) => {
                   pathname={`/experience/${el.experience.id}`}
                   id={el.experience.id}
                   isFavorite={el.isFavorite}
+                  key={el.experience.id}
                 />
               ),
           )}

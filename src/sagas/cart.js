@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { put, takeLatest, select } from 'redux-saga/effects'
 import cloneDeep from 'lodash/cloneDeep'
 

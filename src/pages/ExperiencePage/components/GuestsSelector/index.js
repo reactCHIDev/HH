@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react'
 import T from 'prop-types'
-import { Slider, Divider, Button } from 'antd'
+import { Divider } from 'antd'
 import useClickOutside from 'hooks/useClickOutside'
 import styles from './guests_selector.module.scss'
 import './guests_selector.less'
@@ -21,6 +23,7 @@ const GuestsSelector = ({
   useEffect(() => {
     setAdultCount(1)
     setChildrenCount(0)
+    // eslint-disable-next-line
   }, [available])
 
   const selector = useRef(null)

@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
-import T from 'prop-types'
+/* eslint-disable react/prop-types */
+import React, { useRef } from 'react'
 import deleteFileAC from 'actions/files'
 import { useDispatch } from 'react-redux'
 import { Upload, message, Button } from 'antd'
 import { PaperClipOutlined } from '@ant-design/icons'
 import { getItem } from 'utils/localStorage'
-import styles from './uploader.module.scss'
 import './uploader.less'
 
 const UploaderFile = ({ setFileList, setActiveNext }) => {

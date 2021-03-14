@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
 import cls from 'classnames'
 import { getBookingByDateAC } from 'actions/experience'
 import { stripeCheckoutAC } from 'actions/stripe'
@@ -53,7 +55,7 @@ const ExpHeader = ({ experience, user }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    //time
+    // time
     const getDates = (allDays) => {
       if (!allDays) return
       return allDays
@@ -89,6 +91,7 @@ const ExpHeader = ({ experience, user }) => {
     setSelectedTime('')
     setAdultCount(1)
     setChildrenCount(0)
+    // eslint-disable-next-line
   }, [selectedDate])
 
   useEffect(() => {
@@ -105,6 +108,7 @@ const ExpHeader = ({ experience, user }) => {
       ),
     )
     setSelectedTime('')
+    // eslint-disable-next-line
   }, [bookingsByDate])
 
   useEffect(() => {
@@ -124,6 +128,7 @@ const ExpHeader = ({ experience, user }) => {
       }
       setAvailable(getAvailablePlaces(selectedTime, bookingsByDate, guests))
     }
+    // eslint-disable-next-line
   }, [selectedTime])
 
   useEffect(() => {
@@ -136,6 +141,7 @@ const ExpHeader = ({ experience, user }) => {
         ).toFixed(2),
       ),
     )
+    // eslint-disable-next-line
   }, [adult, childrenn])
 
   const onBook = () => {
@@ -180,7 +186,7 @@ const ExpHeader = ({ experience, user }) => {
           <ImagePreviewer images={[coverPhoto].concat(otherPhotos)} />
           {dates.length ? (
             <div className={styles.inner_content}>
-              <p className={styles.exp_heading}>
+              <div className={styles.exp_heading}>
                 <span>
                   {title} {isAdult && <span className={styles.adults_only}>18+</span>}
                 </span>
@@ -190,10 +196,10 @@ const ExpHeader = ({ experience, user }) => {
                   </span>
                   <span className={styles.like_btn} onClick={shareClick}>
                     <img src={ExpShare} alt="share" />
-                    {success && <div className={styles.success}>URL is copied to clipboard</div>}
+                    {success && <p className={styles.success}>URL is copied to clipboard</p>}
                   </span>
                 </span>
-              </p>
+              </div>
               <div className={cls(styles.input_number, 'exp-guests_number')}>
                 <GuestsSelector
                   visible={visible}
@@ -241,9 +247,9 @@ const ExpHeader = ({ experience, user }) => {
                   <div className={styles.info_text}>
                     {`Adults x ${adult} ($${priceAdult}) = $${adult * priceAdult}`}
                   </div>
-                  <div
-                    className={styles.info_text}
-                  >{`Children x ${childrenn} ($${priceChild}) = $${childrenn * priceChild}`}</div>
+                  <div className={styles.info_text}>
+                    {`Children x ${childrenn} ($${priceChild}) = $${childrenn * priceChild}`}
+                  </div>
                   <div className={styles.info_text}>
                     Total
                     <span

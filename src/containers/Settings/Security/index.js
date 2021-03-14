@@ -1,9 +1,15 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable consistent-return */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { useState, useRef, useEffect } from 'react'
 import T from 'prop-types'
 
 import { connect } from 'react-redux'
 import _ from 'lodash/fp'
-import { Redirect, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { replace } from 'connected-react-router'
 import { useForm } from 'react-hook-form'
 import * as jwt from 'jsonwebtoken'
@@ -14,7 +20,6 @@ import { getUserAccount, updateAccount, resetConfirmation, emailConfirm } from '
 import { invalidLink, loginErrorReset, logout } from 'actions/login'
 
 import Modal from 'components/UniversalModal'
-import Tint from 'components/Tint'
 import Error from 'components/Error'
 import EyeOpen from 'assets/icons/svg/eye-open.svg'
 import EyeClosed from 'assets/icons/svg/eye-closed.svg'
@@ -75,6 +80,7 @@ const Security = ({
         emailConfirm(payload)
       }
     }
+    // eslint-disable-next-line
   }, [isСhangeMailRoute])
 
   const resend = () => {
@@ -91,6 +97,7 @@ const Security = ({
 
   useEffect(() => {
     getUserAccount()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

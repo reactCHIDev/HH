@@ -11,7 +11,6 @@ import {
 } from '../actions/constants'
 
 function* getFoodloverOrdersSaga() {
-  console.log('%c   flosaga   ', 'color: white; background: salmon;')
   try {
     const response = yield getFoodloverOrdersReq({ startD: '2021-01-01', endD: '2021-12-31' })
     const data = response.data.map(({ totalItems, clientName, ...rest }) => ({
@@ -19,7 +18,7 @@ function* getFoodloverOrdersSaga() {
       clientName: rest.customer.profileName,
       ...rest,
     }))
-    yield put({ type: GET_FOODLOVER_ORDERS_SUCCESS, data: data })
+    yield put({ type: GET_FOODLOVER_ORDERS_SUCCESS, data })
   } catch (error) {
     if (error.response) {
       yield put({ type: GET_FOODLOVER_ORDERS_ERROR, error: error.response.data.error })

@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import cls from 'classnames'
-import { Link } from 'react-router-dom'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { HashLink } from 'react-router-hash-link'
@@ -22,7 +23,6 @@ import Instagram from 'assets/images/instagram -white.svg'
 import InstagramBlack from 'assets/images/instagram.svg'
 import Facebook from 'assets/images/facebook -white.svg'
 import FacebookBlack from 'assets/images/facebook.svg'
-import UserAvatar from 'assets/images/user-avatar.jpg'
 import LogOut from 'assets/images/header/LogOut -gray.svg'
 import LogOutBlack from 'assets/images/header/LogOut.svg'
 

@@ -33,8 +33,10 @@ const ExploreExp = () => {
                     <ExpCard
                       photo={el.experience.coverPhoto}
                       tags={[
-                        ...el.experience.tagIds.map((i) => i.tagName),
-                        ...el.experience.typeIds.map((i) => i.title),
+                        ...new Set(
+                          el.experience.tagIds.map((i) => i.tagName),
+                          el.experience.typeIds.map((i) => i.title),
+                        ),
                       ]}
                       name={el.experience.title}
                       price={el.experience?.priceChild || el.experience.priceAdult}
@@ -43,6 +45,7 @@ const ExploreExp = () => {
                       pathname={`/experience/${el.experience.id}`}
                       id={el.experience.id}
                       isFavorite={el.isFavorite}
+                      key={el.experience.id}
                     />
                   ),
               )

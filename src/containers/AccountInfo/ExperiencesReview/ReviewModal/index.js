@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-autofocus */
 import React, { useState } from 'react'
@@ -12,7 +13,6 @@ import styles from './reviewModal.module.scss'
 import './reviewModal.less'
 
 function ReviewModal({ experience }) {
-  console.log(experience, 'exp')
   const dispatch = useDispatch()
 
   const [review, setReview] = React.useState('')
@@ -155,7 +155,7 @@ function ReviewModal({ experience }) {
           </div>
         </div>
         <div
-          onClick={() => (isValid ? submitReview() : console.log('erorr'))}
+          onClick={() => (isValid ? submitReview() : console.log('error'))}
           className={isValid() ? styles.submitButton : styles.submitButtonError}
         >
           Publish

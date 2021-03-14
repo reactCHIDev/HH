@@ -19,6 +19,7 @@ function Review({ id, experience }) {
 
   React.useEffect(() => {
     dispatch(getExperienceReviewAC({ page: 1, type: 'experienceReviews', id }))
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -47,7 +48,7 @@ function Review({ id, experience }) {
           </div>
         </div>
       )}
-      {expReviews.length ? expReviews.map((el) => <ReviewWrapper el={el} />) : null}
+      {expReviews.length ? expReviews.map((el) => <ReviewWrapper key={el.id} el={el} />) : null}
     </div>
   )
 }

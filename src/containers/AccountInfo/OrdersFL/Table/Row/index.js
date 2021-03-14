@@ -16,8 +16,6 @@ function index({ item }) {
     minute: '2-digit',
   })
 
-  const sumOfProducts = item.orderProducts.reduce((a, b) => a + (b.quantity || 0), 0)
-
   const typePrettier = (type) => {
     if (type === 'Express') return 'Express'
     if (type === 'Standard') return 'Standard'

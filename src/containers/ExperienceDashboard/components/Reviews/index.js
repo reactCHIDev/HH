@@ -12,6 +12,7 @@ function ReviewsContainer() {
 
   React.useEffect(() => {
     dispatch(getExperienceReviewAC({ id, page: 1, type: 'fmExperiencesReview' }))
+    // eslint-disable-next-line
   }, [])
 
   return (

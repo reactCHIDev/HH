@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import { setItem, getItem } from 'utils/localStorage'
@@ -5,7 +7,6 @@ import { useForm } from 'react-hook-form'
 import { isShopExist } from 'api/requests/Shop'
 import _ from 'lodash/fp'
 import open from 'assets/images/open-table.svg'
-import addHint from 'assets/icons/svg/add_hint.svg'
 import styles from './step1.module.scss'
 import './step1.less'
 
@@ -16,7 +17,7 @@ const Step1 = (props) => {
   const allValues = getItem('addExperience')
   if (allValues?.shopName) shopName = allValues?.shopName
 
-  const { register, handleSubmit, control, watch, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
     defaultValues: { shopName },
   })

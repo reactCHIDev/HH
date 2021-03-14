@@ -58,6 +58,7 @@ const FoodmakerPage = (props) => {
 
   useEffect(() => {
     resolveFoodmakerDataAC(`${process.env.REACT_APP_BASE_URL}/${userName}`)
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

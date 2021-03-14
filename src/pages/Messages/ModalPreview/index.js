@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import downloadIcon from 'assets/icons/svg/download.svg'
 import styles from './modal-preview.module.scss'
 
@@ -8,7 +8,7 @@ const ModalPreview = (props) => {
 
   return (
     <div className={styles.modal_img_wrapper} onClick={closeFunc}>
-      <img src={link} alt="picture" />
+      <img src={link} alt="download" />
       <div className={styles.download_btn}>
         <a className={styles.preview_link} href={link} download="file">
           <div className={styles.file_link_wrapper}>

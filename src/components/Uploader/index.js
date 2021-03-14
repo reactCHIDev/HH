@@ -1,10 +1,13 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-shadow */
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { Upload, Modal } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { PlusOutlined } from '@ant-design/icons'
 import { getItem } from 'utils/localStorage'
-import Button from 'components/Button'
 import styles from './uploader.module.scss'
 import './uploader.less'
 
@@ -17,7 +20,7 @@ function getBase64(file) {
   })
 }
 
-const Uploader = ({ list, listSet, cover, setCover, min, setActiveNext }) => {
+const Uploader = ({ list, listSet, cover, setCover, setActiveNext }) => {
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
@@ -125,7 +128,7 @@ const Uploader = ({ list, listSet, cover, setCover, min, setActiveNext }) => {
 }
 
 Uploader.propTypes = {
-  list: T.arrayOf(T.string).isRequired,
+  list: T.arrayOf(T.shape()).isRequired,
   listSet: T.func.isRequired,
   cover: T.string.isRequired,
   setCover: T.func.isRequired,

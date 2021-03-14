@@ -1,8 +1,9 @@
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React from 'react'
 import T from 'prop-types'
-import { Input, Tooltip } from 'antd'
-import styles from './num_input.module.scss'
-import './num_input.less'
 
 function formatNumber(val) {
   const value = String(val)

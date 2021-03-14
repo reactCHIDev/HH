@@ -58,6 +58,7 @@ const ProductExplore = (props) => {
     return () => {
       setItem('search_data', {})
     }
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {
@@ -74,6 +75,7 @@ const ProductExplore = (props) => {
       )
       updateSelectedCategories([])
     }
+    // eslint-disable-next-line
   }, [productTypeToShow])
 
   const onCategoriesClickHandler = (el) => {
@@ -144,13 +146,15 @@ const ProductExplore = (props) => {
                 onClick={() => setIsProductCategoriesToChooseShown((b) => !b)}
               >
                 {selectedCategories.map((el, index) => (
-                  <span>{(index ? ', ' : '') + el.title}</span>
+                  <span key={el.id}>{(index ? ', ' : '') + el.title}</span>
                 ))}
               </div>
               {isProductCategoriesToChooseShown ? (
                 <div className={styles.categoriesWrapper}>
                   {productCategoriesToShow.map((el) => (
                     <div
+                      className={styles.category}
+                      key={el.id}
                       style={{ display: 'flex', alignItems: 'center' }}
                       onClick={() => onCategoriesClickHandler(el)}
                     >

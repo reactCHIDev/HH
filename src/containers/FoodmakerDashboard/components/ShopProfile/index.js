@@ -1,24 +1,26 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-console */
+/* eslint-disable no-shadow */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getUserAccount } from 'actions/account'
 import { updateShopAC } from 'actions/shop'
 import { useForm, Controller } from 'react-hook-form'
-import { Spin, Space } from 'antd'
+import { Input, Select, Button, Form, Checkbox, InputNumber } from 'antd'
 
 import { getServiceTagsAC, getSpecialityTagsAC, getProductTagsRequestAC } from 'actions/system'
 import cls from 'classnames'
-import { getUserByHHLink } from 'api/requests/Account'
 import { isShopExist } from 'api/requests/Shop'
 import GotoLink from 'assets/icons/svg/goto_link.svg'
 
 import QR from 'qrcode'
 import AvaUploader from 'components/AvatarUploader'
-import { Input, Select, Button, Form, Checkbox, InputNumber } from 'antd'
+
 import { LockOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import styles from './shopprofile.module.scss'
 import './shopprofile.less'
-import { setItem } from 'utils/localStorage'
 
 const ShopProfile = (props) => {
   const {
@@ -84,7 +86,6 @@ const ShopProfile = (props) => {
             if (dm[e] === 'FreeDelivery') setFree(true)
           }
         })
-        console.log('%c   acc   ', 'color: darkgreen; background: palegreen;', acc)
         return acc
       }, {})
 
@@ -99,6 +100,7 @@ const ShopProfile = (props) => {
 
   useEffect(() => {
     Object.keys(defaults).forEach((e) => setValue(e, defaults[e]))
+    // eslint-disable-next-line
   }, [defaults])
 
   const filteredTags = tags.length ? tags.filter((o) => !selectedItems.includes(o.tagName)) : []
@@ -107,6 +109,7 @@ const ShopProfile = (props) => {
     getServiceTagsAC()
     getSpecialityTagsAC()
     getProductTagsRequestAC()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -116,13 +119,14 @@ const ShopProfile = (props) => {
   }, [serviceTags, specialityTags, productTags])
 
   useEffect(() => {
-    generateQR(shopUrl)
+    if (shopUrl) generateQR(shopUrl)
   }, [shopUrl])
 
   useEffect(() => {
     if (success) {
       if (id) getUserAccount(id)
     }
+    // eslint-disable-next-line
   }, [success])
 
   const onSubmit = (formValues) => {
@@ -212,7 +216,7 @@ const ShopProfile = (props) => {
                   ref={register({
                     required: true,
                     validate: async (value) => {
-                      const url = process.env.REACT_APP_BASE_URL + '/shop/' + value.toLowerCase()
+                      const url = `${process.env.REACT_APP_BASE_URL}/shop/${value.toLowerCase()}`
                       if (url === shop?.shopUrl) return true
                       const shopData = await isShopExist(value)
                       return !shopData.data?.title
@@ -283,7 +287,7 @@ const ShopProfile = (props) => {
             <div id="uploader_fm" className={styles.uploader}>
               <p className={styles.title}>Cover photo</p>
               <div className={styles.avatar_container}>
-                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} aspect="1.4" />
+                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} aspect={1.4} />
               </div>
             </div>
           </div>
@@ -294,7 +298,7 @@ const ShopProfile = (props) => {
                 control={control}
                 name="tags"
                 rules={{ required: false }}
-                render={({ onChange, value, name }) => (
+                render={({ onChange, name }) => (
                   <Select
                     mode="multiple"
                     name={name}

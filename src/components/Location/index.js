@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from 'react'
 import { shape, number, string, func } from 'prop-types'
 import Geocode from 'react-geocode'
@@ -15,9 +17,6 @@ const Location = ({ setLocationVisibility, clearLocationField }) => {
   const [coords, setCoords] = useState(null)
   const [coordinates, setCoordinates] = useState(null)
   const [isHeaderVisible, setIsHeaderVisible] = useState(false)
-
-  console.log('coords', coords)
-  console.log('coordinates', coordinates)
 
   const getPosition = async () => {
     await navigator.geolocation.getCurrentPosition(
@@ -52,7 +51,6 @@ const Location = ({ setLocationVisibility, clearLocationField }) => {
   }, [])
 
   useEffect(() => {
-    console.log('coords', coords)
     if (coords) getGeoData()
   }, [coords])
 

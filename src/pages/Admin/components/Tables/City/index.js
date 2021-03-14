@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { Table, Input, Button, Space, Radio } from 'antd'
@@ -88,7 +90,7 @@ const CityTable = ({ cities, requesting, getCitiesAC, createCityAC, deleteCityAC
 
   useEffect(() => {
     getCitiesAC()
-  }, [])
+  }, [getCitiesAC])
 
   const createCity = () => {
     if (addCityName) {

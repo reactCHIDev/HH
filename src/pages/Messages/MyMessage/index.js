@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import PreviewIcon from '../PreviewIcon'
 import styles from './message.module.scss'
 
 const Message = ({ date, message, setPreview }) => {
-  const pics = ['jpg', 'jpeg', 'png']
   return (
     <div className={styles.msg_wrapper}>
       <div className={styles.container}>

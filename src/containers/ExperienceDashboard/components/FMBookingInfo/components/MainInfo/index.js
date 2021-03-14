@@ -3,8 +3,6 @@ import React from 'react'
 import styles from './mainInfo.module.scss'
 
 function MainInfo({ orderInfo }) {
-  console.log(orderInfo)
-
   const day = new Date(orderInfo.booking.time).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',

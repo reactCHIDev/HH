@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -57,6 +58,7 @@ function SearchBlock() {
     return () => {
       setItem('search_data', {})
     }
+    // eslint-disable-next-line
   }, [])
 
   React.useEffect(() => {
@@ -71,7 +73,6 @@ function SearchBlock() {
   }
 
   const onSearchClickHandler = () => {
-    console.log(date)
     dispatch(
       searchRequestingnAc({
         searchType: 'Experiences',
@@ -87,10 +88,6 @@ function SearchBlock() {
         },
       }),
     )
-  }
-
-  const onApply = () => {
-    setVisibilityPriceSelector(false)
   }
 
   const onDateChange = (dateString) => {
@@ -161,7 +158,6 @@ function SearchBlock() {
           max={maxPrice}
           setMin={setMinPrice}
           setMax={setMaxPrice}
-          onApply={onApply}
           visible={isVisiblePriceSelector}
         />
       </div>

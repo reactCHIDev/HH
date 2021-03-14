@@ -4,7 +4,7 @@ import {
   SEARCH_ERROR,
   CLEAR_SEARCH_DATA,
 } from 'actions/constants'
-import { setItem, getItem } from 'utils/localStorage'
+import { setItem } from 'utils/localStorage'
 
 const initialState = {
   data: [],

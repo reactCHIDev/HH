@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import _ from 'lodash/fp'
@@ -21,7 +22,6 @@ const Login = (props) => {
     loginRequest,
     pushRoute,
     replaceRoute,
-    authorized,
     url,
     error,
     loginErrorReset,

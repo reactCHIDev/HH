@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import T, { shape } from 'prop-types'
 import { connect } from 'react-redux'
@@ -39,8 +42,6 @@ const Listings = (props) => {
   const {
     types,
     myProducts,
-    userProfile,
-    requesting,
     getProductTypes,
     getMyProductList,
     toggleProductStatusRequestAC,
@@ -72,6 +73,7 @@ const Listings = (props) => {
   useEffect(() => {
     getProductTypes()
     getMyProductList()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -88,6 +90,7 @@ const Listings = (props) => {
         .filter((p) => (ids.length ? ids.includes(String(p.productCategoryId)) : true))
         .filter((p) => p.title.toLowerCase().includes(searchSubstring)),
     )
+    // eslint-disable-next-line
   }, [filters])
 
   useEffect(() => {
@@ -95,6 +98,7 @@ const Listings = (props) => {
       // getMyProductList()
       resetFilters()
     }
+    // eslint-disable-next-line
   }, [productTypes])
 
   const onChangeChkBox = (e) => {

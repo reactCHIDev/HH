@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { useForm } from 'react-hook-form'
 import Heading from '../../components/heading'
-import Input from '../../components/input'
 import styles from './aboutyourself.module.scss'
 
 const AboutYourself = (props) => {
@@ -11,10 +10,11 @@ const AboutYourself = (props) => {
     onSubmit,
   } = props
   const [curTextValue, setTextValue] = useState(value)
-  const { register, handleSubmit, errors } = useForm()
+  const { handleSubmit } = useForm()
 
   useEffect(() => {
     setTextValue(value)
+    // eslint-disable-next-line
   }, [])
 
   const onChange = (e) => {
@@ -40,6 +40,7 @@ const AboutYourself = (props) => {
           cols="42"
           value={curTextValue}
           onChange={onChange}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
         />
         <input className={styles.submit} type="submit" value=">" />

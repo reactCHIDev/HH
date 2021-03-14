@@ -51,9 +51,9 @@ const Header = ({ text, isFavourite, id }) => {
 }
 
 Header.propTypes = {
-  text: T.string.isRequired,
-  isFavourite: T.bool.isRequired,
-  id: T.number.isRequired,
+  text: T.string,
+  isFavourite: T.bool,
+  id: T.number,
 }
 
 export default Header

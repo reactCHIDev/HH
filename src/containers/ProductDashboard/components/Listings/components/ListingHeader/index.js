@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
 import { Link } from 'react-router-dom'
 import Search from 'components/Search'
-import Button from 'components/Button'
 import styles from './header.module.scss'
 import './header.less'
 
@@ -21,7 +21,6 @@ const Header = (props) => {
         <div className={styles.srch_block}>
           <Search onSearch={onSearch} />
           <Link to="/addproduct">
-            {/* <Button title="ADD PRODUCT" /> */}
             ADD <span>PRODUCT</span>
           </Link>
         </div>

@@ -1,8 +1,9 @@
+/* eslint-disable no-shadow */
 import React from 'react'
 import T from 'prop-types'
 import { Pagination } from 'antd'
 
-import styles from './list_container.module.scss'
+// import styles from './list_container.module.scss'
 import './list_container.less'
 
 const ListContainer = (props) => {
@@ -40,13 +41,13 @@ const ListContainer = (props) => {
 }
 
 ListContainer.propTypes = {
-  page: T.number.isRequired,
-  pageChange: T.func.isRequired,
-  pageSize: T.number.isRequired,
+  page: T.number,
+  pageChange: T.func,
+  pageSize: T.number,
   pageSizeOptions: T.arrayOf(T.string),
   onShowSizeChange: T.func,
-  total: T.number.isRequired,
-  children: T.element,
+  total: T.number,
+  children: T.arrayOf(T.element) || T.element,
 }
 
 export default ListContainer

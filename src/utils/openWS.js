@@ -107,7 +107,6 @@ export const setAsReviewed = (socket, messageIds) => {
 }
 
 export const socketClose = (socket) => {
-  const accessToken = getToken()
   socket.send(
     JSON.stringify({
       event: 'close',

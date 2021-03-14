@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React from 'react'
 import T from 'prop-types'
 import * as jwt from 'jsonwebtoken'
@@ -13,18 +15,7 @@ import ToSignin from './components/ToSignin'
 import styles from './forgot.module.scss'
 
 const Forgot = (props) => {
-  const {
-    passwordRequest,
-    passwordCreate,
-    step,
-    token,
-    url,
-    req,
-    err,
-    close,
-    invalidLink,
-    push,
-  } = props
+  const { passwordRequest, passwordCreate, step, token, url, req, close, invalidLink } = props
 
   const jwtData = token ? jwt.decode(token, process.env.REACT_APP_JWT_SECRET_KEY) : null
   const valid = jwtData ? new Date().getTime() < new Date(jwtData?.exp * 1000) : true
@@ -47,10 +38,10 @@ const Forgot = (props) => {
   return (
     <div className={styles.container}>
       {req && <Tint />}
-      {step == 1 && <EnterMail onSubmit={onEmail} />}
-      {step == 2 && <CheckMail close={close} />}
-      {step == 3 && valid && <Create onSubmit={onPasswordCreate} />}
-      {step == 4 && <ToSignin close={close} />}
+      {step === 1 && <EnterMail onSubmit={onEmail} />}
+      {step === 2 && <CheckMail close={close} />}
+      {step === 3 && valid && <Create onSubmit={onPasswordCreate} />}
+      {step === 4 && <ToSignin close={close} />}
     </div>
   )
 }
@@ -59,12 +50,10 @@ Forgot.propTypes = {
   passwordRequest: T.func,
   passwordCreate: T.func,
   close: T.func,
-  push: T.func,
   step: T.number,
   token: T.string,
   url: T.string,
   req: T.bool,
-  err: T.string,
 }
 
 export default connect(

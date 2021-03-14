@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
+import React, { useEffect } from 'react'
 import { getItem } from 'utils/localStorage'
 import { Button, Space, Spin } from 'antd'
-import Chk1 from 'assets/images/signup-flow/svg/chk1.svg'
-import Chk2 from 'assets/images/signup-flow/svg/chk2.svg'
 import { createPublicBookingAC } from 'actions/experience'
 
 import cls from 'classnames'
@@ -17,10 +14,10 @@ const Success = () => {
   const sessionId = getItem('sessionId')
   const dispatch = useDispatch()
   const isRequesting = useSelector((state) => state.experience.requesting)
-  const isOrderCreating = useSelector((state) => state.cart.products).length > 0
 
   useEffect(() => {
     if (!isRequesting) dispatch(createPublicBookingAC({ ...bookingData, sessionId }))
+    // eslint-disable-next-line
   }, [])
 
   const toHome = () => {

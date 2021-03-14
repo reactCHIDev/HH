@@ -8,6 +8,7 @@ import styles from './signupflow_container.module.scss'
 
 const SignupContainer = ({ children, footer, stepBack, step }) => {
   const [containerWidth, setWidth] = useState(0)
+  // eslint-disable-next-line no-unused-vars
   const [containerHeight, setHeight] = useState(window.innerHeight)
   const container = useRef()
 
@@ -18,8 +19,10 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
+    // eslint-disable-next-line
   }, [])
 
+  // eslint-disable-next-line
   useEffect(() => {
     if (container.current) {
       setWidth(container.current.offsetWidth)
@@ -27,7 +30,7 @@ const SignupContainer = ({ children, footer, stepBack, step }) => {
   })
 
   return (
-    <div className={styles.container} ref={container} /* style={{ height: containerHeight }} */>
+    <div className={styles.container} ref={container}>
       <div className={styles.pattern} />
       <div className={styles.header}>
         <div className={styles.logo_container}>

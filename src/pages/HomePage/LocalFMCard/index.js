@@ -1,23 +1,12 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import { Rate } from 'antd'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import styles from './fmcard.module.scss'
 
 const FMCard = (props) => {
   const { foodmaker, pushRoute } = props
-  const {
-    profileName,
-    hungryHuggerLink,
-    userPhoto,
-    coverPhoto,
-    otherPhotos,
-    firstName,
-    about,
-    rating,
-    votes,
-    tags,
-  } = foodmaker
+  const { hungryHuggerLink, userPhoto, coverPhoto, otherPhotos, firstName, tags } = foodmaker
 
   const openFoodmaker = () => pushRoute(`/${hungryHuggerLink.split('/').pop()}`)
 

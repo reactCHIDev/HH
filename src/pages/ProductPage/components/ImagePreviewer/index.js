@@ -46,14 +46,14 @@ const ImagePreviewer = (props) => {
 
   const handleImageClick = useCallback((e) => {
     setSelectedImage(e.currentTarget.id)
-  })
+  }, [])
 
   return (
     <div className={styles.container}>
       <div
         className={styles.img_container}
         style={{ backgroundImage: `url("${selectedImage}")` }}
-      ></div>
+      />
       <div className={cls(styles.slider_container, 'slick_container')}>
         <Slider {...settings}>
           {images.map((image) => (
@@ -66,7 +66,7 @@ const ImagePreviewer = (props) => {
               <span
                 style={{ backgroundImage: `url("${image}")` }}
                 className={image === selectedImage ? styles.preview_img_clear : styles.preview_img}
-              ></span>
+              />
             </div>
           ))}
         </Slider>

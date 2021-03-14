@@ -1,14 +1,9 @@
 import React from 'react'
-import T from 'prop-types'
 import TabsOpen from 'components/Tabs/TabsOpen'
-import Soon from 'components/ComingSoon'
 import Profile from '../Profile'
 import styles from './profiletab.module.scss'
-// import './profiletab.less'
 
-const ProfileTab = (props) => {
-  // const { x } = props
-
+const ProfileTab = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>

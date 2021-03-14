@@ -23,6 +23,7 @@ function ProductsReview() {
   React.useEffect(() => {
     dispatch(getUnreviewedExperienceAC(), [dispatch])
     dispatch(getFLExperienceReviewsAC({ page: currentPage }), [dispatch])
+    // eslint-disable-next-line
   }, [])
 
   return (

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
+import React from 'react'
 import { getItem } from 'utils/localStorage'
 import { Button, Space, Spin } from 'antd'
 import Chk1 from 'assets/images/signup-flow/svg/chk1.svg'
 import Chk2 from 'assets/images/signup-flow/svg/chk2.svg'
 import { createOrderRequestrinAc } from 'actions/order'
 
-import cls from 'classnames'
 import './success.less'
 import { useDispatch, useSelector } from 'react-redux'
 import { replace } from 'connected-react-router'
@@ -20,6 +18,7 @@ const Success = () => {
 
   React.useEffect(() => {
     if (!isRequesting) dispatch(createOrderRequestrinAc(adressData))
+    // eslint-disable-next-line
   }, [])
 
   const toHome = () => {

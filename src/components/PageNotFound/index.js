@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import darklogo from 'assets/images/notfound/logo.png'
 import styles from './notfound.module.scss'
 
 const PageNotFound = ({ msg }) => {
-  const history = useHistory()
   return (
     <div className={styles.page_not_found}>
       <div className={styles.page_not_found__logo}>

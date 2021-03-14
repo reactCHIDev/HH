@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,6 +32,7 @@ function ProductSummary({ shop, title }) {
 
   React.useEffect(() => {
     setDataToShow(delTypes.filter((e) => e.type !== curVal.type))
+    // eslint-disable-next-line
   }, [curVal])
 
   const typePrettier = (type) => {
@@ -55,6 +57,7 @@ function ProductSummary({ shop, title }) {
       setIsDiscount(false)
       dispatch(changeDeliveryType({ type: curVal.type, price: curVal.delPrice, shop: title }))
     }
+    // eslint-disable-next-line
   }, [price])
 
   const priceToShow = (isFirstPart, sum = 0) => {

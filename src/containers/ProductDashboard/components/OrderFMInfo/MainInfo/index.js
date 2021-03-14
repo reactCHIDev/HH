@@ -3,7 +3,6 @@ import T from 'prop-types'
 
 import styles from './maininfo.module.scss'
 import OrderInfo from './OrderInfo'
-import Chat from './Chat'
 
 const MainOrderInfo = ({ order }) => {
   return (

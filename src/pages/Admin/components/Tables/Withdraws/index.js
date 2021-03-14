@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import { format } from 'date-fns'
@@ -5,7 +7,6 @@ import { Table, Input, Button, Space } from 'antd'
 import Highlighter from 'react-highlight-words'
 import { SearchOutlined } from '@ant-design/icons'
 import { getWithdrawListAC, approveWithdrawAC } from 'actions/admin'
-import Avatar from 'components/AvatarPlaceholder'
 import { connect } from 'react-redux'
 
 const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdrawAC }) => {
@@ -17,6 +18,7 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
 
   useEffect(() => {
     getWithdrawListAC({ startIndex: 0, limit: 100, status: null })
+    // eslint-disable-next-line
   }, [])
 
   const approveHandler = (id) => approveWithdrawAC(id)
@@ -29,11 +31,11 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
     setSort(sorter)
   }
 
-  const clearAll = () => {
-    setSort(null)
-    setSearchText('')
-    setSearchedColumn('')
-  }
+  // const clearAll = () => {
+  //   setSort(null)
+  //   setSearchText('')
+  //   setSearchedColumn('')
+  // }
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm()
@@ -43,7 +45,6 @@ const Withdraws = ({ withdrawList, requesting, getWithdrawListAC, approveWithdra
 
   const handleReset = (clearFilters) => {
     clearFilters()
-    console.log('%c   clearFilters   ', 'color: darkgreen; background: palegreen;', clearFilters)
     setSearchText('')
   }
 

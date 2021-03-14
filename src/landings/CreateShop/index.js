@@ -125,7 +125,7 @@ const CreateExperience = ({ role }) => {
             <img src={sec24} alt="" className={styles.img} />
           </div>
         </section>
-        <Link to={role == 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
+        <Link to={role === 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
           <button type="button" className={styles.btn_alone}>
             Let's start!
           </button>
@@ -138,14 +138,14 @@ const CreateExperience = ({ role }) => {
           <div className={styles.cards_wrapper}>
             <div className={styles.card}>
               <a href="">
-                <img src={sec31} alt="" />
+                <img src={sec31} alt="sec" />
               </a>
               <a className={styles.card_link} href="">
                 Chef’s shop sample {'>'}
               </a>
             </div>
             <div className={styles.card}>
-              <a href="">
+              <a href="sec">
                 <img src={sec32} alt="" />
               </a>
               <a className={styles.card_link} href="">
@@ -153,7 +153,7 @@ const CreateExperience = ({ role }) => {
               </a>
             </div>
             <div className={styles.card}>
-              <a href="">
+              <a href="sec">
                 <img src={sec33} alt="" />
               </a>
 
@@ -167,7 +167,7 @@ const CreateExperience = ({ role }) => {
         <section className={styles.bottom_sec}>
           <div className={styles.joincard}>
             <p>Join a global community of food lovers and food makers</p>
-            <Link to={role == 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
+            <Link to={role === 'FOODMAKER' ? '/product_dashboard/listings' : '/signupflow'}>
               <button type="button">Join now!</button>
             </Link>
           </div>

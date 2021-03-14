@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import T from 'prop-types'
 import axios from 'axios'
 import { getItem } from 'utils/localStorage'
-import { Upload, message } from 'antd'
+import { Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import './ava.less'
@@ -11,7 +12,7 @@ const Avatar = ({ avatarUrl, setAvatar, aspect = 1 }) => {
   const [loading, setLoading] = useState(false)
 
   const sendFile = async (options) => {
-    const { onSuccess, onError, file, onProgress } = options
+    const { file } = options
     const formData = new FormData()
     formData.append('file', file)
     const getToken = () => {

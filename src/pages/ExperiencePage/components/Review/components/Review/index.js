@@ -15,7 +15,7 @@ function Review({ el }) {
   const mainDate = new Date(el.createdAt).toLocaleDateString('en-US', dateOptions)
   const visitedDate = new Date(el.visitedAt).toLocaleDateString('en-US', dateOptions)
   return (
-    <div className={styles.wrapper} key={el.id}>
+    <div className={styles.wrapper}>
       <div className={styles.clientWrapper}>
         <div
           className={styles.clientAvatar}

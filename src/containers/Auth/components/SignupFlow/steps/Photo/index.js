@@ -6,7 +6,7 @@ import styles from './photo.module.scss'
 
 const Photo = (props) => {
   const {
-    properties: { name, value },
+    properties: { value },
     onSubmit,
   } = props
 
@@ -28,10 +28,12 @@ const Photo = (props) => {
         }),
       )
     setCover(value.coverPhoto.slice(-28, -(value.coverPhoto.split('.').pop().length + 1)))
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     if (fileList?.length && !fileList.some((e) => e.uid === cover)) setCover(fileList[0].uid)
+    // eslint-disable-next-line
   }, [fileList])
 
   const submit = () => {

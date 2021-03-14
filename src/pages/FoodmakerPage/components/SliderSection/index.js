@@ -1,9 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react'
-import T from 'prop-types'
-import { Rate } from 'antd'
 import Slider from 'react-slick'
-import leading from 'assets/images/landings/foodmakers/fm-leading.jpg'
-import Button from 'components/Button'
 import cls from 'classnames'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'

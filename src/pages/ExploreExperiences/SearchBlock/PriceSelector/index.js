@@ -4,7 +4,7 @@ import { Slider, InputNumber, Button } from 'antd'
 import styles from './price_selector.module.scss'
 import './price_selector.less'
 
-const PriceSelector = ({ min, max, setMin, setMax, onApply, visible }) => {
+const PriceSelector = ({ min, max, setMin, setMax, visible }) => {
   function formatter(value) {
     return `$${value}`
   }
@@ -49,9 +49,6 @@ const PriceSelector = ({ min, max, setMin, setMax, onApply, visible }) => {
             />
           </div>
         </div>
-        <Button type="primary" onClick={onApply} block size="large">
-          APPLY
-        </Button>
       </div>
     </div>
   )
@@ -63,7 +60,6 @@ PriceSelector.propTypes = {
   visible: T.bool.isRequired,
   setMin: T.func.isRequired,
   setMax: T.func.isRequired,
-  onApply: T.func.isRequired,
 }
 
 export default PriceSelector

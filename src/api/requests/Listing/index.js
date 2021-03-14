@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import apiClient from 'utils/apiClient'
-import PATHS from 'api/paths'
 
 export const getMyProductListReq = (filters) =>
   apiClient.get(

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { Table, Button, Space } from 'antd'
@@ -10,6 +12,7 @@ const ShopsTable = ({ shopsList, getShopsListAc }) => {
 
   useEffect(() => {
     getShopsListAc()
+    // eslint-disable-next-line
   }, [])
 
   const handleChange = (pagination, filters, sorter) => {

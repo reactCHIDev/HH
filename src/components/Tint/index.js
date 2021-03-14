@@ -1,5 +1,4 @@
 import React from 'react'
-import T from 'prop-types'
 import { Spin, Space } from 'antd'
 import styles from './tint.module.scss'
 

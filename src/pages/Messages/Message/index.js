@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import T from 'prop-types'
-import downloadIcon from 'assets/icons/svg/download.svg'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
 import PreviewIcon from '../PreviewIcon'
 

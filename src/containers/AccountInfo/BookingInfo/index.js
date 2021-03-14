@@ -33,6 +33,7 @@ const OrderInfo = (props) => {
 
   useEffect(() => {
     getFLBookingInfoAC(order)
+    // eslint-disable-next-line
   }, [])
 
   return (

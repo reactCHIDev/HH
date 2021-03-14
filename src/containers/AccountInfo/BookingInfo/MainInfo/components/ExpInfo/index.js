@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React from 'react'
 import people from 'assets/icons/svg/people.svg'
@@ -73,8 +74,8 @@ function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
           Cancel order
         </div>
       </div>
-      <div></div>
-      <div></div>
+      {/* <div></div> */}
+      {/* <div></div> */}
     </div>
   )
 }

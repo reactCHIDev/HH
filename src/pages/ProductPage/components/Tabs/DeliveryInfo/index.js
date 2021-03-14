@@ -1,11 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import styles from './delivery_info.module.scss'
 import './delivery_info.less'
 
 const DeliveryInfo = ({ region, deliveryMethods }) => {
-  console.log('%c   deliveryMethods   ', 'color: white; background: salmon;', deliveryMethods)
-
   return (
     <div className={styles.container}>
       <div className={styles.info_section}>
@@ -42,9 +40,9 @@ const DeliveryInfo = ({ region, deliveryMethods }) => {
   )
 }
 
-DeliveryInfo.propTypes = {
-  deliveryMethods: T.shape(),
-  region: T.string,
-}
+// DeliveryInfo.propTypes = {
+//   deliveryMethods: T.shape(),
+//   region: T.string,
+// }
 
 export default DeliveryInfo

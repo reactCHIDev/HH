@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'

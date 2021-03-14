@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import T from 'prop-types'
 import styles from './refund_policy.module.scss'
 import './refund_policy.less'
 

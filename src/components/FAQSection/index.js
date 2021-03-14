@@ -13,6 +13,7 @@ const FAQSection = () => {
 
   useEffect(() => {
     dispatch(getFaqAC())
+    // eslint-disable-next-line
   }, [])
 
   const { Panel } = Collapse

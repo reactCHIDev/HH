@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom'
 import cls from 'classnames'
 import { Rate, Tag } from 'antd'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import toggleFavouriteAc from 'actions/favourites'
 
-import sec21 from 'assets/images/landings/create_profile/sec21.jpg'
 import expLike from 'assets/icons/svg/exp_like.svg'
 import expLikeRed from 'assets/icons/svg/exp_like_red.svg'
 
@@ -60,7 +59,7 @@ const ShopCard = (props) => {
           </Link>
           <div className={styles.stats_container}>
             <div className={styles.exp_price_container}>
-              <p className={styles.exp_price}>{``}</p>
+              <p className={styles.exp_price}>``</p>
               {isShowCart && (
                 <img src={OutlinedCartIcon} className={styles.outlined_cat} alt="buy product" />
               )}
@@ -80,7 +79,6 @@ ShopCard.propTypes = {
   photo: T.string,
   tags: T.arrayOf(T.string),
   name: T.string,
-  price: T.number,
   rating: T.number,
   rateCount: T.number,
   isShowCart: T.bool,

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import T from 'prop-types'
 import FMCard from 'pages/FoodmakersExplore/components/FMCard'
 
 import { Spin, Space } from 'antd'
 import Button from 'components/Button'
-import { push } from 'connected-react-router'
 
 import { getFavMakersAC } from 'actions/bookmarks'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,10 +18,9 @@ const FavMakers = () => {
 
   const dispatch = useDispatch()
 
-  const pushRoute = (route) => dispatch(push(route))
-
   useEffect(() => {
     dispatch(getFavMakersAC(makersStartIndex, 12))
+    // eslint-disable-next-line
   }, [makersStartIndex])
 
   useEffect(() => {
@@ -38,7 +35,9 @@ const FavMakers = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.exp_section}>
-          {makersCollection.map((maker) => maker?.coverPhoto && <FMCard item={maker} />)}
+          {makersCollection.map(
+            (maker) => maker?.coverPhoto && <FMCard item={maker} key={maker.id} />,
+          )}
         </div>
         <div className={styles.btn_holder}>
           {isLoading ? (

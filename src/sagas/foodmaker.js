@@ -1,5 +1,6 @@
-import { put, takeEvery, delay, takeLatest } from 'redux-saga/effects'
-import PATHS from 'api/paths'
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-cond-assign */
+import { put, takeEvery, delay } from 'redux-saga/effects'
 
 import {
   getFoodmakerInfoReq,
