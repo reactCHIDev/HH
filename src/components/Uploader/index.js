@@ -128,7 +128,7 @@ const Uploader = ({ list, listSet, cover, setCover, setActiveNext }) => {
 }
 
 Uploader.propTypes = {
-  list: T.arrayOf(T.string).isRequired,
+  list: T.arrayOf(T.shape()).isRequired,
   listSet: T.func.isRequired,
   cover: T.string.isRequired,
   setCover: T.func.isRequired,

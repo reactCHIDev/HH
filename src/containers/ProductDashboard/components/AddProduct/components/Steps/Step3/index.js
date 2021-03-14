@@ -12,7 +12,7 @@ const Step3 = (props) => {
 
   const prevState = getItem('addProduct')
 
-  const [cover, setCover] = useState(0)
+  const [cover, setCover] = useState('')
   const [fileList, setFilelist] = useState([])
   const [isActive, setActiveNext] = useState(true)
 

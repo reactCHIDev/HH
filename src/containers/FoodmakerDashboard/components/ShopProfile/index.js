@@ -119,7 +119,7 @@ const ShopProfile = (props) => {
   }, [serviceTags, specialityTags, productTags])
 
   useEffect(() => {
-    generateQR(shopUrl)
+    if (shopUrl) generateQR(shopUrl)
   }, [shopUrl])
 
   useEffect(() => {
@@ -287,7 +287,7 @@ const ShopProfile = (props) => {
             <div id="uploader_fm" className={styles.uploader}>
               <p className={styles.title}>Cover photo</p>
               <div className={styles.avatar_container}>
-                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} aspect="1.4" />
+                <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} aspect={1.4} />
               </div>
             </div>
           </div>

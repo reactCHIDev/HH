@@ -21,8 +21,6 @@ function ExperincePage() {
     // eslint-disable-next-line
   }, [])
 
-  console.log(experience, 'experience')
-
   return experience ? (
     <div className={styles.wrapper}>
       <ExpHeader experience={experience.experience} user={experience.userProfile} />

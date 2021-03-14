@@ -222,7 +222,7 @@ function SearchBlock() {
         {cityVisibility && (
           <div className={styles.sugg_container} ref={cityContainerRef}>
             {cityResult.map((s) => (
-              <div className={styles.sugg}>
+              <div className={styles.sugg} key={s}>
                 <div className={styles.sugg_text} onClick={() => selectCity(s)}>
                   {s.cityName}
                 </div>

@@ -90,10 +90,6 @@ function SearchBlock() {
     )
   }
 
-  const onApply = () => {
-    setVisibilityPriceSelector(false)
-  }
-
   const onDateChange = (dateString) => {
     setDate(format(new Date(dateString), 'yyyy-MM-dd'))
   }
@@ -162,7 +158,6 @@ function SearchBlock() {
           max={maxPrice}
           setMin={setMinPrice}
           setMax={setMaxPrice}
-          onApply={onApply}
           visible={isVisiblePriceSelector}
         />
       </div>

@@ -155,12 +155,17 @@
             width: 94%;
             z-index: 2;
 
-            div {
-              margin: 0px 5px 5px 10px;
+            .category {
+              margin: 0px 5px 0px 10px;
               cursor: pointer;
               opacity: 0.8;
+              height: 32px;
               &:hover {
                 opacity: 1;
+              }
+              div {
+                margin-left: 10px;
+
               }
             }
           }

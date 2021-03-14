@@ -186,7 +186,7 @@ const ExpHeader = ({ experience, user }) => {
           <ImagePreviewer images={[coverPhoto].concat(otherPhotos)} />
           {dates.length ? (
             <div className={styles.inner_content}>
-              <p className={styles.exp_heading}>
+              <div className={styles.exp_heading}>
                 <span>
                   {title} {isAdult && <span className={styles.adults_only}>18+</span>}
                 </span>
@@ -196,10 +196,10 @@ const ExpHeader = ({ experience, user }) => {
                   </span>
                   <span className={styles.like_btn} onClick={shareClick}>
                     <img src={ExpShare} alt="share" />
-                    {success && <div className={styles.success}>URL is copied to clipboard</div>}
+                    {success && <p className={styles.success}>URL is copied to clipboard</p>}
                   </span>
                 </span>
-              </p>
+              </div>
               <div className={cls(styles.input_number, 'exp-guests_number')}>
                 <GuestsSelector
                   visible={visible}

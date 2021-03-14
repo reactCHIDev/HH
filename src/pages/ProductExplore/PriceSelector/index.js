@@ -62,7 +62,6 @@ PriceSelector.propTypes = {
   visible: T.bool.isRequired,
   setMin: T.func.isRequired,
   setMax: T.func.isRequired,
-  onApply: T.func.isRequired,
 }
 
 export default PriceSelector

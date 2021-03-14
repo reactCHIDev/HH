@@ -372,7 +372,7 @@ const Header = (props) => {
                 <Link className={styles.link} to="/account_info/profile">
                   <div>
                     <img src={Cup} alt="icon" />
-                    <a href="#"> food lover dashboard</a>
+                    <span> food lover dashboard</span>
                   </div>
                 </Link>
               </li>
