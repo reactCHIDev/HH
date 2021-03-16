@@ -7,6 +7,7 @@ import TabsUnderlined from 'components/Tabs/TabsUnderlined'
 import Soon from 'components/ComingSoon'
 import Listings from './components/Listings'
 import OrdersFM from './components/OrdersFMTab'
+import Reviews from './components/Reviews'
 import styles from './proddb.module.scss'
 
 const ProductDashboard = (props) => {
@@ -27,7 +28,7 @@ const ProductDashboard = (props) => {
           overview: { mark: false, disabled: true, content: <Soon /> },
           listings: { mark: false, content: <Listings /> },
           orders: { mark: false, disabled: false, content: <OrdersFM /> },
-          reviews: { mark: false, disabled: true, content: <Soon /> },
+          reviews: { mark: false, disabled: false, content: <Reviews /> },
           performance: { mark: false, disabled: true, content: <Soon /> },
         }}
       />

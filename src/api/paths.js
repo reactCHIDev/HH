@@ -32,6 +32,7 @@ export default {
   toggleStatus: '/v1/product/toggle_status',
   duplicate: '/v1/product/duplicate/',
   getFavProducts: '/v1/product/list_favorite',
+  foodmakerProductsReviews: '/v1/review/product/list_my',
 
   // Experience
   createExperience: '/v1/experience/create',

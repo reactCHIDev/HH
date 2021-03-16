@@ -4,6 +4,7 @@ import {
   createProductReviewReq,
   getFlProductsReviewsReq,
   getProductReviewsReq,
+  getReviewsForProductsReq,
 } from 'api/requests/Review'
 
 import {
@@ -19,6 +20,9 @@ import {
   GET_PRODUCT_REVIEWS_REQUESTING,
   GET_PRODUCT_REVIEWS_SUCCESS,
   GET_PRODUCT_REVIEWS_ERROR,
+  GET_REVIEWS_FOR_PRODUCTS_REQUESTING,
+  GET_REVIEWS_FOR_PRODUCTS_SUCCESS,
+  GET_REVIEWS_FOR_PRODUCTS_ERROR,
 } from '../actions/constants'
 
 function* getUnreviewedProduct() {
@@ -97,12 +101,33 @@ function* getProductReviews({ data }) {
     }
   }
 }
+function* getReviewsForProducts({ data }) {
+  const { page } = data
+  try {
+    const response = yield getReviewsForProductsReq({ startIndex: page * 3 - 3, limit: 3 })
+    console.log('%c   response.data   ', 'color: darkgreen; background: palegreen;', page)
+    yield put({
+      type: GET_REVIEWS_FOR_PRODUCTS_SUCCESS,
+      data: {
+        reviews: response.data.reviews,
+        count: response.data.counter,
+        currentProductPage: page,
+      },
+    })
+  } catch (error) {
+    if (error.response) {
+      console.log('error')
+      yield put({ type: GET_REVIEWS_FOR_PRODUCTS_ERROR, error: error.response.data.error })
+    }
+  }
+}
 
 function* reviewsWatcher() {
   yield takeEvery(GET_UNREVIEWED_PRODUCT_REQUESTING, getUnreviewedProduct)
   yield takeEvery(CREATE_PRODUCT_REVIEW_REQUESTING, createProductReview)
   yield takeEvery(GET_FL_REVIEWS_REQUESTING, getFlProductReviews)
   yield takeEvery(GET_PRODUCT_REVIEWS_REQUESTING, getProductReviews)
+  yield takeEvery(GET_REVIEWS_FOR_PRODUCTS_REQUESTING, getReviewsForProducts)
 }
 
 export default reviewsWatcher

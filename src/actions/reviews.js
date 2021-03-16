@@ -7,6 +7,7 @@ import {
   OPEN_REVIEW_MODAL,
   GET_PRODUCT_REVIEWS_REQUESTING,
   GET_PRODUCT_REVIEWS_SUCCESS,
+  GET_REVIEWS_FOR_PRODUCTS_REQUESTING,
 } from './constants'
 
 export const getUnreviewedProductAC = () => ({
@@ -44,5 +45,10 @@ export const getProductReviewsAC = (data) => ({
 
 export const getProductReviewsSuccess = (data) => ({
   type: GET_PRODUCT_REVIEWS_SUCCESS,
+  data,
+})
+
+export const getReviewsForProductAC = (data) => ({
+  type: GET_REVIEWS_FOR_PRODUCTS_REQUESTING,
   data,
 })
