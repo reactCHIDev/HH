@@ -27,13 +27,13 @@ function* getFMBookingHistorySaga({ payload }) {
       data: {
         bookings: response.data.bookings.map(({ ...data }) => ({
           adults: data.guests.adults || 0,
-          childs: data.guests.childs || 0,
+          childs: data.guests.children || 0,
           id: data.id,
           title: data.experience.title,
           photo: data.experience.coverPhoto,
           time: data.time,
           price: data.totalPrice,
-          guests: data.guests.adults || 0 + data.guests.childs || 0,
+          guests: data.guests.adults || 0 + data.guests.children || 0,
         })),
         counter: response.data.counter,
         page,
@@ -58,13 +58,13 @@ function* getFLBookingHistorySaga({ payload }) {
       data: {
         bookings: response.data.bookings.map(({ ...data }) => ({
           adults: data.guests.adults || 0,
-          childs: data.guests.childs || 0,
+          childs: data.guests.children || 0,
           id: data.id,
           title: data.experience.title,
           photo: data.experience.coverPhoto,
           time: data.time,
           price: data.totalPrice,
-          guests: data.guests.adults || 0 + data.guests.childs || 0,
+          guests: data.guests.adults || 0 + data.guests.children || 0,
         })),
         counter: response.data.counter,
         page,

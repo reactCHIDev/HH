@@ -15,3 +15,9 @@ export const getProductReviewsReq = ({ id, startIndex = 1, limit = 6 }) => {
   const params = `${id}?${i}&${l}`
   return apiClient.get(PATHS.getProductReviews + params)
 }
+export const getReviewsForProductsReq = ({ startIndex = 1, limit = 6 }) => {
+  const i = `startIndex=${startIndex}`
+  const l = `limit=${limit}`
+  const params = `?${i}&${l}`
+  return apiClient.get(PATHS.foodmakerProductsReviews + params)
+}
