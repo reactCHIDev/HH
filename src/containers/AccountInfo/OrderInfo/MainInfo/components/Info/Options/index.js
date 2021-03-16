@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import styles from './options.module.scss'
 
 function Options({ setIsCancelModalShowm, total, orderInfo }) {
@@ -45,10 +47,30 @@ function Options({ setIsCancelModalShowm, total, orderInfo }) {
           </div>
           <div>Cancellation policy</div>
         </div> */}
-        <div>
+        <div className={styles.totalContainer}>
           Total: <span className={styles.total}>${priceToShow(true, total)}.</span>
           {priceToShow(false, total)}
         </div>
+        <Link
+          to={{
+            pathname: '/messages',
+            state: {
+              id: 668,
+              profileName: 'Sasha',
+              userPhoto:
+                'https://hungryhugger-space.fra1.digitaloceanspaces.com/84499c8a-e2e0-46e3-820a-e478f1a7edc9_1611823430013.jpg',
+            },
+          }}
+        >
+          <div
+            className={styles.expCancelBtn}
+            onClick={() => {
+              console.log('%c   cancel   ', 'color: darkgreen; background: palegreen;')
+            }}
+          >
+            Cancel booking
+          </div>
+        </Link>
       </div>
     </>
   )
