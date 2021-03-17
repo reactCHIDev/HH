@@ -23,9 +23,9 @@ const MainOrderInfo = ({ orderInfo }) => {
         price={orderInfo.booking.totalPrice}
         invoiceUrl={orderInfo.paymentDetails.receipt_url}
         chatData={{
-          id: orderInfo.foodmaker.id,
+          id: orderInfo.foodmaker.userId,
           profileName: orderInfo.foodmaker.profileName,
-          userPhoto: orderInfo.foodmaker.coverPhoto,
+          userPhoto: orderInfo.foodmaker.userPhoto,
         }}
       />
     </div>

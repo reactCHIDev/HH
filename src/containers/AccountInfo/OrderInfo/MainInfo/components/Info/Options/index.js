@@ -55,20 +55,13 @@ function Options({ setIsCancelModalShowm, total, orderInfo }) {
           to={{
             pathname: '/messages',
             state: {
-              id: orderInfo?.foodmaker?.id,
+              id: orderInfo?.foodmaker?.userId,
               profileName: orderInfo?.foodmaker?.profileName,
-              userPhoto: orderInfo?.foodmaker?.coverPhoto,
+              userPhoto: orderInfo?.foodmaker?.userPhoto,
             },
           }}
         >
-          <div
-            className={styles.expCancelBtn}
-            onClick={() => {
-              console.log('%c   cancel   ', 'color: darkgreen; background: palegreen;')
-            }}
-          >
-            Cancel booking
-          </div>
+          <div className={styles.expCancelBtn}>Cancel booking</div>
         </Link>
       </div>
     </>
