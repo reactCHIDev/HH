@@ -22,6 +22,11 @@ const MainOrderInfo = ({ orderInfo }) => {
         childs={orderInfo.booking.guests?.childs || 0}
         price={orderInfo.booking.totalPrice}
         invoiceUrl={orderInfo.paymentDetails.receipt_url}
+        chatData={{
+          id: orderInfo.foodmaker.id,
+          profileName: orderInfo.foodmaker.profileName,
+          userPhoto: orderInfo.foodmaker.coverPhoto,
+        }}
       />
     </div>
   ) : null

@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import people from 'assets/icons/svg/people.svg'
 import styles from './expInfo.module.scss'
 
-function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
+function ExpInfo({ date, adults, childs, price, invoiceUrl, chatData }) {
   const day = new Date(date).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -65,14 +67,21 @@ function ExpInfo({ date, adults, childs, price, invoiceUrl }) {
       <div className={styles.locationContainer}>
         <div className={styles.heading}>Location</div>
         <div className={styles.text}>36 Sin Ming Industrial Est Sector A</div>
-        <div
-          className={styles.expCancelBtn}
-          onClick={() => {
-            console.log('%c   cancel   ', 'color: darkgreen; background: palegreen;')
+        <Link
+          to={{
+            pathname: '/messages',
+            state: chatData,
           }}
         >
-          Cancel order
-        </div>
+          <div
+            className={styles.expCancelBtn}
+            onClick={() => {
+              console.log('%c   cancel   ', 'color: darkgreen; background: palegreen;')
+            }}
+          >
+            Cancel booking
+          </div>
+        </Link>
       </div>
       {/* <div></div> */}
       {/* <div></div> */}
