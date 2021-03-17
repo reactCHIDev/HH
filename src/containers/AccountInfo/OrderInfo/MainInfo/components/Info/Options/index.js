@@ -55,10 +55,9 @@ function Options({ setIsCancelModalShowm, total, orderInfo }) {
           to={{
             pathname: '/messages',
             state: {
-              id: 668,
-              profileName: 'Sasha',
-              userPhoto:
-                'https://hungryhugger-space.fra1.digitaloceanspaces.com/84499c8a-e2e0-46e3-820a-e478f1a7edc9_1611823430013.jpg',
+              id: orderInfo?.foodmaker?.id,
+              profileName: orderInfo?.foodmaker?.profileName,
+              userPhoto: orderInfo?.foodmaker?.coverPhoto,
             },
           }}
         >
