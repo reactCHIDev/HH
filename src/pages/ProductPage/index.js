@@ -65,6 +65,7 @@ const ProductPage = (props) => {
         </Space>
       </div>
     )
+
   return (
     <div className={styles.frame}>
       <div className={styles.product}>
@@ -84,7 +85,7 @@ const ProductPage = (props) => {
               />
               <div className={styles.card_link} onClick={openFoodmaker}>
                 <AboutMaker
-                  name={info.userProfile.firstName}
+                  name={fm.profileName}
                   text={info.userProfile.about}
                   photo={info.userProfile.coverPhoto}
                 />
