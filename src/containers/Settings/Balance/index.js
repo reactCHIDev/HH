@@ -196,7 +196,7 @@ const Balance = () => {
             )}
             <div className={styles.btn_container}>
               {isBankDataNotificationShown && (
-                <div className={styles.bank_data_notification}>Saved successfully</div>
+                <div className={styles.bank_data_notification}>Saved successful</div>
               )}
               <button
                 type="submit"

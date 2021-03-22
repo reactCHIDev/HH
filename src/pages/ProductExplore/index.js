@@ -32,7 +32,7 @@ const ProductExplore = (props) => {
 
   const [isVisiblePriceSelector, setVisibilityPriceSelector] = React.useState(false)
   const [minPrice, setMinPrice] = React.useState(0)
-  const [maxPrice, setMaxPrice] = React.useState(100)
+  const [maxPrice, setMaxPrice] = React.useState(1000)
 
   const dispatch = useDispatch()
 

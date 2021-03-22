@@ -314,7 +314,7 @@ const Security = ({
         </Modal>
       )}
       {error && <Error msg={error} close={modalClose} />}
-      {success && <div className={styles.success}>Saved successfully</div>}
+      {success && <div className={styles.success}>Saved successful</div>}
       {error && (
         <div className={styles.error}>
           There was an error while saving changes, please try again

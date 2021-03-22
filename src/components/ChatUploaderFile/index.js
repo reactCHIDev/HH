@@ -31,7 +31,7 @@ const UploaderFile = ({ setFileList, setActiveNext }) => {
       }
       if (info.file.status === 'done') {
         setFileList(info.fileList.map((e) => e.response.url))
-        message.success(`${info.file.name} file uploaded successfully`)
+        message.success(`${info.file.name} file uploaded successful`)
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
       }

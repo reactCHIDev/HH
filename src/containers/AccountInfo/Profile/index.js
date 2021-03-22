@@ -57,7 +57,7 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
       <div className={styles.data_container}>
         <p className={styles.subhead}>User info</p>
         <div id="uploader" className={styles.uploader}>
-          {success && <div className={styles.success}>Saved successfully</div>}
+          {success && <div className={styles.success}>Saved successful</div>}
           <AvaUploader avatarUrl={avatar} setAvatar={setAvatar} />
           <p className={styles.change_photo} onClick={changePhoto}>
             CHANGE USER’S PHOTO
