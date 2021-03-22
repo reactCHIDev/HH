@@ -19,7 +19,7 @@ function index({ item }) {
           <div className={styles.method}>{`${item.card.brand} *${item.card.number}`}</div>
           <div
             className={styles.status}
-            style={item.status === 'Successfull' ? { color: '#7AD398' } : {}}
+            style={item.status === 'Successful' ? { color: '#7AD398' } : {}}
           >
             {item.status}
           </div>
