@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import T from 'prop-types'
 import Button from 'components/Button'
 import EditIcon from 'assets/icons/svg/editor-icon.svg'
@@ -15,6 +15,8 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
 
   const [avatar, setAvatar] = useState('')
   const [name, setName] = useState('')
+
+  const userNameField = useRef(null)
 
   const onSubmit = () => {
     const payload = {}
@@ -52,6 +54,11 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
     setAvatar('')
   }
 
+  const editUsername = () => {
+    setName('')
+    userNameField.current.focus()
+  }
+
   return (
     <div className={styles.info_container}>
       <div className={styles.data_container}>
@@ -67,13 +74,14 @@ const Profile = ({ account, getUserAccount, updatePhotoNameAC }) => {
           <div className={styles.content}>
             <p className={styles.label}>Username</p>
             <input
+              ref={userNameField}
               className={styles.input_name}
               type="text"
               onChange={onChangeInput}
               value={name}
             />
           </div>
-          <div className={styles.edit_icon}>
+          <div className={styles.edit_icon} onClick={editUsername}>
             <img src={EditIcon} alt="edit" />
           </div>
         </div>
