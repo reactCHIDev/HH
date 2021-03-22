@@ -6,7 +6,7 @@ import styles from './fmcard.module.scss'
 
 const FMCard = (props) => {
   const { foodmaker, pushRoute } = props
-  const { hungryHuggerLink, userPhoto, coverPhoto, otherPhotos, firstName, tags } = foodmaker
+  const { hungryHuggerLink, userPhoto, coverPhoto, otherPhotos, profileName, tags } = foodmaker
 
   const openFoodmaker = () => pushRoute(`/${hungryHuggerLink.split('/').pop()}`)
 
@@ -41,7 +41,7 @@ const FMCard = (props) => {
               {userPhoto ? <img src={userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
             </div>
             <div className={styles.local_name}>
-              {firstName}
+              {profileName}
               <p>{tags.join(', ')}</p>
             </div>
           </div>

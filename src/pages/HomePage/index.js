@@ -104,43 +104,13 @@ const Home = (props) => {
       </section>
 
       <div className={styles.content}>
-        <div className={styles.product_section}>
-          {experiencesCollection.map(
-            (el) =>
-              el?.experience?.coverPhoto && (
-                <ExpCard
-                  photo={el.experience.coverPhoto}
-                  tags={el.experience.tagIds.map((i) => i.tagName)}
-                  name={el.experience.title}
-                  price={el.experience?.priceChild || el.experience.priceAdult}
-                  rating={el.experience.rating}
-                  rateCount={el.experience.votes}
-                  pathname={`/experience/${el.experience.id}`}
-                  id={el.experience.id}
-                  isFavorite={el.isFavorite}
-                  key={el.experience.id}
-                />
-              ),
-          )}
-          <div className={styles.btn_holder}>
-            {isLoading ? (
-              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
-                <Space size="middle">
-                  <Spin size="large" />
-                </Space>
-              </div>
-            ) : (
-              <Button title="Explore more" dark onClick={moreExperiences} />
-            )}
-          </div>
-        </div>
         <section className={styles.product_section}>
           <div className={styles.product_bg_container}>
             <img src={Pattern2} alt="Pattern2" />
-            <h1>Local products</h1>
+            <h1>Shop local makers</h1>
             <p className={styles.slogan}>
-              Got a party to plan? Make a group booking for a masterclass or a winery, brewery or
-              distillery tour.{' '}
+              Looking for something unique? Discover and shop custom or limited products by your
+              local makers.
             </p>
           </div>
           {productCollection?.length &&
@@ -172,31 +142,72 @@ const Home = (props) => {
             )}
           </div>
         </section>
-      </div>
 
-      <section className={styles.local_makers_content}>
-        <div className={styles.local_makers_container}>
-          <h1>
-            <p>
-              {' '}
-              <img src={hands} alt="img" />
-            </p>
-            Your local food makers
-          </h1>
+        <section className={styles.local_makers_content}>
+          <div className={styles.local_makers_container}>
+            <h1>
+              <div>
+                <img src={hands} alt="img" />
+              </div>
+              <p>Your local food makers</p>
+              <p className={styles.slogan}>
+                Planing for an event? Enquire your local artisan maker.
+              </p>
+            </h1>
 
-          <div className={styles.local_tree_columns}>
-            {foodmakerCollection &&
-              foodmakerCollection.length > 0 &&
-              foodmakerCollection.map((fm) => (
-                <FMCard key={fm.id} foodmaker={fm} pushRoute={pushRoute} />
-              ))}
+            <div className={styles.local_tree_columns}>
+              {foodmakerCollection &&
+                foodmakerCollection.length > 0 &&
+                foodmakerCollection.map((fm) => (
+                  <FMCard key={fm.id} foodmaker={fm} pushRoute={pushRoute} />
+                ))}
+            </div>
+
+            <div className={styles.btn_holder}>
+              <Button title="Explore foodmakers" dark onClick={moreFoodmakers} />
+            </div>
           </div>
+        </section>
 
+        <div className={styles.product_section}>
+          <div className={styles.product_bg_container}>
+            <img src={Pattern2} alt="Pattern2" />
+            <h1>Shop local experiences</h1>
+            <p className={styles.slogan}>
+              Got a party to plan? Make a group booking for a masterclass` or a winery, brewery or
+              distillery tour.
+            </p>
+          </div>
+          {experiencesCollection.map(
+            (el) =>
+              el?.experience?.coverPhoto && (
+                <ExpCard
+                  photo={el.experience.coverPhoto}
+                  tags={el.experience.tagIds.map((i) => i.tagName)}
+                  name={el.experience.title}
+                  price={el.experience?.priceChild || el.experience.priceAdult}
+                  rating={el.experience.rating}
+                  rateCount={el.experience.votes}
+                  pathname={`/experience/${el.experience.id}`}
+                  id={el.experience.id}
+                  isFavorite={el.isFavorite}
+                  key={el.experience.id}
+                />
+              ),
+          )}
           <div className={styles.btn_holder}>
-            <Button title="Explore foodmakers" dark onClick={moreFoodmakers} />
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+                <Space size="middle">
+                  <Spin size="large" />
+                </Space>
+              </div>
+            ) : (
+              <Button title="Explore more" dark onClick={moreExperiences} />
+            )}
           </div>
         </div>
-      </section>
+      </div>
 
       <FAQSection />
 

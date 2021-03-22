@@ -410,7 +410,7 @@ const FoodmakerProfile = (props) => {
                 </div>
               </div>
             </div>
-            {success && <div className={styles.success}>Saved successfully</div>}
+            {success && <div className={styles.success}>Saved successful</div>}
             <div className={styles.submit_wrapper}>
               <Button
                 type="primary"

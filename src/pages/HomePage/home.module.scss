@@ -287,6 +287,26 @@
       margin: 0 auto;
       max-width: 1240px;
       padding: 0 15px;
+
+      .slogan {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        opacity: 0.8;
+        color: #3c3e43;
+
+        @media (max-width: 1200px) {
+          font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+          font-size: 16px;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 15px;
+        }
+      }
     }
 
     h1 {
@@ -325,7 +345,7 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      margin: 0 -16px;
+      margin: 0 -40px;
 
       @media (max-width: 1200px) {
         margin: 0 -10px;

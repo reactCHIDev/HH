@@ -482,7 +482,7 @@ const ShopProfile = (props) => {
             </div>
           </div>
           <div className={styles.apply_btn}>
-            {success && <div className={styles.success}>Saved successfully</div>}
+            {success && <div className={styles.success}>Saved successful</div>}
             <Form.Item>
               <Button type="primary" block size="large" loading={requesting} htmlType="submit">
                 SAVE

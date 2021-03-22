@@ -129,7 +129,7 @@ const AddProduct = (props) => {
             </div>
             {edit && (
               <div className={styles.btn_preview}>
-                {success && <div className={styles.success}>Copied successfully</div>}
+                {success && <div className={styles.success}>Copied successful</div>}
                 <Button
                   type="default"
                   block
@@ -144,7 +144,7 @@ const AddProduct = (props) => {
           </div>
           <div className={styles.mobile_stepper}>
             <div className={styles.info_container}>
-              {success && <div className={styles.success}>Copied successfully</div>}
+              {success && <div className={styles.success}>Copied successful</div>}
               <div className={styles.mobile_step}>{`Step ${step + 1} of ${4 - firstStep}`}</div>
               {step > 0 && (
                 <div className={styles.mobile_preview} onClick={prevStep}>

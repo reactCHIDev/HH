@@ -30,7 +30,7 @@ function SearchBlock() {
   const [searchTitleValue, setSearchTitleValue] = React.useState(getInitialSearchValue)
 
   const [minPrice, setMinPrice] = React.useState(0)
-  const [maxPrice, setMaxPrice] = React.useState(100)
+  const [maxPrice, setMaxPrice] = React.useState(1000)
   const [isVisiblePriceSelector, setVisibilityPriceSelector] = React.useState(false)
   const [selectedCategories, updateSelectedCategories] = React.useState([])
 
