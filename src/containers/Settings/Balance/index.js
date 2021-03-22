@@ -82,7 +82,7 @@ const Balance = () => {
           <div className={styles.description}>
             <img src={Info} alt="icon" />
             Payment is process every Monday after each booking occurred. It may take 3-5 business
-            days to reach days your nominated account.
+            days to reach days your nominated account. Payment is to be processed every Monday.
           </div>
           <div className={styles.form_item}>
             <div className={styles.label}>Bank name</div>

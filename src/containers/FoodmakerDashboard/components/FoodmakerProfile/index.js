@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { getUserAccount } from 'actions/account'
 import { updateFoodmakerAccountAC } from 'actions/foodmaker'
-import { getSpecialityTagsAC } from 'actions/system'
+import { getSpecialityTagsAC, getServiceTagsAC } from 'actions/system'
 import { getUserByHHLink } from 'api/requests/Account'
 import { Button, Select } from 'antd'
 
@@ -24,9 +24,11 @@ const FoodmakerProfile = (props) => {
   const {
     account,
     specialityTags,
+    serviceTags,
     getUserAccount,
     updateFoodmakerAccountAC,
     getSpecialityTagsAC,
+    getServiceTagsAC,
   } = props
 
   const { id, success, requesting } = account
@@ -59,7 +61,7 @@ const FoodmakerProfile = (props) => {
   }
 
   const handleChangeTags = (selectedItms) => {
-    setSelectedItems(selectedItms)
+    setSelectedItems(selectedItms.slice(0, 5))
   }
   const handleChangeLangs = (selectedLngs) => {
     setSelectedLangs(selectedLngs)
@@ -84,6 +86,7 @@ const FoodmakerProfile = (props) => {
   useEffect(() => {
     if (id) getUserAccount(id)
     getSpecialityTagsAC()
+    getServiceTagsAC()
   }, [getUserAccount, getSpecialityTagsAC, id])
 
   useEffect(() => {
@@ -123,11 +126,11 @@ const FoodmakerProfile = (props) => {
   }, [fileList])
 
   useEffect(() => {
-    if (specialityTags && specialityTags.length) {
-      setTags(specialityTags)
-    }
+    if (specialityTags && specialityTags.length && serviceTags && serviceTags.length)
+      setTags(specialityTags.concat(serviceTags))
+
     // eslint-disable-next-line
-  }, [specialityTags])
+  }, [specialityTags, serviceTags])
 
   useEffect(() => {
     generateQR(hungryHuggerLink)
@@ -275,7 +278,7 @@ const FoodmakerProfile = (props) => {
                   </div>
 
                   <div className={styles.last_name}>
-                    <label className={styles.label}>First name</label>
+                    <label className={styles.label}>Last name</label>
                     <input
                       className={styles.input}
                       name="lastName"
@@ -320,7 +323,7 @@ const FoodmakerProfile = (props) => {
                     style={{ width: '100%' }}
                   >
                     {filteredTags.map((item) => (
-                      <Select.Option key={item.id} value={item.tagName}>
+                      <Select.Option key={item.tagName + item.id} value={item.tagName}>
                         {item.tagName}
                       </Select.Option>
                     ))}
@@ -434,12 +437,22 @@ FoodmakerProfile.propTypes = {
   getUserAccount: T.func,
   updateFoodmakerAccountAC: T.func,
   getSpecialityTagsAC: T.func,
+  getServiceTagsAC: T.func,
   account: T.shape(),
   specialityTags: T.arrayOf(T.shape()),
+  serviceTags: T.arrayOf(T.shape()),
 }
 
-export default connect(({ account, system: { specialityTags } }) => ({ account, specialityTags }), {
-  getUserAccount,
-  updateFoodmakerAccountAC,
-  getSpecialityTagsAC,
-})(FoodmakerProfile)
+export default connect(
+  ({ account, system: { specialityTags, serviceTags } }) => ({
+    account,
+    specialityTags,
+    serviceTags,
+  }),
+  {
+    getUserAccount,
+    updateFoodmakerAccountAC,
+    getSpecialityTagsAC,
+    getServiceTagsAC,
+  },
+)(FoodmakerProfile)
