@@ -87,7 +87,7 @@ const ProductPage = (props) => {
                 <AboutMaker
                   name={fm.profileName}
                   text={info.userProfile.about}
-                  photo={info.userProfile.coverPhoto}
+                  photo={fm.userPhoto}
                 />
               </div>
             </div>
