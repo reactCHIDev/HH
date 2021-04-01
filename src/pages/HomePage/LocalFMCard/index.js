@@ -6,7 +6,15 @@ import styles from './fmcard.module.scss'
 
 const FMCard = (props) => {
   const { foodmaker, pushRoute } = props
-  const { hungryHuggerLink, userPhoto, coverPhoto, otherPhotos, profileName, tags } = foodmaker
+  const {
+    hungryHuggerLink,
+    userPhoto,
+    coverPhoto,
+    otherPhotos,
+    profileName,
+    tags,
+    rating,
+  } = foodmaker
 
   const openFoodmaker = () => pushRoute(`/${hungryHuggerLink.split('/').pop()}`)
 
@@ -46,7 +54,11 @@ const FMCard = (props) => {
             </div>
           </div>
           <div className={styles.local_raiting_holder}>
-            <Rate style={{ color: '#31394C' }} disabled defaultValue={3} /* value={rating} */ />
+            <Rate
+              style={{ color: '#31394C' }}
+              disabled
+              defaultValue={rating} /* value={rating} */
+            />
             {/* <p>4,3 for 32 experiences</p> */}
           </div>
         </div>
