@@ -25,11 +25,11 @@ const ProductDashboard = (props) => {
         onChange={onChange}
         activeTab={activeTab || 'listings'}
         tabs={{
-          overview: { mark: false, disabled: true, content: <Soon /> },
+          // overview: { mark: false, disabled: true, content: <Soon /> },
           listings: { mark: false, content: <Listings /> },
           orders: { mark: false, disabled: false, content: <OrdersFM /> },
           reviews: { mark: false, disabled: false, content: <Reviews /> },
-          performance: { mark: false, disabled: true, content: <Soon /> },
+          // performance: { mark: false, disabled: true, content: <Soon /> },
         }}
       />
     </div>
