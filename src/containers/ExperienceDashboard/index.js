@@ -28,11 +28,11 @@ const ExperienceDashboard = (props) => {
         onChange={onChange}
         activeTab={activeTab || 'listings'}
         tabs={{
-          overview: { mark: false, disabled: true, content: <Soon /> },
+          // overview: { mark: false, disabled: true, content: <Soon /> },
           listings: { mark: false, content: <ExpListings /> },
           booking: { mark: false, disabled: false, content: <BookingHistory /> },
           reviews: { mark: false, disabled: false, content: <ReviewsContainer /> },
-          performance: { mark: false, disabled: true, content: <Soon /> },
+          // performance: { mark: false, disabled: true, content: <Soon /> },
         }}
       />
     </div>
