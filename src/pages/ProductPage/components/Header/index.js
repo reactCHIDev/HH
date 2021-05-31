@@ -1,6 +1,7 @@
 import React from 'react'
 import T from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+import {useHistory} from "react-router-dom";
 import toggleFavouriteAc from 'actions/favourites'
 import LikeIcon from 'assets/icons/svg/like-icon.svg'
 import LikeIconGray from 'assets/icons/svg/like-icon-gray.svg'
@@ -9,16 +10,21 @@ import ShareIcon from 'assets/icons/svg/share-icon.svg'
 import styles from './header.module.scss'
 import './header.less'
 
-const Header = ({ text, isFavourite, id }) => {
+
+const Header = ({ text, isFavourite, id, isAuth }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [isFavorite, setIsFavorite] = React.useState(isFavourite)
   const [success, setSuccess] = React.useState(false)
 
   const pathname = useSelector((state) => state.router.location.pathname)
 
   const likeClick = () => {
-    setIsFavorite((f) => !f)
-    dispatch(toggleFavouriteAc({ id, type: 'product' }))
+    if (isAuth) {
+      setIsFavorite((f) => !f)
+      dispatch(toggleFavouriteAc({ id, type: 'product' }))
+    }
+    else history.push('/login')
   }
 
   const shareClick = () => {

@@ -34,6 +34,7 @@ import Review from './components/Review'
 import SliderSection from './components/SliderSection'
 import styles from './foodmaker_page.module.scss'
 import './foodmaker_page.less'
+import {useHistory} from "react-router";
 
 const FoodmakerPage = (props) => {
   const {
@@ -42,6 +43,7 @@ const FoodmakerPage = (props) => {
     resolveFoodmakerDataAC,
     pushRoute,
     toggleFavouriteAc,
+    isAuth
     /* getUserByLink,
     getFoodmakerInfoAC,
     getFoodmakerInfoByNameAC,
@@ -50,6 +52,7 @@ const FoodmakerPage = (props) => {
   } = props
 
   const { userName } = useParams()
+  const history = useHistory()
 
   const [readMore, setReadMore] = useState(false)
   const [gallery, setGallery] = useState([])
@@ -71,6 +74,7 @@ const FoodmakerPage = (props) => {
   }, [fm])
 
   const onLikeCLick = () => {
+    if (isAuth) {
       if (isFavorite) {
         setInFavoite((c) => c - 1)
       } else {
@@ -78,6 +82,7 @@ const FoodmakerPage = (props) => {
       }
       setIsFavorite((f) => !f)
       toggleFavouriteAc({id: fm.id, type: 'foodmaker'})
+    } else history.push('/login')
   }
 
   const onReadMore = () => setReadMore(!readMore)
@@ -210,7 +215,7 @@ FoodmakerPage.propTypes = {
   getShopByFoodmakerIdAC: T.func.isRequired, */
 }
 
-export default connect(({ pages }) => ({ fm: pages.foodmakerData, shop: pages.shopData}), {
+export default connect(({ pages, login }) => ({ fm: pages.foodmakerData, shop: pages.shopData, isAuth: login.authorized}), {
   getFoodmakerInfoAC,
   getFoodmakerInfoByNameAC,
   getShopByFoodmakerIdAC,

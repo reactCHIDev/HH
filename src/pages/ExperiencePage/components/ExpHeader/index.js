@@ -19,8 +19,9 @@ import GuestsSelector from '../GuestsSelector'
 import Calendar from '../Calendar'
 import styles from './exp_page_header.module.scss'
 import './exp_page_header.less'
+import {useHistory} from "react-router-dom";
 
-const ExpHeader = ({ experience, user }) => {
+const ExpHeader = ({ experience, user, isAuth }) => {
   const {
     title,
     id,
@@ -33,9 +34,10 @@ const ExpHeader = ({ experience, user }) => {
     time,
     priceAdult,
     priceChild,
-    isFavorite,
+    isFavorite
   } = experience
   const { firstName, lastName } = user
+
 
   const [selectedDate, setSelectedDate] = useState()
   const [selectedTime, setSelectedTime] = useState('')
@@ -53,6 +55,7 @@ const ExpHeader = ({ experience, user }) => {
   const pathname = useSelector((state) => state.router.location.pathname)
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
     // time
@@ -169,8 +172,11 @@ const ExpHeader = ({ experience, user }) => {
   }
 
   const likeClick = () => {
-    setIsFavourite((f) => !f)
-    dispatch(toggleFavouriteAc({ id, type: 'exp' }))
+    if (isAuth) {
+      setIsFavourite((f) => !f)
+      dispatch(toggleFavouriteAc({ id, type: 'exp' }))
+    }
+    else history.push('/login')
   }
 
   const shareClick = () => {

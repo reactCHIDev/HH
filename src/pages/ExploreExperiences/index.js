@@ -11,6 +11,8 @@ import styles from './expexp.module.scss'
 
 const ExploreExp = () => {
   const fmData = useSelector((state) => state.search.data)
+  const isAuth = useSelector(state => state.login.authorized)
+
 
   return (
     <div>
@@ -46,6 +48,7 @@ const ExploreExp = () => {
                       id={el.experience.id}
                       isFavorite={el.isFavorite}
                       key={el.experience.id}
+                      isAuth={isAuth}
                     />
                   ),
               )
