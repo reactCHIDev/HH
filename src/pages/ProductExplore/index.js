@@ -19,6 +19,7 @@ import styles from './prodexp.module.scss'
 const ProductExplore = (props) => {
   const productsData = useSelector((state) => state.search.data)
   const productTypes = useSelector((state) => state.system.productTypes)
+  const isAuth = useSelector(state => state.login.authorized)
 
   const [productTypeToShow, setProductTypeToShow] = React.useState()
   const [productTypesToChoose, setProductTypesToChoose] = React.useState([])
@@ -220,6 +221,7 @@ const ProductExplore = (props) => {
                     rateCount={Number(item.votes)}
                     isShowCart
                     product={item}
+                    isAuth={isAuth}
                   />
                 ),
             )}
