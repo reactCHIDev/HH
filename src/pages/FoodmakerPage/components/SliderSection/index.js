@@ -95,15 +95,19 @@ const SliderSection = (props) => {
     useCSS: true,
     swipeToSlide: true,
     dots: false,
-    arrows: true,
+    arrows: false,
     infinite: false,
     speed: 500,
-    slidesToShow: containerWidth / 160,
+    slidesToShow: 1,
     slidesToScroll: 1,
     focusOnSelect: true,
+    variableWidth: true,
+    centerMode: true
   }
 
-  const onClick = (e) => setIndex(e.currentTarget.id)
+  const onClick = (e) => {
+    setIndex(e.currentTarget.id)
+  }
 
   return (
     <div className={styles.container}>

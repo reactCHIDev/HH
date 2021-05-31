@@ -3,13 +3,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
-import { connect } from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import { push } from 'connected-react-router'
 import { Redirect, Link, useParams } from 'react-router-dom'
 import cls from 'classnames'
 import { Spin, Space, Rate } from 'antd'
 import { getFoodmakerInfoAC, getFoodmakerInfoByNameAC } from 'actions/foodmaker'
-import { getUserByLinkAC } from 'actions/account'
+import {getUserAccount, getUserByLinkAC} from 'actions/account'
 import toggleFavouriteAc from 'actions/favourites'
 import AvatarPlaceholder from 'components/AvatarPlaceholder'
 
@@ -71,13 +71,13 @@ const FoodmakerPage = (props) => {
   }, [fm])
 
   const onLikeCLick = () => {
-    if (isFavorite) {
-      setInFavoite((c) => c - 1)
-    } else {
-      setInFavoite((c) => c + 1)
-    }
-    setIsFavorite((f) => !f)
-    toggleFavouriteAc({ id: fm.id, type: 'foodmaker' })
+      if (isFavorite) {
+        setInFavoite((c) => c - 1)
+      } else {
+        setInFavoite((c) => c + 1)
+      }
+      setIsFavorite((f) => !f)
+      toggleFavouriteAc({id: fm.id, type: 'foodmaker'})
   }
 
   const onReadMore = () => setReadMore(!readMore)
@@ -210,12 +210,12 @@ FoodmakerPage.propTypes = {
   getShopByFoodmakerIdAC: T.func.isRequired, */
 }
 
-export default connect(({ pages }) => ({ fm: pages.foodmakerData, shop: pages.shopData }), {
+export default connect(({ pages }) => ({ fm: pages.foodmakerData, shop: pages.shopData}), {
   getFoodmakerInfoAC,
   getFoodmakerInfoByNameAC,
   getShopByFoodmakerIdAC,
   pushRoute: push,
   getUserByLink: getUserByLinkAC,
   resolveFoodmakerDataAC,
-  toggleFavouriteAc,
+  toggleFavouriteAc
 })(FoodmakerPage)
