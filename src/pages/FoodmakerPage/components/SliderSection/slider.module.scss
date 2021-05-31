@@ -17,17 +17,16 @@
     }
     .preview_slider_container {
       position: absolute;
-      bottom: 80px;
-      right: 50px;
-      width: 45%;
-      height: 60px;
+      bottom: -120px;
+      width: 60%;
+      left: 22%;
       @media (max-width: 1024px) {
         display: none;
       }
       .preview_container {
         width: 160px;
         height: 120px;
-        padding: 20px;
+        padding: 20px 0;
         border-radius: 12px;
         overflow: hidden;
         display: flex;
@@ -35,10 +34,12 @@
         justify-content: center;
         align-items: center;
         border: 4px solid transparent;
+        filter: opacity(50%);
         .preview_img_container {
           width: 120px;
           height: 80px;
-          padding: 0px;
+          padding: 0;
+          margin: 0 auto;
           border-radius: 12px;
           overflow: hidden;
           .preview_slider_img {
@@ -56,10 +57,11 @@
         }
       }
       .active_preview_container {
-        padding: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 10px 0;
+        filter: opacity(100%);
       }
     }
     .product_book {
