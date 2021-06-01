@@ -22,9 +22,11 @@ function* basketFlow({ data }) {
   const isDiscount = amount + 1 > data.discount.quantity
 
   const getOrdersData = (store) => store.cart
-  const { orders, shopsData } = yield select(getOrdersData)
+  const { orders, shopsData, products } = yield select(getOrdersData)
 
-  yield put({ type: SET_ITEM_TO_PRODUCTS, id })
+  if (!products.includes(data.id)) {
+    yield put({ type: SET_ITEM_TO_PRODUCTS, id })
+  }
 
   if (!(shop.title in shopsData)) {
     try {
@@ -70,12 +72,15 @@ function* basketFlow({ data }) {
         ...data,
         ...{
           total: order.total + 1,
-          totalPrice: isDiscount
-            ? (amount || 1) * price * (1 - data.discount.discount / 100)
-            : (amount || 1) * price,
         },
+        totalPrice: isDiscount
+          ? (order.total + 1) * price * (1 - data.discount.discount / 100)
+          : (order.total + 1) * price,
       })
-      yield put({ type: SET_ITEM_IN_ORDERS, newState: { [shop.title]: newOrders } })
+      yield put({
+        type: SET_ITEM_IN_ORDERS,
+        newState: { [shop.title]: newOrders },
+      })
     } catch {
       console.log('error in saga when add new product to exact shop')
       yield put({
