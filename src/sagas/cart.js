@@ -64,16 +64,18 @@ function* basketFlow({ data }) {
   if (shop.title in orders) {
     try {
       const newState = cloneDeep(orders)
-      newState[shop.title].push({
+      const newOrders = newState[shop.title].filter((item) => item.id !== data.id)
+      const order = newState[shop.title].find((item) => item.id === data.id)
+      newOrders.push({
         ...data,
         ...{
-          total: amount || 1,
+          total: order.total + 1,
           totalPrice: isDiscount
             ? (amount || 1) * price * (1 - data.discount.discount / 100)
             : (amount || 1) * price,
         },
       })
-      yield put({ type: SET_ITEM_IN_ORDERS, newState })
+      yield put({ type: SET_ITEM_IN_ORDERS, newState: { [shop.title]: newOrders } })
     } catch {
       console.log('error in saga when add new product to exact shop')
       yield put({
