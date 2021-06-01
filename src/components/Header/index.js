@@ -56,7 +56,6 @@ const Header = (props) => {
   const [item, setItem] = useState('')
 
   const settingsСontainer = useRef(null)
-  console.log(authorized)
 
   const lightTheme = [
     '/signupflow',

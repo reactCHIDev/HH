@@ -1,35 +1,28 @@
 /* eslint-disable no-param-reassign */
-import { put, takeLatest, select } from 'redux-saga/effects'
+import { put, select, takeLatest } from 'redux-saga/effects'
 import cloneDeep from 'lodash/cloneDeep'
 
 import { getShopByUrlReq } from 'api/requests/Shop'
 
 import {
-  ADD_PRODUCT_TO_BASKET,
-  SET_ITEM_TO_PRODUCTS,
-  DELETE_ITEM_FROM_PRODUCTS,
-  SET_ITEM_IN_ORDERS,
-  SET_SHOP_DATA,
   ADD_ITEM_TO_ORDER,
-  DELETE_PRODUCT_FROM_LIST,
-  DELETE_PRODUCT_AND_SHOP_FROM_LIST,
-  INC_PRODUCT_AMOUNT,
+  ADD_PRODUCT_TO_BASKET,
   DEC_PRODUCT_AMOUNT,
+  DELETE_PRODUCT_AND_SHOP_FROM_LIST,
+  DELETE_PRODUCT_FROM_LIST,
+  INC_PRODUCT_AMOUNT,
+  SET_ITEM_IN_ORDERS,
+  SET_ITEM_TO_PRODUCTS,
+  SET_SHOP_DATA,
   UPDATE_CART,
 } from '../actions/constants'
 
 function* basketFlow({ data }) {
-  const { title, shop, price, amount, id } = data
+  const { title, shop, price, amount = 1, id } = data
   const isDiscount = amount + 1 > data.discount.quantity
 
   const getOrdersData = (store) => store.cart
-  const { products, orders, shopsData } = yield select(getOrdersData)
-
-  if (products.includes(id)) {
-    const { title: shopTitle } = shop
-    yield put({ type: DELETE_ITEM_FROM_PRODUCTS, data: { id, title, shopTitle, price } })
-    return
-  }
+  const { orders, shopsData } = yield select(getOrdersData)
 
   yield put({ type: SET_ITEM_TO_PRODUCTS, id })
 
@@ -63,7 +56,6 @@ function* basketFlow({ data }) {
         type: DELETE_PRODUCT_FROM_LIST,
         id,
       })
-      return
     }
   } else {
     yield put({ type: ADD_ITEM_TO_ORDER, data: { shop: shop.title, price: 20 } })
