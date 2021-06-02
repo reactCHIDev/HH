@@ -86,11 +86,11 @@ function* basketFlow({ data }) {
         newOrders.push({
           ...data,
           ...{
-            total: order.total + 1
+            total: order.total + amount
           },
           totalPrice: isDiscount
-            ? (order.total + 1) * price * (1 - data.discount.discount / 100)
-            : (order.total + 1) * price
+            ? (order.total + amount) * price * (1 - data.discount.discount / 100)
+            : (order.total + amount) * price
         });
         yield put({
           type: SET_ITEM_IN_ORDERS,
