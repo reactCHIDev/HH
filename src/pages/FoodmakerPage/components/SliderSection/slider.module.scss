@@ -2,13 +2,13 @@
   .content {
     position: relative;
     .slider_container {
-      width: 100%;
+      width: 900px;
+      margin: 0 auto;
       .img_container {
         width: 100%;
         padding: 10px;
-        border-radius: 0px;
         overflow: hidden;
-
+        border-radius: 16px;
         .slider_img {
           width: 100%;
           object-fit: cover;
