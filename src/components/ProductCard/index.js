@@ -43,19 +43,10 @@ const ProdCard = (props) => {
 
   const onClick = () => pushRoute(`${pathname}/${id}`)
 
-<<<<<<< HEAD
-    const onProductClick = (productData, e) => {
-        e.stopPropagation()
-        if (isRequesting) {
-            return
-        }
-        dispatch(addProductToBasket({...productData, amount: 1}))
-=======
   const onProductClick = (productData, e) => {
     e.stopPropagation()
     if (isRequesting) {
       return
->>>>>>> 8a81cb29807d186bad217fa6fea6bdb438b299b5
     }
     dispatch(addProductToBasket({ ...productData, amount: 1 }))
   }

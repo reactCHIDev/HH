@@ -112,7 +112,6 @@ const reducer = function cartReducer(state = initialState, action) {
         orders: action.newState,
         isRequesting: false,
       }
-      console.log(action.newState)
       setItem('cart', newState)
       return newState
 
