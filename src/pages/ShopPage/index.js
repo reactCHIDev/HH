@@ -33,6 +33,7 @@ import Pattern2 from 'assets/images/pattern 2.svg'
 import Shop from 'assets/images/landings/create_shop/shop.svg'
 import Avatar from 'assets/images/landings/create_shop/avatar.jpg'
 import styles from './shop_page.module.scss'
+import { useHistory } from "react-router";
 
 const ShopPage = (props) => {
   const {
@@ -45,22 +46,27 @@ const ShopPage = (props) => {
     getShopByFoodmakerIdAC,
     getShopByUrlAC,
     toggleFavouriteAc,
+    isAuth
   } = props
 
   const { shopName } = useParams()
+  const history = useHistory()
 
   const [productCount, setProductCount] = useState(6)
   const [isFavorite, setIsFavorite] = React.useState('')
   const [inFavorite, setInFavoite] = React.useState(0)
 
   const onLikeCLick = () => {
+    if (isAuth) {
+      setIsFavorite((f) => !f)
+      toggleFavouriteAc({ id: shop.id, type: 'shop' })
+    } else history.push('/login')
+
     if (isFavorite) {
       setInFavoite((c) => c - 1)
     } else {
       setInFavoite((c) => c + 1)
     }
-    setIsFavorite((f) => !f)
-    toggleFavouriteAc({ id: shop.id, type: 'shop' })
   }
 
   useEffect(() => {
@@ -216,7 +222,7 @@ ShopPage.propTypes = {
   pushRoute: T.func.isRequired,
 }
 
-export default connect(({ foodmaker, shop }) => ({ fm: foodmaker, shop: shop.shopData }), {
+export default connect(({ foodmaker, shop, login }) => ({ fm: foodmaker, shop: shop.shopData, isAuth: login.authorized }), {
   getFoodmakerInfoAC,
   getProductInfoRequestAC,
   getShopByFoodmakerIdAC,

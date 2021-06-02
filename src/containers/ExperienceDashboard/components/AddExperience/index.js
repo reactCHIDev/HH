@@ -24,6 +24,7 @@ import Step3 from './components/Steps/Step3'
 import Step4 from './components/Steps/Step4'
 import styles from './add_experience.module.scss'
 import './add_experience.less'
+import { getExpUnicTagsReq } from "../../../../api/requests/System";
 
 const AddExperience = (props) => {
   const {
@@ -49,8 +50,10 @@ const AddExperience = (props) => {
   const [stepper, setStepper] = useState(false)
   const [id, setId] = useState(null)
   const [modal, setModal] = useState(false)
+  const [unic, setUnic] = useState([])
 
   useEffect(() => {
+    getExpUnicTagsReq().then(r => setUnic(r.data))
     getProductTypes()
     getProductTagsRequestAC()
     getCountriesAC()

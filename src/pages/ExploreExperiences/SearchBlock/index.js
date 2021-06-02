@@ -79,6 +79,7 @@ function SearchBlock() {
         dataForSearch: {
           searchedValue: searchTitleValue,
           isExplore: true,
+          tags: 1,
           types: specialityTagsToShow
             .filter((item) => selectedItems.includes(item.title))
             .map((i) => i.id),

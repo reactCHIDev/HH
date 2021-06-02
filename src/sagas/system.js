@@ -127,6 +127,16 @@ function* getExpTagsSaga() {
     }
   }
 }
+// function* getExpTagsSaga() {
+//   try {
+//     const response = yield getExpTagsReq()
+//     yield put({ type: GET_EXP_TAGS_SUCCESS, data: response.data })
+//   } catch (error) {
+//     if (error.response) {
+//       yield put({ type: GET_EXP_TAGS_ERROR, error: error.response.data.error })
+//     }
+//   }
+// }
 
 function* accountWatcher() {
   yield takeEvery(GET_PRODUCT_TYPES_REQUESTING, getProductTypeSaga)
@@ -137,6 +147,7 @@ function* accountWatcher() {
   yield takeEvery(GET_COUNTRIES_REQUESTING, getCountriesSaga)
   yield takeEvery(GET_EXP_TYPES_REQUESTING, getExpTypesSaga)
   yield takeEvery(GET_EXP_TAGS_REQUESTING, getExpTagsSaga)
+  // yield takeEvery(GET_EXP_UNIC_TAGS_REQUESTING, getExpUnicTagsSaga)
 }
 
 export default accountWatcher
