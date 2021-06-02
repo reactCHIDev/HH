@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import T from 'prop-types'
 import { Select } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
@@ -51,18 +51,17 @@ const Toolbar = ({ params, isPreOrderOnly }) => {
       <div className={styles.price}>{getPrice(count)}</div>
       <div className={cls(styles.select_container, 'selects')}>
         <Select defaultValue={weightOption} onChange={handleWeightChange}>
-          {true &&
-            params
-              .map((p) => p.volume)
-              .map((weight) => (
-                <Option key={weight} value={weight}>
-                  {`${weight}${
-                    params.find((p) => p.volume === weight).measure === 'none'
-                      ? ''
-                      : params.find((p) => p.volume === weight).measure
-                  }`}
-                </Option>
-              ))}
+          {params
+            .map((p) => p.volume)
+            .map((weight) => (
+              <Option key={weight} value={weight}>
+                {`${weight}${
+                  params.find((p) => p.volume === weight).measure === 'none'
+                    ? ''
+                    : params.find((p) => p.volume === weight).measure
+                }`}
+              </Option>
+            ))}
         </Select>
       </div>
       <div className={styles.count}>
