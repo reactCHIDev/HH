@@ -36,7 +36,7 @@ const ProdCard = (props) => {
         if (isRequesting) {
             return
         }
-        dispatch(addProductToBasket(productData))
+        dispatch(addProductToBasket({...productData, amount: 1}))
     }
 
     const onLikeCLick = (e) => {
