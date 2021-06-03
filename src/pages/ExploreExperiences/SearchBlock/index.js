@@ -19,6 +19,7 @@ import './searchBlock.less'
 
 function SearchBlock() {
   const specialityTags = useSelector((state) => state.system.expTypes)
+  const specialityUnicTags = useSelector((state) => state.system.expUnicTags)
   const searchData = getItem('search_data')
   const getInitialSearchValue = () => getItem('search_data')?.searchTitle || ''
   const searchTitle = searchData?.searchTitle || ''
@@ -64,7 +65,13 @@ function SearchBlock() {
 
   React.useEffect(() => {
     if (specialityTags.length) {
-      setSpecialityTagsToShow(specialityTags)
+      let res = [...specialityTags]
+      specialityUnicTags.map(item => {
+        if (!(specialityTags.some(it => it.title === item.tagName))) {
+          res.push(item)
+        }
+      })
+      setSpecialityTagsToShow(res)
     }
   }, [specialityTags])
 
@@ -80,7 +87,9 @@ function SearchBlock() {
         dataForSearch: {
           searchedValue: searchTitleValue,
           isExplore: true,
-          tags: 1,
+          tags: specialityTagsToShow
+            .filter((item) => selectedItems.includes(item.tagName))
+            .map((i) => i.id),
           types: specialityTagsToShow
             .filter((item) => selectedItems.includes(item.title))
             .map((i) => i.id),
@@ -120,8 +129,8 @@ function SearchBlock() {
                 maxTagCount={3}
               >
                 {specialityTagsToShow.map((item) => (
-                  <Select.Option key={item.id} value={item.title}>
-                    {item.title}
+                  <Select.Option key={item?.title || item.tagName} value={item?.title || item.tagName}>
+                    {item?.title || item.tagName}
                   </Select.Option>
                 ))}
               </Select>
