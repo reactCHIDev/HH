@@ -167,10 +167,10 @@ const FoodmakersExplore = (props) => {
                 </div>
               ) : null}
             </div>
-            <div className={cls(styles.input_wrapper, styles.speciality_input)}>
-              <label className={styles.label}>Host speciality</label>
-              <input disabled className={styles.input} type="text" />
-            </div>
+            {/*<div className={cls(styles.input_wrapper, styles.speciality_input)}>*/}
+            {/*  <label className={styles.label}>Host speciality</label>*/}
+            {/*  <input disabled className={styles.input} type="text" />*/}
+            {/*</div>*/}
             <div className={cls(styles.input_wrapper, styles.btn_input)}>
               <button type="button" onClick={() => onSearchClickHandler()}>
                 <svg
