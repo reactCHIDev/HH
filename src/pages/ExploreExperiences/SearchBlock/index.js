@@ -9,7 +9,7 @@ import format from 'date-fns/format'
 import cls from 'classnames'
 
 import { searchRequestingnAc } from 'actions/search'
-import { getExpTypesAC } from 'actions/system'
+import { getExpTypesAC, getUnicExpTagsAC } from "actions/system";
 
 import { getItem, setItem } from 'utils/localStorage'
 import useClickOutside from 'hooks/useClickOutside'
@@ -55,6 +55,7 @@ function SearchBlock() {
       }),
     )
     dispatch(getExpTypesAC())
+    dispatch(getUnicExpTagsAC())
     return () => {
       setItem('search_data', {})
     }

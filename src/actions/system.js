@@ -6,8 +6,8 @@ import {
   GET_CITIES_REQUESTING,
   GET_COUNTRIES_REQUESTING,
   GET_EXP_TYPES_REQUESTING,
-  GET_EXP_TAGS_REQUESTING,
-} from './constants'
+  GET_EXP_TAGS_REQUESTING, GET_EXP_UNIC_TAGS_REQUESTING
+} from "./constants";
 
 export const getCitiesAC = () => ({
   type: GET_CITIES_REQUESTING,
@@ -35,6 +35,10 @@ export const getProductTagsRequestAC = () => ({
 
 export const getExpTypesAC = () => ({
   type: GET_EXP_TYPES_REQUESTING,
+})
+
+export const getUnicExpTagsAC = () => ({
+  type: GET_EXP_UNIC_TAGS_REQUESTING,
 })
 
 export const getExpTagsAC = () => ({

@@ -22,8 +22,8 @@ import {
   GET_EXP_TYPES_ERROR,
   GET_EXP_TAGS_REQUESTING,
   GET_EXP_TAGS_SUCCESS,
-  GET_EXP_TAGS_ERROR,
-} from '../actions/constants'
+  GET_EXP_TAGS_ERROR, GET_EXP_UNIC_TAGS_REQUESTING, GET_EXP_UNIC_TAGS_SUCCESS, GET_EXP_UNIC_TAGS_ERROR
+} from "../actions/constants";
 
 const initialState = {
   productTypes: [],
@@ -31,6 +31,7 @@ const initialState = {
   specialityTags: [],
   productTags: [],
   expTypes: [],
+  expUnicTags: [],
   cities: [],
   countries: [],
   requesting: false,
@@ -200,6 +201,26 @@ const reducer = function accountReducer(state = initialState, action) {
         requesting: false,
         error: action.error,
       }
+    case GET_EXP_UNIC_TAGS_ERROR:
+      return {
+        ...state,
+        requesting: false,
+        error: action.error,
+      }
+    case GET_EXP_UNIC_TAGS_SUCCESS:
+      return {
+        ...state,
+        expUnicTags: action.data,
+        requesting: false,
+        error: '',
+      }
+    case GET_EXP_UNIC_TAGS_REQUESTING:
+      return {
+        ...state,
+        requesting: true,
+        error: '',
+      }
+
 
     default:
       return state
