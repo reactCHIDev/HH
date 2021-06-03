@@ -73,7 +73,7 @@ function SearchBlock() {
       })
       setSpecialityTagsToShow(res)
     }
-  }, [specialityTags])
+  }, [specialityTags, specialityUnicTags])
 
   const handleTags = (onChange) => (e) => {
     onChange(e)
