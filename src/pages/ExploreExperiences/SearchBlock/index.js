@@ -151,12 +151,12 @@ function SearchBlock() {
           <InputNumber value={guestsAmount} min="0" max="500" onChange={onGuestsAmountChange} />
         </div>
       </div>
-      <div className={cls(styles.input_wrapper, styles.service_input)} ref={serviceTagsRef}>
-        <label className={styles.label}>Host Speciality </label>
-        <div className="guestInput">
-          <input disabled className={styles.input} type="text" />
-        </div>
-      </div>
+      {/*<div className={cls(styles.input_wrapper, styles.service_input)} ref={serviceTagsRef}>*/}
+      {/*  /!*<label className={styles.label}>Host Speciality </label>*!/*/}
+      {/*  <div className="guestInput">*/}
+      {/*    <input disabled className={styles.input} type="text" />*/}
+      {/*  </div>*/}
+      {/*</div>*/}
       <div
         className={cls(styles.input_wrapper, styles.price_input)}
         onClick={() => setVisibilityPriceSelector((v) => !v)}
