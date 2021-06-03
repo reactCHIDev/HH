@@ -106,6 +106,7 @@ const SliderSection = (props) => {
   }
 
   const onClick = (e) => {
+    container.current.previousElementSibling.scrollIntoView()
     setIndex(e.currentTarget.id)
   }
 
