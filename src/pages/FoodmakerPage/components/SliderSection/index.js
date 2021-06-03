@@ -116,16 +116,16 @@ const SliderSection = (props) => {
         <div className={cls(styles.slider_container, 'slider')}>
           <Slider {...settings} ref={slider} asNavFor={slider2}>
             {gallery.map((e, i) => (
-              <div className='main_slider_container'>
+              <div>
                 <div
                   key={e}
                   className={styles.img_container}
                   style={{
-                    width: 900,
+                    maxWidth: 900,
                     height: 640,
                     backgroundImage: `url("${e}")`,
                     backgroundSize: 'cover',
-                    backgrounPosition: '50% 0',
+                    backgrounPosition: 'center',
                   }}
                 >
                   {/* <img className={styles.slider_img} src={e} alt="" /> */}

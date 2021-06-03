@@ -9,6 +9,11 @@
         padding: 10px;
         overflow: hidden;
         border-radius: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+        @media (max-width: 768px) {
+          border-radius: 0;
+        }
         .slider_img {
           width: 100%;
           object-fit: cover;
