@@ -193,6 +193,10 @@
     padding: 0 15px;
     margin: 0 auto;
 
+    @media (max-width: 768px) {
+      padding: 0;
+    }
+
     .section_about {
       background: #fff;
       padding: 50px 0;
@@ -200,6 +204,9 @@
       justify-content: space-between;
       align-items: center;
       position: relative;
+      @media (max-width: 768px) {
+        padding: 50px 15px;
+      }
 
       @include media('<desktop') {
         flex-direction: column;
@@ -373,7 +380,9 @@
       padding: 16px;
       margin-bottom: 126px;
       width: 100%;
-
+      @media (max-width: 768px) {
+        padding: 0
+      }
       @include media('<desktop') {
         margin-bottom: 90px;
       }
