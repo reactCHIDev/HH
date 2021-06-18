@@ -15,11 +15,15 @@ import useClickOutside from 'hooks/useClickOutside'
 
 import PriceSelector from './PriceSelector'
 import styles from './prodexp.module.scss'
+import { Space, Spin } from "antd";
 
 const ProductExplore = (props) => {
   const productsData = useSelector((state) => state.search.data)
+  const isLoading = useSelector((state) => state.search.requesting)
   const productTypes = useSelector((state) => state.system.productTypes)
   const isAuth = useSelector(state => state.login.authorized)
+
+  const [productStartIndex, setProductStartIndex] = React.useState(0)
 
   const [productTypeToShow, setProductTypeToShow] = React.useState()
   const [productTypesToChoose, setProductTypesToChoose] = React.useState([])
@@ -34,6 +38,7 @@ const ProductExplore = (props) => {
   const [isVisiblePriceSelector, setVisibilityPriceSelector] = React.useState(false)
   const [minPrice, setMinPrice] = React.useState(0)
   const [maxPrice, setMaxPrice] = React.useState(1000)
+
 
   const dispatch = useDispatch()
 
@@ -52,7 +57,7 @@ const ProductExplore = (props) => {
     dispatch(
       searchRequestingnAc({
         searchType: 'Products',
-        dataForSearch: { searchedValue: searchTitle, city, isExplore: true },
+        dataForSearch: { searchedValue: searchTitle, city, isExplore: true, startIdx: productStartIndex, lim: 6 },
       }),
     )
     dispatch(getProductTypes())
@@ -60,7 +65,7 @@ const ProductExplore = (props) => {
       setItem('search_data', {})
     }
     // eslint-disable-next-line
-  }, [])
+  }, [productStartIndex])
 
   React.useEffect(() => {
     if (productTypes.length) {
@@ -105,6 +110,10 @@ const ProductExplore = (props) => {
 
   const pushRoute = (url) => {
     dispatch(push(url))
+  }
+
+  const moreProducts = () => {
+    setProductStartIndex((si) => si + 6)
   }
 
   return (
@@ -226,7 +235,15 @@ const ProductExplore = (props) => {
                 ),
             )}
           <div className={styles.btn_holder}>
-            <button type="button">More</button>
+            {isLoading ? (
+              <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
+                <Space size="middle">
+                  <Spin size="large" />
+                </Space>
+              </div>
+            ) : (
+              <button type="button" onClick={moreProducts}>More</button>
+            )}
           </div>
         </div>
       </div>
@@ -239,3 +256,5 @@ const ProductExplore = (props) => {
 ProductExplore.propTypes = {}
 
 export default ProductExplore
+
+
