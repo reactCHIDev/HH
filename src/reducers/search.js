@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
       setItem('search_data_results', action.searchedData)
       return {
         ...state,
-        data: action.searchedData,
+        data: [...state.data, ...action.searchedData],
         requesting: false,
         error: false,
       }
