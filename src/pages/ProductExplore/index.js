@@ -57,7 +57,7 @@ const ProductExplore = (props) => {
     dispatch(
       searchRequestingnAc({
         searchType: 'Products',
-        dataForSearch: { searchedValue: searchTitle, city, isExplore: true, startIdx: productStartIndex, lim: 6 },
+        dataForSearch: { searchedValue: searchTitle, city, isExplore: true, startIdx: productStartIndex, lim: 12 },
       }),
     )
     dispatch(getProductTypes())
@@ -113,7 +113,7 @@ const ProductExplore = (props) => {
   }
 
   const moreProducts = () => {
-    setProductStartIndex((si) => si + 6)
+    setProductStartIndex((si) => si + 12)
   }
 
   return (
