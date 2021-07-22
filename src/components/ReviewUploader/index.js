@@ -50,7 +50,7 @@ const Uploader = ({ list, listSet, setActiveNext }) => {
 
   const onRemove = (file) => {
     if (file.status === 'error') return true
-    return fileList.filter((e) => e.status !== 'error').length > 2
+    return fileList.filter((e) => e.status !== 'error').length > 0
   }
 
   const getToken = () => {
