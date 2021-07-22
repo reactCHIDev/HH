@@ -205,7 +205,7 @@ const Header = (props) => {
           </li>
         </ul>
         <ul className={styles.options}>
-          <li>
+          <li className={styles.hide}>
             <Link to="/">
               <div>
                 <svg
@@ -247,7 +247,7 @@ const Header = (props) => {
               </div>
             </li>
           )}
-          <li className={styles.hide}>
+          <li>
             <Link to="/messages">
               <div style={{ position: 'relative' }}>
                 {newMessages > 0 ? (
