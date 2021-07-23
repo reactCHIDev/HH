@@ -241,6 +241,12 @@
   justify-content: center;
   flex-shrink: 0;
   cursor: pointer;
+  opacity: 0.4;
+  transition: .5s ease all;
+
+  &:hover {
+    opacity: 1;
+  }
 
   .edit_btn_img {
     width: 18px;

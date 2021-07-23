@@ -212,6 +212,11 @@
       display: block;
       border: none;
       cursor: pointer;
+      transition: .5s ease all;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 
@@ -231,6 +236,11 @@
     display: block;
     border: none;
     cursor: pointer;
+    transition: .5s ease all;
+
+    &:hover {
+      opacity: 0.6;
+    }
     @include media ('<tablet') {
       margin: 0 auto 50px;
     }
@@ -408,6 +418,7 @@
       line-height: 42px;
       letter-spacing: 0.3px;
       color: #333333;
+      
 
       @media (max-width: 1024px) {
         width: 80%;
@@ -447,6 +458,11 @@
         color: #ffffff;
         border: none;
         cursor: pointer;
+        transition: .5s ease all;
+
+        &:hover {
+          opacity: 0.6;
+        }
       }
     }
   }
@@ -468,6 +484,11 @@
   display: block;
   border: none;
   cursor: pointer;
+  transition: .5s ease all;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 /* =================================== */
@@ -546,6 +567,11 @@
       color: #ffffff;
       border: none;
       cursor: pointer;
+      transition: .5s ease all;
+
+      &:hover {
+        opacity: 0.6;
+      }
       @include media ('<tablet') {
         width: 240px;
         margin: auto;
@@ -665,6 +691,11 @@
       color: #fff;
       border: none;
       cursor: pointer;
+      transition: .5s ease all;
+
+      &:hover {
+        opacity: 0.6;
+      }
       @media (max-width: 1024px) {
         width: 248px;
         margin: auto;
