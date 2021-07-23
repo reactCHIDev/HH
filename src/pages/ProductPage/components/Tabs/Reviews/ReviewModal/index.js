@@ -43,7 +43,7 @@ function ReviewModal({ closeFunc, productId }) {
   }
 
   const isValid = () => {
-    return review.length >= 20
+    return review.length >= 5
   }
 
   const onChangeReview = (e) => setReview(e.target.value)
@@ -66,7 +66,7 @@ function ReviewModal({ closeFunc, productId }) {
           autoFocus
           className={styles.reviewTextArea}
           onChange={onChangeReview}
-          placeholder="The review must be 20 characters or more"
+          placeholder="The review must be 5 characters or more"
         />
       </div>
       <div className={styles.reviewInfo}>
