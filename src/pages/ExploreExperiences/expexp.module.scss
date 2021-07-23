@@ -47,6 +47,11 @@
       font-weight: bold;
       margin: 0;
 
+      @media (max-width: 768px) {
+        font-size: 32px;
+        margin-bottom: 64px;
+      }
+
       mark{
         color: #eb5769;
         background: none;

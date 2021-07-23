@@ -93,7 +93,7 @@ const MenuContainer = ({
 
           <ul className={styles.social_header_list}>
             <li>
-              <a href="#">
+              <a href="https://www.instagram.com/hungryhugger_">
                 {dark ? (
                   <img src={Instagram} alt="Instagram" width="22" height="22" />
                 ) : (
@@ -102,7 +102,7 @@ const MenuContainer = ({
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="https://www.facebook.com/HungryHugger">
                 {dark ? (
                   <img src={Facebook} alt="Facebook" width="12" />
                 ) : (
@@ -111,7 +111,7 @@ const MenuContainer = ({
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="https://www.youtube.com/channel/UCUs5v83OenpuXY5g6XS9JVw">
                 {dark ? (
                   <img src={Youtube} alt="Youtube" width="26" height="18" />
                 ) : (

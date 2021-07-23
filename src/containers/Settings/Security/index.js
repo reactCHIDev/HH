@@ -133,7 +133,7 @@ const Security = ({
   const onApply = (data) => {
     const formData = {}
 
-    if (data.email) formData.newEmail = data.email
+    if (data.email) formData.newEmail = data.email.toLowerCase()
     if (data.phone) formData.phone = data.phone
     if (data.newPassword) {
       formData.oldPassword = data.oldPassword

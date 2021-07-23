@@ -24,7 +24,7 @@ function ReviewModal({ product }) {
   const [isActive, setActiveNext] = useState(true)
 
   const isValid = () => {
-    return review.length >= 20
+    return review.length >= 5
   }
 
   const submitReview = () => {
@@ -73,7 +73,7 @@ function ReviewModal({ product }) {
             autoFocus
             className={styles.reviewTextArea}
             onChange={onChangeReview}
-            placeholder="The review must be 20 characters or more"
+            placeholder="The review must be 5 characters or more"
           />
           <div className={styles.imageSection}>
             {/* <div className={styles.addPhotosButton}>Add photos</div> */}

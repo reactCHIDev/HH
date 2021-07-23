@@ -20,7 +20,7 @@ const Footer = () => {
         <ul className={styles.socials}>
           <li>
             <a
-              href="https://www.instagram.com/hungry_hugger"
+              href="https://www.instagram.com/hungryhugger_"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -28,7 +28,11 @@ const Footer = () => {
             </a>
           </li>
           <li>
-            <a href="https://www.fb.com/hungryhugger" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.facebook.com/HungryHugger"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img src={fb} alt="fb" />
             </a>
           </li>
@@ -52,17 +56,17 @@ const Footer = () => {
       <div className={cls(styles.section, styles.explore)}>
         <ul>
           <li>
-            <a href="/landing/foodmakers" rel="noopener noreferrer">
+            <a href="/foodmakers_explore" rel="noopener noreferrer">
               Makers
             </a>
           </li>
           <li>
-            <a href="/landing/foodmakers" rel="noopener noreferrer">
+            <a href="/product_explore" rel="noopener noreferrer">
               Products
             </a>
           </li>
           <li>
-            <a href="/landing/create_experience" rel="noopener noreferrer">
+            <a href="/explore_experiences" rel="noopener noreferrer">
               Experiences
             </a>
           </li>
