@@ -10,6 +10,10 @@
     padding-left: 40px;
     border: 1px solid rgba(49, 57, 77, 0.2);
     border-radius: 6px;
+    &:hover {
+      border-color: #474d59;
+      border-right-width: 1px !important;
+    }
   }
   .search_icon {
     position: absolute;

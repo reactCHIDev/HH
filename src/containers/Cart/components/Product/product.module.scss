@@ -44,6 +44,12 @@
     border-radius: 8px;
     border: 1px solid gray;
     cursor: pointer;
+    transition: .5s ease all;
+    &:hover {
+      color: white;
+      border: 1px solid #31394d;
+      background: #31394d;
+    }
   }
 }
 

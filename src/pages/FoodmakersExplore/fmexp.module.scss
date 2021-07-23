@@ -157,6 +157,11 @@
             border: none;
             background: #fbe4e4;
             border-radius: 8px;
+            transition: .5s ease all;
+
+            &:hover {
+              opacity: 0.8;
+            }
             @media (max-width: 1024px) {
               width: 120px;
             }

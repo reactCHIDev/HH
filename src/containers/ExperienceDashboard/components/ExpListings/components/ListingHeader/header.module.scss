@@ -60,6 +60,12 @@
         text-transform: uppercase;
         background: #31394d;
         border-radius: 8px;
+        transition: .5s ease all;
+
+        &:hover {
+          opacity: 0.6;
+        }
+    
 
         @media screen and (max-width: 768px) {
           min-width: 150px;

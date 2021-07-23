@@ -107,7 +107,7 @@
           min-width: 176px;
         }
 
-        button{
+        .btn_button {
           width: 72px;
           height: 56px;
           display: flex;
@@ -115,8 +115,16 @@
           align-items: center;
           margin: 0;
           border: none;
-          background: #FBE4E4;
+          background: #fbe4e4;
           border-radius: 8px;
+          transition: .5s ease all;
+
+          &:hover {
+            opacity: 0.8;
+          }
+          @media (max-width: 768px) {
+            width: 120px;
+          }
         }
       }
 
