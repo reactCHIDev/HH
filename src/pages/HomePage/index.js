@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { getPublicProductsAC, getPublicExperiencesAC, getPublicFoodmakersAC } from 'actions/pages'
 import ProdCard from 'components/ProductCard'
 import { push } from 'connected-react-router'
@@ -32,6 +33,7 @@ const Home = (props) => {
     foodmakersList,
     isLoading,
   } = props
+  const history = useHistory()
 
   const [productStartIndex, setProductStartIndex] = useState(0)
   const [productCollection, setProductCollection] = useState([])
@@ -76,6 +78,16 @@ const Home = (props) => {
       p.concat(foodmakersList.filter((e) => !p.find((el) => el.id === e.id))),
     )
   }, [foodmakersList])
+
+  const goToProducts = () => {
+    history.push('/product_explore')
+  }
+  const goToFoodMakers = () => {
+    history.push('/foodmakers_explore')
+  }
+  const goToExperiences = () => {
+    history.push('/explore_experiences')
+  }
 
   const moreFoodmakers = () => {
     setFoodmakerStartIndex((si) => si + 3)
@@ -138,7 +150,7 @@ const Home = (props) => {
                 </Space>
               </div>
             ) : (
-              <Button title="More products near you" dark onClick={moreProducts} />
+              <Button title="More products near you" dark onClick={goToProducts} />
             )}
           </div>
         </section>
@@ -164,7 +176,7 @@ const Home = (props) => {
             </div>
 
             <div className={styles.btn_holder}>
-              <Button title="Explore foodmakers" dark onClick={moreFoodmakers} />
+              <Button title="Explore foodmakers" dark onClick={goToFoodMakers} />
             </div>
           </div>
         </section>
@@ -203,7 +215,7 @@ const Home = (props) => {
                 </Space>
               </div>
             ) : (
-              <Button title="Explore more" dark onClick={moreExperiences} />
+              <Button title="Explore more" dark onClick={goToExperiences} />
             )}
           </div>
         </div>
