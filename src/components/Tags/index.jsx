@@ -29,7 +29,7 @@ const Tags = ({ tags }) => {
       <div className={cls(styles.slider_container, 'slick_container')}>
         <Slider {...settings}>
           {tags.map((tag) => (
-            <div className={styles.preview_container}>
+            <div key={tag} className={styles.preview_container}>
               <div className={styles.tag}>{tag.toUpperCase()}</div>
             </div>
           ))}

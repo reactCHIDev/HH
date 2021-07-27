@@ -16,6 +16,11 @@ import styles from './search.module.scss'
 
 const searchData = [
   {
+    type: 'Experiences',
+    url: '/explore_experiences',
+    isActive: true,
+  },
+  {
     type: 'Products',
     url: '/product_explore',
     isActive: true,
@@ -23,11 +28,6 @@ const searchData = [
   {
     type: 'Foodmakers',
     url: '/foodmakers_explore',
-    isActive: true,
-  },
-  {
-    type: 'Experiences',
-    url: '/explore_experiences',
     isActive: true,
   },
 ]
@@ -42,7 +42,7 @@ function SearchBlock() {
   const searchedDataResults = useSelector((state) => state.search.data)
   const cities = useSelector((state) => state.system.cities)
 
-  const [searchType, setSearchType] = React.useState('Products')
+  const [searchType, setSearchType] = React.useState('Experiences')
   const [isSearchTypesVisible, setIsSearchTypesVisible] = React.useState(false)
   const [searchValue, setSearchValue] = React.useState('')
   const [searchCityValue, setSearchCityValue] = React.useState('')
@@ -50,7 +50,7 @@ function SearchBlock() {
   const [selectedCity, setSelectedCity] = React.useState('')
   const [cityVisibility, setCityVisibility] = React.useState(false)
   const [isResultsShown, setIsResultsShown] = React.useState(false)
-  const [urlToOpen, setUrlToOpen] = React.useState('/product_explore')
+  const [urlToOpen, setUrlToOpen] = React.useState('/explore_experiences')
 
   useClickOutside(typeRef, () => setIsSearchTypesVisible(false))
   useClickOutside(cityContainerRef, () => setCityVisibility(false))

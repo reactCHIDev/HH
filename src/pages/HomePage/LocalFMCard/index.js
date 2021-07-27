@@ -16,7 +16,23 @@ const FMCard = (props) => {
     rating,
   } = foodmaker
 
-  const openFoodmaker = () => pushRoute(`/${hungryHuggerLink.split('/').pop()}`)
+  const [clickPosition, setClickPosition] = React.useState(0)
+
+  const mouseDown = (e) => {
+    setClickPosition({
+      cursorX: e.pageX,
+      cursorY: e.pageY,
+    })
+  }
+
+  const mouseUp = (e) => {
+    if (
+      Math.abs(clickPosition.cursorX - e.pageX) < 5 &&
+      Math.abs(clickPosition.cursorY - e.pageY) < 5
+    ) {
+      pushRoute(`/${hungryHuggerLink.split('/').pop()}`)
+    }
+  }
 
   return (
     <div className={styles.local_makers_col}>
@@ -44,7 +60,7 @@ const FMCard = (props) => {
           </li>
         </ul>
         <div className={styles.local_bottom_box}>
-          <div className={styles.local_avatar_info} onClick={openFoodmaker}>
+          <div className={styles.local_avatar_info} onMouseDown={mouseDown} onMouseUp={mouseUp}>
             <div className={styles.local_avatar_box}>
               {userPhoto ? <img src={userPhoto} alt="avatar" /> : <AvatarPlaceholder />}
             </div>

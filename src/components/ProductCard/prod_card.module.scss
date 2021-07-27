@@ -110,6 +110,9 @@
           .outlined_cat {
             cursor: pointer !important;
             transition: .5s ease all;
+            @media (max-width: 480px) {
+              display: none;
+            }
 
             &:hover {
               opacity: 0.6;

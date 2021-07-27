@@ -6,9 +6,14 @@ import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import cls from 'classnames'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import { getPublicProductsAC, getPublicExperiencesAC, getPublicFoodmakersAC } from 'actions/pages'
 import ProdCard from 'components/ProductCard'
 import { push } from 'connected-react-router'
+import rightArrow from 'assets/icons/svg/Vector 3.svg'
 import { Spin, Space } from 'antd'
 import ExpCard from 'components/ExperienceCard'
 import BottomSection from 'components/BottomSection'
@@ -20,8 +25,64 @@ import Pattern2 from 'assets/images/pattern 2.svg'
 import hands from 'assets/images/landings/home_page/Group 677.svg'
 import SearchBlock from './SearchBlock'
 import FMCard from './LocalFMCard'
+
 import styles from './home.module.scss'
 import './home.less'
+
+function SampleNextArrow(props) {
+  const { style, onClick } = props
+  return (
+    <div
+      style={{
+        ...style,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: '54%',
+        right: 54,
+        transform: 'translate(50%,0)',
+        backgroundColor: '#FFFFFF',
+        backgroundImage: "url('./assets/'icons/svg/Vector 3.svg)",
+        borderRadius: '24px',
+        height: 48,
+        width: 48,
+        zIndex: 1000,
+        cursor: 'pointer',
+      }}
+      onClick={onClick}
+    >
+      <img src={rightArrow} alt="right-arrow" />
+    </div>
+  )
+}
+
+function SamplePrevArrow(props) {
+  const { style, onClick } = props
+  return (
+    <div
+      style={{
+        ...style,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: '54%',
+        left: 16,
+        transform: 'translate(50%,0)',
+        backgroundColor: '#FFFFFF',
+        borderRadius: '24px',
+        height: 48,
+        width: 48,
+        zIndex: 1000,
+        cursor: 'pointer',
+      }}
+      onClick={onClick}
+    >
+      <img style={{ transform: 'rotate(180deg)' }} src={rightArrow} alt="right-arrow" />
+    </div>
+  )
+}
 
 const Home = (props) => {
   const {
@@ -44,6 +105,33 @@ const Home = (props) => {
 
   const [foodmakerStartIndex, setFoodmakerStartIndex] = useState(0)
   const [foodmakerCollection, setFoodmakerCollection] = useState([])
+
+  const settings = React.useMemo(
+    () => ({
+      draggable: true,
+      touchThreshold: 30,
+      useCSS: true,
+      infinite: false,
+      swipeToSlide: true,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />,
+      speed: 500,
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      variableWidth: true,
+      responsive: [
+        {
+          breakpoint: 480,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            dots: true,
+          },
+        },
+      ],
+    }),
+    [],
+  )
 
   useEffect(() => {
     getPublicProductsAC(productStartIndex, 6)
@@ -90,18 +178,6 @@ const Home = (props) => {
     history.push('/explore_experiences')
   }
 
-  const moreFoodmakers = () => {
-    setFoodmakerStartIndex((si) => si + 3)
-  }
-
-  const moreProducts = () => {
-    setProductStartIndex((si) => si + 6)
-  }
-
-  const moreExperiences = () => {
-    setExperiencesStartIndex((si) => si + 6)
-  }
-
   return (
     <div className={styles.frame}>
       <section className={styles.page_header}>
@@ -135,23 +211,30 @@ const Home = (props) => {
               ]}
             />
           </div>
-          {experiencesCollection.map(
-            (el) =>
-              el?.experience?.coverPhoto && (
-                <ExpCard
-                  photo={el.experience.coverPhoto}
-                  tags={el.experience.tagIds.map((i) => i.tagName)}
-                  name={el.experience.title}
-                  price={el.experience?.priceChild || el.experience.priceAdult}
-                  rating={el.experience.rating}
-                  rateCount={el.experience.votes}
-                  pathname={`/experience/${el.experience.id}`}
-                  id={el.experience.id}
-                  isFavorite={el.isFavorite}
-                  key={el.experience.id}
-                />
-              ),
-          )}
+          <div className={cls(styles.slider_container, 'slick_container')}>
+            <Slider {...settings}>
+              {experiencesCollection.map(
+                (el) =>
+                  el?.experience?.coverPhoto && (
+                    <div className={styles.preview_container}>
+                      <ExpCard
+                        photo={el.experience.coverPhoto}
+                        tags={el.experience.tagIds.map((i) => i.tagName)}
+                        name={el.experience.title}
+                        price={el.experience?.priceChild || el.experience.priceAdult}
+                        rating={el.experience.rating}
+                        rateCount={el.experience.votes}
+                        pathname={`/experience/${el.experience.id}`}
+                        id={el.experience.id}
+                        isFavorite={el.isFavorite}
+                        key={el.experience.id}
+                      />
+                    </div>
+                  ),
+              )}
+            </Slider>
+          </div>
+
           <div className={styles.btn_holder}>
             {isLoading ? (
               <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
@@ -170,23 +253,31 @@ const Home = (props) => {
             <h1>Shop quality local made</h1>
             <Tags tags={['Gift hampers', 'Custom made', 'Catering', 'Vegan']} />
           </div>
-          {productCollection?.length &&
-            productCollection.map((product) => (
-              <ProdCard
-                key={product.id}
-                id={product.id}
-                pathname="/product"
-                pushRoute={pushRoute}
-                photo={product.coverPhoto}
-                tags={product.productTags.map((t) => t.tagName)}
-                name={product.title}
-                price={product.price}
-                rating={product.rating}
-                rateCount={product.reviews?.length}
-                isShowCart
-                product={product}
-              />
-            ))}
+          <div className={cls(styles.slider_container, 'slick_container')}>
+            <Slider {...settings}>
+              {productCollection?.length &&
+                productCollection.map((product) => (
+                  <div className={styles.preview_container}>
+                    <ProdCard
+                      className={styles.preview_container}
+                      key={product.id}
+                      id={product.id}
+                      pathname="/product"
+                      pushRoute={pushRoute}
+                      photo={product.coverPhoto}
+                      tags={product.productTags.map((t) => t.tagName)}
+                      name={product.title}
+                      price={product.price}
+                      rating={product.rating}
+                      rateCount={product.reviews?.length}
+                      isShowCart
+                      product={product}
+                    />
+                  </div>
+                ))}
+            </Slider>
+          </div>
+
           <div className={styles.btn_holder}>
             {isLoading ? (
               <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 100 }}>
@@ -207,26 +298,34 @@ const Home = (props) => {
                 <img src={hands} alt="img" />
               </div>
               <p>Discover your local food makers</p>
-              <Tags
-                tags={[
-                  'Event hire',
-                  'Food maker',
-                  'Taste master',
-                  'Food guide',
-                  'Chef',
-                  'Barista',
-                  'Brewer',
-                  'Baker',
-                ]}
-              />
             </h1>
-
-            <div className={styles.local_tree_columns}>
-              {foodmakerCollection &&
-                foodmakerCollection.length > 0 &&
-                foodmakerCollection.map((fm) => (
-                  <FMCard key={fm.id} foodmaker={fm} pushRoute={pushRoute} />
-                ))}
+            <Tags
+              tags={[
+                'Event hire',
+                'Food maker',
+                'Taste master',
+                'Food guide',
+                'Chef',
+                'Barista',
+                'Brewer',
+                'Baker',
+              ]}
+            />
+            <div className={cls(styles.slider_container, 'slick_container')}>
+              <Slider {...settings}>
+                {foodmakerCollection &&
+                  foodmakerCollection.length > 0 &&
+                  foodmakerCollection.map((fm) => (
+                    <div className={styles.preview_container}>
+                      <FMCard
+                        className={styles.preview_container}
+                        key={fm.id}
+                        foodmaker={fm}
+                        pushRoute={pushRoute}
+                      />
+                    </div>
+                  ))}
+              </Slider>
             </div>
 
             <div className={styles.btn_holder}>
