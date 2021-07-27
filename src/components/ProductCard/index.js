@@ -107,29 +107,30 @@ const ProdCard = (props) => {
           <div className={styles.stats_container}>
             <div className={styles.exp_price_container}>
               <p className={styles.exp_price}>{`$${price}`}</p>
-              {isShowCart && (
-                <img
-                  src={products.includes(id) ? CheckedWhite : OutlinedCartIcon}
-                  className={
-                    isProductAvailable(product) ? styles.outlined_cat : styles.outlined_cat_empty
-                  }
-                  style={
-                    products.includes(id)
-                      ? {
-                          width: '40px',
-                          height: '40px',
-                          padding: '10px',
-                          background: '#7AD398',
-                          borderRadius: '8px',
-                        }
-                      : {}
-                  }
-                  alt="buy product"
-                  onClick={(e) => {
-                    if (isProductAvailable(product)) onProductClick(product, e)
-                  }}
-                />
-              )}
+              <div className={styles.exp_img_container}>
+                {isShowCart && (
+                  <img
+                    src={products.includes(id) ? CheckedWhite : OutlinedCartIcon}
+                    className={
+                      isProductAvailable(product) ? styles.outlined_cat : styles.outlined_cat_empty
+                    }
+                    style={
+                      products.includes(id)
+                        ? {
+                            width: '100%',
+                            background: '#7AD398',
+                            padding: '3px',
+                            borderRadius: '6px',
+                          }
+                        : {}
+                    }
+                    alt="buy product"
+                    onClick={(e) => {
+                      if (isProductAvailable(product)) onProductClick(product, e)
+                    }}
+                  />
+                )}
+              </div>
             </div>
             <div className={cls(styles.rating_container, 'rating')}>
               <Rate style={{ color: '#31394C' }} disabled value={rating} />
