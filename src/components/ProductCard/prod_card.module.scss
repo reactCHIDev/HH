@@ -13,9 +13,9 @@
   }
 
   @media (max-width: 480px) {
-    width: 100%;
+    width: 165px;
     min-width: 1px;
-    max-width: 380px;
+    max-width: 165px;
     padding: 8px 0;
   }
 
@@ -93,6 +93,13 @@
         text-transform: capitalize;
         cursor: pointer;
 
+        @media (max-width: 480px) {
+          font-size: 12px;
+          line-height: 140%;
+          letter-spacing: 0.5px;
+        }
+
+
         &:hover {
           opacity: 0.6;
         }
@@ -103,6 +110,14 @@
         align-items: center;
         justify-content: space-between;
 
+        @media (max-width: 480px) {
+          flex-wrap: wrap;
+        }
+
+        .exp_img_container {
+          width: 19px;
+        }
+
         .exp_price_container {
           display: flex;
           align-items: center;
@@ -111,15 +126,24 @@
             cursor: pointer !important;
             transition: .5s ease all;
 
+            @media (max-width: 480px) {
+              width: 19px;
+              height: 19px;
+            }
+            
             &:hover {
               opacity: 0.6;
             }
           }
-
+          
           .outlined_cat_empty {
             opacity: 0.2;
             transition: .5s ease all;
-
+            
+            @media (max-width: 480px) {
+              width: 19px;
+              height: 19px;
+            }
             &:hover {
               opacity: 0.6;
             }
@@ -137,6 +161,12 @@
           font-size: 20px;
           letter-spacing: 1px;
           text-transform: uppercase;
+
+          @media (max-width: 480px) {
+            font-size: 12px;
+            line-height: 16px;
+            letter-spacing: 0.5px;
+          }
         }
         .rating_container {
           display: flex;
@@ -154,6 +184,9 @@
 
             li {
               margin-right: 6px;
+              @media (max-width: 480px) {
+                margin-right: 0;
+              }
             }
           }
         }
