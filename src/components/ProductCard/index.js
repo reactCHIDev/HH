@@ -41,7 +41,23 @@ const ProdCard = (props) => {
 
   const [isFavourite, setIsFavourite] = React.useState(product.isFavorite)
 
-  const onClick = () => pushRoute(`${pathname}/${id}`)
+  const [clickPosition, setClickPosition] = React.useState(0)
+
+  const mouseDown = (e) => {
+    setClickPosition({
+      cursorX: e.pageX,
+      cursorY: e.pageY,
+    })
+  }
+
+  const mouseUp = (e) => {
+    if (
+      Math.abs(clickPosition.cursorX - e.pageX) < 5 &&
+      Math.abs(clickPosition.cursorY - e.pageY) < 5
+    ) {
+      pushRoute(`${pathname}/${id}`)
+    }
+  }
 
   const onProductClick = (productData, e) => {
     e.stopPropagation()
@@ -65,7 +81,7 @@ const ProdCard = (props) => {
   }
 
   return (
-    <div className={styles.container} onClick={onClick}>
+    <div className={styles.container} onMouseDown={mouseDown} onMouseUp={mouseUp}>
       <div className={styles.content}>
         {product.hitmark === 'Hit' ? <div className={styles.hit_container}>HIT</div> : null}
         <div
